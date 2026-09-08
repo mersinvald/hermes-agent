@@ -16,7 +16,10 @@ import tarfile
 
 BASE_REVISION = "29112bef099274229cadff79cdff7bf7b99c4b77"
 BASE = "docker.io/nousresearch/hermes-agent@sha256:64923faeae267792bf9bf87fe3b4c4869e35004e360c7df01730ad801b74d524"
-RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py")
+RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py",
+           "plugins/platforms/a2a/streaming.py", "agent/tool_executor.py",
+           "agent/agent_runtime_helpers.py", "model_tools.py", "gateway/run.py")
+NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py",)
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -48,7 +51,7 @@ def base_files(repository, manifest, config, cache):
     assert len(starts) == 1, "unrecognized native source layout"
     manifests = [i for i, item in enumerate(history) if item.get("created_by") == "COPY pyproject.toml uv.lock ./ # buildkit"]
     assert len(manifests) == 1 and manifests[0] < starts[0]
-    wanted = {"opt/hermes/" + name for name in (*RUNTIME,
+    wanted = {"opt/hermes/" + name for name in (*(name for name in RUNTIME if name not in NEW_RUNTIME),
         "plugins/platforms/a2a/security.py", "plugins/platforms/a2a/__init__.py", "pyproject.toml", "uv.lock")}
     wanted |= {"opt/hermes/.hermes_build_sha", "etc/hermes/image-provenance.json"}
     found = {}
@@ -57,6 +60,7 @@ def base_files(repository, manifest, config, cache):
         with tarfile.open(fileobj=io.BytesIO(data), mode="r:gz") as archive:
             for member in archive:
                 name = member.name.removeprefix("./").rstrip("/")
+                assert name not in {"opt/hermes/" + path for path in NEW_RUNTIME}, "new runtime file exists in base"
                 assert ".wh." not in name, "unexpected whiteout after native source copy"
                 if any(path.startswith(name + "/") for path in wanted):
                     assert member.isdir(), "non-directory native source parent"
@@ -69,6 +73,10 @@ def base_files(repository, manifest, config, cache):
         assert found[name][0] == run("git", "show", BASE_REVISION + ":" + name.removeprefix("opt/hermes/")), name
     assert found["opt/hermes/.hermes_build_sha"][0].decode().strip() == BASE_REVISION
     assert json.loads(found["etc/hermes/image-provenance.json"][0])["revision"] == BASE_REVISION
+    for name in NEW_RUNTIME:
+        assert subprocess.run(["git", "cat-file", "-e", BASE_REVISION + ":" + name],
+                              cwd=ROOT, capture_output=True).returncode != 0
+        found["opt/hermes/" + name] = (b"", 0o644)
     return found
 
 
@@ -82,7 +90,8 @@ def main():
     revision = run("git", "rev-parse", "HEAD").decode().strip()
     changed = run("git", "diff", "--name-only", BASE_REVISION, revision).decode().splitlines()
     assert all(name in changed for name in RUNTIME)
-    assert all(name in RUNTIME or name.startswith("tests/") or name == "docker/publish-native-patch.py" for name in changed), "not a source-only patch"
+    assert all(name in RUNTIME or name.startswith("tests/") or name in (
+        "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md") for name in changed), "not a source-only patch"
     # Always read committed blobs, never the dirty or case-colliding host checkout.
     runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
     epoch = int(run("git", "show", "-s", "--format=%ct", revision))

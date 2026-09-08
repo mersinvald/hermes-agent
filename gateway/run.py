@@ -4691,6 +4691,9 @@ class TurnRunner:
     def __init__(self, runner: "GatewayRunner", ctx: TurnContext) -> None:
         self._runner = runner
         self._ctx = ctx
+        self._activity_lock = threading.Lock()
+        self._activity_future = None
+        self._activity_at = float("-inf")
 
     def progress_callback(self, event_type: str, tool_name: str = None, preview: str = None, args: dict = None, **kwargs):
         """Callback invoked by agent on tool lifecycle events."""
@@ -5744,6 +5747,35 @@ class TurnRunner:
 
     def _status_callback_sync(self, event_type: str, message: str) -> None:
         ctx = self._ctx
+        if event_type == "tool_activity":
+            # At most one pending delivery per turn, including parallel tools.
+            # No arguments or remote text belong on this explicit status lane.
+            with self._activity_lock:
+                now = time.monotonic()
+                if (now - self._activity_at < 2 or
+                        (self._activity_future is not None and not self._activity_future.done())):
+                    return
+                if not ctx._status_adapter or not ctx._run_still_current():
+                    return
+                prepared = _prepare_gateway_status_message(ctx.source.platform, event_type, message)
+                if not prepared:
+                    return
+                self._activity_at = now
+
+                async def deliver():
+                    if not ctx._run_still_current():
+                        return
+                    thread = (ctx._status_thread_metadata or {}).get("thread_id", "")
+                    result = await _send_or_update_status_coro(
+                        ctx._status_adapter, ctx._status_chat_id,
+                        f"tool_activity:{thread}", prepared, ctx._status_thread_metadata)
+                    if ctx._cleanup_progress and getattr(result, "success", False) and result.message_id:
+                        ctx._cleanup_msg_ids.append(str(result.message_id))
+                    return result
+
+                self._activity_future = safe_schedule_threadsafe(deliver(), ctx._loop_for_step,
+                    logger=logger, log_message="tool activity scheduling error")
+            return
         if not ctx._status_adapter or not ctx._run_still_current():
             return
         prepared_message = _prepare_gateway_status_message(

@@ -28,6 +28,7 @@ import json
 import logging
 import math
 import re
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -141,6 +142,10 @@ def _resolve_peer(agent: str) -> Optional[dict]:
         "timeout": int(entry.get("timeout", _DEFAULT_TIMEOUT)),
         "capabilities": entry.get("capabilities", []) or [],
         "tenant": entry.get("tenant", ""),
+        "progress_notify": entry.get("progress_notify") is True,
+        "display_name": entry.get("display_name", "Specialist"),
+        "progress_messages": entry.get("progress_messages", {}) or {},
+        "streaming": entry.get("streaming") is True,
     }
 
 
@@ -288,7 +293,8 @@ def _validate_data(data: Any) -> list[dict]:
 
 
 def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
-               task_id: str = "", data: Optional[list[dict]] = None) -> tuple[str, str, str, str]:
+               task_id: str = "", data: Optional[list[dict]] = None,
+               status_callback=None) -> tuple[str, str, str, str]:
     """Send one message/send. Returns (reply_text, context_id, state, task_id).
 
     Raises urllib errors / ValueError for the caller to format. Handles
@@ -299,6 +305,35 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     # One auth snapshot covers discovery, GetTask, SendMessage, and persistence.
     # Never reload credentials while processing a response or share this tuple.
     auth_values = _auth_values(headers)
+    last_notice = [None, float("-inf")]
+
+    def notify(stage):
+        if not peer.get("progress_notify") or not callable(status_callback):
+            return
+        defaults = {"dispatch": "Sending request to {peer}.",
+                    "tool": "{peer} is using a tool.",
+                    "tool_result": "{peer} received a tool result.",
+                    "tool_error": "A tool returned an error to {peer}."}
+        catalog = peer.get("progress_messages") or {}
+        if not isinstance(catalog, dict):
+            return
+        kind = "tool" if stage.startswith("tool:") else stage
+        text = catalog.get(stage, catalog.get(kind, defaults.get(kind, defaults["tool"])))
+        label = peer.get("display_name", "Specialist")
+        if not isinstance(text, str) or not isinstance(label, str):
+            return
+        text = text.replace("{peer}", label)
+        if len(text) > 512 or any(ord(c) < 32 for c in text):
+            return
+        text = _redact_auth(text, auth_values)
+        now = time.monotonic()
+        if text == last_notice[0] or now - last_notice[1] < 2:
+            return
+        last_notice[:] = [text, now]
+        try:
+            status_callback("tool_activity", text)
+        except Exception:
+            pass  # Presentation failure must not replay or fail a peer action.
     timeout = int(peer.get("timeout", _DEFAULT_TIMEOUT))
 
     # Best-effort card fetch (to learn the rpc URL); non-fatal on failure.
@@ -388,7 +423,21 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     protocol.persist_message(ctx, "user", safe_message, request_id=rpc_body["id"])
     protocol.metrics.outbound_total += 1
 
-    resp = _http_post_json(endpoint, rpc_body, headers, timeout)
+    use_stream = peer.get("streaming") and ((card or {}).get("capabilities") or {}).get("streaming") is True
+    if use_stream:
+        from .streaming import MAX_EVENT_BYTES, send_stream
+        rpc_body["method"] = "message/stream" if legacy else "SendStreamingMessage"
+        if len(json.dumps(rpc_body).encode("utf-8")) > MAX_EVENT_BYTES:
+            raise _PeerError("Error: streaming request exceeds the size limit.")
+    _validate_headers(headers)
+    notify("dispatch")
+    if use_stream:
+        resp = send_stream(endpoint, rpc_body, headers, timeout,
+                           context_id=context_id, task_id=task_id,
+                           notify=notify, auth_values=auth_values,
+                           peer=agent_label, origin=_peer_origin(base_url))
+    else:
+        resp = _http_post_json(endpoint, rpc_body, headers, timeout)
     if "error" in resp:
         raise _PeerError("Error: peer returned a JSON-RPC error.")
 
@@ -485,7 +534,7 @@ def a2a_discover(args: dict, **_: Any) -> str:
 
 
 @_public_tool
-def a2a_call(args: dict, **_: Any) -> str:
+def a2a_call(args: dict, status_callback=None, **_: Any) -> str:
     """Send a task to a peer agent and return its reply.
 
     ``agent`` is a configured peer name (from ``a2a_agents``) or a direct URL.
@@ -524,7 +573,9 @@ def a2a_call(args: dict, **_: Any) -> str:
         )
 
     try:
-        reply, reply_ctx, state, reply_task = _send_task(agent, peer, message, context_id, task_id, data)
+        reply, reply_ctx, state, reply_task = _send_task(
+            agent, peer, message, context_id, task_id, data,
+            **({"status_callback": status_callback} if status_callback else {}))
     except Exception as e:
         return _error_text(e)
 
