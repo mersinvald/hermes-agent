@@ -16,7 +16,7 @@ import tarfile
 
 BASE_REVISION = "29112bef099274229cadff79cdff7bf7b99c4b77"
 BASE = "docker.io/nousresearch/hermes-agent@sha256:64923faeae267792bf9bf87fe3b4c4869e35004e360c7df01730ad801b74d524"
-RUNTIME = "plugins/platforms/a2a/tools.py"
+RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py")
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -48,7 +48,7 @@ def base_files(repository, manifest, config, cache):
     assert len(starts) == 1, "unrecognized native source layout"
     manifests = [i for i, item in enumerate(history) if item.get("created_by") == "COPY pyproject.toml uv.lock ./ # buildkit"]
     assert len(manifests) == 1 and manifests[0] < starts[0]
-    wanted = {"opt/hermes/" + name for name in (RUNTIME, "plugins/platforms/a2a/protocol.py",
+    wanted = {"opt/hermes/" + name for name in (*RUNTIME,
         "plugins/platforms/a2a/security.py", "plugins/platforms/a2a/__init__.py", "pyproject.toml", "uv.lock")}
     wanted |= {"opt/hermes/.hermes_build_sha", "etc/hermes/image-provenance.json"}
     found = {}
@@ -81,10 +81,10 @@ def main():
     assert run("crane", "version").decode().strip() == "0.21.3", "use pinned crane 0.21.3"
     revision = run("git", "rev-parse", "HEAD").decode().strip()
     changed = run("git", "diff", "--name-only", BASE_REVISION, revision).decode().splitlines()
-    assert RUNTIME in changed
-    assert all(name == RUNTIME or name.startswith("tests/") or name == "docker/publish-native-patch.py" for name in changed), "not a source-only patch"
+    assert all(name in changed for name in RUNTIME)
+    assert all(name in RUNTIME or name.startswith("tests/") or name == "docker/publish-native-patch.py" for name in changed), "not a source-only patch"
     # Always read committed blobs, never the dirty or case-colliding host checkout.
-    runtime = run("git", "show", revision + ":" + RUNTIME)
+    runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
     epoch = int(run("git", "show", "-s", "--format=%ct", revision))
     output = args.output.resolve()
     assert not output.is_relative_to(ROOT)
@@ -98,7 +98,7 @@ def main():
     assert set(children) == {"amd64", "arm64"}
     tag = "2026.8.31-mkl-" + revision[:12] + "-candidate"
     report = {"revision": revision, "base": BASE, "base_revision": BASE_REVISION,
-        "source_sha256": {RUNTIME: sha(runtime)}, "tag": tag, "architectures": {}}
+        "source_sha256": {name: sha(data) for name, data in runtime.items()}, "tag": tag, "architectures": {}}
     targets = []
     for arch in ("arm64", "amd64"):
         print("Verifying native base and composing " + arch, flush=True)
@@ -112,7 +112,7 @@ def main():
         provenance.update(image=args.repository, revision=revision, base_image=BASE,
             base_manifest=children[arch]["digest"], base_revision=BASE_REVISION,
             source_sha256=report["source_sha256"], distribution="native-source-patch")
-        entries = {"opt/hermes/" + RUNTIME: runtime, "opt/hermes/.hermes_build_sha": (revision + "\n").encode(),
+        entries = {**{"opt/hermes/" + name: data for name, data in runtime.items()}, "opt/hermes/.hermes_build_sha": (revision + "\n").encode(),
             "etc/hermes/image-provenance.json": (json.dumps(provenance, sort_keys=True, separators=(",", ":")) + "\n").encode()}
         layer = output / (arch + ".tar")
         with tarfile.open(layer, "w", format=tarfile.USTAR_FORMAT) as archive:
@@ -134,7 +134,8 @@ def main():
                 "org.opencontainers.image.source": "https://github.com/mersinvald/hermes-agent",
                 "org.opencontainers.image.base.name": BASE,
                 "org.opencontainers.image.base.digest": children[arch]["digest"],
-                "dev.mkl.patch.diff-id": layer_hash, "dev.mkl.patch.source-sha256": sha(runtime)}
+                "dev.mkl.patch.diff-id": layer_hash,
+                "dev.mkl.patch.source-manifest-sha256": sha(json.dumps(report["source_sha256"], sort_keys=True).encode())}
             command = ["crane", "mutate", base_ref, "--append", str(layer), "--tag", target]
             for key, value in labels.items():
                 command += ["--label", key + "=" + value]
