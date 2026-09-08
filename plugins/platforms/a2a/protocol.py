@@ -833,7 +833,10 @@ def load_conversation(context_id: str, limit: int = 50) -> list[dict]:
                     continue
                 try:
                     rec = json.loads(line)
-                    if isinstance(rec, dict) and rec.get("context_id", context_id) == context_id:
+                    if isinstance(rec, dict) and (
+                        rec.get("context_id") == context_id
+                        or ("context_id" not in rec and context_id == _safe_name(context_id))
+                    ):
                         out.append(rec)
                 except json.JSONDecodeError:
                     continue

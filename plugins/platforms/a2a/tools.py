@@ -40,6 +40,7 @@ from . import protocol, security
 logger = logging.getLogger(__name__)
 
 _DEFAULT_TIMEOUT = 120
+_MAX_AUTH_LENGTH = 8192
 _ORCHESTRATE_MAX_WORKERS = 6  # max parallel peers for fan-out
 
 
@@ -63,14 +64,23 @@ def _error_text(error: Exception) -> str:
     return "Error: A2A request failed (invalid configuration, response, or transport)."
 
 
-def _redact_auth(text: str) -> str:
-    """Remove known credentials, including escaped echoes, not ordinary prose."""
-    for entry in (_load_config().get("a2a_agents") or {}).values():
-        token = (entry.get("auth") or {}).get("token")
-        if isinstance(token, str) and token:
-            for value in (token, repr(token)[1:-1], json.dumps(token)[1:-1],
-                          urllib.parse.quote(token, safe="")):
-                text = text.replace(value, "[REDACTED]")
+def _auth_values(headers: Optional[dict] = None) -> tuple[str, ...]:
+    """Ephemeral snapshot, including the exact Authorization value sent."""
+    values = [(entry.get("auth") or {}).get("token")
+              for entry in (_load_config().get("a2a_agents") or {}).values()]
+    authorization = (headers or {}).get("Authorization", "")
+    values.extend((authorization, authorization.partition(" ")[2]))
+    return tuple(value for value in values
+                 if isinstance(value, str) and 0 < len(value) <= _MAX_AUTH_LENGTH + 7)
+
+
+def _redact_auth(text: str, values: tuple[str, ...]) -> str:
+    """Remove known literal credentials and ASCII case/escaped variants only."""
+    for token in values:
+        for value in {token, repr(token)[1:-1], json.dumps(token)[1:-1],
+                      urllib.parse.quote(token, safe="")}:
+            if value:
+                text = re.sub(re.escape(value), "[REDACTED]", text, flags=re.IGNORECASE | re.ASCII)
     return text
 
 
@@ -78,7 +88,8 @@ def _public_tool(handler):
     @wraps(handler)
     def safe_handler(*args, **kwargs):
         try:
-            return _redact_auth(handler(*args, **kwargs))
+            values = _auth_values()
+            return _redact_auth(handler(*args, **kwargs), values)
         except Exception as error:
             # Never format transport exceptions, response bodies, URLs, or chains.
             return _error_text(error)
@@ -136,8 +147,9 @@ def _resolve_peer(agent: str) -> Optional[dict]:
 def _auth_header(auth: dict) -> dict:
     if auth and auth.get("type") == "bearer" and auth.get("token"):
         token = auth["token"]
-        if not isinstance(token, str) or any(ord(c) < 33 or ord(c) > 126 for c in token):
-            raise _PeerError("Error: invalid bearer configuration; token must contain printable ASCII without whitespace.")
+        if (not isinstance(token, str) or len(token) > _MAX_AUTH_LENGTH
+                or any(ord(c) < 33 or ord(c) > 126 for c in token)):
+            raise _PeerError("Error: invalid bearer configuration; token must be bounded printable ASCII without whitespace.")
         return {"Authorization": f"Bearer {token}"}
     return {}
 
@@ -180,6 +192,7 @@ def _validate_headers(headers: dict) -> None:
     for key, value in headers.items():
         if (not isinstance(key, str) or not isinstance(value, str)
                 or not re.fullmatch(r"[A-Za-z0-9-]+", key)
+                or len(value) > _MAX_AUTH_LENGTH + 7
                 or any(ord(c) < 32 or ord(c) > 126 for c in value)):
             raise _PeerError("Error: invalid HTTP header configuration; unprintable values are not allowed.")
 
@@ -283,6 +296,9 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     """
     base_url = peer.get("url", "")
     headers = _auth_header(peer.get("auth", {}) or {})
+    # One auth snapshot covers discovery, GetTask, SendMessage, and persistence.
+    # Never reload credentials while processing a response or share this tuple.
+    auth_values = _auth_values(headers)
     timeout = int(peer.get("timeout", _DEFAULT_TIMEOUT))
 
     # Best-effort card fetch (to learn the rpc URL); non-fatal on failure.
@@ -327,7 +343,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
             raise _PeerError("Error: task/context is not a matching input-required task on this peer.")
 
     ctx = context_id or protocol.new_context_id()
-    safe_message = _redact_auth(security.redact_outbound(message))
+    safe_message = _redact_auth(security.redact_outbound(message), auth_values)
     parts = [protocol.text_part(safe_message)] if safe_message else []
     parts.extend(protocol.data_part(item) for item in (data or []))
     outbound = protocol.message_with_parts(protocol.ROLE_USER, parts, context_id=ctx)
@@ -352,7 +368,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     if tenant:
         rpc_body["params"]["tenant"] = tenant
 
-    security.audit("outbound", _redact_auth(_peer_name(agent_label)), rpc_body["id"], safe_message)
+    security.audit("outbound", _redact_auth(_peer_name(agent_label), auth_values), rpc_body["id"], safe_message)
     protocol.persist_message(ctx, "user", safe_message, request_id=rpc_body["id"])
     protocol.metrics.outbound_total += 1
 
@@ -362,7 +378,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
 
     result = resp.get("result", {})
     payload = protocol.unwrap_send_message_response(result)
-    reply = _redact_auth(_reply_text_from_result(payload))
+    reply = _redact_auth(_reply_text_from_result(payload), auth_values)
     reply_ctx, state, reply_task = ctx, "", ""
     if isinstance(payload, dict):
         reply_ctx = payload.get("contextId", "" if "status" in payload else ctx)
@@ -376,7 +392,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
             or any(ord(c) < 32 or 0xD800 <= ord(c) <= 0xDFFF for c in reply_ctx)
             or not isinstance(reply_task, str) or len(reply_task) > 1024
             or any(ord(c) < 32 or 0xD800 <= ord(c) <= 0xDFFF for c in reply_task)
-            or _redact_auth(reply_ctx) != reply_ctx or _redact_auth(reply_task) != reply_task
+            or _redact_auth(reply_ctx, auth_values) != reply_ctx or _redact_auth(reply_task, auth_values) != reply_task
             or (isinstance(payload, dict) and "status" in payload and not reply_task)):
         raise _PeerError("Error: peer response lacks valid task/context identifiers.")
     normalized_state = _short_state(state)
@@ -386,7 +402,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
                 "task_id": reply_task, "context_id": reply_ctx, "state": normalized_state or "unknown"}
     # Do not persist direct URLs carrying userinfo or query credentials.
     if (not reply_task or not _recoverable_peer(agent_label)
-            or _redact_auth(json.dumps(metadata)) != json.dumps(metadata)):
+            or _redact_auth(json.dumps(metadata), auth_values) != json.dumps(metadata)):
         metadata = None
     protocol.persist_message(reply_ctx, "agent", reply, reply_task if metadata else "",
                              request_id=rpc_body["id"], peer_task=metadata)
@@ -556,7 +572,7 @@ def a2a_history(args: dict, **_: Any) -> str:
     written to ~/.hermes/a2a_conversations/<context>.jsonl and can be reloaded
     here.
     """
-    context_id = str(args.get("context_id") or args.get("contextId") or "").strip()
+    context_id = str(args.get("context_id") or args.get("contextId") or "")
     if not context_id:
         return "Error: 'context_id' is required (see a2a_list for known conversations)."
     try:
