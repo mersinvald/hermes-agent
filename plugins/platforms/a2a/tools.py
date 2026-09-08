@@ -334,8 +334,24 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         params = {"id": task_id}
         if tenant:
             params["tenant"] = tenant
-        response = _http_post_json(endpoint, {"jsonrpc": "2.0", "id": protocol.new_task_id(),
+        lookup_id = protocol.new_task_id()
+        response = _http_post_json(endpoint, {"jsonrpc": "2.0", "id": lookup_id,
             "method": "tasks/get" if legacy else "GetTask", "params": params}, headers, timeout)
+        error = response.get("error") if isinstance(response, dict) else None
+        if (not legacy and isinstance(error, dict)
+                and type(error.get("code")) is int and error["code"] == -32601):
+            if (response.get("jsonrpc") != "2.0" or response.get("id") != lookup_id
+                    or "result" in response or not isinstance(error.get("message"), str)):
+                raise _PeerError("Error: invalid task lookup error envelope.")
+            # Some v1 peers expose task queries only through their legacy binding.
+            # Retry this read once, never a send, with the same endpoint/auth/task.
+            lookup_id = protocol.new_task_id()
+            response = _http_post_json(endpoint, {"jsonrpc": "2.0", "id": lookup_id,
+                "method": "tasks/get", "params": params}, {**headers, "A2A-Version": "0.3"}, timeout)
+            if (not isinstance(response, dict) or response.get("jsonrpc") != "2.0"
+                    or response.get("id") != lookup_id
+                    or ("result" in response) == ("error" in response)):
+                raise _PeerError("Error: invalid legacy task lookup response envelope.")
         pending = protocol.unwrap_send_message_response(response.get("result", {}))
         if ("error" in response or not isinstance(pending, dict) or pending.get("id") != task_id
                 or pending.get("contextId") != context_id
