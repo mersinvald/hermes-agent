@@ -25,7 +25,9 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Optional, TypedDict
@@ -146,8 +148,45 @@ def _short_state(state: str) -> str:
     return state.replace("TASK_STATE_", "").replace("_", "-").lower() if state else ""
 
 
-def _send_task(agent_label: str, peer: dict, message: str, context_id: str) -> tuple[str, str, str]:
-    """Send one message/send to a peer. Returns (reply_text, context_id, state).
+def _validate_data(data: Any) -> list[dict]:
+    """Accept bounded JSON objects, without coercion or implicit decisions."""
+    budget = 4096
+
+    def check(value: Any, depth: int = 0) -> None:
+        nonlocal budget
+        budget -= 1
+        if budget < 0 or depth > 16:
+            raise ValueError("Error: data exceeds the nesting or item limit.")
+        if isinstance(value, str):
+            value.encode("utf-8")
+        elif value is None or type(value) in (bool, int):
+            pass
+        elif type(value) is float and math.isfinite(value):
+            pass
+        elif type(value) is list:
+            for item in value:
+                check(item, depth + 1)
+        elif type(value) is dict and all(type(key) is str for key in value):
+            for key, item in value.items():
+                check(key, depth + 1)
+                check(item, depth + 1)
+        else:
+            raise ValueError("Error: data must contain only JSON values with string keys.")
+
+    if type(data) is not list or not 1 <= len(data) <= 16 or any(type(item) is not dict or not item for item in data):
+        raise ValueError("Error: data must be 1-16 nonempty JSON objects.")
+    check(data)
+    encoded = json.dumps(data, ensure_ascii=False, allow_nan=False)
+    if len(encoded.encode("utf-8")) > 65536:
+        raise ValueError("Error: data exceeds 65536 UTF-8 bytes.")
+    if security.redact_outbound(encoded) != encoded:
+        raise ValueError("Error: data contains sensitive content; refusing to alter structured values.")
+    return data
+
+
+def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
+               task_id: str = "", data: Optional[list[dict]] = None) -> tuple[str, str, str, str]:
+    """Send one message/send. Returns (reply_text, context_id, state, task_id).
 
     Raises urllib errors / ValueError for the caller to format. Handles
     outbound redaction, audit, persistence, and metrics.
@@ -163,19 +202,56 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str) -> t
     except Exception:
         pass
 
+    endpoint = _rpc_url(base_url, card)
+    def origin(url: str) -> tuple:
+        parsed = urllib.parse.urlsplit(url)
+        return parsed.scheme, parsed.hostname, parsed.port or (443 if parsed.scheme == "https" else 80)
+
+    if origin(endpoint) != origin(base_url):
+        raise ValueError("Error: Agent Card RPC URL must have the configured peer's origin.")
+    iface = _select_jsonrpc_interface(card) or {}
+    version = str(iface.get("protocolVersion") or (card or {}).get("protocolVersion") or protocol.PROTOCOL_VERSION)
+    legacy = version in ("0.3", "0.3.0")
+    if not legacy and version not in ("1.0", "1.0.0"):
+        raise ValueError("Error: unsupported peer protocol version.")
+    headers = {**headers, "A2A-Version": version}
+    tenant = _interface_tenant(card, peer)
+    if task_id:
+        # Query the selected peer, not a caller-supplied task URL or local cache.
+        params = {"id": task_id}
+        if tenant:
+            params["tenant"] = tenant
+        response = _http_post_json(endpoint, {"jsonrpc": "2.0", "id": protocol.new_task_id(),
+            "method": "tasks/get" if legacy else "GetTask", "params": params}, headers, timeout)
+        pending = protocol.unwrap_send_message_response(response.get("result", {}))
+        if ("error" in response or not isinstance(pending, dict) or pending.get("id") != task_id
+                or pending.get("contextId") != context_id
+                or _short_state((pending.get("status") or {}).get("state", "")) != "input-required"):
+            raise ValueError("Error: task/context is not a matching input-required task on this peer.")
+
     ctx = context_id or protocol.new_context_id()
     safe_message = security.redact_outbound(message)
+    parts = [protocol.text_part(safe_message)] if safe_message else []
+    parts.extend(protocol.data_part(item) for item in (data or []))
+    outbound = protocol.message_with_parts(protocol.ROLE_USER, parts, context_id=ctx)
+    if task_id:
+        outbound["taskId"] = task_id
+    if legacy:
+        outbound["role"] = "user"
+        outbound["kind"] = "message"
+        for part in outbound["parts"]:
+            part["kind"] = "data" if "data" in part else "text"
+            part.pop("mediaType", None)
     # v1.0: contextId lives inside the Message, not at the params top level.
     rpc_body = {
         "jsonrpc": "2.0",
         "id": protocol.new_task_id(),
-        "method": "SendMessage",
+        "method": "message/send" if legacy else "SendMessage",
         "params": {
-            "message": protocol.text_message(protocol.ROLE_USER, safe_message, context_id=ctx),
+            "message": outbound,
         },
     }
 
-    tenant = _interface_tenant(card, peer)
     if tenant:
         rpc_body["params"]["tenant"] = tenant
 
@@ -183,7 +259,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str) -> t
     protocol.persist_message(ctx, "user", safe_message, rpc_body["id"])
     protocol.metrics.outbound_total += 1
 
-    resp = _http_post_json(_rpc_url(base_url, card), rpc_body, headers, timeout)
+    resp = _http_post_json(endpoint, rpc_body, headers, timeout)
     if "error" in resp:
         err = resp["error"]
         raise ValueError(f"Peer '{agent_label}' returned an error: {err.get('message', err)}")
@@ -191,20 +267,26 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str) -> t
     result = resp.get("result", {})
     payload = protocol.unwrap_send_message_response(result)
     reply = _reply_text_from_result(payload)
-    reply_ctx, state = ctx, ""
+    reply_ctx, state, reply_task = ctx, "", ""
     if isinstance(payload, dict):
         reply_ctx = payload.get("contextId", ctx)
         state = (payload.get("status") or {}).get("state", "")
+        reply_task = payload.get("id", "") if "status" in payload else ""
+    if task_id and (reply_task != task_id or reply_ctx != context_id):
+        raise ValueError("Error: peer did not resume the requested task/context; inspect the peer before retrying.")
     protocol.persist_message(reply_ctx, "agent", reply, rpc_body["id"])
     protocol.metrics.inbound_total += 1
-    return reply, reply_ctx, state
+    return reply, reply_ctx, state, reply_task
 
 
 def _reply_text_from_result(result: Any) -> str:
     result = protocol.unwrap_send_message_response(result)
     if not isinstance(result, dict):
         return str(result)
-    # Artifacts first (final output), then status message (interim/clarify).
+    status = result.get("status", {}) or {}
+    if _short_state(status.get("state", "")) == "input-required":
+        return protocol.extract_text(status.get("message") or {}) or "Peer requires input but supplied no question. Stop and inspect the task."
+    # Artifacts are final output only when there is no pending question.
     for artifact in result.get("artifacts", []) or []:
         txt = protocol.extract_text(artifact)
         if txt:
@@ -264,9 +346,27 @@ def a2a_call(args: dict, **_: Any) -> str:
     """
     # Accept common aliases models reach for (observed live: 'agent_name').
     agent = str(args.get("agent") or args.get("agent_name") or args.get("name") or "").strip()
-    message = str(args.get("message") or args.get("text") or args.get("task") or "").strip()
-    context_id = str(args.get("context_id") or args.get("contextId") or "").strip()
-    if not agent or not message:
+    message = args.get("message", args.get("text", args.get("task", "")))
+    if not isinstance(message, str):
+        return "Error: message must be text; use data for structured JSON objects."
+    message = message.strip()
+    context_id = args.get("context_id", args.get("contextId", ""))
+    task_id = args.get("task_id", args.get("taskId", ""))
+    data = args.get("data")
+    for value in (context_id, task_id):
+        if not isinstance(value, str) or len(value) > 1024 or any(ord(char) < 32 or 0xD800 <= ord(char) <= 0xDFFF for char in value):
+            return "Error: task_id/context_id must be bounded Unicode strings without control characters."
+    context_id = context_id.strip()
+    if not isinstance(task_id, str) or (task_id and (not context_id or len(task_id) > 1024)):
+        return "Error: task_id must be a string and requires context_id."
+    if data is not None:
+        try:
+            data = _validate_data(data)
+        except (ValueError, TypeError, OverflowError, RecursionError) as e:
+            return f"Error: invalid structured data ({type(e).__name__})."
+        if not task_id:
+            return "Error: structured continuation data requires task_id and context_id."
+    if not agent or not (message or data):
         return "Error: both 'agent' and 'message' are required."
 
     peer = _resolve_peer(agent)
@@ -277,7 +377,7 @@ def a2a_call(args: dict, **_: Any) -> str:
         )
 
     try:
-        reply, reply_ctx, state = _send_task(agent, peer, message, context_id)
+        reply, reply_ctx, state, reply_task = _send_task(agent, peer, message, context_id, task_id, data)
     except urllib.error.HTTPError as e:
         if e.code in (401, 403):
             return f"Error: peer '{agent}' rejected auth (HTTP {e.code}). Check the configured token."
@@ -290,14 +390,18 @@ def a2a_call(args: dict, **_: Any) -> str:
         return f"Error: call to '{agent}' failed — {e}."
 
     header = f"[{agent} · context {reply_ctx}"
+    if reply_task:
+        header += f" · task {reply_task}"
     if state:
         header += f" · {_short_state(state)}"
     header += "]"
     body = reply or "(no text reply)"
-    if state == protocol.STATE_INPUT_REQUIRED:
+    if _short_state(state) == "input-required":
         body += (
             "\n\n(The peer needs more input — answer by calling a2a_call again "
-            f"with context_id '{reply_ctx}'.)"
+            f"with context_id '{reply_ctx}' and task_id '{reply_task}'. "
+            "Transmit only explicit user answers in the peer's required format. "
+            "Do not invent answers or approval decisions. Context alone starts a new task, not a resume.)"
         )
     return f"{header}\n{body}"
 
@@ -387,7 +491,10 @@ def _call_peer_sync(agent_name: str, peer_entry: dict, message: str, context_id:
             "auth": peer_entry.get("auth", {}) or {},
             "timeout": int(peer_entry.get("timeout", _DEFAULT_TIMEOUT)),
         }
-        reply, _ctx, _state = _send_task(agent_name, peer, message, context_id)
+        reply, _ctx, _state, _task = _send_task(agent_name, peer, message, context_id)
+        if _short_state(_state) == "input-required":
+            return (agent_name, f"[input-required; task {_task}; context {_ctx}]\n{reply}\n"
+                    "Await explicit user answers; resume with a2a_call task_id and context_id on this peer.")
         return (agent_name, reply or "(no reply)")
     except Exception as e:
         return (agent_name, f"Error: {e}")
@@ -509,7 +616,10 @@ _SCHEMAS: dict[str, _ToolSchema] = {
                 "Send a natural-language task to a remote A2A agent and return "
                 "its reply. The agent is a peer (any A2A-compliant framework), "
                 "not a sub-agent you control. Pass 'context_id' from a previous "
-                "reply to continue a multi-turn exchange."
+                "reply to continue a multi-turn exchange. To resume input-required, pass both "
+                "task_id and context_id from that peer. data carries explicit user responses as "
+                "JSON DataParts, never auto-generated approvals. This transport does not grant "
+                "permission to execute remote tools; backend authorization must enforce that separately."
             ),
             "parameters": {
                 "type": "object",
@@ -517,6 +627,8 @@ _SCHEMAS: dict[str, _ToolSchema] = {
                     "agent": {"type": "string", "description": "Configured peer name (from a2a_agents) or a full http(s):// URL."},
                     "message": {"type": "string", "description": "The task / message to send the peer, in natural language."},
                     "context_id": {"type": "string", "description": "Optional: context id from a prior reply, to continue the conversation."},
+                    "task_id": {"type": "string", "maxLength": 1024, "description": "Input-required task ID from the same peer; requires context_id."},
+                    "data": {"type": "array", "minItems": 1, "maxItems": 16, "items": {"type": "object"}, "description": "Optional structured continuation DataParts, at most 64 KiB and depth 16. Exact peer-defined JSON objects supplied for an explicit user response. Requires task_id/context_id. Never infer approval or fill decision defaults."},
                 },
                 "required": ["agent", "message"],
             },
