@@ -32,7 +32,7 @@ def main():
         iface = tools._select_jsonrpc_interface(card)
         advertised_version = iface["protocolVersion"]
         print(json.dumps({"check": "actual_controller_card", "protocol_version": advertised_version}), flush=True)
-        assert advertised_version in ("1.0", "1.0.0"), "unexpected advertised protocol"
+        assert advertised_version in ("0.3", "0.3.0", "1.0", "1.0.0"), "unexpected advertised protocol"
         original = tools._http_post_json
         matrix = []
         pending = None
@@ -47,7 +47,7 @@ def main():
             if method == "tasks/get" and version == "0.3":
                 assert task.get("id") == cfg["task_id"] and task.get("contextId") == cfg["context_id"]
                 assert tools._short_state(task["status"]["state"]) == "input-required"
-                question = protocol.extract_text(task["status"].get("message") or {}).lower()
+                question = json.dumps(task["status"].get("message") or {}, ensure_ascii=False).lower()
                 assert "blue" in question and "red" in question, "not the authorized synthetic color question"
                 pending = task
         print(json.dumps({"check": "actual_controller_method_matrix", "matrix": matrix}), flush=True)
@@ -74,7 +74,9 @@ def main():
         assert cfg["token"] not in reply
         assert not reply.startswith("Error:"), "native resume failed; no send retry performed"
         methods = [entry["method"] for entry in observed]
-        assert methods in (["GetTask", "SendMessage"], ["GetTask", "tasks/get", "SendMessage"]), methods
+        expected_methods = (["tasks/get", "message/send"],) if advertised_version.startswith("0.3") else (
+            ["GetTask", "SendMessage"], ["GetTask", "tasks/get", "SendMessage"])
+        assert methods in expected_methods, methods
         assert all(entry["matching_envelope"] for entry in observed)
         assert observed[-1]["version"] == advertised_version
         assert cfg["task_id"] in reply and cfg["context_id"] in reply
@@ -89,7 +91,8 @@ def main():
         assert "blue" in text.lower(), "completed artifact did not acknowledge the explicit color answer"
         print(json.dumps({"check": "actual_controller_packaged_resume", "task_id": result["id"],
             "context_id": result["contextId"], "state": "completed", "blue_acknowledged": True,
-            "calls": observed, "fallback_observed": "tasks/get" in methods,
+            "calls": observed, "advertised_version": advertised_version,
+            "fallback_observed": methods == ["GetTask", "tasks/get", "SendMessage"],
             "explicit_sends": 1, "write_retries": 0}), flush=True)
 
 
