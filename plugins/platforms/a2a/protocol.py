@@ -801,12 +801,18 @@ def _safe_name(context_id: str) -> str:
     return "".join(c for c in (context_id or "default") if c.isalnum() or c in "-_") or "default"
 
 
-def persist_message(context_id: str, role: str, text: str, task_id: str = "") -> None:
+def persist_message(context_id: str, role: str, text: str, task_id: str = "", *,
+                    request_id: str = "", peer_task: Optional[dict] = None) -> None:
     """Append one message to the context's on-disk conversation log."""
     try:
         d = _conv_dir()
         d.mkdir(parents=True, exist_ok=True)
         rec = {"ts": time.time(), "role": role, "text": text, "task_id": task_id}
+        rec["context_id"] = context_id
+        if request_id:
+            rec["request_id"] = request_id
+        if peer_task is not None:
+            rec["peer_task"] = peer_task
         with (d / f"{_safe_name(context_id)}.jsonl").open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception:
@@ -826,7 +832,9 @@ def load_conversation(context_id: str, limit: int = 50) -> list[dict]:
                 if not line:
                     continue
                 try:
-                    out.append(json.loads(line))
+                    rec = json.loads(line)
+                    if isinstance(rec, dict) and rec.get("context_id", context_id) == context_id:
+                        out.append(rec)
                 except json.JSONDecodeError:
                     continue
     except Exception:

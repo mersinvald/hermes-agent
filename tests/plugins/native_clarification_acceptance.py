@@ -8,6 +8,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import runpy
 import socket
 import subprocess
@@ -29,50 +30,70 @@ def client(args):
     urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler({})))
     sys.path.insert(0, args.hermes_source)
     from plugins.platforms.a2a import tools, protocol
-    original_post = tools._http_post_json
-    sent = []
-
-    def observe(url, body, headers, timeout):
-        result = original_post(url, body, headers, timeout)
-        if body["method"] in ("SendMessage", "message/send"):
-            sent.append((body, result))
-        return result
-
-    tools._http_post_json = observe
 
     def rpc(method, params):
-        response = original_post(args.backend, {"jsonrpc": "2.0", "id": str(uuid.uuid4()),
+        response = tools._http_post_json(args.backend, {"jsonrpc": "2.0", "id": str(uuid.uuid4()),
             "method": method, "params": params}, {}, 10)
         assert "error" not in response, response
         return response["result"]
 
-    def latest():
-        return protocol.unwrap_send_message_response(sent[-1][1]["result"])
+    def returned_ids(output):
+        match = re.search(r"context ([^ ]+) \u00b7 task ([^ ]+)", output)
+        assert match, output
+        return match[2], match[1]
 
+    if args.restore_context:
+        history = tools.a2a_history({"context_id": args.restore_context})
+        tasks = [json.loads(line[6:]) for line in history.splitlines() if line.startswith("Task: ")]
+        pending_task, = [task for task in tasks if task["state"] == "input-required"]
+        assert "Which synthetic room?" in history, history
+        decision = {"decision_type": "approve", "ask_user_answers": [
+            {"answer": ["fixture-room"]}, {"answer": ["fixture-time"]}]}
+        output = tools.a2a_call({"agent": pending_task["peer"], "message": "",
+            "task_id": pending_task["task_id"], "context_id": pending_task["context_id"], "data": [decision]})
+        assert not output.startswith("Error:"), output
+        returned_task, returned_context = returned_ids(output)
+        assert returned_task == pending_task["task_id"] and returned_context == pending_task["context_id"]
+        result = rpc("tasks/get", {"id": returned_task})
+        assert result["id"] == pending_task["task_id"]
+        assert result["contextId"] == pending_task["context_id"]
+        assert result["status"]["state"] == "completed"
+        assert "native ask_user result contains fixture-room" in output, output
+        history = tools.a2a_history({"context_id": args.restore_context})
+        latest_tasks = [json.loads(line[6:]) for line in history.splitlines() if line.startswith("Task: ")]
+        assert all(task["state"] == "completed" for task in latest_tasks)
+        print(json.dumps({"check": "holdauth_fresh_process_resume", "task_id": result["id"],
+                          "context_id": result["contextId"], "state": "completed"}), flush=True)
+        return
+
+    # Real config loading in both processes; no runtime substitution for recovery.
+    (Path(os.environ["HERMES_HOME"]) / "config.yaml").write_text(json.dumps({
+        "a2a_agents": {"holdauth-fixture": {"url": args.url}}}))
     pending = set()
     try:
-        output = tools.a2a_call({"agent": args.url, "message": "ASK_FIXTURE"})
-        initial = latest()
-        task, context = initial["id"], initial["contextId"]
+        output = tools.a2a_call({"agent": "holdauth-fixture", "message": "ASK_FIXTURE"})
+        task, context = returned_ids(output)
+        initial = rpc("tasks/get", {"id": task})
+        assert initial["id"] == task and initial["contextId"] == context
         pending.add(task)
         assert task in output and context in output and "Which synthetic room?" in output, output
         # Context-only calls keep their original new-task semantics.
-        tools.a2a_call({"agent": args.url, "message": "fixture-room", "context_id": context})
-        assert latest()["id"] != task
+        output = tools.a2a_call({"agent": "holdauth-fixture", "message": "fixture-room", "context_id": context})
+        other_task, other_context = returned_ids(output)
+        assert other_task != task and other_context == context
+        assert rpc("tasks/get", {"id": other_task})["status"]["state"] == "completed"
         assert rpc("tasks/get", {"id": task})["status"]["state"] == "input-required"
         decision = {"decision_type": "approve", "ask_user_answers": [
             {"answer": ["fixture-room"]}, {"answer": ["fixture-time"]}]}
         # This explicit test response concerns the sole installed tool, ask_user.
         # It is not evidence that model-controlled approvals are safe for mutation.
-        output = tools.a2a_call({"agent": args.url, "message": "", "task_id": task,
-            "context_id": context, "data": [decision]})
-        assert not output.startswith("Error:"), output
-        resumed = latest()
-        assert resumed["id"] == task and resumed["contextId"] == context, resumed
-        assert resumed["status"]["state"] == "TASK_STATE_COMPLETED", resumed
-        assert "native ask_user result contains fixture-room" in output, output
-        wire = sent[-1][0]["params"]["message"]
-        assert wire["taskId"] == task and wire["parts"][0]["data"] == decision, wire
+        restored = subprocess.check_output([sys.executable, str(Path(__file__).resolve()),
+            "--client", "--hermes-source", args.hermes_source, "--url", args.url,
+            "--backend", args.backend, "--restore-context", context], text=True)
+        resumed = json.loads(restored)
+        assert resumed["task_id"] == task and resumed["context_id"] == context, resumed
+        assert resumed["state"] == "completed", resumed
+        print(restored.strip(), flush=True)
         assert rpc("tasks/get", {"id": task})["status"]["state"] == "completed"
         pending.remove(task)
         print(json.dumps({"check": "native_hermes_resume", "task_id": task, "context_id": context,
@@ -82,12 +103,10 @@ def client(args):
             initial["status"]["state"] = state
             assert "Which synthetic room?" in tools._reply_text_from_result(initial)
             assert "Prior partial output" not in tools._reply_text_from_result(initial)
-        before = len(sent)
         for bad_task, bad_context in ((task, context), ("unknown", context), (task, "wrong")):
-            result = tools.a2a_call({"agent": args.url, "message": "", "task_id": bad_task,
+            result = tools.a2a_call({"agent": "holdauth-fixture", "message": "", "task_id": bad_task,
                 "context_id": bad_context, "data": [decision]})
             assert result.startswith("Error:"), result
-        assert len(sent) == before
         print(json.dumps({"check": "projection_acceptance", "status": "PASS", "unresolved": 0}), flush=True)
     finally:
         for task in pending:
@@ -104,6 +123,7 @@ def main():
     parser.add_argument("--client", action="store_true")
     parser.add_argument("--url")
     parser.add_argument("--backend")
+    parser.add_argument("--restore-context")
     args = parser.parse_args()
     if args.client:
         client(args)

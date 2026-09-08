@@ -23,13 +23,16 @@ v1.0 JSON-RPC ``message/send`` method; replies from v0.3 peers still parse.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import math
+import re
 import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from functools import wraps
 from typing import Any, Optional, TypedDict
 
 from . import protocol, security
@@ -38,6 +41,66 @@ logger = logging.getLogger(__name__)
 
 _DEFAULT_TIMEOUT = 120
 _ORCHESTRATE_MAX_WORKERS = 6  # max parallel peers for fan-out
+
+
+class _PeerError(ValueError):
+    """Only locally authored, credential-free diagnostics belong here."""
+
+
+def _error_text(error: Exception) -> str:
+    if isinstance(error, _PeerError):
+        return str(error)
+    if isinstance(error, urllib.error.HTTPError):
+        code = error.code
+        if type(code) is int and 100 <= code <= 599:
+            return f"Error: peer request failed (HTTP {code})."
+    if isinstance(error, TimeoutError):
+        return "Error: peer request timed out."
+    if isinstance(error, urllib.error.URLError):
+        if isinstance(error.reason, TimeoutError):
+            return "Error: peer request timed out."
+        return "Error: peer transport failed."
+    return "Error: A2A request failed (invalid configuration, response, or transport)."
+
+
+def _redact_auth(text: str) -> str:
+    """Remove known credentials, including escaped echoes, not ordinary prose."""
+    for entry in (_load_config().get("a2a_agents") or {}).values():
+        token = (entry.get("auth") or {}).get("token")
+        if isinstance(token, str) and token:
+            for value in (token, repr(token)[1:-1], json.dumps(token)[1:-1],
+                          urllib.parse.quote(token, safe="")):
+                text = text.replace(value, "[REDACTED]")
+    return text
+
+
+def _public_tool(handler):
+    @wraps(handler)
+    def safe_handler(*args, **kwargs):
+        try:
+            return _redact_auth(handler(*args, **kwargs))
+        except Exception as error:
+            # Never format transport exceptions, response bodies, URLs, or chains.
+            return _error_text(error)
+    return safe_handler
+
+
+def _peer_name(label: str) -> str:
+    return label if re.fullmatch(r"[A-Za-z0-9_-]{1,64}", label) else "peer"
+
+
+def _peer_origin(url: str) -> str:
+    parsed = urllib.parse.urlsplit(url)
+    origin = (parsed.scheme, parsed.hostname, parsed.port or (443 if parsed.scheme == "https" else 80))
+    return hashlib.sha256(repr(origin).encode()).hexdigest()
+
+
+def _recoverable_peer(label: str) -> bool:
+    if _peer_name(label) == label:
+        return True
+    url = urllib.parse.urlsplit(label)
+    return (url.scheme in ("http", "https") and bool(url.hostname)
+            and not (url.username or url.password or url.query or url.fragment))
 
 
 # --------------------------------------------------------------------------
@@ -72,7 +135,10 @@ def _resolve_peer(agent: str) -> Optional[dict]:
 
 def _auth_header(auth: dict) -> dict:
     if auth and auth.get("type") == "bearer" and auth.get("token"):
-        return {"Authorization": f"Bearer {auth['token']}"}
+        token = auth["token"]
+        if not isinstance(token, str) or any(ord(c) < 33 or ord(c) > 126 for c in token):
+            raise _PeerError("Error: invalid bearer configuration; token must contain printable ASCII without whitespace.")
+        return {"Authorization": f"Bearer {token}"}
     return {}
 
 
@@ -89,11 +155,12 @@ class _PeerRedirectHandler(urllib.request.HTTPRedirectHandler):
         old_origin = (old.scheme, old.hostname, old.port or (443 if old.scheme == "https" else 80))
         new_origin = (new.scheme, new.hostname, new.port or (443 if new.scheme == "https" else 80))
         if old_origin != new_origin or new.username or new.password:
-            raise ValueError("Error: refusing cross-origin peer redirect.")
+            raise _PeerError("Error: refusing cross-origin peer redirect.")
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
 def _http_get_json(url: str, headers: dict, timeout: int) -> dict:
+    _validate_headers(headers)
     req = urllib.request.Request(url, headers=headers, method="GET")
     with urllib.request.build_opener(_PeerRedirectHandler()).open(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
@@ -102,9 +169,19 @@ def _http_get_json(url: str, headers: dict, timeout: int) -> dict:
 def _http_post_json(url: str, body: dict, headers: dict, timeout: int) -> dict:
     data = json.dumps(body).encode("utf-8")
     hdrs = {"Content-Type": "application/json", "A2A-Version": protocol.PROTOCOL_VERSION, **headers}
+    _validate_headers(hdrs)
     req = urllib.request.Request(url, data=data, headers=hdrs, method="POST")
     with urllib.request.build_opener(_PeerRedirectHandler()).open(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+def _validate_headers(headers: dict) -> None:
+    # Reject before entering HTTP libraries, whose debug logs may echo headers.
+    for key, value in headers.items():
+        if (not isinstance(key, str) or not isinstance(value, str)
+                or not re.fullmatch(r"[A-Za-z0-9-]+", key)
+                or any(ord(c) < 32 or ord(c) > 126 for c in value)):
+            raise _PeerError("Error: invalid HTTP header configuration; unprintable values are not allowed.")
 
 
 def _card_url(base_url: str) -> str:
@@ -221,15 +298,22 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         return parsed.scheme, parsed.hostname, parsed.port or (443 if parsed.scheme == "https" else 80)
 
     if origin(endpoint) != origin(base_url):
-        raise ValueError("Error: Agent Card RPC URL must have the configured peer's origin.")
+        raise _PeerError("Error: Agent Card RPC URL must have the configured peer's origin.")
     iface = _select_jsonrpc_interface(card) or {}
     version = str(iface.get("protocolVersion") or (card or {}).get("protocolVersion") or protocol.PROTOCOL_VERSION)
     legacy = version in ("0.3", "0.3.0")
     if not legacy and version not in ("1.0", "1.0.0"):
-        raise ValueError("Error: unsupported peer protocol version.")
+        raise _PeerError("Error: unsupported peer protocol version.")
     headers = {**headers, "A2A-Version": version}
     tenant = _interface_tenant(card, peer)
     if task_id:
+        records = protocol.load_conversation(context_id, limit=200)
+        known = [record["peer_task"] for record in records
+                 if (record.get("peer_task") or {}).get("version") == 1
+                 and record["peer_task"].get("task_id") == task_id]
+        if known and not any(meta.get("peer") == agent_label and meta.get("origin") == _peer_origin(base_url)
+                             for meta in known):
+            raise _PeerError("Error: task belongs to a different configured peer origin.")
         # Query the selected peer, not a caller-supplied task URL or local cache.
         params = {"id": task_id}
         if tenant:
@@ -240,10 +324,10 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         if ("error" in response or not isinstance(pending, dict) or pending.get("id") != task_id
                 or pending.get("contextId") != context_id
                 or _short_state((pending.get("status") or {}).get("state", "")) != "input-required"):
-            raise ValueError("Error: task/context is not a matching input-required task on this peer.")
+            raise _PeerError("Error: task/context is not a matching input-required task on this peer.")
 
     ctx = context_id or protocol.new_context_id()
-    safe_message = security.redact_outbound(message)
+    safe_message = _redact_auth(security.redact_outbound(message))
     parts = [protocol.text_part(safe_message)] if safe_message else []
     parts.extend(protocol.data_part(item) for item in (data or []))
     outbound = protocol.message_with_parts(protocol.ROLE_USER, parts, context_id=ctx)
@@ -268,26 +352,44 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     if tenant:
         rpc_body["params"]["tenant"] = tenant
 
-    security.audit("outbound", agent_label, rpc_body["id"], safe_message)
-    protocol.persist_message(ctx, "user", safe_message, rpc_body["id"])
+    security.audit("outbound", _redact_auth(_peer_name(agent_label)), rpc_body["id"], safe_message)
+    protocol.persist_message(ctx, "user", safe_message, request_id=rpc_body["id"])
     protocol.metrics.outbound_total += 1
 
     resp = _http_post_json(endpoint, rpc_body, headers, timeout)
     if "error" in resp:
-        err = resp["error"]
-        raise ValueError(f"Peer '{agent_label}' returned an error: {err.get('message', err)}")
+        raise _PeerError("Error: peer returned a JSON-RPC error.")
 
     result = resp.get("result", {})
     payload = protocol.unwrap_send_message_response(result)
-    reply = _reply_text_from_result(payload)
+    reply = _redact_auth(_reply_text_from_result(payload))
     reply_ctx, state, reply_task = ctx, "", ""
     if isinstance(payload, dict):
-        reply_ctx = payload.get("contextId", ctx)
+        reply_ctx = payload.get("contextId", "" if "status" in payload else ctx)
         state = (payload.get("status") or {}).get("state", "")
         reply_task = payload.get("id", "") if "status" in payload else ""
     if task_id and (reply_task != task_id or reply_ctx != context_id):
-        raise ValueError("Error: peer did not resume the requested task/context; inspect the peer before retrying.")
-    protocol.persist_message(reply_ctx, "agent", reply, rpc_body["id"])
+        raise _PeerError("Error: peer did not resume the requested task/context; inspect the peer before retrying.")
+    if context_id and reply_ctx != context_id:
+        raise _PeerError("Error: peer returned a different context from the requested conversation.")
+    if (not isinstance(reply_ctx, str) or not reply_ctx or len(reply_ctx) > 1024
+            or any(ord(c) < 32 or 0xD800 <= ord(c) <= 0xDFFF for c in reply_ctx)
+            or not isinstance(reply_task, str) or len(reply_task) > 1024
+            or any(ord(c) < 32 or 0xD800 <= ord(c) <= 0xDFFF for c in reply_task)
+            or _redact_auth(reply_ctx) != reply_ctx or _redact_auth(reply_task) != reply_task
+            or (isinstance(payload, dict) and "status" in payload and not reply_task)):
+        raise _PeerError("Error: peer response lacks valid task/context identifiers.")
+    normalized_state = _short_state(state)
+    if normalized_state not in ("", "submitted", "working", "input-required", "completed", "canceled", "failed", "rejected", "auth-required", "unknown"):
+        raise _PeerError("Error: peer returned an unsupported task state.")
+    metadata = {"version": 1, "peer": agent_label, "origin": _peer_origin(base_url),
+                "task_id": reply_task, "context_id": reply_ctx, "state": normalized_state or "unknown"}
+    # Do not persist direct URLs carrying userinfo or query credentials.
+    if (not reply_task or not _recoverable_peer(agent_label)
+            or _redact_auth(json.dumps(metadata)) != json.dumps(metadata)):
+        metadata = None
+    protocol.persist_message(reply_ctx, "agent", reply, reply_task if metadata else "",
+                             request_id=rpc_body["id"], peer_task=metadata)
     protocol.metrics.inbound_total += 1
     return reply, reply_ctx, state, reply_task
 
@@ -316,6 +418,7 @@ def _reply_text_from_result(result: Any) -> str:
 # Tool handlers
 # --------------------------------------------------------------------------
 
+@_public_tool
 def a2a_discover(args: dict, **_: Any) -> str:
     """Fetch and summarize the Agent Card at ``url``."""
     url = str(args.get("url") or "").strip()
@@ -323,10 +426,8 @@ def a2a_discover(args: dict, **_: Any) -> str:
         return "Error: 'url' is required (e.g. http://localhost:9999)."
     try:
         card = _fetch_card(url, {}, _DEFAULT_TIMEOUT)
-    except urllib.error.HTTPError as e:
-        return f"Error: discovery failed — HTTP {e.code} from {url}."
     except Exception as e:
-        return f"Error: could not reach {url} — {e}."
+        return _error_text(e)
 
     name = card.get("name", "?")
     desc = card.get("description", "")
@@ -351,6 +452,7 @@ def a2a_discover(args: dict, **_: Any) -> str:
     return "\n".join(lines)
 
 
+@_public_tool
 def a2a_call(args: dict, **_: Any) -> str:
     """Send a task to a peer agent and return its reply.
 
@@ -385,22 +487,14 @@ def a2a_call(args: dict, **_: Any) -> str:
     peer = _resolve_peer(agent)
     if not peer or not peer.get("url"):
         return (
-            f"Error: unknown agent '{agent}'. Configure it under 'a2a_agents' in "
+            f"Error: unknown agent '{_peer_name(agent)}'. Configure it under 'a2a_agents' in "
             f"config.yaml or pass a full http(s):// URL."
         )
 
     try:
         reply, reply_ctx, state, reply_task = _send_task(agent, peer, message, context_id, task_id, data)
-    except urllib.error.HTTPError as e:
-        if e.code in (401, 403):
-            return f"Error: peer '{agent}' rejected auth (HTTP {e.code}). Check the configured token."
-        if e.code == 429:
-            return f"Error: peer '{agent}' rate limited us (HTTP 429). Retry later."
-        return f"Error: call to '{agent}' failed — HTTP {e.code}."
-    except ValueError as e:
-        return str(e)
     except Exception as e:
-        return f"Error: call to '{agent}' failed — {e}."
+        return _error_text(e)
 
     header = f"[{agent} · context {reply_ctx}"
     if reply_task:
@@ -419,6 +513,7 @@ def a2a_call(args: dict, **_: Any) -> str:
     return f"{header}\n{body}"
 
 
+@_public_tool
 def a2a_list(args: dict | None = None, **_: Any) -> str:
     """List configured A2A peers and any persisted conversations."""
     cfg = _load_config()
@@ -453,6 +548,7 @@ def a2a_list(args: dict | None = None, **_: Any) -> str:
     return "\n".join(lines)
 
 
+@_public_tool
 def a2a_history(args: dict, **_: Any) -> str:
     """Recall a persisted A2A conversation by context_id.
 
@@ -471,12 +567,23 @@ def a2a_history(args: dict, **_: Any) -> str:
     if not messages:
         return f"No persisted conversation for context '{context_id}'."
     lines = [f"Conversation {context_id} (last {len(messages)} messages):"]
+    latest = {}
+    for m in messages:
+        meta = m.get("peer_task") or {}
+        if meta.get("version") == 1:
+            latest[(meta["peer"], meta["origin"], meta["task_id"])] = meta
+    for meta in latest.values():
+        fields = {key: meta[key] for key in ("peer", "task_id", "context_id", "state")}
+        lines.append("Task: " + json.dumps(fields, ensure_ascii=False))
     for m in messages:
         role = m.get("role", "?")
         text = (m.get("text") or "").strip()
         if len(text) > 1000:
             text = text[:1000] + " …[truncated]"
-        lines.append(f"[{role}] {text}")
+        meta = m.get("peer_task") or {}
+        association = (f"peer {meta['peer']}; task {meta['task_id']}; recorded state {meta['state']}"
+                       if meta.get("version") == 1 else "peer/task/state unknown")
+        lines.append(f"[{association}] [{role}] {text}")
     return "\n".join(lines)
 
 
@@ -510,9 +617,10 @@ def _call_peer_sync(agent_name: str, peer_entry: dict, message: str, context_id:
                     "Await explicit user answers; resume with a2a_call task_id and context_id on this peer.")
         return (agent_name, reply or "(no reply)")
     except Exception as e:
-        return (agent_name, f"Error: {e}")
+        return (_peer_name(agent_name), _error_text(e))
 
 
+@_public_tool
 def a2a_orchestrate(args: dict, **_: Any) -> str:
     """Fan-out a task to multiple peer agents by capability.
 
@@ -544,7 +652,7 @@ def a2a_orchestrate(args: dict, **_: Any) -> str:
 
     matches = _match_peers_by_capability(capability)
     if not matches:
-        return f"Error: no configured peers advertise capability '{capability}'."
+        return "Error: no configured peers advertise the requested capability."
 
     if mode not in ("all", "first", "best"):
         mode = "all"
@@ -566,7 +674,7 @@ def a2a_orchestrate(args: dict, **_: Any) -> str:
                         f.cancel()
                     break
             except Exception as e:
-                results.append((name, f"Error: {e}"))
+                results.append((_peer_name(name), _error_text(e)))
 
     # Sort results by peer name for deterministic output
     results.sort(key=lambda r: r[0])
