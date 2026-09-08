@@ -100,6 +100,7 @@ def main():
     parser.add_argument("--kagent-source")
     parser.add_argument("--fixture-source")
     parser.add_argument("--require-supported", action="store_true")
+    parser.add_argument("--compile-dir", type=Path, help="Cross-compile static linux arm64/amd64 native test binaries here instead of running locally")
     parser.add_argument("--client", action="store_true")
     parser.add_argument("--url")
     parser.add_argument("--backend")
@@ -134,6 +135,15 @@ def main():
             "CLARIFICATION_PYTHON": sys.executable, "CLARIFICATION_SCRIPT": str(Path(__file__).resolve()),
             "CLARIFICATION_HERMES": str(Path(args.hermes_source).resolve())}
         goroot = subprocess.check_output(["go", "env", "GOROOT"], cwd=root / "go", text=True).strip()
+        if args.compile_dir:
+            args.compile_dir.mkdir(parents=True, exist_ok=True)
+            for arch in ("arm64", "amd64"):
+                print("Compiling native loopback fixture for linux/" + arch, flush=True)
+                subprocess.run([str(Path(goroot) / "bin/go"), "test", "-mod=readonly", "-overlay", str(overlay),
+                    "-c", "-ldflags=-s -w", "-o", str(args.compile_dir.resolve() / ("native-clarification-" + arch)),
+                    "./core/internal/a2a"], cwd=root / "go", env={**env, "GOOS": "linux", "GOARCH": arch,
+                    "CGO_ENABLED": "0"}, check=True, timeout=480)
+            return
         subprocess.run([str(Path(goroot) / "bin/go"), "test", "-mod=readonly", "-overlay", str(overlay),
             "./core/internal/a2a", "-run", "^TestNativeClarification$", "-count=1", "-v", "-timeout=100s"],
             cwd=root / "go", env=env, check=True, timeout=240)
