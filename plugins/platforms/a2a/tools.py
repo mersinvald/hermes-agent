@@ -80,9 +80,22 @@ def _auth_header(auth: dict) -> dict:
 # HTTP
 # --------------------------------------------------------------------------
 
+class _PeerRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Do not forward peer credentials or continuations across origins."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        old = urllib.parse.urlsplit(req.full_url)
+        new = urllib.parse.urlsplit(newurl)
+        old_origin = (old.scheme, old.hostname, old.port or (443 if old.scheme == "https" else 80))
+        new_origin = (new.scheme, new.hostname, new.port or (443 if new.scheme == "https" else 80))
+        if old_origin != new_origin or new.username or new.password:
+            raise ValueError("Error: refusing cross-origin peer redirect.")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 def _http_get_json(url: str, headers: dict, timeout: int) -> dict:
     req = urllib.request.Request(url, headers=headers, method="GET")
-    with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 (configured peers)
+    with urllib.request.build_opener(_PeerRedirectHandler()).open(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
@@ -90,7 +103,7 @@ def _http_post_json(url: str, body: dict, headers: dict, timeout: int) -> dict:
     data = json.dumps(body).encode("utf-8")
     hdrs = {"Content-Type": "application/json", "A2A-Version": protocol.PROTOCOL_VERSION, **headers}
     req = urllib.request.Request(url, data=data, headers=hdrs, method="POST")
-    with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 (configured peers)
+    with urllib.request.build_opener(_PeerRedirectHandler()).open(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 

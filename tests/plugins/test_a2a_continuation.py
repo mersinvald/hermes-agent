@@ -1,5 +1,6 @@
 """Bounded structured continuations; no automatic decisions or authority claims."""
 import copy
+import urllib.request
 
 import pytest
 
@@ -126,3 +127,16 @@ def test_incompatible_payloads_rejected(peer):
                  {"message": "hello", "data": [{"answer": "room"}]}):
         assert tools.a2a_call({"agent": "test", **args}).startswith("Error:")
     assert not peer[3]
+
+
+@pytest.mark.parametrize("url", ["https://other.test/", "http://peer.test/", "https://peer.test:8443/", "https://user@peer.test/"])
+def test_peer_redirect_cannot_forward_credentials(url):
+    request = urllib.request.Request("https://peer.test/card", headers={"Authorization": "Bearer synthetic"})
+    with pytest.raises(ValueError, match="redirect"):
+        tools._PeerRedirectHandler().redirect_request(request, None, 302, "Found", {}, url)
+
+
+def test_same_origin_discovery_redirect_preserved():
+    request = urllib.request.Request("https://peer.test/card")
+    redirected = tools._PeerRedirectHandler().redirect_request(request, None, 302, "Found", {}, "https://peer.test:443/card-v1")
+    assert redirected.full_url == "https://peer.test:443/card-v1"
