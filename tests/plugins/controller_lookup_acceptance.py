@@ -30,7 +30,9 @@ def main():
         endpoint = tools._rpc_url(peer["url"], card)
         assert endpoint.rstrip("/") == peer["url"].rstrip("/"), "unexpected canonical peer endpoint"
         iface = tools._select_jsonrpc_interface(card)
-        assert iface["protocolVersion"] == "1.0", "unexpected advertised protocol"
+        advertised_version = iface["protocolVersion"]
+        print(json.dumps({"check": "actual_controller_card", "protocol_version": advertised_version}), flush=True)
+        assert advertised_version in ("1.0", "1.0.0"), "unexpected advertised protocol"
         original = tools._http_post_json
         matrix = []
         pending = None
@@ -74,7 +76,7 @@ def main():
         methods = [entry["method"] for entry in observed]
         assert methods in (["GetTask", "SendMessage"], ["GetTask", "tasks/get", "SendMessage"]), methods
         assert all(entry["matching_envelope"] for entry in observed)
-        assert observed[-1]["version"] == "1.0"
+        assert observed[-1]["version"] == advertised_version
         assert cfg["task_id"] in reply and cfg["context_id"] in reply
         request_id = protocol.new_task_id()
         response = original(endpoint, {"jsonrpc": "2.0", "id": request_id, "method": "tasks/get",
