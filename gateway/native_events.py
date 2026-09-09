@@ -29,9 +29,13 @@ def execution_view(row):
         original_model_state="unavailable",
         state=state,
         remote_cancellation={
-            "state": "unknown"
+            "state": "requested"
+            if row.get("cancel_requested")
+            else "unknown"
             if state in {"unknown", "interrupted"}
-            else "not_requested"
+            else "not_requested",
+            **({"detail": "Accepted user cancellation request; remote outcome remains unconfirmed."}
+               if row.get("cancel_requested") else {}),
         },
         created_at=timestamp(row["created_at"])
         if row["created_at"] is not None
@@ -111,6 +115,9 @@ class NativeEventFeed:
             recovered=cursor is not None,
             recent_executions=[execution_view(row) for row in state["executions"]],
             command_receipts=state["command_receipts"],
+            control_receipts=[ingress.cancellations.receipt_view(view)
+                              for view in state["control_receipts"]],
+            control_receipt_coverage=state["control_receipt_coverage"],
             coverage=state["coverage"],
         )
         result["retention"] = asdict(ingress.db._native_events_limits)

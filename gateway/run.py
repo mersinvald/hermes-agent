@@ -7099,7 +7099,21 @@ class TurnRunner:
                 from gateway.native_events import NativeActivityObserver
                 native_observer = NativeActivityObserver(native_context, agent).install()
             try:
-                result = agent.run_conversation(_api_run_message, **_conversation_kwargs)
+                from agent.native_execution_context import NativeExecutionOrigin, native_execution_scope
+                from contextlib import nullcontext
+                scope = (native_execution_scope(NativeExecutionOrigin(
+                    native_context.execution.conversation_id,
+                    native_context.execution.execution_id,
+                    native_ingress._command_owner), native_ingress.cancellations)
+                    if native_context else nullcontext())
+                if native_context:
+                    native_ingress.cancellations.bind_worker(native_context.execution, agent)
+                try:
+                    with scope:
+                        result = agent.run_conversation(_api_run_message, **_conversation_kwargs)
+                finally:
+                    if native_context:
+                        native_ingress.cancellations.unbind_worker(native_context.execution, agent)
             except BaseException:
                 if native_context:
                     native_context.finish(failed=True)

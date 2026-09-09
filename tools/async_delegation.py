@@ -238,6 +238,10 @@ def _capture_routing_origin() -> Dict[str, Any]:
                 origin[evt_key] = value
     except Exception:  # noqa: BLE001 - routing origin is additive, never fatal
         pass
+    from agent.native_execution_context import native_origin_record
+    native_origin = native_origin_record()
+    if native_origin is not None:
+        origin["_native_execution_origin"] = native_origin
     return origin
 
 
@@ -255,7 +259,7 @@ def _persist_dispatch(record: Dict[str, Any]) -> None:
             # Routing origin (scope_id/user_id/user_name): persisted so a
             # restart-recovered completion can reconstruct a full
             # SessionSource — see _capture_routing_origin.
-            "scope_id", "user_id", "user_name",
+            "scope_id", "user_id", "user_name", "_native_execution_origin",
         )
         if key in record
     }
@@ -816,6 +820,10 @@ def dispatch_async_delegation(
         ``{"status": "dispatched", "delegation_id": ...}`` on success, or
         ``{"status": "rejected", "error": ...}`` when at capacity.
     """
+    from agent.native_execution_context import native_execution_cancel_requested
+
+    if native_execution_cancel_requested():
+        return {"status": "rejected", "error": "Native execution cancellation requested"}
     delegation_id = _new_delegation_id()
     dispatched_at = time.time()
     record: Dict[str, Any] = {
@@ -868,6 +876,11 @@ def dispatch_async_delegation(
         result: Dict[str, Any] = {}
         status = "error"
         try:
+            if native_execution_cancel_requested():
+                result = {"status": "interrupted", "summary": None,
+                          "error": "Native execution cancellation requested before child start"}
+                status = "interrupted"
+                return
             result = runner() or {}
             status = result.get("status") or "completed"
         except Exception as exc:  # noqa: BLE001 — must never crash the worker
@@ -1057,6 +1070,10 @@ def dispatch_async_delegation_batch(
     ``{"status": "rejected", "error": ...}`` when the async pool is at
     capacity.
     """
+    from agent.native_execution_context import native_execution_cancel_requested
+
+    if native_execution_cancel_requested():
+        return {"status": "rejected", "error": "Native execution cancellation requested"}
     delegation_id = delegation_id or _new_delegation_id()
     dispatched_at = time.time()
     n = len(goals)
@@ -1111,6 +1128,10 @@ def dispatch_async_delegation_batch(
         combined: Dict[str, Any] = {}
         status = "error"
         try:
+            if native_execution_cancel_requested():
+                combined = {"results": [], "error": "Native execution cancellation requested before child start"}
+                status = "interrupted"
+                return
             combined = runner() or {}
             # Batch status: completed unless every child errored/was interrupted.
             child_results = combined.get("results") or []
@@ -1306,6 +1327,11 @@ def _stale_monitor_loop() -> None:
                     _STALE_IN_TOOL_SECONDS if in_tool else _STALE_IDLE_SECONDS
                 )
                 if quiet_for >= limit:
+                    if record.get("_native_execution_origin"):
+                        if not record.get("_native_stall_warned"):
+                            logger.warning("Managed native child has no recent progress; explicit cancellation remains available")
+                            record["_native_stall_warned"] = True
+                        continue  # Warn only; never release a live managed child.
                     record["status"] = "stalling"
                     record["_interrupted_at"] = now
                     # Structured stall context for the terminal event and
@@ -1609,3 +1635,31 @@ def _reset_for_tests() -> None:
         thread.join(timeout=2)
     with _records_lock:
         _records.clear()
+
+
+def interrupt_for_native_execution(origin):
+    """Signal actual dispatch-time execution owners, never route aliases.
+
+    Reserving the in-memory attempt precedes calling the existing interrupt_fn.
+    A callback return is a request observation, not worker completion. Existing
+    finalization alone releases child ownership. No restored worker is invented.
+    """
+    if not isinstance(origin, dict) or set(origin) != {"conversation_id", "execution_id", "owner"}:
+        return 0
+    with _records_lock:
+        targets = []
+        for record in _records.values():
+            if (record.get("_native_execution_origin") == origin
+                    and record.get("status") in {"running", "stalling"}
+                    and not record.get("_native_cancel_requested")):
+                record["_native_cancel_requested"] = True
+                targets.append(record.get("interrupt_fn"))
+    requested = 0
+    for fn in targets:
+        if callable(fn):
+            try:
+                fn()
+                requested += 1
+            except Exception:
+                logger.warning("Managed native child interrupt outcome unavailable")
+    return requested

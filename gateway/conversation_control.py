@@ -71,6 +71,8 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         self.db.native_events_enable(event_limits)
         from gateway.native_events import NativeEventFeed
         self.events = NativeEventFeed(self)
+        from gateway.native_cancellation import NativeCancellationController
+        self.cancellations = NativeCancellationController(self)
         runner.conversation_ingress = self
 
     def trusted_channel_sources(self):

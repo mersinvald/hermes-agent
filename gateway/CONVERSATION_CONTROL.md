@@ -264,3 +264,75 @@ this patch emits no wire event and adds no delivery array to execution recovery.
 The native delivery record remains authoritative if an observer fails. Tests use
 real runner, FIFO, SQLite and Telegram send paths with synthetic model/Bot doubles;
 HTTP, live Telegram and device acceptance remain separate review gates.
+
+## N05 explicit cancellation and known remote-task coverage
+
+Schema30 adds control receipts and actual dispatch provenance to SessionDB.
+`submit(principal, cancel_command)` addresses one exact conversation/execution.
+The stable ID shares the native input command fingerprint domain and conflicts
+atomically across send, steer, queue and cancel. An accepted receipt is durable
+control admission. It has no input application state. Native request state and
+observed N03 execution state are separate; completed or interrupted native work
+does not establish downstream compute termination or rollback of completed effects.
+
+The controller signals existing native `hard_interrupt` mechanisms, including
+managed detached children selected by copied execution/owner provenance. It never
+invalidates generations, releases a live lease or starts replacement work. Queued
+requests and unconsumed steer fallback remain retained for later executions.
+Native interrupt signalling happens independently of remote control capacity.
+Disconnect, listener close and SSO expiry do not cancel executions. Managed
+children retain ownership under stale-monitor warnings; configured native
+operation timeouts remain actual native failure behavior. Unknown restored child
+provenance is never reconstructed from a Telegram or gateway route alias.
+
+Each actual outbound A2A dispatch reserves an opaque indexed row before I/O and
+records validated task/context evidence when available. A lost response remains
+unknown coverage, never a resend. Cancellation uses the exact saved RPC route,
+configured peer origin/path identity, tenant and protocol version. Changed peers,
+foreign task/context owners and superseded execution claims fail closed. The
+latest native task claim and every prior write reservation fence cancellation
+across duplicate dispatch aliases. Global A2A transcript entries are not authority.
+
+Remote control uses a shared aiohttp client with no environment proxy, redirect,
+compression expansion or write retry. Each RPC has a total deadline of at most
+30 seconds and a strict JSON-RPC envelope/body limit of 256KiB. Native controller
+constructor limits default to 4 concurrent control jobs, one target per scheduling
+turn, a 30-second total turn deadline, and 5-second polling after a complete scan.
+Concurrency is configurable 1–64, polling 1–300 seconds and the turn deadline up to
+90 seconds. These limit control/observation I/O only; they impose no native
+execution admission cap. Per-command `remote_after` and `next_poll_at` persist
+fair scanning; a large slow execution yields its slot between targets. Pending
+commands remain in SQLite rather than an unbounded Python queue. The resolver
+shares/deduplicates DNS and bounds residual lookup tasks by connector capacity.
+Timed-out HTTP callers close their socket/read task and cannot later send. OS
+getaddrinfo itself may finish later; physical cancellation of OS DNS is not claimed.
+
+GetTask preflight must validate the exact recorded identity before one CancelTask
+(or legacy tasks/cancel). The write reservation commits before I/O. A sent or
+possibly sent request is reconciled by reads only, including across restart and
+fresh manual commands. A known-not-sent preflight failure remains failed for its
+original stable command; only a fresh explicit cancel command may retry. Attempt
+rows retain old evidence. Target `request_origin` distinguishes this command from
+a shared prior reserved write and an unattempted target. A newer manual retry
+never silently becomes an older command's own acknowledgement.
+
+Native recovery atomically captures the execution journal, shared existence of
+an accepted cancel request, private control receipts and event cursor. Shared
+`remote_cancellation=requested` means only accepted user intent, with unconfirmed
+remote outcome. Exact-principal `cancel_state_changed` events contain command ID,
+change kind and optional opaque dispatch ID, without tool arguments/results,
+reasoning, peer URLs, raw remote identities or credentials. Recovery includes at
+most 10 recent control receipts with empty target pages and explicit coverage;
+whole-execution counts and an opaque offset-zero cursor lead to GET command
+pagination (default 50/max 100). Controllers traverse every indexed target
+independently of that page size. Cursors bind principal, command and execution;
+process restart requires page 1 again. Known counts count indexed dispatch records,
+including lost task identities. Unobserved descendants remain unknown even when
+all known tasks report canceled.
+
+The standalone native patch provides ingress/controller seams; native HTTP
+capability and mounted command response unions require the reviewed N05 wire and
+primary integration. The existing browser facade performs app metadata enrichment.
+Tests use actual native runner, SQLite, leases, local process interrupt and native
+A2A hooks with synthetic provider/peer responses. They are not live provider,
+Telegram or downstream specialist acceptance evidence.
