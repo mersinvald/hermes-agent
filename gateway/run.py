@@ -7088,6 +7088,10 @@ class TurnRunner:
             native_context = (native_ingress.command_context(ctx.session_key, ctx.run_generation, ctx._loop_for_step)
                               if native_ingress is not None else None)
             agent._native_command_context = native_context
+            native_observer = None
+            if native_context:
+                from gateway.native_events import NativeActivityObserver
+                native_observer = NativeActivityObserver(native_context, agent).install()
             try:
                 result = agent.run_conversation(_api_run_message, **_conversation_kwargs)
             except BaseException:
@@ -7096,8 +7100,20 @@ class TurnRunner:
                 raise
             else:
                 if native_context:
-                    native_context.finish(failed=bool(result.get("failed") or result.get("interrupted")))
+                    # Share native success classification: partial/truncated
+                    # returns are not completed just because no exception escaped.
+                    if _should_clear_resume_pending_after_turn(result):
+                        outcome = "completed"
+                    elif isinstance(result, dict) and result.get("interrupted"):
+                        outcome = "interrupted"
+                    elif isinstance(result, dict) and (result.get("failed") or result.get("error")):
+                        outcome = "failed"
+                    else:
+                        outcome = "unknown"
+                    native_context.finish(outcome=outcome)
             finally:
+                if native_observer:
+                    native_observer.restore()
                 agent._native_command_context = None
         finally:
             unregister_gateway_notify(_approval_session_key)
@@ -31599,10 +31615,13 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             # Use session_key (not source.chat_id) to match adapter's storage keys.
             pending_event = None
             pending = None
-            if result and adapter and session_key:
-                native_ingress = getattr(self, "conversation_ingress", None)
-                state = self._peek_session_state(session_key)
-                execution = state.turn.conversation_execution if state else None
+            native_ingress = getattr(self, "conversation_ingress", None)
+            state = self._peek_session_state(session_key)
+            execution = state.turn.conversation_execution if state else None
+            completion_ready = True
+            if native_ingress is not None and execution is not None:
+                completion_ready = await native_ingress.wait_known_completion(execution.execution_id)
+            if result and adapter and session_key and completion_ready:
                 if native_ingress is not None and execution is not None:
                     native_ingress._commands_finished(execution.conversation_id)
                 pending_event = _dequeue_pending_event(adapter, session_key)

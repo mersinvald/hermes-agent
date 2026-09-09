@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 28
+SCHEMA_VERSION = 29
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -558,10 +558,38 @@ CREATE TABLE IF NOT EXISTS native_executions (
     state TEXT NOT NULL CHECK(state IN ('open','closed','unknown')),
     input_started INTEGER NOT NULL DEFAULT 0,
     created_order INTEGER NOT NULL DEFAULT 0,
-    lease_holder TEXT
+    lease_holder TEXT,
+    origin TEXT NOT NULL DEFAULT 'unknown',
+    observed_state TEXT NOT NULL DEFAULT 'unknown',
+    created_at REAL,
+    updated_at REAL
 );
 CREATE UNIQUE INDEX IF NOT EXISTS idx_native_execution_owner
     ON native_executions(conversation_id) WHERE state='open';
+-- Bounded detailed replay, separate from retained native execution/command facts.
+CREATE TABLE IF NOT EXISTS native_events (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    conversation_id TEXT NOT NULL,
+    epoch TEXT NOT NULL,
+    sequence INTEGER NOT NULL,
+    event_id TEXT NOT NULL,
+    principal_scope TEXT,
+    occurred_at REAL NOT NULL,
+    body TEXT NOT NULL,
+    byte_count INTEGER NOT NULL,
+    UNIQUE(conversation_id,epoch,sequence)
+);
+CREATE INDEX IF NOT EXISTS idx_native_event_replay
+    ON native_events(conversation_id,epoch,sequence);
+CREATE TABLE IF NOT EXISTS native_event_heads (
+    conversation_id TEXT NOT NULL,
+    epoch TEXT NOT NULL,
+    sequence INTEGER NOT NULL DEFAULT 0,
+    evicted_through INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY(conversation_id,epoch)
+);
+CREATE INDEX IF NOT EXISTS idx_native_execution_recent
+    ON native_executions(conversation_id,created_order DESC);
 CREATE TABLE IF NOT EXISTS native_commands (
     ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
     scope TEXT NOT NULL,
@@ -583,6 +611,8 @@ CREATE TABLE IF NOT EXISTS native_commands (
 );
 CREATE INDEX IF NOT EXISTS idx_native_command_mailbox
     ON native_commands(conversation_id,phase,queue_order);
+CREATE INDEX IF NOT EXISTS idx_native_command_recent_scope
+    ON native_commands(conversation_id,scope,ordinal DESC);
 
 -- Native PWA assignments are profile-local authority records. Current trusted
 -- configuration must still authorize their principal and source on every read;

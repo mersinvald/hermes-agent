@@ -54,7 +54,7 @@ class NativeConversationIngress(DurableCommandIngressMixin):
     Only one instance may be installed, before the runner starts admitting work.
     """
 
-    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default", grant_provider=None):
+    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default", grant_provider=None, event_limits=None):
         if getattr(runner.config, "multiplex_profiles", False) is True:
             raise ValueError("native conversation ingress requires a single profile scope")
         if getattr(runner, "conversation_ingress", None) is not None:
@@ -68,6 +68,9 @@ class NativeConversationIngress(DurableCommandIngressMixin):
                                         for g in entries)
                        for principal, entries in grants.items()}
         self._init_commands(concierge_id)
+        self.db.native_events_enable(event_limits)
+        from gateway.native_events import NativeEventFeed
+        self.events = NativeEventFeed(self)
         runner.conversation_ingress = self
 
     def _resolve(self, session_id):
@@ -253,7 +256,7 @@ class NativeConversationIngress(DurableCommandIngressMixin):
             execution_id = getattr(event, "_native_execution_id", None) or str(uuid4())
             command = getattr(event, "_native_command_key", None)
             try:
-                self.db.native_execution_open(root, execution_id, self._command_owner, command=command)
+                self.db.native_execution_open(root, execution_id, self._command_owner, command=command, origin=self._origin(event))
             except BaseException:
                 self.runner._release_running_agent_state(key)
                 raise
@@ -313,7 +316,12 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         if execution is not None and execution.generation == generation:
             durable = self.db.native_execution(execution.conversation_id)
             if durable and durable["execution_id"] == execution.execution_id and (not durable["input_started"] or not self.db.native_execution_has_lease(execution.conversation_id)):
-                self.db.native_execution_close(execution.execution_id, self._command_owner, crashed=True)
+                with self._completion_lock:
+                    known = execution.execution_id in self._completion_observations
+                if known:
+                    self._retry_completion(execution.execution_id)
+                else:
+                    self.db.native_execution_close(execution.execution_id, self._command_owner, crashed=True)
             state.turn.conversation_execution = None
             self._wake_commands(execution.conversation_id)
 
@@ -323,10 +331,16 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         if execution is not None and execution.generation == generation:
             if getattr(event, "_native_command_key", None) and execution.execution_id == getattr(event, "_native_execution_id", None):
                 return  # Already claimed at the dequeue boundary, before awaits.
-            self.db.native_execution_close(execution.execution_id, self._command_owner)
+            with self._completion_lock:
+                known = execution.execution_id in self._completion_observations
+            if known:
+                if not self._retry_completion(execution.execution_id):
+                    raise RuntimeError("native completion persistence is pending")
+            else:
+                self.db.native_execution_close(execution.execution_id, self._command_owner)
             execution_id = getattr(event, "_native_execution_id", None) or str(uuid4())
             command = getattr(event, "_native_command_key", None)
-            self.db.native_execution_open(execution.conversation_id, execution_id, self._command_owner, command=command)
+            self.db.native_execution_open(execution.conversation_id, execution_id, self._command_owner, command=command, origin=self._origin(event) if event is not None else execution.origin)
             state.turn.conversation_execution = replace(
                 execution, execution_id=execution_id, command=command,
                 origin=self._origin(event) if event is not None else execution.origin)

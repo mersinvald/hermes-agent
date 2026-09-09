@@ -128,3 +128,73 @@ model and transport doubles and isolated native SQLite. They do not establish
 HTTP, production, remote specialist, or physical-device acceptance. Patch
 packaging includes the new module and modified session/runtime files; the local
 packaging test verifies runtime selection and archive bytes without publishing.
+
+## N03 event observations and recovery
+
+Contract pin: PWA `8ef59e8b9c84d205a49de2233bee0b0cd51a5284`.
+Schema 29 adds bounded native event detail and execution outcome/origin/time
+observations. Native journal transitions and their events commit together.
+`applied` means committed native input, never provider or remote success.
+A generic owner close without a recorded result remains `unknown`. Legacy native
+execution timestamps remain null. A different ingress owner after restart is
+shown as unknown until native liveness/lease reconciliation establishes its state.
+
+The native feed is `ingress.events`; HTTP mounts it through N07. Use
+`await feed.recover(principal, conversation_id, cursor)` or
+`subscription = feed.subscribe(...)`, `await subscription.poll()`, and
+`subscription.close()` in the transport's `finally`. A subscriber holds only its
+cursor, with one bounded poll in flight. Closing all subscriptions does not stop
+native work. Every poll authorizes before and after I/O. `feed.close()` releases
+subscriptions during service shutdown. Native conversation metadata comes from
+N07's authorized `native_conversation` provider, not invented app title/model data.
+Its active execution projection is replaced from the atomic journal snapshot.
+
+Configure `EventLimits` through `NativeConversationIngress(event_limits=...)`.
+Defaults are 4096 events total, 8 MiB encoded event bytes, 24 hours, 16 KiB per
+event, 100 inspected events per replay page, 50 recent executions and scoped
+receipts per snapshot, and 64 concurrent subscriptions. Batch/snapshot hard limits
+are 100. Count and byte bounds apply at every write; age expiry is also enforced
+on every recovery read. Native retained transcript/history is independent. Recent
+execution/command indexes keep snapshot reads bounded as the journal grows.
+
+Cursors are exclusive and scoped to conversation epochs. Identical retained
+cursors return identical event ordering. A restart or optional observation loss
+rotates epoch and returns a gap; an explicitly supplied old scoped epoch may
+still retrieve its retained detail, alongside the new snapshot boundary. Count,
+byte or age eviction (including slow readers) returns `expired`. Invalid,
+foreign, future and mismatching event cursors return a gap without revealing
+another conversation's identities or counts. Private command records of another
+principal explicitly granted the same conversation are skipped while advancing
+the inspected cursor; these filtered positions are not retention loss. Snapshot
+receipts always filter exact principal/concierge scope. `*_has_more` records the
+recent-window limit; it is never a claim of full transcript or event coverage.
+
+Execution/receipt snapshots and replay boundaries share one SessionDB transaction.
+Storage failures fail the request, never return empty success. A native worker's
+known terminal outcome is retained by exact execution/owner identity if its close
+transaction fails. Before dequeuing the next native input, the same gateway
+route/generation asynchronously waits for retry; it does not invoke the provider
+again, replace the worker, or enter generic error transcript persistence. Queued
+commands progress automatically after storage recovers. Draining exits the wait;
+a process crash before persistence conservatively leaves unknown recovery.
+
+Available observations: committed execution lifecycle, command application/full
+receipt transitions, and native tool start/completion using the real call ID plus
+a bounded tool identifier. Tool callbacks preserve existing consumers/threading
+and are restored after each turn without changing cached tools/prompts. Argument,
+result, prompt-preview, provider-credential and internal reasoning bodies are not
+included. An optional tool-observation failure changes epoch rather than failing
+or repeating the actual tool.
+
+`event_stream` does **not** mean live assistant/token text. Message delta, selected
+or observed model routing, native delivery events, structured clarification and
+remote delegation/cancellation are unavailable in this N03 slice. A clarify or
+delegate tool lifecycle is only that tool's observation, not evidence of a remote
+task state or permission to resume it. N05/N06 supply remote control/structured
+clarification; N04 supplies native delivery state. U02 can refresh canonical final
+history after completion and must decide any later token-stream integration
+without enabling provider streaming merely to observe it.
+
+Tests use real SessionDB, leases, native ingress, GatewayRunner and its FIFO;
+provider/tool responses are synthetic. They do not establish live external,
+Telegram network, browser transport or device acceptance.
