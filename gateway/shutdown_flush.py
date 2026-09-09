@@ -256,6 +256,10 @@ def drain_transcript_spool(session_id: str, replay) -> tuple[int, int]:
 
 def _serialise_value(value: Any) -> Optional[dict]:
     """Convert a pending message value to a JSON-serialisable dict."""
+    # Journal-backed command events are execution-mailbox references. Never
+    # downgrade them to anonymous transcript rows in the legacy restart spool.
+    if getattr(value, "_native_command_key", None) is not None:
+        return None
     # MessageEvent objects have a .text attribute and other fields
     if hasattr(value, "text"):
         result: Dict[str, Any] = {"text": getattr(value, "text", "")}

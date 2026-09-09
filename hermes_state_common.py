@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 26
+SCHEMA_VERSION = 27
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -550,6 +550,39 @@ CREATE TABLE IF NOT EXISTS session_turn_leases (
     acquired_at REAL NOT NULL,
     expires_at REAL NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS native_executions (
+    execution_id TEXT PRIMARY KEY,
+    conversation_id TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    state TEXT NOT NULL CHECK(state IN ('open','closed','unknown')),
+    input_started INTEGER NOT NULL DEFAULT 0,
+    created_order INTEGER NOT NULL DEFAULT 0,
+    lease_holder TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_native_execution_owner
+    ON native_executions(conversation_id) WHERE state='open';
+CREATE TABLE IF NOT EXISTS native_commands (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    command_id TEXT NOT NULL,
+    conversation_id TEXT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    payload_json TEXT NOT NULL,
+    requested_action TEXT NOT NULL,
+    effective_action TEXT NOT NULL,
+    target_execution_id TEXT,
+    resulting_execution_id TEXT,
+    phase TEXT NOT NULL CHECK(phase IN ('queued','steer','assigned','applied','not_applied','unknown')),
+    fallback INTEGER NOT NULL DEFAULT 0,
+    queue_order INTEGER NOT NULL,
+    recorded_at REAL NOT NULL,
+    input_session_id TEXT,
+    input_row_id INTEGER,
+    UNIQUE(scope,command_id)
+);
+CREATE INDEX IF NOT EXISTS idx_native_command_mailbox
+    ON native_commands(conversation_id,phase,queue_order);
 
 CREATE TABLE IF NOT EXISTS async_delegations (
     delegation_id TEXT PRIMARY KEY,

@@ -2006,6 +2006,9 @@ def run_conversation(
     _should_review_memory = _ctx.should_review_memory
     _plugin_user_context = _ctx.plugin_user_context
     _ext_prefetch_cache = _ctx.ext_prefetch_cache
+    _native_context = getattr(agent, "_native_command_context", None)
+    if _native_context is not None:
+        _native_context.refresh_input(agent, messages)
 
     # Commentary deduplication spans all provider continuations and tool calls
     # within one user turn, but must not suppress the same phrase next turn.
@@ -2189,6 +2192,9 @@ def run_conversation(
         # iteration, no tools yet), the steer stays pending for the next
         # tool batch — injecting into a user message would break role
         # alternation, and there's no tool output to piggyback on.
+        _native_context = getattr(agent, "_native_command_context", None)
+        if _native_context is not None:
+            _native_context.consume(agent, messages)
         _pre_api_steer = agent._drain_pending_steer()
         if _pre_api_steer:
             _injected = False

@@ -96,6 +96,7 @@ from hermes_state_common import (  # noqa: F401  (re-exported for back-compat)
 )
 from hermes_state_portability import SessionPortabilityMixin
 from hermes_state_schema import SessionSchemaMixin
+from hermes_state_commands import NativeCommandStateMixin
 from hermes_state_search import SessionSearchMixin
 
 try:  # Hard dependency, but tolerate scaffold-phase imports before pip install.
@@ -4675,7 +4676,7 @@ def classify_session_status(
     return SESSION_STATUS_COMPLETE
 
 
-class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin):
+class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin, NativeCommandStateMixin):
     """
     SQLite-backed session storage with FTS5 search.
 

@@ -13,6 +13,7 @@ from uuid import uuid4
 
 from gateway.platforms.base import MessageEvent
 from gateway.session import SessionSource
+from gateway.native_commands import DurableCommandIngressMixin
 
 
 @dataclass(frozen=True)
@@ -35,6 +36,7 @@ class ConversationExecution:
     generation: int
     source: SessionSource
     origin: str
+    command: tuple | None = None
 
 
 def _source_identity(source):
@@ -42,7 +44,7 @@ def _source_identity(source):
             source.user_id, source.thread_id, source.scope_id)
 
 
-class NativeConversationIngress:
+class NativeConversationIngress(DurableCommandIngressMixin):
     """One event-loop-local view over the runner's existing TurnState/FIFO.
 
     `send` awaits native handling for an idle conversation. A transport must
@@ -52,7 +54,7 @@ class NativeConversationIngress:
     Only one instance may be installed, before the runner starts admitting work.
     """
 
-    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]]):
+    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default"):
         if getattr(runner.config, "multiplex_profiles", False) is True:
             raise ValueError("native conversation ingress requires a single profile scope")
         if getattr(runner, "conversation_ingress", None) is not None:
@@ -64,6 +66,7 @@ class NativeConversationIngress:
         self.grants = {principal: tuple(ConversationGrant(g.session_id, replace(g.source))
                                         for g in entries)
                        for principal, entries in grants.items()}
+        self._init_commands(concierge_id)
         runner.conversation_ingress = self
 
     def _resolve(self, session_id):
@@ -162,6 +165,9 @@ class NativeConversationIngress:
         key, state, execution = owner
         if not self._event_authorized(event, execution.conversation_id):
             raise PermissionError("conversation control unavailable")
+        if getattr(event, "_native_command_key", None):
+            self._enqueue_commands(owner)
+            return {"disposition":"queued","execution":self._execution_view(owner)}
         mode = "queue" if event.internal else getattr(event, "_native_send_mode", "send")
         agent = state.turn.agent
         if mode != "queue" and callable(getattr(agent, "steer", None)):
@@ -183,6 +189,9 @@ class NativeConversationIngress:
         if getattr(event, "_native_browser_ingress", None) is self:
             replacement._native_browser_ingress = self
             replacement._native_send_mode = event._native_send_mode
+        for name in ("_native_command_key", "_native_execution_id"):
+            if hasattr(event, name):
+                setattr(replacement, name, getattr(event, name))
         if hasattr(event, "_native_origin"):
             replacement._native_origin = event._native_origin
 
@@ -228,8 +237,15 @@ class NativeConversationIngress:
         # Called in the same synchronous block as the runner's route claim,
         # immediately after prepare_admission returns: there is no await gap.
         if root is not None:
+            execution_id = getattr(event, "_native_execution_id", None) or str(uuid4())
+            command = getattr(event, "_native_command_key", None)
+            try:
+                self.db.native_execution_open(root, execution_id, self._command_owner, command=command)
+            except BaseException:
+                self.runner._release_running_agent_state(key)
+                raise
             self.runner._session_state(key).turn.conversation_execution = ConversationExecution(
-                str(uuid4()), root, generation, replace(source), self._origin(event))
+                execution_id, root, generation, replace(source), self._origin(event), command)
 
     def _ensure_projection(self, entry, source, key):
         row = self.db.get_session(entry.session_id)
@@ -272,22 +288,29 @@ class NativeConversationIngress:
             if owner[0] == key and owner[2].generation == generation:
                 return None
             return self._control(event, owner)
-        state = self.runner._session_state(key)
-        state.turn.conversation_execution = ConversationExecution(
-            str(uuid4()), projection["conversation_id"], generation,
-            replace(source), self._origin(event))
+        self.reserve(projection["conversation_id"], source, key, generation, event)
         return None
 
     def release(self, key, generation):
         state = self.runner._peek_session_state(key)
         execution = state.turn.conversation_execution if state else None
         if execution is not None and execution.generation == generation:
+            durable = self.db.native_execution(execution.conversation_id)
+            if durable and durable["execution_id"] == execution.execution_id and (not durable["input_started"] or not self.db.native_execution_has_lease(execution.conversation_id)):
+                self.db.native_execution_close(execution.execution_id, self._command_owner, crashed=True)
             state.turn.conversation_execution = None
+            self._wake_commands(execution.conversation_id)
 
     def continue_execution(self, key, generation, event):
         state = self.runner._peek_session_state(key)
         execution = state.turn.conversation_execution if state else None
         if execution is not None and execution.generation == generation:
+            if getattr(event, "_native_command_key", None) and execution.execution_id == getattr(event, "_native_execution_id", None):
+                return  # Already claimed at the dequeue boundary, before awaits.
+            self.db.native_execution_close(execution.execution_id, self._command_owner)
+            execution_id = getattr(event, "_native_execution_id", None) or str(uuid4())
+            command = getattr(event, "_native_command_key", None)
+            self.db.native_execution_open(execution.conversation_id, execution_id, self._command_owner, command=command)
             state.turn.conversation_execution = replace(
-                execution, execution_id=str(uuid4()),
+                execution, execution_id=execution_id, command=command,
                 origin=self._origin(event) if event is not None else execution.origin)

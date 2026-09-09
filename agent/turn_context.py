@@ -808,6 +808,9 @@ def build_turn_context(
     append_message(messages, user_msg)
     current_turn_user_idx = len(messages) - 1
     agent._persist_user_message_idx = current_turn_user_idx
+    native_context = getattr(agent, "_native_command_context", None)
+    if native_context is not None:
+        native_context.start_input(agent, user_msg, persist_user_message)
 
     # Track user turns for memory flush and periodic nudge logic.
     agent._user_turn_count += 1

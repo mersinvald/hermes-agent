@@ -7084,7 +7084,21 @@ class TurnRunner:
                 _conversation_kwargs["moa_config"] = ctx.moa_config
             if _persist_user_timestamp_override is not None:
                 _conversation_kwargs["persist_user_timestamp"] = _persist_user_timestamp_override
-            result = agent.run_conversation(_api_run_message, **_conversation_kwargs)
+            native_ingress = getattr(self._runner, "conversation_ingress", None)
+            native_context = (native_ingress.command_context(ctx.session_key, ctx.run_generation, ctx._loop_for_step)
+                              if native_ingress is not None else None)
+            agent._native_command_context = native_context
+            try:
+                result = agent.run_conversation(_api_run_message, **_conversation_kwargs)
+            except BaseException:
+                if native_context:
+                    native_context.finish(failed=True)
+                raise
+            else:
+                if native_context:
+                    native_context.finish(failed=bool(result.get("failed") or result.get("interrupted")))
+            finally:
+                agent._native_command_context = None
         finally:
             unregister_gateway_notify(_approval_session_key)
             # Cancel any pending clarify entries so blocked agent
@@ -13208,6 +13222,9 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         agent is already running are skipped regardless, so a session
         scheduled at startup is never resumed a second time.
         """
+        native_ingress = getattr(self, "conversation_ingress", None)
+        if native_ingress is not None:
+            native_ingress.reconcile_commands()
         window = _auto_continue_freshness_window()
         try:
             with self.session_store._lock:  # noqa: SLF001 — snapshot under lock
@@ -13249,6 +13266,10 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         now = datetime.now()
         scheduled = 0
         for entry in candidates:
+            if native_ingress is not None and native_ingress.command_managed(entry.session_id):
+                # Durable commands own recovery; never synthesize an extra
+                # legacy user input after a possibly dispatched command.
+                continue
             marker = entry.last_resume_marked_at or entry.updated_at
             if marker is not None and (now - marker).total_seconds() > window:
                 continue
@@ -16058,6 +16079,9 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             return
 
         async def _stop_impl() -> None:
+            native_ingress = getattr(self, "conversation_ingress", None)
+            if native_ingress is not None:
+                native_ingress.stop_command_recovery()
             def _kill_tool_subprocesses(phase: str) -> list:
                 """Kill tool subprocesses + tear down terminal envs + browsers.
 
@@ -22991,7 +23015,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             # agent already reached its early turn-start persistence, the latest
             # transcript user row will match and we skip the duplicate.
             try:
-                if 'message_text' in locals() and message_text is not None and session_entry is not None:
+                if (getattr(event, "_native_command_key", None) is None
+                        and 'message_text' in locals() and message_text is not None and session_entry is not None):
                     _already_persisted = False
                     try:
                         _recent_transcript = await self.async_session_store.load_transcript(session_entry.session_id)
@@ -31562,6 +31587,11 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             pending_event = None
             pending = None
             if result and adapter and session_key:
+                native_ingress = getattr(self, "conversation_ingress", None)
+                state = self._peek_session_state(session_key)
+                execution = state.turn.conversation_execution if state else None
+                if native_ingress is not None and execution is not None:
+                    native_ingress._commands_finished(execution.conversation_id)
                 pending_event = _dequeue_pending_event(adapter, session_key)
                 # /queue overflow: after consuming the adapter's "next-up"
                 # slot, promote the next queued event into it so the
@@ -31570,6 +31600,14 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 # order, and (b) causes any mid-chain /queue to correctly
                 # route to overflow rather than jumping the queue.
                 pending_event = self._promote_queued_event(session_key, adapter, pending_event)
+                while pending_event is not None and getattr(pending_event, "_native_command_key", None):
+                    row = native_ingress.db.native_command_lookup(*pending_event._native_command_key)
+                    if row and row["phase"] == "queued":
+                        native_ingress.continue_execution(session_key, run_generation, pending_event)
+                        break
+                    # Stale duplicate mailbox references are not new inputs.
+                    pending_event = _dequeue_pending_event(adapter, session_key)
+                    pending_event = self._promote_queued_event(session_key, adapter, pending_event)
                 if result.get("interrupted") and not pending_event and result.get("interrupt_message"):
                     interrupt_message = result.get("interrupt_message")
                     if _is_control_interrupt_message(interrupt_message):

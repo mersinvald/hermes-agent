@@ -4890,6 +4890,9 @@ def apply_pending_steer_to_tool_results(agent, messages: list, num_tool_msgs: in
     """
     if num_tool_msgs <= 0 or not messages:
         return
+    native_context = getattr(agent, "_native_command_context", None)
+    if native_context is not None:
+        native_context.consume(agent, messages, num_tool_msgs)
     steer_text = agent._drain_pending_steer()
     if not steer_text:
         return

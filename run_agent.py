@@ -2359,17 +2359,8 @@ class AIAgent:
                 # Persist multimodal tool results as their text summary only —
                 # base64 images would bloat the session DB and aren't useful
                 # for cross-session replay.
-                if _is_multimodal_tool_result(content):
-                    content = _multimodal_text_summary(content)
-                elif isinstance(content, list):
-                    # List of OpenAI-style content parts: strip images, keep text.
-                    _txt = []
-                    for p in content:
-                        if isinstance(p, dict) and p.get("type") == "text":
-                            _txt.append(str(p.get("text", "")))
-                        elif isinstance(p, dict) and p.get("type") in {"image", "image_url", "input_image"}:
-                            _txt.append("[screenshot]")
-                    content = "\n".join(_txt) if _txt else None
+                from agent.tool_dispatch_helpers import project_tool_content_for_storage
+                content = project_tool_content_for_storage(content)
                 tool_calls_data = None
                 if hasattr(msg, "tool_calls") and isinstance(msg.tool_calls, list) and msg.tool_calls:
                     tool_calls_data = [
@@ -8938,16 +8929,21 @@ class AIAgent:
                 # Skip when acquisition was immediate — no other process held
                 # the lease, so the in-memory history is current and reloading
                 # would only cause an unnecessary prompt cache miss.
-                if _lease_waited:
+                if _lease_waited or getattr(self, "_native_command_context", None) is not None:
                     latest_session_id = _turn_db.resolve_resume_session_id(session_id)
+                    _native_tip_moved = bool(latest_session_id and latest_session_id != self.session_id)
                     if latest_session_id:
                         self.session_id = latest_session_id
                         task_context["session_id"] = latest_session_id
-                    conversation_history = _turn_db.get_messages_as_conversation(
-                        self.session_id,
-                        repair_alternation=True,
-                        include_row_ids=True,
-                    )
+                    # A browser alias can be resolved before admission waits.
+                    # Adopt its tip after acquiring the native lease, without
+                    # rebuilding an unchanged cached prompt prefix.
+                    if _lease_waited or _native_tip_moved:
+                        conversation_history = _turn_db.get_messages_as_conversation(
+                            self.session_id,
+                            repair_alternation=True,
+                            include_row_ids=True,
+                        )
 
                 # Long model/tool/compression turns outlive a fixed TTL. Refresh
                 # in a daemon thread; holder-qualified UPDATE and DELETE fence a

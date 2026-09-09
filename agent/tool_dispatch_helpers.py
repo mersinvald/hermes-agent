@@ -553,6 +553,21 @@ def _extract_error_preview(result: Any, max_len: int = 180) -> str:
     return text
 
 
+def project_tool_content_for_storage(content):
+    """Native transcript projection; preserve summaries without image blobs."""
+    if _is_multimodal_tool_result(content):
+        return _multimodal_text_summary(content)
+    if isinstance(content, list):
+        parts = []
+        for part in content:
+            if isinstance(part, dict) and part.get("type") == "text":
+                parts.append(str(part.get("text", "")))
+            elif isinstance(part, dict) and part.get("type") in {"image", "image_url", "input_image"}:
+                parts.append("[screenshot]")
+        return "\n".join(parts) if parts else None
+    return content
+
+
 def _trajectory_normalize_msg(msg: Dict[str, Any]) -> Dict[str, Any]:
     """Strip image blobs from a message for trajectory saving.
 
