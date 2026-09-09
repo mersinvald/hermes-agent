@@ -7,6 +7,7 @@ import hermes_state_schema as schema
 from hermes_state import SessionDB
 from hermes_state_common import SCHEMA_SQL
 from hermes_state_pwa_scan import history_snapshot
+from gateway.pwa_ownership import NativePwaOwnership
 
 
 @pytest.fixture
@@ -54,7 +55,7 @@ def test_real_pre_fence_upgrade_preserves_history_and_reopens(tmp_path, monkeypa
         with sqlite3.connect(path) as conn:
             assert conn.execute("SELECT version FROM schema_version").fetchone()[0] == 31
             assert before == {table: conn.execute(f"SELECT * FROM {table}").fetchall() for table in before}
-            assert len(conn.execute("SELECT name FROM sqlite_master WHERE type='trigger' AND name LIKE 'pwa_history_%'").fetchall()) == 8
+            assert len(conn.execute("SELECT name FROM sqlite_master WHERE type='trigger' AND name LIKE 'pwa_history_%'").fetchall()) == 9
             assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
 
 
@@ -137,3 +138,40 @@ def test_delete_and_rowid_reuse_changes_generation(db):
     assert generation(db) > before
     db.create_session("replacement", "telegram")
     assert generation(db) > before
+
+
+@pytest.mark.parametrize("model_config,source,changes", [
+    ({}, "telegram", True), ({"_branched_from": "root"}, "telegram", False),
+    ({"_delegate_from": "root"}, "telegram", False), ({}, "tool", False),
+    ("malformed", "tool", True), ({"provider": "x" * 17000}, "telegram", True),
+])
+def test_existing_compressed_parent_new_child_matches_resolver_availability(db, model_config, source, changes):
+    db.end_session("root", "compression")
+    old = generation(db)
+    # Raw malformed JSON is deliberate legacy-adversary input. Product writes
+    # normally serialize dicts, so ordinary branches use the same actual API.
+    if isinstance(model_config, str):
+        write(db, "INSERT INTO sessions(id,source,parent_session_id,started_at,model_config) VALUES('child',?,'root',0,?)", (source, model_config))
+    else:
+        db.create_session("child", source, user_id="synthetic", parent_session_id="root", model_config=model_config)
+    assert (generation(db) > old) is changes
+    if not changes:
+        assert generation(db) == old
+    resolver = NativePwaOwnership(None, db, None, secret="synthetic-only")
+    if isinstance(model_config, str) or len(str(model_config)) > 16384:
+        with pytest.raises(LookupError):
+            resolver.resolve("root")
+    else:
+        expected = ["root", "child"] if changes else ["root"]
+        assert resolver.resolve("root")["native_session_ids"] == expected
+
+
+def test_native_branch_ownership_backfill_is_conservative_invalidation(db):
+    db.end_session("root", "compression")
+    old = generation(db)
+    db.create_session("branch", "telegram", parent_session_id="root",
+                      model_config={"_branched_from": "root"})
+    assert generation(db) > old
+    assert db.get_session("branch")["user_id"] == "synthetic"
+    resolver = NativePwaOwnership(None, db, None, secret="synthetic-only")
+    assert resolver.resolve("root")["native_session_ids"] == ["root"]

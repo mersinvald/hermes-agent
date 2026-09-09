@@ -31,5 +31,15 @@ It also supplements existing N07 history cursors, closing the old equal-size edi
 gap in MAX/COUNT/SUM signatures. Cursor conflict is an explicit refresh condition,
 never an empty successful history result.
 
+Adding a continuation under an already-compressed parent also fences the
+existing lineage, even if the parent needs no further UPDATE. Malformed or
+oversized child metadata conservatively fences a loss of provable lineage;
+it is never treated as a trusted continuation. Recognized, fully owned branch
+and delegate inserts leave the parent lineage unchanged. Native creation may
+subsequently fill a missing child owner/profile in an UPDATE within that same
+transaction. That actual ownership backfill conservatively invalidates sweeps,
+even for a new independent branch. Initial captures stay read-only; there is no
+additional high-water registration write to suppress this conservative case.
+
 This schema prerequisite alone does not advertise search or sync availability.
 The owner-authorized scan and HTTP mounts require their separate runtime checks.

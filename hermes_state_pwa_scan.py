@@ -22,6 +22,12 @@ def _ownership_config(alias):
             ELSE {value} END ELSE {value} END"""
 
 
+def _bounded_object(value):
+    return f"""CASE WHEN {value} IS NULL THEN '{{}}'
+        WHEN length({value})<=16384 AND json_valid({value}) THEN
+            CASE WHEN json_type({value})='object' THEN {value} END END"""
+
+
 def install_history_fence(cursor):
     """Install after column reconciliation, before version advancement.
 
@@ -36,6 +42,8 @@ def install_history_fence(cursor):
     session_changed += " OR COALESCE(old.end_reason='compression',0) IS NOT COALESCE(new.end_reason='compression',0)"
     session_changed += f" OR ({_ownership_config('old')}) IS NOT ({_ownership_config('new')})"
     message_changed = " OR ".join(f"old.{field} IS NOT new.{field}" for field in _MESSAGE_FIELDS)
+    config = _bounded_object("new.model_config")
+    origin = _bounded_object("new.origin_json")
     statements = [
         """CREATE TRIGGER IF NOT EXISTS pwa_history_session_before_insert BEFORE INSERT ON sessions BEGIN
             UPDATE native_pwa_history_fence SET pending_session_replace=EXISTS(
@@ -44,6 +52,12 @@ def install_history_fence(cursor):
         """CREATE TRIGGER IF NOT EXISTS pwa_history_session_after_insert AFTER INSERT ON sessions BEGIN
             UPDATE native_pwa_history_fence SET generation=generation+pending_session_replace,
                 pending_session_replace=0 WHERE singleton=1; END""",
+        f"""CREATE TRIGGER IF NOT EXISTS pwa_history_compression_insert AFTER INSERT ON sessions
+            WHEN EXISTS(SELECT 1 FROM sessions WHERE id=new.parent_session_id AND end_reason='compression')
+                AND (({config}) IS NULL OR ({origin}) IS NULL OR
+                    (new.source!='tool' AND json_extract(({config}),'$._delegate_from') IS NULL
+                     AND json_extract(({config}),'$._branched_from') IS NOT new.parent_session_id))
+            BEGIN UPDATE native_pwa_history_fence SET generation=generation+1 WHERE singleton=1; END""",
         """CREATE TRIGGER IF NOT EXISTS pwa_history_session_delete AFTER DELETE ON sessions BEGIN
             UPDATE native_pwa_history_fence SET generation=generation+1 WHERE singleton=1; END""",
         f"""CREATE TRIGGER IF NOT EXISTS pwa_history_session_update
@@ -80,3 +94,4 @@ def history_snapshot(db):
         if row is None:
             raise RuntimeError("native history fence unavailable")
         return {"generation": row[0], "message_upper": row[1], "session_upper": row[2]}
+
