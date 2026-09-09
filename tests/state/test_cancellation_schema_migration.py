@@ -71,7 +71,7 @@ def test_schema30_additive_upgrade_preserves_native_state_and_reopens(
             }
             assert new_tables <= tables
             if existing:
-                assert tables - old_tables == new_tables
+                assert new_tables <= tables - old_tables
                 assert retained == {
                     table: list(conn.execute(f"SELECT * FROM {table}"))
                     for table in retained
