@@ -123,3 +123,15 @@ def history_snapshot(db):
         if row is None:
             raise RuntimeError("native history fence unavailable")
         return {"generation": row[0], "message_upper": row[1], "session_upper": row[2]}
+
+def history_candidates(db, after, upper, limit=500):
+    """Bounded discovery keys, never transcript payloads or arbitrary offsets."""
+    with bounded_read(db) as connection:
+        rows = connection.execute("""SELECT
+            CASE WHEN length(id)<=256 THEN id END AS id,
+            substr(source,1,65) AS source,substr(user_id,1,513) AS user_id,
+            substr(chat_id,1,513) AS chat_id FROM sessions
+            WHERE id>? AND rowid<=? ORDER BY id LIMIT ?""", (after, upper, limit)).fetchall()
+        if any(row["id"] is None for row in rows):
+            raise RuntimeError("native history discovery key unavailable")
+        return [dict(row) for row in rows]

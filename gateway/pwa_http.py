@@ -25,12 +25,13 @@ from gateway.pwa_config import (
     parse_principal,
 )
 from gateway.pwa_ownership import NativePwaOwnership
+from gateway.pwa_history_scan import NativeHistoryScan
 from gateway.session import ChannelBindingConflict
 from gateway.config import Platform
 from gateway.telegram_conversations import TelegramConversationChannel, channel_key
 from hermes_state_commands import CommandConflict
 
-CONTRACT_PIN = "a55d1d94ccc21cf0781b802a1d0e4a60a514c677"
+CONTRACT_PIN = "812f2c4ed29817b16ab8ce45a63dd0bf243e8491"
 
 
 def strict_json(text):
@@ -78,6 +79,7 @@ class NativePwaHttp:
             event_limits=self.config.event_limits,
         )
         self.telegram_channel = TelegramConversationChannel(self.ingress)
+        self.history_scan = NativeHistoryScan(self)
         self._streams = set()
         self._close_event = asyncio.Event()
         self._http_runner = None
@@ -402,6 +404,8 @@ class NativePwaHttp:
                     "command_admission",
                     "durable_commands",
                     "history",
+                    "owner_history_search",
+                    "history_sync",
                     "event_stream",
                     "event_replay",
                     "snapshot_recovery",
@@ -443,6 +447,8 @@ class NativePwaHttp:
                 **({} if local_control else {"reason": "Local native execution is required."}),
             })
             return {"schema_version": "1.0", "capabilities": capabilities}, 200
+        if tail in {"search", "sync"} and request.method == "GET":
+            return await self.history_scan.request(request, principal, tail), 200
         if tail == "conversations" and request.method == "GET":
             limit, cursor = self._page(request)
             scope = self._scope(principal, "conversations", limit)
@@ -615,3 +621,4 @@ class NativePwaHttp:
             await self._http_runner.cleanup()
             self._http_runner = None
         self._cursors.clear()
+        self.history_scan.handles.close()
