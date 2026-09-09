@@ -5995,7 +5995,11 @@ class TurnRunner:
             else bool(_plat_streaming)
         )
         _want_stream_deltas = _streaming_enabled
-        _want_interim_messages = ctx.interim_assistant_messages_enabled
+        _native_channel = getattr(getattr(self._runner, "conversation_ingress", None), "telegram_channel", None)
+        _native_buffer_final = _native_channel is not None and _native_channel.execution(ctx.session_key) is not None
+        if _native_buffer_final:
+            _want_stream_deltas = False
+        _want_interim_messages = ctx.interim_assistant_messages_enabled and not _native_buffer_final
         _want_interim_consumer = _want_interim_messages
         if _want_stream_deltas or _want_interim_consumer:
             try:
@@ -6045,6 +6049,8 @@ class TurnRunner:
             if not ctx._run_still_current():
                 return
             display_text = text
+            if _native_buffer_final:
+                return
             if _stream_consumer is not None:
                 if already_streamed:
                     _stream_consumer.on_segment_break()
@@ -18221,6 +18227,9 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         6. Run agent conversation
         7. Return response
         """
+        _native_channel = getattr(getattr(self, "conversation_ingress", None), "telegram_channel", None)
+        if _native_channel is not None:
+            _native_channel.route_event(event)
         source = event.source
 
         # 🔴 Cross-session leak guard. This handler runs inside a per-message
@@ -19189,8 +19198,9 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 command="new",
                 title="/new",
                 detail=(
-                    "This starts a fresh session and discards the current "
-                    "conversation history."
+                    "This selects a new dialogue. Existing work continues."
+                    if _native_channel is not None and _native_channel._trusted_source(source)
+                    else "This starts a fresh session and discards the current conversation history."
                 ),
                 execute=_do_reset,
             )
@@ -19823,6 +19833,15 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                     "protect the transcript, this message was not processed. "
                     "Wait for the active turn to finish, then resend it."
                 )
+            _native_final_handled = False
+            if _native_channel is not None and _agent_result:
+                _delivery_execution = _native_channel.execution(_quick_key)
+                if _delivery_execution is not None:
+                    await _native_channel.deliver(
+                        _delivery_execution, _agent_result,
+                        failed=getattr(event, "_native_final_failed", False),
+                    )
+                    _native_final_handled = True
             try:
                 await self._run_post_turn_hooks(
                     agent_result=_agent_result,
@@ -19832,7 +19851,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 )
             except Exception as _goal_exc:
                 logger.debug("post-turn hook failed: %s", _goal_exc)
-            return _agent_result
+            return None if _native_final_handled else _agent_result
         finally:
             # MoA one-shot restore must run on EVERY exit path, not just
             # success. The restore data lives on the per-turn event object
@@ -22967,6 +22986,10 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             )
             if (
                 not _streaming_tts_done
+                and not (
+                    getattr(getattr(self, "conversation_ingress", None), "telegram_channel", None) is not None
+                    and self.conversation_ingress.telegram_channel.execution(_quick_key) is not None
+                )
                 and self._should_send_voice_reply(event, response, agent_messages, already_sent=_already_sent)
             ):
                 await self._send_voice_reply(event, response)
@@ -23014,6 +23037,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                     pass
                 return None
 
+            event._native_final_failed = bool(agent_result.get("failed"))
             return response
             
         except Exception as e:
@@ -30391,6 +30415,10 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 return True
             return self._is_session_run_current(session_key, run_generation)
         
+        native_channel = getattr(getattr(self, "conversation_ingress", None), "telegram_channel", None)
+        native_delivery_execution = native_channel.execution(session_key) if native_channel else None
+        if native_delivery_execution is not None and native_delivery_execution.origin != "telegram":
+            source._native_silent_progress = True
         user_config = _load_gateway_config()
         platform_key = _platform_config_key(source.platform)
 
@@ -30941,7 +30969,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             and str(getattr(message_type, "value", message_type)).lower() == "voice"
         )
         if (
-            _stts_adapter is not None
+            native_delivery_execution is None
+            and _stts_adapter is not None
             and _is_voice_input
             and _stts_adapter._should_auto_tts_for_chat(source.chat_id)
         ):
@@ -31798,16 +31827,19 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                                     "Queued follow-up for session %s: final stream delivery not confirmed; sending first response before continuing.",
                                     session_key or "?",
                                 )
-                            await self._deliver_queued_first_response(
-                                first_response,
-                                source=source,
-                                adapter=adapter,
-                                metadata=_status_thread_metadata,
-                                event_message_id=event_message_id,
-                                text_already_delivered=_already_streamed,
-                                deliver_media=not _delivery_result.get("failed"),
-                                stream_consumer=_sc,
-                            )
+                            if native_delivery_execution is not None:
+                                await native_channel.deliver(native_delivery_execution, first_response, failed=bool(_delivery_result.get("failed")))
+                            else:
+                                await self._deliver_queued_first_response(
+                                    first_response,
+                                    source=source,
+                                    adapter=adapter,
+                                    metadata=_status_thread_metadata,
+                                    event_message_id=event_message_id,
+                                    text_already_delivered=_already_streamed,
+                                    deliver_media=not _delivery_result.get("failed"),
+                                    stream_consumer=_sc,
+                                )
                         except Exception as e:
                             logger.warning("Failed to send first response before queued message: %s", e)
                     # Release deferred bg-review notifications now that the

@@ -24,13 +24,16 @@ RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py"
            "gateway/native_commands.py", "gateway/native_events.py", "hermes_state_events.py", "gateway/shutdown_flush.py", "hermes_state_commands.py",
            "gateway/pwa_config.py", "gateway/pwa_ownership.py", "gateway/pwa_http.py", "hermes_state_pwa.py",
            "gateway/config.py", "hermes_cli/config_defaults.py",
+           "gateway/telegram_conversations.py", "hermes_state_delivery.py", "gateway/authz_mixin.py",
+           "gateway/platforms/base.py", "gateway/slash_commands.py",
            "run_agent.py", "agent/tool_dispatch_helpers.py",
            "hermes_state.py", "hermes_state_common.py", "agent/turn_context.py", "agent/conversation_loop.py",
            "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
 NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py",
                "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py",
                "gateway/pwa_config.py", "gateway/pwa_ownership.py", "gateway/pwa_http.py", "hermes_state_pwa.py",
-               "gateway/native_events.py", "hermes_state_events.py")
+               "gateway/native_events.py", "hermes_state_events.py",
+               "gateway/telegram_conversations.py", "hermes_state_delivery.py")
 ROOT = Path(__file__).resolve().parents[1]
 
 

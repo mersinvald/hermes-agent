@@ -875,8 +875,12 @@ class SessionEntry:
     # (see sanitize_model_override / SessionStore.set_model_override).
     model_override: Optional[Dict[str, str]] = None
 
+    # Opt-in native Telegram selection; zero preserves legacy lifecycle.
+    native_binding_version: int = 0
+
     def to_dict(self) -> Dict[str, Any]:
         result = {
+            "native_binding_version": self.native_binding_version,
             "session_key": self.session_key,
             "session_id": self.session_id,
             "created_at": self.created_at.isoformat(),
@@ -988,6 +992,7 @@ class SessionEntry:
             session_id=session_id,
             created_at=datetime.fromisoformat(data["created_at"]),
             updated_at=datetime.fromisoformat(data["updated_at"]),
+            native_binding_version=int(data.get("native_binding_version", 0)),
             origin=origin,
             display_name=data.get("display_name"),
             platform=platform,
@@ -2669,11 +2674,17 @@ class SessionStore:
             return slot.result
 
         try:
-            result = self._get_or_create_session_impl(
-                source,
-                force_new=force_new,
-                touch_activity=touch_activity,
-            )
+            selected = self.lookup_by_session_key(session_key)
+            if selected is not None and selected.native_binding_version:
+                # A managed channel is an explicit selection, not an idle-reset
+                # candidate or a hint to recover whichever SQLite row is newest.
+                result = self.new_channel_conversation(source) if force_new else selected
+            else:
+                result = self._get_or_create_session_impl(
+                    source,
+                    force_new=force_new,
+                    touch_activity=touch_activity,
+                )
             slot.result = result
             return result
         except BaseException as exc:
@@ -3434,6 +3445,9 @@ class SessionStore:
 
     def reset_session(self, session_key: str, display_name: Optional[str] = None) -> Optional[SessionEntry]:
         """Force reset a session, creating a new session ID."""
+        managed = self.lookup_by_session_key(session_key)
+        if managed is not None and managed.native_binding_version:
+            return self.new_channel_conversation(managed.origin, display_name)
         db_end_session_id = None
         db_create_kwargs = None
         new_entry = None
@@ -3598,6 +3612,61 @@ class SessionStore:
                 raise
             return entry
 
+    def new_channel_conversation(self, source, display_name=None):
+        """Native /new for a managed channel: persist a new root, then select it."""
+        if self._db is None:
+            raise RuntimeError("native persistence unavailable")
+        now = _now()
+        session_id = f"{now.strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
+        key = self._generate_session_key(source)
+        self._db.create_session(
+            session_id, source.platform.value, user_id=source.user_id,
+            session_key=key, chat_id=source.chat_id, chat_type=source.chat_type,
+            thread_id=source.thread_id, profile_name=source.profile,
+            origin_json=json.dumps(source.to_dict()), display_name=display_name,
+        )
+        # A failed selection leaves an unselected native dialogue, never a
+        # channel pointing at missing storage or an ended active writer.
+        return self.select_channel_conversation(source, session_id)
+
+    def select_channel_conversation(self, source, target_session_id, expected_version=None):
+        """Atomically select an existing native dialogue without ending either one."""
+        from dataclasses import replace
+        if source is None or source.native_conversation_route:
+            raise ValueError("a native channel source is required")
+        if self._db is None:
+            raise RuntimeError("native persistence unavailable")
+        resolver = getattr(self, "_native_conversation_resolver", None)
+        def lineage_for(session_id):
+            if resolver is not None:
+                projection = resolver(session_id)
+                return [projection["conversation_id"], projection["native_session_id"]]
+            return self._db.get_compression_lineage(session_id)
+        lineage = lineage_for(target_session_id)
+        if not lineage:
+            raise LookupError("native conversation unavailable")
+        key = self._generate_session_key(source)
+        with self._lock:
+            self._ensure_loaded_locked()
+            old = self._entries.get(key)
+            if old is None:
+                raise LookupError("native channel binding unavailable")
+            if expected_version is not None and old.native_binding_version != expected_version:
+                raise ValueError("channel binding version conflict")
+            previous = lineage_for(old.session_id)
+            same = previous and previous[0] == lineage[0]
+            version = max(1, old.native_binding_version + (0 if same else 1))
+            entry = replace(old, session_id=lineage[-1], native_binding_version=version,
+                            active_turn_token=None, active_turn_started_at=None,
+                            resume_pending=False, resume_reason=None)
+            self._entries[key] = entry
+            try:
+                self._save()
+            except BaseException:
+                self._entries[key] = old
+                raise
+            return entry
+
     def switch_session(self, session_key: str, target_session_id: str) -> Optional[SessionEntry]:
         """Switch a session key to point at an existing session ID.
 
@@ -3607,6 +3676,9 @@ class SessionStore:
         old transcript is loaded on the next message. If the target session was
         previously ended, re-open it so gateway resume semantics match the CLI.
         """
+        managed = self.lookup_by_session_key(session_key)
+        if managed is not None and managed.native_binding_version:
+            return self.select_channel_conversation(managed.origin, target_session_id)
         db_end_session_id = None
         new_entry = None
 

@@ -73,6 +73,13 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         self.events = NativeEventFeed(self)
         runner.conversation_ingress = self
 
+    def trusted_channel_sources(self):
+        """Configured native source identities, never transport-supplied grants."""
+        provider = getattr(self, "_grant_provider", None)
+        if provider is not None:
+            return provider.trusted_channel_sources()
+        return tuple(replace(grant.source) for entries in self.grants.values() for grant in entries)
+
     def _resolve(self, session_id):
         if self._grant_provider is not None:
             return self._grant_provider.resolve(session_id)
