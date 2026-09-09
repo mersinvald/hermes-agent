@@ -334,3 +334,99 @@ async def test_binding_change_during_native_preparation_cannot_change_owner(monk
     assert not BlockingAgent.instances
     assert (await ingress.inspect(OWNER, entry.session_id))["active_execution"] is None
     db.close()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("prompt", ["clarify", "slash_confirm", "update", "tool_approval"])
+async def test_native_prompt_answers_remain_native_and_browser_text_is_not_approval(monkeypatch, tmp_path, prompt):
+    from tools import clarify_gateway, slash_confirm, approval
+    runner, ingress, db, store, entry, source, adapter = setup_native(monkeypatch, tmp_path)
+    del runner.__dict__["_handle_active_session_busy_message"]
+    adapter._message_handler = runner._handle_message
+    adapter._busy_session_handler = runner._handle_active_session_busy_message
+    adapter._session_store = store
+    task = asyncio.create_task(runner._handle_message(MessageEvent(text="first", source=source)))
+    pending, choices = None, []
+    try:
+        agent = await asyncio.wait_for(BlockingAgent.started.get(), 10)
+        async def promoted():
+            while runner._session_state(entry.session_key).turn.agent is not agent:
+                await asyncio.sleep(0.01)
+        await asyncio.wait_for(promoted(), 10)
+        if prompt == "clarify":
+            pending = clarify_gateway.register("native-question", entry.session_key, "Which?", None)
+            answer = "this answer"
+        elif prompt == "slash_confirm":
+            async def confirm(choice):
+                choices.append(choice)
+                return "confirmed"
+            slash_confirm.register(entry.session_key, "native-confirm", "reload-mcp", confirm)
+            answer = "approve once"
+        elif prompt == "update":
+            runner._session_state(entry.session_key).persistent.update_prompt_pending = True
+            answer = "yes"
+        else:
+            pending = approval._ApprovalEntry({"command": "synthetic harmless operation"})
+            approval._gateway_queues.setdefault(entry.session_key, []).append(pending)
+            answer = "yes"
+        # Browser ordinary text never answers a native prompt on another alias.
+        result = await ingress.send(OWNER, entry.session_id, answer)
+        assert result["disposition"] == "steered"
+        assert agent.steers == [answer]
+        if pending is not None:
+            assert not pending.event.is_set()
+        assert not choices
+        if prompt == "tool_approval":
+            # Real adapter busy ingress owns bare-word tool approval routing.
+            adapter._active_sessions[entry.session_key] = asyncio.Event()
+            await adapter.handle_message(MessageEvent(text=answer, source=source))
+            assert pending.event.is_set(), (adapter.sent, agent.steers, entry.session_key, adapter._pending_messages)
+            assert pending.result == "once"
+        else:
+            await runner._handle_message(MessageEvent(text=answer, source=source))
+            if prompt == "clarify":
+                assert pending.event.is_set()
+                assert pending.response == answer
+            elif prompt == "slash_confirm":
+                assert choices == ["once"]
+            else:
+                assert (tmp_path / ".update_response").read_text() == "yes"
+        assert agent.steers == [answer]
+        assert runner._queue_depth(entry.session_key, adapter=adapter) == 0
+    finally:
+        clarify_gateway.clear_session(entry.session_key)
+        slash_confirm.clear(entry.session_key)
+        approval._gateway_queues.pop(entry.session_key, None)
+        adapter._active_sessions.pop(entry.session_key, None)
+        BlockingAgent.gate.set()
+        BlockingAgent.next_gate.set()
+        await asyncio.gather(task, return_exceptions=True)
+        db.close()
+
+
+@pytest.mark.asyncio
+async def test_trusted_plugin_rewrite_preserves_pwa_origin_and_explicit_queue(monkeypatch, tmp_path):
+    runner, ingress, db, store, entry, source, adapter = setup_native(monkeypatch, tmp_path)
+    def rewrite(hook, **kwargs):
+        if hook == "pre_gateway_dispatch":
+            return [{"action": "rewrite", "text": "rewritten " + kwargs["event"].text}]
+        return []
+    monkeypatch.setattr("hermes_cli.lifecycle.invoke_hook", rewrite)
+    task = asyncio.create_task(ingress.send(OWNER, entry.session_id, "first"))
+    try:
+        agent = await asyncio.wait_for(BlockingAgent.started.get(), 10)
+        initial = (await ingress.inspect(OWNER, entry.session_id))["active_execution"]
+        assert initial["origin"] == "pwa"
+        result = await ingress.send(OWNER, entry.session_id, "next", mode="queue")
+        assert result["disposition"] == "queued"
+        assert not agent.steers
+        BlockingAgent.gate.set()
+        await asyncio.wait_for(BlockingAgent.started.get(), 10)
+        followup = (await ingress.inspect(OWNER, entry.session_id))["active_execution"]
+        assert followup["origin"] == "pwa"
+        assert "rewritten next" in BlockingAgent.calls[1][1]
+    finally:
+        BlockingAgent.gate.set()
+        BlockingAgent.next_gate.set()
+        await asyncio.gather(task, return_exceptions=True)
+        db.close()

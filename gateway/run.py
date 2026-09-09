@@ -18290,7 +18290,11 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 if _action == "rewrite":
                     _new_text = _result.get("text")
                     if isinstance(_new_text, str):
-                        event = dataclasses.replace(event, text=_new_text)
+                        rewritten_event = dataclasses.replace(event, text=_new_text)
+                        native_ingress = getattr(self, "conversation_ingress", None)
+                        if native_ingress is not None:
+                            native_ingress.copy_event_context(event, rewritten_event)
+                        event = rewritten_event
                         source = event.source
                     break
                 if _action == "allow":
@@ -18447,11 +18451,6 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         # consumed as update answers instead of being dispatched normally.
         _quick_key = self._session_key_for_source(source)
         _conversation_ingress = getattr(self, "conversation_ingress", None)
-        if _conversation_ingress is not None:
-            _control_result = await _conversation_ingress.control_existing(event, _quick_key)
-            if _control_result is not None:
-                return (_control_result if getattr(event, "_native_browser_ingress", None)
-                        is _conversation_ingress else None)
         allow_gateway_control = event.allow_gateway_control
         _up_state = self._peek_session_state(_quick_key)
         if (
@@ -18655,6 +18654,14 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             # the confirm doesn't block normal usage indefinitely.  The user
             # clearly moved on.
             _slash_confirm_mod.clear_if_stale(_quick_key)
+
+        # Preserve native update/clarify/slash-confirm response handling above.
+        # Browser text has allow_gateway_control=False and remains ordinary input.
+        if _conversation_ingress is not None:
+            _control_result = await _conversation_ingress.control_existing(event, _quick_key)
+            if _control_result is not None:
+                return (_control_result if getattr(event, "_native_browser_ingress", None)
+                        is _conversation_ingress else None)
 
         # PRIORITY handling when an agent is already running for this session.
         # Default behavior is to interrupt immediately so user text/stop messages

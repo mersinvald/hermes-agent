@@ -162,7 +162,7 @@ class NativeConversationIngress:
         key, state, execution = owner
         if not self._event_authorized(event, execution.conversation_id):
             raise PermissionError("conversation control unavailable")
-        mode = getattr(event, "_native_send_mode", "send")
+        mode = "queue" if event.internal else getattr(event, "_native_send_mode", "send")
         agent = state.turn.agent
         if mode != "queue" and callable(getattr(agent, "steer", None)):
             if agent.steer(event.text):
@@ -173,9 +173,18 @@ class NativeConversationIngress:
         # The FIFO belongs to the actual owner route. Preserve input origin but
         # retain its native channel context/cache identity at the continuation.
         queued = replace(event, source=replace(execution.source))
+        self.copy_event_context(event, queued)
         queued._native_origin = self._origin(event)
         self.runner._enqueue_fifo(key, queued, adapter)
         return {"disposition": "queued", "execution": self._execution_view(owner)}
+
+    def copy_event_context(self, event, replacement):
+        """Carry native-only trust/origin through trusted event rewrites."""
+        if getattr(event, "_native_browser_ingress", None) is self:
+            replacement._native_browser_ingress = self
+            replacement._native_send_mode = event._native_send_mode
+        if hasattr(event, "_native_origin"):
+            replacement._native_origin = event._native_origin
 
     def _origin(self, event):
         if getattr(event, "_native_browser_ingress", None) is self:
