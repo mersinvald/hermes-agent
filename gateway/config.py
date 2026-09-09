@@ -978,6 +978,9 @@ class GatewayConfig:
     # phases) per-profile adapters/credentials are resolved. When False, the
     # gateway behaves exactly as before — single HERMES_HOME, no profile stamping.
     multiplex_profiles: bool = False
+    # Parsed strictly by the opt-in native PWA listener. No browser identity or
+    # service credential is stored in this configuration dictionary.
+    pwa_http: Dict[str, Any] = field(default_factory=lambda: {"enabled": False})
     # Optional named-profile allowlist for multiplex mode. None preserves the
     # historical serve-all behavior; [] serves only the default profile.
     multiplex_profile_allowlist: Optional[List[str]] = None
@@ -1152,6 +1155,7 @@ class GatewayConfig:
             "thread_sessions_per_user": self.thread_sessions_per_user,
             "max_concurrent_sessions": self.max_concurrent_sessions,
             "multiplex_profiles": self.multiplex_profiles,
+            "pwa_http": self.pwa_http,
             "multiplex_profile_allowlist": self.multiplex_profile_allowlist,
             "room_link_url": self.room_link_url,
             "systemd_watchdog_seconds": self.systemd_watchdog_seconds,
@@ -1318,8 +1322,15 @@ class GatewayConfig:
         from gateway.profile_routing import parse_profile_routes
         profile_routes = parse_profile_routes(data.get("profile_routes") or [])
 
+        pwa_http = data.get("pwa_http", nested_gateway.get("pwa_http", {"enabled": False}))
+        from gateway.pwa_config import PwaHttpConfig
+        parsed_pwa = PwaHttpConfig.from_dict(pwa_http)
+        if parsed_pwa.enabled and _coerce_bool(multiplex_profiles, False):
+            raise ValueError("native PWA requires a single profile")
+
         return cls(
             platforms=platforms,
+            pwa_http=pwa_http,
             default_reset_policy=default_policy,
             reset_by_type=reset_by_type,
             reset_by_platform=reset_by_platform,
@@ -1430,6 +1441,8 @@ def load_gateway_config() -> GatewayConfig:
             # already established for gateway.multiplex_profiles/streaming/
             # write_sessions_json: top-level wins, nested gateway.* falls back.
             gateway_section = yaml_cfg.get("gateway")
+            if isinstance(gateway_section, dict) and "pwa_http" in gateway_section:
+                gw_data["pwa_http"] = gateway_section["pwa_http"]
 
             # Map config.yaml keys → GatewayConfig.from_dict() schema.
             # Each key overwrites whatever gateway.json may have set.

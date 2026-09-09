@@ -347,12 +347,14 @@ class DurableCommandIngressMixin:
 
     def reconcile_commands(self):
         roots = set()
-        for entries in self.grants.values():
-            for grant in entries:
-                try:
-                    roots.add(self._resolve(grant.session_id)["conversation_id"])
-                except LookupError:
-                    continue
+        provider = getattr(self, "_grant_provider", None)
+        grants = (provider.recovery_grants() if provider is not None else
+                  (grant for entries in self.grants.values() for grant in entries))
+        for grant in grants:
+            try:
+                roots.add(self._resolve(grant.session_id)["conversation_id"])
+            except LookupError:
+                continue
         for root in roots:
             self.db.native_execution_reconcile(root)
             self._commands_finished(root)

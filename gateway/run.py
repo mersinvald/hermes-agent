@@ -13562,6 +13562,16 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         
         Returns True if at least one adapter connected successfully.
         """
+        # Install native ownership before any platform starts admitting turns.
+        # This listener borrows the SessionStore DB and the runner's executor.
+        from gateway.pwa_config import PwaHttpConfig
+        if PwaHttpConfig.from_dict(getattr(self.config, "pwa_http", None)).enabled:
+            from gateway.pwa_http import NativePwaHttp
+            try:
+                self._pwa_http = NativePwaHttp(self)
+                await self._pwa_http.start()
+            except Exception:
+                raise RuntimeError("Configured native PWA listener failed to start") from None
         logger.info("Starting Hermes Gateway...")
         # Enable faulthandler for stack dumps on freezes/crashes (#70344).
         # Falls back to a log file when sys.stderr is None (Windows VBS /
@@ -16079,6 +16089,9 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             return
 
         async def _stop_impl() -> None:
+            pwa_http = getattr(self, "_pwa_http", None)
+            if pwa_http is not None:
+                await pwa_http.close()
             native_ingress = getattr(self, "conversation_ingress", None)
             if native_ingress is not None:
                 native_ingress.stop_command_recovery()

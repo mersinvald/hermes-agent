@@ -54,7 +54,7 @@ class NativeConversationIngress(DurableCommandIngressMixin):
     Only one instance may be installed, before the runner starts admitting work.
     """
 
-    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default"):
+    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default", grant_provider=None):
         if getattr(runner.config, "multiplex_profiles", False) is True:
             raise ValueError("native conversation ingress requires a single profile scope")
         if getattr(runner, "conversation_ingress", None) is not None:
@@ -63,6 +63,7 @@ class NativeConversationIngress(DurableCommandIngressMixin):
             raise RuntimeError("install native ingress before admitting turns")
         self.runner = runner
         self.db = db
+        self._grant_provider = grant_provider
         self.grants = {principal: tuple(ConversationGrant(g.session_id, replace(g.source))
                                         for g in entries)
                        for principal, entries in grants.items()}
@@ -70,6 +71,8 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         runner.conversation_ingress = self
 
     def _resolve(self, session_id):
+        if self._grant_provider is not None:
+            return self._grant_provider.resolve(session_id)
         lineage = self.db.get_compression_lineage(session_id)
         if not lineage:
             raise LookupError("conversation unavailable")
@@ -77,6 +80,8 @@ class NativeConversationIngress(DurableCommandIngressMixin):
                 "native_session_id": lineage[-1], "native_session_ids": lineage}
 
     def _authorize(self, principal, session_id):
+        if self._grant_provider is not None:
+            return self._grant_provider.authorize(principal, session_id)
         # Reject unknown principals before looking up arbitrary resource IDs.
         entries = self.grants.get(principal)
         if not entries:
@@ -116,6 +121,12 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         projection, _ = await asyncio.to_thread(self._authorize, principal, conversation_id)
         return {**projection, "active_execution": self._execution_view(self._owner(projection["conversation_id"]))}
 
+    async def native_conversation(self, principal, conversation_id):
+        """Authorized minimal native DTO; application metadata belongs to S02."""
+        if self._grant_provider is None:
+            raise RuntimeError("native PWA projection unavailable")
+        return await self._grant_provider.native_conversation(self, principal, conversation_id)
+
     async def history(self, principal, conversation_id):
         projection, _ = await asyncio.to_thread(self._authorize, principal, conversation_id)
         # Retained native rows remain separated by segment. Do not concatenate
@@ -150,6 +161,8 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         return await self.runner._handle_message(event)
 
     def _event_authorized(self, event, root):
+        if self._grant_provider is not None:
+            return self._grant_provider.event_authorized(event.source, root)
         identity = _source_identity(event.source)
         for entries in self.grants.values():
             for grant in entries:
@@ -250,7 +263,10 @@ class NativeConversationIngress(DurableCommandIngressMixin):
     def _ensure_projection(self, entry, source, key):
         row = self.db.get_session(entry.session_id)
         if row is None:
-            if not any(grant.session_id == entry.session_id
+            provider_source = self._grant_provider is not None and any(
+                _source_identity(candidate) == _source_identity(source)
+                for candidate in self._grant_provider.trusted_channel_sources())
+            if not provider_source and not any(grant.session_id == entry.session_id
                        and _source_identity(grant.source) == _source_identity(source)
                        for entries in self.grants.values() for grant in entries):
                 return None

@@ -3168,6 +3168,7 @@ DEFAULT_CONFIG = {
     # Gateway settings — control how messaging platforms (Telegram, Discord,
     # Slack, etc.) deliver agent-produced files as native attachments.
     "gateway": {
+        "pwa_http": {"enabled": False},
         # Optional named-profile allowlist for multiplex mode. None preserves
         # the historical serve-all behavior; [] serves only the default.
         "multiplex_profile_allowlist": None,
@@ -3966,6 +3967,13 @@ DEFAULT_CONFIG = {
 
 # Optional environment variables that enhance functionality
 OPTIONAL_ENV_VARS = {
+    "HERMES_PWA_FACADE_TOKEN": {
+        "description": "Private native PWA facade service credential",
+        "prompt": "Native PWA facade credential",
+        "url": "",
+        "password": True,
+        "category": "messaging",
+    },
     # ── Provider (handled in provider selection, not shown in checklists) ──
     "NOUS_BASE_URL": {
         "description": "Nous Portal base URL override",
