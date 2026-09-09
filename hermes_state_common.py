@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 31
+SCHEMA_VERSION = 32
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -675,6 +675,85 @@ CREATE TABLE IF NOT EXISTS native_pwa_history_fence (
     pending_session_replace INTEGER NOT NULL DEFAULT 0 CHECK(pending_session_replace IN (0,1)),
     pending_message_replace INTEGER NOT NULL DEFAULT 0 CHECK(pending_message_replace IN (0,1))
 );
+
+-- N06 durable control identities and exact pending questions (schema32).
+-- These are additive bookkeeping only; creating the tables activates no control.
+CREATE TABLE IF NOT EXISTS native_control_commands (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    command_id TEXT NOT NULL,
+    kind TEXT NOT NULL CHECK(kind IN ('redirect','redirect_confirm','clarification_response')),
+    conversation_id TEXT NOT NULL,
+    execution_id TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    payload_json TEXT NOT NULL CHECK(length(CAST(payload_json AS BLOB))<=524288),
+    reference_id TEXT,
+    reference_revision INTEGER CHECK(reference_revision BETWEEN 1 AND 9007199254740991),
+    answer_state TEXT NOT NULL DEFAULT 'recorded' CHECK(answer_state IN ('recorded','delivered','not_delivered','unknown')),
+    delivery_evidence TEXT NOT NULL DEFAULT 'not_observed' CHECK(delivery_evidence IN ('not_observed','native_waiter_handoff','remote_response')),
+    write_reserved INTEGER NOT NULL DEFAULT 0 CHECK(write_reserved IN (0,1)),
+    reason TEXT CHECK(reason IS NULL OR length(reason)<=500),
+    recorded_at REAL NOT NULL,
+    updated_at REAL NOT NULL,
+    UNIQUE(scope,command_id),
+    CHECK((kind='redirect' AND reference_id IS NULL AND reference_revision IS NULL)
+       OR (kind<>'redirect' AND reference_id IS NOT NULL AND reference_revision IS NOT NULL)),
+    CHECK(kind='clarification_response' OR (answer_state='recorded' AND delivery_evidence='not_observed' AND write_reserved=0)),
+    CHECK((answer_state='delivered' AND delivery_evidence<>'not_observed')
+       OR (answer_state<>'delivered' AND delivery_evidence='not_observed'))
+);
+CREATE INDEX IF NOT EXISTS idx_native_control_scope
+    ON native_control_commands(scope,conversation_id,ordinal DESC);
+CREATE INDEX IF NOT EXISTS idx_native_control_execution
+    ON native_control_commands(execution_id,kind,ordinal);
+CREATE TABLE IF NOT EXISTS native_redirect_state (
+    scope TEXT NOT NULL,
+    command_id TEXT NOT NULL,
+    confirmation_required INTEGER NOT NULL DEFAULT 0 CHECK(confirmation_required IN (0,1)),
+    confirmation_revision INTEGER NOT NULL DEFAULT 0 CHECK(confirmation_revision BETWEEN 0 AND 9007199254740991),
+    confirmation_command_id TEXT,
+    confirmed_revision INTEGER CHECK(confirmed_revision BETWEEN 1 AND 9007199254740991),
+    dispatch_frontier TEXT NOT NULL DEFAULT 'uncertain' CHECK(dispatch_frontier IN ('closed','uncertain')),
+    release_basis_json TEXT CHECK(release_basis_json IS NULL OR length(CAST(release_basis_json AS BLOB))<=2048),
+    released_at REAL,
+    updated_at REAL NOT NULL,
+    PRIMARY KEY(scope,command_id),
+    FOREIGN KEY(scope,command_id) REFERENCES native_control_commands(scope,command_id),
+    FOREIGN KEY(scope,confirmation_command_id) REFERENCES native_control_commands(scope,command_id),
+    CHECK((confirmation_required=0 AND confirmation_command_id IS NULL AND confirmed_revision IS NULL)
+       OR (confirmation_required=1 AND confirmation_revision>0)),
+    CHECK((confirmation_command_id IS NULL AND confirmed_revision IS NULL)
+       OR (confirmation_command_id IS NOT NULL AND confirmed_revision IS NOT NULL AND confirmed_revision=confirmation_revision)),
+    CHECK((release_basis_json IS NULL AND released_at IS NULL)
+       OR (release_basis_json IS NOT NULL AND released_at IS NOT NULL))
+);
+CREATE TABLE IF NOT EXISTS native_clarifications (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    clarification_id TEXT NOT NULL UNIQUE,
+    question_revision INTEGER NOT NULL CHECK(question_revision BETWEEN 1 AND 9007199254740991),
+    conversation_id TEXT NOT NULL,
+    execution_id TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    origin TEXT NOT NULL CHECK(origin IN ('native','native_child','remote')),
+    origin_key TEXT NOT NULL UNIQUE,
+    origin_json TEXT NOT NULL CHECK(length(CAST(origin_json AS BLOB))<=16384),
+    question_json TEXT NOT NULL CHECK(length(CAST(question_json AS BLOB))<=65536),
+    state TEXT NOT NULL DEFAULT 'pending' CHECK(state IN ('pending','answer_recorded','answered','expired','cancelled','unknown')),
+    expires_at REAL,
+    answer_scope TEXT,
+    answer_command_id TEXT,
+    claim_token TEXT,
+    recorded_at REAL NOT NULL,
+    updated_at REAL NOT NULL,
+    FOREIGN KEY(answer_scope,answer_command_id) REFERENCES native_control_commands(scope,command_id),
+    CHECK((answer_scope IS NULL AND answer_command_id IS NULL AND claim_token IS NULL)
+       OR (answer_scope IS NOT NULL AND answer_command_id IS NOT NULL AND claim_token IS NOT NULL))
+);
+CREATE INDEX IF NOT EXISTS idx_native_clarification_pending
+    ON native_clarifications(conversation_id,state,ordinal);
+CREATE INDEX IF NOT EXISTS idx_native_clarification_execution
+    ON native_clarifications(execution_id,owner,ordinal);
 
 -- Native PWA assignments are profile-local authority records. Current trusted
 -- configuration must still authorize their principal and source on every read;
