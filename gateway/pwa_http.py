@@ -26,6 +26,11 @@ from gateway.pwa_config import (
 )
 from gateway.pwa_ownership import NativePwaOwnership
 from gateway.pwa_history_scan import NativeHistoryScan
+from gateway.pwa_models import (
+    ModelCatalogUnavailable,
+    ModelRouteUnavailable,
+    NativeModelCatalog,
+)
 from gateway.session import ChannelBindingConflict
 from gateway.config import Platform
 from gateway.telegram_conversations import TelegramConversationChannel, channel_key
@@ -71,6 +76,9 @@ class NativePwaHttp:
         if self.db is None:
             raise RuntimeError("native PWA SessionDB unavailable")
         self.ownership = NativePwaOwnership(runner, self.db, self.config, secret=token)
+        self.models = NativeModelCatalog(
+            self.config.models, runner._resolve_managed_model_provider
+        )
         self.ingress = NativeConversationIngress(
             runner,
             self.db,
@@ -78,6 +86,7 @@ class NativePwaHttp:
             concierge_id=self.config.concierge_id,
             grant_provider=self.ownership,
             event_limits=self.config.event_limits,
+            model_catalog=self.models,
         )
         self.telegram_channel = TelegramConversationChannel(self.ingress)
         self.history_scan = NativeHistoryScan(self)
@@ -152,6 +161,14 @@ class NativePwaHttp:
 
     def _scope(self, principal, query, limit):
         return (principal, self.ownership.config.fingerprint, query, limit)
+
+    def _model_scope(self, principal):
+        return canonical([
+            "model",
+            self.config.concierge_id,
+            principal.issuer,
+            principal.subject,
+        ])
 
     def _cursor(self, token, scope):
         entry = self._cursors.get(token)
@@ -289,6 +306,72 @@ class NativePwaHttp:
             native_session_id=binding["native_session_id"],
             binding_version=binding["binding_version"],
         )
+
+    async def _model(self, request, principal, root):
+        self._query(request)
+        self._authorize_root(principal, root)
+        if self.config.models is None:
+            raise RequestError(404, "capability_unavailable")
+        if request.method == "GET":
+            selection = await asyncio.to_thread(self.db.native_model_selection, root)
+            if selection is None:
+                try:
+                    self.models.resolve_default()
+                except ModelRouteUnavailable:
+                    raise RequestError(503, "native_unavailable") from None
+                selection = await asyncio.to_thread(
+                    self.db.native_model_initialize,
+                    root,
+                    self.config.models.default_model_id,
+                )
+            self._authorize_root(principal, root)
+            return {"schema_version": "1.0", **selection}
+
+        body = await self._body(request)
+        closed(
+            body,
+            {
+                "schema_version",
+                "mutation_id",
+                "model_id",
+                "expected_model_version",
+            },
+            {
+                "schema_version",
+                "mutation_id",
+                "model_id",
+                "expected_model_version",
+            },
+        )
+        if body["schema_version"] != "1.0":
+            raise ValueError("invalid model mutation version")
+        identifier(body["mutation_id"])
+        model_id = identifier(body["model_id"])
+        if len(model_id) > 200:
+            raise ValueError("invalid model id")
+        expected = body["expected_model_version"]
+        if type(expected) is not int or not 0 <= expected <= 9007199254740991:
+            raise ValueError("invalid expected model version")
+        stored = {
+            **body,
+            "conversation_id": root,
+        }
+        scope = self._model_scope(principal)
+        result = await asyncio.to_thread(
+            self.db.native_model_mutation_replay, scope, stored
+        )
+        if result is None:
+            try:
+                self.models.resolve(model_id)
+            except LookupError:
+                raise RequestError(409, "conflict") from None
+            except ModelRouteUnavailable:
+                raise RequestError(503, "native_unavailable") from None
+            result = await asyncio.to_thread(
+                self.db.native_model_mutate, scope, stored
+            )
+        self._authorize_root(principal, root)
+        return result
 
     async def _events(self, request, principal, root):
         deadline = time.monotonic() + self.config.stream_max_seconds
@@ -455,7 +538,26 @@ class NativePwaHttp:
             ])
             capabilities.append({"capability_id": "remote_clarification", "availability": "unavailable",
                                  "reason": "No configured observed specialist question protocol adapter."})
+            model_availability = (
+                "available" if self.config.models is not None else "unavailable"
+            )
+            for name in ("model_catalog", "conversation_model_selection"):
+                capabilities.append({
+                    "capability_id": name,
+                    "availability": model_availability,
+                    **(
+                        {}
+                        if model_availability == "available"
+                        else {"reason": "Managed model catalog is not configured."}
+                    ),
+                })
             return {"schema_version": "1.0", "capabilities": capabilities}, 200
+        if request.method == "GET" and tail == "models":
+            self._query(request)
+            try:
+                return self.models.catalog(), 200
+            except ModelCatalogUnavailable:
+                raise RequestError(404, "capability_unavailable") from None
         if tail in {"search", "sync"} and request.method == "GET":
             return await self.history_scan.request(request, principal, tail), 200
         if tail == "conversations" and request.method == "GET":
@@ -518,6 +620,12 @@ class NativePwaHttp:
                 return await self.ingress.events.execution(
                     principal, root, identifier(parts[3])
                 ), 200
+            if (
+                len(parts) == 3
+                and parts[2] == "model"
+                and request.method in {"GET", "PUT"}
+            ):
+                return await self._model(request, principal, root), 200
         if (
             request.method == "GET"
             and len(parts) in (2, 3)

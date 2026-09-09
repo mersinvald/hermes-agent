@@ -34,6 +34,7 @@ import logging
 import os
 import queue
 import re
+import secrets
 import shlex
 import site
 import sys
@@ -5941,12 +5942,67 @@ class TurnRunner:
 
         max_iterations = _current_max_iterations()
 
+        managed_prelease = None
         try:
-            model, runtime_kwargs = self._runner._resolve_session_agent_runtime(
-                source=ctx.source,
-                session_key=ctx.session_key,
-                user_config=ctx.user_config,
+            native_ingress = getattr(self._runner, "conversation_ingress", None)
+            state = self._runner._peek_session_state(ctx.session_key)
+            execution = state.turn.conversation_execution if state else None
+            managed = bool(
+                native_ingress is not None
+                and getattr(native_ingress, "models", None) is not None
+                and getattr(native_ingress.models, "config", None) is not None
+                and execution is not None
+                and execution.origin in {"pwa", "telegram"}
             )
+            if managed:
+                selected = native_ingress.db.native_model_selection(
+                    execution.conversation_id
+                )
+                if selected is None:
+                    # Prove the configured default is currently resolvable
+                    # before lazily committing it as this root's version 1.
+                    native_ingress.models.resolve_default()
+                holder = (
+                    f"pid={os.getpid()}:managed-model="
+                    f"{secrets.token_hex(16)}"
+                )
+                if not native_ingress.db.acquire_session_turn_lease(
+                    execution.conversation_id,
+                    holder,
+                    ttl_seconds=300.0,
+                    wait_seconds=1800.0,
+                    should_abort=lambda: not ctx._run_still_current(),
+                ):
+                    raise RuntimeError("managed execution lease unavailable")
+                managed_prelease = {
+                    "db": native_ingress.db,
+                    "session_id": ctx.session_id,
+                    "root": execution.conversation_id,
+                    "holder": holder,
+                    "ttl_seconds": 300.0,
+                }
+                try:
+                    captured = native_ingress.db.native_model_capture(
+                        execution.execution_id,
+                        execution.conversation_id,
+                        native_ingress._command_owner,
+                        holder,
+                        native_ingress.models.config.default_model_id,
+                    )
+                    route = native_ingress.models.resolve(captured["model_id"])
+                except BaseException:
+                    native_ingress.db.release_session_turn_lease(
+                        execution.conversation_id, holder
+                    )
+                    managed_prelease = None
+                    raise
+                model, runtime_kwargs = route.model, route.runtime
+            else:
+                model, runtime_kwargs = self._runner._resolve_session_agent_runtime(
+                    source=ctx.source,
+                    session_key=ctx.session_key,
+                    user_config=ctx.user_config,
+                )
             logger.debug(
                 "run_agent resolved: model=%s provider=%s session=%s",
                 model, runtime_kwargs.get("provider"), ctx.session_key or "",
@@ -5958,6 +6014,8 @@ class TurnRunner:
                 "api_calls": 0,
                 "tools": [],
             }
+
+        ctx._managed_model_prelease = managed_prelease
 
         pr = self._runner._provider_routing
         reasoning_config = self._runner._resolve_session_reasoning_config(
@@ -6353,6 +6411,9 @@ class TurnRunner:
                     )
                     self._runner._enforce_agent_cache_cap()
             logger.debug("Created new agent for session %s (sig=%s)", ctx.session_key, _sig)
+
+        if managed_prelease is not None:
+            agent._preacquired_session_turn_lease = managed_prelease
 
         # Per-message state — callbacks and reasoning config change every
         # turn and must not be baked into the cached agent constructor.
@@ -9005,6 +9066,10 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             self._session_state("*").conversation.last_resolved_model = model
 
         return model, runtime_kwargs
+
+    def _resolve_managed_model_provider(self, provider: str) -> dict:
+        """Resolve an explicit allowlisted provider without session fallbacks."""
+        return _resolve_runtime_agent_kwargs_for_provider(provider)
 
     def _resolve_turn_agent_config(self, user_message: str, model: str, runtime_kwargs: dict) -> dict:
         """Build the effective model/runtime config for a single turn.
@@ -31346,6 +31411,17 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 try:
                     return run_sync()
                 finally:
+                    _managed_prelease = getattr(
+                        turn_ctx, "_managed_model_prelease", None
+                    )
+                    if _managed_prelease is not None:
+                        try:
+                            _managed_prelease["db"].release_session_turn_lease(
+                                _managed_prelease["root"],
+                                _managed_prelease["holder"],
+                            )
+                        finally:
+                            turn_ctx._managed_model_prelease = None
                     _turn_worker_done.set()
                     # `.turn.agent` on the session state is only reset to
                     # _AGENT_PENDING_SENTINEL when the *next* turn is

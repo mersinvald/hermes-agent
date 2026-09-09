@@ -19,13 +19,44 @@ TOKEN = "synthetic-facade-secret-" + "s" * 40
 OWNER = Principal("https://issuer.invalid", "owner")
 
 
-def config_for(source):
-    return {"enabled": True, "concierge_id": "synthetic", "host": "127.0.0.1", "port": 0,
+def config_for(source, models=None):
+    result = {"enabled": True, "concierge_id": "synthetic", "host": "127.0.0.1", "port": 0,
             "allowed_hosts": ["native.test"], "bindings": [{"issuer": OWNER.issuer,
             "subject": OWNER.subject, "default_source_id": "telegram-owner", "sources": [{
                 "source_id": "telegram-owner", "platform": source.platform.value,
                 "chat_id": source.chat_id, "chat_type": source.chat_type,
                 "user_id": source.user_id, "thread_id": source.thread_id}]}]}
+    if models is not None:
+        result["models"] = models
+    return result
+
+
+def model_config():
+    capabilities = {
+        "text_input": "supported",
+        "image_input": "unknown",
+        "tools": "supported",
+        "reasoning_controls": "unknown",
+    }
+    return {
+        "default_model_id": "daily",
+        "entries": [
+            {
+                "model_id": "daily",
+                "display_name": "Daily",
+                "provider": "provider-a",
+                "model": "upstream/daily",
+                "capabilities": capabilities,
+            },
+            {
+                "model_id": "deep",
+                "display_name": "Deep",
+                "provider": "provider-b",
+                "model": "upstream/deep",
+                "capabilities": capabilities,
+            },
+        ],
+    }
 
 
 def headers(principal=OWNER, concierge="synthetic"):
@@ -36,12 +67,14 @@ def headers(principal=OWNER, concierge="synthetic"):
 
 
 @asynccontextmanager
-async def service(monkeypatch, tmp_path):
+async def service(monkeypatch, tmp_path, *, models=None, resolver=None):
     native = setup(monkeypatch, tmp_path)
     runner, old, db, store, entry, source, adapter = native
     old.stop_command_recovery()
     del runner.conversation_ingress
-    runner.config.pwa_http = config_for(source)
+    runner.config.pwa_http = config_for(source, models)
+    if resolver is not None:
+        runner._resolve_managed_model_provider = resolver
     runner._running = True
     monkeypatch.setenv("HERMES_PWA_FACADE_TOKEN", TOKEN)
     server = NativePwaHttp(runner)
@@ -449,3 +482,200 @@ async def test_real_gateway_config_loader_start_stop_and_fail_closed(monkeypatch
     with pytest.raises(RuntimeError,match="Configured native PWA listener failed"):
         await rejected.start()
     await rejected.stop()
+
+
+@pytest.mark.asyncio
+async def test_model_capabilities_are_unavailable_when_catalog_is_omitted(
+    monkeypatch, tmp_path
+):
+    async with service(monkeypatch, tmp_path) as (_, client, _):
+        capabilities = (await (await client.get(
+            "/v1/pwa/capabilities"
+        )).json())["capabilities"]
+        by_id = {row["capability_id"]: row for row in capabilities}
+        assert by_id["model_catalog"]["availability"] == "unavailable"
+        assert by_id["conversation_model_selection"]["availability"] == "unavailable"
+        response = await client.get("/v1/pwa/models")
+        assert response.status == 404
+        assert (await response.json())["error"]["code"] == "capability_unavailable"
+
+
+@pytest.mark.asyncio
+async def test_model_catalog_selection_cas_and_historical_replay(
+    monkeypatch, tmp_path
+):
+    unavailable = set()
+
+    def resolve(provider):
+        if provider in unavailable:
+            raise RuntimeError("synthetic outage")
+        return {"provider": provider, "api_key": "secret"}
+
+    async with service(
+        monkeypatch, tmp_path, models=model_config(), resolver=resolve
+    ) as (_, client, native):
+        root = native[4].session_id
+        catalog = await (await client.get("/v1/pwa/models")).json()
+        assert catalog["default_model_id"] == "daily"
+        assert [row["availability"] for row in catalog["models"]] == [
+            "available",
+            "available",
+        ]
+        selected = await (await client.get(
+            f"/v1/pwa/conversations/{root}/model"
+        )).json()
+        assert selected == {
+            "schema_version": "1.0",
+            "model_id": "daily",
+            "model_version": 1,
+        }
+
+        request = {
+            "schema_version": "1.0",
+            "mutation_id": "mutation-1",
+            "model_id": "deep",
+            "expected_model_version": 1,
+        }
+        applied = await (await client.put(
+            f"/v1/pwa/conversations/{root}/model", json=request
+        )).json()
+        assert applied["outcome"] == "applied"
+        assert applied["model"] == {"model_id": "deep", "model_version": 2}
+
+        unavailable.add("provider-b")
+        replay = await (await client.put(
+            f"/v1/pwa/conversations/{root}/model", json=request
+        )).json()
+        assert replay == {**applied, "outcome": "replayed"}
+
+        changed = {**request, "model_id": "daily"}
+        assert (await client.put(
+            f"/v1/pwa/conversations/{root}/model", json=changed
+        )).status == 409
+        stale = {**request, "mutation_id": "mutation-2", "model_id": "daily"}
+        assert (await client.put(
+            f"/v1/pwa/conversations/{root}/model", json=stale
+        )).status == 409
+
+
+@pytest.mark.asyncio
+async def test_model_route_outage_does_not_block_other_selection(monkeypatch, tmp_path):
+    def resolve(provider):
+        if provider == "provider-a":
+            raise RuntimeError("default down")
+        return {"provider": provider, "api_key": "secret"}
+
+    async with service(
+        monkeypatch, tmp_path, models=model_config(), resolver=resolve
+    ) as (_, client, native):
+        root = native[4].session_id
+        catalog = await (await client.get("/v1/pwa/models")).json()
+        assert [row["availability"] for row in catalog["models"]] == [
+            "unavailable",
+            "available",
+        ]
+        assert (await client.get(
+            f"/v1/pwa/conversations/{root}/model"
+        )).status == 503
+        response = await client.put(
+            f"/v1/pwa/conversations/{root}/model",
+            json={
+                "schema_version": "1.0",
+                "mutation_id": "choose-deep",
+                "model_id": "deep",
+                "expected_model_version": 0,
+            },
+        )
+        assert response.status == 200
+        assert (await response.json())["model"] == {
+            "model_id": "deep",
+            "model_version": 1,
+        }
+
+
+@pytest.mark.asyncio
+async def test_command_model_precondition_uses_current_selection(monkeypatch, tmp_path):
+    async with service(
+        monkeypatch,
+        tmp_path,
+        models=model_config(),
+        resolver=lambda provider: {"provider": provider, "api_key": "secret"},
+    ) as (_, client, native):
+        root = native[4].session_id
+        await client.put(
+            f"/v1/pwa/conversations/{root}/model",
+            json={
+                "schema_version": "1.0",
+                "mutation_id": "choose",
+                "model_id": "daily",
+                "expected_model_version": 0,
+            },
+        )
+        body = command(root, "hello", id="versioned", kind="send")
+        body["expected_model_version"] = 1
+        assert (await client.post("/v1/pwa/commands", json=body)).status == 200
+        body = command(root, "later", id="stale-version", kind="queue")
+        body["expected_model_version"] = 2
+        assert (await client.post("/v1/pwa/commands", json=body)).status == 409
+
+
+@pytest.mark.asyncio
+async def test_queued_execution_captures_latest_model_at_actual_start(
+    monkeypatch, tmp_path
+):
+    async with service(
+        monkeypatch,
+        tmp_path,
+        models=model_config(),
+        resolver=lambda provider: {"provider": provider, "api_key": "secret"},
+    ) as (server, client, native):
+        db, root = native[2], native[4].session_id
+        await client.put(
+            f"/v1/pwa/conversations/{root}/model",
+            json={
+                "schema_version": "1.0",
+                "mutation_id": "initial",
+                "model_id": "daily",
+                "expected_model_version": 0,
+            },
+        )
+        first = command(root, "first", id="first", expected_model_version=1)
+        assert (await client.post("/v1/pwa/commands", json=first)).status == 200
+        await started()
+        first_row = db.native_command_lookup(server.ingress._command_scope(OWNER), "first")
+        assert db.native_execution_model(first_row["resulting_execution_id"]) == {
+            "model_id": "daily",
+            "model_version": 1,
+        }
+
+        await client.put(
+            f"/v1/pwa/conversations/{root}/model",
+            json={
+                "schema_version": "1.0",
+                "mutation_id": "switch",
+                "model_id": "deep",
+                "expected_model_version": 1,
+            },
+        )
+        second = command(
+            root,
+            "second",
+            id="second",
+            kind="queue",
+            expected_model_version=2,
+        )
+        assert (await client.post("/v1/pwa/commands", json=second)).status == 200
+        assert db.native_execution_model(first_row["resulting_execution_id"]) == {
+            "model_id": "daily",
+            "model_version": 1,
+        }
+
+        JournalAgent.gates[0].set()
+        await started()
+        second_row = db.native_command_lookup(
+            server.ingress._command_scope(OWNER), "second"
+        )
+        assert db.native_execution_model(second_row["resulting_execution_id"]) == {
+            "model_id": "deep",
+            "model_version": 2,
+        }

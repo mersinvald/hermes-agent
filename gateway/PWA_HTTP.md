@@ -29,6 +29,18 @@ gateway:
     port: 8766
     allowed_hosts: ["127.0.0.1:8766"]
     token_env: HERMES_PWA_FACADE_TOKEN
+    models:
+      default_model_id: daily
+      entries:
+        - model_id: daily       # Opaque browser-visible ID.
+          display_name: Daily
+          provider: openrouter  # Native-only route identity.
+          model: synthetic/model
+          capabilities:
+            text_input: supported
+            image_input: unknown
+            tools: supported
+            reasoning_controls: unknown
     bindings:
       - issuer: https://synthetic.invalid
         subject: synthetic-owner
@@ -61,6 +73,17 @@ These bound HTTP observation/admission, not active native conversation count.
 Port0 selects an ephemeral port for isolated tests. Disabled configuration should
 contain only `enabled: false`. Reload bindings by restarting the gateway; existing
 durable rows do not confer permission when their configuration binding changes.
+
+The `models` block is optional. Omitting it preserves ordinary native model
+resolution and leaves managed model capabilities unavailable. When present, it
+is strict: the default must name exactly one of one to 100 unique entries, and
+every entry requires an opaque ID, display name, native provider/model route and
+four explicit capability states (`supported`, `unsupported` or `unknown`). A
+malformed block fails configuration loading. Credential/provider resolution is
+dynamic: an unresolved route remains a bounded unavailable catalog entry without
+exposing its upstream identity. A temporarily unavailable default blocks only
+default initialization or an execution already selecting it. Other available
+allowlisted selections remain usable and native never substitutes a model.
 
 ## Ownership and persistence
 
