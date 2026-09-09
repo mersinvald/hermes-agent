@@ -7480,6 +7480,20 @@ class TelegramAdapter(BasePlatformAdapter):
             )
             return
 
+        if data.startswith("hg:"):
+            caller_id = str(getattr(query.from_user, "id", ""))
+            if not self._is_callback_user_authorized(
+                caller_id, chat_id=query_chat_id,
+                chat_type=str(query_chat_type) if query_chat_type is not None else None,
+                thread_id=str(query_thread_id) if query_thread_id is not None else None,
+                user_name=query_user_name,
+            ):
+                await query.answer(text="Not authorized.")
+                return
+            from plugins.platforms.telegram.grants import native_grants
+            await native_grants(self).callback(query)
+            return
+
         # Remote permissions reuse this native callback authorization and UI,
         # but never resolve a session's latest command or record local rules.
         if data.startswith("hp:"):
@@ -10076,6 +10090,9 @@ class TelegramAdapter(BasePlatformAdapter):
                 getattr(getattr(msg, "from_user", None), "id", None),
                 getattr(getattr(msg, "chat", None), "id", None),
             )
+            return
+        from plugins.platforms.telegram.grants import handle_grants_command
+        if await handle_grants_command(self, msg):
             return
         await self._ensure_forum_commands(msg)
 
