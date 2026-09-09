@@ -22,11 +22,13 @@ RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py"
            "gateway/session_context.py", "gateway/permission_bridge.py",
            "gateway/session_state.py", "gateway/session.py", "gateway/conversation_control.py",
            "gateway/native_commands.py", "gateway/shutdown_flush.py", "hermes_state_commands.py",
+           "gateway/telegram_conversations.py", "hermes_state_delivery.py", "gateway/authz_mixin.py",
+           "gateway/platforms/base.py", "gateway/slash_commands.py",
            "run_agent.py", "agent/tool_dispatch_helpers.py",
            "hermes_state.py", "hermes_state_common.py", "agent/turn_context.py", "agent/conversation_loop.py",
            "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
 NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py",
-               "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py")
+               "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py", "gateway/telegram_conversations.py", "hermes_state_delivery.py")
 ROOT = Path(__file__).resolve().parents[1]
 
 

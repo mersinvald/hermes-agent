@@ -230,6 +230,13 @@ class GatewayAuthorizationMixin:
         return adapters.get(platform)
 
     def _adapter_for_source(self, source: Optional[SessionSource]):
+        adapter = self._unfiltered_adapter_for_source(source)
+        channel = getattr(getattr(self, "conversation_ingress", None), "telegram_channel", None)
+        if channel is not None and source is not None:
+            return channel.progress_adapter(source, adapter)
+        return adapter
+
+    def _unfiltered_adapter_for_source(self, source: Optional[SessionSource]):
         """Resolve the live adapter for an inbound ``SessionSource``."""
         if source is None:
             return None

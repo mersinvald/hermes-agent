@@ -117,9 +117,8 @@ Limitations before enabling a browser transport:
 - N03 owns events, broadcast/replay, cursor/epoch,
   retention gaps and canonical snapshot recovery. No event or connection
   subscription protocol is introduced here.
-- N04 owns delivery-time Telegram binding checks and origin-sensitive delivery.
-  This seam retains existing native adapter progress/final behavior; it must not
-  yet be enabled as a user-facing PWA transport claiming final-only mirroring.
+- Telegram final-only delivery requires the explicit N04 channel policy below;
+  constructing an ingress alone retains ordinary native delivery behavior.
 - Cancel/redirect/remote effects, model/catalog/version control, browser sessions,
   SSO/CSRF, image handling, and global diagnostics are outside this foundation.
 
@@ -128,3 +127,66 @@ model and transport doubles and isolated native SQLite. They do not establish
 HTTP, production, remote specialist, or physical-device acceptance. Patch
 packaging includes the new module and modified session/runtime files; the local
 packaging test verifies runtime selection and archive bytes without publishing.
+
+
+## Telegram selection and final delivery (N04)
+
+Install `TelegramConversationChannel(existing_ingress)` after trusted source/grant
+configuration and before accepting input. It uses the existing runner, SessionStore
+and SessionDB. N07 must mount this policy explicitly before advertising Telegram
+binding/final delivery capability; this patch adds no HTTP endpoint. Its static
+`trusted_channel_sources()` default uses native grants; N07's provider supplies
+configured defensive source copies and branch-aware `ingress._resolve` results.
+The same resolver is injected into managed SessionStore selection, so authorized
+user branches retain their own root and compression aliases share their dialogue.
+
+`inspect(principal, conversation_id)` returns the current root/tip/version for that
+trusted Telegram channel. `select(principal, conversation_id, expected_version)`
+checks current authorization and atomically persists its native pointer/version.
+A different root increments the version; selecting the same root does not. Native
+`/new` and `/resume` use this selection path without ending, interrupting or
+reopening either dialogue. Existing writers and delegated work continue. The first
+message for a fresh configured channel persists a root and enables its binding
+before routing input. Persistence failures do not admit or send work. PWA sends
+never select Telegram implicitly. Telegram input routes through the selected root
+alias before adapter busy/FIFO processing; no output is submitted as input.
+
+Both origins buffer normal assistant deltas/interim output until completion. A
+Telegram-origin execution retains native tool/status and explicit clarification,
+approval and selection-confirmation interactions. PWA-origin work receives no
+additional Telegram progress or interactive-prompt mirroring. Automatic spoken
+final synthesis is not emitted by this policy; explicit successful `MEDIA:` final
+attachments use the existing native delivery splitter. Failed turns deliver their
+normalized failure text without successful-turn attachment uploads. Other channels
+and non-opted-in native conversations retain their existing behavior. A restored
+internal async-delegation wake carries its route alias but not its original
+execution origin; origin-sensitive progress for such newly reconstructed work
+requires the separate continuation-provenance integration. This policy does not
+infer original PWA identity from an alias shared by both origins.
+
+Every completion first reserves the native durable `(execution_id, channel_key)`
+delivery record. The trusted channel key is an opaque digest of configured routing
+identity; records contain neither response bodies nor credentials. Each text/media
+dispatch rechecks the current root, binding version and native source authorization.
+Browser logout does not itself revoke Telegram permission. Native reconnect,
+Markdown fallback and media anchor-retry boundaries recheck immediately before
+Bot API dispatch. A switch after a send has started cannot retract that request.
+Uncertain media/text sends do not invoke an alternate resend path. Repeated
+completion callbacks cannot repeat a reserved delivery, and switching back does
+not replay a skipped final.
+
+`delivered`, `skipped` and `unknown` describe delivery only. Execution completion
+and command application remain independent. An interrupted `attempting` record is
+projected as `unknown` and is never automatically retried. Partial multi-message
+sends, unconfirmed media results and failed acknowledgements are conservative
+`unknown`; there is no exactly-once Telegram claim. Durable reservation failure
+prevents external send; a terminal-write failure retains unknown reservation.
+
+For N03/N07 integration, `delivery(principal, conversation_id, execution_id)` is a
+narrow authorized snapshot lookup with current source authorization and root
+matching. The successful attempting-only CAS in `native_delivery_finish` is the
+post-commit event-observation boundary. N03 can observe there after integration;
+this patch emits no wire event and adds no delivery array to execution recovery.
+The native delivery record remains authoritative if an observer fails. Tests use
+real runner, FIFO, SQLite and Telegram send paths with synthetic model/Bot doubles;
+HTTP, live Telegram and device acceptance remain separate review gates.

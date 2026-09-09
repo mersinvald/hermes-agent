@@ -1791,7 +1791,13 @@ class TelegramAdapter(BasePlatformAdapter):
         reset_media: Optional[Any] = None,
     ) -> Any:
         """Retry stale private-topic media replies once without the topic anchor."""
+        def check_native_binding():
+            guard = (metadata or {}).get("_native_delivery_guard")
+            if callable(guard) and not guard():
+                raise RuntimeError("native conversation binding changed")
+
         try:
+            check_native_binding()
             return await send_fn(**send_kwargs)
         except Exception as send_err:
             if not self._should_retry_without_dm_topic_reply_anchor(
@@ -1813,6 +1819,7 @@ class TelegramAdapter(BasePlatformAdapter):
             retry_kwargs["reply_to_message_id"] = None
             retry_kwargs.pop("message_thread_id", None)
             retry_kwargs.pop("direct_messages_topic_id", None)
+            check_native_binding()
             return await send_fn(**retry_kwargs)
 
     def _fallback_ips(self) -> list[str]:
@@ -2314,7 +2321,8 @@ class TelegramAdapter(BasePlatformAdapter):
             return SendResult(
                 success=False,
                 error=safe_error,
-                retryable=(is_connect_timeout or not is_timeout),
+                retryable=((metadata or {}).get("_native_delivery_once") is not True
+                           and (is_connect_timeout or not is_timeout)),
                 retry_after=_retry_after,
             )
 
@@ -5408,6 +5416,13 @@ class TelegramAdapter(BasePlatformAdapter):
         if getattr(self, "_send_path_degraded", False):
             return SendResult(success=False, error="send_path_degraded", retryable=True)
 
+        # Native completion policy rechecks after reconnect waits, immediately
+        # before entering the transport send path. The callable is trusted
+        # in-process metadata and is never accepted from Telegram/API input.
+        _native_guard = (metadata or {}).get("_native_delivery_guard")
+        if callable(_native_guard) and not _native_guard():
+            return SendResult(success=False, error="conversation binding changed", retryable=False)
+
         # Skip whitespace-only text to prevent Telegram 400 empty-text errors.
         if not content or not content.strip():
             return SendResult(success=True, message_id=None)
@@ -5516,6 +5531,8 @@ class TelegramAdapter(BasePlatformAdapter):
 
                 msg = None
                 for _send_attempt in range(3):
+                    if callable(_native_guard) and not _native_guard():
+                        return SendResult(success=False, error="conversation binding changed", retryable=False)
                     try:
                         # Try Markdown first, fall back to plain text if it fails
                         try:
@@ -5530,7 +5547,12 @@ class TelegramAdapter(BasePlatformAdapter):
                             )
                         except Exception as md_error:
                             # Markdown parsing failed, try plain text
-                            if "parse" in str(md_error).lower() or "markdown" in str(md_error).lower():
+                            if ("parse" in str(md_error).lower() or "markdown" in str(md_error).lower()) and (
+                                (metadata or {}).get("_native_delivery_once") is not True
+                                or (_BadReq is not None and isinstance(md_error, _BadReq))
+                            ):
+                                if callable(_native_guard) and not _native_guard():
+                                    return SendResult(success=False, error="conversation binding changed", retryable=False)
                                 logger.warning("[%s] MarkdownV2 parse failed, falling back to plain text: %s", self.name, md_error)
                                 plain_chunk = _strip_mdv2(chunk)
                                 msg = await self._bot.send_message(
@@ -5546,6 +5568,8 @@ class TelegramAdapter(BasePlatformAdapter):
                                 raise
                         break  # success
                     except _NetErr as send_err:
+                        if (metadata or {}).get("_native_delivery_once") is True:
+                            return SendResult(success=False, error="native final acknowledgement unknown", retryable=False)
                         # BadRequest is a subclass of NetworkError in
                         # python-telegram-bot but represents permanent errors
                         # (not transient network issues). Detect and handle
@@ -8176,6 +8200,8 @@ class TelegramAdapter(BasePlatformAdapter):
                     )
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (metadata or {}).get("_native_delivery_once") is True:
+                return SendResult(success=False, error="native media delivery unconfirmed", retryable=False)
             logger.error(
                 "[%s] Failed to send Telegram voice/audio, falling back to base adapter: %s",
                 self.name,
@@ -8310,6 +8336,8 @@ class TelegramAdapter(BasePlatformAdapter):
                     reset_media=_reset_opened_files,
                 )
             except Exception as e:
+                if (metadata or {}).get("_native_delivery_once") is True:
+                    raise
                 logger.warning(
                     "[%s] send_media_group failed (chunk %d/%d), falling back to per-image: %s",
                     self.name, chunk_idx + 1, len(chunks), _redact_telegram_error_text(e),
@@ -8371,6 +8399,8 @@ class TelegramAdapter(BasePlatformAdapter):
                 )
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (metadata or {}).get("_native_delivery_once") is True:
+                return SendResult(success=False, error="native media delivery unconfirmed", retryable=False)
             error_str = str(e)
             # Dimension-related errors are the expected case for valid image
             # files that Telegram just refuses as photos (screenshots, extreme
@@ -8469,6 +8499,8 @@ class TelegramAdapter(BasePlatformAdapter):
                 )
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (metadata or {}).get("_native_delivery_once") is True:
+                return SendResult(success=False, error="native media delivery unconfirmed", retryable=False)
             logger.warning(
                 "[%s] Failed to send document: %s",
                 self.name, _redact_telegram_error_text(e),
@@ -8520,6 +8552,8 @@ class TelegramAdapter(BasePlatformAdapter):
                 )
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (metadata or {}).get("_native_delivery_once") is True:
+                return SendResult(success=False, error="native media delivery unconfirmed", retryable=False)
             logger.warning(
                 "[%s] Failed to send video: %s",
                 self.name, _redact_telegram_error_text(e),
@@ -8575,6 +8609,8 @@ class TelegramAdapter(BasePlatformAdapter):
             )
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (metadata or {}).get("_native_delivery_once") is True:
+                return SendResult(success=False, error="native media delivery unconfirmed", retryable=False)
             logger.warning(
                 "[%s] URL-based send_photo failed, trying file upload: %s",
                 self.name,
@@ -8666,6 +8702,8 @@ class TelegramAdapter(BasePlatformAdapter):
             )
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if (metadata or {}).get("_native_delivery_once") is True:
+                return SendResult(success=False, error="native media delivery unconfirmed", retryable=False)
             logger.error(
                 "[%s] Failed to send Telegram animation, falling back to photo: %s",
                 self.name,

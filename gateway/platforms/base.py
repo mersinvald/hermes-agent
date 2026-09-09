@@ -6267,6 +6267,11 @@ class BasePlatformAdapter(ABC):
         if needs_topic_recovery:
             await asyncio.to_thread(self._apply_topic_recovery, event)
 
+        _native_ingress = getattr(getattr(self._message_handler, "__self__", None), "conversation_ingress", None)
+        _native_channel = getattr(_native_ingress, "telegram_channel", None)
+        if _native_channel is not None:
+            _native_channel.route_event(event)
+
         session_key = build_session_key(
             event.source,
             group_sessions_per_user=self.config.extra.get("group_sessions_per_user", True),

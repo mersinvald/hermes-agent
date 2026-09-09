@@ -144,6 +144,22 @@ class GatewaySlashCommandsMixin:
     async def _handle_reset_command(self, event: MessageEvent) -> Union[str, EphemeralReply]:
         """Handle /new or /reset command."""
         source = event.source
+        native_channel = getattr(getattr(self, "conversation_ingress", None), "telegram_channel", None)
+        if native_channel is not None and not source.native_conversation_route:
+            native_key = self._session_key_for_source(source)
+            native_entry = await self.async_session_store.lookup_by_session_key(native_key)
+            if native_entry is not None and native_entry.native_binding_version:
+                # Selection is not a teardown boundary. In particular, do not
+                # interrupt old-root delegations or fire session:end for A.
+                title = event.get_command_args().strip()
+                if title:
+                    from hermes_state import SessionDB
+                    title = SessionDB.sanitize_title(title)
+                selected = await self.async_session_store.reset_session(native_key)
+                if title:
+                    native_channel.db.set_session_title(selected.session_id, title)
+                return (t("gateway.reset.header_titled", title=title) if title
+                        else t("gateway.reset.header_default"))
         
         # Get existing session key
         session_key = self._session_key_for_source(source)

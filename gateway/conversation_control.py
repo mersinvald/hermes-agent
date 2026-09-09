@@ -69,6 +69,13 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         self._init_commands(concierge_id)
         runner.conversation_ingress = self
 
+    def trusted_channel_sources(self):
+        """Configured native source identities, never transport-supplied grants."""
+        provider = getattr(self, "_grant_provider", None)
+        if provider is not None:
+            return provider.trusted_channel_sources()
+        return tuple(replace(grant.source) for entries in self.grants.values() for grant in entries)
+
     def _resolve(self, session_id):
         lineage = self.db.get_compression_lineage(session_id)
         if not lineage:
