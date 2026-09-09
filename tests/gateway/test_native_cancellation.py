@@ -561,13 +561,18 @@ async def test_slow_multi_target_quantum_does_not_delay_later_native_interrupt(
     )
     calls = []
     first_slow = asyncio.Event()
+    release_slow = asyncio.Event()
+    slow_started = set()
 
     async def post(url, body, headers, timeout):
         task = body["params"]["id"]
         calls.append((task, body["method"]))
         if task in {"slow-0-0", "slow-1-0"}:
-            first_slow.set()
-            await asyncio.sleep(1)  # Actual coroutine canceled by total quantum.
+            slow_started.add(task)
+            if len(slow_started) == 2:
+                first_slow.set()
+            await release_slow.wait()
+            raise TimeoutError("synthetic preflight transport timeout")
         state = (
             "TASK_STATE_CANCELED"
             if body["method"] == "CancelTask"
@@ -592,10 +597,15 @@ async def test_slow_multi_target_quantum_does_not_delay_later_native_interrupt(
         client=client,
         max_control_jobs=2,
         poll_interval=1,
-        control_turn_seconds=0.1,
+        control_turn_seconds=10,
     )
     ingress.cancellations = controller
     try:
+        # Start the actual native worker before measuring control scheduling:
+        # provider initialization may legitimately outlast a short RPC timeout.
+        await ingress.submit(OWNER, command(entry.session_id))
+        agent = await started()
+        execution = ingress._owner(entry.session_id)[2]
         for index in range(2):
             root, identity = f"slow-root-{index}", f"slow-execution-{index}"
             db.create_session(root, "telegram")
@@ -614,10 +624,7 @@ async def test_slow_multi_target_quantum_does_not_delay_later_native_interrupt(
                     cancel(root, identity, f"stop-slow-{index}"),
                 )[0]
             )
-        await asyncio.wait_for(first_slow.wait(), 1)
-        await ingress.submit(OWNER, command(entry.session_id))
-        agent = await started()
-        execution = ingress._owner(entry.session_id)[2]
+        await asyncio.wait_for(first_slow.wait(), 5)
         origin = NativeExecutionOrigin(
             entry.session_id, execution.execution_id, ingress._command_owner
         )
@@ -630,6 +637,12 @@ async def test_slow_multi_target_quantum_does_not_delay_later_native_interrupt(
             agent._interrupt_requested
         )  # Native signal did not wait for an HTTP slot.
         assert ingress._owner(entry.session_id)[2] == execution
+        assert len(controller._jobs) == 2
+        assert sorted(calls) == [
+            ("slow-0-0", "GetTask"),
+            ("slow-1-0", "GetTask"),
+        ]
+        release_slow.set()  # Both slots stayed occupied through later admission.
         for _ in range(1000):
             if len([c for c in calls if c[1] == "CancelTask"]) == 7:
                 break
@@ -647,6 +660,7 @@ async def test_slow_multi_target_quantum_does_not_delay_later_native_interrupt(
                 and not first["write_reserved"]
             )
     finally:
+        release_slow.set()
         ingress.stop_command_recovery()
         await finish(ingress)
         await settled(controller)
