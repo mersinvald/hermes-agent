@@ -12,6 +12,7 @@ import hmac
 import json
 import logging
 import re
+import threading
 from dataclasses import replace
 from uuid import uuid4
 
@@ -100,12 +101,23 @@ class NativeCommandContext:
             if result is not None:
                 target["content"] = result["content"]
 
-    def finish(self, *, failed=False):
-        self.ingress.db.native_execution_close(
-            self.execution.execution_id, self.ingress._command_owner, crashed=failed
+    def finish(self, *, failed=False, outcome=None):
+        # This observation is made only after run_conversation has returned or
+        # raised. A transient completion transaction failure cannot turn it into
+        # another provider invocation, or strand an alive-PID journal forever.
+        if outcome is None:
+            outcome = "unknown" if failed else "completed"
+        known = (
+            self.execution.execution_id,
+            self.ingress._command_owner,
+            self.execution.conversation_id,
+            outcome,
         )
+        with self.ingress._completion_lock:
+            self.ingress._completion_observations[known[0]] = known
+        self.ingress._retry_completion(known[0])
         self.loop.call_soon_threadsafe(
-            self.ingress._commands_finished, self.execution.conversation_id
+            self.ingress._completion_finished, self.execution.conversation_id
         )
 
 
@@ -116,7 +128,56 @@ class DurableCommandIngressMixin:
         self._concierge_id = concierge_id
         self._command_owner = f"{process_owner()}:native={uuid4()}"
         self._command_recovery_timer = None
+        self._completion_lock = threading.RLock()
+        self._completion_observations = {}
         self._command_wakeups = {}  # Input-dispatch tasks only; never execution ownership.
+
+    def _retry_completion(self, execution_id):
+        with self._completion_lock:
+            known = self._completion_observations.get(execution_id)
+        if known is None:
+            return True
+        execution_id, owner, root, outcome = known
+        try:
+            self.db.native_execution_close(
+                execution_id,
+                owner,
+                crashed=outcome in {"unknown", "failed", "interrupted"},
+                outcome=outcome if outcome != "unknown" else None,
+            )
+        except Exception:
+            logger.warning("Native completion persistence pending reconciliation")
+            return False
+        with self._completion_lock:
+            self._completion_observations.pop(execution_id, None)
+        return True
+
+    async def wait_known_completion(self, execution_id):
+        """Fence native FIFO continuation while its observed close is retrying.
+
+        The worker has returned; keep the existing route/generation reserved so
+        legacy queued inputs and cached agent context stay on their normal path.
+        Transport subscriptions never own this wait or the completion retry.
+        """
+        while execution_id in self._completion_observations:
+            if await asyncio.to_thread(self._retry_completion, execution_id):
+                break
+            if getattr(self.runner, "_draining", False):
+                return False
+            await asyncio.sleep(1)
+        return True
+
+    def _completion_finished(self, root):
+        self._commands_finished(root)
+        with self._completion_lock:
+            pending = bool(self._completion_observations)
+        if pending:
+            # A pre-existing 30-second mailbox timer should not delay a known
+            # completion retry. This still only retries its journal close.
+            if self._command_recovery_timer is not None:
+                self._command_recovery_timer.cancel()
+                self._command_recovery_timer = None
+            self._arm_command_recovery()
 
     def _command_scope(self, principal):
         # SessionDB is already profile-local; conversation is deliberately
@@ -231,7 +292,7 @@ class DurableCommandIngressMixin:
             self.runner, "_draining", False
         ):
             self._command_recovery_timer = asyncio.get_running_loop().call_later(
-                30, self._command_recovery_tick
+                1 if self._completion_observations else 30, self._command_recovery_tick
             )
 
     def _command_recovery_tick(self):
@@ -346,7 +407,14 @@ class DurableCommandIngressMixin:
             self._wake_commands(root)
 
     def reconcile_commands(self):
-        roots = set()
+        with self._completion_lock:
+            completions = tuple(self._completion_observations.values())
+        roots = {item[2] for item in completions}
+        for execution_id, _, _, _ in completions:
+            self._retry_completion(execution_id)
+        if self._completion_observations:
+            self._arm_command_recovery()
+
         for entries in self.grants.values():
             for grant in entries:
                 try:

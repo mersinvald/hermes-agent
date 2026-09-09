@@ -170,6 +170,7 @@ class NativeCommandStateMixin:
                     time.time(),
                 ),
             )
+            self._native_command_event(conn, scope, body["command_id"])
             return dict(
                 conn.execute(
                     "SELECT * FROM native_commands WHERE scope=? AND command_id=?",
@@ -179,7 +180,9 @@ class NativeCommandStateMixin:
 
         return self._execute_write(write)
 
-    def native_execution_open(self, root, execution_id, owner, *, command=None):
+    def native_execution_open(
+        self, root, execution_id, owner, *, command=None, origin="unknown"
+    ):
         def write(conn):
             active = conn.execute(
                 "SELECT execution_id,owner FROM native_executions "
@@ -223,12 +226,43 @@ class NativeCommandStateMixin:
                 "WHERE native_executions.state != 'open' AND native_executions.input_started=0",
                 (execution_id, root, owner, order),
             )
+            opened = conn.execute(
+                "SELECT state,owner,conversation_id FROM native_executions WHERE execution_id=?",
+                (execution_id,),
+            ).fetchone()
+            if not opened or tuple(opened) != ("open", owner, root):
+                raise CommandConflict("execution identity cannot be reopened")
+            now = time.time()
+            conn.execute(
+                "UPDATE native_executions SET origin=?,observed_state='starting',created_at=COALESCE(created_at,?),updated_at=? WHERE execution_id=? AND owner=?",
+                (
+                    origin
+                    if origin in {"pwa", "telegram", "native", "system"}
+                    else "unknown",
+                    now,
+                    now,
+                    execution_id,
+                    owner,
+                ),
+            )
+            self._native_event_append(
+                conn,
+                root,
+                execution_id,
+                "execution_state_changed",
+                {"state": "starting"},
+            )
+            if command:
+                self._native_command_event(conn, *command)
 
         self._execute_write(write)
 
     def native_execution_close(
-        self, execution_id, owner, *, crashed=False, recover=False
+        self, execution_id, owner, *, crashed=False, recover=False, outcome=None
     ):
+        if outcome not in {None, "completed", "failed", "interrupted", "cancelled"}:
+            raise ValueError("invalid observed execution outcome")
+
         def write(conn):
             row = conn.execute(
                 "SELECT * FROM native_executions WHERE execution_id=? AND owner=? AND state='open'",
@@ -240,6 +274,22 @@ class NativeCommandStateMixin:
                 "UPDATE native_executions SET state=? WHERE execution_id=? AND owner=?",
                 ("unknown" if crashed else "closed", execution_id, owner),
             )
+            observed = outcome or "unknown"
+            conn.execute(
+                "UPDATE native_executions SET observed_state=?,updated_at=? WHERE execution_id=?",
+                (observed, time.time(), execution_id),
+            )
+            self._native_event_append(
+                conn,
+                row["conversation_id"],
+                execution_id,
+                "execution_state_changed",
+                {"state": observed},
+            )
+            changed = conn.execute(
+                "SELECT scope,command_id FROM native_commands WHERE (target_execution_id=? AND phase='steer') OR (resulting_execution_id=? AND phase='assigned')",
+                (execution_id, execution_id),
+            ).fetchall()
             # Fallback is a phase transition on the original row. A repeated
             # close cannot allocate a second request or a new client identity.
             tail = conn.execute(
@@ -263,6 +313,8 @@ class NativeCommandStateMixin:
                     execution_id,
                 ),
             )
+            for cmd in changed:
+                self._native_command_event(conn, *cmd)
             return True
 
         return self._execute_write(write)
@@ -400,8 +452,15 @@ class NativeCommandStateMixin:
                         (inserted, tools, session_id),
                     )
                 conn.execute(
-                    "UPDATE native_executions SET input_started=1,lease_holder=? WHERE execution_id=? AND owner=?",
-                    (holder, execution_id, owner),
+                    "UPDATE native_executions SET input_started=1,lease_holder=?,observed_state='running',updated_at=? WHERE execution_id=? AND owner=?",
+                    (holder, time.time(), execution_id, owner),
+                )
+                self._native_event_append(
+                    conn,
+                    execution["conversation_id"],
+                    execution_id,
+                    "execution_state_changed",
+                    {"state": "running"},
                 )
             else:
                 rows = conn.execute(
@@ -463,6 +522,7 @@ class NativeCommandStateMixin:
                         row["command_id"],
                     ),
                 )
+                self._native_command_event(conn, row["scope"], row["command_id"])
             return result
 
         return self._execute_write(write, patience_s=self._TRANSCRIPT_WRITE_PATIENCE_S)
