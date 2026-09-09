@@ -4114,8 +4114,13 @@ def _managed_conversation_title_destination(user_config):
     provider = str(title.get("provider") or "").strip()
     model = str(title.get("model") or "").strip()
     base_url = str(title.get("base_url") or "").strip()
-    parsed_base_url = urlparse(base_url)
     timeout = title.get("timeout", 30)
+    try:
+        parsed_base_url = urlparse(base_url)
+        _ = parsed_base_url.port  # Validate bracketed hosts and numeric ports.
+        timeout_value = float(timeout)
+    except (OverflowError, TypeError, ValueError):
+        return False
     if (
         title.get("enabled", True) is False
         or not provider
@@ -4124,10 +4129,14 @@ def _managed_conversation_title_destination(user_config):
         or model.lower() == "auto"
         or parsed_base_url.scheme not in {"http", "https"}
         or not parsed_base_url.hostname
+        or parsed_base_url.username is not None
+        or parsed_base_url.password is not None
+        or bool(parsed_base_url.query)
+        or bool(parsed_base_url.fragment)
         or isinstance(timeout, bool)
         or not isinstance(timeout, (int, float))
-        or not math.isfinite(float(timeout))
-        or timeout <= 0
+        or not math.isfinite(timeout_value)
+        or timeout_value <= 0
     ):
         return False
     return {
@@ -4136,7 +4145,7 @@ def _managed_conversation_title_destination(user_config):
         "base_url": base_url,
         "api_key": str(title.get("api_key") or "").strip() or None,
         "api_mode": str(title.get("api_mode") or "").strip() or None,
-        "timeout": float(timeout),
+        "timeout": timeout_value,
         "extra_body": (
             dict(title.get("extra_body") or {})
             if isinstance(title.get("extra_body") or {}, dict)

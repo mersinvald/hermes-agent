@@ -20,7 +20,9 @@ TOKEN = "synthetic-facade-secret-" + "s" * 40
 OWNER = Principal("https://issuer.invalid", "owner")
 
 
-@pytest.mark.parametrize("timeout", [None, True, 0, -1, float("nan"), float("inf"), "7"])
+@pytest.mark.parametrize(
+    "timeout", [None, True, 0, -1, float("nan"), float("inf"), "7", 10**400]
+)
 def test_invalid_managed_title_timeout_disables_model_request(timeout):
     assert _managed_conversation_title_destination(
         {
@@ -42,6 +44,11 @@ def test_invalid_managed_title_timeout_disables_model_request(timeout):
         ("custom", "auto", "https://titles.invalid/v1"),
         ("custom", "titles/v1", ""),
         ("custom", "titles/v1", "titles.invalid/v1"),
+        ("custom", "titles/v1", "https://[broken"),
+        ("custom", "titles/v1", "https://titles.invalid:bad/v1"),
+        ("custom", "titles/v1", "https://user:key@titles.invalid/v1"),
+        ("custom", "titles/v1", "https://titles.invalid/v1?route=other"),
+        ("custom", "titles/v1", "https://titles.invalid/v1#other"),
     ],
 )
 def test_managed_title_requires_nonvirtual_fixed_origin(provider, model, base_url):
