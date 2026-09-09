@@ -95,7 +95,7 @@ def runtime_sources(revision):
     assert all(name in changed for name in RUNTIME)
     assert all(name in RUNTIME or name.startswith("tests/") or name in (
         "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md", "cli-config.yaml.example",
-        "gateway/CONVERSATION_CONTROL.md") for name in changed), "not a source-only patch"
+        "gateway/CONVERSATION_CONTROL.md", "gateway/PWA_HTTP.md") for name in changed), "not a source-only patch"
     # Always read committed blobs, never the dirty or case-colliding host checkout.
     runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
     return runtime
