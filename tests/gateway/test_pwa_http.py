@@ -192,6 +192,22 @@ async def test_cursor_pagination_revocation_and_compaction_invalidation(monkeypa
 
 
 @pytest.mark.asyncio
+async def test_history_cursor_rejects_equal_size_content_rewrite(monkeypatch, tmp_path):
+    async with service(monkeypatch, tmp_path) as (_, client, native):
+        db, root = native[2], native[4].session_id
+        for index in range(3):
+            db.append_message(root, "user", f"message {index}")
+        path = f"/v1/pwa/conversations/{root}/history"
+        first = await (await client.get(path, params={"limit": "1"})).json()
+        assert first["next_cursor"]
+        db._execute_write(lambda conn: conn.execute(
+            "UPDATE messages SET content='changed 1' WHERE session_id=? AND content='message 1'", (root,)))
+        response = await client.get(path, params={"limit": "1", "cursor": first["next_cursor"]})
+        assert response.status == 409
+        assert "changed" not in await response.text()
+
+
+@pytest.mark.asyncio
 async def test_native_source_revocation_blocks_history_and_receipts(monkeypatch, tmp_path):
     async with service(monkeypatch, tmp_path) as (server, client, native):
         root=native[4].session_id

@@ -103,9 +103,12 @@ class NativePwaStateMixin:
 
     def native_pwa_history_signature(self, lineage):
         with bounded_read(self) as conn:
+            fence = conn.execute("SELECT generation FROM native_pwa_history_fence WHERE singleton=1").fetchone()
+            if fence is None:
+                raise RuntimeError("native history fence unavailable")
             values = [tuple(conn.execute("""SELECT COALESCE(MAX(id),0),COUNT(*),COALESCE(SUM(active),0),COALESCE(SUM(compacted),0)
                 FROM messages WHERE session_id=?""", (segment,)).fetchone()) for segment in lineage]
-        signature = hashlib.sha256(json.dumps([lineage, values]).encode()).hexdigest()
+        signature = hashlib.sha256(json.dumps([lineage, values, fence[0]]).encode()).hexdigest()
         return signature, [v[0] for v in values]
 
     def native_pwa_history_rows(self, segment, after, upper, limit):

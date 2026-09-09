@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 30
+SCHEMA_VERSION = 31
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -665,6 +665,15 @@ CREATE TABLE IF NOT EXISTS native_remote_cancel_attempts (
     updated_at REAL NOT NULL,
     write_reserved INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY(dispatch_id,scope,command_id)
+);
+
+-- Native PWA history fence (schema31). Private replacement flags distinguish
+-- ignored INSERT attempts from real key replacement without recursive triggers.
+CREATE TABLE IF NOT EXISTS native_pwa_history_fence (
+    singleton INTEGER PRIMARY KEY CHECK(singleton=1),
+    generation INTEGER NOT NULL DEFAULT 0 CHECK(generation>=0),
+    pending_session_replace INTEGER NOT NULL DEFAULT 0 CHECK(pending_session_replace IN (0,1)),
+    pending_message_replace INTEGER NOT NULL DEFAULT 0 CHECK(pending_message_replace IN (0,1))
 );
 
 -- Native PWA assignments are profile-local authority records. Current trusted
