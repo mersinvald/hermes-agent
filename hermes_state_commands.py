@@ -120,6 +120,17 @@ class NativeCommandStateMixin:
                 (scope, body["command_id"]),
             ).fetchone():
                 raise CommandConflict("command ID reused with a different payload")
+            if "expected_model_version" in body:
+                selected = conn.execute(
+                    "SELECT model_version FROM native_conversation_models "
+                    "WHERE conversation_id=?",
+                    (body["conversation_id"],),
+                ).fetchone()
+                if (
+                    selected is None
+                    or selected["model_version"] != body["expected_model_version"]
+                ):
+                    raise CommandConflict("model version changed")
             # The owner can close in its worker thread while admission waits
             # for SQLite. Resolve that race in this same write transaction.
             active = conn.execute(
