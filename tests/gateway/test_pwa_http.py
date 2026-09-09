@@ -15,6 +15,7 @@ from gateway.pwa_config import PwaHttpConfig
 from gateway.pwa_http import NativePwaHttp
 from gateway.run import _managed_conversation_title_destination
 from tests.gateway.test_native_commands import JournalAgent, command, finish, setup, started
+from hermes_state_commands import process_owner
 
 TOKEN = "synthetic-facade-secret-" + "s" * 40
 OWNER = Principal("https://issuer.invalid", "owner")
@@ -751,6 +752,102 @@ async def test_command_model_precondition_uses_current_selection(monkeypatch, tm
         body = command(root, "later", id="stale-version", kind="queue")
         body["expected_model_version"] = 2
         assert (await client.post("/v1/pwa/commands", json=body)).status == 409
+
+
+@pytest.mark.asyncio
+async def test_model_capture_wait_aborts_exact_cancel_before_agent(
+    monkeypatch, tmp_path
+):
+    async with service(
+        monkeypatch,
+        tmp_path,
+        models=model_config(),
+        resolver=lambda provider: {"provider": provider, "api_key": "secret"},
+    ) as (server, client, native):
+        db, root = native[2], native[4].session_id
+        blocker = process_owner() + ":external-blocker"
+        assert db.acquire_session_turn_lease(
+            root, blocker, ttl_seconds=60, wait_seconds=0
+        )
+        response = await client.post(
+            "/v1/pwa/commands",
+            json=command(root, "blocked", id="blocked-model-capture"),
+        )
+        assert response.status == 200, await response.text()
+        for _ in range(200):
+            execution = db.native_execution(root)
+            if execution:
+                break
+            await asyncio.sleep(0.01)
+        assert execution is not None
+        cancel = {
+            "schema_version": "1.0",
+            "command_id": "cancel-blocked-capture",
+            "conversation_id": root,
+            "target_execution_id": execution["execution_id"],
+            "type": "cancel",
+            "payload": {"reason": "stop before model capture"},
+        }
+        response = await client.post("/v1/pwa/commands", json=cancel)
+        assert response.status == 200, await response.text()
+        for _ in range(500):
+            if db.native_execution(root) is None:
+                break
+            await asyncio.sleep(0.01)
+        assert db.native_execution(root) is None
+        assert db.native_execution_model(execution["execution_id"]) is None
+        assert JournalAgent.instances == []
+        db.release_session_turn_lease(root, blocker)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("failure", ["route", "constructor"])
+async def test_model_prelease_released_on_pre_agent_failure(
+    monkeypatch, tmp_path, failure
+):
+    unavailable = set()
+
+    def resolve(provider):
+        if provider in unavailable:
+            raise RuntimeError("synthetic route failure")
+        return {"provider": provider, "api_key": "secret"}
+
+    async with service(
+        monkeypatch, tmp_path, models=model_config(), resolver=resolve
+    ) as (server, client, native):
+        db, root = native[2], native[4].session_id
+        response = await client.put(
+            f"/v1/pwa/conversations/{root}/model",
+            json={
+                "schema_version": "1.0",
+                "mutation_id": "initialize",
+                "model_id": "daily",
+                "expected_model_version": 0,
+            },
+        )
+        assert response.status == 200, await response.text()
+        if failure == "route":
+            unavailable.add("provider-a")
+        else:
+            monkeypatch.setattr(
+                JournalAgent,
+                "__init__",
+                lambda self, **kwargs: (_ for _ in ()).throw(
+                    RuntimeError("synthetic constructor failure")
+                ),
+            )
+        response = await client.post(
+            "/v1/pwa/commands",
+            json=command(root, "cannot start", id=failure),
+        )
+        assert response.status == 200, await response.text()
+        for _ in range(500):
+            if db.native_execution(root) is None:
+                break
+            await asyncio.sleep(0.01)
+        assert db.native_execution(root) is None
+        assert not db.native_execution_has_lease(root)
+        assert JournalAgent.effects == []
 
 
 @pytest.mark.asyncio

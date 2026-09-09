@@ -96,9 +96,22 @@ class NativeControlStateMixin:
 
     def native_redirect_admit(self, scope, body):
         def write(conn):
+            # An immutable replay is authoritative even if the conversation's
+            # selection moved after the original admission.
             old = self._native_control_duplicate(conn, scope, body)
             if old:
                 return old, False
+            if "expected_model_version" in body:
+                selected = conn.execute(
+                    "SELECT model_version FROM native_conversation_models "
+                    "WHERE conversation_id=?",
+                    (body["conversation_id"],),
+                ).fetchone()
+                if (
+                    selected is None
+                    or selected["model_version"] != body["expected_model_version"]
+                ):
+                    raise CommandConflict("model version changed")
             execution = conn.execute(
                 "SELECT * FROM native_executions WHERE conversation_id=? ORDER BY created_order DESC LIMIT 1",
                 (body["conversation_id"],),

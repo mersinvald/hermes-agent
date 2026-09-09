@@ -177,6 +177,11 @@ class NativeModelStateMixin:
                 or lease["expires_at"] <= now
             ):
                 raise CommandConflict("execution owner or lease changed")
+            if conn.execute(
+                "SELECT 1 FROM native_cancel_commands WHERE execution_id=? LIMIT 1",
+                (execution_id,),
+            ).fetchone():
+                raise CommandConflict("execution cancellation requested")
             previous = conn.execute(
                 "SELECT * FROM native_execution_models WHERE execution_id=?",
                 (execution_id,),
