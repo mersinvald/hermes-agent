@@ -20,7 +20,7 @@ def execution_view(row):
     state = row["observed_state"]
     if row["state"] != "open" and state in {"starting", "running"}:
         state = "unknown"
-    return dict(
+    result = dict(
         schema_version="1.0",
         execution_id=row["execution_id"],
         conversation_id=row["conversation_id"],
@@ -40,6 +40,9 @@ def execution_view(row):
         if row["updated_at"] is not None
         else None,
     )
+    if "deliveries" in row:
+        result["deliveries"] = row["deliveries"]
+    return result
 
 
 class NativeEventFeed:
@@ -47,6 +50,42 @@ class NativeEventFeed:
         self.ingress = ingress
         self.conversation_provider = conversation_provider
         self._subscriptions = set()
+
+    def delivery_channel(self, grant):
+        policy = getattr(self.ingress, "telegram_channel", None)
+        if policy is not None and policy._trusted_source(grant.source) is not None:
+            from gateway.telegram_conversations import channel_key
+
+            return channel_key(grant.source)
+        return None
+
+    async def execution(self, principal, conversation_id, execution_id):
+        ingress = self.ingress
+        projection, grant = await asyncio.to_thread(
+            ingress._authorize, principal, conversation_id
+        )
+        if not ingress.runner._is_user_authorized_for_source(grant.source):
+            raise PermissionError("native source is not authorized")
+        delivery_channel = self.delivery_channel(grant)
+        row = await asyncio.to_thread(
+            ingress.db.native_event_execution,
+            projection["conversation_id"],
+            execution_id,
+            delivery_channel_key=delivery_channel,
+        )
+        # Last authority check runs on the event loop, immediately before return.
+        _, grant = ingress._authorize(principal, conversation_id)
+        if not ingress.runner._is_user_authorized_for_source(grant.source):
+            raise PermissionError("native source is not authorized")
+        if self.delivery_channel(grant) != delivery_channel:
+            raise PermissionError("native source changed during capture")
+        with ingress._completion_lock:
+            pending = execution_id in ingress._completion_observations
+        if row["state"] == "open" and (
+            pending or row["owner"] != ingress._command_owner
+        ):
+            row["observed_state"] = "unknown"
+        return execution_view(row)
 
     async def recover(self, principal, conversation_id, cursor=None):
         ingress = self.ingress
@@ -61,11 +100,13 @@ class NativeEventFeed:
         if provider is None:
             raise RuntimeError("native conversation projection is unavailable")
         conversation = await provider(principal, projection["conversation_id"])
+        delivery_channel = self.delivery_channel(grant)
         state = await asyncio.to_thread(
             ingress.db.native_event_recovery,
             projection["conversation_id"],
             ingress._command_scope(principal),
             cursor,
+            delivery_channel_key=delivery_channel,
         )
         # Check again after awaited I/O so removed grants cannot race publication.
         _, grant = await asyncio.to_thread(
@@ -73,6 +114,8 @@ class NativeEventFeed:
         )
         if not ingress.runner._is_user_authorized_for_source(grant.source):
             raise PermissionError("native source is not authorized")
+        if self.delivery_channel(grant) != delivery_channel:
+            raise PermissionError("native source changed during capture")
         result = {
             key: state[key] for key in ("schema_version", "status", "cursor", "events")
         }

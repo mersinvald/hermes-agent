@@ -98,7 +98,16 @@ class TelegramConversationChannel:
         self.store._native_conversation_resolver = ingress._resolve
         # Installation marks existing trusted channel entries. No pointer is
         # moved and no transcript is ended or reopened.
+        sources = {}
         for source in ingress.trusted_channel_sources():
+            if source.platform != Platform.TELEGRAM:
+                continue
+            key = self.runner._session_key_for_source(source)
+            identity = (channel_key(source), source.chat_type)
+            if key in sources and sources[key][0] != identity:
+                raise ValueError("distinct native identities share a channel key")
+            sources[key] = (identity, source)
+        for _, source in sources.values():
             if source.platform == Platform.TELEGRAM:
                 entry = self.store.lookup_by_session_key(
                     self.runner._session_key_for_source(source)
@@ -135,7 +144,12 @@ class TelegramConversationChannel:
             or not self.runner._is_user_authorized_for_source(grant.source)
         ):
             raise PermissionError("Telegram binding unavailable")
-        return self._binding(grant.source)
+        binding = self._binding(grant.source)
+        _, selected = self.ingress._authorize(principal, binding["conversation_id"])
+        if (channel_key(selected.source) != channel_key(grant.source)
+                or not self.runner._is_user_authorized_for_source(selected.source)):
+            raise PermissionError("Telegram binding unavailable")
+        return binding
 
     async def delivery(self, principal, conversation_id, execution_id):
         projection, grant = self.ingress._authorize(principal, conversation_id)
@@ -159,7 +173,7 @@ class TelegramConversationChannel:
         if (
             not isinstance(expected_version, int)
             or isinstance(expected_version, bool)
-            or expected_version < 1
+            or not 0 <= expected_version <= 9007199254740991
         ):
             raise ValueError("expected binding version required")
         self.store.select_channel_conversation(

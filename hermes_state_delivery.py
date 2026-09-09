@@ -35,8 +35,9 @@ class NativeDeliveryStateMixin:
     def native_delivery_finish(self, execution_id, channel_key, state):
         if state not in {"delivered", "skipped", "unknown"}:
             raise ValueError("invalid delivery outcome")
-        return self._execute_write(
-            lambda conn: (
+
+        def write(conn):
+            changed = (
                 conn.execute(
                     "UPDATE native_channel_deliveries SET state=?,completed_at=? "
                     "WHERE execution_id=? AND channel_key=? AND state='attempting'",
@@ -44,4 +45,33 @@ class NativeDeliveryStateMixin:
                 ).rowcount
                 == 1
             )
-        )
+            if changed:
+                return dict(
+                    conn.execute(
+                        "SELECT * FROM native_channel_deliveries WHERE execution_id=? AND channel_key=?",
+                        (execution_id, channel_key),
+                    ).fetchone()
+                )
+            return None
+
+        row = self._execute_write(write)
+        # The authoritative delivery CAS has already committed. Observation loss
+        # must neither roll back its outcome nor trigger another remote send.
+        if row and getattr(self, "_native_events_limits", None) is not None:
+            try:
+                self._execute_write(
+                    lambda conn: self._native_event_append(
+                        conn,
+                        row["conversation_id"],
+                        execution_id,
+                        "delivery_changed",
+                        {
+                            "channel": "telegram",
+                            "state": state,
+                            "binding_version": row["binding_version"],
+                        },
+                    )
+                )
+            except Exception:
+                self.native_event_mark_gap(row["conversation_id"])
+        return row is not None

@@ -1263,6 +1263,10 @@ class AsyncSessionStore:
 _DB_UNPINNED = object()
 
 
+class ChannelBindingConflict(ValueError):
+    """Optimistic native channel version no longer matches."""
+
+
 class SessionStore:
     """
     Manages session storage and retrieval.
@@ -1676,10 +1680,13 @@ class SessionStore:
         if stale_keys or recovered_keys:
             self._save()
 
-    def _save(self) -> None:
+    def _save(self, *, require_primary=False) -> None:
         """Persist the routing index while the caller holds ``_lock``."""
         data, generation = self._snapshot_routing_locked()
-        self._persist_routing_data(data, generation)
+        if require_primary:
+            self._persist_routing_data(data, generation, require_primary=True)
+        else:
+            self._persist_routing_data(data, generation)
 
     def _next_routing_generation_locked(self) -> int:
         """Bump and return the shared routing counter. Caller holds ``_lock``.
@@ -1744,7 +1751,7 @@ class SessionStore:
             self._next_routing_generation_locked(),
         )
 
-    def _persist_routing_data(self, data: Dict[str, Any], generation: int) -> None:
+    def _persist_routing_data(self, data: Dict[str, Any], generation: int, *, require_primary=False) -> None:
         """Serialize all whole-index writers through one durable write lock."""
         save_lock = getattr(self, "_save_lock", None)
         if save_lock is None:
@@ -1778,6 +1785,8 @@ class SessionStore:
                         logger.warning(
                             "gateway.session: state.db routing save failed: %s", exc
                         )
+            if require_primary and not db_saved:
+                raise OSError("native channel primary persistence unavailable")
             if getattr(self, "_write_sessions_json", True) or not db_saved:
                 try:
                     self._save_sessions_json(data)
@@ -3649,21 +3658,34 @@ class SessionStore:
         with self._lock:
             self._ensure_loaded_locked()
             old = self._entries.get(key)
-            if old is None:
+            current_version = old.native_binding_version if old else 0
+            if expected_version is not None and current_version != expected_version:
+                raise ChannelBindingConflict("channel binding version conflict")
+            if old is None and expected_version != 0:
                 raise LookupError("native channel binding unavailable")
-            if expected_version is not None and old.native_binding_version != expected_version:
-                raise ValueError("channel binding version conflict")
-            previous = lineage_for(old.session_id)
+            previous = lineage_for(old.session_id) if old else None
             same = previous and previous[0] == lineage[0]
-            version = max(1, old.native_binding_version + (0 if same else 1))
-            entry = replace(old, session_id=lineage[-1], native_binding_version=version,
-                            active_turn_token=None, active_turn_started_at=None,
-                            resume_pending=False, resume_reason=None)
+            version = max(1, current_version + (0 if same else 1))
+            if version > 9007199254740991:
+                raise ChannelBindingConflict("channel binding version exhausted")
+            if old is None:
+                now = _now()
+                entry = SessionEntry(session_key=key, session_id=lineage[-1],
+                                     created_at=now, updated_at=now, origin=source,
+                                     platform=source.platform, chat_type=source.chat_type,
+                                     native_binding_version=version)
+            else:
+                entry = replace(old, session_id=lineage[-1], native_binding_version=version,
+                                active_turn_token=None, active_turn_started_at=None,
+                                resume_pending=False, resume_reason=None)
             self._entries[key] = entry
             try:
-                self._save()
+                self._save(require_primary=True)
             except BaseException:
-                self._entries[key] = old
+                if old is None:
+                    self._entries.pop(key, None)
+                else:
+                    self._entries[key] = old
                 raise
             return entry
 

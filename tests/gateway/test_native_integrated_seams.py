@@ -1,7 +1,7 @@
 """Reconcile HTTP ownership, event recovery and Telegram's current binding."""
 import pytest
 
-from gateway.telegram_conversations import TelegramConversationChannel, channel_key
+from gateway.telegram_conversations import channel_key
 from tests.gateway.test_native_commands import JournalAgent, command, finish, started
 from tests.gateway.test_native_events import provider_loop
 from tests.gateway.test_pwa_http import OWNER, service
@@ -19,7 +19,7 @@ async def test_http_created_conversations_share_provider_recovery_and_channel_se
     async with service(monkeypatch, tmp_path) as (server, client, native):
         monkeypatch.setattr("agent.conversation_loop.run_conversation", provider_loop)
         runner, _, db, store, entry, source, adapter = native
-        policy = TelegramConversationChannel(server.ingress)
+        policy = server.telegram_channel
         root_a = entry.session_id
         created = await client.post("/v1/pwa/conversations", json={"schema_version": "1.0", "create_id": "integrated-b"})
         assert created.status == 201

@@ -1,15 +1,17 @@
 """Strict opt-in settings for the private, single-profile native PWA listener."""
+
 from __future__ import annotations
 
 import hashlib
 import ipaddress
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from urllib.parse import urlsplit
 
 from gateway.conversation_control import Principal
 from gateway.session import SessionSource
+from hermes_state_events import EventLimits
 
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}\Z")
 
@@ -93,6 +95,10 @@ class PwaHttpConfig:
     request_timeout: int = 15
     cursor_ttl: int = 900
     bindings: tuple[OwnerBinding, ...] = ()
+    event_limits: EventLimits = field(default_factory=EventLimits)
+    event_poll_interval: int = 1
+    stream_write_timeout: int = 5
+    stream_max_seconds: int = 30
 
     @classmethod
     def from_dict(cls, raw):
@@ -106,7 +112,9 @@ class PwaHttpConfig:
         enabled = raw.get("enabled", False)
         if not enabled:
             if set(raw) != {"enabled"} and raw:
-                raise ValueError("disabled native PWA settings must contain only enabled")
+                raise ValueError(
+                    "disabled native PWA settings must contain only enabled"
+                )
             return cls()
         required = {"concierge_id", "allowed_hosts", "bindings"}
         closed(raw, fields, required)
@@ -136,60 +144,132 @@ class PwaHttpConfig:
         token_env = bounded_text(raw.get("token_env", cls.token_env), 128)
         if not re.fullmatch(r"[A-Z][A-Z0-9_]{0,127}", token_env):
             raise ValueError("invalid native PWA token environment name")
-        limits = {"port": (0, 65535), "max_body_bytes": (1024, 1048576),
-                  "max_response_bytes": (262144, 8388608), "max_requests": (1, 128),
-                  "request_timeout": (1, 60), "cursor_ttl": (30, 3600)}
+        limits = {
+            "port": (0, 65535),
+            "max_body_bytes": (1024, 1048576),
+            "max_response_bytes": (262144, 8388608),
+            "max_requests": (1, 128),
+            "request_timeout": (1, 60),
+            "cursor_ttl": (30, 3600),
+            "event_poll_interval": (1, 10),
+            "stream_write_timeout": (1, 30),
+            "stream_max_seconds": (1, 300),
+        }
         numbers = {}
         for name, (lower, upper) in limits.items():
             value = raw.get(name, getattr(cls, name))
             if type(value) is not int or not lower <= value <= upper:
                 raise ValueError("invalid native PWA numeric limit")
             numbers[name] = value
+        event_raw = raw.get("event_limits", {})
+        event_caps = {
+            "max_count": 65536,
+            "max_bytes": 67108864,
+            "max_age_seconds": 604800,
+            "max_event_bytes": 65536,
+            "batch_count": 100,
+            "snapshot_count": 100,
+            "max_subscribers": 128,
+        }
+        closed(event_raw, event_caps)
+        if any(
+            type(v) is not int or not 1 <= v <= event_caps[k]
+            for k, v in event_raw.items()
+        ):
+            raise ValueError("invalid native event limit")
+        event_limits = EventLimits(**event_raw)
         owners = raw["bindings"]
         if not isinstance(owners, list) or not 1 <= len(owners) <= 100:
             raise ValueError("native PWA requires explicit owner bindings")
-        bindings, principals, identities = [], set(), set()
+        bindings, principals = [], set()
         for owner in owners:
-            closed(owner, {"issuer", "subject", "sources", "default_source_id"},
-                   {"issuer", "subject", "sources", "default_source_id"})
-            principal, _ = parse_principal({"issuer": owner["issuer"], "subject": owner["subject"], "concierge_id": concierge_id})
+            closed(
+                owner,
+                {"issuer", "subject", "sources", "default_source_id"},
+                {"issuer", "subject", "sources", "default_source_id"},
+            )
+            principal, _ = parse_principal({
+                "issuer": owner["issuer"],
+                "subject": owner["subject"],
+                "concierge_id": concierge_id,
+            })
             if principal in principals:
                 raise ValueError("duplicate native PWA principal")
             principals.add(principal)
             sources, source_ids = [], set()
-            if not isinstance(owner["sources"], list) or not 1 <= len(owner["sources"]) <= 16:
+            if (
+                not isinstance(owner["sources"], list)
+                or not 1 <= len(owner["sources"]) <= 16
+            ):
                 raise ValueError("invalid native PWA source bindings")
             for row in owner["sources"]:
-                allowed = {"source_id", "platform", "chat_id", "chat_type", "user_id", "thread_id", "scope_id", "session_ids"}
-                closed(row, allowed, {"source_id", "platform", "chat_id", "chat_type", "user_id"})
+                allowed = {
+                    "source_id",
+                    "platform",
+                    "chat_id",
+                    "chat_type",
+                    "user_id",
+                    "thread_id",
+                    "scope_id",
+                    "session_ids",
+                }
+                closed(
+                    row,
+                    allowed,
+                    {"source_id", "platform", "chat_id", "chat_type", "user_id"},
+                )
                 from gateway.config import Platform
+
                 try:
                     platform = Platform(row["platform"])
                 except (TypeError, ValueError):
                     raise ValueError("invalid native PWA platform") from None
                 source_id = identifier(row["source_id"])
-                if source_id in source_ids or row["chat_type"] not in {"dm", "group", "channel", "thread", "forum"}:
+                if source_id in source_ids or row["chat_type"] not in {
+                    "dm",
+                    "group",
+                    "channel",
+                    "thread",
+                    "forum",
+                }:
                     raise ValueError("invalid native PWA source identity")
                 source_ids.add(source_id)
-                source = SessionSource(platform=platform, chat_id=bounded_text(row["chat_id"]),
-                    chat_type=row["chat_type"], user_id=bounded_text(row["user_id"]),
-                    thread_id=bounded_text(row["thread_id"]) if row.get("thread_id") is not None else None,
-                    scope_id=bounded_text(row["scope_id"]) if row.get("scope_id") is not None else None)
+                source = SessionSource(
+                    platform=platform,
+                    chat_id=bounded_text(row["chat_id"]),
+                    chat_type=row["chat_type"],
+                    user_id=bounded_text(row["user_id"]),
+                    thread_id=bounded_text(row["thread_id"])
+                    if row.get("thread_id") is not None
+                    else None,
+                    scope_id=bounded_text(row["scope_id"])
+                    if row.get("scope_id") is not None
+                    else None,
+                )
                 ids = row.get("session_ids", [])
                 if not isinstance(ids, list) or len(ids) > 1000:
                     raise ValueError("invalid native PWA explicit sessions")
-                entry = SourceBinding(source_id, source, tuple(identifier(i) for i in ids))
-                if entry.identity_json in identities:
-                    raise ValueError("native source cannot be assigned to multiple owners")
-                identities.add(entry.identity_json)
+                entry = SourceBinding(
+                    source_id, source, tuple(identifier(i) for i in ids)
+                )
                 sources.append(entry)
             default = identifier(owner["default_source_id"])
             if default not in source_ids:
                 raise ValueError("native PWA default source is not assigned")
             bindings.append(OwnerBinding(principal, tuple(sources), default))
-        return cls(enabled=True, concierge_id=concierge_id, host=host, allowed_hosts=tuple(hosts),
-                   private_network=private_network, tls_cert=cert, tls_key=key,
-                   token_env=token_env, bindings=tuple(bindings), **numbers)
+        return cls(
+            enabled=True,
+            concierge_id=concierge_id,
+            host=host,
+            allowed_hosts=tuple(hosts),
+            private_network=private_network,
+            tls_cert=cert,
+            tls_key=key,
+            token_env=token_env,
+            bindings=tuple(bindings),
+            event_limits=event_limits,
+            **numbers,
+        )
 
     @property
     def fingerprint(self):
