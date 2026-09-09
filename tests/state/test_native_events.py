@@ -276,3 +276,56 @@ def test_completed_identity_cannot_generate_false_start_event(tmp_path):
     assert result["events"] == []
     assert result["executions"][0]["observed_state"] == "completed"
     db.close()
+
+
+def test_epoch_rotated_before_transaction_is_captured(monkeypatch, tmp_path):
+    db = event_db(tmp_path)
+    old = capture(db)["cursor"]
+    execute = db._execute_write
+
+    def rotate_before_write(fn, **kwargs):
+        db.native_event_mark_gap("root")
+        return execute(fn, **kwargs)
+
+    monkeypatch.setattr(db, "_execute_write", rotate_before_write)
+    result = capture(db, cursor=old)
+    assert result["status"] == "gap"
+    assert result["cursor"]["epoch"] == db.native_event_epoch("root")
+    assert result["cursor"]["epoch"] != old["epoch"]
+    db.close()
+
+
+def test_observation_gap_cannot_split_snapshot_boundary(monkeypatch, tmp_path):
+    import threading
+
+    db = event_db(tmp_path)
+    old = capture(db)["cursor"]
+    inside, release, attempting_gap = (threading.Event() for _ in range(3))
+    prune = db._native_event_prune
+
+    def gated(conn, now):
+        prune(conn, now)
+        inside.set()
+        assert release.wait(10)
+        # A concurrent mark_gap has started but cannot rotate in this capture.
+        assert db.native_event_epoch("root") == old["epoch"]
+
+    def mark_gap():
+        attempting_gap.set()
+        db.native_event_mark_gap("root")
+
+    monkeypatch.setattr(db, "_native_event_prune", gated)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        snapshot = pool.submit(capture, db, cursor=old)
+        assert inside.wait(10)
+        gap = pool.submit(mark_gap)
+        assert attempting_gap.wait(10)
+        release.set()
+        result = snapshot.result(timeout=10)
+        gap.result(timeout=10)
+    assert result["cursor"]["epoch"] == old["epoch"]
+    monkeypatch.setattr(db, "_native_event_prune", prune)
+    following = capture(db, cursor=result["cursor"])
+    assert following["status"] == "gap"
+    assert following["cursor"]["epoch"] == db.native_event_epoch("root")
+    db.close()

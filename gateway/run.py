@@ -7100,7 +7100,17 @@ class TurnRunner:
                 raise
             else:
                 if native_context:
-                    native_context.finish(outcome=("interrupted" if result.get("interrupted") else "failed" if result.get("failed") else "completed"))
+                    # Share native success classification: partial/truncated
+                    # returns are not completed just because no exception escaped.
+                    if _should_clear_resume_pending_after_turn(result):
+                        outcome = "completed"
+                    elif isinstance(result, dict) and result.get("interrupted"):
+                        outcome = "interrupted"
+                    elif isinstance(result, dict) and (result.get("failed") or result.get("error")):
+                        outcome = "failed"
+                    else:
+                        outcome = "unknown"
+                    native_context.finish(outcome=outcome)
             finally:
                 if native_observer:
                     native_observer.restore()

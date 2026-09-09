@@ -323,3 +323,55 @@ async def test_storage_read_failure_is_not_empty_success(monkeypatch, tmp_path):
         db._conn.set_authorizer(None)
         await finish(ingress)
         db.close()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "native_result,expected",
+    [
+        ({"completed": False, "partial": True, "error": error}, "failed")
+        for error in (
+            "Reasoning exhausted the output token budget",
+            "Response truncated due to output length limit",
+            "Incomplete REASONING_SCRATCHPAD after 2 retries",
+            "Codex response remained incomplete after 3 continuation attempts",
+        )
+    ]
+    + [
+        ({"completed": False, "partial": True}, "unknown"),
+        ({"completed": False}, "unknown"),
+        ({"failed": True}, "failed"),
+        ({"interrupted": True, "partial": True}, "interrupted"),
+        ({"completed": True}, "completed"),
+    ],
+)
+async def test_native_incomplete_outcomes_preserve_actual_evidence(
+    monkeypatch, tmp_path, native_result, expected
+):
+    runner, ingress, db, store, entry, source, adapter = event_setup(
+        monkeypatch, tmp_path
+    )
+
+    def incomplete_loop(*args, **kwargs):
+        # Actual AIAgent/TurnRunner and incremental transcript writer; synthetic
+        # provider return matches the native incomplete/partial producer shapes.
+        return {**provider_loop(*args, **kwargs), **native_result}
+
+    monkeypatch.setattr("agent.conversation_loop.run_conversation", incomplete_loop)
+    try:
+        await ingress.submit(OWNER, command(entry.session_id))
+        await started()
+        JournalAgent.gates[0].set()
+        await finish(ingress)
+        snapshot = await ingress.events.recover(OWNER, entry.session_id)
+        assert snapshot["snapshot"]["recent_executions"][0]["state"] == expected
+        assert (await ingress.command_receipt(OWNER, "c1"))[
+            "application_state"
+        ] == "applied"
+        assert (
+            len([m for m in db.get_messages(entry.session_id) if m["role"] == "user"])
+            == 1
+        )
+    finally:
+        await finish(ingress)
+        db.close()

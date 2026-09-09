@@ -50,7 +50,11 @@ class NativeEventStateMixin:
             self._native_events_overrides = {}
 
     def native_event_mark_gap(self, root):
-        self._native_events_overrides[root] = uuid4().hex
+        # Called outside write callbacks (including after a failed transaction).
+        # Share SessionDB's writer lock: observation loss must linearize before
+        # or after a canonical capture, never in the middle of its boundary.
+        with self._lock:
+            self._native_events_overrides[root] = uuid4().hex
 
     def native_event_epoch(self, root):
         if root in self._native_events_overrides:
@@ -174,9 +178,11 @@ class NativeEventStateMixin:
         for; the gap response's cursor points at the new epoch's snapshot boundary.
         """
         limits = self._native_events_limits
-        epoch = self.native_event_epoch(root)
 
         def read(conn):
+            # Capture only after _execute_write owns the writer lock and SQLite
+            # transaction; an observer may have rotated while we waited.
+            epoch = self.native_event_epoch(root)
             now = time.time()
             self._native_event_prune(conn, now)
             head = conn.execute(
