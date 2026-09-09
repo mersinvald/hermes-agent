@@ -591,3 +591,118 @@ async def test_tls_refusal_after_queue_removal_never_claims_grant(service, monke
     finally:
         release.set()
         await asyncio.wait_for(callback, 5)
+
+
+@pytest.mark.parametrize("state,outcome", [("consumed", "result_received"),
+    ("consumed", "tool_error"), ("consumed", "unknown"), ("consumed", None),
+    ("approved", None), ("rejected", None), ("revoked", None), ("expired", None)])
+def test_terminal_before_queue(monkeypatch, state, outcome):
+    cfg = {"mcp_permissions": {"enabled": True, "url": "https://permissions.test", "owner": "serviceUser"},
+           "a2a_agents": {"groundskeeper": {"expected_permission_actor": "groundskeeper108"}}}
+    monkeypatch.setattr("hermes_cli.config.load_config", lambda: cfg)
+    value = details()
+    value.update(state="pending" if state == "expired" else state, outcome=outcome)
+    if state in ("consumed", "expired"):
+        value["expires"] = time.time() - 100
+    reads = []
+    monkeypatch.setattr(bridge, "_http", lambda *a: reads.append(a) or value)
+    approval.register_gateway_notify("s", lambda _: pytest.fail("terminal request queued"))
+    result = json.loads(bridge.request_permission(f"[mkl.hitl.request:{REF}]", "a2a_agents", "groundskeeper"))
+    assert result["permission_status"] == state
+    assert result["approval_prompt_sent"] is False and result["action_executed"] is False
+    assert result["request_id"] == REF and len(reads) == 1 and not approval._gateway_queues
+    if state == "consumed":
+        assert result["priorOutcome"] == (outcome or "unknown")
+        assert result["code"] == "permission_replay"
+
+
+@pytest.mark.parametrize("fault", ["actor", "owner", "request_id", "missing", "tls", "auth", "503", "protocol"])
+def test_state_failures_never_disclose_or_prompt(monkeypatch, fault):
+    cfg = {"mcp_permissions": {"enabled": True, "url": "https://permissions.test", "owner": "serviceUser"},
+           "a2a_agents": {"groundskeeper": {"expected_permission_actor": "groundskeeper108"}}}
+    monkeypatch.setattr("hermes_cli.config.load_config", lambda: cfg)
+    value = details()
+    value.update(state="consumed", outcome="result_received")
+    if fault in ("actor", "owner"): value["action"][fault] = "foreign"
+    if fault == "request_id": value["request_id"] = "b" * 32
+    if fault == "protocol": value["state"] = "future-state"
+    def read(*args):
+        if fault in ("missing", "auth"): raise bridge.BridgeRejected()
+        if fault in ("tls", "503"): raise bridge.BridgeError()
+        return value
+    monkeypatch.setattr(bridge, "_http", read)
+    approval.register_gateway_notify("s", lambda _: pytest.fail("invalid request queued"))
+    result = json.loads(bridge.request_permission(f"[mkl.hitl.request:{REF}]", "a2a_agents", "groundskeeper"))
+    assert result["permission_status"] == ("unavailable" if fault in ("tls", "503", "protocol") else "forbidden")
+    assert "request_id" not in result and "priorOutcome" not in result
+    assert result["approval_prompt_sent"] is False and not approval._gateway_queues
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("state", ["consumed", "revoked", "rejected", "expired", "send_unknown", "send_confirmed"])
+async def test_state_changed_before_native_send_bounded_recheck(monkeypatch, state):
+    cfg = {"mcp_permissions": {"enabled": True, "url": "https://permissions.test", "owner": "serviceUser"},
+           "a2a_agents": {"groundskeeper": {"expected_permission_actor": "groundskeeper108"}}}
+    monkeypatch.setattr("hermes_cli.config.load_config", lambda: cfg)
+    value, reads = details(), []
+    monkeypatch.setattr(bridge, "_http", lambda *args: reads.append(args) or value.copy())
+    a, loop = adapter(), asyncio.get_running_loop()
+    if state == "send_unknown": a._bot.send_message.side_effect = TimeoutError("lost ack")
+    async def send(data):
+        if not state.startswith("send_"):
+            value["state"] = "pending" if state == "expired" else state
+            if state == "expired": value["expires"] = time.time() - 1
+        result = await a.send_exec_approval("101", "", "s", remote_permission=data["remote_permission"], approval_request_id=data["request_id"])
+        # Reproduce native notify failure, including ACK uncertainty.
+        raise RuntimeError("PermissionPromptUnavailable")
+    approval.register_gateway_notify("s", lambda data: asyncio.run_coroutine_threadsafe(send(data), loop).result(timeout=5))
+    result = json.loads(await asyncio.to_thread(bridge.request_permission, f"[mkl.hitl.request:{REF}]", "a2a_agents", "groundskeeper"))
+    assert len(reads) == 3 and all(len(args) == 3 for args in reads)
+    assert result["permission_status"] == ("pending" if state.startswith("send_") else state)
+    assert result["approval_prompt_sent"] is (None if state == "send_unknown" else state == "send_confirmed")
+    assert a._bot.send_message.call_count == int(state.startswith("send_"))
+    assert not approval._gateway_queues and result["action_executed"] is False
+
+
+@pytest.mark.parametrize("body_error", [False, True])
+@pytest.mark.parametrize("outcome", ["result_received", "tool_error", "unknown"])
+def test_actual_service_consumed_replay_native_mcp(service, monkeypatch, body_error, outcome):
+    from tools import mcp_tool
+    from unittest.mock import MagicMock
+    ledger, cfg, config = service
+    config["mcp_servers"] = {"fixture": {"expected_permission_actor": "groundskeeper108"}}
+    contract = cfg["contracts"][0]
+    arguments = {"resource_id": "fixture-a", "value": 3, "operation_id": "synthetic-replay-operation"}
+    params = json.dumps({"name": contract["tool"], "arguments": arguments}).encode()
+    ref = ledger.check("groundskeeper108", [contract["backend"]], "tools/call", params)["request_id"]
+    r = remote(ref)
+    r.url = config["mcp_permissions"]["url"]
+    bridge.inspect_prompt(r)
+    # Synthetic fixture human only; execution is an explicit native tool call.
+    bridge.decide(r, "101", "101", 0)
+    server = MagicMock(is_connected=True)
+    monkeypatch.setattr(mcp_tool, "_servers", {"fixture": server})
+    effects, calls = [], []
+    def invoke(*args, **kwargs):
+        calls.append(1)
+        checked = ledger.check("groundskeeper108", [contract["backend"]], "tools/call", params)
+        if "attempt_id" in checked:
+            effects.append(1)
+            response = {"content": [{"type": "text", "text": "inert response"}], "isError": outcome == "tool_error"}
+            if outcome != "unknown":
+                ledger.record("groundskeeper108", [contract["backend"]], "tools/call", checked["attempt_id"], json.dumps(response).encode())
+            return json.dumps(response)
+        assert checked["type"] == "mkl.hitl.replay" and checked["request_id"] == ref
+        text = f"Permission required [mkl.hitl.request:{ref}]"
+        if body_error: return json.dumps({"error": text})
+        raise RuntimeError(text)
+    monkeypatch.setattr(mcp_tool, "_run_on_mcp_loop", invoke)
+    handler = mcp_tool._make_tool_handler("fixture", contract["tool"], 10)
+    handler(arguments)
+    before = ledger.listing("serviceUser", "audit"), ledger.listing("serviceUser", "requests"), ledger.listing("serviceUser", "grants")
+    approval.register_gateway_notify("s", lambda _: pytest.fail("replay queued"))
+    result = json.loads(handler(arguments))
+    assert result["permission_status"] == "consumed" and result["priorOutcome"] == outcome
+    assert result["approval_prompt_sent"] is False and result["action_executed"] is False
+    assert len(effects) == 1 and len(calls) == 2 and not approval._gateway_queues
+    assert before == (ledger.listing("serviceUser", "audit"), ledger.listing("serviceUser", "requests"), ledger.listing("serviceUser", "grants"))

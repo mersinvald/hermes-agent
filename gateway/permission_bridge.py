@@ -19,7 +19,7 @@ from urllib.parse import urlsplit
 
 
 MARKER = re.compile(r"\[mkl\.hitl\.request:([A-Za-z0-9_-]{32})\]")
-REQUIRED = "Permission required. No confirmed authorization is available; do not replay or invent approval data."
+REQUIRED = "Permission unavailable. No confirmed authorization is available; do not replay or invent approval data."
 
 
 class BridgeError(ValueError):
@@ -51,6 +51,7 @@ class RemotePermission:
     choices: tuple = ()
     expires: float = 0
     message_id: str = ""
+    prompt_delivery_unknown: bool = False
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -102,7 +103,7 @@ def _http(remote, user, chat, body=None):
             raise BridgeError()
         return value
     except urllib.error.HTTPError as error:
-        if error.code == 403:
+        if error.code in (403, 404):
             raise BridgeRejected() from None
         raise BridgeError() from None
     except Exception:
@@ -110,11 +111,64 @@ def _http(remote, user, chat, body=None):
         raise BridgeError() from None
 
 
-def inspect_prompt(remote):
+def inspect_state(remote):
+    """Read authority, validating identity before exposing even terminal state."""
     details = _http(remote, remote.user, remote.chat)
+    action = details.get("action")
+    if (details.get("request_id") != remote.reference or not isinstance(action, dict)
+            or action.get("actor") != remote.actor or action.get("owner") != remote.owner):
+        raise BridgeRejected()
+    state = details.get("state")
+    if state not in ("pending", "approved", "consumed", "rejected", "revoked"):
+        raise BridgeError()
+    # Consumption is irreversible, even after the original consent deadline.
+    if state in ("pending", "approved"):
+        expiry = details.get("expires")
+        if type(expiry) not in (int, float) or not math.isfinite(expiry):
+            raise BridgeError()
+        if expiry <= time.time():
+            state = "expired"
+    return details, state
+
+
+def feedback(status="unavailable", remote=None, details=None, lookup_reference=None):
+    sent = bool(remote.message_id) if remote else False
+    if remote and not sent and remote.prompt_delivery_unknown:
+        sent = None
+    message = {
+        "unavailable": REQUIRED,
+        "forbidden": "Permission request forbidden or not applicable.",
+        "consumed": "Operation already consumed; replay blocked. No action executed this invocation.",
+        "approved": "Permission already approved but not consumed; no action executed this invocation.",
+        "expired": "Permission request expired before execution.",
+        "rejected": "Permission request rejected.",
+        "revoked": "Permission request revoked.",
+        "pending": "Permission remains pending; no confirmed decision is available.",
+        "decision_recorded": "Human permission decision recorded for the exact displayed action. No tool was executed or A2A task restarted by this bridge.",
+    }[status]
+    message += (" Do not retry automatically, change the original operation ID, or invent a fresh ID."
+                " A new logical operation requires new user intent. Do not claim a button was sent"
+                " unless approval_prompt_sent is true; do not offer command-based approval.")
+    result = {"error": message, "permission_status": status,
+              "code": "permission_replay" if status == "consumed" else "permission_" + status,
+              "approval_prompt_sent": sent, "action_executed": False}
+    if lookup_reference is not None:
+        # Echo only the untrusted lookup hint, never label it verified authority.
+        result["lookup_reference"] = lookup_reference
+    if remote and status not in ("forbidden", "unavailable"):
+        result["request_id"] = remote.reference
+    if status == "consumed":
+        outcome = (details or {}).get("outcome")
+        result["priorOutcome"] = outcome if outcome in ("result_received", "tool_error", "unknown") else "unknown"
+        result["error"] += " Prior outcome is backend metadata, not proof of physical success or an effect count."
+    return json.dumps(result)
+
+
+def inspect_prompt(remote):
+    details, state = inspect_state(remote)
     action, choices = details.get("action"), details.get("choices")
     expiry, digest = details.get("expires"), details.get("digest")
-    if (details.get("request_id") != remote.reference or details.get("state") != "pending"
+    if (details.get("request_id") != remote.reference or state != "pending"
             or not isinstance(action, dict) or action.get("actor") != remote.actor
             or action.get("owner") != remote.owner
             or not {"actor", "owner", "backend", "tool", "schema_version", "contract_digest", "arguments", "resources"} <= action.keys()
@@ -153,6 +207,8 @@ def inspect_prompt(remote):
     if len(text) > 3800:
         raise BridgeError()
     remote.digest, remote.choices, remote.expires = digest, tuple(ids), expiry
+    # Rendering permits a send attempt; only the adapter's message ID proves delivery.
+    remote.prompt_delivery_unknown = True
     return "<pre>" + html.escape(text) + "</pre>"
 
 
@@ -175,8 +231,8 @@ def request_permission(text, source_kind, source_name):
         return None
     reference = request_reference(text)
     if reference is None:
-        return REQUIRED
-    hint = " [mkl.hitl.request:" + reference + "]"
+        return feedback("forbidden")
+    remote = None
     try:
         from hermes_cli.config import load_config
         from gateway.session_context import get_session_env
@@ -188,7 +244,7 @@ def request_permission(text, source_kind, source_name):
         peer = (peers or {}).get(source_name)
         if (settings.get("enabled") is not True or not isinstance(peer, dict)
                 or source_name.startswith(("http://", "https://"))):
-            return REQUIRED + hint
+            return feedback(lookup_reference=reference)
         actor = peer.get("expected_permission_actor", source_name if source_kind == "a2a_agents" else "")
         owner, url = settings.get("owner"), settings.get("url", "")
         parsed = urlsplit(url)
@@ -196,27 +252,33 @@ def request_permission(text, source_kind, source_name):
                 or parsed.scheme != "https" or not parsed.hostname
                 or parsed.username or parsed.password or parsed.query or parsed.fragment
                 or parsed.path not in ("", "/")):
-            return REQUIRED + hint
+            return feedback(lookup_reference=reference)
         def current(name):
             return get_session_env("HERMES_SESSION_" + name, allow_env=False)
         user, chat, session = current("USER_ID"), current("CHAT_ID"), current("KEY")
         if current("PLATFORM") != "telegram" or not user or not chat or not session:
-            return REQUIRED + hint
+            return feedback(lookup_reference=reference)
         if approval._is_cron_approval_context():
-            return REQUIRED + hint
+            return feedback(lookup_reference=reference)
         with approval._lock:
             notify = approval._gateway_notify_cbs.get(session)
         if notify is None:
-            return REQUIRED + hint
+            return feedback(lookup_reference=reference)
         remote = RemotePermission(reference, actor, owner, str(user), str(chat), url.rstrip("/"))
+        details, state = inspect_state(remote)
+        if state != "pending":
+            return feedback(state, remote, details)
         result = approval._await_gateway_decision(session, notify, {
             "command": "", "description": "Remote permission required",
             "remote_permission": remote, "allow_session": False, "allow_permanent": False,
         })
         if result.get("resolved") and result.get("choice") == "once":
-            return ("Human permission decision recorded for the exact displayed action. "
-                    "No tool was executed or A2A task restarted by this bridge. "
-                    "Do not send approval data or create a new operation; inspect the existing task.")
-        return REQUIRED + hint
+            return feedback("decision_recorded", remote)
+        # One bounded read handles pending -> terminal between inspection and UI.
+        # No polling, requeue, decision POST, or execution is performed here.
+        details, state = inspect_state(remote)
+        return feedback(state, remote, details)
+    except BridgeRejected:
+        return feedback("forbidden", remote)
     except Exception:
-        return REQUIRED + hint
+        return feedback("unavailable", remote)
