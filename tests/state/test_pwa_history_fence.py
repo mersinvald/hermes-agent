@@ -1,12 +1,14 @@
 """Actual SQLite generation triggers and genuine pre-fence upgrade behavior."""
+import json
 import sqlite3
+from pathlib import Path
 
 import pytest
 
 import hermes_state_schema as schema
 from hermes_state import SessionDB
 from hermes_state_common import SCHEMA_SQL
-from hermes_state_pwa_scan import history_snapshot
+from hermes_state_pwa_scan import history_snapshot, install_history_fence
 from gateway.pwa_ownership import NativePwaOwnership
 
 
@@ -175,3 +177,84 @@ def test_native_branch_ownership_backfill_is_conservative_invalidation(db):
     assert db.get_session("branch")["user_id"] == "synthetic"
     resolver = NativePwaOwnership(None, db, None, secret="synthetic-only")
     assert resolver.resolve("root")["native_session_ids"] == ["root"]
+
+
+def install_original31(db):
+    fixture = json.loads((Path(__file__).parents[1] / "fixtures/pwa_history_fence_31_initial.json").read_text())
+    def old(conn):
+        for name, statement in fixture["triggers"].items():
+            conn.execute(f'DROP TRIGGER "{name}"')
+            conn.execute(statement)
+    db._execute_write(old)
+
+
+@pytest.mark.parametrize("marker", ["_branched_from", "_delegate_from"])
+def test_original31_duplicate_last_key_transition_is_repaired_on_reopen(tmp_path, marker):
+    path = tmp_path / "original31.db"
+    db = SessionDB(path)
+    db.create_session("root", "telegram", user_id="synthetic")
+    db.end_session("root", "compression")
+    inactive = '{"' + marker + '":null,"' + marker + '":"root"}'
+    active = '{"' + marker + '":null,"' + marker + '":null}'
+    write(db, "INSERT INTO sessions(id,source,user_id,parent_session_id,started_at,model_config) VALUES('child','telegram','synthetic','root',0,?)", (inactive,))
+    resolver = NativePwaOwnership(None, db, None, secret="synthetic-only")
+    assert resolver.resolve("root")["native_session_ids"] == ["root"]
+    install_original31(db)
+    old_generation = generation(db)
+    write(db, "UPDATE sessions SET model_config=? WHERE id='child'", (active,))
+    assert generation(db) == old_generation  # Actual original31 first-key gap.
+    assert resolver.resolve("root")["native_session_ids"] == ["root", "child"]
+    db.close()
+    db = SessionDB(path)
+    repaired_generation = generation(db)
+    assert repaired_generation == old_generation + 1
+    write(db, "UPDATE sessions SET model_config=? WHERE id='child'", (inactive,))
+    assert generation(db) == repaired_generation + 1
+    assert NativePwaOwnership(None, db, None, secret="synthetic-only").resolve("root")["native_session_ids"] == ["root"]
+    steady = generation(db)
+    db.close()
+    db = SessionDB(path)
+    assert generation(db) == steady
+    db.close()
+
+
+@pytest.mark.parametrize("value,expected", [
+    ('{"_branched_from":"root","_branched_from":null}', ["root", "child"]),
+    ('{"_branched_from":null,"_branched_from":"root"}', ["root"]),
+])
+def test_duplicate_marker_child_insert_is_conservatively_fenced(db, value, expected):
+    db.end_session("root", "compression")
+    before = generation(db)
+    write(db, "INSERT INTO sessions(id,source,user_id,parent_session_id,started_at,model_config) VALUES('child','telegram','synthetic','root',0,?)", (value,))
+    assert generation(db) > before
+    assert NativePwaOwnership(None, db, None, secret="synthetic-only").resolve("root")["native_session_ids"] == expected
+
+
+def test_owned_trigger_repair_rolls_back_atomically_and_preserves_other_triggers(db):
+    install_original31(db)
+    write(db, "CREATE TRIGGER unrelated_synthetic AFTER UPDATE ON sessions BEGIN SELECT 1; END")
+    with db._read_ctx() as conn:
+        before = conn.execute("SELECT name,sql FROM sqlite_master WHERE type='trigger' ORDER BY name").fetchall()
+    old_generation = generation(db)
+    class BrokenCursor:
+        def __init__(self, conn):
+            self.cursor = conn.cursor()
+        def execute(self, statement, *args):
+            if statement.startswith("CREATE TRIGGER IF NOT EXISTS pwa_history_session_update"):
+                raise sqlite3.OperationalError("synthetic DDL failure")
+            return self.cursor.execute(statement, *args)
+    with pytest.raises(sqlite3.OperationalError, match="synthetic DDL failure"):
+        db._execute_write(lambda conn: install_history_fence(BrokenCursor(conn)))
+    with db._read_ctx() as conn:
+        assert conn.execute("SELECT name,sql FROM sqlite_master WHERE type='trigger' ORDER BY name").fetchall() == before
+    assert generation(db) == old_generation
+    db._execute_write(lambda conn: install_history_fence(conn.cursor()))
+    assert generation(db) == old_generation + 1
+    with db._read_ctx() as conn:
+        assert conn.execute("SELECT 1 FROM sqlite_master WHERE name='unrelated_synthetic'").fetchone()
+    old_generation = generation(db)
+    write(db, "DROP TRIGGER pwa_history_message_update")
+    db._execute_write(lambda conn: install_history_fence(conn.cursor()))
+    assert generation(db) == old_generation + 1
+    db._execute_write(lambda conn: install_history_fence(conn.cursor()))
+    assert generation(db) == old_generation + 1

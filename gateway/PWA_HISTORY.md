@@ -41,5 +41,15 @@ transaction. That actual ownership backfill conservatively invalidates sweeps,
 even for a new independent branch. Initial captures stay read-only; there is no
 additional high-water registration write to suppress this conservative case.
 
+Duplicate branch/delegate marker keys require conservative raw comparison:
+SQLite extracts the first duplicate key while the Python ownership resolver
+uses the last. Such child insertions are conservatively fenced as ambiguous
+instead of relying on SQLite's first-key classification. On reopen the installer
+reconciles only its exact owned trigger names inside a savepoint. Changed or
+missing protection on an existing singleton increments the generation once;
+unchanged reopen does not. Failure rolls back definitions and generation
+atomically. The upgrade regression installs actual original schema31 trigger
+definitions before reopening with the corrected implementation.
+
 This schema prerequisite alone does not advertise search or sync availability.
 The owner-authorized scan and HTTP mounts require their separate runtime checks.
