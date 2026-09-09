@@ -5,6 +5,7 @@ import os
 import stat
 import time
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import MagicMock
 
 import pytest
@@ -46,7 +47,7 @@ def test_flush_writes_message_event_to_file(tmp_path, monkeypatch):
     monkeypatch.setattr(
         "gateway.shutdown_flush._get_flush_dir", lambda: flush_dir
     )
-    event = MagicMock()
+    event = SimpleNamespace()
     event.text = "user message"
     event.session_id = "20260728_120000_abc"
     event.platform = "telegram"
@@ -134,7 +135,7 @@ def test_recover_closes_owned_db_when_unexpected_exception_escapes(
 
 
 def test_serialise_object_with_text():
-    obj = MagicMock()
+    obj = SimpleNamespace()
     obj.text = "msg"
     obj.session_id = "sid"
     obj.platform = None

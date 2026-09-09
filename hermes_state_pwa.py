@@ -113,6 +113,8 @@ class NativePwaStateMixin:
         # loading all retained payloads into a Python list as get_messages does.
         # Oversized user carriers retain exact raw-content equality; only small
         # structured carriers enter the native canonical display normalizer.
+        # session_meta is a native bookkeeping row appended at turn completion,
+        # not a transcript message; never expose it or reject the whole page.
         with bounded_read(self) as conn:
             conn.create_function("pwa_display_key", 3, _display_key, deterministic=True)
             try:
@@ -124,6 +126,7 @@ class NativePwaStateMixin:
                             timestamp,tool_call_id,tool_calls,tool_name
                             ORDER BY active DESC,id DESC) AS rank
                     FROM messages WHERE session_id=? AND id<=? AND (active=1 OR compacted=1)
+                        AND role!='session_meta'
                 ) SELECT id,session_id,role,
                     CASE WHEN length(content)<=65536 THEN content END AS content,
                     COALESCE(length(content),0) AS content_length,
