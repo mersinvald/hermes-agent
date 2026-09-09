@@ -16,7 +16,7 @@ import tarfile
 
 BASE_REVISION = "29112bef099274229cadff79cdff7bf7b99c4b77"
 BASE = "docker.io/nousresearch/hermes-agent@sha256:64923faeae267792bf9bf87fe3b4c4869e35004e360c7df01730ad801b74d524"
-RUNTIME = ("gateway/native_clarification.py", "hermes_state_clarifications.py", "hermes_state_controls.py", "gateway/native_redirect.py", "agent/native_execution_context.py", "agent/auxiliary_client.py", "agent/title_generator.py", "gateway/native_cancellation.py",
+RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grants.py", "hermes_cli/commands.py", "gateway/native_clarification.py", "hermes_state_clarifications.py", "hermes_state_controls.py", "gateway/native_redirect.py", "agent/native_execution_context.py", "agent/auxiliary_client.py", "agent/title_generator.py", "gateway/native_cancellation.py",
            "hermes_state_cancellation.py", "plugins/platforms/a2a/cancellation.py",
            "plugins/platforms/a2a/provenance.py", "tools/async_delegation.py", "tools/delegate_tool.py",
            "plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py",
@@ -34,7 +34,7 @@ RUNTIME = ("gateway/native_clarification.py", "hermes_state_clarifications.py", 
            "hermes_state.py", "hermes_state_common.py", "hermes_state_schema.py", "hermes_state_pwa_scan.py",
            "agent/turn_context.py", "agent/conversation_loop.py",
            "tools/clarify_gateway.py", "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
-NEW_RUNTIME = ("gateway/native_clarification.py", "hermes_state_clarifications.py", "hermes_state_controls.py", "gateway/native_redirect.py", "agent/native_execution_context.py", "agent/auxiliary_client.py", "agent/title_generator.py", "gateway/native_cancellation.py",
+NEW_RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grants.py", "gateway/native_clarification.py", "hermes_state_clarifications.py", "hermes_state_controls.py", "gateway/native_redirect.py", "agent/native_execution_context.py", "agent/auxiliary_client.py", "agent/title_generator.py", "gateway/native_cancellation.py",
                "hermes_state_cancellation.py", "plugins/platforms/a2a/cancellation.py",
                "plugins/platforms/a2a/provenance.py", "plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py",
                "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py",

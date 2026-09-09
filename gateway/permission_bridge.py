@@ -59,12 +59,12 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
         raise BridgeError()
 
 
-def _http(remote, user, chat, body=None):
-    """Only native UI code calls this, using actual source/callback identity."""
+def human_http(url, user, chat, path, body=None, *, max_response=32768):
+    """Fixed-origin transport for native human UI; paths are locally selected."""
     from agent.secret_scope import get_secret
 
     try:
-        origin = urlsplit(remote.url)
+        origin = urlsplit(url)
         if (origin.scheme != "https" or not origin.hostname or origin.username
                 or origin.password or origin.path or origin.query or origin.fragment):
             raise BridgeError()
@@ -74,12 +74,13 @@ def _http(remote, user, chat, body=None):
         for identity in (user, chat):
             if not isinstance(identity, str) or not re.fullmatch(r"-?[0-9]{1,20}", identity):
                 raise BridgeError()
-        url = remote.url + "/requests/" + remote.reference
-        if not MARKER.fullmatch("[mkl.hitl.request:" + remote.reference + "]"):
+        if (not isinstance(path, str) or not re.fullmatch(
+                r"/(?:requests/[A-Za-z0-9_-]{32}(?:/decision)?|grants\?after=[0-9]{1,19}|grants/[A-Za-z0-9_-]{32}/revoke)", path)
+                or type(max_response) is not int or not 1 <= max_response <= 4194304):
             raise BridgeError()
         data = None if body is None else json.dumps(body, allow_nan=False).encode()
         request = urllib.request.Request(
-            url + ("/decision" if body is not None else ""), data=data,
+            url + path, data=data,
             headers={"Authorization": "Bearer " + token,
                      "X-Telegram-User-Id": user, "X-Telegram-Chat-Id": chat,
                      "Content-Type": "application/json"},
@@ -88,8 +89,8 @@ def _http(remote, user, chat, body=None):
         with urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect()).open(request, timeout=5) as response:
             if response.status != 200:
                 raise BridgeError()
-            raw = response.read(32769)
-        if len(raw) > 32768:
+            raw = response.read(max_response + 1)
+        if len(raw) > max_response:
             raise BridgeError()
         def pairs(items):
             result = {}
@@ -98,7 +99,10 @@ def _http(remote, user, chat, body=None):
                     raise BridgeError()
                 result[key] = value
             return result
-        value = json.loads(raw.decode("utf-8"), object_pairs_hook=pairs)
+        def invalid_constant(_):
+            raise BridgeError()
+        value = json.loads(raw.decode("utf-8"), object_pairs_hook=pairs,
+                           parse_constant=invalid_constant)
         if not isinstance(value, dict):
             raise BridgeError()
         return value
@@ -109,6 +113,15 @@ def _http(remote, user, chat, body=None):
     except Exception:
         # Exceptions and HTTP bodies can contain secrets: never format them.
         raise BridgeError() from None
+
+
+def _http(remote, user, chat, body=None):
+    """Preserve the request/decision interface used by the native wait queue."""
+    if not isinstance(remote.reference, str) or not MARKER.fullmatch(
+            "[mkl.hitl.request:" + remote.reference + "]"):
+        raise BridgeError()
+    path = "/requests/" + remote.reference + ("/decision" if body is not None else "")
+    return human_http(remote.url, user, chat, path, body)
 
 
 def inspect_state(remote):

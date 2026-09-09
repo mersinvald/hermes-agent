@@ -1,5 +1,79 @@
 # Native Hermes HITL Candidate
 
+## H01: Native Telegram Grant Inspection and Revocation
+
+The H01 candidate starts at native `748fb13209f06fe8e8f843c61eee141ff42da2d7`.
+An authorized human sends `/grants` in the existing Telegram bot, selects a
+recorded grant, inspects the full scope, and selects **Revoke future use**.
+The command is handled before the agent queue and does not enter the model,
+interrupt a running task, or resolve a clarification or approval waiter.
+Human sender/chat values come from the actual native message/callback. The
+strict native callback authorization runs even when intake permits DM pairing.
+
+The existing permission service API remains the sole contract: owner-scoped
+`GET /grants?after=N` and `POST /grants/{id}/revoke {}`. No new endpoint, database
+migration, model tool, runtime wrapper, bot or permission-writing API is added.
+The native bridge's separate credential, fixed HTTPS origin, default TLS trust,
+proxy/redirect rejection, bounded parsing and error redaction remain in force.
+Every new imported module and the command registry are in the patch publisher.
+
+Each service page is limited to 100 records and 4 MiB, and the entire page is
+validated before five rows are displayed. Cursor ordering, unique IDs, owner,
+scope shape, resource mapping, template constraints, expiry and revoked state
+must be valid; malformed or oversized responses fail closed. The detail view
+renders the complete immutable record with escaped actor/backend/tool/resource,
+constraints, expiry and a display fingerprint. Details exceeding Telegram's
+bounded message size receive no revoke button. Listing shows **not revoked
+(subject to current service policy)**, expired or revoked; recorded scope alone
+does not prove current contract applicability or effective execution authority.
+
+The service does not expose a grant version/CAS or grant-by-ID endpoint. H01
+relies on its existing immutable random ID, cursor, scope and expiry, with no ID
+reuse and only monotonic revocation. A local SHA-256 fingerprint of those
+immutable fields binds the display; it is not a server version token. Inspection
+and revoke refresh the exact cursor via `after=cursor-1`, require the same ID and
+fingerprint, and reject changed or missing records. Backend revocation remains
+atomic with future consumption. It cannot recall an already authorized call.
+
+Per-adapter views have five-minute leases, at most 128 owner/chat slots, five
+retained rows per view and at most 128 previous-page cursors. Each button nonce
+is bound to its native sender, chat, topic, message and displayed grant. A nonce
+is consumed before any await. Refresh, replacement, restart, expiry or uncertain
+Telegram delivery invalidates old buttons. Late HTTP/Telegram responses cannot
+install old authority or replace a newer view. No views or decisions are
+persisted or automatically recovered. The permission ledger is preserved.
+
+A lost revoke acknowledgment triggers one read-only reconciliation, never a
+second POST. The UI distinguishes confirmed revocation, observed revocation
+after a lost response, refusal and unconfirmed state. Refresh permits a new
+explicit human attempt after inspection; the bridge never retries a mutation,
+executes a tool or resumes a task automatically. Native UI follows the adapter's
+existing English message convention; no locale framework was introduced.
+
+Validation uses Python 3.13.3 and `scripts/run_tests.sh` with
+`HERMES_PYTHON=/private/tmp/hermes-pwa-native313-venv/bin/python`. The 44 new
+grant tests cover real loopback HTTPS/native dispatch, 103-record service
+pagination and owner isolation, ledger reopen, wrong sender/chat/message/topic,
+malformed and changed scope, revoked/expired states, view limits, restart,
+replacement, duplicate clicks, lost acknowledgments and delayed responses.
+The existing 85 native permission tests and five TLS trust tests also passed,
+including consumed-operation replay. Another 41 native approval/clarification,
+command-routing and packaging checks, and 61 command-registry tests passed.
+The registry keeps `/grants` out of Slack's 50 native-command slots so existing
+commands are preserved. Focused Ruff checks and compilation also passed.
+Telegram delivery is fake and all grants
+belong to the synthetic fixture in temporary storage. No real Telegram update,
+standing-template activation, HA control, deployment or live acceptance is
+claimed. Production standing templates remain disabled.
+
+```sh
+HERMES_PYTHON=/private/tmp/hermes-pwa-native313-venv/bin/python \
+  scripts/run_tests.sh tests/permissions -- \
+  --permissions-source=/Users/mersinvald/dev/mkl.dev/infra/services/ai/mcp-permissions -q
+```
+
+The earlier evidence below applies to its explicitly named historical sources.
+
 Source candidate on `18a0b6c8df807acbd64c65dbbf66199f635f2664`.
 No production acceptance, publishing, deployment, or real Telegram/HA control
 is claimed. The permission service's current HTTP JSON API is authoritative;
