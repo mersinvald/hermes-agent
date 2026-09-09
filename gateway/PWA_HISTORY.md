@@ -109,3 +109,21 @@ ownership, future rows and non-text interpretation. A checkpoint probe compares
 snapshot/configuration/authority and returns `unchanged` or `refresh_required`.
 It is a conservative refresh indicator, not a mutation log or delta feed. Start
 a new finite sweep on refresh, conflict, expiry or restart.
+
+### Facade projection admission
+
+In addition to the 8 KiB page framing reserve, native admission charges 8 KiB
+for every emitted group before admitting its header or messages. This protects
+matching native/facade byte limits from app projection growth across up to 32
+roots. The bound applies to the current facade projection: a manual title has
+at most 300 code points (at most 1,800 JSON-escaped bytes), a search title snippet
+can add another such bounded string, and metadata plus `execution()` add fixed
+fields around already bounded identifiers. It does not bound the generic
+Execution schema's optional arrays, and must be reviewed if this projection grows.
+
+The reserve is admission bookkeeping only; it is not emitted data or a cursor
+advance. A pending root/header/message remains the next unpublished item when
+remaining capacity is insufficient. Exact retries retain those positions. The
+regression uses matching 262,144-byte limits, 32 actual active native executions,
+maximum-length titles with worst-case JSON escaping and Unicode, and verifies
+all native retained rows and 64 search matches across terminating pages.

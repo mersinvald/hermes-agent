@@ -331,7 +331,7 @@ async def test_byte_budget_omits_large_rows_and_never_skips_later_match(
     from dataclasses import replace
 
     async with service(monkeypatch, tmp_path) as (server, client, native):
-        server.config = replace(server.config, max_response_bytes=16384)
+        server.config = replace(server.config, max_response_bytes=32768)
         db, root = native[2], native[4].session_id
         db.append_message(root, "user", "large needle " + "x" * 20000)
         db.append_message(root, "user", "later needle")
@@ -343,7 +343,7 @@ async def test_byte_budget_omits_large_rows_and_never_skips_later_match(
         assert pages[-1]["coverage"]["state"] == "partial"
         assert pages[-1]["coverage"]["reasons"] == ["oversized_content"]
         for page in pages:
-            assert len(json.dumps(page).encode()) < 16384
+            assert len(json.dumps(page).encode()) < 32768
         matches = await sweep(
             client, "search", limit=2, conversation_id=root, q="needle"
         )

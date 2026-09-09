@@ -181,6 +181,13 @@ class ScanHandles:
         self._key = secrets.token_bytes(32)
 
 
+# CURRENT facade projection: at most 300 title code points (up to 1,800
+# escaped JSON bytes), an optional title snippet of the same bound, fixed
+# metadata fields and the fixed execution() projection. This is not a bound
+# on arbitrary Execution optional arrays. Revisit when that projection changes.
+FACADE_GROUP_RESERVE = 8192
+
+
 class NativeHistoryScan:
     """A finite authorized sweep over native display history, never an FTS proxy."""
 
@@ -383,13 +390,13 @@ class NativeHistoryScan:
             if kind == "search":
                 group["include_title"] = current["include_title"]
             header_size = len(canonical(group).encode()) + 2
-            if size + header_size + 1024 > budget:
+            if size + header_size + FACADE_GROUP_RESERVE + 1024 > budget:
                 if not groups:
                     raise RuntimeError("native history header unavailable")
                 break
             groups.append(group)
             checked[current["root"]] = current["lineage"]
-            size += header_size
+            size += header_size + FACADE_GROUP_RESERVE
             if kind == "search" and current["include_title"]:
                 total += 1
             current["include_title"] = False
@@ -447,7 +454,7 @@ class NativeHistoryScan:
                             "snippet": snippet,
                         }
                     item_size = len(canonical(item).encode()) + 2
-                    if kind == "sync" and item_size + header_size > budget:
+                    if kind == "sync" and item_size + header_size + FACADE_GROUP_RESERVE > budget:
                         item = {
                             **message,
                             "content": None,
