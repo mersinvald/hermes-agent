@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 32
+SCHEMA_VERSION = 33
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -754,6 +754,44 @@ CREATE INDEX IF NOT EXISTS idx_native_clarification_pending
     ON native_clarifications(conversation_id,state,ordinal);
 CREATE INDEX IF NOT EXISTS idx_native_clarification_execution
     ON native_clarifications(execution_id,owner,ordinal);
+
+-- S03 canonical conversation selection, replay-safe mutation receipts and
+-- immutable execution-start capture (schema33). Provider routes stay in native
+-- configuration; only opaque catalog IDs persist at this boundary.
+CREATE TABLE IF NOT EXISTS native_conversation_models (
+    conversation_id TEXT PRIMARY KEY,
+    model_id TEXT NOT NULL CHECK(length(model_id) BETWEEN 1 AND 200),
+    model_version INTEGER NOT NULL CHECK(model_version BETWEEN 1 AND 9007199254740991),
+    updated_at REAL NOT NULL,
+    FOREIGN KEY(conversation_id) REFERENCES sessions(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS native_model_mutations (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    mutation_id TEXT NOT NULL,
+    conversation_id TEXT NOT NULL,
+    fingerprint TEXT NOT NULL CHECK(length(fingerprint)=64),
+    model_id TEXT NOT NULL CHECK(length(model_id) BETWEEN 1 AND 200),
+    expected_model_version INTEGER NOT NULL CHECK(expected_model_version BETWEEN 0 AND 9007199254740991),
+    resulting_model_version INTEGER NOT NULL CHECK(resulting_model_version BETWEEN 1 AND 9007199254740991),
+    recorded_at REAL NOT NULL,
+    UNIQUE(scope,mutation_id),
+    FOREIGN KEY(conversation_id) REFERENCES sessions(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_native_model_mutation_conversation
+    ON native_model_mutations(conversation_id,scope,ordinal DESC);
+CREATE TABLE IF NOT EXISTS native_execution_models (
+    execution_id TEXT PRIMARY KEY,
+    conversation_id TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    lease_holder TEXT NOT NULL,
+    model_id TEXT NOT NULL CHECK(length(model_id) BETWEEN 1 AND 200),
+    model_version INTEGER NOT NULL CHECK(model_version BETWEEN 1 AND 9007199254740991),
+    captured_at REAL NOT NULL,
+    FOREIGN KEY(execution_id) REFERENCES native_executions(execution_id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_native_execution_model_conversation
+    ON native_execution_models(conversation_id,captured_at DESC);
 
 -- Native PWA assignments are profile-local authority records. Current trusted
 -- configuration must still authorize their principal and source on every read;
