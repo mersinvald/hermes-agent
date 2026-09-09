@@ -192,6 +192,56 @@ async def test_cursor_pagination_revocation_and_compaction_invalidation(monkeypa
 
 
 @pytest.mark.asyncio
+async def test_history_cursor_rejects_equal_size_content_rewrite(monkeypatch, tmp_path):
+    async with service(monkeypatch, tmp_path) as (_, client, native):
+        db, root = native[2], native[4].session_id
+        for index in range(3):
+            db.append_message(root, "user", f"message {index}")
+        path = f"/v1/pwa/conversations/{root}/history"
+        first = await (await client.get(path, params={"limit": "1"})).json()
+        assert first["next_cursor"]
+        db._execute_write(lambda conn: conn.execute(
+            "UPDATE messages SET content='changed 1' WHERE session_id=? AND content='message 1'", (root,)))
+        response = await client.get(path, params={"limit": "1", "cursor": first["next_cursor"]})
+        assert response.status == 409
+        assert "changed" not in await response.text()
+
+
+@pytest.mark.asyncio
+async def test_history_cursor_survives_independent_roots_but_not_native_compression(monkeypatch, tmp_path):
+    async with service(monkeypatch, tmp_path) as (_, client, native):
+        db, root, source = native[2], native[4].session_id, native[5]
+        for index in range(3):
+            db.append_message(root, "user", f"retained {index}")
+        path = f"/v1/pwa/conversations/{root}/history"
+        page = await (await client.get(path, params={"limit": "1"})).json()
+        query = {"limit": "1", "cursor": page["next_cursor"]}
+        native_row(db, source, "independent")
+        native_row(db, source, "branch", parent_session_id=root, model_config={"_branched_from": root})
+        assert (await client.get(path, params=query)).status == 200
+        db.publish_compression_child(parent_session_id=root, child_session_id="tip",
+            source=source.platform.value, messages=[{"role": "user", "content": "native handoff"}],
+            require_compression_lease=False)
+        assert (await client.get(path, params=query)).status == 409
+        current = await (await client.get(path)).json()
+        assert current["native_session_ids"] == [root, "tip"]
+
+
+@pytest.mark.asyncio
+async def test_history_cursor_fences_first_continuation_of_already_compressed_parent(monkeypatch, tmp_path):
+    async with service(monkeypatch, tmp_path) as (_, client, native):
+        db, root, source = native[2], native[4].session_id, native[5]
+        for index in range(3):
+            db.append_message(root, "user", f"retained {index}")
+        db.end_session(root, "compression")
+        path = f"/v1/pwa/conversations/{root}/history"
+        page = await (await client.get(path, params={"limit": "1"})).json()
+        native_row(db, source, "late-tip", parent_session_id=root)
+        response = await client.get(path, params={"limit": "1", "cursor": page["next_cursor"]})
+        assert response.status == 409
+
+
+@pytest.mark.asyncio
 async def test_native_source_revocation_blocks_history_and_receipts(monkeypatch, tmp_path):
     async with service(monkeypatch, tmp_path) as (server, client, native):
         root=native[4].session_id

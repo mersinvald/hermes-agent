@@ -15,12 +15,17 @@ def test_schema30_additive_upgrade_preserves_native_state_and_reopens(
 ):
     path = tmp_path / "state.db"
     if existing:
-        start = SCHEMA_SQL.index("-- Explicit native cancellation")
+        # A schema29 fixture must not inherit later schema31 fence objects.
+        start = SCHEMA_SQL.index("-- Native PWA history fence (schema31)")
         end = SCHEMA_SQL.index("-- Native PWA assignments", start)
         old_sql = SCHEMA_SQL[:start] + SCHEMA_SQL[end:]
+        start = old_sql.index("-- Explicit native cancellation")
+        end = old_sql.index("-- Native PWA assignments", start)
+        old_sql = old_sql[:start] + old_sql[end:]
         with monkeypatch.context() as old:
             old.setattr(schema, "SCHEMA_SQL", old_sql)
             old.setattr(schema, "SCHEMA_VERSION", 29)
+            old.setattr(schema, "install_history_fence", lambda _: None)
             db = SessionDB(path)
             db.create_session("retained", "telegram", model="synthetic")
             db.append_message("retained", "user", "retained native input")
@@ -62,6 +67,7 @@ def test_schema30_additive_upgrade_preserves_native_state_and_reopens(
                 "native_cancel_commands",
                 "native_remote_dispatches",
                 "native_remote_cancel_attempts",
+                "native_pwa_history_fence",
             }
             assert new_tables <= tables
             if existing:

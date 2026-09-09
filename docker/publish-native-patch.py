@@ -30,7 +30,8 @@ RUNTIME = ("agent/native_execution_context.py", "gateway/native_cancellation.py"
            "gateway/telegram_conversations.py", "hermes_state_delivery.py", "gateway/authz_mixin.py",
            "gateway/platforms/base.py", "gateway/slash_commands.py",
            "run_agent.py", "agent/tool_dispatch_helpers.py",
-           "hermes_state.py", "hermes_state_common.py", "agent/turn_context.py", "agent/conversation_loop.py",
+           "hermes_state.py", "hermes_state_common.py", "hermes_state_schema.py", "hermes_state_pwa_scan.py",
+           "agent/turn_context.py", "agent/conversation_loop.py",
            "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
 NEW_RUNTIME = ("agent/native_execution_context.py", "gateway/native_cancellation.py",
                "hermes_state_cancellation.py", "plugins/platforms/a2a/cancellation.py",
@@ -38,7 +39,7 @@ NEW_RUNTIME = ("agent/native_execution_context.py", "gateway/native_cancellation
                "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py",
                "gateway/pwa_config.py", "gateway/pwa_ownership.py", "gateway/pwa_http.py", "hermes_state_pwa.py",
                "gateway/native_events.py", "hermes_state_events.py",
-               "gateway/telegram_conversations.py", "hermes_state_delivery.py")
+               "gateway/telegram_conversations.py", "hermes_state_delivery.py", "hermes_state_pwa_scan.py")
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -104,7 +105,7 @@ def runtime_sources(revision):
     assert all(name in changed for name in RUNTIME)
     assert all(name in RUNTIME or name.startswith("tests/") or name in (
         "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md", "cli-config.yaml.example",
-        "gateway/CONVERSATION_CONTROL.md", "gateway/PWA_HTTP.md") for name in changed), "not a source-only patch"
+        "gateway/CONVERSATION_CONTROL.md", "gateway/PWA_HTTP.md", "gateway/PWA_HISTORY.md") for name in changed), "not a source-only patch"
     # Always read committed blobs, never the dirty or case-colliding host checkout.
     runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
     return runtime

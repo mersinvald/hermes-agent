@@ -18,6 +18,7 @@ from typing import Dict, Optional, Sequence
 
 
 from hermes_constants import get_hermes_home
+from hermes_state_pwa_scan import install_history_fence
 from hermes_state_common import (
     DEFERRED_INDEX_SQL,
     FTS_CJK_STALE_KEY,
@@ -1009,6 +1010,7 @@ class SessionSchemaMixin:
         # Deferred indexes that reference the reconciler-added ``active``
         # column (idx_messages_session_active) — same ordering constraint.
         cursor.executescript(DEFERRED_INDEX_SQL)
+        install_history_fence(cursor)
 
         # Heal NULL ``active`` rows unconditionally on every startup.
         # On real-world DBs the reconciler-added ``active`` column can lack
