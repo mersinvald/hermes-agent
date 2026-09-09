@@ -14,6 +14,7 @@ from gateway.session import SessionSource
 from hermes_state_events import EventLimits
 
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}\Z")
+MODEL_CAPABILITY_STATES = frozenset({"supported", "unsupported", "unknown"})
 
 
 def identifier(value):
@@ -79,6 +80,99 @@ class OwnerBinding:
 
 
 @dataclass(frozen=True)
+class PwaModelCapabilities:
+    text_input: str
+    image_input: str
+    tools: str
+    reasoning_controls: str
+
+    def to_wire(self):
+        return {
+            "text_input": self.text_input,
+            "image_input": self.image_input,
+            "tools": self.tools,
+            "reasoning_controls": self.reasoning_controls,
+        }
+
+
+@dataclass(frozen=True)
+class PwaModelRoute:
+    model_id: str
+    display_name: str
+    provider: str
+    model: str
+    capabilities: PwaModelCapabilities
+
+    @property
+    def identity(self):
+        return [
+            self.model_id,
+            self.display_name,
+            self.provider,
+            self.model,
+            self.capabilities.to_wire(),
+        ]
+
+
+@dataclass(frozen=True)
+class PwaModelCatalogConfig:
+    default_model_id: str
+    entries: tuple[PwaModelRoute, ...]
+
+    @classmethod
+    def from_dict(cls, raw):
+        closed(raw, {"default_model_id", "entries"}, {"default_model_id", "entries"})
+        default_model_id = identifier(raw["default_model_id"])
+        rows = raw["entries"]
+        if not isinstance(rows, list) or not 1 <= len(rows) <= 100:
+            raise ValueError("native PWA model catalog requires one to 100 entries")
+        entries, model_ids = [], set()
+        capability_keys = {
+            "text_input", "image_input", "tools", "reasoning_controls",
+        }
+        for row in rows:
+            closed(
+                row,
+                {"model_id", "display_name", "provider", "model", "capabilities"},
+                {"model_id", "display_name", "provider", "model", "capabilities"},
+            )
+            model_id = identifier(row["model_id"])
+            if len(model_id) > 200:
+                raise ValueError("native PWA model id is too long")
+            if model_id in model_ids:
+                raise ValueError("duplicate native PWA model id")
+            model_ids.add(model_id)
+            capabilities = closed(
+                row["capabilities"], capability_keys, capability_keys,
+            )
+            if any(
+                not isinstance(value, str) or value not in MODEL_CAPABILITY_STATES
+                for value in capabilities.values()
+            ):
+                raise ValueError("invalid native PWA model capability state")
+            provider = identifier(row["provider"])
+            if provider.lower() == "auto":
+                raise ValueError("native PWA models require an explicit provider")
+            entries.append(PwaModelRoute(
+                model_id=model_id,
+                display_name=bounded_text(row["display_name"], 120),
+                provider=provider,
+                model=bounded_text(row["model"], 512),
+                capabilities=PwaModelCapabilities(**capabilities),
+            ))
+        if default_model_id not in model_ids:
+            raise ValueError("native PWA default model is not in the catalog")
+        return cls(default_model_id, tuple(entries))
+
+    @property
+    def identity(self):
+        return [self.default_model_id, [entry.identity for entry in self.entries]]
+
+    def route(self, model_id):
+        return next((entry for entry in self.entries if entry.model_id == model_id), None)
+
+
+@dataclass(frozen=True)
 class PwaHttpConfig:
     enabled: bool = False
     concierge_id: str = "default"
@@ -99,6 +193,7 @@ class PwaHttpConfig:
     event_poll_interval: int = 1
     stream_write_timeout: int = 5
     stream_max_seconds: int = 30
+    models: PwaModelCatalogConfig | None = None
 
     @classmethod
     def from_dict(cls, raw):
@@ -178,6 +273,11 @@ class PwaHttpConfig:
         ):
             raise ValueError("invalid native event limit")
         event_limits = EventLimits(**event_raw)
+        models = (
+            PwaModelCatalogConfig.from_dict(raw["models"])
+            if "models" in raw
+            else None
+        )
         owners = raw["bindings"]
         if not isinstance(owners, list) or not 1 <= len(owners) <= 100:
             raise ValueError("native PWA requires explicit owner bindings")
@@ -268,6 +368,7 @@ class PwaHttpConfig:
             token_env=token_env,
             bindings=tuple(bindings),
             event_limits=event_limits,
+            models=models,
             **numbers,
         )
 
@@ -275,4 +376,7 @@ class PwaHttpConfig:
     def fingerprint(self):
         data = [[b.principal.issuer, b.principal.subject, b.default_source_id,
                  [[s.source_id, s.identity_json, list(s.session_ids)] for s in b.sources]] for b in self.bindings]
-        return hashlib.sha256(canonical([self.concierge_id, data]).encode()).hexdigest()
+        models = self.models.identity if self.models is not None else None
+        return hashlib.sha256(
+            canonical([self.concierge_id, data, models]).encode()
+        ).hexdigest()
