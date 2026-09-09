@@ -46,6 +46,42 @@ class TestGenerateTitle:
         assert captured_kwargs["task"] == "title_generation"
         assert captured_kwargs["timeout"] is None
 
+    def test_managed_destination_is_captured_and_forwarded_strictly(self):
+        captured = {}
+        response = MagicMock()
+        response.choices = [MagicMock()]
+        response.choices[0].message.content = '{"title":"Bounded title route"}'
+        destination = {
+            "provider": "title-provider",
+            "model": "titles/v1",
+            "base_url": "https://titles.invalid/v1",
+            "api_key": "title-key",
+            "api_mode": "chat_completions",
+            "timeout": 7,
+            "extra_body": {"seed": 1},
+            "language": "Russian",
+        }
+
+        def invoke(**kwargs):
+            captured.update(kwargs)
+            return response
+
+        with patch("agent.title_generator.call_llm", side_effect=invoke):
+            assert generate_title(
+                "x" * 1500, destination=destination
+            ) == "Bounded title route"
+
+        assert captured["provider"] == "title-provider"
+        assert captured["model"] == "titles/v1"
+        assert captured["base_url"] == "https://titles.invalid/v1"
+        assert captured["api_key"] == "title-key"
+        assert captured["api_mode"] == "chat_completions"
+        assert captured["timeout"] == 7
+        assert captured["strict_destination"] is True
+        assert captured["extra_body"]["seed"] == 1
+        assert len(captured["messages"][1]["content"]) == 1000
+        assert set(captured["messages"][1]) == {"role", "content"}
+
 
 
     def test_strips_think_blocks(self):
@@ -244,6 +280,47 @@ class TestAutoTitleSession:
 
 class TestMaybeAutoTitle:
     """Tests for maybe_auto_title() — the fire-and-forget entry point."""
+
+    def test_managed_mode_without_explicit_destination_never_calls_llm(self):
+        db = MagicMock()
+        db.get_session_title.return_value = None
+        db.set_auto_title.return_value = True
+        with patch("agent.title_generator.auto_title_session") as worker:
+            maybe_auto_title(
+                db,
+                "sess-1",
+                "authorized opening text",
+                [],
+                destination=False,
+            )
+        worker.assert_not_called()
+        db.set_auto_title.assert_called_once()
+
+    def test_managed_destination_is_copied_into_background_worker(self):
+        db = MagicMock()
+        db.get_session_title.return_value = None
+        db.set_auto_title.return_value = True
+        destination = {
+            "provider": "title-provider",
+            "model": "titles/v1",
+        }
+        import threading
+
+        called = threading.Event()
+        with patch("agent.title_generator.auto_title_session") as worker:
+            worker.side_effect = lambda *args, **kwargs: called.set()
+            maybe_auto_title(
+                db,
+                "sess-1",
+                "authorized opening text",
+                [],
+                destination=destination,
+            )
+            assert called.wait(timeout=10), "auto_title thread never ran"
+
+        captured = worker.call_args.kwargs["destination"]
+        assert captured == destination
+        assert captured is not destination
 
     def test_skips_if_not_first_exchange(self):
         """Should not fire once the conversation is past its opening turn."""

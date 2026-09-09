@@ -9747,6 +9747,7 @@ def call_llm(
     stream_options: dict = None,
     route_info: Optional[Dict[str, str]] = None,
     latency_info: Optional[Dict[str, int]] = None,
+    strict_destination: bool = False,
 ) -> Any:
     """Run an auxiliary LLM request, applying the configured task limit."""
     queue_started_at = time.monotonic()
@@ -9801,6 +9802,7 @@ def call_llm(
                 stream=stream,
                 stream_options=stream_options,
                 route_info=route_info,
+                strict_destination=strict_destination,
             )
         if stream and semaphore is not None:
             stream_semaphore = semaphore
@@ -9851,6 +9853,7 @@ def _call_llm_impl(
     stream: bool = False,
     stream_options: dict = None,
     route_info: Optional[Dict[str, str]] = None,
+    strict_destination: bool = False,
 ) -> Any:
     """Centralized synchronous LLM call.
 
@@ -9897,6 +9900,14 @@ def _call_llm_impl(
     main_runtime = _normalize_main_runtime(main_runtime)
     resolved_provider, resolved_model, resolved_base_url, resolved_api_key, resolved_api_mode = _resolve_task_provider_model(
         task, provider, model, base_url, api_key)
+    if strict_destination and (
+        not resolved_provider
+        or resolved_provider == "auto"
+        or not resolved_model
+    ):
+        raise RuntimeError(
+            "strict auxiliary destination requires explicit provider and model"
+        )
     if api_mode:
         resolved_api_mode = api_mode
     effective_extra_body = _get_task_extra_body(task)
@@ -9942,7 +9953,19 @@ def _call_llm_impl(
         effective_provider = _effective_provider_for_client(
             client, resolved_provider,
         )
+        if (
+            strict_destination
+            and client is not None
+            and str(final_model or "") != str(resolved_model)
+        ):
+            raise RuntimeError(
+                "strict auxiliary destination resolved a different model"
+            )
         if client is None:
+            if strict_destination:
+                raise RuntimeError(
+                    "strict auxiliary destination is currently unavailable"
+                )
             # When the user explicitly chose a non-OpenRouter provider but no
             # credentials were found, honor the task fallback_chain before
             # raising.  Missing raw env keys are recoverable for auxiliary
@@ -10277,7 +10300,11 @@ def _call_llm_impl(
             resolved_provider == "nous"
             or base_url_host_matches(_base_info, "inference-api.nousresearch.com")
         )
-        if _is_model_not_found_error(first_err) and _heal_is_nous:
+        if (
+            _is_model_not_found_error(first_err)
+            and _heal_is_nous
+            and not strict_destination
+        ):
             healed_model = _refresh_nous_recommended_model(
                 vision=(task == "vision"), stale_model=kwargs.get("model"))
             if healed_model and healed_model != kwargs.get("model"):
@@ -10307,6 +10334,7 @@ def _call_llm_impl(
             _is_payment_error(first_err)
             and client_is_nous
             and _nous_portal_account_has_fresh_paid_access()
+            and not strict_destination
         ):
             refreshed_client, refreshed_model = _refresh_nous_auxiliary_client(
                 cache_provider=resolved_provider or "nous",
@@ -10343,7 +10371,11 @@ def _call_llm_impl(
                         raise
                     first_err = retry_err
 
-        if _is_auth_error(first_err) and client_is_nous:
+        if (
+            _is_auth_error(first_err)
+            and client_is_nous
+            and not strict_destination
+        ):
             refreshed_client, refreshed_model = _refresh_nous_auxiliary_client(
                 cache_provider=resolved_provider or "nous",
                 model=final_model,
@@ -10495,6 +10527,8 @@ def _call_llm_impl(
             or _is_model_incompatible_error(first_err)
             or _is_invalid_aux_response_error(first_err)
         )
+        if strict_destination and should_fallback:
+            raise
         # Respect explicit provider choice for transient errors (auth, request
         # validation, etc.) but allow fallback when the provider clearly cannot
         # serve the request due to capacity: payment/quota exhaustion and

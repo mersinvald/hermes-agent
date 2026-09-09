@@ -1601,6 +1601,58 @@ class TestCallLlmPaymentFallback:
         exc.status_code = 429
         return exc
 
+    def test_strict_destination_never_discovers_when_client_is_unavailable(self):
+        with patch(
+            "agent.auxiliary_client._get_cached_client",
+            return_value=(None, None),
+        ), patch(
+            "agent.auxiliary_client._try_configured_fallback_for_unavailable_client"
+        ) as configured, patch(
+            "agent.auxiliary_client._try_payment_fallback"
+        ) as discovered:
+            with pytest.raises(RuntimeError, match="strict auxiliary destination"):
+                call_llm(
+                    task="title_generation",
+                    provider="title-provider",
+                    model="titles/v1",
+                    strict_destination=True,
+                    messages=[{"role": "user", "content": "title this"}],
+                )
+        configured.assert_not_called()
+        discovered.assert_not_called()
+
+    def test_strict_destination_does_not_fallback_after_outbound_failure(self):
+        primary = MagicMock()
+        primary.base_url = "https://titles.invalid/v1"
+        primary.chat.completions.create.side_effect = self._make_402_error()
+        with patch(
+            "agent.auxiliary_client._get_cached_client",
+            return_value=(primary, "titles/v1"),
+        ) as cached, patch(
+            "agent.auxiliary_client._try_configured_fallback_chain"
+        ) as configured, patch(
+            "agent.auxiliary_client._try_main_agent_model_fallback"
+        ) as main, patch(
+            "agent.auxiliary_client._recoverable_pool_provider",
+            return_value=None,
+        ):
+            with pytest.raises(Exception, match="Payment Required"):
+                call_llm(
+                    task="title_generation",
+                    provider="title-provider",
+                    model="titles/v1",
+                    base_url="https://titles.invalid/v1",
+                    api_key="title-key",
+                    strict_destination=True,
+                    messages=[{"role": "user", "content": "title this"}],
+                )
+        assert cached.call_args.args[:2] == ("custom", "titles/v1")
+        assert cached.call_args.kwargs["base_url"] == "https://titles.invalid/v1"
+        assert cached.call_args.kwargs["api_key"] == "title-key"
+        assert primary.chat.completions.create.call_args.kwargs["model"] == "titles/v1"
+        configured.assert_not_called()
+        main.assert_not_called()
+
 
     def test_429_rate_limit_triggers_fallback(self, monkeypatch):
         """429 rate-limit errors should trigger fallback to next provider."""

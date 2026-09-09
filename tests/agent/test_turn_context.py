@@ -486,6 +486,29 @@ def test_prologue_titles_the_surfaces_a_person_reads(platform):
     assert _title_turn(platform).called
 
 
+def test_managed_title_failure_cannot_emit_into_chat():
+    from agent import turn_context
+
+    agent = _TitlingAgent("telegram")
+    destination = {"provider": "title-provider", "model": "titles/v1"}
+    agent._managed_pwa_title_destination = destination
+    agent._title_failure_callback = MagicMock()
+    agent._emit_auxiliary_failure = MagicMock()
+
+    with patch("agent.title_generator.maybe_auto_title") as titler:
+        turn_context._maybe_title_session_at_turn_start(
+            agent,
+            [{"role": "user", "content": "Fix the login button"}],
+        )
+
+    kwargs = titler.call_args.kwargs
+    assert kwargs["destination"] is destination
+    assert kwargs["failure_callback"] is None
+    assert kwargs["runtime_validator"] is None
+    agent._title_failure_callback.assert_not_called()
+    agent._emit_auxiliary_failure.assert_not_called()
+
+
 @pytest.mark.parametrize("platform", ["cron", "CRON", "subagent"])
 def test_prologue_does_not_title_machine_driven_runs(platform):
     """Cron names its own session after the job, and nobody opens a subagent's.

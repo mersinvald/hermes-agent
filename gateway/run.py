@@ -6414,6 +6414,45 @@ class TurnRunner:
 
         if managed_prelease is not None:
             agent._preacquired_session_turn_lease = managed_prelease
+            auxiliary_config = ctx.user_config.get("auxiliary") or {}
+            title_config = (
+                auxiliary_config.get("title_generation") or {}
+                if isinstance(auxiliary_config, dict)
+                else {}
+            )
+            if not isinstance(title_config, dict):
+                title_config = {}
+            provider = str(title_config.get("provider") or "").strip()
+            title_model = str(title_config.get("model") or "").strip()
+            if (
+                title_config.get("enabled", True) is not False
+                and provider
+                and provider.lower() != "auto"
+                and title_model
+            ):
+                agent._managed_pwa_title_destination = {
+                    "provider": provider,
+                    "model": title_model,
+                    "base_url": str(title_config.get("base_url") or "").strip()
+                    or None,
+                    "api_key": str(title_config.get("api_key") or "").strip()
+                    or None,
+                    "api_mode": str(title_config.get("api_mode") or "").strip()
+                    or None,
+                    "timeout": title_config.get("timeout", 30),
+                    "extra_body": (
+                        dict(title_config.get("extra_body") or {})
+                        if isinstance(title_config.get("extra_body") or {}, dict)
+                        else {}
+                    ),
+                    "language": str(title_config.get("language") or "").strip(),
+                }
+            else:
+                # False is a managed-mode sentinel: keep the instant derived
+                # title, but do not discover or inherit an auxiliary route.
+                agent._managed_pwa_title_destination = False
+        elif hasattr(agent, "_managed_pwa_title_destination"):
+            del agent._managed_pwa_title_destination
 
         # Per-message state — callbacks and reasoning config change every
         # turn and must not be baked into the cached agent constructor.
