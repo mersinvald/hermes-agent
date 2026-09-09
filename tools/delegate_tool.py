@@ -2640,6 +2640,9 @@ def _run_single_child(
     _last_seen_tool = [None]  # type: list
     _last_seen_activity_ts = [None]  # type: list
     _stale_count = [0]
+    from agent.native_execution_context import current_native_execution
+    _managed_native_execution = current_native_execution() is not None
+    _managed_stale_warned = [False]
 
     def _heartbeat_loop():
         while not _heartbeat_stop.wait(_HEARTBEAT_INTERVAL):
@@ -2691,7 +2694,11 @@ def _run_single_child(
                     if child_tool
                     else _HEARTBEAT_STALE_CYCLES_IDLE
                 )
-                if _stale_count[0] >= stale_limit:
+                if _stale_count[0] >= stale_limit and _managed_native_execution:
+                    if not _managed_stale_warned[0]:
+                        logger.warning("Managed native child has no recent progress; retaining owner heartbeat")
+                        _managed_stale_warned[0] = True
+                elif _stale_count[0] >= stale_limit:
                     logger.warning(
                         "Subagent %d appears stale (no progress for %d "
                         "heartbeat cycles, tool=%s) — stopping heartbeat",

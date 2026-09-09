@@ -8,6 +8,7 @@ import hmac
 import json
 import logging
 import os
+import re
 import secrets
 import ssl
 import time
@@ -29,7 +30,7 @@ from gateway.config import Platform
 from gateway.telegram_conversations import TelegramConversationChannel, channel_key
 from hermes_state_commands import CommandConflict
 
-CONTRACT_PIN = "0212c7411818c0b14f56b1064ca3bded5eba5707"
+CONTRACT_PIN = "a55d1d94ccc21cf0781b802a1d0e4a60a514c677"
 
 
 def strict_json(text):
@@ -435,10 +436,11 @@ class NativePwaHttp:
                         }
                     ),
                 })
+            local_control = not self.runner._get_proxy_url()
             capabilities.append({
                 "capability_id": "remote_cancellation",
-                "availability": "unavailable",
-                "reason": "Native integration is not yet available.",
+                "availability": "available" if local_control else "unavailable",
+                **({} if local_control else {"reason": "Local native execution is required."}),
             })
             return {"schema_version": "1.0", "capabilities": capabilities}, 200
         if tail == "conversations" and request.method == "GET":
@@ -506,10 +508,18 @@ class NativePwaHttp:
             self._query(request)
             return await self.ingress.submit(principal, await self._body(request)), 200
         if request.method == "GET" and len(parts) == 2 and parts[0] == "commands":
-            self._query(request)
-            return await self.ingress.command_receipt(
-                principal, identifier(parts[1])
-            ), 200
+            query = self._query(request, ("remote_cursor", "remote_limit"))
+            raw_limit = query.get("remote_limit", "50")
+            if not re.fullmatch(r"[1-9][0-9]{0,2}", raw_limit) or int(raw_limit) > 100:
+                raise ValueError("invalid remote page limit")
+            result = await self.ingress.command_receipt(
+                principal, identifier(parts[1]),
+                remote_cursor=identifier(query["remote_cursor"]) if "remote_cursor" in query else None,
+                remote_limit=int(raw_limit),
+            )
+            if query and result.get("receipt_kind") != "cancel":
+                raise ValueError("remote pagination requires a cancellation receipt")
+            return result, 200
         raise RequestError(404, "capability_unavailable")
 
     async def handle(self, request):

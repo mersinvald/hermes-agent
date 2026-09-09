@@ -21,7 +21,10 @@ def test_conversation_runtime_is_selected_and_archived(monkeypatch, tmp_path):
     layer = tmp_path / "layer.tar"
     patch.write_layer(layer, entries, files, 1234)
     with tarfile.open(layer) as archive:
-        for name in ("gateway/conversation_control.py", "gateway/session_state.py", "gateway/session.py", "gateway/run.py",
+        for name in ("agent/native_execution_context.py", "gateway/native_cancellation.py",
+                     "hermes_state_cancellation.py", "plugins/platforms/a2a/cancellation.py",
+                     "plugins/platforms/a2a/provenance.py", "tools/async_delegation.py", "tools/delegate_tool.py",
+                     "gateway/conversation_control.py", "gateway/session_state.py", "gateway/session.py", "gateway/run.py",
                      "gateway/native_commands.py", "gateway/native_events.py", "hermes_state_events.py", "hermes_state_commands.py", "hermes_state.py",
                      "gateway/telegram_conversations.py", "hermes_state_delivery.py", "gateway/authz_mixin.py",
                      "gateway/platforms/base.py", "gateway/slash_commands.py",

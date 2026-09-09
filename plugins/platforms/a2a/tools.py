@@ -359,6 +359,8 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         raise _PeerError("Error: unsupported peer protocol version.")
     headers = {**headers, "A2A-Version": version}
     tenant = _interface_tenant(card, peer)
+    from .provenance import validate_managed_task, prepare_dispatch
+    validate_managed_task(agent_label, peer, endpoint, version, tenant, task_id, context_id)
     if task_id:
         records = protocol.load_conversation(context_id, limit=200)
         known = [record["peer_task"] for record in records
@@ -469,14 +471,20 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         if len(json.dumps(rpc_body).encode("utf-8")) > MAX_EVENT_BYTES:
             raise _PeerError("Error: streaming request exceeds the size limit.")
     _validate_headers(headers)
+    dispatch = prepare_dispatch(agent_label, peer, endpoint, version, tenant, rpc_body["id"],
+                                task_id=task_id, context_id=context_id, auth_values=auth_values)
     notify("dispatch")
     if use_stream:
         resp = send_stream(endpoint, rpc_body, headers, timeout,
                            context_id=context_id, task_id=task_id,
                            notify=notify, auth_values=auth_values,
-                           peer=agent_label, origin=_peer_origin(base_url))
+                           peer=agent_label, origin=_peer_origin(base_url),
+                           **({"on_task": dispatch.observe} if dispatch else {}))
     else:
         resp = _http_post_json(endpoint, rpc_body, headers, timeout)
+        if dispatch:
+            from .cancellation import _envelope
+            _envelope(resp, rpc_body["id"])
     if "error" in resp:
         raise _PeerError("Error: peer returned a JSON-RPC error.")
 
@@ -502,6 +510,8 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     normalized_state = _short_state(state)
     if normalized_state not in ("", "submitted", "working", "input-required", "completed", "canceled", "failed", "rejected", "auth-required", "unknown"):
         raise _PeerError("Error: peer returned an unsupported task state.")
+    if dispatch and reply_task:
+        dispatch.observe(reply_task, reply_ctx, state)
     from gateway.permission_bridge import request_permission
     permission = request_permission(resp.get("permission_required") or reply, "a2a_agents", agent_label)
     if permission is not None:
@@ -800,11 +810,13 @@ def a2a_orchestrate(args: dict, **_: Any) -> str:
     if mode not in ("all", "first", "best"):
         mode = "all"
 
+    # Preserve the native execution/approval context in each independent worker.
+    from tools.thread_context import propagate_context_to_thread
     # Fan-out
     results: list[tuple[str, str]] = []
     with ThreadPoolExecutor(max_workers=min(len(matches), _ORCHESTRATE_MAX_WORKERS)) as pool:
         futures = {
-            pool.submit(_call_peer_sync, name, entry, message, context_id): name
+            pool.submit(propagate_context_to_thread(_call_peer_sync), name, entry, message, context_id): name
             for name, entry in matches
         }
         for fut in as_completed(futures):

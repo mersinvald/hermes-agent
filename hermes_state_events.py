@@ -257,7 +257,7 @@ class NativeEventStateMixin:
             executions = [
                 dict(r)
                 for r in conn.execute(
-                    "SELECT * FROM native_executions WHERE conversation_id=? ORDER BY created_order DESC LIMIT ?",
+                    "SELECT e.*,EXISTS(SELECT 1 FROM native_cancel_commands c WHERE c.execution_id=e.execution_id) AS cancel_requested FROM native_executions e WHERE e.conversation_id=? ORDER BY e.created_order DESC LIMIT ?",
                     (root, limits.snapshot_count + 1),
                 )
             ]
@@ -270,6 +270,12 @@ class NativeEventStateMixin:
                     (root, scope, limits.snapshot_count + 1),
                 )
             ]
+            control_ids = conn.execute(
+                "SELECT command_id FROM native_cancel_commands WHERE conversation_id=? AND scope=? ORDER BY ordinal DESC LIMIT 11",
+                (root, scope),
+            ).fetchall()
+            controls = [self._native_cancel_snapshot_from_conn(conn, scope, row[0])
+                        for row in control_ids[:10]]
             result = dict(
                 schema_version="1.0",
                 status=status,
@@ -278,6 +284,9 @@ class NativeEventStateMixin:
                 captured_at=timestamp(now),
                 executions=executions[: limits.snapshot_count],
                 command_receipts=commands[: limits.snapshot_count],
+                control_receipts=controls,
+                control_receipt_coverage=dict(limit=10, has_more=len(control_ids)>10,
+                                              target_details="command_lookup"),
                 coverage=dict(
                     executions_has_more=len(executions) > limits.snapshot_count,
                     commands_has_more=len(commands) > limits.snapshot_count,
@@ -314,7 +323,8 @@ class NativeEventStateMixin:
     def native_event_execution(self, root, execution_id, *, delivery_channel_key=None):
         def read(conn):
             found = conn.execute(
-                "SELECT * FROM native_executions WHERE conversation_id=? AND execution_id=?",
+                "SELECT e.*,EXISTS(SELECT 1 FROM native_cancel_commands c WHERE c.execution_id=e.execution_id) AS cancel_requested "
+                "FROM native_executions e WHERE e.conversation_id=? AND e.execution_id=?",
                 (root, execution_id),
             ).fetchone()
             if found is None:

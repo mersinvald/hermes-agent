@@ -115,6 +115,11 @@ class NativeCommandStateMixin:
                 if not hmac.compare_digest(old["fingerprint"], fingerprint):
                     raise CommandConflict("command ID reused with a different payload")
                 return dict(old), False
+            if conn.execute(
+                "SELECT 1 FROM native_cancel_commands WHERE scope=? AND command_id=?",
+                (scope, body["command_id"]),
+            ).fetchone():
+                raise CommandConflict("command ID reused with a different payload")
             # The owner can close in its worker thread while admission waits
             # for SQLite. Resolve that race in this same write transaction.
             active = conn.execute(

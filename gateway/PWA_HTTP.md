@@ -6,7 +6,7 @@ durable N02 commands, provider execution and gateway drain/recovery remain the
 execution authority. This service never constructs a separate agent executor.
 
 Wire reference: PWA contract pin
-`0212c7411818c0b14f56b1064ca3bded5eba5707`,
+`a55d1d94ccc21cf0781b802a1d0e4a60a514c677`,
 `contracts/native-pwa-http.md` and `contracts/v1/native-pwa.schema.json`.
 All routes are below `/v1/pwa/`. Health/capabilities, conversation list/create,
 inspect/history, execution lookup, recovery/events, Telegram binding, command submit
@@ -113,9 +113,19 @@ Zitadel, Telegram, model/provider quality, browser, TLS/CNI or deployment eviden
 Event/replay/recovery and Telegram binding/final delivery are mounted here.
 Telegram capabilities reflect the principal’s configured native sources; final
 delivery additionally requires the local Telegram adapter and local execution.
-Remote cancellation, tokens, model/remote-delegation/clarification observers are
-not advertised by this checkpoint. No live deployment or production credentials
-are used here.
+Explicit cancellation control is available with local native execution. Token,
+model-routing and clarification observers remain unavailable. No live deployment
+or production credentials are used here.
+
+`POST commands` accepts the closed input/cancellation response union. Cancellation
+receipts distinguish request acknowledgement from native and known remote task
+observations; unknown descendants remain unknown. `GET commands/{command_id}`
+accepts `remote_limit` (1–100, default50) and an opaque `remote_cursor` only for
+cancellation receipts. Exact execution lookup and recovery capture the accepted
+cancellation flag in the same native transaction as their other observations.
+Compact recovery carries at most10 private control receipts with whole counts
+and command-lookup cursors, without remote task IDs or endpoint details. Closing
+the HTTP observer never submits cancellation or retries an uncertain remote write.
 
 
 ## Recovery, execution and bounded subscriptions

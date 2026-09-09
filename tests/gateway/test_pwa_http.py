@@ -225,7 +225,7 @@ async def test_history_omission_credential_redaction_and_no_access_log(monkeypat
         caps=await (await client.get("/v1/pwa/capabilities")).json()
         for entry in caps["capabilities"]:
             if entry["capability_id"] == "remote_cancellation":
-                assert entry["availability"] == "unavailable"
+                assert entry["availability"] == "available"
 
 
 @pytest.mark.asyncio

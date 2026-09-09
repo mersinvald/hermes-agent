@@ -51,6 +51,11 @@ class NativeCommandContext:
         if self.command:
             message["_row_id"] = result["_row_id"]
             message["_db_persisted"] = True
+        cancellations = getattr(self.ingress, "cancellations", None)
+        if cancellations is not None:
+            from agent.native_execution_context import NativeExecutionOrigin
+            cancellations.observed_dispatch(NativeExecutionOrigin(
+                self.execution.conversation_id, self.execution.execution_id, self.ingress._command_owner))
 
     def refresh_input(self, agent, messages):
         if self.command and any(message is self.user_message for message in messages):
@@ -184,12 +189,14 @@ class DurableCommandIngressMixin:
         # excluded so changing a target under the same ID is a conflict.
         return canonical([self._concierge_id, principal.issuer, principal.subject])
 
-    async def command_receipt(self, principal, command_id):
+    async def command_receipt(self, principal, command_id, *, remote_cursor=None, remote_limit=50):
         row = await asyncio.to_thread(
             self.db.native_command_lookup, self._command_scope(principal), command_id
         )
         if row is None:
-            raise LookupError("command unavailable; absence does not authorize resend")
+            return await self.cancellations.receipt(principal, command_id, remote_cursor=remote_cursor, remote_limit=remote_limit)
+        if remote_cursor is not None or remote_limit != 50:
+            raise ValueError("remote pagination requires a cancellation receipt")
         _, grant = await asyncio.to_thread(
             self._authorize, principal, row["conversation_id"]
         )
@@ -218,6 +225,8 @@ class DurableCommandIngressMixin:
                 r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}", command[field]
             ):
                 raise ValueError("invalid command identity")
+        if command.get("type") == "cancel":
+            return await self._submit_cancel(principal, command)
         payload = command.get("payload")
         if (
             not isinstance(payload, dict)
@@ -306,6 +315,8 @@ class DurableCommandIngressMixin:
             self._arm_command_recovery()
 
     def stop_command_recovery(self):
+        if getattr(self, "cancellations", None) is not None:
+            self.cancellations.stop_recovery()
         if self._command_recovery_timer is not None:
             self._command_recovery_timer.cancel()
             self._command_recovery_timer = None
@@ -407,6 +418,8 @@ class DurableCommandIngressMixin:
             self._wake_commands(root)
 
     def reconcile_commands(self):
+        if getattr(self, "cancellations", None) is not None:
+            self.cancellations.start_recovery()
         with self._completion_lock:
             completions = tuple(self._completion_observations.values())
         roots = {item[2] for item in completions}
@@ -446,3 +459,22 @@ class DurableCommandIngressMixin:
         return NativeCommandContext(
             self, execution, getattr(execution, "command", None), loop
         )
+
+
+    async def _submit_cancel(self, principal, command):
+        payload = command.get("payload")
+        if (set(command) != {"schema_version", "command_id", "conversation_id", "target_execution_id", "type", "payload"}
+                or not isinstance(command.get("target_execution_id"), str)
+                or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}", command["target_execution_id"])
+                or not isinstance(payload, dict) or set(payload) - {"reason"}
+                or ("reason" in payload and (not isinstance(payload["reason"], str) or not 1 <= len(payload["reason"]) <= 500))):
+            raise ValueError("invalid cancellation command")
+        projection, grant = await asyncio.to_thread(self._authorize, principal, command["conversation_id"])
+        if not self.runner._is_user_authorized_for_source(grant.source):
+            raise PermissionError("native source is not authorized")
+        body = {**command, "conversation_id": projection["conversation_id"]}
+        # Acceptance and wake registration are synchronous on the owning loop;
+        # disconnecting the caller cannot cancel already accepted native work.
+        row, _ = self.db.native_cancel_admit(self._command_scope(principal), body)
+        self.cancellations.wake(row)
+        return await self.cancellations.receipt(principal, row["command_id"])

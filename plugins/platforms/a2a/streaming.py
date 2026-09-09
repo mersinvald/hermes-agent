@@ -13,7 +13,7 @@ MAX_EVENTS = 4096
 
 
 def send_stream(url, body, headers, timeout, *, context_id, task_id,
-                notify, auth_values, peer, origin, initial_task=None):
+                notify, auth_values, peer, origin, initial_task=None, on_task=None):
     from .tools import _PeerError, _PeerRedirectHandler, _redact_auth, _short_state, _validate_headers, _recoverable_peer
 
     def invalid():
@@ -141,6 +141,8 @@ def send_stream(url, body, headers, timeout, *, context_id, task_id,
             if state in terminal:
                 task["status"]["message"] = clean_parts(message, state == "input-required")
             persist(state)
+            if on_task is not None:
+                on_task(task["id"], task["contextId"], status["state"])
             if is_task:
                 task["artifacts"] = [{"artifactId": a.get("artifactId"), **clean_parts(a)} for a in event.get("artifacts", [])]
             if state in terminal:
