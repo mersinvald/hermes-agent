@@ -5955,6 +5955,11 @@ class TurnRunner:
                 and execution.origin in {"pwa", "telegram"}
             )
             if managed:
+                def _managed_execution_cancelled():
+                    return native_ingress.db.native_execution_cancel_requested(
+                        execution.execution_id
+                    )
+
                 selected = native_ingress.db.native_model_selection(
                     execution.conversation_id
                 )
@@ -5971,8 +5976,17 @@ class TurnRunner:
                     holder,
                     ttl_seconds=300.0,
                     wait_seconds=1800.0,
-                    should_abort=lambda: not ctx._run_still_current(),
+                    should_abort=lambda: (
+                        not ctx._run_still_current()
+                        or _managed_execution_cancelled()
+                    ),
                 ):
+                    if _managed_execution_cancelled():
+                        native_ingress.db.native_execution_close(
+                            execution.execution_id,
+                            native_ingress._command_owner,
+                            outcome="cancelled",
+                        )
                     raise RuntimeError("managed execution lease unavailable")
                 managed_prelease = {
                     "db": native_ingress.db,
@@ -5995,6 +6009,12 @@ class TurnRunner:
                         execution.conversation_id, holder
                     )
                     managed_prelease = None
+                    if _managed_execution_cancelled():
+                        native_ingress.db.native_execution_close(
+                            execution.execution_id,
+                            native_ingress._command_owner,
+                            outcome="cancelled",
+                        )
                     raise
                 model, runtime_kwargs = route.model, route.runtime
             else:

@@ -249,6 +249,11 @@ class DurableCommandIngressMixin:
         if not self.runner._is_user_authorized_for_source(grant.source):
             raise PermissionError("native source is not authorized")
         body = {**command, "conversation_id": projection["conversation_id"]}
+        if "expected_model_version" in body and (
+            type(body["expected_model_version"]) is not int
+            or not 1 <= body["expected_model_version"] <= 9007199254740991
+        ):
+            raise ValueError("invalid expected model version")
         scope = self._command_scope(principal)
         old = await asyncio.to_thread(
             self.db.native_command_lookup, scope, body["command_id"]

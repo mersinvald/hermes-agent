@@ -13,14 +13,18 @@ logger = logging.getLogger(__name__)
 
 
 def validate_control(command):
-    if set(command) != {
+    required = {
         "schema_version",
         "command_id",
         "conversation_id",
         "target_execution_id",
         "type",
         "payload",
-    }:
+    }
+    allowed = set(required)
+    if command.get("type") == "redirect":
+        allowed.add("expected_model_version")
+    if set(command) < required or set(command) - allowed:
         raise ValueError("unsupported control fields or preconditions")
     if not isinstance(command.get("target_execution_id"), str) or not re.fullmatch(
         r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}", command["target_execution_id"]
@@ -30,6 +34,12 @@ def validate_control(command):
     if not isinstance(payload, dict):
         raise ValueError("invalid control payload")
     if command["type"] == "redirect":
+        expected_model_version = command.get("expected_model_version")
+        if expected_model_version is not None and (
+            type(expected_model_version) is not int
+            or not 1 <= expected_model_version <= 9007199254740991
+        ):
+            raise ValueError("invalid expected model version")
         text = payload.get("text")
         if (
             set(payload) != {"text"}

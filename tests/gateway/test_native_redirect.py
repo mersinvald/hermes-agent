@@ -8,6 +8,73 @@ from tests.gateway.test_native_cancellation import initialized_interrupt_state, 
 from tests.gateway.test_native_events import event_setup, provider_loop
 from tests.gateway.test_native_commands import command, started, finish, JournalAgent
 from tests.gateway.test_conversation_control import OWNER
+from hermes_state_commands import CommandConflict
+from gateway.native_redirect import validate_control
+
+
+@pytest.mark.parametrize("expected", [False, 0, 9007199254740992, "1"])
+def test_redirect_rejects_invalid_model_version_precondition(expected):
+    body = command(
+        "root",
+        "new direction",
+        "redirect",
+        kind="redirect",
+        target_execution_id="execution",
+        expected_model_version=expected,
+    )
+    with pytest.raises(ValueError, match="expected model version"):
+        validate_control(body)
+
+
+@pytest.mark.asyncio
+async def test_redirect_model_version_fence_replays_before_current_check(
+    monkeypatch, tmp_path
+):
+    runner, ingress, db, store, entry, source, adapter = event_setup(
+        monkeypatch, tmp_path
+    )
+    db.native_model_initialize(entry.session_id, "daily")
+    try:
+        await ingress.submit(OWNER, command(entry.session_id))
+        await started()
+        execution = ingress._owner(entry.session_id)[2]
+        request = command(
+            entry.session_id,
+            "new direction",
+            "redirect-versioned",
+            kind="redirect",
+            target_execution_id=execution.execution_id,
+            expected_model_version=1,
+        )
+        accepted = await ingress.submit(OWNER, request)
+        db.native_model_mutate(
+            "independent-model-scope",
+            {
+                "schema_version": "1.0",
+                "mutation_id": "switch",
+                "conversation_id": entry.session_id,
+                "model_id": "deep",
+                "expected_model_version": 1,
+            },
+        )
+        replay = await ingress.submit(OWNER, request)
+        assert replay["command_id"] == accepted["command_id"]
+        assert replay["receipt_kind"] == "redirect"
+
+        stale = {**request, "command_id": "redirect-stale"}
+        with pytest.raises(CommandConflict, match="model version changed"):
+            await ingress.submit(OWNER, stale)
+        assert (
+            db.native_control_lookup(
+                ingress._command_scope(OWNER), "redirect-stale"
+            )
+            is None
+        )
+    finally:
+        JournalAgent.gates[0].set()
+        ingress.controls.stop()
+        await finish(ingress)
+        db.close()
 
 
 @pytest.mark.asyncio
