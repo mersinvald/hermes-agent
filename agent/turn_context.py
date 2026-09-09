@@ -308,6 +308,9 @@ def _maybe_title_session_at_turn_start(agent: Any, messages: List[Any]) -> None:
         # (a stale request would reload an unloaded Ollama model, #19027).
         _model = getattr(agent, "model", None)
         _provider = getattr(agent, "provider", None)
+        managed_destination = getattr(
+            agent, "_managed_pwa_title_destination", None
+        )
 
         maybe_auto_title(
             session_db,
@@ -315,8 +318,12 @@ def _maybe_title_session_at_turn_start(agent: Any, messages: List[Any]) -> None:
             user_text,
             conversation_history=messages,
             failure_callback=(
-                getattr(agent, "_title_failure_callback", None)
-                or getattr(agent, "_emit_auxiliary_failure", None)
+                None
+                if managed_destination is not None
+                else (
+                    getattr(agent, "_title_failure_callback", None)
+                    or getattr(agent, "_emit_auxiliary_failure", None)
+                )
             ),
             main_runtime={
                 "model": _model,
@@ -326,10 +333,15 @@ def _maybe_title_session_at_turn_start(agent: Any, messages: List[Any]) -> None:
                 "api_mode": getattr(agent, "api_mode", None),
             },
             title_callback=getattr(agent, "_on_session_title", None),
-            runtime_validator=lambda: (
-                getattr(agent, "model", None) == _model
-                and getattr(agent, "provider", None) == _provider
+            runtime_validator=(
+                None
+                if managed_destination is not None
+                else lambda: (
+                    getattr(agent, "model", None) == _model
+                    and getattr(agent, "provider", None) == _provider
+                )
             ),
+            destination=managed_destination,
         )
     except Exception:
         logger.debug("Turn-start auto-title dispatch failed", exc_info=True)

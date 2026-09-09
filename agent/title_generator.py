@@ -344,6 +344,7 @@ def generate_title(
     failure_callback: Optional[FailureCallback] = None,
     main_runtime: dict = None,
     runtime_validator: Optional[RuntimeValidator] = None,
+    destination: Optional[dict] = None,
 ) -> Optional[str]:
     """Generate a session title from the user's opening message.
 
@@ -367,7 +368,7 @@ def generate_title(
     no request is sent, so a stale title request can't reload a model the
     runtime already unloaded (#19027).
     """
-    if not _auto_title_enabled():
+    if destination is None and not _auto_title_enabled():
         logger.debug("Auto-title skipped: auxiliary.title_generation.enabled=false")
         return None
 
@@ -384,7 +385,11 @@ def generate_title(
     if not user_snippet.strip():
         return None
 
-    language = _title_language()
+    language = (
+        str(destination.get("language") or "").strip()
+        if destination is not None
+        else _title_language()
+    )
     language_rule = (
         _LANGUAGE_RULE_PINNED.format(language=language)
         if language
@@ -400,16 +405,25 @@ def generate_title(
     ]
 
     try:
+        route = dict(destination or {})
+        route_extra = dict(route.get("extra_body") or {})
+        route_extra["response_format"] = _TITLE_RESPONSE_FORMAT
         response = call_llm(
             task="title_generation",
+            provider=route.get("provider"),
+            model=route.get("model"),
+            base_url=route.get("base_url"),
+            api_key=route.get("api_key"),
+            api_mode=route.get("api_mode"),
             messages=messages,
             # A title is a handful of tokens. The old 500-token ceiling let a
             # chatty model burn seconds generating prose we then threw away.
             max_tokens=64,
             temperature=0.3,
-            timeout=timeout,
+            timeout=route.get("timeout", timeout),
             main_runtime=main_runtime,
-            extra_body={"response_format": _TITLE_RESPONSE_FORMAT},
+            extra_body=route_extra,
+            strict_destination=destination is not None,
         )
         content = response.choices[0].message.content or ""
         title = _clean_title(_extract_title_text(content))
@@ -536,6 +550,7 @@ def auto_title_session(
     main_runtime: dict = None,
     title_callback: Optional[TitleCallback] = None,
     runtime_validator: Optional[RuntimeValidator] = None,
+    destination: Optional[dict] = None,
 ) -> None:
     """Generate and store the model title for a session.
 
@@ -563,6 +578,7 @@ def auto_title_session(
             main_runtime=main_runtime,
             title_callback=title_callback,
             runtime_validator=runtime_validator,
+            destination=destination,
         )
     except Exception as e:
         # WARNING (not debug) so operators see it in agent.log; the message
@@ -588,6 +604,7 @@ def _auto_title_session(
     main_runtime: dict = None,
     title_callback: Optional[TitleCallback] = None,
     runtime_validator: Optional[RuntimeValidator] = None,
+    destination: Optional[dict] = None,
 ) -> None:
     """Body of :func:`auto_title_session` — see its docstring."""
     if not session_db or not session_id:
@@ -629,6 +646,7 @@ def _auto_title_session(
         failure_callback=failure_callback,
         main_runtime=main_runtime,
         runtime_validator=runtime_validator,
+        destination=destination,
     )
     source = "llm"
     if not title:
@@ -709,6 +727,7 @@ def maybe_auto_title(
     main_runtime: dict = None,
     title_callback: Optional[TitleCallback] = None,
     runtime_validator: Optional[RuntimeValidator] = None,
+    destination: Optional[dict] | bool = None,
 ) -> None:
     """Title a session from its opening message: instant, then upgraded.
 
@@ -741,21 +760,29 @@ def maybe_auto_title(
 
     # Config read comes after the cheap guards so the file isn't touched on
     # every subsequent turn of a long session.
-    if not _auto_title_enabled():
+    if destination is None and not _auto_title_enabled():
         logger.debug("Auto-title skipped: auxiliary.title_generation.enabled=false")
         return
 
     apply_instant_title(session_db, session_id, user_message, title_callback)
 
+    # Managed PWA mode without a separately configured explicit destination
+    # keeps the deterministic title and makes no auxiliary request.
+    if destination is False:
+        return
+
+    worker_kwargs = {
+        "failure_callback": failure_callback,
+        "main_runtime": main_runtime,
+        "title_callback": title_callback,
+        "runtime_validator": runtime_validator,
+    }
+    if destination is not None:
+        worker_kwargs["destination"] = dict(destination)
     thread = threading.Thread(
         target=auto_title_session,
         args=(session_db, session_id, user_message),
-        kwargs={
-            "failure_callback": failure_callback,
-            "main_runtime": main_runtime,
-            "title_callback": title_callback,
-            "runtime_validator": runtime_validator,
-        },
+        kwargs=worker_kwargs,
         daemon=True,
         name="auto-title",
     )

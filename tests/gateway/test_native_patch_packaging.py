@@ -23,7 +23,7 @@ def test_conversation_runtime_is_selected_and_archived(monkeypatch, tmp_path):
     with tarfile.open(layer) as archive:
         for name in ("gateway/native_redirect.py", "gateway/native_clarification.py",
                      "hermes_state_controls.py", "hermes_state_clarifications.py", "tools/clarify_gateway.py",
-                     "agent/native_execution_context.py", "gateway/native_cancellation.py",
+                     "agent/native_execution_context.py", "agent/auxiliary_client.py", "agent/title_generator.py", "gateway/native_cancellation.py",
                      "hermes_state_cancellation.py", "plugins/platforms/a2a/cancellation.py",
                      "plugins/platforms/a2a/provenance.py", "tools/async_delegation.py", "tools/delegate_tool.py",
                      "gateway/conversation_control.py", "gateway/session_state.py", "gateway/session.py", "gateway/run.py",

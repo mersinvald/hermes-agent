@@ -31,6 +31,7 @@ import faulthandler
 import inspect
 import json
 import logging
+import math
 import os
 import queue
 import re
@@ -47,6 +48,7 @@ from contextvars import Context, copy_context
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from typing import Awaitable, Callable, Dict, Optional, Any, List, Tuple, Union, cast
+from urllib.parse import urlparse
 
 from agent.async_utils import consume_detached_task_result, safe_schedule_threadsafe
 from agent.conversation_compression import (
@@ -4099,6 +4101,51 @@ def _load_gateway_config(config_path: "Path | None" = None) -> dict:
     return raw
 
 
+def _managed_conversation_title_destination(user_config):
+    """Freeze one explicit managed title route, or disable model titling."""
+    auxiliary = user_config.get("auxiliary") or {}
+    title = (
+        auxiliary.get("title_generation") or {}
+        if isinstance(auxiliary, dict)
+        else {}
+    )
+    if not isinstance(title, dict):
+        return False
+    provider = str(title.get("provider") or "").strip()
+    model = str(title.get("model") or "").strip()
+    base_url = str(title.get("base_url") or "").strip()
+    parsed_base_url = urlparse(base_url)
+    timeout = title.get("timeout", 30)
+    if (
+        title.get("enabled", True) is False
+        or not provider
+        or provider.lower() in {"auto", "moa"}
+        or not model
+        or model.lower() == "auto"
+        or parsed_base_url.scheme not in {"http", "https"}
+        or not parsed_base_url.hostname
+        or isinstance(timeout, bool)
+        or not isinstance(timeout, (int, float))
+        or not math.isfinite(float(timeout))
+        or timeout <= 0
+    ):
+        return False
+    return {
+        "provider": provider,
+        "model": model,
+        "base_url": base_url,
+        "api_key": str(title.get("api_key") or "").strip() or None,
+        "api_mode": str(title.get("api_mode") or "").strip() or None,
+        "timeout": float(timeout),
+        "extra_body": (
+            dict(title.get("extra_body") or {})
+            if isinstance(title.get("extra_body") or {}, dict)
+            else {}
+        ),
+        "language": str(title.get("language") or "").strip(),
+    }
+
+
 def _checkpoint_agent_kwargs(config: dict | None) -> dict:
     """Translate gateway checkpoint config into ``AIAgent`` constructor args.
 
@@ -5943,16 +5990,20 @@ class TurnRunner:
         max_iterations = _current_max_iterations()
 
         managed_prelease = None
+        managed_execution = False
         try:
             native_ingress = getattr(self._runner, "conversation_ingress", None)
             state = self._runner._peek_session_state(ctx.session_key)
             execution = state.turn.conversation_execution if state else None
-            managed = bool(
+            managed_execution = bool(
                 native_ingress is not None
-                and getattr(native_ingress, "models", None) is not None
-                and getattr(native_ingress.models, "config", None) is not None
                 and execution is not None
                 and execution.origin in {"pwa", "telegram"}
+            )
+            managed = bool(
+                managed_execution
+                and getattr(native_ingress, "models", None) is not None
+                and getattr(native_ingress.models, "config", None) is not None
             )
             if managed:
                 selected = native_ingress.db.native_model_selection(
@@ -6414,6 +6465,12 @@ class TurnRunner:
 
         if managed_prelease is not None:
             agent._preacquired_session_turn_lease = managed_prelease
+        if managed_execution:
+            agent._managed_pwa_title_destination = (
+                _managed_conversation_title_destination(ctx.user_config)
+            )
+        elif hasattr(agent, "_managed_pwa_title_destination"):
+            del agent._managed_pwa_title_destination
 
         # Per-message state — callbacks and reasoning config change every
         # turn and must not be baked into the cached agent constructor.

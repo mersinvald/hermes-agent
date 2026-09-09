@@ -9747,6 +9747,7 @@ def call_llm(
     stream_options: dict = None,
     route_info: Optional[Dict[str, str]] = None,
     latency_info: Optional[Dict[str, int]] = None,
+    strict_destination: bool = False,
 ) -> Any:
     """Run an auxiliary LLM request, applying the configured task limit."""
     queue_started_at = time.monotonic()
@@ -9801,6 +9802,7 @@ def call_llm(
                 stream=stream,
                 stream_options=stream_options,
                 route_info=route_info,
+                strict_destination=strict_destination,
             )
         if stream and semaphore is not None:
             stream_semaphore = semaphore
@@ -9851,6 +9853,7 @@ def _call_llm_impl(
     stream: bool = False,
     stream_options: dict = None,
     route_info: Optional[Dict[str, str]] = None,
+    strict_destination: bool = False,
 ) -> Any:
     """Centralized synchronous LLM call.
 
@@ -9894,12 +9897,37 @@ def _call_llm_impl(
     # and fallbacks. Reading ambient state independently in each phase lets a
     # concurrent /model switch produce a key for one runtime and a client for
     # another.
-    main_runtime = _normalize_main_runtime(main_runtime)
+    # A managed strict call already carries its complete destination snapshot.
+    # Resolve aliases without consulting the task's mutable config or the main
+    # runtime captured for ordinary auxiliary fallback.
+    requested_provider = str(provider or "").strip().lower()
+    requested_model = str(model or "").strip()
+    requested_base_url = str(base_url or "").strip()
+    if strict_destination and (
+        requested_provider in {"", "auto", "moa"}
+        or requested_model.lower() in {"", "auto"}
+        or not requested_base_url
+    ):
+        raise RuntimeError(
+            "strict auxiliary destination requires explicit provider, model and base URL"
+        )
+    main_runtime = _normalize_main_runtime({} if strict_destination else main_runtime)
     resolved_provider, resolved_model, resolved_base_url, resolved_api_key, resolved_api_mode = _resolve_task_provider_model(
-        task, provider, model, base_url, api_key)
+        None if strict_destination else task, provider, model, base_url, api_key
+    )
+    if strict_destination and (
+        not resolved_provider
+        or resolved_provider == "auto"
+        or not resolved_model
+    ):
+        raise RuntimeError(
+            "strict auxiliary destination requires explicit provider and model"
+        )
     if api_mode:
         resolved_api_mode = api_mode
-    effective_extra_body = _get_task_extra_body(task)
+    effective_extra_body = (
+        {} if strict_destination else _get_task_extra_body(task)
+    )
     effective_extra_body.update(extra_body or {})
     effective_provider = resolved_provider
 
@@ -9912,7 +9940,12 @@ def _call_llm_impl(
             async_mode=False,
             main_runtime=main_runtime,
         )
-        if client is None and resolved_provider != "auto" and not resolved_base_url:
+        if (
+            client is None
+            and not strict_destination
+            and resolved_provider != "auto"
+            and not resolved_base_url
+        ):
             logger.warning(
                 "Vision provider %s unavailable, falling back to auto vision backends",
                 resolved_provider,
@@ -9937,12 +9970,16 @@ def _call_llm_impl(
             api_key=resolved_api_key,
             api_mode=resolved_api_mode,
             main_runtime=main_runtime,
-            task=task,
+            task=None if strict_destination else task,
         )
         effective_provider = _effective_provider_for_client(
             client, resolved_provider,
         )
         if client is None:
+            if strict_destination:
+                raise RuntimeError(
+                    "strict auxiliary destination is currently unavailable"
+                )
             # When the user explicitly chose a non-OpenRouter provider but no
             # credentials were found, honor the task fallback_chain before
             # raising.  Missing raw env keys are recoverable for auxiliary
@@ -9981,6 +10018,28 @@ def _call_llm_impl(
             raise RuntimeError(
                 f"No LLM provider configured for task={task} provider={resolved_provider}. "
                 f"Run: hermes setup")
+
+    if strict_destination:
+        if str(final_model or "") != str(resolved_model):
+            raise RuntimeError(
+                "strict auxiliary destination resolved a different model"
+            )
+        expected_url = urlparse(str(resolved_base_url or ""))
+        actual_url = urlparse(str(getattr(client, "base_url", "") or ""))
+        expected_route = (
+            expected_url.scheme.lower(),
+            expected_url.netloc.lower(),
+            expected_url.path.rstrip("/"),
+        )
+        actual_route = (
+            actual_url.scheme.lower(),
+            actual_url.netloc.lower(),
+            actual_url.path.rstrip("/"),
+        )
+        if actual_route != expected_route:
+            raise RuntimeError(
+                "strict auxiliary destination resolved a different origin"
+            )
 
     effective_timeout = _effective_aux_timeout(task, timeout)
     request_provider = effective_provider or resolved_provider
@@ -10277,7 +10336,11 @@ def _call_llm_impl(
             resolved_provider == "nous"
             or base_url_host_matches(_base_info, "inference-api.nousresearch.com")
         )
-        if _is_model_not_found_error(first_err) and _heal_is_nous:
+        if (
+            _is_model_not_found_error(first_err)
+            and _heal_is_nous
+            and not strict_destination
+        ):
             healed_model = _refresh_nous_recommended_model(
                 vision=(task == "vision"), stale_model=kwargs.get("model"))
             if healed_model and healed_model != kwargs.get("model"):
@@ -10307,6 +10370,7 @@ def _call_llm_impl(
             _is_payment_error(first_err)
             and client_is_nous
             and _nous_portal_account_has_fresh_paid_access()
+            and not strict_destination
         ):
             refreshed_client, refreshed_model = _refresh_nous_auxiliary_client(
                 cache_provider=resolved_provider or "nous",
@@ -10343,7 +10407,11 @@ def _call_llm_impl(
                         raise
                     first_err = retry_err
 
-        if _is_auth_error(first_err) and client_is_nous:
+        if (
+            _is_auth_error(first_err)
+            and client_is_nous
+            and not strict_destination
+        ):
             refreshed_client, refreshed_model = _refresh_nous_auxiliary_client(
                 cache_provider=resolved_provider or "nous",
                 model=final_model,
@@ -10495,6 +10563,8 @@ def _call_llm_impl(
             or _is_model_incompatible_error(first_err)
             or _is_invalid_aux_response_error(first_err)
         )
+        if strict_destination and should_fallback:
+            raise
         # Respect explicit provider choice for transient errors (auth, request
         # validation, etc.) but allow fallback when the provider clearly cannot
         # serve the request due to capacity: payment/quota exhaustion and
