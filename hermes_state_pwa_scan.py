@@ -10,6 +10,11 @@ _MESSAGE_FIELDS = ("id", "session_id", "role", "content", "tool_call_id", "tool_
                    "tool_name", "timestamp", "active", "compacted", "display_kind", "display_metadata")
 
 
+def _duplicate_markers(value):
+    return f"""(SELECT COUNT(*)-COUNT(DISTINCT key) FROM json_each({value})
+        WHERE key IN ('_branched_from','_delegate_from'))>0"""
+
+
 def _ownership_config(alias):
     value = f"{alias}.model_config"
     # Invalid/non-object JSON changes affect authorization too. Known objects
@@ -17,15 +22,17 @@ def _ownership_config(alias):
     return f"""CASE WHEN length({value})>16384 THEN json_object('_unavailable',1)
         WHEN {value} IS NULL THEN json_object('_branched_from',NULL,'_delegate_from',NULL)
         WHEN json_valid({value}) THEN CASE WHEN json_type({value})='object'
-            THEN json_object('_branched_from',json_extract({value},'$._branched_from'),
-                             '_delegate_from',json_extract({value},'$._delegate_from'))
+            THEN CASE WHEN {_duplicate_markers(value)} THEN {value}
+                ELSE json_object('_branched_from',json_extract({value},'$._branched_from'),
+                             '_delegate_from',json_extract({value},'$._delegate_from')) END
             ELSE {value} END ELSE {value} END"""
 
 
-def _bounded_object(value):
+def _bounded_object(value, *, markers=False):
+    result = f"CASE WHEN {_duplicate_markers(value)} THEN NULL ELSE {value} END" if markers else value
     return f"""CASE WHEN {value} IS NULL THEN '{{}}'
         WHEN length({value})<=16384 AND json_valid({value}) THEN
-            CASE WHEN json_type({value})='object' THEN {value} END END"""
+            CASE WHEN json_type({value})='object' THEN {result} END END"""
 
 
 def install_history_fence(cursor):
@@ -37,12 +44,11 @@ def install_history_fence(cursor):
     fires AFTER insert even with SQLite's default recursive_triggers disabled.
     All flag/counter writes participate in the native transaction and rollback.
     """
-    cursor.execute("INSERT OR IGNORE INTO native_pwa_history_fence(singleton) VALUES(1)")
     session_changed = " OR ".join(f"old.{field} IS NOT new.{field}" for field in _SESSION_FIELDS)
     session_changed += " OR COALESCE(old.end_reason='compression',0) IS NOT COALESCE(new.end_reason='compression',0)"
     session_changed += f" OR ({_ownership_config('old')}) IS NOT ({_ownership_config('new')})"
     message_changed = " OR ".join(f"old.{field} IS NOT new.{field}" for field in _MESSAGE_FIELDS)
-    config = _bounded_object("new.model_config")
+    config = _bounded_object("new.model_config", markers=True)
     origin = _bounded_object("new.origin_json")
     statements = [
         """CREATE TRIGGER IF NOT EXISTS pwa_history_session_before_insert BEFORE INSERT ON sessions BEGIN
@@ -79,8 +85,31 @@ def install_history_fence(cursor):
             WHEN (old.role!='session_meta' OR new.role!='session_meta') AND ({message_changed}) BEGIN
             UPDATE native_pwa_history_fence SET generation=generation+1 WHERE singleton=1; END""",
     ]
-    for statement in statements:
-        cursor.execute(statement)
+    # SQLite json_extract uses the first duplicate key; Python json.loads uses
+    # the last. Definition repair must also reach already opened schema31 DBs.
+    # Repair only our exact names, atomically, and invalidate old cursors once.
+    cursor.execute("SAVEPOINT pwa_history_fence_install")
+    try:
+        fresh = cursor.execute("SELECT 1 FROM native_pwa_history_fence WHERE singleton=1").fetchone() is None
+        cursor.execute("INSERT OR IGNORE INTO native_pwa_history_fence(singleton) VALUES(1)")
+        changed = False
+        for statement in statements:
+            name = statement.split("IF NOT EXISTS ", 1)[1].split()[0]
+            existing = cursor.execute("SELECT sql FROM sqlite_master WHERE type='trigger' AND name=?", (name,)).fetchone()
+            normalize = lambda sql: " ".join(sql.split()).replace("CREATE TRIGGER IF NOT EXISTS", "CREATE TRIGGER")
+            if existing and normalize(existing[0]) != normalize(statement):
+                cursor.execute(f'DROP TRIGGER "{name}"')
+                changed = True
+            elif not existing:
+                changed = True
+            cursor.execute(statement)
+        if changed and not fresh:
+            cursor.execute("UPDATE native_pwa_history_fence SET generation=generation+1 WHERE singleton=1")
+        cursor.execute("RELEASE pwa_history_fence_install")
+    except BaseException:
+        cursor.execute("ROLLBACK TO pwa_history_fence_install")
+        cursor.execute("RELEASE pwa_history_fence_install")
+        raise
 
 
 def history_snapshot(db):
@@ -94,4 +123,3 @@ def history_snapshot(db):
         if row is None:
             raise RuntimeError("native history fence unavailable")
         return {"generation": row[0], "message_upper": row[1], "session_upper": row[2]}
-
