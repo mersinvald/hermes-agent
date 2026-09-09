@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 29
+SCHEMA_VERSION = 30
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -613,6 +613,59 @@ CREATE INDEX IF NOT EXISTS idx_native_command_mailbox
     ON native_commands(conversation_id,phase,queue_order);
 CREATE INDEX IF NOT EXISTS idx_native_command_recent_scope
     ON native_commands(conversation_id,scope,ordinal DESC);
+
+-- Explicit native cancellation is control evidence, never input application.
+CREATE TABLE IF NOT EXISTS native_cancel_commands (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    command_id TEXT NOT NULL,
+    conversation_id TEXT NOT NULL,
+    execution_id TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    payload_json TEXT NOT NULL,
+    native_request_state TEXT NOT NULL DEFAULT 'pending',
+    next_poll_at REAL NOT NULL DEFAULT 0,
+    remote_after INTEGER NOT NULL DEFAULT 0,
+    recorded_at REAL NOT NULL,
+    UNIQUE(scope,command_id)
+);
+CREATE INDEX IF NOT EXISTS idx_native_cancel_execution ON native_cancel_commands(execution_id,ordinal);
+CREATE INDEX IF NOT EXISTS idx_native_cancel_scope ON native_cancel_commands(scope,conversation_id,ordinal DESC);
+CREATE TABLE IF NOT EXISTS native_remote_dispatches (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    dispatch_id TEXT NOT NULL UNIQUE,
+    conversation_id TEXT NOT NULL,
+    execution_id TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    binding_key TEXT,
+    peer_name TEXT,
+    configured_endpoint_fingerprint TEXT,
+    rpc_endpoint TEXT,
+    protocol_version TEXT,
+    tenant TEXT,
+    configured_tenant TEXT,
+    request_id TEXT NOT NULL,
+    phase TEXT NOT NULL,
+    task_id TEXT,
+    context_id TEXT,
+    observed_state TEXT NOT NULL DEFAULT 'unknown',
+    recorded_at REAL NOT NULL,
+    updated_at REAL NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_native_remote_execution ON native_remote_dispatches(execution_id,ordinal);
+CREATE INDEX IF NOT EXISTS idx_native_remote_task ON native_remote_dispatches(binding_key,task_id,ordinal DESC);
+CREATE TABLE IF NOT EXISTS native_remote_cancel_attempts (
+    dispatch_id TEXT NOT NULL,
+    scope TEXT NOT NULL,
+    command_id TEXT NOT NULL,
+    request_state TEXT NOT NULL,
+    reason TEXT NOT NULL,
+    recorded_at REAL NOT NULL,
+    updated_at REAL NOT NULL,
+    write_reserved INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY(dispatch_id,scope,command_id)
+);
 
 -- Native PWA assignments are profile-local authority records. Current trusted
 -- configuration must still authorize their principal and source on every read;
