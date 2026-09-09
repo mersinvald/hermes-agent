@@ -336,3 +336,57 @@ primary integration. The existing browser facade performs app metadata enrichmen
 Tests use actual native runner, SQLite, leases, local process interrupt and native
 A2A hooks with synthetic provider/peer responses. They are not live provider,
 Telegram or downstream specialist acceptance evidence.
+
+## N06 native redirect and clarification checkpoint
+
+The native control paths implement the N06 wire at PWA commit
+`f847a5159c62be06df3b1f8b8ed3e395aef9c122`. This checkpoint covers native,
+managed child, and Telegram clarification. `remote_clarification` remains
+unavailable: ordinary A2A input-required text or permission data does not establish
+an actionable question protocol. The optional configured structured-question
+adapter is a separate N06 phase; no production peer support is claimed here.
+
+A redirect reserves one public command ID across all input/control kinds. Its
+native interruption and queued input are private phases of that same identity.
+Public command lookups, events and snapshot input receipts never expose those
+phases as separate cancel/send receipts. The accepted interruption does not free
+a native writer: the original execution must close and its actual native lease
+must release or transfer before the new direction enters the existing FIFO.
+Queued requests and unconsumed steer fallbacks remain ahead of the new direction.
+
+Remote confirmation and native release are independent gates. A live managed
+child or a previous process's unavailable child inventory leaves the dispatch
+frontier uncertain, even when no remote task ID is known. Explicit confirmation
+waives only that remote uncertainty. The release transaction records its decision
+basis once and queues the input once; late task observations update current
+coverage without rewriting the decision that released an already applied input.
+The one control observation pump visits at most 16 pending redirects per turn;
+it never owns a conversation or starts a replacement executor.
+
+Questions originate in the actual native callback or an actual registered child,
+with execution/owner/child binding retained privately. The existing gateway entry
+lock orders durable answer claims before Event wakeup; only the exact waiter ACK
+records delivery. A committed claim whose wakeup read fails may be handed off to
+the same live entry after storage recovery. A lost waiter or failed ACK remains
+unknown and is never replayed into a later worker. Browser disconnect, logout,
+and listener shutdown do not cancel the native waiter. Native cancel and route
+cleanup wake only the matching pending native entry. Expiry and cancellation
+return explicit unresolved/expired/cancelled observations, never an answer.
+
+Telegram buttons and PWA answers share one claim. Telegram Other changes only
+its still-pending native question to text and increments the durable revision
+under the same lock. Old PWA revisions and old choice buttons cannot answer the
+new text revision. This path does not interpret any text as write approval;
+permission_bridge remains independent.
+
+Question GET routes are `/v1/pwa/conversations/{root}/clarifications` and its
+`/{question}` exact lookup. Pages select unresolved questions in admission order,
+with a fixed traversal upper bound, page limits 1..100 (default 50), a 65,536-byte
+individual question bound and a 131,072-byte whole-page bound. Whole questions
+are retained at byte boundaries. Opaque cursors expire after one hour and bind
+principal, concierge, current native grant/source, root, page limit and process
+event epoch. Malformed cursors are invalid input; foreign, expired, changed-grant
+and restarted traversal cursors return a generic recovery gap. Recovery includes
+at most ten questions and their continuation cursor captured with its native
+journal/event boundary. Shared question events contain only identity, revision
+and state; answer command IDs/receipts remain private to their exact principal.

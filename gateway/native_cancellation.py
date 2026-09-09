@@ -213,6 +213,9 @@ class NativeCancellationController:
         )
         from tools.async_delegation import interrupt_for_native_execution
 
+        clarifications = getattr(self.ingress, "clarifications", None)
+        if clarifications is not None:
+            clarifications.cancel_execution(origin)
         interrupt_for_native_execution(origin.record())
         if row["native_request_state"] != "pending":
             return
@@ -387,6 +390,9 @@ class NativeCancellationController:
         row = await asyncio.to_thread(self.db.native_cancel_lookup, scope, command_id)
         if not row:
             raise LookupError("command unavailable; absence does not authorize resend")
+        if self.db.native_control_lookup(scope, command_id) is not None:
+            return await self.ingress.controls.receipt(principal, command_id,
+                remote_cursor=remote_cursor, remote_limit=remote_limit)
         self.ingress._authorize(principal, row["conversation_id"])
         after = 0
         if remote_cursor is not None:

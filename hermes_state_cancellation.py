@@ -58,6 +58,10 @@ class NativeCancellationStateMixin:
         ).fetchone()
         if row is None:
             return
+        control = self._native_control_row(conn, scope, command_id)
+        if control:
+            self._native_control_event(conn, control, change, dispatch_id)
+            return
         payload = dict(receipt_kind="cancel", command_id=command_id, change=change)
         if dispatch_id is not None:
             payload["dispatch_id"] = dispatch_id
@@ -82,6 +86,7 @@ class NativeCancellationStateMixin:
         digest = fingerprint(body)
 
         def write(conn):
+            self._native_control_cross_kind(conn, scope, body["command_id"])
             old = conn.execute(
                 "SELECT * FROM native_cancel_commands WHERE scope=? AND command_id=?",
                 (scope, body["command_id"]),
@@ -101,28 +106,32 @@ class NativeCancellationStateMixin:
             ).fetchone()
             if not execution:
                 raise CommandConflict("execution unavailable")
-            conn.execute(
-                "INSERT INTO native_cancel_commands(scope,command_id,conversation_id,execution_id,owner,fingerprint,payload_json,native_request_state,recorded_at) VALUES (?,?,?,?,?,?,?,?,?)",
-                (
-                    scope,
-                    body["command_id"],
-                    body["conversation_id"],
-                    execution["execution_id"],
-                    execution["owner"],
-                    digest,
-                    canonical(body),
-                    "pending" if execution["state"] == "open" else "not_running",
-                    time.time(),
-                ),
-            )
-            row = conn.execute(
-                "SELECT * FROM native_cancel_commands WHERE scope=? AND command_id=?",
-                (scope, body["command_id"]),
-            ).fetchone()
-            self._native_cancel_event(conn, scope, body["command_id"], "accepted")
-            return dict(row), True
+            return self._native_cancel_insert(conn, scope, body, execution), True
 
         return self._execute_write(write)
+
+    def _native_cancel_insert(self, conn, scope, body, execution):
+        """Internal interrupt phase; public admission owns cross-kind fencing."""
+        conn.execute(
+            "INSERT INTO native_cancel_commands(scope,command_id,conversation_id,execution_id,owner,fingerprint,payload_json,native_request_state,recorded_at) VALUES (?,?,?,?,?,?,?,?,?)",
+            (
+                scope,
+                body["command_id"],
+                body["conversation_id"],
+                execution["execution_id"],
+                execution["owner"],
+                fingerprint(body),
+                canonical(body),
+                "pending" if execution["state"] == "open" else "not_running",
+                time.time(),
+            ),
+        )
+        row = conn.execute(
+            "SELECT * FROM native_cancel_commands WHERE scope=? AND command_id=?",
+            (scope, body["command_id"]),
+        ).fetchone()
+        self._native_cancel_event(conn, scope, body["command_id"], "accepted")
+        return dict(row)
 
     def native_cancel_note_native(self, scope, command_id, state):
         if state not in {"requested", "not_running", "unknown", "failed"}:

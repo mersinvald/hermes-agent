@@ -51,6 +51,9 @@ def test_schema32_fresh_or_genuine31_upgrade_preserves_history_cancel_and_reopen
             old.setattr(schema, "SCHEMA_SQL", SCHEMA_SQL[:start] + SCHEMA_SQL[end:])
             old.setattr(schema, "SCHEMA_VERSION", 31)
             db = database(tmp_path)
+            # Execute the historical N02/N05 namespace behavior against genuine
+            # schema31; N06's new admission guard did not exist on that runtime.
+            old.setattr(db, "_native_control_row", lambda *args: None)
             owner = open_input(db)
             db.native_command_apply(
                 "e1",

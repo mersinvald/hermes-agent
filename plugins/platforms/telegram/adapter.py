@@ -7809,8 +7809,10 @@ class TelegramAdapter(BasePlatformAdapter):
                 # Pop state and resolve
                 self._clarify_state.pop(clarify_id, None)
                 try:
-                    from tools.clarify_gateway import resolve_gateway_clarify
-                    resolved = resolve_gateway_clarify(clarify_id, resolved_text)
+                    from tools.clarify_gateway import resolve_gateway_clarify, resolve_managed_choice
+                    resolved = resolve_managed_choice(clarify_id, idx)
+                    if resolved is None:
+                        resolved = resolve_gateway_clarify(clarify_id, resolved_text)
                 except Exception as exc:
                     logger.error("[%s] resolve_gateway_clarify failed: %s", self.name, exc)
                     resolved = False

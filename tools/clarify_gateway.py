@@ -54,6 +54,7 @@ class _ClarifyEntry:
     multi_select: bool = False
     event: threading.Event = field(default_factory=threading.Event)
     response: Optional[str] = None
+    managed: object = None  # Exact native ownership hook; ordinary gateway behavior is unchanged.
     awaiting_text: bool = False  # set when user picked "Other" or clarify is open-ended
 
     def signature(self) -> Dict[str, object]:
@@ -83,6 +84,7 @@ def register(
     question: str,
     choices: Optional[List[str]],
     multi_select: bool = False,
+    managed=None,
 ) -> _ClarifyEntry:
     """Register a pending clarify request and return the entry.
 
@@ -92,6 +94,7 @@ def register(
     entry = _ClarifyEntry(
         clarify_id=clarify_id,
         session_key=session_key,
+        managed=managed,
         question=question,
         choices=list(choices) if choices else None,
         multi_select=bool(multi_select) and bool(choices),
@@ -146,6 +149,8 @@ def wait_for_response(clarify_id: str, timeout: float) -> Optional[str]:
             touch_activity_if_due(activity_state, "waiting for user clarify response")
 
     with _lock:
+        if entry.managed is not None:
+            entry.managed.finish_wait(entry)
         # Remove from indices regardless of resolution outcome.
         _entries.pop(clarify_id, None)
         ids = _session_index.get(entry.session_key)
@@ -171,9 +176,26 @@ def resolve_gateway_clarify(clarify_id: str, response: str) -> bool:
         entry = _entries.get(clarify_id)
         if entry is None or entry.event.is_set():
             return False
+        if entry.managed is not None:
+            return entry.managed.channel_answer(entry, response)
         entry.response = str(response) if response is not None else ""
         entry.event.set()
         return True
+
+
+def resolve_managed_choice(clarify_id: str, index: int):
+    """Return None for ordinary prompts, or an exact managed button outcome.
+
+    Managed choices are resolved while holding the same lock as Other's durable
+    revision transition. A stale choice cannot become arbitrary text.
+    """
+    with _lock:
+        entry = _entries.get(clarify_id)
+        if entry is None or entry.managed is None:
+            return None
+        if entry.event.is_set() or not entry.choices or not 0 <= index < len(entry.choices):
+            return False
+        return entry.managed.channel_answer(entry, entry.choices[index])
 
 
 def get_pending_for_session(
@@ -472,6 +494,8 @@ def mark_awaiting_text(clarify_id: str) -> bool:
         entry = _entries.get(clarify_id)
         if entry is None:
             return False
+        if entry.managed is not None:
+            return not entry.event.is_set() and entry.managed.other(entry)
         entry.awaiting_text = True
         return True
 
@@ -518,8 +542,11 @@ def clear_session(session_key: str) -> int:
             # response by inspecting the wait_for_response return value
             # alongside its own timeout deadline.  Most callers just treat any
             # falsy result as "user did not respond".
-            entry.response = ""
-            entry.event.set()
+            if entry.managed is not None:
+                entry.managed.cancel(entry)
+            else:
+                entry.response = ""
+                entry.event.set()
             cancelled += 1
     return cancelled
 

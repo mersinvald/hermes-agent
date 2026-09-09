@@ -2174,6 +2174,13 @@ def _build_child_agent(
     if child_pool is not None:
         child._credential_pool = child_pool
 
+    # Bind only an actual child created inside the native execution context.
+    # Session aliases and model arguments are not execution provenance.
+    from gateway.native_clarification import manager_for_current_execution
+    _native_questions = manager_for_current_execution()
+    if _native_questions is not None:
+        _native_questions.bind_child(child)
+
     # Register child for interrupt propagation
     if hasattr(parent_agent, "_active_children"):
         lock = getattr(parent_agent, "_active_children_lock", None)
@@ -3543,7 +3550,10 @@ def _run_single_child(
         if isinstance(saved_tool_names, list):
             model_tools._last_resolved_tool_names = list(saved_tool_names)
 
-        # Remove child from active tracking
+        # Remove only this actual managed child's clarification binding.
+        _question_binding = getattr(child, "_native_clarification_binding", None)
+        if _question_binding is not None:
+            _question_binding[0].unbind_child(_question_binding[1])
 
         # Unregister child from interrupt propagation
         if hasattr(parent_agent, "_active_children"):
