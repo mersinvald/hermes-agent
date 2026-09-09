@@ -1386,6 +1386,23 @@ platform_toolsets:
 #     env:
 #       GITHUB_PERSONAL_ACCESS_TOKEN: "ghp_..."
 #
+# Native Telegram remote permissions (disabled unless explicitly enabled).
+# The separate MCP_PERMISSIONS_HUMAN_TOKEN secret belongs only in the native
+# Hermes process, NEVER mcp_servers.env/headers, a2a_agents.auth, or tool data.
+# HTTPS origin only; no redirects. owner is the permission service's owner ID,
+# not a Telegram display name. Actual sender/chat must match its owner mapping.
+# mcp_permissions:
+#   enabled: false
+#   url: https://permissions.example.invalid
+#   owner: serviceUser
+# For each configured a2a_agents peer, expected_permission_actor optionally maps
+# its name to Gateway apiKey.name (default: exact configured peer key).
+# For direct mcp_servers, expected_permission_actor is required explicitly.
+# Never map via entityName/display_name. No actor mapping grants tool authority.
+# Only service-offered once/standing/deny choices are shown. Oversized full
+# actions fail closed. No Session/Always rules, automatic MCP retry, A2A consent
+# DataPart, or new-task restart is issued. A lost decision response is not retried.
+#
 # Sampling (server-initiated LLM requests) — enabled by default.
 # Per-server config under the 'sampling' key:
 #   analysis:

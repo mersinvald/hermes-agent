@@ -18,8 +18,10 @@ BASE_REVISION = "29112bef099274229cadff79cdff7bf7b99c4b77"
 BASE = "docker.io/nousresearch/hermes-agent@sha256:64923faeae267792bf9bf87fe3b4c4869e35004e360c7df01730ad801b74d524"
 RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py",
            "plugins/platforms/a2a/streaming.py", "agent/tool_executor.py",
-           "agent/agent_runtime_helpers.py", "model_tools.py", "gateway/run.py")
-NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py",)
+           "agent/agent_runtime_helpers.py", "model_tools.py", "gateway/run.py",
+           "gateway/session_context.py", "gateway/permission_bridge.py",
+           "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
+NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py")
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -91,7 +93,7 @@ def main():
     changed = run("git", "diff", "--name-only", BASE_REVISION, revision).decode().splitlines()
     assert all(name in changed for name in RUNTIME)
     assert all(name in RUNTIME or name.startswith("tests/") or name in (
-        "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md") for name in changed), "not a source-only patch"
+        "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md", "cli-config.yaml.example") for name in changed), "not a source-only patch"
     # Always read committed blobs, never the dirty or case-colliding host checkout.
     runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
     epoch = int(run("git", "show", "-s", "--format=%ct", revision))

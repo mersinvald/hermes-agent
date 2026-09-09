@@ -30,6 +30,7 @@ def send_stream(url, body, headers, timeout, *, context_id, task_id,
     total = count = 0
     last_event_id = None
     seen_ids = {}
+    permission_markers = set()
     terminal = {"completed", "failed", "canceled", "rejected", "input-required", "auth-required"}
 
     def clean_parts(container, pending=False):
@@ -127,6 +128,13 @@ def send_stream(url, body, headers, timeout, *, context_id, task_id,
                         response = data.get("response") if isinstance(data, dict) else None
                         if not isinstance(response, dict):
                             continue
+                        from gateway.permission_bridge import MARKER
+                        error = response.get("error")
+                        if isinstance(error, str) and len(error) <= MAX_EVENT_BYTES:
+                            matches = MARKER.findall(error)
+                            if "[mkl.hitl.request:" in error and len(matches) != 1:
+                                permission_markers.add("")
+                            permission_markers.update(matches)
                         is_error = isinstance(response, dict) and (response.get("isError") is True or bool(response.get("error")))
                         notify("tool_error" if is_error else "tool_result")
             task["status"] = {"state": status["state"]}
@@ -191,7 +199,12 @@ def send_stream(url, body, headers, timeout, *, context_id, task_id,
                             seen_ids[event_id] = digest
                         final = consume(json.loads(data.decode("utf-8")), event_id)
                         if final is not None:
-                            return {"result": final}
+                            result = {"result": final}
+                            if permission_markers:
+                                result["permission_required"] = (
+                                    "[mkl.hitl.request:invalid]" if "" in permission_markers else " ".join(
+                                        "[mkl.hitl.request:" + ref + "]" for ref in sorted(permission_markers)))
+                            return result
                     lines, size, event_id = [], 0, None
                 elif line.startswith(b"data:"):
                     lines.append(line[5:].removeprefix(b" ").rstrip(b"\r\n"))

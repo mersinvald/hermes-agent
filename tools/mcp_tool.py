@@ -6372,6 +6372,10 @@ def _make_tool_handler(server_name: str, tool_name: str, tool_timeout: float):
 
         try:
             result = _call_once()
+            from gateway.permission_bridge import request_permission
+            permission = request_permission(result, "mcp_servers", server_name)
+            if permission is not None:
+                return tool_error(permission)
             # Check if the MCP tool itself returned an error
             try:
                 parsed = json.loads(result)
@@ -6388,6 +6392,10 @@ def _make_tool_handler(server_name: str, tool_name: str, tool_timeout: float):
             # Auth-specific recovery path: consult the manager, signal
             # reconnect if viable, retry once. Returns None to fall
             # through for non-auth exceptions.
+            from gateway.permission_bridge import request_permission
+            permission = request_permission(_exc_str(exc), "mcp_servers", server_name)
+            if permission is not None:
+                return tool_error(permission)
             recovered = _handle_auth_error_and_retry(
                 server_name, exc, _call_once,
                 f"tools/call {tool_name}",

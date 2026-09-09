@@ -23,6 +23,7 @@ import threading
 import time
 import unicodedata
 import uuid
+from dataclasses import dataclass
 from typing import Optional
 from hermes_cli.config import cfg_get
 
@@ -2819,10 +2820,11 @@ def _denial_breaker_addendum(session_key: str) -> str:
 
 class _ApprovalEntry:
     """One pending dangerous-command approval inside a gateway session."""
-    __slots__ = ("event", "data", "result", "reason", "acknowledged")
+    __slots__ = ("event", "data", "result", "reason", "acknowledged", "decision_lock")
 
     def __init__(self, data: dict):
         self.event = threading.Event()
+        self.decision_lock = threading.Lock()
         self.data = dict(data)
         self.data.setdefault("request_id", uuid.uuid4().hex)
         self.acknowledged = False
@@ -2831,6 +2833,18 @@ class _ApprovalEntry:
         # (``/deny <reason>``) so the agent can adapt instead of only
         # hearing "denied". Ported from qwibitai/nanoclaw#2832.
         self.reason: Optional[str] = None
+
+    def snapshot(self):
+        data = dict(self.data)
+        remote = data.get("remote_permission")
+        if remote is not None:
+            # Read-only API observers must not receive a live callback capability.
+            data["remote_permission"] = {
+                "request_id": remote.reference, "actor": remote.actor,
+                "owner": remote.owner, "chat": remote.chat, "user": remote.user,
+                "digest": remote.digest, "choices": list(remote.choices), "expires": remote.expires,
+            }
+        return data
 
 
 _gateway_queues: dict[str, list] = {}        # session_key → [_ApprovalEntry, …]
@@ -2883,16 +2897,20 @@ def resolve_gateway_approval(session_key: str, choice: str,
         queue = _gateway_queues.get(session_key)
         if not queue:
             return 0
+        # Remote permission entries can only resolve through their authenticated
+        # callback and external service, never /approve, FIFO or global rules.
+        eligible = [entry for entry in queue if not entry.data.get("remote_permission")]
         if request_id:
-            targets = [entry for entry in queue if entry.data.get("request_id") == request_id]
+            targets = [entry for entry in eligible if entry.data.get("request_id") == request_id]
             if not targets:
                 return 0
             queue[:] = [entry for entry in queue if entry not in targets]
         elif resolve_all:
-            targets = list(queue)
-            queue.clear()
+            targets = eligible
+            queue[:] = [entry for entry in queue if entry not in targets]
         else:
-            targets = [queue.pop(0)]
+            targets = eligible[:1]
+            queue[:] = [entry for entry in queue if entry not in targets]
         if not queue:
             _gateway_queues.pop(session_key, None)
 
@@ -2904,10 +2922,50 @@ def resolve_gateway_approval(session_key: str, choice: str,
     return len(targets)
 
 
+@dataclass(frozen=True)
+class RemoteApprovalResolution:
+    """Provider result and original waiter status; neither claims execution."""
+    decision: Optional[str] = None
+    waiter_active: bool = False
+
+
+def resolve_remote_gateway_approval(session_key, request_id, remote, decide) -> RemoteApprovalResolution:
+    """Resolve one live entry after a trusted callback commits its decision.
+
+    The callable is native callback code, never a tool argument. Concurrent
+    clicks serialize per entry without holding the global queue lock over I/O.
+    A successful provider return survives removal of the original waiter; it
+    never reactivates that waiter or resolves a replacement request.
+    """
+    with _lock:
+        entry = next((e for e in _gateway_queues.get(session_key, [])
+                      if e.data.get("request_id") == request_id
+                      and e.data.get("remote_permission") is remote), None)
+    if entry is None:
+        return RemoteApprovalResolution()
+    with entry.decision_lock:
+        with _lock:
+            if entry not in _gateway_queues.get(session_key, []):
+                return RemoteApprovalResolution()
+        choice = decide()
+        with _lock:
+            queue = _gateway_queues.get(session_key, [])
+            if entry not in queue:
+                # The external decision remains confirmed even if timeout,
+                # interrupt or handover removed its original waiter during I/O.
+                return RemoteApprovalResolution(choice, waiter_active=False)
+            queue.remove(entry)
+            if not queue:
+                _gateway_queues.pop(session_key, None)
+            entry.result = choice
+            entry.event.set()
+        return RemoteApprovalResolution(choice, waiter_active=True)
+
+
 def list_gateway_approvals(session_key: str) -> list[dict]:
     """Return replay-safe snapshots of unresolved approvals for one session."""
     with _lock:
-        return [dict(entry.data) for entry in _gateway_queues.get(session_key, [])]
+        return [entry.snapshot() for entry in _gateway_queues.get(session_key, [])]
 
 
 def ack_gateway_approval(session_key: str, request_id: str) -> bool:
@@ -2939,7 +2997,7 @@ def get_pending_gateway_approval(session_key: str) -> dict | None:
         queue = _gateway_queues.get(session_key)
         if not queue:
             return None
-        return dict(queue[0].data)
+        return queue[0].snapshot()
 
 
 def submit_pending(session_key: str, approval: dict):
@@ -4587,7 +4645,9 @@ def _await_gateway_decision(session_key: str, notify_cb, approval_data: dict,
         for existing in _gateway_queues.get(session_key, []):
             data = existing.data
             if (
-                data.get("command") == approval_data.get("command")
+                not data.get("remote_permission")
+                and not approval_data.get("remote_permission")
+                and data.get("command") == approval_data.get("command")
                 and list(data.get("pattern_keys") or [])
                 == list(approval_data.get("pattern_keys") or [])
             ):
@@ -4663,6 +4723,9 @@ def _await_gateway_decision(session_key: str, notify_cb, approval_data: dict,
     # tapping approve/deny on the gateway surface), bounded by the approval
     # timeout. Record it as human-wait time so the concurrent batch deadline
     # excludes it (#79719).
+    remote = approval_data.get("remote_permission")
+    if remote is not None:
+        _deadline = min(_deadline, _now + max(0, remote.expires - time.time()))
     with human_wait_window(session_key):
         while True:
             # Respect interrupt signals (e.g. /stop, /new, or an inactivity

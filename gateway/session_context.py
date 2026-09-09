@@ -390,10 +390,12 @@ def reset_session_vars() -> None:
         pass
 
 
-def get_session_env(name: str, default: str = "") -> str:
+def get_session_env(name: str, default: str = "", *, allow_env: bool = True) -> str:
     """Read a session context variable by its legacy ``HERMES_SESSION_*`` name.
 
     Drop-in replacement for ``os.getenv("HERMES_SESSION_*", default)``.
+    Use ``allow_env=False`` when attesting actual inbound message identity;
+    process environment is not a human event.
 
     Resolution order:
     1. Context variable (set by the gateway for concurrency-safe access).
@@ -413,7 +415,7 @@ def get_session_env(name: str, default: str = "") -> str:
         if value is not _UNSET:
             return value
     # Fall back to os.environ for CLI, cron, and test compatibility
-    return os.getenv(name, default)
+    return os.getenv(name, default) if allow_env else default
 
 
 # Surfaces that are not a human chat channel. The gateway binds a platform

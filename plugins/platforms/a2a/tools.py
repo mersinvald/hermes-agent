@@ -145,6 +145,7 @@ def _resolve_peer(agent: str) -> Optional[dict]:
         "display_name": entry.get("display_name", "Specialist"),
         "progress_messages": entry.get("progress_messages", {}) or {},
         "streaming": entry.get("streaming") is True,
+        "expected_permission_actor": entry.get("expected_permission_actor", agent),
     }
 
 
@@ -399,6 +400,7 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
                     or "error" in response or not isinstance(pending, dict)
                     or pending.get("id") != task_id or pending.get("contextId") != context_id):
                 raise _PeerError("Error: follow task lookup did not match this task/context.")
+            permission_hint = ""
             state = _short_state((pending.get("status") or {}).get("state", ""))
             if state in ("submitted", "working", "unknown"):
                 if ((card or {}).get("capabilities") or {}).get("streaming") is not True:
@@ -407,14 +409,20 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
                 notify("follow")
                 follow_body = {"jsonrpc": "2.0", "id": protocol.new_task_id(),
                                "method": "tasks/resubscribe" if legacy else "SubscribeToTask", "params": params}
-                pending = send_stream(endpoint, follow_body, headers, timeout,
+                followed = send_stream(endpoint, follow_body, headers, timeout,
                     context_id=context_id, task_id=task_id, notify=notify,
                     auth_values=auth_values, peer=agent_label, origin=_peer_origin(base_url),
-                    initial_task=pending)["result"]
+                    initial_task=pending)
+                pending = followed["result"]
+                permission_hint = followed.get("permission_required", "")
                 state = _short_state((pending.get("status") or {}).get("state", ""))
             elif state not in ("input-required", "completed", "canceled", "failed", "rejected", "auth-required"):
                 raise _PeerError("Error: follow received an unsupported task state.")
             reply = _redact_auth(_reply_text_from_result(pending), auth_values)
+            from gateway.permission_bridge import request_permission
+            permission = request_permission(permission_hint or reply, "a2a_agents", agent_label)
+            if permission is not None:
+                reply = permission
             protocol.persist_message(context_id, "agent", reply, task_id, request_id=lookup_id,
                 peer_task={"version": 1, "peer": agent_label, "origin": _peer_origin(base_url),
                            "task_id": task_id, "context_id": context_id, "state": state})
@@ -494,6 +502,10 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     normalized_state = _short_state(state)
     if normalized_state not in ("", "submitted", "working", "input-required", "completed", "canceled", "failed", "rejected", "auth-required", "unknown"):
         raise _PeerError("Error: peer returned an unsupported task state.")
+    from gateway.permission_bridge import request_permission
+    permission = request_permission(resp.get("permission_required") or reply, "a2a_agents", agent_label)
+    if permission is not None:
+        reply = permission
     metadata = {"version": 1, "peer": agent_label, "origin": _peer_origin(base_url),
                 "task_id": reply_task, "context_id": reply_ctx, "state": normalized_state or "unknown"}
     # Do not persist direct URLs carrying userinfo or query credentials.

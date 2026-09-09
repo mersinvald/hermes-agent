@@ -6811,6 +6811,9 @@ class TurnRunner:
                             allow_permanent=approval_data.get("allow_permanent", True),
                             allow_session=approval_data.get("allow_session", True),
                             smart_denied=approval_data.get("smart_denied", False),
+                            **({"remote_permission": approval_data["remote_permission"],
+                                "approval_request_id": approval_data["request_id"]}
+                               if approval_data.get("remote_permission") else {}),
                         ),
                         ctx._loop_for_step,
                         logger=logger,
@@ -6843,6 +6846,9 @@ class TurnRunner:
                     logger.warning(
                         "Button-based approval failed, falling back to text: %s", _e
                     )
+
+            if approval_data.get("remote_permission"):
+                raise RuntimeError("Remote permissions require the native callback UI")
 
             # Fallback: plain text approval prompt.  Use the adapter's
             # typed prefix so Slack/Matrix users are told the form they

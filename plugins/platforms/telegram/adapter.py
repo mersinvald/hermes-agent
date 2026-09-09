@@ -6441,6 +6441,8 @@ class TelegramAdapter(BasePlatformAdapter):
         allow_permanent: bool = True,
         allow_session: bool = True,
         smart_denied: bool = False,
+        remote_permission=None,
+        approval_request_id: str = "",
     ) -> SendResult:
         """Send an inline-keyboard approval prompt with interactive buttons.
 
@@ -6451,7 +6453,19 @@ class TelegramAdapter(BasePlatformAdapter):
             return SendResult(success=False, error="Not connected")
 
         try:
-            text = self._format_exec_approval(command, description, smart_denied)
+            if remote_permission is not None:
+                from gateway.permission_bridge import inspect_prompt
+                import time
+                for key, value in list(self._approval_state.items()):
+                    if isinstance(value, tuple) and len(value) == 3 and value[2].expires <= time.time():
+                        self._approval_state.pop(key, None)
+                if sum(isinstance(key, str) for key in self._approval_state) >= 128:
+                    return SendResult(success=False, error="Permission queue full")
+                if str(chat_id) != remote_permission.chat or not approval_request_id:
+                    return SendResult(success=False, error="Permission recipient mismatch")
+                text = await asyncio.to_thread(inspect_prompt, remote_permission)
+            else:
+                text = self._format_exec_approval(command, description, smart_denied)
 
             # Resolve thread context for thread replies
             thread_id = self._metadata_thread_id(metadata)
@@ -6476,6 +6490,12 @@ class TelegramAdapter(BasePlatformAdapter):
                         InlineKeyboardButton("✅ Always", callback_data=f"ea:always:{approval_id}")
                     )
             buttons.append(InlineKeyboardButton("❌ Deny", callback_data=f"ea:deny:{approval_id}"))
+            if remote_permission is not None:
+                approval_id = remote_permission.nonce
+                buttons = [InlineKeyboardButton(
+                    "Allow once" if choice == "once" else "Deny" if choice == "deny" else f"Standing choice {i + 1}",
+                    callback_data=f"hp:{approval_id}:{i}")
+                    for i, choice in enumerate(remote_permission.choices)]
             # Pair into rows (2x2 for the full set) so labels stay readable on
             # mobile — a single 4-button row truncates to "Allo… / Ses… / …".
             rows = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
@@ -6503,10 +6523,16 @@ class TelegramAdapter(BasePlatformAdapter):
             msg = await self._send_message_with_thread_fallback(**kwargs)
 
             # Store session_key keyed by approval_id for the callback handler
-            self._approval_state[approval_id] = session_key
+            if remote_permission is not None:
+                remote_permission.message_id = str(msg.message_id)
+                self._approval_state[approval_id] = (session_key, approval_request_id, remote_permission)
+            else:
+                self._approval_state[approval_id] = session_key
 
             return SendResult(success=True, message_id=str(msg.message_id))
         except Exception as e:
+            if remote_permission is not None:
+                return SendResult(success=False, error="Permission prompt unavailable")
             logger.warning("[%s] send_exec_approval failed: %s", self.name, _redact_telegram_error_text(e))
             return SendResult(success=False, error=_redact_telegram_error_text(e))
 
@@ -7428,6 +7454,65 @@ class TelegramAdapter(BasePlatformAdapter):
                 query_thread_id=query_thread_id,
                 query_user_name=query_user_name,
             )
+            return
+
+        # Remote permissions reuse this native callback authorization and UI,
+        # but never resolve a session's latest command or record local rules.
+        if data.startswith("hp:"):
+            caller_id = str(getattr(query.from_user, "id", ""))
+            if not self._is_callback_user_authorized(
+                caller_id, chat_id=query_chat_id,
+                chat_type=str(query_chat_type) if query_chat_type is not None else None,
+                thread_id=str(query_thread_id) if query_thread_id is not None else None,
+                user_name=query_user_name,
+            ):
+                await query.answer(text="Not authorized.")
+                return
+            from gateway.permission_bridge import BridgeRejected, RemotePermission, decide
+            from tools.approval import resolve_remote_gateway_approval
+            parts = data.split(":")
+            stored = self._approval_state.get(parts[1]) if len(parts) == 3 else None
+            if not isinstance(stored, tuple) or len(stored) != 3:
+                await query.answer(text="Permission expired or already resolved.")
+                return
+            session, request_id, remote = stored
+            if (not isinstance(remote, RemotePermission) or caller_id != remote.user
+                    or str(query_chat_id) != remote.chat
+                    or str(getattr(query_message, "message_id", "")) != remote.message_id
+                    or not parts[2].isascii() or not parts[2].isdigit()
+                    or len(parts[2]) > 2 or int(parts[2]) >= len(remote.choices)):
+                await query.answer(text="Permission callback does not match this request.")
+                return
+            # Consume the nonce before yielding: duplicate/conflicting clicks
+            # cannot submit a second decision, including after HTTP uncertainty.
+            self._approval_state.pop(parts[1], None)
+            index = int(parts[2])
+            try:
+                resolved = await asyncio.to_thread(
+                    resolve_remote_gateway_approval, session, request_id, remote,
+                    lambda: decide(remote, caller_id, str(query_chat_id), index))
+                if resolved.decision is None:
+                    label = "Request no longer waiting; no permission decision submitted"
+                else:
+                    label = "Permission denied" if resolved.decision == "deny" else "Permission recorded"
+                    if not resolved.waiter_active:
+                        label += "; request no longer waiting"
+                    label += "; no action automatically executed"
+            except Exception as error:
+                resolved = resolve_remote_gateway_approval(session, request_id, remote, lambda: "deny")
+                label = ("Permission decision rejected; no action automatically executed"
+                         if isinstance(error, BridgeRejected) else
+                         "Permission decision unconfirmed; no automatic retry")
+            try:
+                await query.answer(text=label)
+            except Exception:
+                pass  # A failed Telegram acknowledgment must never repeat POST.
+            try:
+                await query.edit_message_text(text=label, reply_markup=None)
+            except Exception:
+                pass
+            if resolved.waiter_active:
+                self.resume_typing_for_chat(remote.chat)
             return
 
         # --- Exec approval callbacks (ea:choice:id) ---
