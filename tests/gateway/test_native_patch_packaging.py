@@ -1,7 +1,42 @@
 """Exercise patch selection and archive composition without a registry."""
 import importlib.util
+import io
+import json
 import tarfile
 from pathlib import Path
+from types import SimpleNamespace
+
+
+def test_base_layer_preserves_existing_title_modules(monkeypatch, tmp_path):
+    spec = importlib.util.spec_from_file_location(
+        "native_patch", Path(__file__).resolve().parents[2] / "docker/publish-native-patch.py")
+    patch = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(patch)
+    # These modules already ship in the pinned upstream source layer. They must
+    # be verified/replaced with their existing modes, never treated as additions.
+    existing_titles = {"agent/auxiliary_client.py", "agent/title_generator.py"}
+    existing = (set(patch.RUNTIME) - set(patch.NEW_RUNTIME)) | existing_titles
+    existing |= {"plugins/platforms/a2a/security.py", "plugins/platforms/a2a/__init__.py", "pyproject.toml", "uv.lock"}
+    entries = {"opt/hermes/" + name: ("base " + name).encode() for name in existing}
+    entries["opt/hermes/.hermes_build_sha"] = patch.BASE_REVISION.encode()
+    entries["etc/hermes/image-provenance.json"] = json.dumps({"revision": patch.BASE_REVISION}).encode()
+    layer = io.BytesIO()
+    with tarfile.open(fileobj=layer, mode="w:gz") as archive:
+        for name, data in entries.items():
+            member = tarfile.TarInfo(name)
+            member.size, member.mode = len(data), 0o755 if name.endswith("title_generator.py") else 0o644
+            archive.addfile(member, io.BytesIO(data))
+    monkeypatch.setattr(patch, "blob", lambda *args: layer.getvalue())
+    monkeypatch.setattr(patch, "run", lambda *args: ("base " + args[2].split(":", 1)[1]).encode())
+    monkeypatch.setattr(patch.subprocess, "run", lambda *args, **kwargs: SimpleNamespace(returncode=1))
+    config = {"history": [
+        {"created_by": "COPY pyproject.toml uv.lock ./ # buildkit"},
+        {"created_by": "COPY --chmod=a+rX,go-w . . # buildkit"},
+    ]}
+    files = patch.base_files("synthetic", {"layers": [{"digest": "a"}, {"digest": "b"}]}, config, tmp_path)
+    for name in existing_titles:
+        assert files["opt/hermes/" + name] == (entries["opt/hermes/" + name],
+                                                0o755 if name.endswith("title_generator.py") else 0o644)
 
 
 def test_conversation_runtime_is_selected_and_archived(monkeypatch, tmp_path):

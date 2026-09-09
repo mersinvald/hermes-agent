@@ -34,7 +34,7 @@ RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grants.py
            "hermes_state.py", "hermes_state_common.py", "hermes_state_schema.py", "hermes_state_pwa_scan.py",
            "agent/turn_context.py", "agent/conversation_loop.py",
            "tools/clarify_gateway.py", "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
-NEW_RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grants.py", "gateway/native_clarification.py", "hermes_state_clarifications.py", "hermes_state_controls.py", "gateway/native_redirect.py", "agent/native_execution_context.py", "agent/auxiliary_client.py", "agent/title_generator.py", "gateway/native_cancellation.py",
+NEW_RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grants.py", "gateway/native_clarification.py", "hermes_state_clarifications.py", "hermes_state_controls.py", "gateway/native_redirect.py", "agent/native_execution_context.py", "gateway/native_cancellation.py",
                "hermes_state_cancellation.py", "plugins/platforms/a2a/cancellation.py",
                "plugins/platforms/a2a/provenance.py", "plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py",
                "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py",
