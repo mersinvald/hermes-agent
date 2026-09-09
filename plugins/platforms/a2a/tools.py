@@ -28,7 +28,6 @@ import json
 import logging
 import math
 import re
-import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -294,8 +293,8 @@ def _validate_data(data: Any) -> list[dict]:
 
 def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
                task_id: str = "", data: Optional[list[dict]] = None,
-               status_callback=None) -> tuple[str, str, str, str]:
-    """Send one message/send. Returns (reply_text, context_id, state, task_id).
+               status_callback=None, follow=False) -> tuple[str, str, str, str]:
+    """Send once or explicitly follow existing work. Returns text/context/state/task.
 
     Raises urllib errors / ValueError for the caller to format. Handles
     outbound redaction, audit, persistence, and metrics.
@@ -305,12 +304,13 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     # One auth snapshot covers discovery, GetTask, SendMessage, and persistence.
     # Never reload credentials while processing a response or share this tuple.
     auth_values = _auth_values(headers)
-    last_notice = [None, float("-inf")]
+    last_notice = [None]
 
     def notify(stage):
         if not peer.get("progress_notify") or not callable(status_callback):
             return
         defaults = {"dispatch": "Sending request to {peer}.",
+                    "follow": "Following the existing task on {peer}.",
                     "tool": "{peer} is using a tool.",
                     "tool_result": "{peer} received a tool result.",
                     "tool_error": "A tool returned an error to {peer}."}
@@ -326,10 +326,9 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         if len(text) > 512 or any(ord(c) < 32 for c in text):
             return
         text = _redact_auth(text, auth_values)
-        now = time.monotonic()
-        if text == last_notice[0] or now - last_notice[1] < 2:
+        if text == last_notice[0]:
             return
-        last_notice[:] = [text, now]
+        last_notice[0] = text
         try:
             status_callback("tool_activity", text)
         except Exception:
@@ -341,6 +340,8 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     try:
         card = _fetch_card(base_url, headers, min(timeout, 30))
     except Exception:
+        if peer.get("streaming") or follow:
+            raise _PeerError("Error: streaming discovery failed; no message was sent or replayed.") from None
         pass
 
     endpoint = _rpc_url(base_url, card)
@@ -365,6 +366,11 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
         if known and not any(meta.get("peer") == agent_label and meta.get("origin") == _peer_origin(base_url)
                              for meta in known):
             raise _PeerError("Error: task belongs to a different configured peer origin.")
+        if follow and not any(meta.get("peer") == agent_label and meta.get("origin") == _peer_origin(base_url)
+                              and meta.get("context_id") == context_id for meta in known):
+            raise _PeerError("Error: follow requires a persisted task bound to this configured peer/context.")
+        if follow and any(_redact_auth(value, auth_values) != value for value in (agent_label, task_id, context_id)):
+            raise _PeerError("Error: follow identifiers conflict with configured credentials.")
         # Query the selected peer, not a caller-supplied task URL or local cache.
         params = {"id": task_id}
         if tenant:
@@ -388,6 +394,31 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
                     or ("result" in response) == ("error" in response)):
                 raise _PeerError("Error: invalid legacy task lookup response envelope.")
         pending = protocol.unwrap_send_message_response(response.get("result", {}))
+        if follow:
+            if (response.get("jsonrpc") != "2.0" or response.get("id") != lookup_id
+                    or "error" in response or not isinstance(pending, dict)
+                    or pending.get("id") != task_id or pending.get("contextId") != context_id):
+                raise _PeerError("Error: follow task lookup did not match this task/context.")
+            state = _short_state((pending.get("status") or {}).get("state", ""))
+            if state in ("submitted", "working", "unknown"):
+                if ((card or {}).get("capabilities") or {}).get("streaming") is not True:
+                    raise _PeerError("Error: peer does not advertise task streaming; follow unavailable. No new work was sent.")
+                from .streaming import send_stream
+                notify("follow")
+                follow_body = {"jsonrpc": "2.0", "id": protocol.new_task_id(),
+                               "method": "tasks/resubscribe" if legacy else "SubscribeToTask", "params": params}
+                pending = send_stream(endpoint, follow_body, headers, timeout,
+                    context_id=context_id, task_id=task_id, notify=notify,
+                    auth_values=auth_values, peer=agent_label, origin=_peer_origin(base_url),
+                    initial_task=pending)["result"]
+                state = _short_state((pending.get("status") or {}).get("state", ""))
+            elif state not in ("input-required", "completed", "canceled", "failed", "rejected", "auth-required"):
+                raise _PeerError("Error: follow received an unsupported task state.")
+            reply = _redact_auth(_reply_text_from_result(pending), auth_values)
+            protocol.persist_message(context_id, "agent", reply, task_id, request_id=lookup_id,
+                peer_task={"version": 1, "peer": agent_label, "origin": _peer_origin(base_url),
+                           "task_id": task_id, "context_id": context_id, "state": state})
+            return reply, context_id, state, task_id
         if ("error" in response or not isinstance(pending, dict) or pending.get("id") != task_id
                 or pending.get("contextId") != context_id
                 or _short_state((pending.get("status") or {}).get("state", "")) != "input-required"):
@@ -481,18 +512,28 @@ def _reply_text_from_result(result: Any) -> str:
         return str(result)
     status = result.get("status", {}) or {}
     if _short_state(status.get("state", "")) == "input-required":
-        return protocol.extract_text(status.get("message") or {}) or "Peer requires input but supplied no question. Stop and inspect the task."
+        message = status.get("message") or {}
+        message = {**message, "parts": [p for p in message.get("parts", []) if isinstance(p, dict)
+            and not any((p.get("metadata") or {}).get(k) for k in ("adk_thought", "kagent_thought", "thought"))]}
+        return protocol.extract_text(message) or "Peer requires input but supplied no question. Stop and inspect the task."
+    def final_text(container):
+        return protocol.extract_text({"parts": [p for p in container.get("parts", [])
+            if isinstance(p, dict) and isinstance(p.get("text"), str)
+            and not any((p.get("metadata") or {}).get(k) for k in ("adk_thought", "kagent_thought", "thought"))]})
     # Artifacts are final output only when there is no pending question.
+    texts = []
     for artifact in result.get("artifacts", []) or []:
-        txt = protocol.extract_text(artifact)
+        txt = final_text(artifact)
         if txt:
-            return txt
+            texts.append(txt)
+    if texts:
+        return "\n\n".join(texts)
     status = result.get("status", {}) or {}
     msg = status.get("message")
     if msg:
-        return protocol.extract_text(msg)
+        return final_text(msg)
     # Bare message result (message/send may return a Message instead of a Task)
-    return protocol.extract_text(result)
+    return final_text(result)
 
 
 # --------------------------------------------------------------------------
@@ -542,6 +583,9 @@ def a2a_call(args: dict, status_callback=None, **_: Any) -> str:
     """
     # Accept common aliases models reach for (observed live: 'agent_name').
     agent = str(args.get("agent") or args.get("agent_name") or args.get("name") or "").strip()
+    action = args.get("action", "send")
+    if action not in ("send", "follow"):
+        return "Error: action must be send or follow."
     message = args.get("message", args.get("text", args.get("task", "")))
     if not isinstance(message, str):
         return "Error: message must be text; use data for structured JSON objects."
@@ -562,7 +606,10 @@ def a2a_call(args: dict, status_callback=None, **_: Any) -> str:
             return f"Error: invalid structured data ({type(e).__name__})."
         if not task_id:
             return "Error: structured continuation data requires task_id and context_id."
-    if not agent or not (message or data):
+    if action == "follow" and (not task_id or not context_id or message or data is not None
+                               or agent.startswith(("http://", "https://"))):
+        return "Error: follow requires a configured agent, task_id and context_id, without message or data."
+    if not agent or (action == "send" and not (message or data)):
         return "Error: both 'agent' and 'message' are required."
 
     peer = _resolve_peer(agent)
@@ -575,6 +622,7 @@ def a2a_call(args: dict, status_callback=None, **_: Any) -> str:
     try:
         reply, reply_ctx, state, reply_task = _send_task(
             agent, peer, message, context_id, task_id, data,
+            **({"follow": True} if action == "follow" else {}),
             **({"status_callback": status_callback} if status_callback else {}))
     except Exception as e:
         return _error_text(e)
@@ -829,12 +877,13 @@ _SCHEMAS: dict[str, _ToolSchema] = {
                 "type": "object",
                 "properties": {
                     "agent": {"type": "string", "description": "Configured peer name (from a2a_agents) or a full http(s):// URL."},
+                    "action": {"type": "string", "enum": ["send", "follow"], "description": "Default send creates/resumes work. Explicit follow only reads/subscribes to an existing persisted task; requires task_id/context_id and no message/data. Never resend after a disconnected stream."},
                     "message": {"type": "string", "description": "The task / message to send the peer, in natural language."},
                     "context_id": {"type": "string", "description": "Optional: context id from a prior reply, to continue the conversation."},
-                    "task_id": {"type": "string", "maxLength": 1024, "description": "Input-required task ID from the same peer; requires context_id."},
+                    "task_id": {"type": "string", "maxLength": 1024, "description": "Existing task ID from the same peer; requires context_id. Sending continues only input-required tasks; action=follow reads/subscribes without sending work."},
                     "data": {"type": "array", "minItems": 1, "maxItems": 16, "items": {"type": "object"}, "description": "Optional structured continuation DataParts, at most 64 KiB and depth 16. Exact peer-defined JSON objects supplied for an explicit user response. Requires task_id/context_id. Never infer approval or fill decision defaults."},
                 },
-                "required": ["agent", "message"],
+                "required": ["agent"],
             },
         },
     },

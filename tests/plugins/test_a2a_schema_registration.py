@@ -46,8 +46,10 @@ def test_a2a_call_schema_round_trips_through_tool_describe(monkeypatch):
     )["tools"]["a2a_call"]
 
     assert described["description"]
-    assert described["parameters"]["required"] == ["agent", "message"]
+    assert described["parameters"]["required"] == ["agent"]
+    assert described["parameters"]["properties"]["action"]["enum"] == ["send", "follow"]
     assert set(described["parameters"]["properties"]) == {
+        "action",
         "agent",
         "message",
         "context_id",

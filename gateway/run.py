@@ -4694,6 +4694,106 @@ class TurnRunner:
         self._activity_lock = threading.Lock()
         self._activity_future = None
         self._activity_at = float("-inf")
+        self._activity_pending = None
+        self._activity_closed = False
+        self._activity_abandoned = False
+        self._activity_message_id = None
+        self._activity_last = None
+        self._activity_cleanup_registered = False
+
+    async def _deliver_activity(self):
+        ctx = self._ctx
+        result = None
+        while True:
+            with self._activity_lock:
+                if self._activity_abandoned or not ctx._run_still_current():
+                    self._activity_pending = None
+                if self._activity_pending is None:
+                    self._activity_future = None
+                    return result
+                delay = max(0, 2 - (time.monotonic() - self._activity_at))
+            if delay:
+                await asyncio.sleep(delay)
+            with self._activity_lock:
+                if self._activity_abandoned or not ctx._run_still_current():
+                    self._activity_pending = None
+                    continue
+                content, self._activity_pending = self._activity_pending, None
+                if content is None or content == self._activity_last:
+                    continue
+                self._activity_at = time.monotonic()
+                self._activity_last = content
+            # The turn owns this ID, not an adapter-wide chat cache. A previous
+            # turn can neither edit nor clean up its successor's status bubble.
+            try:
+                if self._activity_message_id is None:
+                    result = await ctx._status_adapter.send(ctx._status_chat_id, content,
+                        metadata=ctx._status_thread_metadata)
+                else:
+                    result = await ctx._status_adapter.edit_message(ctx._status_chat_id,
+                        self._activity_message_id, content, finalize=True,
+                        metadata=ctx._status_thread_metadata)
+            except Exception:
+                result = None
+            self._activity_at = time.monotonic()
+            mid = getattr(result, "message_id", None)
+            if mid:
+                self._activity_message_id = str(mid)
+                if self._activity_abandoned or not ctx._run_still_current():
+                    await self._delete_activity()
+                elif ctx._cleanup_progress and str(mid) not in ctx._cleanup_msg_ids:
+                    ctx._cleanup_msg_ids.append(str(mid))
+            elif self._activity_message_id is None:
+                # An unacknowledged send might have landed remotely. Do not
+                # start another bubble (or claim exactly-once delivery).
+                with self._activity_lock:
+                    self._activity_abandoned = True
+
+    async def _delete_activity(self):
+        mid, self._activity_message_id = self._activity_message_id, None
+        if mid is not None:
+            try:
+                await self._ctx._status_adapter.delete_message(self._ctx._status_chat_id, mid)
+            except Exception:
+                pass
+            if mid in self._ctx._cleanup_msg_ids:
+                self._ctx._cleanup_msg_ids.remove(mid)
+
+    async def finish_activity(self, *, abandon=False, timeout=30.0):
+        """Close callbacks and drain before final delivery / cleanup snapshots.
+
+        Shield an already-started native send so a late acknowledgement can
+        still be deleted. The native adapter bounds network I/O; the extra
+        drain bound keeps a stalled adapter from blocking finalization forever.
+        """
+        with self._activity_lock:
+            self._activity_closed = True
+            self._activity_abandoned |= abandon or not self._ctx._run_still_current()
+            if self._activity_abandoned:
+                self._activity_pending = None
+            future = self._activity_future
+        if future is not None:
+            try:
+                await asyncio.wait_for(asyncio.shield(asyncio.wrap_future(future)), timeout)
+            except (asyncio.TimeoutError, asyncio.CancelledError):
+                with self._activity_lock:
+                    self._activity_abandoned = True
+                    self._activity_pending = None
+                if asyncio.current_task().cancelling():
+                    raise
+            except Exception:
+                self._activity_abandoned = True
+        if self._activity_abandoned:
+            await self._delete_activity()
+        elif (self._ctx._cleanup_progress and self._activity_message_id
+              and getattr(self._ctx, "session_key", None) and not self._activity_cleanup_registered):
+            self._ctx._status_adapter.register_post_delivery_callback(
+                self._ctx.session_key, self._delete_activity,
+                generation=getattr(self._ctx, "run_generation", None))
+            self._activity_cleanup_registered = True
+            # This ID has an owned callback, not a shared cleanup snapshot.
+            if self._activity_message_id in self._ctx._cleanup_msg_ids:
+                self._ctx._cleanup_msg_ids.remove(self._activity_message_id)
 
     def progress_callback(self, event_type: str, tool_name: str = None, preview: str = None, args: dict = None, **kwargs):
         """Callback invoked by agent on tool lifecycle events."""
@@ -5748,33 +5848,16 @@ class TurnRunner:
     def _status_callback_sync(self, event_type: str, message: str) -> None:
         ctx = self._ctx
         if event_type == "tool_activity":
-            # At most one pending delivery per turn, including parallel tools.
-            # No arguments or remote text belong on this explicit status lane.
             with self._activity_lock:
-                now = time.monotonic()
-                if (now - self._activity_at < 2 or
-                        (self._activity_future is not None and not self._activity_future.done())):
-                    return
-                if not ctx._status_adapter or not ctx._run_still_current():
+                if self._activity_closed or self._activity_abandoned or not ctx._status_adapter or not ctx._run_still_current():
                     return
                 prepared = _prepare_gateway_status_message(ctx.source.platform, event_type, message)
                 if not prepared:
                     return
-                self._activity_at = now
-
-                async def deliver():
-                    if not ctx._run_still_current():
-                        return
-                    thread = (ctx._status_thread_metadata or {}).get("thread_id", "")
-                    result = await _send_or_update_status_coro(
-                        ctx._status_adapter, ctx._status_chat_id,
-                        f"tool_activity:{thread}", prepared, ctx._status_thread_metadata)
-                    if ctx._cleanup_progress and getattr(result, "success", False) and result.message_id:
-                        ctx._cleanup_msg_ids.append(str(result.message_id))
-                    return result
-
-                self._activity_future = safe_schedule_threadsafe(deliver(), ctx._loop_for_step,
-                    logger=logger, log_message="tool activity scheduling error")
+                self._activity_pending = prepared
+                if self._activity_future is None:
+                    self._activity_future = safe_schedule_threadsafe(self._deliver_activity(), ctx._loop_for_step,
+                        logger=logger, log_message="tool activity scheduling error")
             return
         if not ctx._status_adapter or not ctx._run_still_current():
             return
@@ -31289,6 +31372,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                             if _stts is not None:
                                 _stts.abort("barge-in")
 
+            await turn_runner.finish_activity(abandon=_inactivity_timeout or _interrupt_detected.is_set())
             if _inactivity_timeout:
                 # Build a diagnostic summary from the agent's activity tracker.
                 _timed_out_agent = agent_holder[0]
@@ -31731,6 +31815,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 return _preserve_queued_followup_history_offset(result, followup_result)
         finally:
             # Stop progress sender, interrupt monitor, and notification task
+            await turn_runner.finish_activity(abandon=not turn_runner._activity_closed)
             if progress_task:
                 progress_task.cancel()
             if log_task:

@@ -2,7 +2,6 @@
 import io
 import json
 import threading
-from types import SimpleNamespace
 from concurrent.futures import ThreadPoolExecutor
 from email.message import Message
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -30,7 +29,7 @@ def status(state="working", **changes):
             "status": {"state": state}, **changes}
 
 
-def wire(monkeypatch, events, *, content_type="text/event-stream"):
+def wire(monkeypatch, events, *, content_type="text/event-stream", event_ids=None, on_open=None):
     requests = []
 
     class Response(io.BytesIO):
@@ -41,9 +40,13 @@ def wire(monkeypatch, events, *, content_type="text/event-stream"):
         def open(self, request, **kwargs):
             body = json.loads(request.data)
             requests.append((body, dict(request.header_items())))
+            if on_open:
+                on_open()
             payload = b": keepalive\n\ndata:\n\n"
-            for event in events:
+            for index, event in enumerate(events):
                 envelope = {"jsonrpc": "2.0", "id": body["id"], "result": event}
+                if event_ids:
+                    payload += b"id: " + event_ids[index].encode() + b"\n"
                 payload += b"data: " + json.dumps(envelope).encode() + b"\n\n"
             return Response(payload)
 
@@ -72,12 +75,10 @@ def test_stream_versions_and_pending_priority(setup_peer, monkeypatch, version, 
 
 
 def test_function_metadata_only_not_thoughts_or_arguments(setup_peer, monkeypatch):
-    clock = iter([0, 3, 6])
-    monkeypatch.setattr(tools, "time", SimpleNamespace(monotonic=lambda: next(clock)))
     parts = [{"text": "PRIVATE REASONING", "metadata": {"adk_thought": True}},
-             {"data": {"name": "GetLiveContext", "args": {"private": "VALUE"}},
+             {"data": {"id": "call-1", "name": "GetLiveContext", "args": {"private": "VALUE"}},
               "metadata": {"adk_type": "function_call"}},
-             {"data": {"name": "GetLiveContext", "response": {"private": "VALUE"}},
+             {"data": {"id": "call-1", "name": "GetLiveContext", "response": {"private": "VALUE"}},
               "metadata": {"adk_type": "function_response"}}]
     wire(monkeypatch, [status(status={"state": "working", "message": {"parts": parts}}),
                       status("completed", status={"state": "completed", "message": {"parts": [
@@ -139,10 +140,8 @@ def test_terminal_state_preserved(setup_peer, monkeypatch, state):
 
 def test_unknown_function_uses_configured_generic_phrase(setup_peer, monkeypatch):
     setup_peer[0]["progress_messages"]["tool"] = "Локальный общий статус"
-    clock = iter([0, 3])
-    monkeypatch.setattr(tools, "time", SimpleNamespace(monotonic=lambda: next(clock)))
     wire(monkeypatch, [status(status={"state": "working", "message": {"parts": [
-        {"metadata": {"kagent_type": "function_call"}, "data": {"name": "arbitrary_remote_name"}}]}}),
+        {"metadata": {"kagent_type": "function_call"}, "data": {"id": "call-1", "name": "arbitrary_remote_name", "args": {}}}]}}),
         status("completed")])
     notices = []
     tools.a2a_call({"agent": "peer", "message": "synthetic"}, status_callback=lambda *a: notices.append(a))

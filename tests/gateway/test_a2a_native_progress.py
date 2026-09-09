@@ -89,7 +89,7 @@ async def test_tool_only_model_emits_native_status_before_blocked_peer(monkeypat
                         event = {"statusUpdate": event}
                     self.wfile.write(b"data: " + json.dumps({"jsonrpc": "2.0", "id": body["id"], "result": event}).encode() + b"\n\n")
                     self.wfile.flush()
-                emit("working", [{"data": {"name": "GetLiveContext", "args": {"private": "never display"}},
+                emit("working", [{"data": {"id": "call-1", "name": "GetLiveContext", "args": {"private": "never display"}},
                                   "metadata": {"adk_type": "function_call"}}])
                 assert release.wait(10)
                 emit("completed", [{"text": "synthetic result"}])
@@ -145,6 +145,7 @@ async def test_tool_only_model_emits_native_status_before_blocked_peer(monkeypat
             server.server_close()
             thread.join()
     assert agent.client.chat.completions.create.call_count == 2
-    assert ctx._cleanup_msg_ids == ["progress-1"] * (2 if stream_version else 1)
+    await turn.finish_activity()
+    assert ctx._cleanup_msg_ids == ["progress-1"]
     adapter.send.assert_awaited_once()
     assert adapter.edit_message.await_count == (1 if stream_version else 0)
