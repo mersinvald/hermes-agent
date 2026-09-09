@@ -9900,6 +9900,17 @@ def _call_llm_impl(
     # A managed strict call already carries its complete destination snapshot.
     # Resolve aliases without consulting the task's mutable config or the main
     # runtime captured for ordinary auxiliary fallback.
+    requested_provider = str(provider or "").strip().lower()
+    requested_model = str(model or "").strip()
+    requested_base_url = str(base_url or "").strip()
+    if strict_destination and (
+        requested_provider in {"", "auto", "moa"}
+        or requested_model.lower() in {"", "auto"}
+        or not requested_base_url
+    ):
+        raise RuntimeError(
+            "strict auxiliary destination requires explicit provider, model and base URL"
+        )
     main_runtime = _normalize_main_runtime({} if strict_destination else main_runtime)
     resolved_provider, resolved_model, resolved_base_url, resolved_api_key, resolved_api_mode = _resolve_task_provider_model(
         None if strict_destination else task, provider, model, base_url, api_key
@@ -9929,7 +9940,12 @@ def _call_llm_impl(
             async_mode=False,
             main_runtime=main_runtime,
         )
-        if client is None and resolved_provider != "auto" and not resolved_base_url:
+        if (
+            client is None
+            and not strict_destination
+            and resolved_provider != "auto"
+            and not resolved_base_url
+        ):
             logger.warning(
                 "Vision provider %s unavailable, falling back to auto vision backends",
                 resolved_provider,
@@ -9954,19 +9970,11 @@ def _call_llm_impl(
             api_key=resolved_api_key,
             api_mode=resolved_api_mode,
             main_runtime=main_runtime,
-            task=task,
+            task=None if strict_destination else task,
         )
         effective_provider = _effective_provider_for_client(
             client, resolved_provider,
         )
-        if (
-            strict_destination
-            and client is not None
-            and str(final_model or "") != str(resolved_model)
-        ):
-            raise RuntimeError(
-                "strict auxiliary destination resolved a different model"
-            )
         if client is None:
             if strict_destination:
                 raise RuntimeError(
@@ -10010,6 +10018,28 @@ def _call_llm_impl(
             raise RuntimeError(
                 f"No LLM provider configured for task={task} provider={resolved_provider}. "
                 f"Run: hermes setup")
+
+    if strict_destination:
+        if str(final_model or "") != str(resolved_model):
+            raise RuntimeError(
+                "strict auxiliary destination resolved a different model"
+            )
+        expected_url = urlparse(str(resolved_base_url or ""))
+        actual_url = urlparse(str(getattr(client, "base_url", "") or ""))
+        expected_route = (
+            expected_url.scheme.lower(),
+            expected_url.netloc.lower(),
+            expected_url.path.rstrip("/"),
+        )
+        actual_route = (
+            actual_url.scheme.lower(),
+            actual_url.netloc.lower(),
+            actual_url.path.rstrip("/"),
+        )
+        if actual_route != expected_route:
+            raise RuntimeError(
+                "strict auxiliary destination resolved a different origin"
+            )
 
     effective_timeout = _effective_aux_timeout(task, timeout)
     request_provider = effective_provider or resolved_provider

@@ -35,6 +35,29 @@ def test_invalid_managed_title_timeout_disables_model_request(timeout):
     ) is False
 
 
+@pytest.mark.parametrize(
+    ("provider", "model", "base_url"),
+    [
+        ("moa", "titles/v1", "https://titles.invalid/v1"),
+        ("custom", "auto", "https://titles.invalid/v1"),
+        ("custom", "titles/v1", ""),
+        ("custom", "titles/v1", "titles.invalid/v1"),
+    ],
+)
+def test_managed_title_requires_nonvirtual_fixed_origin(provider, model, base_url):
+    assert _managed_conversation_title_destination(
+        {
+            "auxiliary": {
+                "title_generation": {
+                    "provider": provider,
+                    "model": model,
+                    "base_url": base_url,
+                }
+            }
+        }
+    ) is False
+
+
 def config_for(source, models=None):
     result = {"enabled": True, "concierge_id": "synthetic", "host": "127.0.0.1", "port": 0,
             "allowed_hosts": ["native.test"], "bindings": [{"issuer": OWNER.issuer,

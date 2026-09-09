@@ -48,6 +48,7 @@ from contextvars import Context, copy_context
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from typing import Awaitable, Callable, Dict, Optional, Any, List, Tuple, Union, cast
+from urllib.parse import urlparse
 
 from agent.async_utils import consume_detached_task_result, safe_schedule_threadsafe
 from agent.conversation_compression import (
@@ -4112,12 +4113,17 @@ def _managed_conversation_title_destination(user_config):
         return False
     provider = str(title.get("provider") or "").strip()
     model = str(title.get("model") or "").strip()
+    base_url = str(title.get("base_url") or "").strip()
+    parsed_base_url = urlparse(base_url)
     timeout = title.get("timeout", 30)
     if (
         title.get("enabled", True) is False
         or not provider
-        or provider.lower() == "auto"
+        or provider.lower() in {"auto", "moa"}
         or not model
+        or model.lower() == "auto"
+        or parsed_base_url.scheme not in {"http", "https"}
+        or not parsed_base_url.hostname
         or isinstance(timeout, bool)
         or not isinstance(timeout, (int, float))
         or not math.isfinite(float(timeout))
@@ -4127,7 +4133,7 @@ def _managed_conversation_title_destination(user_config):
     return {
         "provider": provider,
         "model": model,
-        "base_url": str(title.get("base_url") or "").strip() or None,
+        "base_url": base_url,
         "api_key": str(title.get("api_key") or "").strip() or None,
         "api_mode": str(title.get("api_mode") or "").strip() or None,
         "timeout": float(timeout),

@@ -1613,13 +1613,34 @@ class TestCallLlmPaymentFallback:
             with pytest.raises(RuntimeError, match="strict auxiliary destination"):
                 call_llm(
                     task="title_generation",
-                    provider="title-provider",
+                    provider="custom",
                     model="titles/v1",
+                    base_url="https://titles.invalid/v1",
+                    api_key="title-key",
                     strict_destination=True,
                     messages=[{"role": "user", "content": "title this"}],
                 )
         configured.assert_not_called()
         discovered.assert_not_called()
+
+    def test_strict_destination_never_sends_to_replacement_origin(self):
+        replacement = MagicMock()
+        replacement.base_url = "https://replacement.invalid/v1"
+        with patch(
+            "agent.auxiliary_client._get_cached_client",
+            return_value=(replacement, "titles/v1"),
+        ):
+            with pytest.raises(RuntimeError, match="different origin"):
+                call_llm(
+                    task="title_generation",
+                    provider="custom",
+                    model="titles/v1",
+                    base_url="https://titles.invalid/v1",
+                    api_key="title-key",
+                    strict_destination=True,
+                    messages=[{"role": "user", "content": "title this"}],
+                )
+        replacement.chat.completions.create.assert_not_called()
 
     def test_strict_destination_does_not_fallback_after_outbound_failure(self):
         primary = MagicMock()
