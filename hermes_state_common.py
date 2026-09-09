@@ -352,7 +352,7 @@ def _sql_session_last_active_by_id(session_id_expr: str) -> str:
     )
 
 
-SCHEMA_VERSION = 27
+SCHEMA_VERSION = 28
 
 
 # FTS storage-layout version, tracked INDEPENDENTLY of SCHEMA_VERSION in the
@@ -583,6 +583,37 @@ CREATE TABLE IF NOT EXISTS native_commands (
 );
 CREATE INDEX IF NOT EXISTS idx_native_command_mailbox
     ON native_commands(conversation_id,phase,queue_order);
+
+-- Native PWA assignments are profile-local authority records. Current trusted
+-- configuration must still authorize their principal and source on every read;
+-- a retained row never preserves access after a binding is removed or changed.
+CREATE TABLE IF NOT EXISTS native_pwa_conversations (
+    concierge_id TEXT NOT NULL,
+    issuer TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    conversation_id TEXT NOT NULL,
+    source_json TEXT NOT NULL,
+    assignment_kind TEXT NOT NULL CHECK(assignment_kind IN ('discovered','explicit','created')),
+    create_id TEXT,
+    created_at REAL NOT NULL,
+    PRIMARY KEY(concierge_id,issuer,subject,conversation_id),
+    UNIQUE(concierge_id,issuer,subject,create_id)
+);
+
+-- The delivery boundary reserves before sending. An ambiguous acknowledgement
+-- remains unknown; persisting this row does not authorize an automatic resend.
+CREATE TABLE IF NOT EXISTS native_channel_deliveries (
+    execution_id TEXT NOT NULL,
+    channel_key TEXT NOT NULL,
+    conversation_id TEXT NOT NULL,
+    binding_version INTEGER NOT NULL,
+    state TEXT NOT NULL CHECK(state IN ('attempting','delivered','skipped','unknown')),
+    recorded_at REAL NOT NULL,
+    completed_at REAL,
+    PRIMARY KEY(execution_id,channel_key)
+);
+CREATE INDEX IF NOT EXISTS idx_native_channel_delivery_conversation
+    ON native_channel_deliveries(conversation_id,recorded_at);
 
 CREATE TABLE IF NOT EXISTS async_delegations (
     delegation_id TEXT PRIMARY KEY,
