@@ -257,7 +257,11 @@ class NativeEventStateMixin:
             executions = [
                 dict(r)
                 for r in conn.execute(
-                    "SELECT e.*,EXISTS(SELECT 1 FROM native_cancel_commands c WHERE c.execution_id=e.execution_id) AS cancel_requested FROM native_executions e WHERE e.conversation_id=? ORDER BY e.created_order DESC LIMIT ?",
+                    "SELECT e.*,m.model_id,m.model_version,"
+                    "EXISTS(SELECT 1 FROM native_cancel_commands c WHERE c.execution_id=e.execution_id) AS cancel_requested "
+                    "FROM native_executions e LEFT JOIN native_execution_models m "
+                    "ON m.execution_id=e.execution_id WHERE e.conversation_id=? "
+                    "ORDER BY e.created_order DESC LIMIT ?",
                     (root, limits.snapshot_count + 1),
                 )
             ]
@@ -323,8 +327,11 @@ class NativeEventStateMixin:
     def native_event_execution(self, root, execution_id, *, delivery_channel_key=None):
         def read(conn):
             found = conn.execute(
-                "SELECT e.*,EXISTS(SELECT 1 FROM native_cancel_commands c WHERE c.execution_id=e.execution_id) AS cancel_requested "
-                "FROM native_executions e WHERE e.conversation_id=? AND e.execution_id=?",
+                "SELECT e.*,m.model_id,m.model_version,"
+                "EXISTS(SELECT 1 FROM native_cancel_commands c WHERE c.execution_id=e.execution_id) AS cancel_requested "
+                "FROM native_executions e LEFT JOIN native_execution_models m "
+                "ON m.execution_id=e.execution_id "
+                "WHERE e.conversation_id=? AND e.execution_id=?",
                 (root, execution_id),
             ).fetchone()
             if found is None:

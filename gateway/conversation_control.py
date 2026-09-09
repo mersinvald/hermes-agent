@@ -54,7 +54,7 @@ class NativeConversationIngress(DurableCommandIngressMixin):
     Only one instance may be installed, before the runner starts admitting work.
     """
 
-    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default", grant_provider=None, event_limits=None):
+    def __init__(self, runner, db, grants: Mapping[Principal, tuple[ConversationGrant, ...]], *, concierge_id="default", grant_provider=None, event_limits=None, model_catalog=None):
         if getattr(runner.config, "multiplex_profiles", False) is True:
             raise ValueError("native conversation ingress requires a single profile scope")
         if getattr(runner, "conversation_ingress", None) is not None:
@@ -64,6 +64,7 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         self.runner = runner
         self.db = db
         self._grant_provider = grant_provider
+        self.models = model_catalog
         self.grants = {principal: tuple(ConversationGrant(g.session_id, replace(g.source))
                                         for g in entries)
                        for principal, entries in grants.items()}

@@ -8820,11 +8820,23 @@ class AIAgent:
                 # prologue. We just proved this row exists, so suppress the
                 # redundant create attempt after acquiring it.
                 self._session_db_created = True
-                _durable_holder = (
-                    f"pid={os.getpid()}:turn={relay_turn_id}:platform="
-                    f"{task_context['platform'] or 'unknown'}"
+                _preacquired = getattr(
+                    self, "_preacquired_session_turn_lease", None
                 )
-                _lease_ttl = 300.0
+                if (
+                    isinstance(_preacquired, dict)
+                    and _preacquired.get("db") is _turn_db
+                    and _preacquired.get("session_id") == session_id
+                ):
+                    _durable_holder = _preacquired["holder"]
+                    _lease_ttl = float(_preacquired["ttl_seconds"])
+                else:
+                    _preacquired = None
+                    _durable_holder = (
+                        f"pid={os.getpid()}:turn={relay_turn_id}:platform="
+                        f"{task_context['platform'] or 'unknown'}"
+                    )
+                    _lease_ttl = 300.0
                 _lease_waited = False
 
                 def _on_session_turn_lease_wait(elapsed: float) -> None:
@@ -8841,14 +8853,25 @@ class AIAgent:
                             f"this session ({int(elapsed)}s)..."
                         )
 
-                if not _turn_db.acquire_session_turn_lease(
-                    session_id,
-                    _durable_holder,
-                    ttl_seconds=_lease_ttl,
-                    wait_seconds=1800.0,
-                    on_wait=_on_session_turn_lease_wait,
-                    should_abort=lambda: getattr(self, "_interrupt_requested", False),
-                ):
+                _lease_acquired = (
+                    _turn_db.refresh_session_turn_lease(
+                        session_id,
+                        _durable_holder,
+                        ttl_seconds=_lease_ttl,
+                    )
+                    if _preacquired is not None
+                    else _turn_db.acquire_session_turn_lease(
+                        session_id,
+                        _durable_holder,
+                        ttl_seconds=_lease_ttl,
+                        wait_seconds=1800.0,
+                        on_wait=_on_session_turn_lease_wait,
+                        should_abort=lambda: getattr(
+                            self, "_interrupt_requested", False
+                        ),
+                    )
+                )
+                if not _lease_acquired:
                     if getattr(self, "_interrupt_requested", False):
                         logger.info(
                             "session turn lease wait aborted by interrupt: %s",
@@ -8918,6 +8941,7 @@ class AIAgent:
                 durable_turn_lease = _durable_holder
                 self._active_session_turn_lease_holder = _durable_holder
                 self._active_session_turn_lease_ttl_seconds = _lease_ttl
+                self._preacquired_session_turn_lease = None
                 if _lease_waited:
                     self._emit_status(
                         "Session is free; loading the latest transcript..."

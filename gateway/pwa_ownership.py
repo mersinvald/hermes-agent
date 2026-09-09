@@ -239,6 +239,15 @@ class NativePwaOwnership:
             raise RuntimeError("native execution projection mismatch")
         title = first["title"] or last["title"]
         safe_title = self.safe_text(title, 300)
+        model = {}
+        if getattr(ingress, "models", None) is not None:
+            selection = await asyncio.to_thread(
+                self.db.native_model_selection, projection["conversation_id"]
+            )
+            model = {
+                "model": selection,
+                "model_state": "configured" if selection else "unavailable",
+            }
         final_projection, _ = await asyncio.to_thread(self.authorize, principal, session_id)
         if final_projection != projection:
             from hermes_state_commands import CommandConflict
@@ -247,7 +256,7 @@ class NativePwaOwnership:
                 "native_title_truncated": safe_title is not None and len(title) > 300,
                 "native_created_at": timestamp(first["started_at"]),
                 "native_updated_at": timestamp(last["last_activity_at"] or last["started_at"]),
-                "active_execution": active}
+                "active_execution": active, **model}
 
     async def create(self, ingress, principal, create_id):
         binding = self.binding(principal)

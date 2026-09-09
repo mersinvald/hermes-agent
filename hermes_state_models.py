@@ -31,6 +31,23 @@ def mutation_receipt(row, *, replayed):
 
 
 class NativeModelStateMixin:
+    def native_model_mutation_replay(self, scope, body):
+        """Return an immutable retry receipt before consulting today's catalog."""
+        payload = canonical(body)
+        fingerprint = hashlib.sha256(
+            ("native-model-mutation-v1\n" + payload).encode()
+        ).hexdigest()
+        with self._read_ctx() as conn:
+            row = conn.execute(
+                "SELECT * FROM native_model_mutations WHERE scope=? AND mutation_id=?",
+                (scope, body["mutation_id"]),
+            ).fetchone()
+            if row is None:
+                return None
+            if not hmac.compare_digest(row["fingerprint"], fingerprint):
+                raise CommandConflict("model mutation ID reused with a different payload")
+            return mutation_receipt(row, replayed=True)
+
     def native_model_selection(self, root):
         with self._read_ctx() as conn:
             row = conn.execute(

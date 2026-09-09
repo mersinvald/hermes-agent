@@ -259,10 +259,7 @@ class DurableCommandIngressMixin:
             raise ValueError("durable commands require the local native executor")
         if body.get("type") not in {"send", "steer", "queue"}:
             raise ValueError("unsupported command action")
-        if any(
-            key in body
-            for key in ("expected_model_version", "expected_binding_version")
-        ):
+        if "expected_binding_version" in body:
             raise ValueError("version preconditions are not available in N02")
         if body["type"] == "steer" and not body.get("target_execution_id"):
             raise ValueError("steer requires target_execution_id")

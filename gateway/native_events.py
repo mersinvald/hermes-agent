@@ -25,8 +25,17 @@ def execution_view(row):
         execution_id=row["execution_id"],
         conversation_id=row["conversation_id"],
         origin={"channel": row["origin"]},
-        original_model=None,
-        original_model_state="unavailable",
+        original_model=(
+            {
+                "model_id": row["model_id"],
+                "model_version": row["model_version"],
+            }
+            if row.get("model_id") is not None
+            else None
+        ),
+        original_model_state=(
+            "recorded" if row.get("model_id") is not None else "unavailable"
+        ),
         state=state,
         remote_cancellation={
             "state": "requested"
