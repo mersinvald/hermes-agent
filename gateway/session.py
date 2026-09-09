@@ -219,6 +219,10 @@ class SessionSource:
     # forge it across the wire or have it restored from persistence.
     delivered_via_upstream_relay: bool = False
 
+    # Native-only routing alias. Omitted from source wire serialization and
+    # deserialization: transports cannot forge a conversation binding.
+    native_conversation_route: Optional[str] = field(default=None, repr=False)
+
     def __post_init__(self) -> None:
         # D-Q2.5 dual-field reconciliation: `scope_id` is canonical, `guild_id`
         # is the deprecated alias. Mirror whichever was provided onto the other
@@ -916,6 +920,8 @@ class SessionEntry:
             result["model_override"] = sanitize_model_override(self.model_override)
         if self.origin:
             result["origin"] = self.origin.to_dict()
+            if self.origin.native_conversation_route:
+                result["native_conversation_route"] = self.origin.native_conversation_route
         return result
     
     @classmethod
@@ -923,6 +929,11 @@ class SessionEntry:
         origin = None
         if "origin" in data and isinstance(data["origin"], dict):
             origin = SessionSource.from_dict(data["origin"])
+            # SessionEntry is trusted local persistence, unlike adapter source
+            # deserialization. Retain native alias identity for native wakes.
+            route = data.get("native_conversation_route")
+            if isinstance(route, str) and route:
+                origin.native_conversation_route = route
         
         platform = None
         if data.get("platform"):
@@ -1126,6 +1137,11 @@ def build_session_key(
       - Without identifiers, messages fall back to one session per platform/chat_type.
     """
     ns = _session_key_namespace(profile)
+    native_route = getattr(source, "native_conversation_route", None)
+    if isinstance(native_route, str) and native_route:
+        import hashlib
+        route = hashlib.sha256(native_route.encode()).hexdigest()
+        return f"{ns}:native:conversation:{route}"
     platform = source.platform.value
     slack_scope_id = (
         str(source.scope_id)
@@ -3547,6 +3563,39 @@ class SessionStore:
             # idle session cannot make it look fresh to reset policy or the
             # restart-resume freshness gate (#85709).
             self._save()
+            return entry
+
+    def bind_conversation_alias(self, source: SessionSource, target_session_id: str) -> SessionEntry:
+        """Bind a native ingress route without changing a platform's binding.
+
+        Unlike /resume, an independent conversation view does not end or reopen
+        either transcript and does not rewrite the persisted channel peer.
+        The target row must already exist; only native-created sources can use
+        this path. Normal platform source serialization omits the discriminator.
+        """
+        if not source.native_conversation_route:
+            raise ValueError("native conversation route required")
+        if self._db is None or self._db.get_session(target_session_id) is None:
+            raise LookupError("native session unavailable")
+        key = self._generate_session_key(source)
+        with self._lock:
+            self._ensure_loaded_locked()
+            existing = self._entries.get(key)
+            if existing is not None and existing.session_id == target_session_id:
+                return existing
+            now = _now()
+            entry = SessionEntry(session_key=key, session_id=target_session_id,
+                                 created_at=now, updated_at=now, origin=source,
+                                 platform=source.platform, chat_type=source.chat_type)
+            self._entries[key] = entry
+            try:
+                self._save()
+            except BaseException:
+                if existing is None:
+                    self._entries.pop(key, None)
+                else:
+                    self._entries[key] = existing
+                raise
             return entry
 
     def switch_session(self, session_key: str, target_session_id: str) -> Optional[SessionEntry]:

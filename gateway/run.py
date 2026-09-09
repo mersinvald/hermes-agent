@@ -8574,7 +8574,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
 
     def _is_telegram_topic_root_lobby(self, source: SessionSource) -> bool:
         """True for the main Telegram DM (or General topic) when topic mode has made it a lobby."""
-        if source.platform != Platform.TELEGRAM or source.chat_type != "dm":
+        if (source.platform != Platform.TELEGRAM or source.chat_type != "dm"
+                or isinstance(getattr(source, "native_conversation_route", None), str)):
             return False
         if not self._telegram_topic_mode_enabled(source):
             return False
@@ -8583,7 +8584,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
 
     def _is_telegram_topic_lane(self, source: SessionSource) -> bool:
         """True for a user-created Telegram private-chat topic lane."""
-        if source.platform != Platform.TELEGRAM or source.chat_type != "dm":
+        if (source.platform != Platform.TELEGRAM or source.chat_type != "dm"
+                or isinstance(getattr(source, "native_conversation_route", None), str)):
             return False
         if not self._telegram_topic_mode_enabled(source):
             return False
@@ -8704,6 +8706,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         """
         if (
             source.platform != Platform.TELEGRAM
+            or isinstance(getattr(source, "native_conversation_route", None), str)
             or source.chat_type != "dm"
             or not source.chat_id
             or not source.user_id
@@ -18443,6 +18446,12 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         # Otherwise control/session commands like /new or /help get silently
         # consumed as update answers instead of being dispatched normally.
         _quick_key = self._session_key_for_source(source)
+        _conversation_ingress = getattr(self, "conversation_ingress", None)
+        if _conversation_ingress is not None:
+            _control_result = await _conversation_ingress.control_existing(event, _quick_key)
+            if _control_result is not None:
+                return (_control_result if getattr(event, "_native_browser_ingress", None)
+                        is _conversation_ingress else None)
         allow_gateway_control = event.allow_gateway_control
         _up_state = self._peek_session_state(_quick_key)
         if (
@@ -19697,6 +19706,15 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 "please resend shortly."
             )
 
+        _native_root = None
+        if _conversation_ingress is not None:
+            _native_root, _control_result = await _conversation_ingress.prepare_admission(
+                event, source, _quick_key,
+            )
+            if _control_result is not None:
+                return (_control_result if getattr(event, "_native_browser_ingress", None)
+                        is _conversation_ingress else None)
+
         # ── Claim this session before any await ───────────────────────
         # Between here and _run_agent registering the real AIAgent, there
         # are numerous await points (hooks, vision enrichment, STT,
@@ -19721,6 +19739,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         _claim_state.turn.started_ts = time.time()
         self._persist_active_agents()
         _run_generation = self._begin_session_run_generation(_quick_key)
+        if _conversation_ingress is not None:
+            _conversation_ingress.reserve(_native_root, source, _quick_key, _run_generation, event)
 
         try:
             try:
@@ -20893,6 +20913,19 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         # to prevent. Released in _handle_message's finally via
         # _release_turn_lease — granted per (routing key, run generation) so a
         # stale unwind can't release a newer turn's lease.
+        _conversation_ingress = getattr(self, "conversation_ingress", None)
+        if _conversation_ingress is not None:
+            try:
+                _control_result = await _conversation_ingress.admit(
+                    event, source, session_entry, _quick_key, run_generation,
+                )
+            except BaseException:
+                self._clear_session_env(_session_env_tokens)
+                raise
+            if _control_result is not None:
+                self._clear_session_env(_session_env_tokens)
+                return (_control_result if getattr(event, "_native_browser_ingress", None)
+                        is _conversation_ingress else None)
         _lease_registry = getattr(self, "_turn_leases", None)
         if _lease_registry is not None:
             try:
@@ -27095,6 +27128,11 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             if cached_source is not None:
                 return cached_source
 
+            if ":native:conversation:" in session_key:
+                # An independent ingress route cannot fall back to the
+                # platform's current conversation when its local alias is gone.
+                return None
+
             _parsed = _parse_session_key(session_key)
             if _parsed:
                 derived_platform = _parsed["platform"]
@@ -28622,6 +28660,9 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         """
         if not session_key:
             return False
+        ingress = getattr(self, "conversation_ingress", None)
+        if ingress is not None:
+            ingress.release(session_key, run_generation)
         registry = getattr(self, "_turn_leases", None)
         state = self._peek_session_state(session_key)
         if state is None or registry is None:
@@ -31572,7 +31613,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
             # as user input.  The primary fix is in base.py (commands bypass the
             # active-session guard), but this catches edge cases where command
             # text leaks through the interrupt_message fallback.
-            if pending and pending.strip().startswith("/"):
+            if (pending and pending.strip().startswith("/")
+                    and (pending_event is None or pending_event.allow_gateway_control)):
                 _pending_parts = pending.strip().split(None, 1)
                 _pending_cmd_word = _pending_parts[0][1:].lower() if _pending_parts else ""
                 if _pending_cmd_word:
@@ -31805,6 +31847,11 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                 # what the follow-up's guard will consult.  Fail-safe in helper.
                 await self._refresh_agent_cache_message_count(session_key, session_id)
 
+                _conversation_ingress = getattr(self, "conversation_ingress", None)
+                if _conversation_ingress is not None:
+                    _conversation_ingress.continue_execution(
+                        session_key, run_generation, pending_event,
+                    )
                 followup_result = await self._run_agent(
                     message=next_message,
                     context_prompt=context_prompt,

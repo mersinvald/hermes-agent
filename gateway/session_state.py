@@ -73,6 +73,9 @@ class TurnState:
     # preserves that: release/rebind only match when generation is current.
     lease_token: Any = None
     lease_generation: Optional[int] = None
+    # Shared conversation owner; released only with the generation-scoped turn
+    # lease, never by early /stop, /reset or running-agent cleanup.
+    conversation_execution: Any = None
 
     def clear(self) -> None:
         """Reset the per-turn slot (agent / start ts / lease / busy-ack).

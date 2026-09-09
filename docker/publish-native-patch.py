@@ -20,8 +20,10 @@ RUNTIME = ("plugins/platforms/a2a/tools.py", "plugins/platforms/a2a/protocol.py"
            "plugins/platforms/a2a/streaming.py", "agent/tool_executor.py",
            "agent/agent_runtime_helpers.py", "model_tools.py", "gateway/run.py",
            "gateway/session_context.py", "gateway/permission_bridge.py",
+           "gateway/session_state.py", "gateway/session.py", "gateway/conversation_control.py",
            "tools/approval.py", "tools/mcp_tool.py", "plugins/platforms/telegram/adapter.py")
-NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py")
+NEW_RUNTIME = ("plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py",
+               "gateway/conversation_control.py")
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -82,6 +84,26 @@ def base_files(repository, manifest, config, cache):
     return found
 
 
+def runtime_sources(revision):
+    changed = run("git", "diff", "--name-only", BASE_REVISION, revision).decode().splitlines()
+    assert all(name in changed for name in RUNTIME)
+    assert all(name in RUNTIME or name.startswith("tests/") or name in (
+        "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md", "cli-config.yaml.example",
+        "gateway/CONVERSATION_CONTROL.md") for name in changed), "not a source-only patch"
+    # Always read committed blobs, never the dirty or case-colliding host checkout.
+    runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
+    return runtime
+
+
+def write_layer(layer, entries, files, epoch):
+    with tarfile.open(layer, "w", format=tarfile.USTAR_FORMAT) as archive:
+        for name, data in sorted(entries.items()):
+            info = tarfile.TarInfo(name)
+            info.size, info.mode, info.mtime = len(data), files[name][1], epoch
+            info.uid = info.gid = 0
+            archive.addfile(info, io.BytesIO(data))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repository", required=True, help="Destination registry/repository, without a tag")
@@ -90,12 +112,7 @@ def main():
     args = parser.parse_args()
     assert run("crane", "version").decode().strip() == "0.21.3", "use pinned crane 0.21.3"
     revision = run("git", "rev-parse", "HEAD").decode().strip()
-    changed = run("git", "diff", "--name-only", BASE_REVISION, revision).decode().splitlines()
-    assert all(name in changed for name in RUNTIME)
-    assert all(name in RUNTIME or name.startswith("tests/") or name in (
-        "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md", "cli-config.yaml.example") for name in changed), "not a source-only patch"
-    # Always read committed blobs, never the dirty or case-colliding host checkout.
-    runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
+    runtime = runtime_sources(revision)
     epoch = int(run("git", "show", "-s", "--format=%ct", revision))
     output = args.output.resolve()
     assert not output.is_relative_to(ROOT)
@@ -126,12 +143,7 @@ def main():
         entries = {**{"opt/hermes/" + name: data for name, data in runtime.items()}, "opt/hermes/.hermes_build_sha": (revision + "\n").encode(),
             "etc/hermes/image-provenance.json": (json.dumps(provenance, sort_keys=True, separators=(",", ":")) + "\n").encode()}
         layer = output / (arch + ".tar")
-        with tarfile.open(layer, "w", format=tarfile.USTAR_FORMAT) as archive:
-            for name, data in sorted(entries.items()):
-                info = tarfile.TarInfo(name)
-                info.size, info.mode, info.mtime = len(data), files[name][1], epoch
-                info.uid = info.gid = 0
-                archive.addfile(info, io.BytesIO(data))
+        write_layer(layer, entries, files, epoch)
         layer_hash = sha(layer.read_bytes())
         target = args.repository + ":" + tag + "-" + arch
         result = {"base_manifest": children[arch]["digest"], "layer_diff_id": layer_hash,
