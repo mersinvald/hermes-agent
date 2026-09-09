@@ -223,3 +223,60 @@ Delivery projection and recovery cursor are read in the same SQLite transaction.
 An optional `delivery_changed` observation follows the successful attempting-only
 CAS. Observation failure rotates the recovery epoch while preserving the durable
 delivery result and never resending. Repeated completion/CAS emits no duplicate.
+
+## Private retained image storage (M01)
+
+`GET images/policy`, `POST conversations/{root}/images`, and
+`GET conversations/{root}/images/{image_id}[/{original|preview}]` implement the
+reviewed PWA `bdc0627` storage contract. POST carries one raw JPEG/PNG/static WebP
+and `X-Hermes-PWA-Upload-Id`, with 201 on durable creation, 200 on an identical
+retry and 409 on changed bytes/type for the same native owner/root/upload ID.
+Image commands remain unavailable; this storage path does not send image bytes,
+EXIF, GPS, filename or filesystem paths into a model, title utility or delegate.
+The later reviewed native admission must own transcript association through the
+existing MessageEvent/GatewayRunner seam; no independent executor was introduced.
+
+The native-owned `${HERMES_HOME}/pwa-images` directory retains exact originals
+outside expiring media caches. The owner scope contains the configured concierge,
+issuer/subject, actual profile and validated native source identity. PWA cache
+`native_owner_id` labels are not an independent native authority. Every operation
+checks actual native ownership; binary responses recheck it after held-FD reads.
+Source reassignments cannot inherit the previous owner's image IDs.
+
+Optional `pwa_http.images` has these defaults and bounded configuration:
+
+- `max_original_bytes: 20971520` (1 through 20971520).
+- `max_images_per_message: 10` (1 through 10; future admission policy only).
+- `max_decoded_pixels: 40000000` and `max_dimension: 16384`, configurable lower.
+- `workers: 1` (1–2), covering streaming, codecs, reads and downstream writes.
+- `min_free_bytes: 268435456` (positive, at most 16 GiB). Admission reserves this
+  profile filesystem headroom plus every configured in-flight original/preview
+  allowance. Full disk/quota failure rejects writes without deleting old images.
+
+The current maxima are bounded implementation transport/admission ceilings, not
+an amendment preventing later reviewed changes to ADR 005 defaults. Existing
+JSON request/response caps are unchanged. Request transport auto-decompression is
+disabled; explicit Content-Encoding is rejected before bytes are interpreted.
+Codecs reject MIME mismatches, invalid/truncated pixels, animation, dimensions
+and pixel count excess. Originals preserve metadata byte-for-byte. Previews are
+fresh oriented/resized RGB JPEG pixels (2048px edge, 8MiB cap), stripping metadata
+including EXIF/GPS/XMP/ICC/comments. Original dimensions refer to encoded pixels;
+preview dimensions refer to oriented/reduced pixels.
+
+Uploads stream into mode0700 private staging directories and mode0600 files;
+owned descriptors pin every component without following symlinks. A closed
+manifest and bounded digests bind scope, upload ID, image ID and byte variants.
+Original/preview/manifest/stage directory are fsynced before atomic nonempty
+record-directory publication, followed by parent fsync before acknowledgement.
+Concurrent identical uploads converge on one random image identity. Retries
+verify retained digests and fsync the parent again, including after lost ACK or
+uncertain previous fsync. Only known unpublished staging data is cleaned.
+Published originals have no automatic deletion/TTL/GC; backup remains a separate
+pilot gate. An existing corrupt record fails closed without overwrite.
+
+Native request_timeout covers upload and downstream response writes. Codec
+threads keep their stage and worker slot through repeated cancellation until
+actual completion; cancellation never releases the slot while a thread writes.
+A slow/closed binary response closes transport without sending a fabricated JSON
+body after headers. Native startup/runtime ownership and the retained history DB
+remain in their existing process; images add no native DB schema.
