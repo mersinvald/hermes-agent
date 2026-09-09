@@ -53,3 +53,59 @@ definitions before reopening with the corrected implementation.
 
 This schema prerequisite alone does not advertise search or sync availability.
 The owner-authorized scan and HTTP mounts require their separate runtime checks.
+
+## Search and sync runtime
+
+The opt-in `pwa_http` service mounts authenticated `GET /v1/pwa/search`,
+`GET /v1/pwa/sync`, and checkpoint probes on the latter. It advertises
+`owner_history_search` and `history_sync`. Existing private service credentials,
+trusted principal bindings, Host validation and source authorization apply.
+No additional configuration, FTS dependency, agent process or model request is
+needed. Install the committed source archive with the existing PWA HTTP runbook;
+it includes `gateway/pwa_history_scan.py` and `hermes_state_pwa_scan.py`.
+
+Queries are trimmed literal Unicode casefold substrings, at most 256 code points
+and 1,024 UTF-8 bytes; control/surrogate characters are rejected before trimming.
+Operators, quotes and wildcard characters have no special meaning. Matching
+follows credential redaction and native display projection. Snippets contain at
+most 500 actual source code points; `match_truncated` records a folded match
+whose source span cannot fit. No offsets or synthetic ellipses are generated.
+System, session metadata, subordinate delegation and foreign content are absent.
+Retained compacted messages and separately owned user branches remain eligible.
+Unsupported or oversized display content produces explicit partial coverage.
+
+A request considers at most 500 session candidates, 256 message/segment steps,
+32 groups, and its aggregate limit (search 1–50; sync 1–100). Search reserves one
+slot for each first root header, allowing the facade to match a manual title;
+empty or underfilled continuations are normal. A required header that cannot fit
+fails explicitly. An individual sync message too large for a whole page becomes
+an explicit oversized omission. A partially full page defers an unpublished
+message to its continuation, never advancing past it. The existing response byte
+limit, request timeout (default 15 seconds), and 5-second SQLite progress bound
+remain active. Threaded reads may finish after HTTP cancellation; they neither
+write history nor execute work.
+
+Each sweep fixes message/session upper row IDs and the protected generation.
+Membership, lineage order, display text and title metadata stay within that
+snapshot. Appends and independent roots appear on the next sweep; protected
+changes return conflict. Current activity/execution projection may refresh and
+is not a claim of byte-identical responses. The actual native incremental writer
+start/completion path is covered alongside compression and equal-size rewrite.
+
+Opaque handles are scoped to the principal, configured binding, currently
+allowed source set, query/root/limit, and snapshot. They expire absolutely using
+`pwa_http.cursor_ttl` (default 900 seconds, configured bound 30–3,600), including
+multi-page operations. Process restart, shutdown and bounded LRU eviction also
+invalidate them. The registry permits 4,096 entries and 4 MiB of encoded state,
+with a 256 KiB per-native-state ceiling; it stores no result transcript bodies.
+Replaying a valid cursor repeats membership/positions without extending the
+operation deadline. Canonical root and source authorization run before reads and
+after async work, before publication.
+
+Terminal coverage is `complete` or `partial`, never inferred from an empty page.
+Reasons accumulate across continuations. Complete covers only the captured,
+provably authorized retained display text; it excludes unavailable legacy
+ownership, future rows and non-text interpretation. A checkpoint probe compares
+snapshot/configuration/authority and returns `unchanged` or `refresh_required`.
+It is a conservative refresh indicator, not a mutation log or delta feed. Start
+a new finite sweep on refresh, conflict, expiry or restart.
