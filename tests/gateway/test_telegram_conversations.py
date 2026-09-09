@@ -136,7 +136,7 @@ async def test_binding_versions_aliases_auth_and_persistence_failure(
         monkeypatch.setattr(
             store,
             "_save",
-            lambda: (_ for _ in ()).throw(OSError("synthetic write failure")),
+            lambda **kwargs: (_ for _ in ()).throw(OSError("synthetic write failure")),
         )
         with pytest.raises(OSError):
             await policy.select(OWNER, "conversation-b", old["binding_version"])
@@ -617,7 +617,7 @@ async def test_first_message_bootstraps_configured_native_channel_fail_closed(
         event = MessageEvent(text="first", source=fresh)
         save = store._save
         monkeypatch.setattr(
-            store, "_save", lambda: (_ for _ in ()).throw(OSError("write failed"))
+            store, "_save", lambda **kwargs: (_ for _ in ()).throw(OSError("write failed"))
         )
         with pytest.raises(OSError):
             policy.route_event(event)

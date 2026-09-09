@@ -224,7 +224,7 @@ async def test_history_omission_credential_redaction_and_no_access_log(monkeypat
         assert TOKEN not in caplog.text and "synthetic-callback-secret" not in caplog.text
         caps=await (await client.get("/v1/pwa/capabilities")).json()
         for entry in caps["capabilities"]:
-            if entry["capability_id"] in {"event_stream","event_replay","snapshot_recovery","remote_cancellation","telegram_final_delivery"}:
+            if entry["capability_id"] == "remote_cancellation":
                 assert entry["availability"] == "unavailable"
 
 
@@ -253,12 +253,12 @@ def test_invalid_config_is_closed(change):
         PwaHttpConfig.from_dict(raw)
 
 
-def test_duplicate_owner_source_and_unknown_source_fields_rejected():
+def test_shared_source_has_distinct_principals_and_unknown_fields_rejected():
     from tests.gateway.test_42039_duplicate_user_message import _source
     raw=config_for(_source())
     duplicate=copy.deepcopy(raw["bindings"][0]); duplicate["subject"]="foreign"
     raw["bindings"].append(duplicate)
-    with pytest.raises(ValueError): PwaHttpConfig.from_dict(raw)
+    assert len(PwaHttpConfig.from_dict(raw).bindings) == 2
     raw=config_for(_source()); raw["bindings"][0]["sources"][0]["role_authorized"]=True
     with pytest.raises(ValueError): PwaHttpConfig.from_dict(raw)
 

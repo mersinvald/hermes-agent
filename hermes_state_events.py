@@ -170,7 +170,9 @@ class NativeEventStateMixin:
 
         self._execute_write(write)
 
-    def native_event_recovery(self, root, scope, cursor=None):
+    def native_event_recovery(
+        self, root, scope, cursor=None, *, delivery_channel_key=None
+    ):
         """Capture journal state and replay boundary in one SQLite transaction.
 
         A bounded native history API, not this snapshot, pages older transcripts.
@@ -259,6 +261,8 @@ class NativeEventStateMixin:
                     (root, limits.snapshot_count + 1),
                 )
             ]
+            for row in executions[: limits.snapshot_count]:
+                self._native_execution_delivery(conn, row, delivery_channel_key)
             commands = [
                 receipt(r)
                 for r in conn.execute(
@@ -285,4 +289,38 @@ class NativeEventStateMixin:
 
         # Retention maintenance and the canonical capture use the existing short
         # write transaction, which excludes concurrent journal transitions.
+        return self._execute_write(read)
+
+    @staticmethod
+    def _native_execution_delivery(conn, row, channel_key):
+        if channel_key is None:
+            return
+        delivery = conn.execute(
+            "SELECT state,binding_version FROM native_channel_deliveries "
+            "WHERE conversation_id=? AND execution_id=? AND channel_key=?",
+            (row["conversation_id"], row["execution_id"], channel_key),
+        ).fetchone()
+        if delivery:
+            row["deliveries"] = [
+                {
+                    "channel": "telegram",
+                    "state": "unknown"
+                    if delivery["state"] == "attempting"
+                    else delivery["state"],
+                    "binding_version": delivery["binding_version"],
+                }
+            ]
+
+    def native_event_execution(self, root, execution_id, *, delivery_channel_key=None):
+        def read(conn):
+            found = conn.execute(
+                "SELECT * FROM native_executions WHERE conversation_id=? AND execution_id=?",
+                (root, execution_id),
+            ).fetchone()
+            if found is None:
+                raise LookupError("native execution unavailable")
+            row = dict(found)
+            self._native_execution_delivery(conn, row, delivery_channel_key)
+            return row
+
         return self._execute_write(read)

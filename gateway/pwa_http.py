@@ -1,4 +1,5 @@
 """Restricted private facade transport inside the existing GatewayRunner."""
+
 from __future__ import annotations
 
 import asyncio
@@ -15,11 +16,20 @@ from collections import OrderedDict
 from aiohttp import web
 
 from gateway.conversation_control import NativeConversationIngress
-from gateway.pwa_config import PwaHttpConfig, canonical, closed, identifier, parse_principal
+from gateway.pwa_config import (
+    PwaHttpConfig,
+    canonical,
+    closed,
+    identifier,
+    parse_principal,
+)
 from gateway.pwa_ownership import NativePwaOwnership
+from gateway.session import ChannelBindingConflict
+from gateway.config import Platform
+from gateway.telegram_conversations import TelegramConversationChannel, channel_key
 from hermes_state_commands import CommandConflict
 
-CONTRACT_PIN = "e0b1e40581d8aba1f1a59985c0f8268ed3b3e111"
+CONTRACT_PIN = "0212c7411818c0b14f56b1064ca3bded5eba5707"
 
 
 def strict_json(text):
@@ -47,14 +57,28 @@ class NativePwaHttp:
         if not self.config.enabled or runner.config.multiplex_profiles:
             raise ValueError("native PWA listener is not enabled for this profile")
         token = os.environ.get(self.config.token_env, "")
-        if len(token.encode()) < 32 or len(token) > 4096 or any(ord(c) < 33 or ord(c) > 126 for c in token):
+        if (
+            len(token.encode()) < 32
+            or len(token) > 4096
+            or any(ord(c) < 33 or ord(c) > 126 for c in token)
+        ):
             raise ValueError("native PWA facade credential unavailable")
         self._token = token
         self.db = runner.session_store._db
         if self.db is None:
             raise RuntimeError("native PWA SessionDB unavailable")
         self.ownership = NativePwaOwnership(runner, self.db, self.config, secret=token)
-        self.ingress = NativeConversationIngress(runner, self.db, {}, concierge_id=self.config.concierge_id, grant_provider=self.ownership)
+        self.ingress = NativeConversationIngress(
+            runner,
+            self.db,
+            {},
+            concierge_id=self.config.concierge_id,
+            grant_provider=self.ownership,
+            event_limits=self.config.event_limits,
+        )
+        self.telegram_channel = TelegramConversationChannel(self.ingress)
+        self._streams = set()
+        self._close_event = asyncio.Event()
         self._http_runner = None
         self._site = None
         self._closing = False
@@ -189,41 +213,289 @@ class NativePwaHttp:
                 "native_session_ids": lineage, "messages": messages, "next_cursor": next_cursor,
                 "history_state": "partial" if partial else "available"}
 
+    def _authorize_root(self, principal, root):
+        projection, grant = self.ingress._authorize(principal, root)
+        if projection["conversation_id"] != root:
+            raise PermissionError("canonical native root required")
+        if not self.runner._is_user_authorized_for_source(grant.source):
+            raise PermissionError("native source is not authorized")
+        return projection, grant
+
+    def _event_cursor(self, request, *, stream=False):
+        query = self._query(request, ("cursor",))
+        headers = request.headers.getall("Last-Event-ID", [])
+        if headers and (not stream or len(headers) != 1 or "cursor" in query):
+            raise ValueError("ambiguous native event cursor")
+        raw = query.get("cursor", headers[0] if headers else None)
+        if raw is None:
+            return None
+        if not raw or len(raw) > 2048:
+            raise ValueError("invalid native event cursor")
+        decoded = base64.b64decode(
+            raw + "=" * (-len(raw) % 4), altchars=b"-_", validate=True
+        )
+        if base64.urlsafe_b64encode(decoded).decode().rstrip("=") != raw:
+            raise ValueError("noncanonical native event cursor")
+        value = strict_json(decoded.decode("utf-8"))
+        if canonical(value).encode() != decoded:
+            raise ValueError("noncanonical native event cursor")
+        # Valid JSON with an invalid semantic position is a native gap, not an
+        # HTTP syntax error. Null must not accidentally become initial capture.
+        return {} if value is None else value
+
+    async def _binding(self, request, principal, root):
+        self._query(request)
+        _, grant = self._authorize_root(principal, root)
+        if grant.source.platform != Platform.TELEGRAM:
+            raise RequestError(404, "capability_unavailable")
+        if request.method == "PUT":
+            body = await self._body(request)
+            closed(
+                body,
+                {"schema_version", "expected_binding_version"},
+                {"schema_version", "expected_binding_version"},
+            )
+            if body["schema_version"] != "1.0":
+                raise ValueError("invalid binding version")
+            binding = await self.telegram_channel.select(
+                principal, root, body["expected_binding_version"]
+            )
+        else:
+            entry = self.runner.session_store.lookup_by_session_key(
+                self.runner._session_key_for_source(grant.source)
+            )
+            if entry is None:
+                return dict(
+                    schema_version="1.0",
+                    conversation_id=root,
+                    channel="telegram",
+                    state="unbound",
+                    selected_conversation_id=None,
+                    native_session_id=None,
+                    binding_version=0,
+                )
+            binding = await self.telegram_channel.inspect(principal, root)
+        return dict(
+            schema_version="1.0",
+            conversation_id=root,
+            channel="telegram",
+            state="selected",
+            selected_conversation_id=binding["conversation_id"],
+            native_session_id=binding["native_session_id"],
+            binding_version=binding["binding_version"],
+        )
+
+    async def _events(self, request, principal, root):
+        deadline = time.monotonic() + self.config.stream_max_seconds
+
+        def budget(maximum):
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("native stream lifetime expired")
+            return min(maximum, remaining)
+
+        if self._closing or not self.runner._running or self.runner._draining:
+            raise RequestError(503, "native_unavailable")
+        cursor = self._event_cursor(request, stream=True)
+        self._authorize_root(principal, root)
+        feed = self.ingress.events
+        if len(feed._subscriptions) >= self.db._native_events_limits.max_subscribers:
+            raise RequestError(429, "native_unavailable")
+        subscription = feed.subscribe(principal, root, cursor)
+        task = asyncio.current_task()
+        self._streams.add(task)
+        response = None
+        try:
+            async with asyncio.timeout(budget(self.config.request_timeout)):
+                result = await subscription.poll()
+            while not self._closing:
+                data = canonical(result).encode()
+                if len(data) > self.config.max_response_bytes:
+                    raise RequestError(503, "native_unavailable")
+                event_id = base64.urlsafe_b64encode(
+                    canonical(result["cursor"]).encode()
+                ).rstrip(b"=")
+                frame = (
+                    b"event: recovery\nid: " + event_id + b"\ndata: " + data + b"\n\n"
+                )
+                if len(frame) > self.config.max_response_bytes:
+                    raise RequestError(503, "native_unavailable")
+                # No awaited work between current authority and each publication.
+                self._authenticate(request)
+                self._authorize_root(principal, root)
+                if response is None:
+                    response = web.StreamResponse(
+                        headers={
+                            "Content-Type": "text/event-stream",
+                            "Cache-Control": "no-store",
+                            "X-Content-Type-Options": "nosniff",
+                            "X-Accel-Buffering": "no",
+                        }
+                    )
+                    async with asyncio.timeout(budget(self.config.stream_write_timeout)):
+                        await response.prepare(request)
+                async with asyncio.timeout(budget(self.config.stream_write_timeout)):
+                    self._authenticate(request)
+                    self._authorize_root(principal, root)
+                    await response.write(frame)
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    break
+                try:
+                    await asyncio.wait_for(
+                        self._close_event.wait(),
+                        min(remaining, self.config.event_poll_interval),
+                    )
+                    break
+                except TimeoutError:
+                    pass
+                if (
+                    time.monotonic() >= deadline
+                    or request.transport is None
+                    or request.transport.is_closing()
+                ):
+                    break
+                async with asyncio.timeout(
+                    budget(self.config.request_timeout)
+                ):
+                    result = await subscription.poll()
+            if response is not None:
+                async with asyncio.timeout(budget(self.config.stream_write_timeout)):
+                    await response.write_eof()
+            return response
+        except Exception:
+            if response is None or not response.prepared:
+                raise
+            # Headers already committed: close, never fabricate success/domain
+            # events or expose exception text. Client reconnects with its cursor.
+            response.force_close()
+            # Do not leave aiohttp's final EOF drain outside our write/lifetime
+            # budget after a slow or interrupted stream.
+            if request.transport is not None:
+                request.transport.close()
+            return response
+        finally:
+            subscription.close()
+            self._streams.discard(task)
+
     async def _dispatch(self, request, principal):
         tail = request.path.removeprefix("/v1/pwa/")
         if request.method == "GET" and tail == "health":
             self._query(request)
             if not self.runner._running and not self._closing:
                 raise RequestError(503, "native_unavailable")
-            return {"schema_version": "1.0", "service": "native_pwa", "state": "draining" if self._closing or self.runner._draining else "ready"}, 200
+            return {
+                "schema_version": "1.0",
+                "service": "native_pwa",
+                "state": "draining"
+                if self._closing or self.runner._draining
+                else "ready",
+            }, 200
         if self._closing or not self.runner._running or self.runner._draining:
             raise RequestError(503, "native_unavailable")
         if request.method == "GET" and tail == "capabilities":
             self._query(request)
-            capabilities = [{"capability_id": name, "availability": "available"} for name in ("command_admission", "durable_commands", "history")]
+            capabilities = [
+                {"capability_id": name, "availability": "available"}
+                for name in (
+                    "command_admission",
+                    "durable_commands",
+                    "history",
+                    "event_stream",
+                    "event_replay",
+                    "snapshot_recovery",
+                )
+            ]
             if self.runner._get_proxy_url():
                 for capability in capabilities[:2]:
-                    capability.update(availability="unavailable", reason="Local native execution is required.")
-            capabilities += [{"capability_id": name, "availability": "unavailable", "reason": "Native integration is not yet available."} for name in ("event_stream", "event_replay", "snapshot_recovery", "remote_cancellation", "telegram_final_delivery")]
+                    capability.update(
+                        availability="unavailable",
+                        reason="Local native execution is required.",
+                    )
+            sources = self.ownership.binding(principal).sources
+            telegram = any(
+                s.source.platform == Platform.TELEGRAM
+                and self.runner._is_user_authorized_for_source(s.source)
+                for s in sources
+            )
+            for name in ("telegram_binding", "telegram_final_delivery"):
+                available = telegram and (
+                    name == "telegram_binding"
+                    or bool(self.runner.adapters.get(Platform.TELEGRAM))
+                    and not self.runner._get_proxy_url()
+                )
+                capabilities.append({
+                    "capability_id": name,
+                    "availability": "available" if available else "unavailable",
+                    **(
+                        {}
+                        if available
+                        else {
+                            "reason": "Configured native Telegram channel unavailable."
+                        }
+                    ),
+                })
+            capabilities.append({
+                "capability_id": "remote_cancellation",
+                "availability": "unavailable",
+                "reason": "Native integration is not yet available.",
+            })
             return {"schema_version": "1.0", "capabilities": capabilities}, 200
         if tail == "conversations" and request.method == "GET":
             limit, cursor = self._page(request)
             scope = self._scope(principal, "conversations", limit)
             after = self._cursor(cursor, scope) if cursor else ""
-            roots, next_after, coverage = await asyncio.to_thread(self.ownership.discover, principal, after, limit)
-            conversations = [await self.ingress.native_conversation(principal, root) for root in roots]
-            return {"schema_version": "1.0", "conversations": conversations, "coverage": coverage,
-                    "next_cursor": self._new_cursor(next_after, scope) if next_after is not None else None}, 200
+            roots, next_after, coverage = await asyncio.to_thread(
+                self.ownership.discover, principal, after, limit
+            )
+            conversations = [
+                await self.ingress.native_conversation(principal, root)
+                for root in roots
+            ]
+            return {
+                "schema_version": "1.0",
+                "conversations": conversations,
+                "coverage": coverage,
+                "next_cursor": self._new_cursor(next_after, scope)
+                if next_after is not None
+                else None,
+            }, 200
         if tail == "conversations" and request.method == "POST":
             self._query(request)
             body = await self._body(request)
-            closed(body, {"schema_version", "create_id"}, {"schema_version", "create_id"})
+            closed(
+                body, {"schema_version", "create_id"}, {"schema_version", "create_id"}
+            )
             if body["schema_version"] != "1.0":
                 raise ValueError("invalid create version")
-            result, created = await self.ownership.create(self.ingress, principal, identifier(body["create_id"]))
+            result, created = await self.ownership.create(
+                self.ingress, principal, identifier(body["create_id"])
+            )
             return result, 201 if created else 200
         parts = tail.split("/")
-        if request.method == "GET" and len(parts) in (2, 3) and parts[0] == "conversations":
+        if len(parts) >= 3 and parts[0] == "conversations":
+            root = identifier(parts[1])
+            if (
+                len(parts) == 3
+                and parts[2] == "telegram-binding"
+                and request.method in {"GET", "PUT"}
+            ):
+                return await self._binding(request, principal, root), 200
+            if request.method == "GET" and len(parts) == 3 and parts[2] == "recovery":
+                cursor = self._event_cursor(request)
+                self._authorize_root(principal, root)
+                return await self.ingress.events.recover(principal, root, cursor), 200
+            if request.method == "GET" and len(parts) == 4 and parts[2] == "executions":
+                self._query(request)
+                self._authorize_root(principal, root)
+                return await self.ingress.events.execution(
+                    principal, root, identifier(parts[3])
+                ), 200
+        if (
+            request.method == "GET"
+            and len(parts) in (2, 3)
+            and parts[0] == "conversations"
+        ):
             root = identifier(parts[1])
             if len(parts) == 3 and parts[2] == "history":
                 return await self._history(request, principal, root), 200
@@ -235,27 +507,53 @@ class NativePwaHttp:
             return await self.ingress.submit(principal, await self._body(request)), 200
         if request.method == "GET" and len(parts) == 2 and parts[0] == "commands":
             self._query(request)
-            return await self.ingress.command_receipt(principal, identifier(parts[1])), 200
+            return await self.ingress.command_receipt(
+                principal, identifier(parts[1])
+            ), 200
         raise RequestError(404, "capability_unavailable")
 
     async def handle(self, request):
         admitted = False
         try:
             principal = self._authenticate(request)
+            parts = request.path.split("/")
+            if (
+                request.method == "GET"
+                and len(parts) == 6
+                and parts[:4] == ["", "v1", "pwa", "conversations"]
+                and parts[5] == "events"
+            ):
+                return await self._events(request, principal, identifier(parts[4]))
             if self._requests >= self.config.max_requests:
                 raise RequestError(429, "native_unavailable")
             self._requests += 1
             admitted = True
             async with asyncio.timeout(self.config.request_timeout):
                 result, status = await self._dispatch(request, principal)
+            if (
+                len(parts) >= 6
+                and parts[:4] == ["", "v1", "pwa", "conversations"]
+                and parts[5] in {"recovery", "executions", "telegram-binding"}
+            ):
+                self._authenticate(request)
+                self._authorize_root(principal, identifier(parts[4]))
+                if parts[5] == "telegram-binding" and result["state"] == "selected":
+                    self._authorize_root(principal, result["selected_conversation_id"])
             data = canonical(result).encode()
             if len(data) > self.config.max_response_bytes:
                 raise RequestError(503, "native_unavailable")
-            return web.Response(body=data, status=status, content_type="application/json",
-                                headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
+            return web.Response(
+                body=data,
+                status=status,
+                content_type="application/json",
+                headers={
+                    "Cache-Control": "no-store",
+                    "X-Content-Type-Options": "nosniff",
+                },
+            )
         except RequestError as exc:
             return self._error(exc.status, exc.code)
-        except CommandConflict:
+        except (CommandConflict, ChannelBindingConflict):
             return self._error(409, "conflict")
         except PermissionError:
             return self._error(404, "authorization_denied")
@@ -297,6 +595,12 @@ class NativePwaHttp:
 
     async def close(self):
         self._closing = True
+        self._close_event.set()
+        self.ingress.events.close()
+        for task in tuple(self._streams):
+            task.cancel()
+        if self._streams:
+            await asyncio.gather(*tuple(self._streams), return_exceptions=True)
         if self._http_runner is not None:
             await self._http_runner.cleanup()
             self._http_runner = None
