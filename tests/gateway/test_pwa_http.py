@@ -13,10 +13,26 @@ import pytest
 from gateway.conversation_control import Principal
 from gateway.pwa_config import PwaHttpConfig
 from gateway.pwa_http import NativePwaHttp
+from gateway.run import _managed_conversation_title_destination
 from tests.gateway.test_native_commands import JournalAgent, command, finish, setup, started
 
 TOKEN = "synthetic-facade-secret-" + "s" * 40
 OWNER = Principal("https://issuer.invalid", "owner")
+
+
+@pytest.mark.parametrize("timeout", [None, True, 0, -1, float("nan"), float("inf"), "7"])
+def test_invalid_managed_title_timeout_disables_model_request(timeout):
+    assert _managed_conversation_title_destination(
+        {
+            "auxiliary": {
+                "title_generation": {
+                    "provider": "custom",
+                    "model": "titles/v1",
+                    "timeout": timeout,
+                }
+            }
+        }
+    ) is False
 
 
 def config_for(source, models=None):
@@ -498,6 +514,94 @@ async def test_model_capabilities_are_unavailable_when_catalog_is_omitted(
         response = await client.get("/v1/pwa/models")
         assert response.status == 404
         assert (await response.json())["error"]["code"] == "capability_unavailable"
+
+
+@pytest.mark.asyncio
+async def test_managed_http_title_uses_explicit_route_without_model_catalog(
+    monkeypatch, tmp_path
+):
+    import threading
+    from types import SimpleNamespace
+    from unittest.mock import MagicMock
+
+    import yaml
+
+    (tmp_path / "config.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "auxiliary": {
+                    "title_generation": {
+                        "enabled": True,
+                        "provider": "custom",
+                        "model": "titles/v1",
+                        "base_url": "https://titles.invalid/v1",
+                        "api_key": "title-only-key",
+                        "timeout": 7,
+                        "extra_body": {"seed": 3},
+                    }
+                }
+            }
+        )
+    )
+    outbound = threading.Event()
+    captured = {}
+    title_client = MagicMock()
+    title_client.base_url = "https://titles.invalid/v1"
+
+    def complete(**kwargs):
+        captured["request"] = kwargs
+        outbound.set()
+        return SimpleNamespace(
+            choices=[
+                SimpleNamespace(
+                    message=SimpleNamespace(content='{"title":"Bounded route"}')
+                )
+            ]
+        )
+
+    title_client.chat.completions.create.side_effect = complete
+
+    def cached(provider, model, **kwargs):
+        captured["destination"] = (provider, model, kwargs)
+        return title_client, model
+
+    monkeypatch.setattr("agent.auxiliary_client._get_cached_client", cached)
+    async with service(monkeypatch, tmp_path) as (_, client, native):
+        from agent import conversation_loop, turn_context
+
+        provider_loop = conversation_loop.run_conversation
+
+        def titled_loop(agent, text, system, history, *args, **kwargs):
+            turn_context._maybe_title_session_at_turn_start(
+                agent,
+                [*list(history or []), {"role": "user", "content": text}],
+            )
+            return provider_loop(agent, text, system, history, *args, **kwargs)
+
+        monkeypatch.setattr(conversation_loop, "run_conversation", titled_loop)
+        root = native[4].session_id
+        prompt = "z" * 1500
+        response = await client.post(
+            "/v1/pwa/commands", json=command(root, prompt, id="title-route")
+        )
+        assert response.status == 200, await response.text()
+        agent = await started()
+        assert agent._managed_pwa_title_destination["model"] == "titles/v1"
+        assert await asyncio.to_thread(outbound.wait, 10)
+        JournalAgent.gates[0].set()
+
+    provider, model, route = captured["destination"]
+    assert (provider, model) == ("custom", "titles/v1")
+    assert route["base_url"] == "https://titles.invalid/v1"
+    assert route["api_key"] == "title-only-key"
+    assert route["main_runtime"] == {}
+    request = captured["request"]
+    assert request["model"] == "titles/v1"
+    assert request["timeout"] == 7
+    assert request["extra_body"]["seed"] == 3
+    assert len(request["messages"][1]["content"].encode()) == 1000
+    assert set(request["messages"][1]) == {"role", "content"}
+    assert "title-only-key" not in json.dumps(request["messages"])
 
 
 @pytest.mark.asyncio

@@ -31,6 +31,7 @@ import faulthandler
 import inspect
 import json
 import logging
+import math
 import os
 import queue
 import re
@@ -4099,6 +4100,46 @@ def _load_gateway_config(config_path: "Path | None" = None) -> dict:
     return raw
 
 
+def _managed_conversation_title_destination(user_config):
+    """Freeze one explicit managed title route, or disable model titling."""
+    auxiliary = user_config.get("auxiliary") or {}
+    title = (
+        auxiliary.get("title_generation") or {}
+        if isinstance(auxiliary, dict)
+        else {}
+    )
+    if not isinstance(title, dict):
+        return False
+    provider = str(title.get("provider") or "").strip()
+    model = str(title.get("model") or "").strip()
+    timeout = title.get("timeout", 30)
+    if (
+        title.get("enabled", True) is False
+        or not provider
+        or provider.lower() == "auto"
+        or not model
+        or isinstance(timeout, bool)
+        or not isinstance(timeout, (int, float))
+        or not math.isfinite(float(timeout))
+        or timeout <= 0
+    ):
+        return False
+    return {
+        "provider": provider,
+        "model": model,
+        "base_url": str(title.get("base_url") or "").strip() or None,
+        "api_key": str(title.get("api_key") or "").strip() or None,
+        "api_mode": str(title.get("api_mode") or "").strip() or None,
+        "timeout": float(timeout),
+        "extra_body": (
+            dict(title.get("extra_body") or {})
+            if isinstance(title.get("extra_body") or {}, dict)
+            else {}
+        ),
+        "language": str(title.get("language") or "").strip(),
+    }
+
+
 def _checkpoint_agent_kwargs(config: dict | None) -> dict:
     """Translate gateway checkpoint config into ``AIAgent`` constructor args.
 
@@ -5943,16 +5984,20 @@ class TurnRunner:
         max_iterations = _current_max_iterations()
 
         managed_prelease = None
+        managed_execution = False
         try:
             native_ingress = getattr(self._runner, "conversation_ingress", None)
             state = self._runner._peek_session_state(ctx.session_key)
             execution = state.turn.conversation_execution if state else None
-            managed = bool(
+            managed_execution = bool(
                 native_ingress is not None
-                and getattr(native_ingress, "models", None) is not None
-                and getattr(native_ingress.models, "config", None) is not None
                 and execution is not None
                 and execution.origin in {"pwa", "telegram"}
+            )
+            managed = bool(
+                managed_execution
+                and getattr(native_ingress, "models", None) is not None
+                and getattr(native_ingress.models, "config", None) is not None
             )
             if managed:
                 selected = native_ingress.db.native_model_selection(
@@ -6414,43 +6459,10 @@ class TurnRunner:
 
         if managed_prelease is not None:
             agent._preacquired_session_turn_lease = managed_prelease
-            auxiliary_config = ctx.user_config.get("auxiliary") or {}
-            title_config = (
-                auxiliary_config.get("title_generation") or {}
-                if isinstance(auxiliary_config, dict)
-                else {}
+        if managed_execution:
+            agent._managed_pwa_title_destination = (
+                _managed_conversation_title_destination(ctx.user_config)
             )
-            if not isinstance(title_config, dict):
-                title_config = {}
-            provider = str(title_config.get("provider") or "").strip()
-            title_model = str(title_config.get("model") or "").strip()
-            if (
-                title_config.get("enabled", True) is not False
-                and provider
-                and provider.lower() != "auto"
-                and title_model
-            ):
-                agent._managed_pwa_title_destination = {
-                    "provider": provider,
-                    "model": title_model,
-                    "base_url": str(title_config.get("base_url") or "").strip()
-                    or None,
-                    "api_key": str(title_config.get("api_key") or "").strip()
-                    or None,
-                    "api_mode": str(title_config.get("api_mode") or "").strip()
-                    or None,
-                    "timeout": title_config.get("timeout", 30),
-                    "extra_body": (
-                        dict(title_config.get("extra_body") or {})
-                        if isinstance(title_config.get("extra_body") or {}, dict)
-                        else {}
-                    ),
-                    "language": str(title_config.get("language") or "").strip(),
-                }
-            else:
-                # False is a managed-mode sentinel: keep the instant derived
-                # title, but do not discover or inherit an auxiliary route.
-                agent._managed_pwa_title_destination = False
         elif hasattr(agent, "_managed_pwa_title_destination"):
             del agent._managed_pwa_title_destination
 

@@ -9897,9 +9897,13 @@ def _call_llm_impl(
     # and fallbacks. Reading ambient state independently in each phase lets a
     # concurrent /model switch produce a key for one runtime and a client for
     # another.
-    main_runtime = _normalize_main_runtime(main_runtime)
+    # A managed strict call already carries its complete destination snapshot.
+    # Resolve aliases without consulting the task's mutable config or the main
+    # runtime captured for ordinary auxiliary fallback.
+    main_runtime = _normalize_main_runtime({} if strict_destination else main_runtime)
     resolved_provider, resolved_model, resolved_base_url, resolved_api_key, resolved_api_mode = _resolve_task_provider_model(
-        task, provider, model, base_url, api_key)
+        None if strict_destination else task, provider, model, base_url, api_key
+    )
     if strict_destination and (
         not resolved_provider
         or resolved_provider == "auto"
@@ -9910,7 +9914,9 @@ def _call_llm_impl(
         )
     if api_mode:
         resolved_api_mode = api_mode
-    effective_extra_body = _get_task_extra_body(task)
+    effective_extra_body = (
+        {} if strict_destination else _get_task_extra_body(task)
+    )
     effective_extra_body.update(extra_body or {})
     effective_provider = resolved_provider
 
