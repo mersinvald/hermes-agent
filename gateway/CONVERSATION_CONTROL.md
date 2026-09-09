@@ -182,6 +182,10 @@ projected as `unknown` and is never automatically retried. Partial multi-message
 sends, unconfirmed media results and failed acknowledgements are conservative
 `unknown`; there is no exactly-once Telegram claim. Durable reservation failure
 prevents external send; a terminal-write failure retains unknown reservation.
+Reservation, terminal-write and read failures are contained at the outbound
+boundary so the native adapter cannot turn them into an unguarded generic agent
+error reply. A missing/unreadable delivery record returns no receipt claim; the
+authorized lookup remains unavailable until storage can establish its state.
 
 For N03/N07 integration, `delivery(principal, conversation_id, execution_id)` is a
 narrow authorized snapshot lookup with current source authorization and root

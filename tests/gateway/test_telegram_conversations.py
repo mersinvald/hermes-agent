@@ -785,3 +785,73 @@ async def test_native_authorization_revoked_during_transport_reconnect(
     finally:
         await finish(ingress)
         db.close()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("failure", ["reserve", "finish", "lookup"])
+async def test_adapter_delivery_storage_failures_never_emit_generic_processing_error(
+    monkeypatch, tmp_path, failure
+):
+    runner, ingress, db, store, entry, source, adapter, policy = configured(
+        monkeypatch, tmp_path
+    )
+    method = f"native_delivery_{failure}"
+    original = getattr(db, method)
+    raw_lookup = db.native_delivery_lookup
+    try:
+        await adapter.handle_message(
+            MessageEvent(text="single native input", source=replace(source))
+        )
+        await started()
+        execution = ingress._owner(entry.session_id)[2]
+
+        def unavailable(*args):
+            if failure == "finish":
+                # The final already reached the native transport. An error
+                # reply after this switch would bypass current-binding policy.
+                store.select_channel_conversation(source, "conversation-b", 1)
+            raise OSError("synthetic delivery storage failure")
+
+        monkeypatch.setattr(db, method, unavailable)
+        JournalAgent.gates[0].set()
+        await asyncio.gather(*list(adapter._background_tasks))
+        assert JournalAgent.effects == ["single native input"]
+        assert [
+            m["content"]
+            for m in db.get_messages(entry.session_id)
+            if m["role"] == "user"
+        ] == ["single native input"]
+        assert len(finals(adapter)) == (0 if failure == "reserve" else 1)
+        assert not any(
+            "Sorry" in sent["content"] or "Try again" in sent["content"]
+            for sent in adapter.sent
+        )
+        row = raw_lookup(execution.execution_id, channel_key(source))
+        if failure == "reserve":
+            assert row is None
+            with pytest.raises(LookupError):
+                await policy.delivery(OWNER, entry.session_id, execution.execution_id)
+            # Still unavailable means no send and no manufactured durable row.
+            assert await policy.deliver(execution, "retry without reservation") is None
+            assert not finals(adapter)
+        else:
+            assert row["state"] == (
+                "attempting" if failure == "finish" else "delivered"
+            )
+        monkeypatch.setattr(db, method, original)
+        if failure == "finish":
+            assert policy._binding(source)["conversation_id"] == "conversation-b"
+            assert (
+                await policy.delivery(OWNER, entry.session_id, execution.execution_id)
+            )["state"] == "unknown"
+        # A pre-reservation failure may be explicitly retried once storage is
+        # healthy. A reserved outcome (even unknown) can never send again.
+        await policy.deliver(execution, "explicit completion retry")
+        await policy.deliver(execution, "repeated completion")
+        assert len(finals(adapter)) == 1
+        assert JournalAgent.effects == ["single native input"]
+    finally:
+        monkeypatch.setattr(db, method, original)
+        await finish(ingress)
+        await asyncio.gather(*list(adapter._background_tasks), return_exceptions=True)
+        db.close()

@@ -7,10 +7,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 from dataclasses import replace
 
 from gateway.config import Platform
 from gateway.platforms.base import SendResult
+
+logger = logging.getLogger(__name__)
 
 
 def channel_key(source):
@@ -247,6 +250,18 @@ class TelegramConversationChannel:
         return self._silent_adapters[key]
 
     async def deliver(self, execution, content, *, failed=False):
+        try:
+            return await self._deliver_once(execution, content, failed=failed)
+        except Exception:
+            # This is an outbound observation failure, not a new agent/input
+            # failure. Escaping into BasePlatformAdapter's processing-error
+            # handler would send an unguarded second message to the channel.
+            # None makes no durable receipt claim: reservation may have failed,
+            # or the durable attempting/delivered row may be unreadable now.
+            logger.warning("Native final delivery persistence unavailable")
+            return None
+
+    async def _deliver_once(self, execution, content, *, failed=False):
         source = self._trusted_source(execution.source)
         if source is None:
             return None
