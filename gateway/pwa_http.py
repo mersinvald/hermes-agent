@@ -29,9 +29,10 @@ from gateway.pwa_history_scan import NativeHistoryScan
 from gateway.session import ChannelBindingConflict
 from gateway.config import Platform
 from gateway.telegram_conversations import TelegramConversationChannel, channel_key
+from gateway.native_clarification import ClarificationRecoveryGap
 from hermes_state_commands import CommandConflict
 
-CONTRACT_PIN = "812f2c4ed29817b16ab8ce45a63dd0bf243e8491"
+CONTRACT_PIN = "5b6242a8dc036b7b81a40e9fafd8afb5788ef2a5"
 
 
 def strict_json(text):
@@ -93,6 +94,7 @@ class NativePwaHttp:
         messages = {"authentication_required": "Facade authentication required.",
                     "authorization_denied": "Resource unavailable.", "invalid_request": "Invalid native request.",
                     "conflict": "Native request conflicts with current state.",
+                    "recovery_gap": "Question traversal is no longer available; recover current state.",
                     "native_unavailable": "Native service unavailable.",
                     "capability_unavailable": "Native capability unavailable.", "internal_error": "Native request failed."}
         return web.json_response({"schema_version": "1.0", "error": {"code": code,
@@ -446,6 +448,13 @@ class NativePwaHttp:
                 "availability": "available" if local_control else "unavailable",
                 **({} if local_control else {"reason": "Local native execution is required."}),
             })
+            capabilities.extend([
+                {"capability_id": kind, "availability": "available" if local_control else "unavailable",
+                 **({} if local_control else {"reason": "Local native execution is required."})}
+                for kind in ("redirect", "native_clarification")
+            ])
+            capabilities.append({"capability_id": "remote_clarification", "availability": "unavailable",
+                                 "reason": "No configured observed specialist question protocol adapter."})
             return {"schema_version": "1.0", "capabilities": capabilities}, 200
         if tail in {"search", "sync"} and request.method == "GET":
             return await self.history_scan.request(request, principal, tail), 200
@@ -489,6 +498,16 @@ class NativePwaHttp:
                 and request.method in {"GET", "PUT"}
             ):
                 return await self._binding(request, principal, root), 200
+            if request.method == "GET" and len(parts) in (3, 4) and parts[2] == "clarifications":
+                if len(parts) == 4:
+                    self._query(request)
+                    return await self.ingress.clarifications.page(principal, root, identity=identifier(parts[3])), 200
+                query = self._query(request, ("cursor", "limit"))
+                raw_limit = query.get("limit", "50")
+                if not re.fullmatch(r"[1-9][0-9]{0,2}", raw_limit) or int(raw_limit) > 100:
+                    raise ValueError("invalid question page limit")
+                return await self.ingress.clarifications.page(principal, root,
+                    cursor=query.get("cursor"), limit=int(raw_limit)), 200
             if request.method == "GET" and len(parts) == 3 and parts[2] == "recovery":
                 cursor = self._event_cursor(request)
                 self._authorize_root(principal, root)
@@ -523,7 +542,7 @@ class NativePwaHttp:
                 remote_cursor=identifier(query["remote_cursor"]) if "remote_cursor" in query else None,
                 remote_limit=int(raw_limit),
             )
-            if query and result.get("receipt_kind") != "cancel":
+            if query and result.get("receipt_kind") not in {"cancel", "redirect"}:
                 raise ValueError("remote pagination requires a cancellation receipt")
             return result, 200
         raise RequestError(404, "capability_unavailable")
@@ -549,7 +568,7 @@ class NativePwaHttp:
             if (
                 len(parts) >= 6
                 and parts[:4] == ["", "v1", "pwa", "conversations"]
-                and parts[5] in {"recovery", "executions", "telegram-binding"}
+                and parts[5] in {"recovery", "executions", "telegram-binding", "clarifications"}
             ):
                 self._authenticate(request)
                 self._authorize_root(principal, identifier(parts[4]))
@@ -569,6 +588,8 @@ class NativePwaHttp:
             )
         except RequestError as exc:
             return self._error(exc.status, exc.code)
+        except ClarificationRecoveryGap:
+            return self._error(409, "recovery_gap")
         except (CommandConflict, ChannelBindingConflict):
             return self._error(409, "conflict")
         except PermissionError:

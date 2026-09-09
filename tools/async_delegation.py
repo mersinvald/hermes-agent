@@ -1637,6 +1637,14 @@ def _reset_for_tests() -> None:
         _records.clear()
 
 
+def native_execution_has_pending_children(origin):
+    """Actual managed child inventory; caller retains unknown after restart."""
+    with _records_lock:
+        return any(record.get("_native_execution_origin") == origin
+                   and record.get("status") in {"running", "stalling", "finalizing"}
+                   for record in _records.values())
+
+
 def interrupt_for_native_execution(origin):
     """Signal actual dispatch-time execution owners, never route aliases.
 

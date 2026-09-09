@@ -107,6 +107,7 @@ class NativeCommandStateMixin:
 
         def write(conn):
             resolved_effect, resolved_target = effect, target
+            self._native_control_cross_kind(conn, scope, body["command_id"])
             old = conn.execute(
                 "SELECT * FROM native_commands WHERE scope=? AND command_id=?",
                 (scope, body["command_id"]),

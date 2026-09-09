@@ -20,7 +20,7 @@ from gateway.platforms.base import MessageEvent
 from hermes_state_commands import CommandConflict, canonical, receipt, process_owner
 
 logger = logging.getLogger(__name__)
-CONTRACT_PIN = "fba9a1bea7c86834d672f3a1524128f6c61ebd76"
+CONTRACT_PIN = "5b6242a8dc036b7b81a40e9fafd8afb5788ef2a5"
 
 
 class NativeCommandContext:
@@ -190,6 +190,11 @@ class DurableCommandIngressMixin:
         return canonical([self._concierge_id, principal.issuer, principal.subject])
 
     async def command_receipt(self, principal, command_id, *, remote_cursor=None, remote_limit=50):
+        control = await asyncio.to_thread(self.db.native_control_lookup,
+                                         self._command_scope(principal), command_id)
+        if control is not None:
+            return await self.controls.receipt(principal, command_id,
+                remote_cursor=remote_cursor, remote_limit=remote_limit)
         row = await asyncio.to_thread(
             self.db.native_command_lookup, self._command_scope(principal), command_id
         )
@@ -227,6 +232,8 @@ class DurableCommandIngressMixin:
                 raise ValueError("invalid command identity")
         if command.get("type") == "cancel":
             return await self._submit_cancel(principal, command)
+        if command.get("type") in {"redirect", "redirect_confirm", "clarification_response"}:
+            return await self._submit_control(principal, command)
         payload = command.get("payload")
         if (
             not isinstance(payload, dict)
@@ -315,6 +322,8 @@ class DurableCommandIngressMixin:
             self._arm_command_recovery()
 
     def stop_command_recovery(self):
+        if getattr(self, "controls", None) is not None:
+            self.controls.stop()
         if getattr(self, "cancellations", None) is not None:
             self.cancellations.stop_recovery()
         if self._command_recovery_timer is not None:
@@ -411,6 +420,8 @@ class DurableCommandIngressMixin:
         )
 
     def _commands_finished(self, root):
+        if getattr(self, "controls", None) is not None:
+            self.controls.wake()
         owner = self._owner(root)
         if owner:
             self._enqueue_commands(owner)
@@ -418,6 +429,8 @@ class DurableCommandIngressMixin:
             self._wake_commands(root)
 
     def reconcile_commands(self):
+        if getattr(self, "controls", None) is not None:
+            self.controls.start()
         if getattr(self, "cancellations", None) is not None:
             self.cancellations.start_recovery()
         with self._completion_lock:
@@ -478,3 +491,31 @@ class DurableCommandIngressMixin:
         row, _ = self.db.native_cancel_admit(self._command_scope(principal), body)
         self.cancellations.wake(row)
         return await self.cancellations.receipt(principal, row["command_id"])
+
+    async def _submit_control(self, principal, command):
+        from gateway.native_redirect import validate_control
+        validate_control(command)
+        projection, grant = await asyncio.to_thread(self._authorize, principal, command["conversation_id"])
+        if not self.runner._is_user_authorized_for_source(grant.source):
+            raise PermissionError("native source is not authorized")
+        if self.runner._get_proxy_url():
+            raise ValueError("native controls require the local native executor")
+        body = {**command, "conversation_id": projection["conversation_id"]}
+        scope = self._command_scope(principal)
+        if body["type"] == "clarification_response":
+            clarifications = getattr(self, "clarifications", None)
+            if clarifications is None:
+                raise ValueError("native clarification is unavailable")
+            return await clarifications.submit(principal, body)
+        if body["type"] == "redirect":
+            source = replace(grant.source, native_conversation_route=projection["conversation_id"])
+            await self.runner.async_session_store.bind_conversation_alias(source, projection["native_session_id"])
+            self.db.native_execution_reconcile(projection["conversation_id"])
+            row, _ = self.db.native_redirect_admit(scope, body)
+            self.cancellations.wake(self.db.native_cancel_lookup(scope, row["command_id"]))
+        else:
+            row, _ = self.db.native_redirect_confirm(scope, body)
+        # No await separates durable admission from its independent recovery wake.
+        self.controls.wake()
+        self._arm_command_recovery()
+        return await self.controls.receipt(principal, row["command_id"])

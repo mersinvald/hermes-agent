@@ -143,6 +143,16 @@ class NativeEventStateMixin:
             "SELECT * FROM native_commands WHERE scope=? AND command_id=?",
             (scope, command_id),
         ).fetchone()
+        control = self._native_control_row(conn, scope, command_id)
+        if control:
+            if control["kind"] != "redirect" or row["requested_action"] != "redirect":
+                raise ValueError("inconsistent internal control input phase")
+            change = {
+                "applied": "input_applied", "not_applied": "input_not_applied",
+                "unknown": "input_unknown",
+            }.get(row["phase"], "input_queued")
+            self._native_control_event(conn, control, change)
+            return
         view = receipt(row)
         self._native_event_append(
             conn,
@@ -171,7 +181,7 @@ class NativeEventStateMixin:
         self._execute_write(write)
 
     def native_event_recovery(
-        self, root, scope, cursor=None, *, delivery_channel_key=None
+        self, root, scope, cursor=None, *, delivery_channel_key=None, clarification_available=frozenset()
     ):
         """Capture journal state and replay boundary in one SQLite transaction.
 
@@ -266,15 +276,16 @@ class NativeEventStateMixin:
             commands = [
                 receipt(r)
                 for r in conn.execute(
-                    "SELECT * FROM native_commands WHERE conversation_id=? AND scope=? ORDER BY ordinal DESC LIMIT ?",
+                    "SELECT * FROM native_commands WHERE conversation_id=? AND scope=? AND requested_action IN ('send','steer','queue') ORDER BY ordinal DESC LIMIT ?",
                     (root, scope, limits.snapshot_count + 1),
                 )
             ]
             control_ids = conn.execute(
-                "SELECT command_id FROM native_cancel_commands WHERE conversation_id=? AND scope=? ORDER BY ordinal DESC LIMIT 11",
-                (root, scope),
+                "SELECT c.command_id,c.recorded_at FROM native_cancel_commands c WHERE c.conversation_id=? AND c.scope=? AND NOT EXISTS(SELECT 1 FROM native_control_commands n WHERE n.scope=c.scope AND n.command_id=c.command_id) UNION ALL SELECT command_id,recorded_at FROM native_control_commands WHERE conversation_id=? AND scope=? ORDER BY recorded_at DESC,command_id DESC LIMIT 11",
+                (root, scope, root, scope),
             ).fetchall()
-            controls = [self._native_cancel_snapshot_from_conn(conn, scope, row[0])
+            controls = [self._native_control_snapshot(conn, scope, row[0])
+                        or self._native_cancel_snapshot_from_conn(conn, scope, row[0])
                         for row in control_ids[:10]]
             result = dict(
                 schema_version="1.0",
@@ -285,6 +296,8 @@ class NativeEventStateMixin:
                 executions=executions[: limits.snapshot_count],
                 command_receipts=commands[: limits.snapshot_count],
                 control_receipts=controls,
+                question_epoch=epoch,
+                question_page=self._native_question_page(conn, root, available=clarification_available),
                 control_receipt_coverage=dict(limit=10, has_more=len(control_ids)>10,
                                               target_details="command_lookup"),
                 coverage=dict(

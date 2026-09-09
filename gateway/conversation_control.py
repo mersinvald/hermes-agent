@@ -73,6 +73,10 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         self.events = NativeEventFeed(self)
         from gateway.native_cancellation import NativeCancellationController
         self.cancellations = NativeCancellationController(self)
+        from gateway.native_redirect import NativeControlController
+        self.controls = NativeControlController(self)
+        from gateway.native_clarification import NativeClarificationController
+        self.clarifications = NativeClarificationController(self)
         runner.conversation_ingress = self
 
     def trusted_channel_sources(self):

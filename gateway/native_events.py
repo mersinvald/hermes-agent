@@ -106,11 +106,12 @@ class NativeEventFeed:
         conversation = await provider(principal, projection["conversation_id"])
         delivery_channel = self.delivery_channel(grant)
         state = await asyncio.to_thread(
-            ingress.db.native_event_recovery,
+            ingress.clarifications.recovery_snapshot,
             projection["conversation_id"],
             ingress._command_scope(principal),
             cursor,
             delivery_channel_key=delivery_channel,
+            question_scope=ingress.clarifications._scope(principal, projection["conversation_id"]),
         )
         # Check again after awaited I/O so removed grants cannot race publication.
         _, grant = await asyncio.to_thread(
@@ -158,9 +159,11 @@ class NativeEventFeed:
             recovered=cursor is not None,
             recent_executions=[execution_view(row) for row in state["executions"]],
             command_receipts=state["command_receipts"],
-            control_receipts=[ingress.cancellations.receipt_view(view)
+            control_receipts=[ingress.controls.receipt_view(view)
                               for view in state["control_receipts"]],
             control_receipt_coverage=state["control_receipt_coverage"],
+            pending_clarifications=state["pending_clarifications"],
+            clarification_coverage=state["clarification_coverage"],
             coverage=state["coverage"],
         )
         result["retention"] = asdict(ingress.db._native_events_limits)

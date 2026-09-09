@@ -6572,17 +6572,30 @@ class TurnRunner:
             from tools import clarify_gateway as _clarify_mod
             import uuid as _uuid
 
-            if not ctx._status_adapter:
-                return ""
-
-            clarify_id = _uuid.uuid4().hex[:10]
-            _clarify_mod.register(
-                clarify_id=clarify_id,
-                session_key=ctx.session_key or "",
-                question=question,
-                choices=list(choices) if choices else None,
-                multi_select=bool(multi_select),
-            )
+            from gateway.native_clarification import manager_for_current_execution
+            _managed_questions = manager_for_current_execution()
+            if _managed_questions is not None:
+                _entry = _managed_questions.register(
+                    question, choices, multi_select=bool(multi_select),
+                    session_key=ctx.session_key or "",
+                )
+                clarify_id = _entry.clarify_id
+                from gateway.telegram_conversations import SilentProgressAdapter
+                if not ctx._status_adapter or isinstance(ctx._status_adapter, SilentProgressAdapter):
+                    return _clarify_mod.wait_for_response(
+                        clarify_id, _clarify_mod.get_clarify_timeout()
+                    )
+            else:
+                if not ctx._status_adapter:
+                    return ""
+                clarify_id = _uuid.uuid4().hex[:10]
+                _clarify_mod.register(
+                    clarify_id=clarify_id,
+                    session_key=ctx.session_key or "",
+                    question=question,
+                    choices=list(choices) if choices else None,
+                    multi_select=bool(multi_select),
+                )
 
             # For WeCom native streaming: finalize the current stream before
             # showing the clarify prompt so the post-answer output opens a
