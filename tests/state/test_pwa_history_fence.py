@@ -55,7 +55,7 @@ def test_real_pre_fence_upgrade_preserves_history_and_reopens(tmp_path, monkeypa
         assert generation(db) == 0
         db.close()
         with sqlite3.connect(path) as conn:
-            assert conn.execute("SELECT version FROM schema_version").fetchone()[0] == 31
+            assert conn.execute("SELECT version FROM schema_version").fetchone()[0] == schema.SCHEMA_VERSION
             assert before == {table: conn.execute(f"SELECT * FROM {table}").fetchall() for table in before}
             assert len(conn.execute("SELECT name FROM sqlite_master WHERE type='trigger' AND name LIKE 'pwa_history_%'").fetchall()) == 9
             assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
