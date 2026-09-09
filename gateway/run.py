@@ -30388,8 +30388,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         
         native_channel = getattr(getattr(self, "conversation_ingress", None), "telegram_channel", None)
         native_delivery_execution = native_channel.execution(session_key) if native_channel else None
-        if native_delivery_execution is not None and native_delivery_execution.origin == "pwa":
-            source._native_pwa_progress = True
+        if native_delivery_execution is not None and native_delivery_execution.origin != "telegram":
+            source._native_silent_progress = True
         user_config = _load_gateway_config()
         platform_key = _platform_config_key(source.platform)
 

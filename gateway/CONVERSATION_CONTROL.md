@@ -160,9 +160,10 @@ attachments use the existing native delivery splitter. Failed turns deliver thei
 normalized failure text without successful-turn attachment uploads. Other channels
 and non-opted-in native conversations retain their existing behavior. A restored
 internal async-delegation wake carries its route alias but not its original
-execution origin; origin-sensitive progress for such newly reconstructed work
-requires the separate continuation-provenance integration. This policy does not
-infer original PWA identity from an alias shared by both origins.
+execution origin. Such ambiguous/system-origin progress is suppressed in managed
+routes until trustworthy provenance exists; the Telegram transport alone cannot
+establish Telegram origin. N05/N06 must validate persisted origin restoration and
+interactive continuation behavior before expanding that capability.
 
 Every completion first reserves the native durable `(execution_id, channel_key)`
 delivery record. The trusted channel key is an opaque digest of configured routing

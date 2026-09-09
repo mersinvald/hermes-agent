@@ -166,6 +166,17 @@ class TelegramConversationChannel:
 
     def route_event(self, event):
         source = event.source
+        if (
+            event.internal
+            and source.native_conversation_route
+            and self._trusted_source(source)
+        ):
+            # Restored native wakes retain routing, not original browser/user
+            # provenance. Never treat the Telegram transport as proof of origin.
+            if not hasattr(event, "_native_origin"):
+                event._native_origin = "system"
+            if event._native_origin != "telegram":
+                source._native_silent_progress = True
         if source.native_conversation_route or event.internal:
             return
         trusted = self._trusted_source(source)
@@ -219,11 +230,15 @@ class TelegramConversationChannel:
         return None
 
     def progress_adapter(self, source, adapter):
-        if not source.native_conversation_route or adapter is None:
+        if (
+            not source.native_conversation_route
+            or adapter is None
+            or self._trusted_source(source) is None
+        ):
             return adapter
         owner = self.ingress._owner(source.native_conversation_route)
-        if getattr(source, "_native_pwa_progress", False) is not True and (
-            not owner or owner[2].origin != "pwa"
+        if getattr(source, "_native_silent_progress", False) is not True and (
+            owner and owner[2].origin == "telegram"
         ):
             return adapter
         key = id(adapter)

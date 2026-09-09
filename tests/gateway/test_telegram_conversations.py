@@ -228,7 +228,7 @@ async def test_native_new_and_resume_select_without_ending_active_root(
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("origin", ["pwa", "telegram"])
+@pytest.mark.parametrize("origin", ["pwa", "telegram", "system", "unknown"])
 async def test_progress_policy_preserves_native_status_without_pwa_mirroring(
     monkeypatch, tmp_path, origin
 ):
@@ -240,13 +240,19 @@ async def test_progress_policy_preserves_native_status_without_pwa_mirroring(
         if origin == "pwa":
             await ingress.submit(OWNER, command(entry.session_id))
         else:
-            task = asyncio.create_task(
-                runner._handle_message(
-                    MessageEvent(text="native", source=replace(source))
+            event = MessageEvent(text="native", source=replace(source))
+            if origin in {"system", "unknown"}:
+                event.internal = True
+                event.source = replace(
+                    source, native_conversation_route=entry.session_id
                 )
-            )
+                store.bind_conversation_alias(event.source, entry.session_id)
+                if origin == "unknown":
+                    event._native_origin = "unknown"
+            task = asyncio.create_task(runner._handle_message(event))
         agent = await started()
         key, _, execution = ingress._owner(entry.session_id)
+        assert execution.origin == origin
         assert agent.stream_delta_callback is None
         assert agent.interim_assistant_callback is None
         progress = runner._adapter_for_source(execution.source)
@@ -719,6 +725,12 @@ async def test_unrelated_native_telegram_retains_ordinary_runner_reply(
         await asyncio.wait_for(BlockingAgent.started.get(), 10)
         assert event.source.native_conversation_route is None
         assert policy.progress_adapter(other, adapter) is adapter
+        assert (
+            policy.progress_adapter(
+                replace(other, native_conversation_route="unmanaged-root"), adapter
+            )
+            is adapter
+        )
         BlockingAgent.gate.set()
         assert await task == "synthetic done"
         assert not finals(adapter)
