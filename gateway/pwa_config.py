@@ -12,6 +12,7 @@ from urllib.parse import urlsplit
 from gateway.conversation_control import Principal
 from gateway.session import SessionSource
 from hermes_state_events import EventLimits
+from gateway.pwa_images import ImageLimits
 
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}\Z")
 MODEL_CAPABILITY_STATES = frozenset({"supported", "unsupported", "unknown"})
@@ -194,6 +195,7 @@ class PwaHttpConfig:
     stream_write_timeout: int = 5
     stream_max_seconds: int = 30
     models: PwaModelCatalogConfig | None = None
+    images: ImageLimits = field(default_factory=ImageLimits)
 
     @classmethod
     def from_dict(cls, raw):
@@ -369,6 +371,7 @@ class PwaHttpConfig:
             bindings=tuple(bindings),
             event_limits=event_limits,
             models=models,
+            images=ImageLimits.from_dict(raw.get("images", {})),
             **numbers,
         )
 

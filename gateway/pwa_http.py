@@ -25,6 +25,7 @@ from gateway.pwa_config import (
     parse_principal,
 )
 from gateway.pwa_ownership import NativePwaOwnership
+from gateway.pwa_image_http import NativeImageHttp
 from gateway.pwa_history_scan import NativeHistoryScan
 from gateway.pwa_models import (
     ModelCatalogUnavailable,
@@ -90,6 +91,7 @@ class NativePwaHttp:
         )
         self.telegram_channel = TelegramConversationChannel(self.ingress)
         self.history_scan = NativeHistoryScan(self)
+        self.images = NativeImageHttp(self)
         self._streams = set()
         self._close_event = asyncio.Event()
         self._http_runner = None
@@ -481,6 +483,9 @@ class NativePwaHttp:
             }, 200
         if self._closing or not self.runner._running or self.runner._draining:
             raise RequestError(503, "native_unavailable")
+        parts = tail.split("/")
+        if parts == ["images", "policy"] or (len(parts) >= 3 and parts[0] == "conversations" and parts[2] == "images"):
+            return await self.images.handle(request, principal, parts)
         if request.method == "GET" and tail == "capabilities":
             self._query(request)
             capabilities = [
@@ -682,6 +687,8 @@ class NativePwaHttp:
                 self._authorize_root(principal, identifier(parts[4]))
                 if parts[5] == "telegram-binding" and result["state"] == "selected":
                     self._authorize_root(principal, result["selected_conversation_id"])
+            if isinstance(result, web.StreamResponse):
+                return result
             data = canonical(result).encode()
             if len(data) > self.config.max_response_bytes:
                 raise RequestError(503, "native_unavailable")
@@ -722,7 +729,8 @@ class NativePwaHttp:
             context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
             context.minimum_version = ssl.TLSVersion.TLSv1_2
             context.load_cert_chain(self.config.tls_cert, self.config.tls_key)
-        app = web.Application(client_max_size=self.config.max_body_bytes)
+        app = web.Application(client_max_size=self.config.max_body_bytes,
+                              handler_args={"auto_decompress": False})
         app.router.add_route("*", "/{path:.*}", self.handle)
         protocol_logger = logging.Logger("native_pwa_protocol")
         protocol_logger.disabled = True  # Parser failures can contain raw header/query bytes.
@@ -751,3 +759,4 @@ class NativePwaHttp:
             self._http_runner = None
         self._cursors.clear()
         self.history_scan.handles.close()
+        self.images.close()
