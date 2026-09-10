@@ -6081,7 +6081,13 @@ class BasePlatformAdapter(ABC):
         guard = interrupt_event or asyncio.Event()
         self._active_sessions[session_key] = guard
 
-        task = asyncio.create_task(self._process_message_background(event, session_key))
+        processing = self._process_message_background(event, session_key)
+        try:
+            task = asyncio.create_task(processing)
+        except BaseException:
+            processing.close()
+            self._release_session_guard(session_key, guard=guard)
+            raise
         self._session_tasks[session_key] = task
         try:
             self._background_tasks.add(task)
@@ -6094,6 +6100,43 @@ class BasePlatformAdapter(ABC):
         if hasattr(task, "add_done_callback"):
             task.add_done_callback(self._background_tasks.discard)
             task.add_done_callback(self._expected_cancelled_tasks.discard)
+        return True
+
+    def _defer_native_pending_drain(self, session_key: str) -> bool:
+        """A returned adapter handler may have queued behind a PWA writer."""
+        runner = getattr(self._message_handler, "__self__", None)
+        ingress = getattr(runner, "conversation_ingress", None)
+        defer = getattr(ingress, "defer_adapter_drain", None)
+        if not callable(defer) or session_key not in self._pending_messages:
+            return False
+        try:
+            return defer(self, session_key)
+        except Exception:
+            logger.warning("Native pending adapter handoff authority unavailable")
+            ingress._arm_command_recovery()
+            return True
+
+    def resume_native_pending(self, session_key: str, ingress) -> bool:
+        """Native release/reconciliation wakes an intact FIFO, never a second writer."""
+        runner = getattr(self._message_handler, "__self__", None)
+        if getattr(runner, "conversation_ingress", None) is not ingress:
+            return False
+        task = self._session_tasks.get(session_key)
+        if task is not None and not task.done():
+            return False  # The live adapter's normal late drain owns this handoff.
+        event = self._pending_messages.get(session_key)
+        if event is None or self._defer_native_pending_drain(session_key):
+            return False
+        try:
+            # No await between eligibility, task publication and removing this
+            # exact event. A scheduling failure leaves it available for retry.
+            if not self._start_session_processing(event, session_key):
+                return False
+        except Exception:
+            logger.warning("Native pending adapter handoff remains queued")
+            return False
+        if self._pending_messages.get(session_key) is event:
+            self._pending_messages.pop(session_key)
         return True
 
     async def cancel_session_processing(
@@ -7064,7 +7107,7 @@ class BasePlatformAdapter(ABC):
             await self._flush_text_debounce_now(session_key)
 
             # Check if there's a pending message that was queued during our processing
-            if session_key in self._pending_messages:
+            if session_key in self._pending_messages and not self._defer_native_pending_drain(session_key):
                 pending_event = self._pending_messages.pop(session_key)
                 logger.debug("[%s] Processing queued follow-up message", self.name)
                 # Keep the _active_sessions entry live across the turn chain
@@ -7196,7 +7239,8 @@ class BasePlatformAdapter(ABC):
             # busy-handler path.  Without this block, we would delete the
             # active-session entry and the queued message would be silently
             # dropped (user never gets a reply).
-            late_pending = self._pending_messages.pop(session_key, None)
+            late_pending = (None if self._defer_native_pending_drain(session_key)
+                            else self._pending_messages.pop(session_key, None))
             if late_pending is not None:
                 current_task = asyncio.current_task()
                 existing_task = self._session_tasks.get(session_key)
