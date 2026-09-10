@@ -13,6 +13,26 @@ ROW_COLUMNS = """id, source, user_id, chat_id, chat_type, thread_id, profile_nam
     substr(title,1,4097) AS title, substr(origin_json,1,16385) AS origin_json,
     substr(model_config,1,16385) AS model_config"""
 
+# A native image caption can contain 100,000 Unicode characters. The native
+# JSON encoder escapes each astral character as 12 ASCII bytes. Allow that
+# bounded envelope plus the ten frozen descriptors, but extract only public
+# display fields inside SQLite; never return private representations/pixels.
+MAX_IMAGE_DISPLAY_SOURCE_BYTES = 2 * 1024 * 1024
+IMAGE_DISPLAY_SQL = f"""CASE WHEN role='user'
+    AND length(CAST(display_metadata AS BLOB))<={MAX_IMAGE_DISPLAY_SOURCE_BYTES}
+    AND json_valid(display_metadata) THEN CASE
+    WHEN json_type(display_metadata,'$.pwa_images')='object'
+        AND json_type(display_metadata,'$.pwa_images.text')='text'
+        AND json_type(display_metadata,'$.pwa_images.image_ids')='array'
+        AND json_array_length(display_metadata,'$.pwa_images.image_ids') BETWEEN 1 AND 10
+        AND length(CAST(json_extract(display_metadata,'$.pwa_images.image_ids') AS BLOB))<=1100
+        AND length(CAST(json_extract(display_metadata,'$.pwa_images.text') AS BLOB))<=409600
+    THEN CASE WHEN pwa_text_length(json_extract(display_metadata,'$.pwa_images.text'))<=100000
+        THEN json_object('image_ids',json_extract(display_metadata,'$.pwa_images.image_ids'),
+            'text_length',pwa_text_length(json_extract(display_metadata,'$.pwa_images.text')),
+            'text',CASE WHEN pwa_text_length(json_extract(display_metadata,'$.pwa_images.text'))<=65536
+                THEN json_extract(display_metadata,'$.pwa_images.text') END) END END END"""
+
 
 @contextmanager
 def bounded_read(db):
@@ -120,22 +140,30 @@ class NativePwaStateMixin:
         # not a transcript message; never expose it or reject the whole page.
         with bounded_read(self) as conn:
             conn.create_function("pwa_display_key", 3, _display_key, deterministic=True)
+            # SQL length(TEXT) stops at NUL. Only the extracted caption, already
+            # capped at 409,600 UTF-8 bytes above, enters this exact character
+            # count; the arbitrary metadata envelope never enters Python.
+            conn.create_function("pwa_text_length", 1, len, deterministic=True)
             try:
-                rows = conn.execute("""WITH ranked AS (
+                rows = conn.execute(f"""WITH ranked AS (
                     SELECT id,session_id,role,content,tool_name,timestamp,display_kind,display_metadata,
                         ROW_NUMBER() OVER (PARTITION BY role,
-                            CASE WHEN role='user' AND length(content)<=65536 AND COALESCE(length(display_metadata),0)<=16384
+                            CASE WHEN role='user' AND length(CAST(content AS BLOB))<=65536
+                                AND COALESCE(length(CAST(display_metadata AS BLOB)),0)<=16384
                                 THEN pwa_display_key(content,display_kind,display_metadata) ELSE content END,
                             timestamp,tool_call_id,tool_calls,tool_name
                             ORDER BY active DESC,id DESC) AS rank
                     FROM messages WHERE session_id=? AND id<=? AND (active=1 OR compacted=1)
                         AND role!='session_meta'
                 ) SELECT id,session_id,role,
-                    CASE WHEN length(content)<=65536 THEN content END AS content,
-                    COALESCE(length(content),0) AS content_length,
+                    CASE WHEN length(CAST(content AS BLOB))<=65536 THEN content END AS content,
+                    COALESCE(length(CAST(content AS BLOB)),0) AS content_length,
                     substr(tool_name,1,4097) AS tool_name,timestamp,display_kind,
-                    CASE WHEN length(display_metadata)<=16384 THEN display_metadata END AS display_metadata
+                    CASE WHEN ({IMAGE_DISPLAY_SQL}) IS NULL AND length(CAST(display_metadata AS BLOB))<=16384
+                        THEN display_metadata END AS display_metadata,
+                    ({IMAGE_DISPLAY_SQL}) AS image_display
                     FROM ranked WHERE rank=1 AND id>? ORDER BY id LIMIT ?""", (segment, upper, after, limit)).fetchall()
                 return [dict(row) for row in rows]
             finally:
                 conn.create_function("pwa_display_key", 3, None)
+                conn.create_function("pwa_text_length", 1, None)

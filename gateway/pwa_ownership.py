@@ -283,21 +283,29 @@ class NativePwaOwnership:
         if role not in {"user", "assistant", "tool", "system"}:
             raise LookupError("unsupported native message role")
         content, reason = row["content"], None
+        content_length = row["content_length"]
         image_ids = None
         if role == "user":
-            metadata = object_json(row["display_metadata"])
-            display = metadata.get("pwa_images") if isinstance(metadata, dict) else None
-            if display is not None:
+            raw_display = row.get("image_display")
+            if raw_display is not None:
                 from gateway.pwa_image_policy import validate_image_payload
                 try:
+                    # JSON may escape a single control character as six bytes.
+                    if len(raw_display.encode()) > 65536 * 6 + 2048:
+                        raise ValueError("image display exceeds projection bound")
+                    display = json.loads(raw_display)
+                    # SQLite withholds oversized captions from the result
+                    # rows. Attachment validation is independent of that
+                    # omission, so every retained reference remains available.
                     image_ids = validate_image_payload({"type": "send", "expected_model_version": 1,
-                        "payload": {"text": display["text"], "image_ids": display["image_ids"]}})
+                        "payload": {"text": display["text"] or "", "image_ids": display["image_ids"]}})
                     content = display["text"]
+                    content_length = display["text_length"]
                 except (KeyError, TypeError, ValueError):
                     raise LookupError("retained image display unavailable") from None
         if role == "system":
             content, reason = None, "system_content"
-        elif (len(content) if image_ids is not None else row["content_length"]) > 65536:
+        elif content_length > 65536:
             content, reason = None, "oversized"
         else:
             try:

@@ -269,3 +269,57 @@ async def test_compression_preserves_authored_caption_all_refs_and_sync(monkeypa
         replay = guard.history([carrier])[0]
         assert "Synthetic summary" in replay["content"][0]["text"]
         assert len(replay["content"]) == 3
+
+
+@pytest.mark.parametrize("caption", ["x" * 20000, "📷" * 20000, "x" * 65537, "📷" * 100000,
+                                     "\0" * 65536, "\0" * 65537],
+                         ids=["large-ascii", "large-unicode", "omitted-ascii", "omitted-unicode",
+                              "nul-boundary", "omitted-nul"])
+@pytest.mark.asyncio
+async def test_large_image_caption_sql_history_and_sync_keep_all_refs(monkeypatch, tmp_path, caption):
+    from tests.gateway.test_pwa_owner_history import sweep
+    async with service(monkeypatch, tmp_path, models=models(), resolver=resolver) as (server, client, native):
+        configure_agent(monkeypatch)
+        root, db = native[4].session_id, native[2]
+        await initialize(client, root)
+        with Image.effect_noise((256, 256), 100).convert("RGB") as noisy:
+            buffer = io.BytesIO()
+            noisy.save(buffer, format="PNG")
+            data = buffer.getvalue()
+        ids = [(await upload(client, root, str(i), data))["image_id"] for i in range(10)]
+        body = command(root, caption, expected_model_version=1)
+        body["payload"]["image_ids"] = ids
+        # Encode real UTF-8 so the accepted maximum Unicode caption fits the
+        # native request-byte limit instead of aiohttp's default ASCII escapes.
+        response = await client.post("/v1/pwa/commands", data=json.dumps(body, ensure_ascii=False).encode(),
+                                     headers={"Content-Type": "application/json"})
+        assert response.status == 200, await response.text()
+        await started()
+        with db._read_ctx() as conn:
+            stored = conn.execute("SELECT id,length(CAST(content AS BLOB)),length(display_metadata) FROM messages WHERE session_id=? AND role='user'",
+                                  (root,)).fetchone()
+        assert stored[2] > 16384
+        assert stored[1] > 65536
+        projected = db.native_pwa_history_rows(root, 0, stored[0], 1)[0]
+        display = json.loads(projected["image_display"])
+        assert set(display) == {"text", "text_length", "image_ids"}
+        assert display["image_ids"] == ids and display["text_length"] == len(caption)
+        assert projected["display_metadata"] is None
+        if len(caption) > 65536:
+            assert display["text"] is None
+            assert stored[1] > 65536 and projected["content"] is None
+        else:
+            assert display["text"] == caption
+        history_response = await client.get(f"/v1/pwa/conversations/{root}/history")
+        assert history_response.status == 200, await history_response.text()
+        history = await history_response.json()
+        pages = await sweep(client, "sync", limit=1)
+        rows = history["messages"] + [m for p in pages for g in p["groups"] for m in g["messages"]]
+        assert len(rows) == 2
+        for row in rows:
+            assert row["image_ids"] == ids
+            assert row["content"] == (caption if len(caption) <= 65536 else None)
+            assert row["content_state"] == ("available" if len(caption) <= 65536 else "omitted")
+            assert row["omission_reason"] == (None if len(caption) <= 65536 else "oversized")
+        for forbidden in ("representations", "data:image", "pixels", "_native_images", "pwa_images"):
+            assert forbidden not in json.dumps([history, pages, projected])

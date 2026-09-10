@@ -186,6 +186,30 @@ async def test_partial_legacy_and_omitted_content_coverage_survives_empty_pages(
         assert synced[-1]["coverage"]["state"] == "partial"
 
 
+async def test_structured_nul_prefix_cannot_bypass_sql_history_byte_limits(monkeypatch, tmp_path):
+    async with service(monkeypatch, tmp_path) as (_, client, native):
+        db, root = native[2], native[4].session_id
+        db.append_message(root, "user", [{"type": "image_url", "image_url": {
+            "url": "data:image/jpeg;base64," + "A" * 1000000}}],
+            display_metadata={"private": "📷" * 16385})
+        with db._read_ctx() as conn:
+            stored = conn.execute("SELECT id,length(content),length(CAST(content AS BLOB)) FROM messages WHERE session_id=?",
+                                  (root,)).fetchone()
+        assert stored[1] == 0 and stored[2] > 1000000
+        row = db.native_pwa_history_rows(root, 0, stored[0], 1)[0]
+        assert row["content"] is None and row["content_length"] == stored[2]
+        assert row["display_metadata"] is None and row["image_display"] is None
+        assert len(json.dumps(row).encode()) < 1024
+        response = await client.get(f"/v1/pwa/conversations/{root}/history")
+        assert response.status == 200, await response.text()
+        history = await response.json()
+        pages = await sweep(client, "sync", limit=1)
+        messages = history["messages"] + [m for p in pages for g in p["groups"] for m in g["messages"]]
+        assert len(messages) == 2
+        assert all(m["content"] is None and m["omission_reason"] == "oversized" for m in messages)
+        assert "data:image" not in json.dumps([history, pages])
+
+
 async def wait_idle(ingress, root):
     for _ in range(1000):
         if ingress._owner(root) is None:
