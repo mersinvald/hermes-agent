@@ -94,7 +94,7 @@ class NativeControlStateMixin:
             scope=row["scope"],
         )
 
-    def native_redirect_admit(self, scope, body):
+    def native_redirect_admit(self, scope, body, *, images=None):
         def write(conn):
             # An immutable replay is authoritative even if the conversation's
             # selection moved after the original admission.
@@ -122,6 +122,12 @@ class NativeControlStateMixin:
             ):
                 raise CommandConflict("target execution is no longer current")
             row = self._native_control_insert(conn, scope, body, execution)
+            if images is not None:
+                conn.execute(
+                    "UPDATE native_control_commands SET payload_json=? WHERE scope=? AND command_id=?",
+                    (canonical({**body, "_native_images": images}), scope, body["command_id"]),
+                )
+                row = self._native_control_row(conn, scope, body["command_id"])
             conn.execute(
                 "INSERT INTO native_redirect_state(scope,command_id,updated_at) VALUES(?,?,?)",
                 (scope, body["command_id"], time.time()),

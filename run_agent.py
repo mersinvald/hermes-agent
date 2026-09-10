@@ -7246,6 +7246,10 @@ class AIAgent:
         Custom/local models absent from models.dev would otherwise be
         misclassified as non-vision and have their images stripped.
         """
+        managed_media = getattr(self, "_native_media_guard", None)
+        if managed_media is not None:
+            managed_media.check_route(self)
+            return True
         try:
             from hermes_cli.config import load_config
             from agent.image_routing import _lookup_supports_vision
@@ -8968,6 +8972,9 @@ class AIAgent:
                             repair_alternation=True,
                             include_row_ids=True,
                         )
+                        managed_media = getattr(self, "_native_media_guard", None)
+                        if managed_media is not None:
+                            conversation_history = managed_media.reloaded_history(conversation_history)
 
                 # Long model/tool/compression turns outlive a fixed TTL. Refresh
                 # in a daemon thread; holder-qualified UPDATE and DELETE fence a

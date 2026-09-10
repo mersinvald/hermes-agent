@@ -92,6 +92,7 @@ class NativePwaHttp:
         self.telegram_channel = TelegramConversationChannel(self.ingress)
         self.history_scan = NativeHistoryScan(self)
         self.images = NativeImageHttp(self)
+        self.ingress.images = self.images
         self._streams = set()
         self._close_event = asyncio.Event()
         self._http_runner = None

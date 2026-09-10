@@ -283,18 +283,30 @@ class NativePwaOwnership:
         if role not in {"user", "assistant", "tool", "system"}:
             raise LookupError("unsupported native message role")
         content, reason = row["content"], None
+        image_ids = None
+        if role == "user":
+            metadata = object_json(row["display_metadata"])
+            display = metadata.get("pwa_images") if isinstance(metadata, dict) else None
+            if display is not None:
+                from gateway.pwa_image_policy import validate_image_payload
+                try:
+                    image_ids = validate_image_payload({"type": "send", "expected_model_version": 1,
+                        "payload": {"text": display["text"], "image_ids": display["image_ids"]}})
+                    content = display["text"]
+                except (KeyError, TypeError, ValueError):
+                    raise LookupError("retained image display unavailable") from None
         if role == "system":
             content, reason = None, "system_content"
-        elif row["content_length"] > 65536:
+        elif (len(content) if image_ids is not None else row["content_length"]) > 65536:
             content, reason = None, "oversized"
         else:
             try:
-                content = self.db._decode_content(content)
+                content = content if image_ids is not None else self.db._decode_content(content)
                 if role == "user":
                     from agent.context_compressor import split_user_originated_turn
                     handoff, view = split_user_originated_turn({"role": role, "content": content,
                         "display_kind": row["display_kind"], "display_metadata": object_json(row["display_metadata"])})
-                    if handoff is not None or row["display_kind"]:
+                    if image_ids is None and (handoff is not None or row["display_kind"]):
                         content = view.get("content") if view else None
                 if not isinstance(content, str):
                     content, reason = None, "unsupported_content"
@@ -305,6 +317,7 @@ class NativePwaOwnership:
             except (TypeError, ValueError, LookupError):
                 content, reason = None, "unsupported_content"
         return {"native_session_id": row["session_id"], "message_id": row["id"], "role": role,
+                **({"image_ids": image_ids} if image_ids is not None else {}),
                 "content": content, "content_state": "omitted" if reason else "available",
                 "omission_reason": reason, "tool_name": self.safe_text(row["tool_name"], 256),
                 "created_at": timestamp(row["timestamp"])}
