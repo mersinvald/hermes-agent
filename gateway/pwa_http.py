@@ -25,6 +25,7 @@ from gateway.pwa_config import (
     parse_principal,
 )
 from gateway.pwa_ownership import NativePwaOwnership
+from gateway.pwa_workload import NativeWorkloadContext, WorkloadUnavailable
 from gateway.pwa_image_http import NativeImageHttp
 from gateway.pwa_history_scan import NativeHistoryScan
 from gateway.pwa_models import (
@@ -77,6 +78,7 @@ class NativePwaHttp:
         if self.db is None:
             raise RuntimeError("native PWA SessionDB unavailable")
         self.ownership = NativePwaOwnership(runner, self.db, self.config, secret=token)
+        self.workload = NativeWorkloadContext(self.ownership, self.config.workload_context)
         self.models = NativeModelCatalog(
             self.config.models, runner._resolve_managed_model_provider
         )
@@ -484,6 +486,11 @@ class NativePwaHttp:
             }, 200
         if self._closing or not self.runner._running or self.runner._draining:
             raise RequestError(503, "native_unavailable")
+        if request.method == "GET" and tail == "workload-context":
+            self._query(request)
+            if request.can_read_body:
+                raise RequestError(400, "invalid_request")
+            return self.workload.snapshot(principal), 200
         parts = tail.split("/")
         if parts == ["images", "policy"] or (len(parts) >= 3 and parts[0] == "conversations" and parts[2] == "images"):
             return await self.images.handle(request, principal, parts)
@@ -679,6 +686,9 @@ class NativePwaHttp:
             admitted = True
             async with asyncio.timeout(self.config.request_timeout):
                 result, status = await self._dispatch(request, principal)
+            if request.path == "/v1/pwa/workload-context":
+                self._authenticate(request)
+                self.workload.validate(principal, result)
             if (
                 len(parts) >= 6
                 and parts[:4] == ["", "v1", "pwa", "conversations"]
@@ -704,6 +714,8 @@ class NativePwaHttp:
             )
         except RequestError as exc:
             return self._error(exc.status, exc.code)
+        except WorkloadUnavailable:
+            return self._error(503, "capability_unavailable")
         except ClarificationRecoveryGap:
             return self._error(409, "recovery_gap")
         except (CommandConflict, ChannelBindingConflict):
