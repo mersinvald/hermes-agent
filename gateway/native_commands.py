@@ -149,6 +149,7 @@ class DurableCommandIngressMixin:
         self._completion_lock = threading.RLock()
         self._completion_observations = {}
         self._command_wakeups = {}  # Input-dispatch tasks only; never execution ownership.
+        self._deferred_adapter_drains = {}  # Existing adapter FIFOs waiting for native release.
 
     def _retry_completion(self, execution_id):
         with self._completion_lock:
@@ -423,6 +424,7 @@ class DurableCommandIngressMixin:
             )
             if current and current["phase"] != "queued":
                 self._wake_commands(root)
+            self._resume_adapter_drains(root)
 
         task.add_done_callback(done)
 
@@ -451,6 +453,7 @@ class DurableCommandIngressMixin:
             self._enqueue_commands(owner)
         else:
             self._wake_commands(root)
+        self._resume_adapter_drains(root)
 
     def reconcile_commands(self):
         if getattr(self, "controls", None) is not None:
@@ -459,7 +462,9 @@ class DurableCommandIngressMixin:
             self.cancellations.start_recovery()
         with self._completion_lock:
             completions = tuple(self._completion_observations.values())
-        roots = {item[2] for item in completions}
+        roots = {item[2] for item in completions} | {
+            root for _, root in self._deferred_adapter_drains.values()
+        }
         for execution_id, _, _, _ in completions:
             self._retry_completion(execution_id)
         if self._completion_observations:

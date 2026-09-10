@@ -337,7 +337,49 @@ class NativeConversationIngress(DurableCommandIngressMixin):
                 else:
                     self.db.native_execution_close(execution.execution_id, self._command_owner, crashed=True)
             state.turn.conversation_execution = None
-            self._wake_commands(execution.conversation_id)
+            self._commands_finished(execution.conversation_id)
+
+    def defer_adapter_drain(self, adapter, key):
+        """Keep another native writer's FIFO out of the adapter's eager drain.
+
+        This is called only after the adapter's own handler returned. In-memory
+        release alone is insufficient: a held worker lease or uncommitted close
+        still fences a replacement writer. Existing mailbox recovery owns retry.
+        """
+        state = self.runner._peek_session_state(key)
+        execution = state.turn.conversation_execution if state else None
+        deferred = self._deferred_adapter_drains.get(key)
+        if execution is not None:
+            if self.runner._unfiltered_adapter_for_source(execution.source) is not adapter:
+                return False
+            root = execution.conversation_id
+            self._deferred_adapter_drains[key] = (adapter, root)
+        elif deferred is not None and deferred[0] is adapter:
+            root = deferred[1]
+        else:
+            return False
+        with self._completion_lock:
+            pending_close = any(item[2] == root for item in self._completion_observations.values())
+        blocked = bool(self._owner(root) or self.db.native_execution(root)
+                       or self.db.native_execution_has_lease(root) or pending_close
+                       or root in self._command_wakeups)
+        if blocked:
+            self._arm_command_recovery()
+        return blocked
+
+    def _resume_adapter_drains(self, root):
+        for key, (adapter, pending_root) in tuple(self._deferred_adapter_drains.items()):
+            if pending_root != root:
+                continue
+            try:
+                if key not in adapter._pending_messages or adapter.resume_native_pending(key, self):
+                    self._deferred_adapter_drains.pop(key, None)
+                else:
+                    self._arm_command_recovery()
+            except Exception:
+                # Cleanup must never lose an input or fail because a transport
+                # wake failed. Its intact FIFO remains under native recovery.
+                self._arm_command_recovery()
 
     def continue_execution(self, key, generation, event):
         state = self.runner._peek_session_state(key)
