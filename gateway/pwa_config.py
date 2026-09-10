@@ -13,6 +13,7 @@ from gateway.conversation_control import Principal
 from gateway.session import SessionSource
 from hermes_state_events import EventLimits
 from gateway.pwa_images import ImageLimits
+from gateway.pwa_workload import PwaWorkloadConfig
 
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}\Z")
 MODEL_CAPABILITY_STATES = frozenset({"supported", "unsupported", "unknown"})
@@ -196,6 +197,7 @@ class PwaHttpConfig:
     stream_max_seconds: int = 30
     models: PwaModelCatalogConfig | None = None
     images: ImageLimits = field(default_factory=ImageLimits)
+    workload_context: PwaWorkloadConfig | None = None
 
     @classmethod
     def from_dict(cls, raw):
@@ -372,6 +374,7 @@ class PwaHttpConfig:
             event_limits=event_limits,
             models=models,
             images=ImageLimits.from_dict(raw.get("images", {})),
+            workload_context=PwaWorkloadConfig.from_dict(raw.get("workload_context")),
             **numbers,
         )
 

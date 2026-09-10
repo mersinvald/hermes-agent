@@ -87,6 +87,71 @@ allowlisted selections remain usable and native never substitutes a model.
 
 ## Ownership and persistence
 
+### Optional Kubernetes workload context (D01 internal seam)
+
+`GET /v1/pwa/workload-context` uses the same facade credential, trusted principal,
+exact Host and native running/draining checks as the other private routes. It
+accepts no query fields or body; other methods are unsupported. It is not exposed
+to the browser. The optional typed setting is exactly:
+
+```yaml
+workload_context:
+  source: kubernetes_downward_api_v1
+```
+
+Omission or null leaves this capability unavailable. No path, pod, namespace,
+owner, service, environment fallback or discovery selector is configurable. An
+operator must mount a read-only Kubernetes DownwardAPI volume at
+`/run/hermes-pwa-workload`, with `metadata.namespace` as `namespace`,
+`metadata.name` as `pod-name`, and `metadata.uid` as `pod-uid`. The three fixed
+projected files are ASCII, bounded to 254 bytes including one optional trailing
+LF, and must resolve to regular files. Kubernetes projected symlinks are allowed;
+the trusted mount is an independent deployment requirement. DNS namespace/pod
+names and canonical lowercase UUID syntax are validated. Missing, malformed or
+non-Kubernetes identity never falls back to Hermes home, environment or hostname;
+it leaves this optional endpoint at 503 without stopping the gateway.
+
+The closed response has `schema_version: "1.0"`, `namespace`, `pod_name`,
+`pod_uid`, `owner_scope_hash`, `context_revision`, `epoch_started_at` and
+`observed_at`. Times are UTC RFC3339. Identity and ownership are captured at
+listener construction; the epoch starts immediately after that capture, not at
+pod creation. The revision is SHA256 over a domain-separated canonical JSON
+tuple containing a fresh 256-bit boot nonce, that epoch, identity and ownership
+digest. It is stable within the unchanged listener and changes on every new
+listener, including restart under the same clock and pod. The nonce is not sent.
+The stable owner hash is SHA256 of UTF-8 `native-workload-owner-v1\n` followed by
+canonical JSON `[concierge_id, issuer, subject]` (sorted keys, compact separators,
+Unicode unescaped). It is an internal binding check, not authorization or a
+browser identifier. Neither credentials, source values, history, native paths nor
+the principal's issuer/subject appear in the response.
+
+Ownership is the set of principals with at least one source currently allowed by
+the real runner authorization predicate across all configured PWA bindings. It
+must contain exactly one principal. A second effective principal, even sharing
+the same native source, makes workload context unavailable. An unauthorized
+configured principal cannot obtain the sole owner's context. The complete binding
+fingerprint and each source's actual authorization decision are checked on both
+sides of each response, as are all three identity files. Any observed change or
+read failure permanently disables the context in this listener; restoring the
+old values does not revive the old revision. A UTC clock regression also latches
+unavailable. No new owner is adopted automatically. Static native bindings already
+require gateway restart to reload. These observations do not establish a history
+of changes that occurred entirely between reads.
+
+This seam proves a single **bound facade principal**, not exclusive attribution
+of every process in a pod. Metrics are workload/pod CPU and memory, never execution
+cost, model usage or evidence of activity. Activation must independently inventory
+all native ingress, adapter, plugin and cron sources and prove a single owner's
+deployment; for the pilot this includes the exact Telegram allowlist, immutable
+default DM and absence of public arbitrary incoming tasks. Facade/reader processes
+need only this authenticated HTTP projection, never native home, config, database
+or the Kubernetes API. That mount separation remains an infrastructure check.
+
+The internal schemas and transport activation protocol live in the PWA repository
+at `305bf750a948058d69cf0cb87a61ce4b14c8ec5b`, under `contracts/internal/v1/`
+and `contracts/internal/workload-http.md`. This seam
+does not activate a collector or change the native command/history contract.
+
 Schema28 adds native owner/create-ID assignments and the N04 delivery-attempt
 table without changing existing transcripts. Every read and retry checks current
 principal/source binding, native source authorization and all retained lineage
