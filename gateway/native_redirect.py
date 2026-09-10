@@ -40,16 +40,8 @@ def validate_control(command):
             or not 1 <= expected_model_version <= 9007199254740991
         ):
             raise ValueError("invalid expected model version")
-        text = payload.get("text")
-        if (
-            set(payload) != {"text"}
-            or not isinstance(text, str)
-            or not text.strip()
-            or len(text) > 100000
-        ):
-            raise ValueError("expected nonempty redirect text")
-        if len(text.encode("utf-8")) > 409600:
-            raise ValueError("redirect text exceeds byte limit")
+        from gateway.pwa_image_policy import validate_image_payload
+        validate_image_payload(command)
     elif command["type"] == "redirect_confirm":
         if (
             set(payload)

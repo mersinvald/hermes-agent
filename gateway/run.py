@@ -1890,6 +1890,10 @@ def _build_gateway_agent_history(
             # because they don't need it; the replay-tail strippers look at
             # assistant(tool_calls), not timestamps.
             entry = _build_replay_entry(role, content, msg, preserve_timestamp=(role == "user"))
+            metadata = msg.get("display_metadata")
+            if role == "user" and isinstance(metadata, dict) and "pwa_images" in metadata:
+                from copy import deepcopy
+                entry["display_metadata"] = {"pwa_images": deepcopy(metadata["pwa_images"])}
             agent_history.append(entry)
 
     # Strip interrupted tool-call tails so the LLM doesn't re-execute
@@ -6000,6 +6004,13 @@ class TurnRunner:
 
         managed_prelease = None
         managed_execution = False
+        managed_image_row = None
+        managed_image_model = None
+        managed_image_history = any(
+            isinstance(message.get("display_metadata"), dict)
+            and message["display_metadata"].get("pwa_images") is not None
+            for message in (ctx.history or [])
+        )
         try:
             native_ingress = getattr(self._runner, "conversation_ingress", None)
             state = self._runner._peek_session_state(ctx.session_key)
@@ -6014,6 +6025,13 @@ class TurnRunner:
                 and getattr(native_ingress, "models", None) is not None
                 and getattr(native_ingress.models, "config", None) is not None
             )
+            if managed_execution and getattr(execution, "command", None):
+                managed_image_row = native_ingress.db.native_command_lookup(*execution.command)
+            if managed_execution and not managed and (managed_image_history or (
+                managed_image_row is not None
+                and json.loads(managed_image_row["payload_json"])["payload"].get("image_ids")
+            )):
+                raise RuntimeError("Retained images require the managed native model catalog")
             if managed:
                 def _managed_execution_cancelled():
                     return native_ingress.db.native_execution_cancel_requested(
@@ -6064,6 +6082,11 @@ class TurnRunner:
                         native_ingress.models.config.default_model_id,
                     )
                     route = native_ingress.models.resolve(captured["model_id"])
+                    managed_image_model = captured["model_id"]
+                    if getattr(execution, "command", None):
+                        if json.loads(managed_image_row["payload_json"])["payload"].get("image_ids"):
+                            from gateway.pwa_image_policy import require_image_route
+                            require_image_route(native_ingress.models, managed_image_model)
                 except BaseException:
                     native_ingress.db.release_session_turn_lease(
                         execution.conversation_id, holder
@@ -6088,6 +6111,15 @@ class TurnRunner:
                 model, runtime_kwargs.get("provider"), ctx.session_key or "",
             )
         except Exception as exc:
+            if (managed_image_history and managed_execution) or (
+                managed_image_row is not None and json.loads(
+                    managed_image_row["payload_json"])["payload"].get("image_ids")):
+                native_ingress.db.native_execution_close(
+                    execution.execution_id, native_ingress._command_owner,
+                    crashed=True, outcome="failed",
+                )
+                return {"final_response": "The selected native image route is unavailable.",
+                        "messages": [], "api_calls": 0, "tools": [], "failed": True}
             return {
                 "final_response": f"⚠️ Provider authentication failed: {exc}",
                 "messages": [],
@@ -7194,13 +7226,54 @@ class TurnRunner:
         _approval_session_key = ctx.session_key or ""
         _approval_session_token = set_current_session_key(_approval_session_key)
         register_gateway_notify(_approval_session_key, _approval_notify_sync)
+        native_context = (native_ingress.command_context(ctx.session_key, ctx.run_generation, ctx._loop_for_step)
+                          if native_ingress is not None else None)
+        agent._native_media_read_limit = None
+        if (native_context is not None and execution.origin in {"pwa", "telegram"}
+                and native_ingress.db.native_image_command(execution.conversation_id) is not None):
+            from gateway.pwa_image_policy import MAX_CONTEXT_SOURCE_BYTES
+            agent._native_media_read_limit = MAX_CONTEXT_SOURCE_BYTES
+        managed_media_required = False
         try:
+            # Managed attachments bypass generic path buffering, preanalysis and
+            # permissive image-to-text recovery. Native retained references are
+            # the only source of model pixels and authored display text.
+            managed_parts = None
+            agent._native_media_guard = None
+            has_managed_history = any(
+                isinstance(m.get("display_metadata"), dict)
+                and m["display_metadata"].get("pwa_images") is not None
+                for m in (agent_history or [])
+            )
+            managed_media_required = has_managed_history or bool(managed_image_row is not None
+                and json.loads(managed_image_row["payload_json"])["payload"].get("image_ids"))
+            if managed_image_row is None and has_managed_history and managed_image_model is not None:
+                managed_image_row = native_ingress.db.native_image_command(execution.conversation_id)
+            if managed_media_required and (managed_image_row is None or managed_image_model is None):
+                from gateway.pwa_image_policy import ManagedImageError
+                raise ManagedImageError("Retained images require the native managed model catalog.")
+            if managed_image_row is not None and (
+                json.loads(managed_image_row["payload_json"])["payload"].get("image_ids")
+                or has_managed_history
+            ):
+                from gateway.pwa_image_policy import NativeMediaGuard
+                guard = NativeMediaGuard(native_ingress.images, execution,
+                                         managed_image_row, managed_image_model)
+                agent._native_media_guard = guard
+                agent_history = guard.history(agent_history)
+                if getattr(execution, "command", None):
+                    managed_parts = guard.content(managed_image_row)
+                    if managed_parts is not None:
+                        guard.current = [p["image_url"]["url"] for p in managed_parts[1:]]
+                guard.check_route(agent)
             # If _prepare_inbound_message_text buffered image paths for native
             # attachment, wrap the user turn as an OpenAI-style multimodal
             # content list. Consume-and-clear so subsequent turns on the same
             # runner instance don't re-attach stale images.
             _native_imgs = self._runner._consume_pending_native_image_paths(ctx.session_key)
-            if _native_imgs:
+            if managed_parts is not None:
+                _run_message = managed_parts
+            elif _native_imgs:
                 try:
                     from agent.image_routing import build_native_content_parts
                     _parts, _skipped = build_native_content_parts(
@@ -7234,7 +7307,10 @@ class TurnRunner:
                 "conversation_history": agent_history,
                 "task_id": ctx.session_id,
             }
-            if _persist_user_message_override is not None:
+            if managed_parts is not None:
+                _conversation_kwargs["persist_user_message"] = json.loads(
+                    managed_image_row["payload_json"])["payload"]["text"]
+            elif _persist_user_message_override is not None:
                 _conversation_kwargs["persist_user_message"] = _persist_user_message_override
             elif observed_group_context:
                 _conversation_kwargs["persist_user_message"] = ctx.message
@@ -7276,7 +7352,8 @@ class TurnRunner:
                         native_ingress.cancellations.unbind_worker(native_context.execution, agent)
             except BaseException:
                 if native_context:
-                    native_context.finish(failed=True)
+                    native_context.finish(failed=True, outcome=(
+                        "failed" if agent._native_media_guard is not None else None))
                 raise
             else:
                 if native_context:
@@ -7295,7 +7372,13 @@ class TurnRunner:
                 if native_observer:
                     native_observer.restore()
                 agent._native_command_context = None
+        except BaseException:
+            if native_context and managed_media_required:
+                native_context.finish(outcome="failed")
+            raise
         finally:
+            agent._native_media_guard = None
+            agent._native_media_read_limit = None
             unregister_gateway_notify(_approval_session_key)
             # Cancel any pending clarify entries so blocked agent
             # threads don't hang past the end of the run (interrupt,
@@ -21212,7 +21295,29 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         await self._mark_durable_active_turn(event, session_entry.session_key)
 
         # Load conversation history from transcript
-        history = await self.async_session_store.load_transcript(session_entry.session_id)
+        _media_read_limit = None
+        _media_execution = None
+        if _conversation_ingress is not None:
+            _media_state = self._peek_session_state(_quick_key)
+            _media_execution = _media_state.turn.conversation_execution if _media_state else None
+            if (_media_execution is not None and _media_execution.origin in {"pwa", "telegram"}
+                    and await asyncio.to_thread(_conversation_ingress.db.native_image_command,
+                                                _media_execution.conversation_id) is not None):
+                from gateway.pwa_image_policy import MAX_CONTEXT_SOURCE_BYTES
+                _media_read_limit = MAX_CONTEXT_SOURCE_BYTES
+        try:
+            history = await self.async_session_store.load_transcript(
+                session_entry.session_id,
+                **({"max_materialized_bytes": _media_read_limit} if _media_read_limit is not None else {}),
+            )
+        except Exception as exc:
+            from hermes_state import ManagedMediaReadError
+            if not isinstance(exc, ManagedMediaReadError) or _media_read_limit is None:
+                raise
+            await asyncio.to_thread(_conversation_ingress.db.native_execution_close,
+                _media_execution.execution_id, _conversation_ingress._command_owner, outcome="failed")
+            event._native_final_failed = True
+            return "Retained image context could not be loaded within native limits; this turn was not run."
         
         # -----------------------------------------------------------------
         # Session hygiene: auto-compress pathologically large transcripts
@@ -21614,6 +21719,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                                     session_id=session_entry.session_id,
                                     session_db=_hyg_session_db,
                                 )
+                                _hyg_agent._native_media_read_limit = _media_read_limit
                                 _seed_hygiene_system_prompt(
                                     _hyg_agent,
                                     _hyg_session_row,
@@ -22369,6 +22475,12 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                                         )
 
                     except Exception as e:
+                        from hermes_state import ManagedMediaReadError
+                        if isinstance(e, ManagedMediaReadError) and _media_read_limit is not None:
+                            await asyncio.to_thread(_conversation_ingress.db.native_execution_close,
+                                _media_execution.execution_id, _conversation_ingress._command_owner, outcome="failed")
+                            event._native_final_failed = True
+                            return "Retained image context exceeded native limits during compression; this turn was not run."
                         logger.warning(
                             "Session hygiene auto-compress failed: %s", e
                         )

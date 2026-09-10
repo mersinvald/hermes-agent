@@ -1956,6 +1956,13 @@ def _mark_compression_blocked_transient(agent: Any, compressor: Any) -> None:
             pass
 
 
+def _managed_context_read_kwargs(agent: Any) -> dict:
+    # Set only by native TurnRunner/hygiene construction, never a tool payload.
+    # Default callers retain the existing unbounded native read semantics.
+    limit = getattr(agent, "_native_media_read_limit", None)
+    return {"max_materialized_bytes": limit} if type(limit) is int and limit > 0 else {}
+
+
 def _adopt_live_compression_child(
     agent: Any,
     session_db: Any,
@@ -1987,7 +1994,7 @@ def _adopt_live_compression_child(
     child = row_getter(session_db, child_session_id)
     if not isinstance(child, dict) or child.get("ended_at") is not None:
         return None
-    recovered = loader(session_db, child_session_id)
+    recovered = loader(session_db, child_session_id, **_managed_context_read_kwargs(agent))
     if not isinstance(recovered, list) or not recovered:
         return None
     # Revalidate after loading: the tip may have rotated or a competing
@@ -3625,10 +3632,12 @@ def compress_context(
                 _existing_sp = agent._build_system_prompt(system_message)
             return messages, _existing_sp
         if _parent_already_rotated:
-            recovered_messages = _adopt_live_compression_child(
-                agent, _lock_db, _lock_sid
-            )
-            _release_lock()
+            try:
+                recovered_messages = _adopt_live_compression_child(
+                    agent, _lock_db, _lock_sid
+                )
+            finally:
+                _release_lock()
             _existing_sp = getattr(agent, "_cached_system_prompt", None)
             if not _existing_sp:
                 _existing_sp = agent._build_system_prompt(system_message)
@@ -3734,7 +3743,7 @@ def compress_context(
                 type(_lock_db), "get_messages_as_conversation", None
             )
             if callable(durable_loader):
-                durable_parent = durable_loader(_lock_db, _lock_sid)
+                durable_parent = durable_loader(_lock_db, _lock_sid, **_managed_context_read_kwargs(agent))
                 if isinstance(durable_parent, list) and len(durable_parent) > len(messages):
                     # The in-memory transcript carries the CURRENT turn's
                     # un-persisted user tail (anchored by

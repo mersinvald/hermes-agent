@@ -3307,6 +3307,9 @@ def run_conversation(
                             is_github_responses=agent._is_copilot_url(),
                             sanitize_harmony_tokens=agent._is_codex_backend(),
                         )
+                    managed_media = getattr(agent, "_native_media_guard", None)
+                    if managed_media is not None:
+                        managed_media.before_request(agent, next_api_kwargs)
                     if _use_streaming:
                         return agent._interruptible_streaming_api_call(
                             next_api_kwargs, on_first_delta=_stop_spinner
@@ -4602,6 +4605,9 @@ def run_conversation(
                 break
 
             except Exception as api_error:
+                managed_media = getattr(agent, "_native_media_guard", None)
+                if managed_media is not None:
+                    managed_media.reject_error(api_error)
                 # Stop spinner silently — retry status is buffered and
                 # only flushed when every retry+fallback is exhausted.
                 if thinking_spinner:
@@ -4891,6 +4897,13 @@ def run_conversation(
                     context_length=_ctx_len,
                     num_messages=len(api_messages) if api_messages else 0,
                 )
+                if managed_media is not None and classified.reason in {
+                    FailoverReason.image_too_large, FailoverReason.image_corrupt,
+                }:
+                    from gateway.pwa_image_policy import ManagedImageError
+                    raise ManagedImageError(
+                        "The selected route cannot accept the retained image representation."
+                    ) from None
                 logger.debug(
                     "Error classified: reason=%s status=%s retryable=%s compress=%s rotate=%s fallback=%s",
                     classified.reason.value, classified.status_code,

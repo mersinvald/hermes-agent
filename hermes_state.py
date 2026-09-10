@@ -170,6 +170,13 @@ class SessionResumeTooLargeError(ValueError):
         )
 
 
+class ManagedMediaReadError(RuntimeError):
+    """A bounded native media context could not be loaded completely."""
+
+
+MANAGED_MEDIA_READ_TIMEOUT = 5.0
+
+
 class SessionExportTooLargeError(ValueError):
     def __init__(
         self,
@@ -12848,6 +12855,7 @@ class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin,
         include_inactive: bool = False,
         repair_alternation: bool = False,
         include_row_ids: bool = False,
+        max_materialized_bytes: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
         """
         Load messages in the OpenAI conversation format (role + content dicts).
@@ -12872,11 +12880,17 @@ class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin,
             session_ids = self._session_lineage_root_to_tip(session_id)
 
         active_clause = "" if include_inactive else " AND active = 1"
+        if max_materialized_bytes is not None and (
+            type(max_materialized_bytes) is not int or max_materialized_bytes < 1
+        ):
+            raise ValueError("invalid native context byte limit")
         with self._read_ctx() as conn:
             placeholders = ",".join("?" for _ in session_ids)
-            rows = conn.execute(
+            selection = (
+                f"FROM messages WHERE session_id IN ({placeholders}){active_clause}"
+            )
+            query = (
                 f"SELECT {self._CONVERSATION_ROW_COLUMNS} "
-                f"FROM messages WHERE session_id IN ({placeholders})"
                 # Order by AUTOINCREMENT id (true insertion order), NOT timestamp:
                 # append_message stamps rows with time.time(), which is not
                 # monotonic (WSL2, NTP steps, VM/laptop sleep resume). A later
@@ -12885,9 +12899,38 @@ class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin,
                 # after its tool response, breaking tool-call/response adjacency
                 # and triggering an HTTP 400 on replay. This matches get_messages
                 # — see c03acca50 for the original fix.
-                f"{active_clause} ORDER BY id",
-                tuple(session_ids),
-            ).fetchall()
+                f"{selection} ORDER BY id"
+            )
+            if max_materialized_bytes is None:
+                rows = conn.execute(query, tuple(session_ids)).fetchall()
+            else:
+                # _read_ctx is normally autocommit. Pin one read snapshot for
+                # byte preflight and row retrieval; release it before decoding,
+                # compression, or any provider call. Count every selected field,
+                # including api_content/display_metadata and NUL-prefixed JSON.
+                sizes = "+".join(
+                    f"COALESCE(length(CAST({name.strip()} AS BLOB)),0)"
+                    for name in self._CONVERSATION_ROW_COLUMNS.split(",")
+                )
+                deadline = time.monotonic() + MANAGED_MEDIA_READ_TIMEOUT
+                conn.execute("SAVEPOINT native_media_read")
+                conn.set_progress_handler(lambda: int(time.monotonic() > deadline), 1000)
+                try:
+                    size = conn.execute(
+                        f"SELECT COALESCE(SUM({sizes}),0) {selection}", tuple(session_ids)
+                    ).fetchone()[0]
+                    if size > max_materialized_bytes:
+                        raise ManagedMediaReadError("Retained image context exceeds the native read byte limit.")
+                    if time.monotonic() > deadline:
+                        raise ManagedMediaReadError("Retained image context exceeded the native read deadline.")
+                    rows = conn.execute(query, tuple(session_ids)).fetchall()
+                    if time.monotonic() > deadline:
+                        raise ManagedMediaReadError("Retained image context exceeded the native read deadline.")
+                except sqlite3.DatabaseError:
+                    raise ManagedMediaReadError("Retained image context could not be read completely.") from None
+                finally:
+                    conn.set_progress_handler(None, 0)
+                    conn.execute("RELEASE native_media_read")
 
         return self._rows_to_conversation(
             rows,

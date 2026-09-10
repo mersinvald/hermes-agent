@@ -48,18 +48,79 @@ class NativeImageHttp:
     def scope(self, request, principal, root):
         if self.parent._authenticate(request) != principal:
             raise PermissionError("image owner unavailable")
+        return self.owner_scope(principal, root)
+
+    def owner_scope(self, principal, root):
         projection, grant = self.parent.ingress._authorize(principal, root)
         if projection["conversation_id"] != root:
             raise PermissionError("canonical image conversation required")
+        if not self.parent.runner._is_user_authorized_for_source(grant.source):
+            raise PermissionError("image source unavailable")
         return [*self.parent.ownership.scope(principal),
                 self.parent.db._own_profile_name(), source_identity(grant.source)]
+
+    def image_store(self):
+        if self.store is None:
+            self.store = PrivateImageStore(get_hermes_home() / "pwa-images", self.parent.config.images)
+        return self.store
+
+    def admission_state(self):
+        models = self.parent.models.config
+        return ("requires_model_check" if models is not None
+                and not self.parent.runner._get_proxy_url()
+                and any(route.capabilities.image_input == "supported" for route in models.entries)
+                else "unavailable")
+
+    def descriptor(self, descriptor):
+        return {**descriptor, "admission_state": self.admission_state()}
+
+    async def prepare_command(self, principal, body, *, previous=None):
+        import json
+        from gateway.pwa_image_policy import SIDECAR, prepare_images, require_image_route
+        from gateway.pwa_http import RequestError
+        from hermes_state_commands import CommandConflict
+
+        if self.workers >= self.parent.config.images.workers:
+            raise RequestError(429, "native_unavailable")
+        self.workers += 1
+        try:
+            root = body["conversation_id"]
+            scope = self.owner_scope(principal, root)
+            if previous is None:
+                selected = self.parent.db.native_model_selection(root)
+                if not selected or selected["model_version"] != body["expected_model_version"]:
+                    raise CommandConflict("model version changed")
+                require_image_route(self.parent.models, selected["model_id"])
+            frozen = json.loads(previous["payload_json"]).get(SIDECAR) if previous else None
+            if previous is not None and frozen is None:
+                raise ImageRejected("retained image admission unavailable")
+            result = await completed_thread(
+                lambda: prepare_images(self.image_store(), scope, root,
+                                       body["payload"]["image_ids"], expected=frozen))
+            if self.owner_scope(principal, root) != scope:
+                raise PermissionError("image owner changed")
+            return result
+        finally:
+            self.workers -= 1
 
     async def handle(self, request, principal, parts):
         from gateway.pwa_http import RequestError
 
         self.parent._query(request)
         if request.method == "GET" and parts == ["images", "policy"]:
-            return self.parent.config.images.policy(), 200
+            from gateway.pwa_image_policy import (
+                MAX_COMMAND_PIXEL_BYTES, MAX_CONTEXT_SOURCE_BYTES, MAX_REQUEST_BODY_BYTES,
+                MAX_REQUEST_PIXEL_BYTES, PIXEL_POLICY,
+            )
+            state = self.admission_state()
+            return {**self.parent.config.images.policy(), "admission_state": state,
+                    "actions": {"send": state, "queue": state, "redirect": state, "steer": "unavailable"},
+                    "active_send": "queue", "model_representation": PIXEL_POLICY,
+                    "max_command_pixel_bytes": MAX_COMMAND_PIXEL_BYTES,
+                    "max_context_source_bytes": MAX_CONTEXT_SOURCE_BYTES,
+                    "max_request_pixel_bytes": MAX_REQUEST_PIXEL_BYTES,
+                    "max_request_body_bytes": MAX_REQUEST_BODY_BYTES,
+                    "metadata_disclosure": "withheld"}, 200
         if (len(parts) not in (3, 4, 5) or parts[0] != "conversations" or parts[2] != "images"
                 or request.method not in ("GET", "POST")
                 or (request.method == "POST" and len(parts) != 3)
@@ -73,8 +134,7 @@ class NativeImageHttp:
         try:
             root = parts[1]
             scope = self.scope(request, principal, root)
-            if self.store is None:
-                self.store = PrivateImageStore(get_hermes_home() / "pwa-images", self.parent.config.images)
+            self.image_store()
             if request.method == "POST":
                 for name in ("Content-Type", "X-Hermes-PWA-Upload-Id"):
                     if len(request.headers.getall(name, [])) != 1:
@@ -98,13 +158,13 @@ class NativeImageHttp:
                     raise PermissionError("image owner changed")
                 # No await between final native authority check and publication.
                 descriptor, created = self.store.publish(stage, scope, descriptor)
-                return descriptor, 201 if created else 200
+                return self.descriptor(descriptor), 201 if created else 200
             variant = parts[4] if len(parts) == 5 else None
             descriptor, data = await completed_thread(self.store.read, scope, root, parts[3], variant)
             if self.scope(request, principal, root) != scope:
                 raise PermissionError("image owner changed")
             if variant is None:
-                return descriptor, 200
+                return self.descriptor(descriptor), 200
             response = web.StreamResponse(headers={
                 "Content-Type": descriptor[variant]["content_type"],
                 "Content-Length": str(len(data)), "Cache-Control": "private, no-store",

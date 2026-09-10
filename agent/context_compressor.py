@@ -8534,7 +8534,7 @@ def is_compaction_summary_message(message: Any) -> bool:
 # Display metadata that describes the durable message independently of the
 # compaction wrapper.  Other metadata may describe a synthetic timeline event
 # and must not make that event look human after projection.
-SUMMARY_CARRIER_DURABLE_DISPLAY_METADATA_KEYS = ("reactions",)
+SUMMARY_CARRIER_DURABLE_DISPLAY_METADATA_KEYS = ("reactions", "pwa_images")
 
 
 def _handoff_only_content(content: Any) -> Any:

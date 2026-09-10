@@ -36,6 +36,19 @@ class NativeCommandContext:
     def start_input(self, agent, message, clean=None):
         self.user_message = message
         stored = dict(message)
+        if self.command:
+            from gateway.pwa_image_policy import display_images
+            row = self.ingress.db.native_command_lookup(*self.command)
+            display = display_images(json.loads(row["payload_json"]))
+            if display is not None:
+                # Normal authored input, never a synthetic display_kind. Keep
+                # the actual caption and stable references through compression.
+                message["display_metadata"] = {**message.get("display_metadata", {}), "pwa_images": display}
+                stored["display_metadata"] = message["display_metadata"]
+                # api_content is a text-only native sidecar. Canonical content
+                # therefore keeps multimodal pixels; display_metadata owns the
+                # authored caption projection, not a second transcript.
+                clean = None
         if clean is not None:
             stored["content"] = clean
             if message.get("content") != clean:
@@ -234,21 +247,16 @@ class DurableCommandIngressMixin:
             return await self._submit_cancel(principal, command)
         if command.get("type") in {"redirect", "redirect_confirm", "clarification_response"}:
             return await self._submit_control(principal, command)
-        payload = command.get("payload")
-        if (
-            not isinstance(payload, dict)
-            or set(payload) != {"text"}
-            or not isinstance(payload["text"], str)
-            or not payload["text"].strip()
-            or len(payload["text"]) > 100000
-        ):
-            raise ValueError("expected nonempty text payload")
+        from gateway.pwa_image_policy import validate_image_payload
+        image_ids = validate_image_payload(command)
         projection, grant = await asyncio.to_thread(
             self._authorize, principal, command["conversation_id"]
         )
         if not self.runner._is_user_authorized_for_source(grant.source):
             raise PermissionError("native source is not authorized")
         body = {**command, "conversation_id": projection["conversation_id"]}
+        if image_ids and body["conversation_id"] != command["conversation_id"]:
+            raise PermissionError("canonical image conversation required")
         if "expected_model_version" in body and (
             type(body["expected_model_version"]) is not int
             or not 1 <= body["expected_model_version"] <= 9007199254740991
@@ -264,6 +272,11 @@ class DurableCommandIngressMixin:
             ).hexdigest()
             if not hmac.compare_digest(old["fingerprint"], fingerprint):
                 raise CommandConflict("command ID reused with a different payload")
+            if image_ids:
+                images = getattr(self, "images", None)
+                if images is None:
+                    raise ValueError("native images unavailable")
+                await images.prepare_command(principal, body, previous=old)
             self._arm_command_recovery()
             self._commands_finished(projection["conversation_id"])
             return receipt(old)
@@ -290,10 +303,19 @@ class DurableCommandIngressMixin:
         await self.runner.async_session_store.bind_conversation_alias(
             source, projection["native_session_id"]
         )
+        attachments = None
+        if image_ids:
+            images = getattr(self, "images", None)
+            if images is None:
+                raise ValueError("native images unavailable")
+            attachments = await images.prepare_command(principal, body)
+            # No await after this final source/owner check and admission.
+            images.owner_scope(principal, body["conversation_id"])
         self.db.native_execution_reconcile(projection["conversation_id"])
         # No await between durable acceptance and registering its native wakeup.
         row, new = self.db.native_command_admit(
-            scope, body, effect="start" if body["type"] == "send" else "queue"
+            scope, body, effect="start" if body["type"] == "send" else "queue",
+            images=attachments,
         )
         self._arm_command_recovery()
         if new:
@@ -510,10 +532,26 @@ class DurableCommandIngressMixin:
                 raise ValueError("native clarification is unavailable")
             return await clarifications.submit(principal, body)
         if body["type"] == "redirect":
+            from gateway.pwa_image_policy import validate_image_payload
+            image_ids = validate_image_payload(body)
+            if image_ids and body["conversation_id"] != command["conversation_id"]:
+                raise PermissionError("canonical image conversation required")
             source = replace(grant.source, native_conversation_route=projection["conversation_id"])
             await self.runner.async_session_store.bind_conversation_alias(source, projection["native_session_id"])
+            attachments = None
+            if image_ids:
+                images = getattr(self, "images", None)
+                if images is None:
+                    raise ValueError("native images unavailable")
+                old = self.db.native_control_lookup(scope, body["command_id"])
+                if old:
+                    from hermes_state_cancellation import fingerprint
+                    if not hmac.compare_digest(old["fingerprint"], fingerprint(body)):
+                        raise CommandConflict("command ID reused with a different payload")
+                attachments = await images.prepare_command(principal, body, previous=old)
+                images.owner_scope(principal, body["conversation_id"])
             self.db.native_execution_reconcile(projection["conversation_id"])
-            row, _ = self.db.native_redirect_admit(scope, body)
+            row, _ = self.db.native_redirect_admit(scope, body, images=attachments)
             self.cancellations.wake(self.db.native_cancel_lookup(scope, row["command_id"]))
         else:
             row, _ = self.db.native_redirect_confirm(scope, body)

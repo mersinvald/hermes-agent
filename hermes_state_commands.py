@@ -90,6 +90,16 @@ class NativeCommandStateMixin:
                 for r in conn.execute(sql + " ORDER BY queue_order, ordinal", args)
             ]
 
+    def native_image_command(self, root):
+        """One retained authority handle for channel image-history replay."""
+        with self._read_ctx() as conn:
+            row = conn.execute(
+                "SELECT * FROM native_commands WHERE conversation_id=? "
+                "AND json_type(payload_json,'$._native_images')='array' "
+                "ORDER BY ordinal DESC LIMIT 1", (root,),
+            ).fetchone()
+            return dict(row) if row else None
+
     def native_execution(self, root):
         with self._read_ctx() as conn:
             row = conn.execute(
@@ -99,11 +109,15 @@ class NativeCommandStateMixin:
             ).fetchone()
             return dict(row) if row else None
 
-    def native_command_admit(self, scope, body, *, effect, target=None, result=None):
+    def native_command_admit(self, scope, body, *, effect, target=None, result=None, images=None):
         payload = canonical(body)
         fingerprint = hashlib.sha256(
             ("native-command-v1\n" + payload).encode()
         ).hexdigest()
+        # This internal sidecar is not part of the caller envelope or retry
+        # fingerprint. Native ingress rejects it in caller-supplied commands.
+        if images is not None:
+            payload = canonical({**body, "_native_images": images})
 
         def write(conn):
             resolved_effect, resolved_target = effect, target
@@ -149,7 +163,8 @@ class NativeCommandStateMixin:
                 resolved_effect = (
                     "steer"
                     if body["type"] == "steer"
-                    or (body["type"] == "send" and active["input_started"])
+                    or (body["type"] == "send" and active["input_started"]
+                        and not body["payload"].get("image_ids"))
                     else "queue"
                 )
             elif resolved_effect == "steer":

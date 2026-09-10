@@ -7246,6 +7246,10 @@ class AIAgent:
         Custom/local models absent from models.dev would otherwise be
         misclassified as non-vision and have their images stripped.
         """
+        managed_media = getattr(self, "_native_media_guard", None)
+        if managed_media is not None:
+            managed_media.check_route(self)
+            return True
         try:
             from hermes_cli.config import load_config
             from agent.image_routing import _lookup_supports_vision
@@ -8963,11 +8967,32 @@ class AIAgent:
                     # Adopt its tip after acquiring the native lease, without
                     # rebuilding an unchanged cached prompt prefix.
                     if _lease_waited or _native_tip_moved:
+                        managed_media = getattr(self, "_native_media_guard", None)
+                        media_read_limit = (managed_media.max_context_source_bytes
+                                            if managed_media is not None else None)
+                        native_context = getattr(self, "_native_command_context", None)
+                        if (media_read_limit is None and native_context is not None
+                                and native_context.execution.origin in {"pwa", "telegram"}
+                                and native_context.ingress.db.native_image_command(
+                                    native_context.execution.conversation_id) is not None):
+                            from gateway.pwa_image_policy import MAX_CONTEXT_SOURCE_BYTES
+                            media_read_limit = MAX_CONTEXT_SOURCE_BYTES
                         conversation_history = _turn_db.get_messages_as_conversation(
                             self.session_id,
                             repair_alternation=True,
                             include_row_ids=True,
+                            **({"max_materialized_bytes": media_read_limit}
+                               if media_read_limit is not None else {}),
                         )
+                        if managed_media is not None:
+                            conversation_history = managed_media.reloaded_history(conversation_history)
+                        elif media_read_limit is not None and any(
+                            isinstance(m.get("display_metadata"), dict)
+                            and m["display_metadata"].get("pwa_images") is not None
+                            for m in conversation_history
+                        ):
+                            from hermes_state import ManagedMediaReadError
+                            raise ManagedMediaReadError("Retained image replay changed while acquiring the native lease.")
 
                 # Long model/tool/compression turns outlive a fixed TTL. Refresh
                 # in a daemon thread; holder-qualified UPDATE and DELETE fence a
