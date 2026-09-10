@@ -7228,6 +7228,11 @@ class TurnRunner:
         register_gateway_notify(_approval_session_key, _approval_notify_sync)
         native_context = (native_ingress.command_context(ctx.session_key, ctx.run_generation, ctx._loop_for_step)
                           if native_ingress is not None else None)
+        agent._native_media_read_limit = None
+        if (native_context is not None and execution.origin in {"pwa", "telegram"}
+                and native_ingress.db.native_image_command(execution.conversation_id) is not None):
+            from gateway.pwa_image_policy import MAX_CONTEXT_SOURCE_BYTES
+            agent._native_media_read_limit = MAX_CONTEXT_SOURCE_BYTES
         managed_media_required = False
         try:
             # Managed attachments bypass generic path buffering, preanalysis and
@@ -7373,6 +7378,7 @@ class TurnRunner:
             raise
         finally:
             agent._native_media_guard = None
+            agent._native_media_read_limit = None
             unregister_gateway_notify(_approval_session_key)
             # Cancel any pending clarify entries so blocked agent
             # threads don't hang past the end of the run (interrupt,
@@ -21289,7 +21295,29 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         await self._mark_durable_active_turn(event, session_entry.session_key)
 
         # Load conversation history from transcript
-        history = await self.async_session_store.load_transcript(session_entry.session_id)
+        _media_read_limit = None
+        _media_execution = None
+        if _conversation_ingress is not None:
+            _media_state = self._peek_session_state(_quick_key)
+            _media_execution = _media_state.turn.conversation_execution if _media_state else None
+            if (_media_execution is not None and _media_execution.origin in {"pwa", "telegram"}
+                    and await asyncio.to_thread(_conversation_ingress.db.native_image_command,
+                                                _media_execution.conversation_id) is not None):
+                from gateway.pwa_image_policy import MAX_CONTEXT_SOURCE_BYTES
+                _media_read_limit = MAX_CONTEXT_SOURCE_BYTES
+        try:
+            history = await self.async_session_store.load_transcript(
+                session_entry.session_id,
+                **({"max_materialized_bytes": _media_read_limit} if _media_read_limit is not None else {}),
+            )
+        except Exception as exc:
+            from hermes_state import ManagedMediaReadError
+            if not isinstance(exc, ManagedMediaReadError) or _media_read_limit is None:
+                raise
+            await asyncio.to_thread(_conversation_ingress.db.native_execution_close,
+                _media_execution.execution_id, _conversation_ingress._command_owner, outcome="failed")
+            event._native_final_failed = True
+            return "Retained image context could not be loaded within native limits; this turn was not run."
         
         # -----------------------------------------------------------------
         # Session hygiene: auto-compress pathologically large transcripts
@@ -21691,6 +21719,7 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                                     session_id=session_entry.session_id,
                                     session_db=_hyg_session_db,
                                 )
+                                _hyg_agent._native_media_read_limit = _media_read_limit
                                 _seed_hygiene_system_prompt(
                                     _hyg_agent,
                                     _hyg_session_row,
@@ -22446,6 +22475,12 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
                                         )
 
                     except Exception as e:
+                        from hermes_state import ManagedMediaReadError
+                        if isinstance(e, ManagedMediaReadError) and _media_read_limit is not None:
+                            await asyncio.to_thread(_conversation_ingress.db.native_execution_close,
+                                _media_execution.execution_id, _conversation_ingress._command_owner, outcome="failed")
+                            event._native_final_failed = True
+                            return "Retained image context exceeded native limits during compression; this turn was not run."
                         logger.warning(
                             "Session hygiene auto-compress failed: %s", e
                         )

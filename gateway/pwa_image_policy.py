@@ -23,6 +23,9 @@ from gateway.pwa_images import (
 PIXEL_POLICY = "pwa-pixels-jpeg-v1"
 MAX_PIXEL_BYTES = 20 * 1024 * 1024
 MAX_COMMAND_PIXEL_BYTES = 24 * 1024 * 1024
+MAX_CONTEXT_SOURCE_BYTES = 64 * 1024 * 1024
+MAX_REQUEST_PIXEL_BYTES = 24 * 1024 * 1024
+MAX_REQUEST_BODY_BYTES = 48 * 1024 * 1024
 SIDECAR = "_native_images"
 
 
@@ -230,6 +233,40 @@ def _image_urls(messages):
     return urls
 
 
+def _frozen_pixel_bytes(frozen):
+    if (not isinstance(frozen, list) or len(frozen) > 10
+            or any(not isinstance(item, dict) or type(item.get("byte_size")) is not int
+                   or not 1 <= item["byte_size"] <= MAX_PIXEL_BYTES for item in frozen)):
+        raise ManagedImageError("Retained image sizes are unavailable.")
+    return sum(item["byte_size"] for item in frozen)
+
+
+def _request_pixel_bytes(messages):
+    total = 0
+    for message in messages:
+        content = message.get("content")
+        if not isinstance(content, list):
+            continue
+        for part in content:
+            if not isinstance(part, dict) or part.get("type") not in {"image", "image_url", "input_image"}:
+                continue
+            if part["type"] == "image":
+                source = part.get("source") or {}
+                data = source.get("data") if source.get("type") == "base64" else None
+            else:
+                url = part.get("image_url")
+                url = url.get("url") if isinstance(url, dict) else url
+                if not isinstance(url, str) or not url.startswith("data:image/") or ";base64," not in url[:128]:
+                    raise ManagedImageError("Additional image sizes cannot be bounded for this native request.")
+                data = url.split(";base64,", 1)[1]
+            if not isinstance(data, str) or not data or len(data) % 4:
+                raise ManagedImageError("Native request image encoding is unavailable.")
+            total += 3 * (len(data) // 4) - (2 if data.endswith("==") else int(data.endswith("=")))
+            if total > MAX_REQUEST_PIXEL_BYTES:
+                raise ManagedImageError("Native image history and input exceed the aggregate pixel byte limit.")
+    return total
+
+
 class NativeMediaGuard:
     """One captured native turn; validate the actual request before dispatch.
 
@@ -242,14 +279,34 @@ class NativeMediaGuard:
         self.scope = row["scope"]
         self.required = []
         self.current = []
+        self.pixel_bytes = 0
+        self.max_context_source_bytes = MAX_CONTEXT_SOURCE_BYTES
+        self.current_pixel_bytes = (_frozen_pixel_bytes(json.loads(row["payload_json"]).get(SIDECAR, []))
+                                    if getattr(execution, "command", None) else 0)
 
     def content(self, row):
+        amount = _frozen_pixel_bytes(json.loads(row["payload_json"]).get(SIDECAR, []))
+        if self.pixel_bytes + amount > MAX_REQUEST_PIXEL_BYTES:
+            raise ManagedImageError("Native image history and input exceed the aggregate pixel byte limit.")
         parts = command_content(self.images, row, self.model_id)
         if parts is not None:
+            self.pixel_bytes += amount
             self.required.extend(_image_urls([{"content": parts}]))
         return parts
 
     def history(self, history):
+        # Reject the complete aggregate before reading/re-encoding even the
+        # first retained derivative. Frozen sizes are verified again on read.
+        total = self.current_pixel_bytes
+        for message in history or []:
+            metadata = message.get("display_metadata") or {}
+            display = metadata.get("pwa_images") if isinstance(metadata, dict) else None
+            if display is not None:
+                if not isinstance(display, dict):
+                    raise ManagedImageError("Retained image history is unavailable.")
+                total += _frozen_pixel_bytes(display.get("representations"))
+            if total > MAX_REQUEST_PIXEL_BYTES:
+                raise ManagedImageError("Native image history and input exceed the aggregate pixel byte limit.")
         result = []
         for message in history or []:
             metadata = message.get("display_metadata") or {}
@@ -272,7 +329,9 @@ class NativeMediaGuard:
 
     def reloaded_history(self, history):
         self.required = []
+        self.pixel_bytes = 0
         result = self.history(history)
+        self.pixel_bytes += self.current_pixel_bytes
         self.required.extend(self.current)
         return result
 
@@ -293,6 +352,18 @@ class NativeMediaGuard:
                 or not isinstance(extra, dict)
                 or set(extra) & {"messages", "model", "input", "contents", "system"}):
             raise ManagedImageError("Request overrides cannot replace the native image request.")
+        # A conservative JSON upper bound: ASCII escaping plus an 8-KiB SDK
+        # envelope allowance. Iterate chunks instead of building a second full
+        # request string. This also bounds additional text/tool/image parts.
+        size = 8192
+        try:
+            for chunk in json.JSONEncoder(ensure_ascii=True, allow_nan=False).iterencode(kwargs):
+                size += len(chunk)
+                if size > MAX_REQUEST_BODY_BYTES:
+                    raise ManagedImageError("Native image request exceeds the serialized byte limit.")
+        except (ValueError, TypeError):
+            raise ManagedImageError("Native image request cannot be bounded for serialization.") from None
+        _request_pixel_bytes(kwargs.get("messages", []))
         # Preserve order and multiplicity while allowing additional native tool
         # images. A transformed/missing managed attachment is never a text retry.
         actual = iter(_image_urls([m for m in kwargs.get("messages", []) if m.get("role") == "user"]))

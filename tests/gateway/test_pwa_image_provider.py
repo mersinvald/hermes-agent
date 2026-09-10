@@ -2,6 +2,7 @@
 import asyncio
 import base64
 import io
+import json
 
 import pytest
 from aiohttp import web
@@ -32,12 +33,21 @@ async def closed(db, root):
     (400, "Invalid PNG image."),
     (400, "image exceeds 5 MB maximum"),
     (0, "catalog removed"),
+    (-1, "read byte limit"),
+    (-2, "retained pixel limit"),
+    (-3, "serialized request limit"),
+    (-4, "history plus current pixel limit"),
+    (-5, "additional request image limit"),
+    (-6, "additional request text limit"),
+    (-7, "late compression tip read limit"),
 ])
 async def test_real_sdk_images_history_and_no_text_retry(monkeypatch, tmp_path, status, error):
     requests, received = [], asyncio.Queue()
     rejection = False
     async def completion(request):
-        payload = await request.json()
+        raw = await request.read()
+        assert len(raw) < 48 * 1024 * 1024
+        payload = json.loads(raw)
         requests.append(payload)
         received.put_nowait(payload)
         if rejection:
@@ -95,14 +105,72 @@ async def test_real_sdk_images_history_and_no_text_retry(monkeypatch, tmp_path, 
             assert any(p.get("image_url") == parts[0]["image_url"] for m in continuation["messages"]
                        if isinstance(m.get("content"), list) for p in m["content"])
             rejection = True
+            before = db.get_messages_as_conversation(root)
+            with db._read_ctx() as conn:
+                retained = [tuple(row) for row in conn.execute(
+                    "SELECT id,content,api_content,display_metadata FROM messages WHERE session_id=? ORDER BY id", (root,))]
+            decoded = []
             if status == 0:
                 server.models.config = None
-            response = await client.post("/v1/pwa/commands", json=command(root, "continue again", id="third"))
+            elif status == -1:
+                # Reopen image storage to prove activation is durable, then
+                # prevent even the first context decoder from being entered.
+                server.images.close()
+                monkeypatch.setattr("gateway.pwa_image_policy.MAX_CONTEXT_SOURCE_BYTES", 1)
+                original_decode = db._rows_to_conversation
+                def decode(*args, **kwargs):
+                    decoded.append(True)
+                    return original_decode(*args, **kwargs)
+                monkeypatch.setattr(db, "_rows_to_conversation", decode)
+            elif status == -2:
+                monkeypatch.setattr("gateway.pwa_image_policy.MAX_REQUEST_PIXEL_BYTES", len(data) - 1)
+            elif status == -3:
+                monkeypatch.setattr("gateway.pwa_image_policy.MAX_REQUEST_BODY_BYTES", 128)
+            elif status == -4:
+                monkeypatch.setattr("gateway.pwa_image_policy.MAX_REQUEST_PIXEL_BYTES", len(data) + 1)
+            elif status in {-5, -6}:
+                original_build = RealAgent._build_api_kwargs
+                def build(agent, *args, **kwargs):
+                    result = original_build(agent, *args, **kwargs)
+                    additional = parts if status == -5 else [{"type": "text", "text": "extra" * 10000}]
+                    result["messages"] = [*result["messages"], {"role": "user", "content": additional}]
+                    return result
+                monkeypatch.setattr(RealAgent, "_build_api_kwargs", build)
+                if status == -5:
+                    monkeypatch.setattr("gateway.pwa_image_policy.MAX_REQUEST_PIXEL_BYTES", len(data) + 1)
+                else:
+                    monkeypatch.setattr("gateway.pwa_image_policy.MAX_REQUEST_BODY_BYTES", 32768)
+            elif status == -7:
+                monkeypatch.setattr("gateway.pwa_image_policy.MAX_CONTEXT_SOURCE_BYTES", 65536)
+                def rotated_tip(session_id):
+                    assert session_id == root
+                    db.publish_compression_child(parent_session_id=root, child_session_id="bounded-tip",
+                        source=native[5].platform.value,
+                        messages=[*before, {"role": "assistant", "content": "retained" * 20000}],
+                        require_compression_lease=False)
+                    decoded.append("rotated")
+                    return "bounded-tip"
+                monkeypatch.setattr(db, "resolve_resume_session_id", rotated_tip)
+            third = command(root, "continue again", id="third")
+            if status == -4:
+                third["payload"]["image_ids"] = [image["image_id"]]
+                third["expected_model_version"] = 1
+            response = await client.post("/v1/pwa/commands", json=third)
             assert response.status == 200, await response.text()
-            if status:
+            if status > 0:
                 await asyncio.wait_for(received.get(), 15)
             await closed(db, root)
-            assert len(requests) == (3 if status else 2)
+            assert len(requests) == (3 if status > 0 else 2)
+            if status == -1:
+                assert decoded == []
+                monkeypatch.setattr(db, "_rows_to_conversation", original_decode)
+            if status < 0:
+                with db._read_ctx() as conn:
+                    after = [tuple(row) for row in conn.execute(
+                        "SELECT id,content,api_content,display_metadata FROM messages WHERE session_id=? ORDER BY id", (root,))]
+                assert after[:len(retained)] == retained
+            if status == -7:
+                assert decoded == ["rotated"]
             with db._read_ctx() as conn:
                 assert conn.execute("SELECT observed_state FROM native_executions WHERE conversation_id=? ORDER BY created_order DESC LIMIT 1", (root,)).fetchone()[0] == "failed"
     finally:

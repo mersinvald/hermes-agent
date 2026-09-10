@@ -108,12 +108,18 @@ class NativeImageHttp:
 
         self.parent._query(request)
         if request.method == "GET" and parts == ["images", "policy"]:
-            from gateway.pwa_image_policy import MAX_COMMAND_PIXEL_BYTES, PIXEL_POLICY
+            from gateway.pwa_image_policy import (
+                MAX_COMMAND_PIXEL_BYTES, MAX_CONTEXT_SOURCE_BYTES, MAX_REQUEST_BODY_BYTES,
+                MAX_REQUEST_PIXEL_BYTES, PIXEL_POLICY,
+            )
             state = self.admission_state()
             return {**self.parent.config.images.policy(), "admission_state": state,
                     "actions": {"send": state, "queue": state, "redirect": state, "steer": "unavailable"},
                     "active_send": "queue", "model_representation": PIXEL_POLICY,
                     "max_command_pixel_bytes": MAX_COMMAND_PIXEL_BYTES,
+                    "max_context_source_bytes": MAX_CONTEXT_SOURCE_BYTES,
+                    "max_request_pixel_bytes": MAX_REQUEST_PIXEL_BYTES,
+                    "max_request_body_bytes": MAX_REQUEST_BODY_BYTES,
                     "metadata_disclosure": "withheld"}, 200
         if (len(parts) not in (3, 4, 5) or parts[0] != "conversations" or parts[2] != "images"
                 or request.method not in ("GET", "POST")

@@ -4212,7 +4212,7 @@ class SessionStore:
             self._clear_dirty_transcript(session_id)
             return True
 
-    def load_transcript(self, session_id: str) -> List[Dict[str, Any]]:
+    def load_transcript(self, session_id: str, *, max_materialized_bytes: Optional[int] = None) -> List[Dict[str, Any]]:
         """Load all messages from a session's transcript.
 
         state.db is the canonical store. The legacy JSONL fallback was removed
@@ -4226,7 +4226,10 @@ class SessionStore:
         "vanished" (disk=0) even though every message sat healthy under the
         child session.
         """
+        from hermes_state import ManagedMediaReadError
         if not self._db:
+            if max_materialized_bytes is not None:
+                raise ManagedMediaReadError("Retained image context store is unavailable.")
             return []
         # Follow the write-side reroute chain (cycle-guarded, same shape as
         # append_to_transcript).
@@ -4242,6 +4245,8 @@ class SessionStore:
             if tip:
                 session_id = tip
         except Exception:
+            if max_materialized_bytes is not None:
+                raise ManagedMediaReadError("Retained image context tip is unavailable.") from None
             pass
         try:
             # repair_alternation: this load feeds LIVE REPLAY. A durable
@@ -4249,9 +4254,14 @@ class SessionStore:
             # would otherwise re-trigger the pre-request repair on every
             # request forever — heal it once at the restore boundary.
             return self._db.get_messages_as_conversation(
-                session_id, repair_alternation=True
+                session_id, repair_alternation=True,
+                **({"max_materialized_bytes": max_materialized_bytes} if max_materialized_bytes is not None else {}),
             )
         except Exception as e:
+            if isinstance(e, ManagedMediaReadError):
+                raise
+            if max_materialized_bytes is not None:
+                raise ManagedMediaReadError("Retained image context could not be read completely.") from None
             # A failed read must be distinguishable from an empty transcript:
             # downstream guards treat [] as "nothing persisted" and may make
             # routing decisions on it (#82616). WARNING, not DEBUG.
