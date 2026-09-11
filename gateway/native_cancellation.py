@@ -12,6 +12,7 @@ import logging
 import re
 import secrets
 import threading
+from contextlib import nullcontext
 
 from agent.interrupt_compat import request_hard_interrupt
 from agent.native_execution_context import NativeExecutionOrigin
@@ -26,6 +27,7 @@ from plugins.platforms.a2a.cancellation import (
 )
 
 logger = logging.getLogger(__name__)
+_NATIVE_CANCEL_REASON = "Explicit execution cancellation"
 
 
 class NativeCancellationController:
@@ -73,6 +75,24 @@ class NativeCancellationController:
     def unbind_worker(self, execution, agent):
         with self._workers_lock:
             if self._workers.get(execution.execution_id) == (execution, agent):
+                # A request can arrive after the agent finalizer cleared its
+                # interrupt, but before this exact worker returns. Retire only
+                # our residual signal before the cached agent can be reused.
+                # Unlike clear_interrupt(), this must retain late user steers.
+                lock = getattr(agent, "_pending_redirect_lock", None)
+                with lock if lock is not None else nullcontext():
+                    if getattr(agent, "_interrupt_message", None) == _NATIVE_CANCEL_REASON:
+                        agent._interrupt_requested = False
+                        agent._interrupt_message = None
+                        agent._tool_interrupt_reason = None
+                        hard = getattr(agent, "_hard_interrupt_requested", None)
+                        if hard is not None:
+                            hard.clear()
+                        agent._interrupt_thread_signal_pending = False
+                        thread_id = getattr(agent, "_execution_thread_id", None)
+                        if thread_id is not None:
+                            from tools.interrupt import set_interrupt
+                            set_interrupt(False, thread_id)
                 self._workers.pop(execution.execution_id, None)
 
     def stop_recovery(self):
@@ -248,11 +268,19 @@ class NativeCancellationController:
             self.db.native_cancel_note_native(
                 row["scope"], row["command_id"], "unknown"
             )
-            signaled = request_hard_interrupt(
-                agent, "Explicit execution cancellation", tool_reason="user_cancel"
-            )
+            # Match the binding again under the lock held by unbind_worker.
+            # A stale lookup must never signal an already returned/reused agent.
+            with self._workers_lock:
+                current = self._workers.get(row["execution_id"])
+                if current != worker:
+                    request_state = "not_running"
+                else:
+                    signaled = request_hard_interrupt(
+                        agent, _NATIVE_CANCEL_REASON, tool_reason="user_cancel"
+                    )
+                    request_state = "requested" if signaled else "failed"
             self.db.native_cancel_note_native(
-                row["scope"], row["command_id"], "requested" if signaled else "failed"
+                row["scope"], row["command_id"], request_state
             )
         else:
             execution = self.db.native_cancel_snapshot(
