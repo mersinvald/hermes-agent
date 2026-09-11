@@ -4,7 +4,9 @@
 Requires Python 3.11+, crane 0.21.3 and registry auth in an externally supplied
 DOCKER_CONFIG. Credentials are never build inputs. Use --output outside the
 checkout. Without --publish this verifies the base and generates layers only.
-The reviewed runtime allowlist deliberately excludes dependency/build changes.
+The default runtime allowlist excludes dependency/build changes. The explicit
+--observability-wheels mode permits only the pinned Langfuse extra, verifies
+the installed Linux dependency closure, and adds reviewed wheels at build time.
 """
 import argparse
 import hashlib
@@ -13,6 +15,7 @@ import json
 from pathlib import Path
 import subprocess
 import tarfile
+import types
 
 BASE_REVISION = "29112bef099274229cadff79cdff7bf7b99c4b77"
 BASE = "docker.io/nousresearch/hermes-agent@sha256:64923faeae267792bf9bf87fe3b4c4869e35004e360c7df01730ad801b74d524"
@@ -104,14 +107,30 @@ def base_files(repository, manifest, config, cache):
     return found
 
 
-def runtime_sources(revision):
+def committed_sdk_support(revision):
+    """Execute the guard named by provenance, never an uncommitted local helper."""
+    name = "docker/native_observability_layer.py"
+    source = run("git", "show", revision + ":" + name)
+    helper = types.ModuleType("native_observability_build_support")
+    exec(compile(source, revision + ":" + name, "exec"), helper.__dict__)
+    return helper, sha(source)
+
+
+def runtime_sources(revision, observability=False):
     changed = run("git", "diff", "--name-only", BASE_REVISION, revision).decode().splitlines()
     assert all(name in changed for name in RUNTIME)
-    assert all(name in RUNTIME or name.startswith("tests/") or name in (
+    extra_files = ("pyproject.toml", "uv.lock", "docker/native_observability_layer.py") if observability else ()
+    assert all(name in RUNTIME or name in extra_files or name.startswith("tests/") or name in (
         "docker/publish-native-patch.py", "plugins/platforms/a2a/PROGRESS.md", "cli-config.yaml.example",
         "gateway/CONVERSATION_CONTROL.md", "gateway/PWA_HTTP.md", "gateway/PWA_HISTORY.md") for name in changed), "not a source-only patch"
     # Always read committed blobs, never the dirty or case-colliding host checkout.
     runtime = {name: run("git", "show", revision + ":" + name) for name in changed if name in RUNTIME}
+    if observability:
+        support, _ = committed_sdk_support(revision)
+        manifests = {name: run("git", "show", revision + ":" + name) for name in ("pyproject.toml", "uv.lock")}
+        support.dependency_guard(run("git", "show", BASE_REVISION + ":pyproject.toml"), manifests["pyproject.toml"],
+                         run("git", "show", BASE_REVISION + ":uv.lock"), manifests["uv.lock"])
+        runtime.update(manifests)
     return runtime
 
 
@@ -129,10 +148,14 @@ def main():
     parser.add_argument("--repository", required=True, help="Destination registry/repository, without a tag")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--publish", action="store_true")
+    parser.add_argument("--observability-wheels", type=Path,
+                        help="Explicit reviewed Langfuse SDK overlay; fixed wheel hashes and base dependencies verified")
     args = parser.parse_args()
     assert run("crane", "version").decode().strip() == "0.21.3", "use pinned crane 0.21.3"
     revision = run("git", "rev-parse", "HEAD").decode().strip()
-    runtime = runtime_sources(revision)
+    if args.observability_wheels is not None:
+        assert Path(__file__).read_bytes() == run("git", "show", revision + ":docker/publish-native-patch.py"), "publisher must match committed release source"
+    runtime = runtime_sources(revision, observability=args.observability_wheels is not None)
     epoch = int(run("git", "show", "-s", "--format=%ct", revision))
     output = args.output.resolve()
     assert not output.is_relative_to(ROOT)
@@ -156,12 +179,26 @@ def main():
         assert config["architecture"] == arch and config["os"] == "linux"
         assert config["config"]["Labels"]["org.opencontainers.image.revision"] == BASE_REVISION
         files = base_files(base_repository, manifest, config, cache)
+        dependency_entries, sdk_proof = {}, None
+        if args.observability_wheels is not None:
+            support, guard_sha = committed_sdk_support(revision)
+            dependency_entries, wheels = support.wheel_entries(args.observability_wheels, arch)
+            closure = support.verify_base_dependencies(manifest, arch,
+                lambda digest: blob(base_repository, digest, cache), dependency_entries)
+            sdk_proof = {"wheels": wheels, "verified_runtime_dependencies": closure,
+                         "guard_sha256": guard_sha,
+                         "publisher_sha256": sha(run("git", "show", revision + ":docker/publish-native-patch.py"))}
+            for name in dependency_entries:
+                files[name] = (b"", 0o644)
         provenance = json.loads(files["etc/hermes/image-provenance.json"][0])
         provenance.update(image=args.repository, revision=revision, base_image=BASE,
             base_manifest=children[arch]["digest"], base_revision=BASE_REVISION,
             source_sha256=report["source_sha256"], distribution="native-source-patch")
+        if sdk_proof is not None:
+            provenance.update(distribution="native-observability-patch", sdk=sdk_proof)
         entries = {**{"opt/hermes/" + name: data for name, data in runtime.items()}, "opt/hermes/.hermes_build_sha": (revision + "\n").encode(),
             "etc/hermes/image-provenance.json": (json.dumps(provenance, sort_keys=True, separators=(",", ":")) + "\n").encode()}
+        entries.update(dependency_entries)
         layer = output / (arch + ".tar")
         write_layer(layer, entries, files, epoch)
         layer_hash = sha(layer.read_bytes())
@@ -169,6 +206,8 @@ def main():
         result = {"base_manifest": children[arch]["digest"], "layer_diff_id": layer_hash,
             "files": {name: {"sha256": sha(data), "mode": oct(files[name][1]), "uid": 0, "gid": 0}
                       for name, data in entries.items()}, "reference": target}
+        if sdk_proof is not None:
+            result["sdk"] = sdk_proof
         if args.publish:
             existing = subprocess.run(["crane", "digest", target], capture_output=True)
             assert existing.returncode != 0, "refusing to overwrite existing candidate tag"
