@@ -190,6 +190,20 @@ class NativeEventStateMixin:
                 (execution_id, owner),
             ).fetchone()
             if row:
+                if kind == "tool_changed" and row["facts_started_at"]:
+                    from gateway.pwa_inspector import TOOLS
+                    name = payload.get("detail", {}).get("tool_name")
+                    identity = payload.get("activity_id")
+                    state = payload.get("state")
+                    if isinstance(identity, str) and len(identity) <= 256 and state in {"running", "completed", "failed"}:
+                        previous = conn.execute("SELECT body FROM native_inspector_facts WHERE execution_id=? AND kind='tool' AND identity=?", (execution_id, identity)).fetchone()
+                        prior = json.loads(previous[0]) if previous else {}
+                        now = time.time()
+                        started = prior.get("started_at") if prior else (now if state == "running" else None)
+                        self._native_inspector_fact(conn, execution_id, "tool", identity,
+                            dict(tool_name=name if name in TOOLS else None, state=state, agent_ref=row["facts_ref"], parent_agent_ref=None, role="primary",
+                                 started_at=started, ended_at=now if state != "running" else None,
+                                 duration_ms=(now-started)*1000 if started is not None and state != "running" else None))
                 self._native_event_append(
                     conn, row["conversation_id"], execution_id, kind, payload,
                     inspector_payload=inspector_payload,

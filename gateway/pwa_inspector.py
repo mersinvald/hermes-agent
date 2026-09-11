@@ -94,6 +94,8 @@ class NativeInspector:
         self.key = secrets.token_bytes(32)
         self.handles = OrderedDict()
         self.ordinals = {}
+        from gateway.pwa_inspector_facts import InspectorFacts
+        self.facts = InspectorFacts(self)
 
     def source(self, *reasons):
         limits = self.http.db._native_events_limits
@@ -599,6 +601,10 @@ class NativeInspector:
     async def handle(self, request, principal, parts):
         if request.method != "GET":
             raise LookupError("inspector method unavailable")
+        if parts == ["inspector", "execution-metrics"]:
+            return await self.facts.metrics(request, principal), 200
+        if len(parts) == 4 and parts[:2] == ["inspector", "tasks"] and parts[3] == "facts":
+            return await self.facts.detail(request, principal, parts[2]), 200
         if parts == ["inspector", "tasks"]:
             return await self.page(request, principal), 200
         if parts == ["inspector", "runtime-events"]:

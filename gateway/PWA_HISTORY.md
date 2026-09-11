@@ -127,3 +127,59 @@ remaining capacity is insufficient. Exact retries retain those positions. The
 regression uses matching 262,144-byte limits, 32 actual active native executions,
 maximum-length titles with worst-case JSON escaping and Unicode, and verifies
 all native retained rows and 64 search matches across terminating pages.
+
+
+### Execution-linked Inspector facts
+
+`GET /v1/pwa/inspector/execution-metrics?from=<UTC>&to=<UTC>&scope=self`
+aggregates the execution-created cohort in an explicit, end-exclusive window of
+at most 24 hours. SQLite computes counts, observed durations, model usage/cost,
+and model/tool/delegation distributions over current owner-authorized native
+roots. This does not sample the task directory. At most 5,000 candidate roots,
+100 owner rows, 50 groups of each kind and 20 drilldown task references per group
+are returned. Bounds and retained-data gaps are explicit coverage limitations.
+Group caller references come from actual lifecycle provenance. A2A's existing
+journal does not retain the local caller session, so its caller is unknown;
+a facade must label that edge as owner/task association, never primary invocation.
+
+`GET /v1/pwa/inspector/tasks/{task_ref}/facts` pages retained logical model calls
+(`limit` 1–100, opaque cursor), with up to 100 local/A2A delegation and tool facts.
+The existing task directory supplies the owner-bound reference; loading chat
+history or recovering an SSE cursor is unnecessary. Exact owner/config authority
+is checked before and after reads. `scope=all` still requires the explicit native
+`inspector_admin` grant and returns metadata with model/provider/tool/peer names
+withheld. Browser correlation references do not imply exporter delivery.
+
+New `native_inspector_facts` metadata is separate from chat, transcripts, tool
+payload capture and SSE. Its own retained rows obey the configured native event
+age/count/byte limits; pruning sets durable per-execution expiry evidence. The
+additive migration leaves historical executions unrecorded. Request/response,
+message, tool argument/result, error text and child goal/summary bodies are never
+copied into these facts. Logical API calls include retries: attempt, retry and
+failed-attempt counts remain visible after a successful retry. Usage comes from
+existing normalized post-request hooks. Cost is the existing native accounting
+result, with reported/estimated coverage; subscription-included or unknown cost
+is omitted. No new pricing or TTFT is inferred. Child delegation duration is the
+observed spawn-to-stop interval, including queue time.
+
+The optional observed-name vocabularies `pwa_http.inspector_model_names` and
+`pwa_http.inspector_provider_names` extend the configured selection catalog with
+reviewed actual response model and adapter names. They do not alias requested
+and actual models or claim that an adapter name identifies the upstream vendor.
+The optional `pwa_http.bindings[].observation_actor` assigns a unique trusted
+Langfuse actor to an existing native owner; it creates no authorization.
+
+The existing `observability/langfuse` plugin remains opt-in. Install the pinned
+`langfuse` optional dependency group before launch (SDK 4.15.2, OTel 1.39.1),
+configure its existing credential settings, and explicitly enable the plugin.
+Native exports force metadata-only behavior, use a dedicated tracer provider,
+and propagate owner/session/correlation metadata on every observation. Native
+logical call correlation is `hermes_native_correlation_ref`; retry observations
+also have `hermes_native_attempt_count` as a canonical positive decimal string.
+Actual parent-span identifiers connect child generations/tools/agents. A recorded
+SDK trace/observation identifier is not an ingestion receipt. Delivery is proven
+only by an actual matching observation from the authenticated Langfuse reader.
+
+The source-only OCI patch publisher includes these new modules but deliberately
+continues to reject dependency changes. A reviewed SDK wheel layer is required
+for this release; applying only source files is insufficient.

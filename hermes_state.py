@@ -104,6 +104,7 @@ from hermes_state_cancellation import NativeCancellationStateMixin
 from hermes_state_clarifications import NativeClarificationStateMixin
 from hermes_state_controls import NativeControlStateMixin
 from hermes_state_models import NativeModelStateMixin
+from hermes_state_inspector import NativeInspectorStateMixin
 from hermes_state_search import SessionSearchMixin
 
 try:  # Hard dependency, but tolerate scaffold-phase imports before pip install.
@@ -4690,7 +4691,7 @@ def classify_session_status(
     return SESSION_STATUS_COMPLETE
 
 
-class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin, NativeCommandStateMixin, NativePwaStateMixin, NativeEventStateMixin, NativeDeliveryStateMixin, NativeCancellationStateMixin, NativeControlStateMixin, NativeClarificationStateMixin, NativeModelStateMixin):
+class SessionDB(SessionSearchMixin, SessionSchemaMixin, SessionPortabilityMixin, NativeCommandStateMixin, NativePwaStateMixin, NativeEventStateMixin, NativeDeliveryStateMixin, NativeCancellationStateMixin, NativeControlStateMixin, NativeClarificationStateMixin, NativeModelStateMixin, NativeInspectorStateMixin):
     """
     SQLite-backed session storage with FTS5 search.
 

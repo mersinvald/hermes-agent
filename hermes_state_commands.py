@@ -265,6 +265,7 @@ class NativeCommandStateMixin:
             if not opened or tuple(opened) != ("open", owner, root):
                 raise CommandConflict("execution identity cannot be reopened")
             now = time.time()
+            self._native_inspector_begin(conn, execution_id, now)
             conn.execute(
                 "UPDATE native_executions SET origin=?,observed_state='starting',completed_at=NULL,created_at=COALESCE(created_at,?),updated_at=? WHERE execution_id=? AND owner=?",
                 (

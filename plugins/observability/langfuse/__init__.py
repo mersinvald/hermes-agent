@@ -60,10 +60,13 @@ class TraceState:
     # advisors on every API call without this.
     moa_emitted: set = field(default_factory=set)
     last_updated_at: float = field(default_factory=time.time)
+    native_attributes: Optional[dict] = None
+    native_session_id: str = ""
 
 
 _STATE_LOCK = threading.Lock()
 _TRACE_STATE: Dict[str, TraceState] = {}
+_NATIVE_PARENTS: Dict[str, tuple[str, str]] = {}
 # Hard cap on live trace state. Each turn keys _TRACE_STATE by a unique
 # turn_id, and an entry is normally reclaimed by _finish_trace when a turn
 # ends cleanly (final response has content and no tool calls). A turn that
@@ -136,6 +139,9 @@ def _capture_mode() -> str:
     the operator intended.
     """
     global _warned_invalid_capture
+    from agent.native_execution_context import current_native_execution
+    if current_native_execution() is not None:
+        return "metadata"
     value = _env("HERMES_LANGFUSE_CAPTURE").lower()
     if not value:
         return _DEFAULT_CAPTURE_MODE
@@ -249,6 +255,11 @@ def _validate_langfuse_key(env_name: str, value: str) -> Optional[str]:
     )
 
 
+def _private_tracer_provider():
+    from opentelemetry.sdk.trace import TracerProvider
+    return TracerProvider()
+
+
 def _get_langfuse() -> Optional[Langfuse]:
     """Return a cached Langfuse client, or ``None`` if unavailable.
 
@@ -342,6 +353,10 @@ def _get_langfuse() -> Optional[Langfuse]:
                 logger.warning("Invalid HERMES_LANGFUSE_SAMPLE_RATE=%r", sample_rate)
 
         try:
+            # A private provider prevents unrelated application OTel producers
+            # from being exported by this explicitly enabled plugin.
+            kwargs["tracer_provider"] = _private_tracer_provider()
+            kwargs["should_export_span"] = lambda span: span.instrumentation_scope.name == "langfuse-sdk"
             _LANGFUSE_CLIENT = Langfuse(**kwargs)
         except Exception as exc:  # pragma: no cover - fail-open
             logger.warning("Could not initialize Langfuse client: %s", exc)
@@ -880,9 +895,28 @@ def _usage_and_cost(response: Any, *, provider: str, api_mode: str, model: str, 
         return {}, {}
 
 
+def _native_attributes(session_id="", api_request_id=""):
+    from hermes_cli.observability.native_inspector import correlation
+    return correlation(session_id, api_request_id)
+
+
 def _start_root_trace(task_key: str, *, task_id: str, session_id: str, platform: str, provider: str, model: str,
                       api_mode: str, messages: Any, client: Langfuse,
                       turn_id: str = "", api_request_id: str = "") -> TraceState:
+    native = _native_attributes(session_id, api_request_id)
+    if native is not None:
+        trace_id = client.create_trace_id(seed=native["metadata"]["hermes_native_execution_ref"])
+        parent = _NATIVE_PARENTS.get(session_id)
+        trace_context = {"trace_id": parent[0], "parent_span_id": parent[1]} if parent else None
+        # Passing a trace ID without a parent makes SDK v4 synthesize an unseen
+        # remote parent. Let the true root create its trace; children use the
+        # captured actual parent observation. Discard unrelated ambient spans.
+        from opentelemetry.trace import use_span, INVALID_SPAN
+        with use_span(INVALID_SPAN), propagate_attributes(**native, trace_name="Hermes execution", tags=["hermes-native"]):
+            root = client.start_observation(trace_context=trace_context, name="Hermes agent", as_type="chain", metadata=native["metadata"])
+        root._hermes_native_metadata_only = True
+        return TraceState(trace_id=root.trace_id, root_ctx=None, root_span=root,
+                          native_attributes=native, native_session_id=session_id)
     trace_id = client.create_trace_id(seed=f"{session_id or 'sessionless'}::{task_id or task_key}")
     trace_input = _extract_last_user_message(messages)
     metadata = {
@@ -952,7 +986,23 @@ def _start_root_trace(task_key: str, *, task_id: str, session_id: str, platform:
 
 def _start_child_observation(state: TraceState, *, client: Langfuse, name: str, as_type: str,
                              input_value: Any, metadata: Optional[dict] = None,
-                             model: Optional[str] = None, model_parameters: Optional[dict] = None) -> Any:
+                             model: Optional[str] = None, model_parameters: Optional[dict] = None,
+                             native_attributes: Optional[dict] = None) -> Any:
+    if state.native_attributes is not None:
+        attrs = native_attributes or state.native_attributes
+        safe = dict(attrs["metadata"])
+        # Only closed instrumentation labels join opaque native metadata.
+        if metadata and metadata.get("tool_name"):
+            from gateway.pwa_inspector import TOOLS
+            if metadata["tool_name"] in TOOLS:
+                safe["tool_name"] = metadata["tool_name"]
+            else:
+                name = "Tool"
+        with propagate_attributes(**attrs, trace_name="Hermes execution", tags=["hermes-native"]):
+            observation = state.root_span.start_observation(name=name, as_type=as_type, metadata=safe,
+                model=safe.get("actual_model") or safe.get("requested_model") if as_type == "generation" else None)
+        observation._hermes_native_metadata_only = True
+        return observation
     return state.root_span.start_observation(
         name=name,
         as_type=as_type,
@@ -968,6 +1018,11 @@ def _end_observation(observation: Any, *, output: Any = None, metadata: Optional
     if observation is None:
         return
     try:
+        if getattr(observation, "_hermes_native_metadata_only", False):
+            output = None
+            metadata = {k: v for k, v in (metadata or {}).items()
+                        if k in {"api_duration_s", "tool_call_count", "status_code", "retry_count", "max_retries", "retryable", "error"}
+                        and type(v) in (int, float, bool)}
         update_kwargs: Dict[str, Any] = {}
         if output is not None:
             update_kwargs["output"] = output
@@ -1041,6 +1096,7 @@ def _finalize_all_traces() -> None:
     with _STATE_LOCK:
         states = list(_TRACE_STATE.items())
         _TRACE_STATE.clear()
+        _NATIVE_PARENTS.clear()
     for _key, state in states:
         try:
             for observation in state.generations.values():
@@ -1091,7 +1147,10 @@ def _finish_trace(task_key: str, *, output: Any = None) -> None:
         for queue in state.pending_tools_by_name.values():
             for observation in queue:
                 _end_observation(observation)
-        final_output = _merge_trace_output(output, state)
+        for child_session, observation in state.subagents.items():
+            _end_observation(observation)
+            _NATIVE_PARENTS.pop(child_session, None)
+        final_output = None if state.native_attributes is not None else _merge_trace_output(output, state)
         if final_output is not None:
             # update_trace sets TRACE-level Input/Output columns in the UI
             # (SDK v3; set_trace_io was the pre-v3 spelling). Root observation
@@ -1293,6 +1352,10 @@ def on_pre_llm_request(
     if client is None:
         return
 
+    from agent.native_execution_context import current_native_execution
+    if current_native_execution() is not None and _native_attributes(session_id, api_request_id) is None:
+        return  # Opt-in alone never supplies native actor authority.
+
     # ``model`` is the agent's current attribute at hook time; the request
     # body carries the model actually being dispatched. They can diverge
     # (mid-session /model switch propagation, provider fallback, middleware
@@ -1371,7 +1434,12 @@ def on_pre_llm_request(
             metadata=gen_metadata,
             model=model,
             model_parameters={"api_mode": api_mode, "provider": provider},
+            native_attributes=_native_attributes(session_id, api_request_id),
         )
+        if state.native_attributes is not None:
+            from hermes_cli.observability.native_inspector import record_trace
+            generation = state.generations[req_key]
+            record_trace(session_id, api_request_id, generation.trace_id, generation.id)
 
 
 def on_post_llm_call(*, task_id: str = "", session_id: str = "", provider: str = "", base_url: str = "",
@@ -1407,7 +1475,7 @@ def on_post_llm_call(*, task_id: str = "", session_id: str = "", provider: str =
     if state is None or generation is None:
         return
 
-    if moa_references:
+    if moa_references and state.native_attributes is None:
         _emit_moa_reference_generations(state, client=client, references=moa_references)
 
     # Handle both call patterns:
@@ -1438,7 +1506,18 @@ def on_post_llm_call(*, task_id: str = "", session_id: str = "", provider: str =
     # where ``getattr(response, "usage", None)`` is always None — so usage and
     # cost were silently dropped for every gateway turn. Gate on a real
     # ``.usage`` attribute instead so the usage-dict fallback below is reached.
-    if getattr(response, "usage", None) is not None:
+    if state.native_attributes is not None:
+        from hermes_cli.observability.native_inspector import finite, count
+        usage_details = {k: usage[k] for k in ("input_tokens", "output_tokens", "cache_read_tokens", "cache_write_tokens")
+                         if isinstance(usage, dict) and count(usage.get(k)) is not None}
+        usage_details = {k.removesuffix("_tokens"): v for k, v in usage_details.items()}
+        cost = _.get("accounting_cost")
+        cost_details = {"total": cost["amount"]} if isinstance(cost, dict) and finite(cost.get("amount")) is not None and cost.get("source") == "native_accounting" and cost.get("currency") == "USD" else {}
+        attrs = _native_attributes(session_id, api_request_id)
+        if attrs:
+            with propagate_attributes(**attrs):
+                generation.update(model=attrs["metadata"].get("actual_model"), metadata=attrs["metadata"])
+    elif getattr(response, "usage", None) is not None:
         usage_details, cost_details = _usage_and_cost(
             response,
             provider=provider,
@@ -1491,7 +1570,7 @@ def on_post_llm_call(*, task_id: str = "", session_id: str = "", provider: str =
 
     has_tools = _assistant_has_tool_calls(assistant_message) if assistant_message else (assistant_tool_call_count > 0)
     has_content = bool(output.get("content"))
-    if not has_tools and has_content:
+    if not has_tools and (has_content or state.native_attributes is not None):
         _finish_trace(task_key, output=output)
 
 
@@ -1520,6 +1599,7 @@ def on_pre_tool_call(*, tool_name: str = "", args: Any = None, task_id: str = ""
             as_type="tool",
             input_value=_capture_content(args),
             metadata={"tool_name": tool_name, "tool_call_id": tool_call_id},
+            native_attributes=_native_attributes(session_id, api_request_id),
         )
         if tool_call_id:
             state.tools[tool_call_id] = observation
@@ -1644,6 +1724,8 @@ def on_api_request_error(*, task_id: str = "", session_id: str = "", provider: s
         error_metadata["api_duration_s"] = round(api_duration, 3)
 
     if generation is not None:
+        if state.native_attributes is not None:
+            error_type = "api_request_error"
         try:
             generation.update(
                 level="ERROR",
@@ -1683,13 +1765,20 @@ def on_session_finalize(*, session_id: str = "", reason: str = "", **_: Any) -> 
         fragments = (f"session:{session_id}", f"task:{session_id}")
         with _STATE_LOCK:
             keys = [
-                k for k in _TRACE_STATE
-                if k == session_id or any(f in k for f in fragments)
+                k for k, state in _TRACE_STATE.items()
+                if (state.native_session_id == session_id if state.native_attributes is not None
+                    else k == session_id or any(f in k for f in fragments))
             ]
     else:
         with _STATE_LOCK:
             keys = list(_TRACE_STATE)
 
+    with _STATE_LOCK:
+        native_roots = {state.native_attributes["metadata"]["hermes_native_execution_ref"]
+                        for k, state in _TRACE_STATE.items() if k in keys and state.native_attributes is not None
+                        and "hermes_native_parent_agent_ref" not in state.native_attributes["metadata"]}
+        keys.extend(k for k, state in _TRACE_STATE.items() if k not in keys and state.native_attributes is not None
+                    and state.native_attributes["metadata"]["hermes_native_execution_ref"] in native_roots)
     for key in keys:
         _finish_trace(key)
 
@@ -1748,7 +1837,13 @@ def on_subagent_start(*, parent_session_id: Any = None, parent_turn_id: str = ""
             as_type="span",
             input_value=_capture_content(child_goal),
             metadata=metadata,
+            native_attributes=_native_attributes(str(child_session_id)),
         )
+        if state.native_attributes is not None:
+            observation = state.subagents[str(child_session_id)]
+            _NATIVE_PARENTS[str(child_session_id)] = (observation.trace_id, observation.id)
+            while len(_NATIVE_PARENTS) > _MAX_TRACE_STATE:
+                _NATIVE_PARENTS.pop(next(iter(_NATIVE_PARENTS)))
 
 
 def on_subagent_stop(*, parent_session_id: Any = None, parent_turn_id: str = "",
@@ -1765,6 +1860,7 @@ def on_subagent_stop(*, parent_session_id: Any = None, parent_turn_id: str = "",
         if state is None:
             return
         observation = state.subagents.pop(str(child_session_id), None)
+        _NATIVE_PARENTS.pop(str(child_session_id), None)
 
     if observation is None:
         return

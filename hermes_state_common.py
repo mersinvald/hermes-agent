@@ -564,10 +564,23 @@ CREATE TABLE IF NOT EXISTS native_executions (
     created_at REAL,
     updated_at REAL,
     completed_at REAL,
-    activity_evicted INTEGER NOT NULL DEFAULT 0
+    activity_evicted INTEGER NOT NULL DEFAULT 0,
+    facts_started_at REAL,
+    facts_ref TEXT,
+    facts_evicted INTEGER NOT NULL DEFAULT 0
 );
 CREATE UNIQUE INDEX IF NOT EXISTS idx_native_execution_owner
     ON native_executions(conversation_id) WHERE state='open';
+CREATE TABLE IF NOT EXISTS native_inspector_facts (
+    ordinal INTEGER PRIMARY KEY AUTOINCREMENT,
+    execution_id TEXT NOT NULL,
+    kind TEXT NOT NULL CHECK(kind IN ('model','local','tool')),
+    identity TEXT NOT NULL,
+    body TEXT NOT NULL,
+    updated_at REAL NOT NULL,
+    UNIQUE(execution_id,kind,identity)
+);
+CREATE INDEX IF NOT EXISTS idx_native_inspector_execution ON native_inspector_facts(execution_id,kind,ordinal);
 -- Bounded detailed replay, separate from retained native execution/command facts.
 CREATE TABLE IF NOT EXISTS native_events (
     ordinal INTEGER PRIMARY KEY AUTOINCREMENT,

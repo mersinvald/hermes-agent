@@ -1731,6 +1731,7 @@ class TestAtexitFinalization(TestTurnTraceIsolation):
         import atexit as _atexit
 
         monkeypatch.setattr(mod, "Langfuse", lambda **kw: object())
+        monkeypatch.setattr(mod, "_private_tracer_provider", lambda: object())
         monkeypatch.setattr(
             _atexit, "register", lambda fn, *a, **k: registered.append(fn)
         )

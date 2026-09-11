@@ -76,6 +76,7 @@ class OwnerBinding:
     sources: tuple[SourceBinding, ...]
     default_source_id: str
     inspector_admin: bool = False
+    observation_actor: str | None = None
 
     @property
     def default_source(self):
@@ -199,6 +200,8 @@ class PwaHttpConfig:
     models: PwaModelCatalogConfig | None = None
     images: ImageLimits = field(default_factory=ImageLimits)
     workload_context: PwaWorkloadConfig | None = None
+    inspector_model_names: tuple[str, ...] = ()
+    inspector_provider_names: tuple[str, ...] = ()
 
     @classmethod
     def from_dict(cls, raw):
@@ -283,6 +286,15 @@ class PwaHttpConfig:
             if "models" in raw
             else None
         )
+        observed = {}
+        for field_name in ("inspector_model_names", "inspector_provider_names"):
+            values = raw.get(field_name, [])
+            if not isinstance(values, list) or len(values) > 100 or any(
+                not isinstance(value, str) or (field_name == "inspector_provider_names" and len(value) > 128) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_./:+-]{0,199}", value)
+                for value in values
+            ) or len(set(values)) != len(values):
+                raise ValueError("invalid native inspector observed vocabulary")
+            observed[field_name] = tuple(values)
         owners = raw["bindings"]
         if not isinstance(owners, list) or not 1 <= len(owners) <= 100:
             raise ValueError("native PWA requires explicit owner bindings")
@@ -290,7 +302,7 @@ class PwaHttpConfig:
         for owner in owners:
             closed(
                 owner,
-                {"issuer", "subject", "sources", "default_source_id", "inspector_admin"},
+                {"issuer", "subject", "sources", "default_source_id", "inspector_admin", "observation_actor"},
                 {"issuer", "subject", "sources", "default_source_id"},
             )
             principal, _ = parse_principal({
@@ -364,7 +376,12 @@ class PwaHttpConfig:
             admin = owner.get("inspector_admin", False)
             if type(admin) is not bool:
                 raise ValueError("native inspector authority must be boolean")
-            bindings.append(OwnerBinding(principal, tuple(sources), default, admin))
+            actor = owner.get("observation_actor")
+            if actor is not None:
+                identifier(actor)
+                if len(actor) > 128 or any(b.observation_actor == actor for b in bindings):
+                    raise ValueError("native observation actor must identify exactly one owner")
+            bindings.append(OwnerBinding(principal, tuple(sources), default, admin, actor))
         return cls(
             enabled=True,
             concierge_id=concierge_id,
@@ -379,14 +396,15 @@ class PwaHttpConfig:
             models=models,
             images=ImageLimits.from_dict(raw.get("images", {})),
             workload_context=PwaWorkloadConfig.from_dict(raw.get("workload_context")),
+            **observed,
             **numbers,
         )
 
     @property
     def fingerprint(self):
-        data = [[b.principal.issuer, b.principal.subject, b.default_source_id, b.inspector_admin,
+        data = [[b.principal.issuer, b.principal.subject, b.default_source_id, b.inspector_admin, b.observation_actor,
                  [[s.source_id, s.identity_json, list(s.session_ids)] for s in b.sources]] for b in self.bindings]
         models = self.models.identity if self.models is not None else None
         return hashlib.sha256(
-            canonical([self.concierge_id, data, models]).encode()
+            canonical([self.concierge_id, data, models, self.inspector_model_names, self.inspector_provider_names]).encode()
         ).hexdigest()

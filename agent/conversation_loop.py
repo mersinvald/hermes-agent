@@ -3002,6 +3002,7 @@ def run_conversation(
             logging.debug(f"Total message size: ~{approx_tokens:,} tokens")
         
         api_start_time = time.time()
+        native_accounting_cost = None
         retry_count = 0
         max_retries = agent._api_max_retries
         _retry = TurnRetryState()
@@ -4449,6 +4450,12 @@ def run_conversation(
                         base_url=_agg_cost_base_url,
                         api_key=getattr(agent, "api_key", ""),
                     )
+                    if cost_result.amount_usd is not None and cost_result.status in {"actual", "estimated"}:
+                        native_accounting_cost = {
+                            "amount": float(cost_result.amount_usd), "currency": "USD",
+                            "basis": "reported" if cost_result.status == "actual" else "estimated",
+                            "source": "native_accounting",
+                        }
                     if cost_result.amount_usd is not None:
                         agent.session_estimated_cost_usd += float(cost_result.amount_usd)
                     # Add MoA advisor cost (already priced per-advisor at each
@@ -7024,6 +7031,8 @@ def run_conversation(
                         api_duration=api_duration,
                         started_at=api_start_time,
                         ended_at=_api_ended_at,
+                        accounting_cost=native_accounting_cost,
+                        retry_count=retry_count,
                         finish_reason=finish_reason,
                         message_count=len(api_messages),
                         response_model=getattr(response, "model", None),

@@ -37,7 +37,7 @@ def test_base_layer_preserves_existing_title_modules(monkeypatch, tmp_path):
     for name in existing_titles:
         assert files["opt/hermes/" + name] == (entries["opt/hermes/" + name],
                                                 0o755 if name.endswith("title_generator.py") else 0o644)
-    for name in ("gateway/pwa_inspector.py", "gateway/native_inspector_payload.py"):
+    for name in ("gateway/pwa_inspector.py", "gateway/native_inspector_payload.py", "hermes_state_inspector.py", "hermes_cli/observability/native_inspector.py", "gateway/pwa_inspector_facts.py"):
         assert files["opt/hermes/" + name] == (b"", 0o644)
 
 
@@ -67,6 +67,8 @@ def test_conversation_runtime_is_selected_and_archived(monkeypatch, tmp_path):
                      "gateway/native_commands.py", "gateway/native_events.py", "hermes_state_events.py", "hermes_state_commands.py", "hermes_state.py",
                      "gateway/pwa_models.py", "hermes_state_models.py",
                      "gateway/pwa_inspector.py", "gateway/native_inspector_payload.py",
+                     "hermes_state_inspector.py", "hermes_cli/observability/native_inspector.py", "gateway/pwa_inspector_facts.py",
+                     "hermes_cli/observability/__init__.py", "plugins/observability/langfuse/__init__.py",
                      "gateway/pwa_images.py", "gateway/pwa_image_http.py",
                      "gateway/telegram_conversations.py", "hermes_state_delivery.py", "gateway/authz_mixin.py",
                      "gateway/platforms/base.py", "gateway/slash_commands.py",
