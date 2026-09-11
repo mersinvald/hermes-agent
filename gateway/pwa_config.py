@@ -75,6 +75,7 @@ class OwnerBinding:
     principal: Principal
     sources: tuple[SourceBinding, ...]
     default_source_id: str
+    inspector_admin: bool = False
 
     @property
     def default_source(self):
@@ -289,7 +290,7 @@ class PwaHttpConfig:
         for owner in owners:
             closed(
                 owner,
-                {"issuer", "subject", "sources", "default_source_id"},
+                {"issuer", "subject", "sources", "default_source_id", "inspector_admin"},
                 {"issuer", "subject", "sources", "default_source_id"},
             )
             principal, _ = parse_principal({
@@ -360,7 +361,10 @@ class PwaHttpConfig:
             default = identifier(owner["default_source_id"])
             if default not in source_ids:
                 raise ValueError("native PWA default source is not assigned")
-            bindings.append(OwnerBinding(principal, tuple(sources), default))
+            admin = owner.get("inspector_admin", False)
+            if type(admin) is not bool:
+                raise ValueError("native inspector authority must be boolean")
+            bindings.append(OwnerBinding(principal, tuple(sources), default, admin))
         return cls(
             enabled=True,
             concierge_id=concierge_id,
@@ -380,7 +384,7 @@ class PwaHttpConfig:
 
     @property
     def fingerprint(self):
-        data = [[b.principal.issuer, b.principal.subject, b.default_source_id,
+        data = [[b.principal.issuer, b.principal.subject, b.default_source_id, b.inspector_admin,
                  [[s.source_id, s.identity_json, list(s.session_ids)] for s in b.sources]] for b in self.bindings]
         models = self.models.identity if self.models is not None else None
         return hashlib.sha256(

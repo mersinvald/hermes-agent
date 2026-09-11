@@ -266,7 +266,7 @@ class NativeCommandStateMixin:
                 raise CommandConflict("execution identity cannot be reopened")
             now = time.time()
             conn.execute(
-                "UPDATE native_executions SET origin=?,observed_state='starting',created_at=COALESCE(created_at,?),updated_at=? WHERE execution_id=? AND owner=?",
+                "UPDATE native_executions SET origin=?,observed_state='starting',completed_at=NULL,created_at=COALESCE(created_at,?),updated_at=? WHERE execution_id=? AND owner=?",
                 (
                     origin
                     if origin in {"pwa", "telegram", "native", "system"}
@@ -307,9 +307,11 @@ class NativeCommandStateMixin:
                 ("unknown" if crashed else "closed", execution_id, owner),
             )
             observed = outcome or "unknown"
+            finished_at = time.time()
             conn.execute(
-                "UPDATE native_executions SET observed_state=?,updated_at=? WHERE execution_id=?",
-                (observed, time.time(), execution_id),
+                "UPDATE native_executions SET observed_state=?,updated_at=?,completed_at=? WHERE execution_id=?",
+                (observed, finished_at, finished_at if not crashed and observed in
+                 {"completed", "failed", "cancelled", "interrupted"} else None, execution_id),
             )
             self._native_event_append(
                 conn,

@@ -28,6 +28,7 @@ from gateway.pwa_ownership import NativePwaOwnership
 from gateway.pwa_workload import NativeWorkloadContext, WorkloadUnavailable
 from gateway.pwa_image_http import NativeImageHttp
 from gateway.pwa_history_scan import NativeHistoryScan
+from gateway.pwa_inspector import NativeInspector
 from gateway.pwa_models import (
     ModelCatalogUnavailable,
     ModelRouteUnavailable,
@@ -93,6 +94,7 @@ class NativePwaHttp:
         )
         self.telegram_channel = TelegramConversationChannel(self.ingress)
         self.history_scan = NativeHistoryScan(self)
+        self.inspector = NativeInspector(self)
         self.images = NativeImageHttp(self)
         self.ingress.images = self.images
         self._streams = set()
@@ -492,6 +494,8 @@ class NativePwaHttp:
                 raise RequestError(400, "invalid_request")
             return self.workload.snapshot(principal), 200
         parts = tail.split("/")
+        if parts[0] == "inspector":
+            return await self.inspector.handle(request, principal, parts)
         if parts == ["images", "policy"] or (len(parts) >= 3 and parts[0] == "conversations" and parts[2] == "images"):
             return await self.images.handle(request, principal, parts)
         if request.method == "GET" and tail == "capabilities":

@@ -66,7 +66,7 @@ class NativeEventStateMixin:
     def _native_event_prune(self, conn, now):
         limits = self._native_events_limits
         rows = conn.execute(
-            "SELECT ordinal,conversation_id,epoch,sequence,occurred_at,byte_count "
+            "SELECT ordinal,conversation_id,epoch,sequence,occurred_at,byte_count,body "
             "FROM native_events ORDER BY ordinal DESC"
         ).fetchall()
         count = size = 0
@@ -81,6 +81,10 @@ class NativeEventStateMixin:
             ):
                 victims.append(row)
         for row in victims:
+            execution = json.loads(row["body"]).get("execution_id")
+            if execution is not None:
+                conn.execute("UPDATE native_executions SET activity_evicted=1 WHERE execution_id=?",
+                             (execution,))
             conn.execute(
                 "UPDATE native_event_heads SET evicted_through=MAX(evicted_through,?) "
                 "WHERE conversation_id=? AND epoch=?",
@@ -99,7 +103,7 @@ class NativeEventStateMixin:
                 )
 
     def _native_event_append(
-        self, conn, root, execution_id, kind, payload, *, scope=None
+        self, conn, root, execution_id, kind, payload, *, scope=None, inspector_payload=None
     ):
         if not getattr(self, "_native_events_epoch", None):
             return  # Opt-in native ingress only; legacy native behavior preserved.
@@ -130,11 +134,23 @@ class NativeEventStateMixin:
         )
         body = canonical(event)
         size = len(body.encode())
+        inspection = canonical(inspector_payload) if inspector_payload is not None else None
+        if inspection is not None:
+            extra = len(inspection.encode())
+            if extra <= 8192 and size + extra <= self._native_events_limits.max_event_bytes:
+                size += extra
+            else:
+                inspection = canonical(dict(state="unavailable", text=None, reason="oversized"))
+                extra = len(inspection.encode())
+                if size + extra <= self._native_events_limits.max_event_bytes:
+                    size += extra
+                else:
+                    inspection = None
         if size > self._native_events_limits.max_event_bytes:
             raise ValueError("native event exceeds configured byte limit")
         conn.execute(
-            "INSERT INTO native_events(conversation_id,epoch,sequence,event_id,principal_scope,occurred_at,body,byte_count) VALUES (?,?,?,?,?,?,?,?)",
-            (root, epoch, sequence, event["event_id"], scope, now, body, size),
+            "INSERT INTO native_events(conversation_id,epoch,sequence,event_id,principal_scope,occurred_at,body,byte_count,inspector_payload) VALUES (?,?,?,?,?,?,?,?,?)",
+            (root, epoch, sequence, event["event_id"], scope, now, body, size, inspection),
         )
         self._native_event_prune(conn, now)
 
@@ -167,7 +183,7 @@ class NativeEventStateMixin:
             scope=scope,
         )
 
-    def native_activity_event(self, execution_id, owner, kind, payload):
+    def native_activity_event(self, execution_id, owner, kind, payload, *, inspector_payload=None):
         def write(conn):
             row = conn.execute(
                 "SELECT * FROM native_executions WHERE execution_id=? AND owner=? AND state='open'",
@@ -175,7 +191,8 @@ class NativeEventStateMixin:
             ).fetchone()
             if row:
                 self._native_event_append(
-                    conn, row["conversation_id"], execution_id, kind, payload
+                    conn, row["conversation_id"], execution_id, kind, payload,
+                    inspector_payload=inspector_payload,
                 )
 
         self._execute_write(write)

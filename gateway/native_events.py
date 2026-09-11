@@ -55,6 +55,8 @@ def execution_view(row):
     )
     if "deliveries" in row:
         result["deliveries"] = row["deliveries"]
+    if row.get("completed_at") is not None:
+        result["completed_at"] = timestamp(row["completed_at"])
     return result
 
 
@@ -237,12 +239,14 @@ class NativeActivityObserver:
     def __init__(self, context, agent):
         self.context, self.agent = context, agent
         self.original = {}
+        self._inspector_secrets = {}
 
-    def emit(self, kind, payload):
+    def emit(self, kind, payload, inspector_payload=None):
         ctx = self.context
         try:
             ctx.ingress.db.native_activity_event(
-                ctx.execution.execution_id, ctx.ingress._command_owner, kind, payload
+                ctx.execution.execution_id, ctx.ingress._command_owner, kind, payload,
+                inspector_payload=inspector_payload,
             )
         except Exception:
             # Losing optional observation must not fail a tool or alter its side
@@ -265,6 +269,10 @@ class NativeActivityObserver:
         def observe_start(call_id, name, args):
             identity = str(call_id or "")
             if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}", identity):
+                from gateway.native_inspector_payload import capture, credentials
+                values = credentials(self.agent, self.context.ingress, name)
+                if values is not None and len(self._inspector_secrets) < 128:
+                    self._inspector_secrets[identity] = values
                 self.emit(
                     "tool_changed",
                     {
@@ -272,6 +280,7 @@ class NativeActivityObserver:
                         "state": "running",
                         "detail": self.tool_detail(name),
                     },
+                    capture(name, args, None, "arguments", values),
                 )
             else:
                 self.context.ingress.db.native_event_mark_gap(
@@ -282,8 +291,11 @@ class NativeActivityObserver:
             identity = str(call_id or "")
             if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,255}", identity):
                 from agent.display import _detect_tool_failure
+                from gateway.native_inspector_payload import capture, credentials
 
                 failed, _ = _detect_tool_failure(str(name or "tool"), result)
+                current = credentials(self.agent, self.context.ingress, name)
+                saved = self._inspector_secrets.pop(identity, ())
                 self.emit(
                     "tool_changed",
                     {
@@ -291,6 +303,7 @@ class NativeActivityObserver:
                         "state": "failed" if failed else "completed",
                         "detail": self.tool_detail(name),
                     },
+                    capture(name, args, result, "result", (*saved, *current) if current is not None else None),
                 )
             else:
                 self.context.ingress.db.native_event_mark_gap(
@@ -318,5 +331,6 @@ class NativeActivityObserver:
         return self
 
     def restore(self):
+        self._inspector_secrets.clear()
         for name, callback in self.original.items():
             setattr(self.agent, name, callback)

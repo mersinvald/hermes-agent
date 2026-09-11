@@ -562,7 +562,9 @@ CREATE TABLE IF NOT EXISTS native_executions (
     origin TEXT NOT NULL DEFAULT 'unknown',
     observed_state TEXT NOT NULL DEFAULT 'unknown',
     created_at REAL,
-    updated_at REAL
+    updated_at REAL,
+    completed_at REAL,
+    activity_evicted INTEGER NOT NULL DEFAULT 0
 );
 CREATE UNIQUE INDEX IF NOT EXISTS idx_native_execution_owner
     ON native_executions(conversation_id) WHERE state='open';
@@ -573,6 +575,7 @@ CREATE TABLE IF NOT EXISTS native_events (
     epoch TEXT NOT NULL,
     sequence INTEGER NOT NULL,
     event_id TEXT NOT NULL,
+    inspector_payload TEXT,
     principal_scope TEXT,
     occurred_at REAL NOT NULL,
     body TEXT NOT NULL,
