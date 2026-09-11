@@ -299,7 +299,9 @@ class InspectorFacts:
                         "participant", fact["binding_key"] or fact["dispatch_id"]
                     ),
                     invocation_ref=ref("dispatch", fact["dispatch_id"]),
-                    parent_agent_ref=agent_ref(row["facts_ref"] or execution),
+                    # The dispatch proves execution membership, not which
+                    # local agent invoked it. Keep caller attribution unknown.
+                    parent_agent_ref=None,
                     kind="agent",
                     role="specialist",
                     delegation_kind="a2a",

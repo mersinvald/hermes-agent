@@ -62,6 +62,8 @@ TOOLS = frozenset({
     "delegate_task",
     "web_search",
     "web_extract",
+    "memory",
+    "mcp__hitl_fixture__fixture_set_value",
 })
 REMOTE_STATES = {
     "submitted": "observed",

@@ -16,7 +16,10 @@ HOOKS = frozenset({
 
 
 def handles_hook(name):
-    return name in HOOKS
+    from agent.native_execution_context import current_native_execution
+
+    current = current_native_execution()
+    return name in HOOKS and current is not None and current[1] is not None
 
 
 def finite(value):

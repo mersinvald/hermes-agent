@@ -166,6 +166,9 @@ async def test_execution_facts_and_sql_aggregate_retain_real_calls_tools_childre
 
 @pytest.mark.asyncio
 async def test_retention_and_missing_native_origin_are_explicit(monkeypatch, tmp_path):
+    from hermes_cli.observability.native_inspector import handles_hook
+
+    assert not handles_hook("pre_api_request")
     async with service(monkeypatch, tmp_path, models=model_config()) as (
         server,
         client,
@@ -175,6 +178,8 @@ async def test_retention_and_missing_native_origin_are_explicit(monkeypatch, tmp
         db.native_execution_open(
             root, "retained", server.ingress._command_owner, origin="telegram"
         )
+        with scope(server, root, "retained"):
+            assert handles_hook("pre_api_request")
         call(server, root, "retained", "one")
         invoke_hook(
             "pre_api_request",
@@ -206,7 +211,10 @@ async def test_retention_and_missing_native_origin_are_explicit(monkeypatch, tmp
 @pytest.mark.asyncio
 @pytest.mark.parametrize("origin", ["pwa", "telegram"])
 async def test_normal_agent_loop_captures_real_hook_usage_and_actual_route(
-    monkeypatch, tmp_path, agent, origin  # noqa: F811 - shared pytest fixture
+    monkeypatch,
+    tmp_path,
+    agent,  # noqa: F811 - shared pytest fixture
+    origin,
 ):
     async with service(monkeypatch, tmp_path, models=model_config()) as (
         server,
@@ -438,3 +446,90 @@ def test_observed_model_vocabulary_rejects_unreviewed_shape(bad):
     raw["inspector_model_names"] = bad
     with pytest.raises(ValueError):
         PwaHttpConfig.from_dict(raw)
+
+
+@pytest.mark.asyncio
+async def test_a2a_dispatch_has_unknown_local_caller_and_current_configured_label(
+    monkeypatch, tmp_path
+):
+    import os
+    from pathlib import Path
+    from tests.state.test_native_cancellation import binding
+
+    async with service(monkeypatch, tmp_path) as (server, client, native):
+        db, root = native[2], native[4].session_id
+        start = time.time() - 1
+        owner = server.ingress._command_owner
+        db.native_execution_open(root, "remote", owner, origin="pwa")
+        origin = NativeExecutionOrigin(root, "remote", owner)
+        configured = binding("reviewed")
+        path = Path(os.environ["HERMES_HOME"]) / "config.yaml"
+        path.write_text(
+            json.dumps({
+                "a2a_agents": {"reviewed": {"url": configured["rpc_endpoint"]}}
+            })
+        )
+        dispatch = db.native_remote_dispatch_prepare(origin, configured, "request")
+        db.native_remote_dispatch_observe(
+            origin, dispatch, "remote-task", "remote-context", "completed"
+        )
+        db.native_execution_close("remote", owner, outcome="completed")
+        task = (await get(client, "/v1/pwa/inspector/tasks"))["rows"][0]["task_ref"]
+        route = f"/v1/pwa/inspector/tasks/{task}/facts"
+        facts = await get(client, route)
+        delegation = facts["delegations"][0]
+        assert delegation["parent_agent_ref"] is None
+        assert delegation["peer_name"] == "reviewed"
+        assert delegation["duration_ms"] >= 0
+        query = urlencode({"from": timestamp(start), "to": timestamp(time.time())})
+        metrics = await get(client, "/v1/pwa/inspector/execution-metrics?" + query)
+        group = metrics["rows"][0]["delegations"][0]
+        assert group["agent_ref"] is None and group["agent_role"] is None
+        assert group["peer_name"] == "reviewed"
+        path.write_text(
+            json.dumps({"a2a_agents": {"reviewed": {"url": "http://other.invalid/"}}})
+        )
+        assert (await get(client, route))["delegations"][0]["peer_name"] is None
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "tool_name,expected",
+    [
+        ("memory", "memory"),
+        (
+            "mcp__hitl_fixture__fixture_set_value",
+            "mcp__hitl_fixture__fixture_set_value",
+        ),
+        ("mcp__unreviewed__PRIVATE_TOOL", None),
+    ],
+)
+async def test_reviewed_tool_names_reach_facts_and_sql_groups(
+    monkeypatch, tmp_path, tool_name, expected
+):
+    async with service(monkeypatch, tmp_path) as (server, client, native):
+        db, root = native[2], native[4].session_id
+        start = time.time() - 1
+        owner = server.ingress._command_owner
+        db.native_execution_open(root, "tools", owner, origin="pwa")
+        for state in ("running", "completed"):
+            db.native_activity_event(
+                "tools",
+                owner,
+                "tool_changed",
+                dict(
+                    activity_id="actual-invocation",
+                    state=state,
+                    detail={"tool_name": tool_name},
+                ),
+            )
+        db.native_execution_close("tools", owner, outcome="completed")
+        task = (await get(client, "/v1/pwa/inspector/tasks"))["rows"][0]["task_ref"]
+        facts = await get(client, f"/v1/pwa/inspector/tasks/{task}/facts")
+        assert len(facts["tool_calls"]) == 1
+        assert facts["tool_calls"][0]["tool_name"] == expected
+        query = urlencode({"from": timestamp(start), "to": timestamp(time.time())})
+        metrics = await get(client, "/v1/pwa/inspector/execution-metrics?" + query)
+        assert metrics["rows"][0]["tool_call_count"] == 1
+        assert metrics["rows"][0]["tools"][0]["tool_name"] == expected
+        assert "PRIVATE" not in json.dumps([facts, metrics])
