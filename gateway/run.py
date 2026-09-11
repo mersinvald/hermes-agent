@@ -3875,6 +3875,7 @@ _CONTROL_INTERRUPT_MESSAGES = frozenset(
         _INTERRUPT_REASON_SSE_DISCONNECT.lower(),
         _INTERRUPT_REASON_GATEWAY_SHUTDOWN.lower(),
         _INTERRUPT_REASON_GATEWAY_RESTART.lower(),
+        "explicit execution cancellation",  # NativeCancellationController's internal reason.
     }
 )
 

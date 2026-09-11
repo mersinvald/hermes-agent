@@ -90,6 +90,10 @@ async def test_actual_interrupt_retains_writer_until_return_and_keeps_queue_fall
             and pending["queued_and_unconsumed_steers"] == "retained"
         )
         assert first._interrupt_requested
+        # Use the actual controller-produced reason; an unrecognized internal
+        # reason becomes a new authored input in the real gateway drain.
+        from gateway.run import _is_control_interrupt_message
+        assert _is_control_interrupt_message(first._interrupt_message)
         assert ingress._owner(entry.session_id)[2] == execution
         assert JournalAgent.effects == ["first"]
         assert (
@@ -132,6 +136,16 @@ async def test_actual_interrupt_retains_writer_until_return_and_keeps_queue_fall
         await settled(ingress.cancellations)
         await finish(ingress)
         db.close()
+
+
+@pytest.mark.parametrize("message", [
+    "Instead, explain the current remote task",
+    "Explicit execution cancellation; now start my next request",
+    "Please say Stop requested",
+])
+def test_user_redirection_text_is_not_an_internal_cancel_reason(message):
+    from gateway.run import _is_control_interrupt_message
+    assert not _is_control_interrupt_message(message)
 
 
 @pytest.mark.asyncio
