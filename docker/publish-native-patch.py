@@ -26,6 +26,7 @@ RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grants.py
            "gateway/session_state.py", "gateway/session.py", "gateway/conversation_control.py",
            "gateway/native_commands.py", "gateway/native_events.py", "hermes_state_events.py", "gateway/shutdown_flush.py", "hermes_state_commands.py",
            "gateway/pwa_config.py", "gateway/pwa_models.py", "gateway/pwa_ownership.py", "gateway/pwa_http.py", "hermes_state_pwa.py", "hermes_state_models.py",
+           "gateway/pwa_inspector.py", "gateway/native_inspector_payload.py",
            "gateway/pwa_history_scan.py", "gateway/pwa_images.py", "gateway/pwa_image_http.py", "gateway/pwa_image_policy.py",
            "gateway/pwa_workload.py", "gateway/config.py", "hermes_cli/config_defaults.py",
            "gateway/telegram_conversations.py", "hermes_state_delivery.py", "gateway/authz_mixin.py",
@@ -39,6 +40,7 @@ NEW_RUNTIME = ("gateway/permission_grants.py", "plugins/platforms/telegram/grant
                "plugins/platforms/a2a/provenance.py", "plugins/platforms/a2a/streaming.py", "gateway/permission_bridge.py",
                "gateway/conversation_control.py", "gateway/native_commands.py", "hermes_state_commands.py",
                "gateway/pwa_config.py", "gateway/pwa_models.py", "gateway/pwa_ownership.py", "gateway/pwa_http.py", "hermes_state_pwa.py", "hermes_state_models.py",
+               "gateway/pwa_inspector.py", "gateway/native_inspector_payload.py",
            "gateway/pwa_history_scan.py", "gateway/pwa_images.py", "gateway/pwa_image_http.py", "gateway/pwa_image_policy.py",
                "gateway/pwa_workload.py", "gateway/native_events.py", "hermes_state_events.py",
                "gateway/telegram_conversations.py", "hermes_state_delivery.py", "hermes_state_pwa_scan.py")
