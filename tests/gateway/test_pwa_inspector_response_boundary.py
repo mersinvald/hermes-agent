@@ -181,3 +181,95 @@ def test_boundary_normalization_preserves_response_and_tool_names(monkeypatch, m
         assert normalized.tool_calls[0].name == "read_file"
     else:
         assert normalized.finish_reason == "content_filter"
+
+
+@pytest.mark.parametrize("stop_reason,partial,completed", [
+    ("end_turn", False, True),
+    ("refusal", False, False),
+    ("end_turn", True, False),
+    ("tool_use", False, False),  # Empty nonterminal content is invalid.
+])
+def test_anthropic_empty_terminal_boundary(monkeypatch, stop_reason, partial, completed):
+    from hermes_cli.observability import native_inspector
+    from agent.transports.anthropic import AnthropicTransport
+
+    response = SimpleNamespace(content=[], stop_reason=stop_reason, usage=None)
+    if partial:
+        response.id = PARTIAL_STREAM_STUB_ID
+    actor = SimpleNamespace(
+        session_id="session", model="requested/model", provider="anthropic",
+        api_mode="anthropic_messages", _is_anthropic_oauth=False,
+        _get_transport=AnthropicTransport, _usage_summary_for_api_request_hook=lambda response: None,
+    )
+    captured = []
+    monkeypatch.setattr(native_inspector, "handles_hook", lambda name: True)
+    monkeypatch.setattr(native_inspector, "observe_lifecycle", lambda name, **values: captured.append(values))
+    native_inspector.observe_response(actor, response, api_request_id="request", started_at=1, ended_at=2, retry_count=0)
+    assert captured[0]["response_completed"] is completed
+    assert response.content == []
+
+
+@pytest.mark.parametrize("mode,raw,expected", [
+    ("chat_completions", {"prompt_tokens": 19}, (19, None)),
+    ("chat_completions", {"completion_tokens": 7}, (None, 7)),
+    ("chat_completions", {"prompt_tokens": 0, "completion_tokens": 0}, (0, 0)),
+    ("chat_completions", {"input_tokens": 19}, (19, None)),
+    ("anthropic_messages", {"input_tokens": 19}, (19, None)),
+    ("codex_responses", {"input_tokens": 19, "output_tokens": 0}, (19, 0)),
+])
+def test_partial_usage_keeps_missing_buckets_unknown(monkeypatch, mode, raw, expected):
+    from hermes_cli.observability import native_inspector
+    from agent.transports import get_transport
+    from run_agent import AIAgent
+
+    response = _mock_response(content="PRIVATE partial reply", finish_reason="length")
+    response.id, response.usage = PARTIAL_STREAM_STUB_ID, SimpleNamespace(**raw)
+    response.content, response.stop_reason = [], "end_turn"
+    response.output = []
+    actor = SimpleNamespace(
+        session_id="session", model="requested/model", provider="custom", api_mode=mode,
+        _get_transport=lambda: get_transport(mode),
+    )
+    actor._usage_summary_for_api_request_hook = lambda response: AIAgent._usage_summary_for_api_request_hook(actor, response)
+    captured = []
+    monkeypatch.setattr(native_inspector, "handles_hook", lambda name: True)
+    monkeypatch.setattr(native_inspector, "observe_lifecycle", lambda name, **values: captured.append(values))
+    native_inspector.observe_response(actor, response, api_request_id="request", started_at=1, ended_at=2, retry_count=0)
+    assert captured[0]["response_completed"] is False
+    assert tuple(captured[0]["usage"][field] for field in ("input_tokens", "output_tokens")) == expected
+
+
+@pytest.mark.asyncio
+async def test_rebuilt_request_start_keeps_logical_duration_consistent(monkeypatch, tmp_path, agent):
+    from datetime import datetime
+    from hermes_cli.lifecycle import invoke_hook
+    from hermes_cli.observability.native_inspector import observe_response
+
+    async with service(monkeypatch, tmp_path, models=model_config()) as (server, client, native):
+        db, root = native[2], native[4].session_id
+        owner = server.ingress._command_owner
+        db.native_execution_open(root, "rebuilt-turn", owner, origin="pwa")
+        agent.session_id = root
+        agent.model, agent.provider = "upstream/daily", "provider-a"
+        agent.api_mode = "chat_completions"
+        first_start = time.time() - 4
+        response = _mock_response(content="PRIVATE answer", usage={
+            "prompt_tokens": 19, "completion_tokens": 5, "total_tokens": 24,
+        })
+        response.model = "upstream/daily"
+        with scope(server, root, "rebuilt-turn"):
+            for offset in (0, 2):
+                current_start = first_start + offset
+                invoke_hook("pre_api_request", session_id=root, api_request_id="same-logical-request",
+                            started_at=current_start, retry_count=0, model=agent.model, provider=agent.provider)
+                observe_response(agent, response, api_request_id="same-logical-request",
+                                 started_at=current_start, ended_at=current_start + 0.5, retry_count=0)
+        db.native_execution_close("rebuilt-turn", owner, outcome="completed")
+        task = (await get(client, "/v1/pwa/inspector/tasks"))["rows"][0]["task_ref"]
+        facts = await get(client, f"/v1/pwa/inspector/tasks/{task}/facts")
+        assert len(facts["model_calls"]) == 1
+        call = facts["model_calls"][0]
+        assert call["attempt_count"] == 2 and call["input_tokens"] == 38
+        assert call["duration_ms"] == pytest.approx(2500)
+        parse = lambda value: datetime.fromisoformat(value.replace("Z", "+00:00"))
+        assert (parse(call["ended_at"]) - parse(call["started_at"])).total_seconds() * 1000 == pytest.approx(call["duration_ms"], abs=0.01)

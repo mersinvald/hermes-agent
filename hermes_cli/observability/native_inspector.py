@@ -131,9 +131,27 @@ def observe_response(agent, response, *, api_request_id, started_at, ended_at, r
             usable = normalized.finish_reason != "content_filter" and bool(
                 normalized.content or normalized.tool_calls or normalized.reasoning
                 or normalized.finish_reason in {"length", "incomplete"}
+                # Anthropic may cleanly end after text delivered with a prior
+                # tool turn. Its validated empty end_turn is not an empty retry.
+                or (
+                    agent.api_mode == "anthropic_messages"
+                    and getattr(response, "stop_reason", None) == "end_turn"
+                )
             )
         except (AttributeError, TypeError, ValueError, RuntimeError):
             valid = False
+    usage = agent._usage_summary_for_api_request_hook(response)
+    if usage is not None:
+        # Canonical accounting treats omitted buckets as zero. Inspector must
+        # distinguish those defaults from a provider-reported zero, including
+        # a partial stream that delivered only one usage bucket before failing.
+        raw = getattr(response, "usage", None)
+        get = raw.get if isinstance(raw, dict) else lambda key: getattr(raw, key, None)
+        native_names = agent.api_mode in {"anthropic_messages", "codex_responses"} or agent.provider == "anthropic"
+        for field, alias in (("input_tokens", "prompt_tokens"), ("output_tokens", "completion_tokens")):
+            names = (field,) if native_names else (field, alias)
+            if not any(count(get(name)) is not None for name in names):
+                usage[field] = None
     observe_lifecycle(
         "api_response_received",
         session_id=agent.session_id or "",
@@ -141,7 +159,7 @@ def observe_response(agent, response, *, api_request_id, started_at, ended_at, r
         model=agent.model,
         provider=agent.provider,
         response_model=None if partial else getattr(response, "model", None),
-        usage=agent._usage_summary_for_api_request_hook(response),
+        usage=usage,
         started_at=started_at,
         ended_at=ended_at,
         retry_count=retry_count,
@@ -203,6 +221,10 @@ def observe_lifecycle(name, **values):
     start = finite(values.get("started_at"))
     if start is None or start > now + 1:
         return
+    # Redirect/rebuild retries may reuse the logical request ID with a later
+    # api_start_time. Storage keeps the first start, so duration must use that
+    # same origin or the retained timestamps contradict the reported latency.
+    start = (previous or {}).get("started_at", start)
     attempt = count(values.get("retry_count", 0))
     response_captured = (
         previous is not None
