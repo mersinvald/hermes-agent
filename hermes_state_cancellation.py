@@ -160,7 +160,7 @@ class NativeCancellationStateMixin:
             ]
 
     def native_remote_dispatch_prepare(
-        self, origin, binding, request_id, *, task_id=None, context_id=None
+        self, origin, binding, request_id, *, task_id=None, context_id=None, caller=None
     ):
         """Reserve before outbound I/O. Lost responses retain attempted coverage.
 
@@ -223,12 +223,13 @@ class NativeCancellationStateMixin:
                 "configured_tenant",
             )
             conn.execute(
-                "INSERT INTO native_remote_dispatches(dispatch_id,conversation_id,execution_id,owner,binding_key,peer_name,configured_endpoint_fingerprint,rpc_endpoint,protocol_version,tenant,configured_tenant,request_id,phase,task_id,context_id,recorded_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO native_remote_dispatches(dispatch_id,conversation_id,execution_id,owner,caller_agent_ref,caller_parent_agent_ref,caller_role,binding_key,peer_name,configured_endpoint_fingerprint,rpc_endpoint,protocol_version,tenant,configured_tenant,request_id,phase,task_id,context_id,recorded_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (
                     identity,
                     origin.conversation_id,
                     origin.execution_id,
                     origin.owner,
+                    *(caller[:3] if caller else (None, None, None)),
                     key,
                     *(values[k] for k in fields),
                     request_id,

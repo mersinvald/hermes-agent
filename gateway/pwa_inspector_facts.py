@@ -29,15 +29,15 @@ WITH executions AS (
  WHEN r.observed_state='canceled' THEN 'cancelled'
  WHEN r.observed_state IN ('submitted','working','input-required') THEN 'running' ELSE 'unknown' END,
  'configured_endpoint_fingerprint',r.configured_endpoint_fingerprint,'configured_tenant',r.configured_tenant,
+ 'agent_ref',r.caller_agent_ref,'parent_agent_ref',r.caller_parent_agent_ref,'agent_role',r.caller_role,
  'role','specialist','peer_name',CASE WHEN r.binding_key IS NOT NULL AND r.configured_endpoint_fingerprint IS NOT NULL THEN r.peer_name END,'duration_ms',MAX(0,(r.updated_at-r.recorded_at)*1000))
  FROM native_remote_dispatches r JOIN executions e USING(execution_id)
 ), normalized AS (
  SELECT f.*,
- CASE WHEN f.kind='a2a' THEN NULL
- WHEN f.kind='local' THEN CASE WHEN json_extract(body,'$.parent_agent_ref')=e.facts_ref THEN 'primary' ELSE json_extract(body,'$.parent_agent_ref') END
+ CASE WHEN f.kind='local' THEN CASE WHEN json_extract(body,'$.parent_agent_ref')=e.facts_ref THEN 'primary' ELSE json_extract(body,'$.parent_agent_ref') END
  ELSE CASE WHEN json_extract(body,'$.agent_ref')=e.facts_ref THEN 'primary' ELSE json_extract(body,'$.agent_ref') END END agent_ref,
- CASE WHEN f.kind='a2a' THEN NULL WHEN f.kind='local' THEN json_extract(body,'$.parent_role') ELSE json_extract(body,'$.role') END agent_role,
- CASE WHEN f.kind='a2a' THEN NULL WHEN f.kind='local' THEN CASE WHEN json_extract(body,'$.parent_parent_agent_ref')=e.facts_ref THEN 'primary' ELSE json_extract(body,'$.parent_parent_agent_ref') END
+ CASE WHEN f.kind='a2a' THEN json_extract(body,'$.agent_role') WHEN f.kind='local' THEN json_extract(body,'$.parent_role') ELSE json_extract(body,'$.role') END agent_role,
+ CASE WHEN f.kind='local' THEN CASE WHEN json_extract(body,'$.parent_parent_agent_ref')=e.facts_ref THEN 'primary' ELSE json_extract(body,'$.parent_parent_agent_ref') END
  ELSE CASE WHEN json_extract(body,'$.parent_agent_ref')=e.facts_ref THEN 'primary' ELSE json_extract(body,'$.parent_agent_ref') END END parent_agent_ref,
  CASE WHEN json_extract(body,'$.state')='running' AND e.state!='open'
  THEN 'unknown' ELSE json_extract(body,'$.state') END outcome,
@@ -299,9 +299,8 @@ class InspectorFacts:
                         "participant", fact["binding_key"] or fact["dispatch_id"]
                     ),
                     invocation_ref=ref("dispatch", fact["dispatch_id"]),
-                    # The dispatch proves execution membership, not which
-                    # local agent invoked it. Keep caller attribution unknown.
-                    parent_agent_ref=None,
+                    parent_agent_ref=agent_ref(fact["caller_agent_ref"])
+                    if fact.get("caller_agent_ref") else None,
                     kind="agent",
                     role="specialist",
                     delegation_kind="a2a",

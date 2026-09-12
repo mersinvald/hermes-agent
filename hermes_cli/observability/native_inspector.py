@@ -95,8 +95,62 @@ def labels(provider, values):
     }
 
 
+def observe_response(agent, response, *, api_request_id, started_at, ended_at, retry_count):
+    """Capture received bytes without changing public hooks or retry accounting.
+
+    A stream recovery stub is local salvage, not a completed provider response.
+    Provider usage is retained even when the response cannot be used; missing
+    usage stays unknown. Only the existing accounting path can supply cost.
+    """
+    if not handles_hook("post_api_request") or response is None:
+        return
+    from hermes_constants import PARTIAL_STREAM_STUB_ID
+
+    partial = getattr(response, "id", None) == PARTIAL_STREAM_STUB_ID
+    transport = agent._get_transport()
+    valid = transport.validate_response(response)
+    if agent.api_mode == "codex_responses":
+        from copy import copy
+
+        # Codex normalization can backfill .output from output_text or a
+        # refusal. The observer must not mutate the response the loop consumes.
+        normalized_source = copy(response)
+        if getattr(response, "status", None) not in {"failed", "cancelled"}:
+            text = getattr(response, "output_text", None)
+            valid = valid or (isinstance(text, str) and bool(text.strip()))
+    else:
+        normalized_source = response
+    usable = False
+    if valid and not partial:
+        kwargs = (
+            {"strip_tool_prefix": agent._is_anthropic_oauth}
+            if agent.api_mode == "anthropic_messages" else {}
+        )
+        try:
+            normalized = transport.normalize_response(normalized_source, **kwargs)
+            usable = normalized.finish_reason != "content_filter" and bool(
+                normalized.content or normalized.tool_calls or normalized.reasoning
+                or normalized.finish_reason in {"length", "incomplete"}
+            )
+        except (AttributeError, TypeError, ValueError, RuntimeError):
+            valid = False
+    observe_lifecycle(
+        "api_response_received",
+        session_id=agent.session_id or "",
+        api_request_id=api_request_id,
+        model=agent.model,
+        provider=agent.provider,
+        response_model=None if partial else getattr(response, "model", None),
+        usage=agent._usage_summary_for_api_request_hook(response),
+        started_at=started_at,
+        ended_at=ended_at,
+        retry_count=retry_count,
+        response_completed=bool(valid and not partial and usable),
+    )
+
+
 def observe_lifecycle(name, **values):
-    if name not in HOOKS:
+    if name not in HOOKS and name != "api_response_received":
         return
     native = context()
     if native is None:
@@ -150,6 +204,10 @@ def observe_lifecycle(name, **values):
     if start is None or start > now + 1:
         return
     attempt = count(values.get("retry_count", 0))
+    response_captured = (
+        previous is not None
+        and previous.get("response_attempt") == previous["attempt_count"]
+    )
     facts = dict(
         agent_ref=agent[0],
         parent_agent_ref=agent[1],
@@ -163,6 +221,12 @@ def observe_lifecycle(name, **values):
         **labels(provider, values),
     )
     if name == "pre_api_request":
+        # Some received-response retries (truncated tool arguments) reuse the
+        # loop's retry_count. Count actual dispatches, not only error retries.
+        if previous:
+            facts["attempt_count"] = max(
+                facts["attempt_count"], previous["attempt_count"] + 1
+            )
         facts.update(
             state="running",
             ended_at=None,
@@ -172,13 +236,14 @@ def observe_lifecycle(name, **values):
             cost=None,
             error_code=None,
             status_code=None,
+            response_attempt=None,
         )
     else:
         end = finite(values.get("ended_at"))
         if end is None or end < start or end > now + 1:
             return
         facts.update(ended_at=end, duration_ms=(end - start) * 1000)
-        if name == "post_api_request":
+        if name in {"post_api_request", "api_response_received"}:
             usage = values.get("usage") or {}
             cost = values.get("accounting_cost")
             if not (
@@ -190,6 +255,15 @@ def observe_lifecycle(name, **values):
                 and cost.get("source") == "native_accounting"
             ):
                 cost = None
+            if response_captured:
+                # The normal post hook enriches a response already captured at
+                # receipt. Never finish/count it again or overwrite its outcome.
+                if (
+                    name == "post_api_request" and cost is not None
+                    and previous.get("received_response_count", 0) <= 1
+                ):
+                    db.native_inspector_record(origin, "model", identity, dict(cost=cost))
+                return
             facts.update(
                 state="completed",
                 input_tokens=count(usage.get("input_tokens")),
@@ -198,6 +272,29 @@ def observe_lifecycle(name, **values):
                 error_code=None,
                 status_code=None,
             )
+            if name == "api_response_received":
+                facts["response_attempt"] = facts["attempt_count"]
+                facts["received_response_count"] = (
+                    (previous or {}).get("received_response_count", 0) + 1
+                )
+                # A logical request may receive several truncated tool replies.
+                # Sum known usage once per receipt; an unknown bucket keeps the
+                # logical total unknown instead of understating the spend.
+                for field in ("input_tokens", "output_tokens"):
+                    prior = (previous or {}).get("received_" + field, 0)
+                    current = facts[field]
+                    facts[field] = (
+                        count(prior + current)
+                        if prior is not None and current is not None else None
+                    )
+                    facts["received_" + field] = facts[field]
+                if not values.get("response_completed"):
+                    facts.update(
+                        state="failed", error_code="provider_error",
+                        failed_attempt_count=facts["failed_attempt_count"] + 1,
+                        last_error_attempt=facts["attempt_count"],
+                        last_attempt_error_code="provider_error",
+                    )
         else:
             status = count(values.get("status_code"))
             status = status if status is not None and 100 <= status <= 599 else None
@@ -234,6 +331,17 @@ def observe_lifecycle(name, **values):
                 error_code=code,
                 status_code=status,
             )
+            if response_captured:
+                # HTTP-200 refusals and later processing errors still have an
+                # actual response; retain its measured usage, route and latency.
+                for field in (
+                    "actual_model", "input_tokens", "output_tokens", "cost",
+                    "ended_at", "duration_ms",
+                ):
+                    facts[field] = previous.get(field)
+            elif previous and previous.get("received_response_count"):
+                for field in ("input_tokens", "output_tokens"):
+                    facts[field] = previous.get("received_" + field)
     db.native_inspector_record(origin, "model", identity, facts)
 
 

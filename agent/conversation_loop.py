@@ -3378,6 +3378,19 @@ def run_conversation(
                         if _model_request_active is not None:
                             _model_request_active.clear()
                         _redirect_crossed_response = agent._has_pending_redirect()
+                # Native capture belongs to the provider-return boundary. Length
+                # continuations, refusals and crossed redirects can leave before
+                # the ordinary post hook/accounting path below.
+                try:
+                    from hermes_cli.observability.native_inspector import observe_response
+
+                    observe_response(
+                        agent, response, api_request_id=api_request_id,
+                        started_at=api_start_time, ended_at=time.time(),
+                        retry_count=retry_count,
+                    )
+                except Exception:
+                    logger.debug("Native response observation unavailable", exc_info=True)
                 if _redirect_crossed_response:
                     # The response and redirect can cross on different threads:
                     # redirect() observed the request as active just before this

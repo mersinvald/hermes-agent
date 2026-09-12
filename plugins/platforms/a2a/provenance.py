@@ -113,11 +113,26 @@ def prepare_dispatch(
         return None
     origin, controller = context
     binding = _binding(agent_label, peer, endpoint, version, tenant)
+    # AIAgent.run_conversation binds the real executing agent, and native tool
+    # workers copy that context. Model arguments and remote replies cannot name
+    # this caller. Older/unbound dispatch paths remain unattributed.
+    from agent.subagent_lifecycle import get_active_subagent_parent
+
+    caller = None
+    try:
+        active = get_active_subagent_parent()
+        if active is not None and isinstance(getattr(active, "session_id", None), str):
+            caller = controller.db.native_inspector_agent(origin, active.session_id)
+            if caller and getattr(active, "is_subagent", False) and caller[2] == "primary":
+                caller = None  # An uncaptured child must never be promoted to root.
+    except Exception:
+        logger.debug("Native dispatch caller observation unavailable", exc_info=True)
     identity = controller.db.native_remote_dispatch_prepare(
         origin,
         binding,
         request_id,
         task_id=task_id or None,
         context_id=context_id or None,
+        caller=caller,
     )
     return DispatchObservation(origin, controller, identity, binding, auth_values)
