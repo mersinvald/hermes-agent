@@ -60,6 +60,7 @@ TOOLS = frozenset({
     "a2a_call",
     "a2a_list",
     "a2a_orchestrate",
+    "tool_search",
     "tool_describe",
     "delegate_task",
     "web_search",

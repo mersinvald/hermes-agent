@@ -497,12 +497,14 @@ async def test_a2a_dispatch_has_unknown_local_caller_and_current_configured_labe
     "tool_name,expected",
     [
         ("memory", "memory"),
+        ("tool_search", "tool_search"),
         ("tool_describe", "tool_describe"),
         ("a2a_list", "a2a_list"),
         (
             "mcp__hitl_fixture__fixture_set_value",
             "mcp__hitl_fixture__fixture_set_value",
         ),
+        ("tool-search", None),
         ("mcp__unreviewed__PRIVATE_TOOL", None),
     ],
 )
