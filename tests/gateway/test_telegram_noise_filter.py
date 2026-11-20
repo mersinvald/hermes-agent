@@ -255,16 +255,19 @@ def test_chat_gateways_drop_interrupt_sentinel(platform):
     assert _sanitize_gateway_final_response("local", sentinel) == sentinel
 
 
-def test_telegram_status_sanitizes_raw_provider_security_errors():
-    """Provider policy/security bodies should be replaced before chat delivery."""
+@pytest.mark.parametrize("platform", CHAT_PLATFORMS)
+def test_provider_error_status_defers_to_sanitized_final(platform):
+    """Provider errors produce one final notice without a duplicate status."""
     raw = (
         "❌ API failed after 3 retries — HTTP 400: request blocked because "
         "Operation contains cybersecurity risk. request_id=req_123"
     )
 
-    sanitized = _prepare_gateway_status_message(Platform.TELEGRAM, "lifecycle", raw)
+    assert _prepare_gateway_status_message(platform, "lifecycle", raw) is None
+    assert _prepare_gateway_status_message("local", "lifecycle", raw) == raw
+    sanitized = _sanitize_gateway_final_response(platform, raw)
 
-    assert sanitized is not None
+    assert sanitized
     assert "provider rejected" in sanitized.lower()
     assert "cybersecurity risk" not in sanitized.lower()
     assert "HTTP 400" not in sanitized

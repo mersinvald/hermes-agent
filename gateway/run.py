@@ -1054,7 +1054,9 @@ def _prepare_gateway_status_message(platform: Any, event_type: str, message: str
         ):
             return None
     if _looks_like_gateway_provider_error(text):
-        return _gateway_provider_error_reply(text)
+        # The final response carries the sanitized terminal error. Sending it
+        # as status too duplicates the notice and can announce failure mid-retry.
+        return None
     return text
 
 
