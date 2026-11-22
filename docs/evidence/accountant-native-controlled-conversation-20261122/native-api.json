@@ -1,0 +1,93 @@
+{
+  "AIAgent.__init__": "(self, base_url: str = None, api_key: str = None, provider: str = None, api_mode: str = None, acp_command: str = None, acp_args: list[str] | None = None, command: str = None, args: list[str] | None = None, model: str = '', max_iterations: int = 9223372036854775807, tool_delay: float = None, enabled_toolsets: List[str] = None, disabled_toolsets: List[str] = None, save_trajectories: bool = False, verbose_logging: bool = False, quiet_mode: bool = False, tool_progress_mode: str = 'all', ephemeral_system_prompt: str = None, log_prefix_chars: int = 100, log_prefix: str = '', providers_allowed: List[str] = None, providers_ignored: List[str] = None, providers_order: List[str] = None, provider_sort: str = None, provider_require_parameters: bool = False, provider_data_collection: str = None, openrouter_min_coding_score: Optional[float] = None, session_id: str = None, tool_progress_callback: <built-in function callable> = None, tool_start_callback: <built-in function callable> = None, tool_complete_callback: <built-in function callable> = None, thinking_callback: <built-in function callable> = None, reasoning_callback: <built-in function callable> = None, clarify_callback: <built-in function callable> = None, read_terminal_callback: <built-in function callable> = None, read_preview_callback: <built-in function callable> = None, drive_preview_callback: <built-in function callable> = None, read_window_below_callback: <built-in function callable> = None, setup_mcp_callback: <built-in function callable> = None, tour_callback: <built-in function callable> = None, step_callback: <built-in function callable> = None, stream_delta_callback: <built-in function callable> = None, interim_assistant_callback: <built-in function callable> = None, tool_gen_callback: <built-in function callable> = None, status_callback: <built-in function callable> = None, notice_callback: <built-in function callable> = None, notice_clear_callback: <built-in function callable> = None, event_callback: Optional[Callable[[str, dict], NoneType]] = None, reaction_callback: Optional[Callable[[str], NoneType]] = None, max_tokens: int = None, reasoning_config: Dict[str, Any] = None, service_tier: str = None, request_overrides: Dict[str, Any] = None, prefill_messages: List[Dict[str, Any]] = None, platform: str = None, user_id: str = None, user_id_alt: str = None, user_name: str = None, chat_id: str = None, chat_name: str = None, chat_type: str = None, thread_id: str = None, gateway_session_key: str = None, skip_context_files: bool = False, load_soul_identity: bool = False, skip_memory: bool = False, skip_background_review: bool = False, session_db=None, parent_session_id: str = None, iteration_budget: 'IterationBudget' = None, run_budget_seconds: Optional[float] = None, fallback_model: Dict[str, Any] = None, credential_pool=None, checkpoints_enabled: bool = False, checkpoint_max_snapshots: int = 20, checkpoint_max_total_size_mb: int = 500, checkpoint_max_file_size_mb: int = 10, pass_session_id: bool = False, requested_provider: str = None, capabilities: Optional[Dict[str, bool]] = None, *, controlled_main: 'NativeMainPayloadAdapter | None' = None)",
+  "init_agent": "(agent, base_url: 'str' = None, api_key: 'str' = None, provider: 'str' = None, api_mode: 'str' = None, acp_command: 'str' = None, acp_args: 'list[str] | None' = None, command: 'str' = None, args: 'list[str] | None' = None, model: 'str' = '', max_iterations: 'int' = 9223372036854775807, enabled_toolsets: 'List[str]' = None, disabled_toolsets: 'List[str]' = None, save_trajectories: 'bool' = False, verbose_logging: 'bool' = False, quiet_mode: 'bool' = False, tool_progress_mode: 'str' = 'all', ephemeral_system_prompt: 'str' = None, log_prefix_chars: 'int' = 100, log_prefix: 'str' = '', providers_allowed: 'List[str]' = None, providers_ignored: 'List[str]' = None, providers_order: 'List[str]' = None, provider_sort: 'str' = None, provider_require_parameters: 'bool' = False, provider_data_collection: 'str' = None, openrouter_min_coding_score: 'Optional[float]' = None, session_id: 'str' = None, tool_progress_callback: 'callable' = None, tool_start_callback: 'callable' = None, tool_complete_callback: 'callable' = None, thinking_callback: 'callable' = None, reasoning_callback: 'callable' = None, clarify_callback: 'callable' = None, read_terminal_callback: 'callable' = None, read_preview_callback: 'callable' = None, drive_preview_callback: 'callable' = None, read_window_below_callback: 'callable' = None, setup_mcp_callback: 'callable' = None, tour_callback: 'callable' = None, step_callback: 'callable' = None, stream_delta_callback: 'callable' = None, interim_assistant_callback: 'callable' = None, tool_gen_callback: 'callable' = None, status_callback: 'callable' = None, notice_callback: 'callable' = None, notice_clear_callback: 'callable' = None, event_callback: 'Optional[Callable[[str, dict], None]]' = None, reaction_callback: 'Optional[Callable[[str], None]]' = None, max_tokens: 'int' = None, reasoning_config: 'Dict[str, Any]' = None, service_tier: 'str' = None, request_overrides: 'Dict[str, Any]' = None, prefill_messages: 'List[Dict[str, Any]]' = None, platform: 'str' = None, user_id: 'str' = None, user_id_alt: 'str' = None, user_name: 'str' = None, chat_id: 'str' = None, chat_name: 'str' = None, chat_type: 'str' = None, thread_id: 'str' = None, gateway_session_key: 'str' = None, skip_context_files: 'bool' = False, load_soul_identity: 'bool' = False, skip_memory: 'bool' = False, skip_background_review: 'bool' = False, session_db=None, parent_session_id: 'str' = None, iteration_budget: \"'IterationBudget'\" = None, run_budget_seconds: 'Optional[float]' = None, fallback_model: 'Dict[str, Any]' = None, credential_pool=None, checkpoints_enabled: 'bool' = False, checkpoint_max_snapshots: 'int' = 20, checkpoint_max_total_size_mb: 'int' = 500, checkpoint_max_file_size_mb: 'int' = 10, pass_session_id: 'bool' = False, requested_provider: 'str' = None, capabilities: 'Optional[Dict[str, bool]]' = None, *, controlled_main: \"'NativeMainPayloadAdapter | None'\" = None)",
+  "AIAgent.run_conversation": "(self, user_message: Any, system_message: str = None, conversation_history: List[Dict[str, Any]] = None, task_id: str = None, stream_callback: Optional[<built-in function callable>] = None, persist_user_message: Optional[Any] = None, persist_user_timestamp: Optional[float] = None, persist_user_display_kind: Optional[str] = None, persist_user_display_metadata: Optional[Dict[str, Any]] = None, moa_config: Optional[dict[str, Any]] = None) -> Dict[str, Any]",
+  "run_conversation": "(agent, user_message: 'Any', system_message: 'str' = None, conversation_history: 'List[Dict[str, Any]]' = None, task_id: 'str' = None, stream_callback: 'Optional[callable]' = None, persist_user_message: 'Optional[Any]' = None, persist_user_timestamp: 'Optional[float]' = None, persist_user_display_kind: 'Optional[str]' = None, persist_user_display_metadata: 'Optional[Dict[str, Any]]' = None, moa_config: 'Optional[dict[str, Any]]' = None) -> 'Dict[str, Any]'",
+  "_try_controlled_text_turn": "(agent, user_message, system_message=None, conversation_history=None, task_id=None, stream_callback=None, persist_user_message=None, persist_user_timestamp=None, persist_user_display_kind=None, persist_user_display_metadata=None, moa_config=None) -> 'tuple[bool, dict | None]'",
+  "_bind_constructed_main": "(agent, adapter: 'NativeMainPayloadAdapter') -> 'None'",
+  "_complete_controlled_turn": "(agent, *, turn_context: 'TurnContext', response: 'NativeMainResponse') -> 'dict'",
+  "_close_constructed_main": "(agent) -> 'bool'",
+  "bind_controlled_main": "(context: 'NativeContentContext', *, selection: 'NativeSelectionPort', result_policy: 'NativeResultPolicyPort', producer_ref: 'str', main_route_ref: 'str', profiles: 'tuple[ProfilePolicy, ...]', routes: 'tuple[RouteBinding, ...]', transports: 'tuple[tuple[str, TransportPort], ...]', clock: 'Callable[[], int]') -> 'NativeMainPayloadAdapter'",
+  "NativeMainPayloadAdapter.__init__": "(self, context: 'NativeContentContext', *, selection: 'NativeSelectionPort', result_policy: 'NativeResultPolicyPort', producer_ref: 'str', main_route_ref: 'str', profiles: 'tuple[ProfilePolicy, ...]', routes: 'tuple[RouteBinding, ...]', transports: 'tuple[tuple[str, TransportPort], ...]', clock: 'Callable[[], int]') -> 'None'",
+  "NativeMainPayloadAdapter.admit_turn": "(self, agent: 'object', *, user_message: 'str', system_message: 'str | None', conversation_history: 'list[dict[str, str]] | None', task_id: 'str') -> 'NativeTurnInput'",
+  "NativeMainPayloadAdapter.seal_turn": "(self, agent: 'object', turn: 'NativeTurnInput', *, turn_context: 'TurnContext') -> 'NativePreparedTurn'",
+  "NativeMainPayloadAdapter.prepared_request": "(self, agent: 'object', prepared: 'NativePreparedTurn') -> 'dict'",
+  "NativeMainPayloadAdapter.dispatch": "(self, agent: 'object', api_kwargs: 'dict') -> 'NativeMainResponse'",
+  "NativeMainInvocation": [
+    {
+      "name": "request_handle",
+      "annotation": "object"
+    },
+    {
+      "name": "source",
+      "annotation": "ExecutionBinding"
+    },
+    {
+      "name": "selection",
+      "annotation": "NativeMainSelection"
+    },
+    {
+      "name": "producer_policy",
+      "annotation": "NativeResultPolicy"
+    },
+    {
+      "name": "request_bytes",
+      "annotation": "bytes"
+    },
+    {
+      "name": "request_content",
+      "annotation": "ContentHandle"
+    },
+    {
+      "name": "envelope",
+      "annotation": "DispatchEnvelope"
+    },
+    {
+      "name": "observed_destination",
+      "annotation": "Destination"
+    },
+    {
+      "name": "response_bytes",
+      "annotation": "bytes"
+    },
+    {
+      "name": "result_content",
+      "annotation": "ContentHandle"
+    },
+    {
+      "name": "native_response",
+      "annotation": "NativeMainResponse"
+    }
+  ],
+  "result_fields": [
+    "final_response",
+    "last_reasoning",
+    "messages",
+    "api_calls",
+    "completed",
+    "turn_exit_reason",
+    "failed",
+    "partial",
+    "interrupted",
+    "response_transformed",
+    "pre_transform_response",
+    "response_previewed",
+    "model",
+    "provider",
+    "base_url",
+    "input_tokens",
+    "output_tokens",
+    "cache_read_tokens",
+    "cache_write_tokens",
+    "reasoning_tokens",
+    "prompt_tokens",
+    "completion_tokens",
+    "total_tokens",
+    "last_prompt_tokens",
+    "estimated_cost_usd",
+    "cost_status",
+    "cost_source",
+    "service_tier",
+    "session_id"
+  ]
+}

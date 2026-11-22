@@ -27,7 +27,7 @@ import threading
 import time
 import uuid
 from datetime import datetime
-from typing import Any, Callable, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional
 from urllib.parse import parse_qs, urlparse, urlunparse
 
 from agent.context_compressor import ContextCompressor
@@ -53,6 +53,10 @@ from hermes_cli.route_identity import normalize_route_base_url
 from hermes_cli.timeouts import get_provider_request_timeout
 from hermes_constants import get_hermes_home
 from utils import base_url_host_matches, is_truthy_value
+
+if TYPE_CHECKING:
+    from agent.native_main_payload import NativeMainPayloadAdapter
+
 
 # Use the same logger name as run_agent so tests patching ``run_agent.logger``
 # capture our warnings.  (run_agent.py also does
@@ -614,6 +618,8 @@ def init_agent(
     pass_session_id: bool = False,
     requested_provider: str = None,
     capabilities: Optional[Dict[str, bool]] = None,
+    *,
+    controlled_main: "NativeMainPayloadAdapter | None" = None,
 ):
     """
     Initialize the AI Agent.
@@ -664,6 +670,20 @@ def init_agent(
             identity even when skip_context_files=True. Project context files from the cwd
             remain skipped.
     """
+    from agent.native_main_payload import (
+        _bind_constructed_main, _controlled_attempt, _initialize_controlled_main,
+        _validate_constructor_options, _invalidate_constructed_attempt,
+    )
+    if _controlled_attempt(agent, controlled_main, provider):
+        options = _validate_constructor_options(agent, controlled_main, locals())
+        try:
+            _initialize_controlled_main(agent, options)
+            _bind_constructed_main(agent, controlled_main)
+        except BaseException:
+            _invalidate_constructed_attempt(agent, controlled_main)
+            raise
+        return
+
     _install_safe_stdio()
 
     agent.model = model

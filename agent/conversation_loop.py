@@ -1896,6 +1896,59 @@ def _notify_context_engine_turn_complete(
         )
 
 
+def _try_controlled_text_turn(
+    agent, user_message, system_message=None, conversation_history=None,
+    task_id=None, stream_callback=None, persist_user_message=None,
+    persist_user_timestamp=None, persist_user_display_kind=None,
+    persist_user_display_metadata=None, moa_config=None,
+) -> tuple[bool, dict | None]:
+    """Run one constructed controlled turn before ordinary lifecycle calls."""
+    from agent.content_policy import content_policy_scope
+    from agent.native_main_payload import (
+        _complete_controlled_turn, _constructed_adapter, _controlled_attempt,
+        _invalidate_constructed_attempt, _require,
+    )
+    if not _controlled_attempt(agent):
+        return False, None
+    try:
+        adapter = _constructed_adapter(agent)
+        with content_policy_scope(adapter._context):
+            with adapter._turn_operation(agent):
+                _require(all(value is None for value in (
+                    stream_callback, persist_user_message, persist_user_timestamp,
+                    persist_user_display_kind, persist_user_display_metadata, moa_config,
+                )))
+                if adapter._completions:
+                    _require(conversation_history is adapter._completions[-1].result["messages"])
+            token = adapter.admit_turn(
+                agent, user_message=user_message, system_message=system_message,
+                conversation_history=conversation_history, task_id=task_id,
+            )
+            turn = build_turn_context(
+                agent, user_message, system_message, conversation_history, task_id,
+                stream_callback, persist_user_message, persist_user_timestamp,
+                persist_user_display_kind=persist_user_display_kind,
+                persist_user_display_metadata=persist_user_display_metadata,
+                restore_or_build_system_prompt=_restore_or_build_system_prompt,
+                install_safe_stdio=_install_safe_stdio,
+                sanitize_surrogates=_sanitize_surrogates,
+                summarize_user_message_for_log=_summarize_user_message_for_log,
+                set_session_context=set_session_context,
+                set_current_write_origin=set_current_write_origin, ra=_ra,
+                controlled_input=token,
+            )
+            request = adapter.prepared_request(agent, turn.controlled_prepared)
+            from agent.chat_completion_helpers import interruptible_api_call
+            response = interruptible_api_call(agent, request)
+            result = _complete_controlled_turn(agent, turn_context=turn, response=response)
+        with adapter._turn_operation(agent):
+            adapter._verify_completions()
+        return True, result
+    except BaseException:
+        _invalidate_constructed_attempt(agent)
+        raise
+
+
 def run_conversation(
     agent,
     user_message: Any,
@@ -1937,6 +1990,13 @@ def run_conversation(
     Returns:
         Dict: Complete conversation result with final response and message history
     """
+    controlled, result = _try_controlled_text_turn(
+        agent, user_message, system_message, conversation_history, task_id,
+        stream_callback, persist_user_message, persist_user_timestamp,
+        persist_user_display_kind, persist_user_display_metadata, moa_config,
+    )
+    if controlled:
+        return result
     from agent.content_policy import guard_native_content
     guard_native_content("main", agent)
     if moa_config is None:

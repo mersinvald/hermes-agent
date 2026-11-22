@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import math
 import re
+import sys
 import threading
 import weakref
 from collections.abc import Callable
@@ -31,7 +32,9 @@ from agent.message_sanitization import _sanitize_surrogates as _NATIVE_SANITIZER
 
 _ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", re.ASCII)
 _MAX_INT = (1 << 53) - 1
+_MAX_NATIVE_RESULT = 262_144
 _adapters = weakref.WeakSet()
+_constructed_bindings = weakref.WeakSet()
 
 
 class NativeTurnInput:
@@ -541,6 +544,9 @@ class NativeMainPayloadAdapter:
         self._turn_agent = self._turn_arguments = self._turn_state = self._turn_facts = None
         self._turn_raw = self._turn_options = None
         self._turn_frames = ()
+        self._constructed = None
+        self._completions = ()
+        self._completion_anchors = ()
         self._turn_pending = None
         self._system_prefix = ()
         context._controlled_main_payload = self
@@ -616,9 +622,12 @@ class NativeMainPayloadAdapter:
     def _invalidate(self):
         self._invalid = True
         self._turn_pending = None
-        self._bound_context._denied = True
+        if type(self._bound_context) is NativeContentContext:
+            self._bound_context._denied = True
 
     def _identity(self):
+        if self._constructed is not None:
+            _verify_constructed(self._constructed)
         context = self._context
         _require(context is self._bound_context)
         _require(not self._invalid and not context._denied)
@@ -643,6 +652,7 @@ class NativeMainPayloadAdapter:
         self._identity()
         self._verify_records()
         self._verify_turns()
+        self._verify_completions()
         source = self._admission.current(self._handle)
         source_row = _binding(source)
         selected = self._selection_port.current(self._handle)
@@ -733,6 +743,25 @@ class NativeMainPayloadAdapter:
                 _require(all(a is b for a, b in zip(actual, frame.output_anchors)))
                 _require(frame.output.controlled_prepared is frame.prepared)
 
+    def _verify_completions(self):
+        _require(type(self._completions) is tuple and len(self._completions) <= 8)
+        _require(type(self._completion_anchors) is tuple)
+        _require(len(self._completions) == len(self._completion_anchors))
+        for index, completion in enumerate(self._completions):
+            anchor = self._completion_anchors[index]
+            _require(completion is anchor[0])
+            _require(all(a is b for a, b in zip(
+                (completion.frame, completion.invocation, completion.parents, completion.payload,
+                 completion.content, completion.result, completion.anchors), anchor[1:])))
+            _require(type(completion) is _NativeCompletion)
+            _require(completion.frame is self._turn_frames[index])
+            _require(completion.invocation is self._records[index])
+            _require(type(completion.payload) is bytes and len(completion.payload) <= _MAX_NATIVE_RESULT)
+            _require(_native_result_bytes(completion.result) == completion.payload)
+            actual = _native_result_anchors(completion.result)
+            _require(len(actual) == len(completion.anchors))
+            _require(all(a is b for a, b in zip(actual, completion.anchors)))
+
     def _interrupt_turn(self):
         interrupted = getattr(self._turn_agent, "_interrupt_requested", False)
         self._checkpoint()
@@ -802,7 +831,8 @@ class NativeMainPayloadAdapter:
             self._turn_state, self._turn_options = state, options
             self._turn_facts = self._checkpoint()[:3]
             admitted = self._runtime.admit(self._handle, raw)
-            parents = (admitted, *(r.result_content for r in self._records))
+            parents = (admitted, *(r.result_content for r in self._records),
+                       *(row.content for row in self._completions))
             content = (self._runtime.derive(self._handle, parents, raw, path="main")
                        if self._records else admitted)
             self._checkpoint()
@@ -862,7 +892,8 @@ class NativeMainPayloadAdapter:
             request = self._turn_request(frame)
             encoded = _json({"turn_context": json.loads(frame.output_bytes), "request": request})
             _require(len(encoded) <= 262_144)
-            parents = (frame.admitted, frame.input_content, *(r.result_content for r in self._records))
+            parents = (frame.admitted, frame.input_content, *(r.result_content for r in self._records),
+                       *(row.content for row in self._completions))
             content = self._runtime.derive(self._handle, parents, encoded, path="main")
             self._checkpoint()
             prepared = object.__new__(NativePreparedTurn)
@@ -894,7 +925,8 @@ class NativeMainPayloadAdapter:
             content = self._runtime.derive(
                 self._handle,
                 (frame.admitted, frame.input_content, frame.output_content,
-                 *(r.result_content for r in self._records)),
+                 *(r.result_content for r in self._records),
+                 *(row.content for row in self._completions)),
                 frame.request_bytes, path="main",
             )
             self._checkpoint()
@@ -968,7 +1000,8 @@ class NativeMainPayloadAdapter:
                 request_content = self._runtime.derive(
                     self._handle,
                     (frame.admitted, frame.input_content, frame.output_content,
-                     *(r.result_content for r in self._records)),
+                     *(r.result_content for r in self._records),
+                     *(row.content for row in self._completions)),
                     self._request_bytes, path="main",
                 )
             elif self._records:
@@ -1079,3 +1112,402 @@ def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, Nat
             context.invalidate()
         raise NativeContentPolicyDenied("controlled_native_adapter_missing")
     return False, None
+
+
+# Keep these defaults equal to the existing constructor API.
+_CONSTRUCTOR_DEFAULTS = {
+    'base_url': None,
+    'api_key': None,
+    'provider': None,
+    'api_mode': None,
+    'acp_command': None,
+    'acp_args': None,
+    'command': None,
+    'args': None,
+    'model': '',
+    'max_iterations': sys.maxsize,
+    'enabled_toolsets': None,
+    'disabled_toolsets': None,
+    'save_trajectories': False,
+    'verbose_logging': False,
+    'quiet_mode': False,
+    'tool_progress_mode': 'all',
+    'ephemeral_system_prompt': None,
+    'log_prefix_chars': 100,
+    'log_prefix': '',
+    'providers_allowed': None,
+    'providers_ignored': None,
+    'providers_order': None,
+    'provider_sort': None,
+    'provider_require_parameters': False,
+    'provider_data_collection': None,
+    'openrouter_min_coding_score': None,
+    'session_id': None,
+    'tool_progress_callback': None,
+    'tool_start_callback': None,
+    'tool_complete_callback': None,
+    'thinking_callback': None,
+    'reasoning_callback': None,
+    'clarify_callback': None,
+    'read_terminal_callback': None,
+    'read_preview_callback': None,
+    'drive_preview_callback': None,
+    'read_window_below_callback': None,
+    'setup_mcp_callback': None,
+    'tour_callback': None,
+    'step_callback': None,
+    'stream_delta_callback': None,
+    'interim_assistant_callback': None,
+    'tool_gen_callback': None,
+    'status_callback': None,
+    'notice_callback': None,
+    'notice_clear_callback': None,
+    'event_callback': None,
+    'reaction_callback': None,
+    'max_tokens': None,
+    'reasoning_config': None,
+    'service_tier': None,
+    'request_overrides': None,
+    'prefill_messages': None,
+    'platform': None,
+    'user_id': None,
+    'user_id_alt': None,
+    'user_name': None,
+    'chat_id': None,
+    'chat_name': None,
+    'chat_type': None,
+    'thread_id': None,
+    'gateway_session_key': None,
+    'skip_context_files': False,
+    'load_soul_identity': False,
+    'skip_memory': False,
+    'skip_background_review': False,
+    'session_db': None,
+    'parent_session_id': None,
+    'iteration_budget': None,
+    'run_budget_seconds': None,
+    'fallback_model': None,
+    'credential_pool': None,
+    'checkpoints_enabled': False,
+    'checkpoint_max_snapshots': 20,
+    'checkpoint_max_total_size_mb': 500,
+    'checkpoint_max_file_size_mb': 10,
+    'pass_session_id': False,
+    'requested_provider': None,
+    'capabilities': None,
+    "tool_delay": None,
+}
+
+
+def _namespace(agent):
+    try:
+        namespace = object.__getattribute__(agent, "__dict__")
+    except (AttributeError, TypeError):
+        return {}
+    return namespace if type(namespace) is dict else {}
+
+
+def _owned_constructed_binding(agent):
+    return next((binding for binding in _constructed_bindings if binding.agent is agent), None)
+
+
+def _controlled_attempt(agent, adapter=None, provider=None):
+    namespace = _namespace(agent)
+    if (adapter is not None or _owned_constructed_binding(agent) is not None
+            or "_native_controlled_binding" in namespace
+            or "_native_controlled_options" in namespace):
+        return True
+    provider = namespace.get("provider") if provider is None else provider
+    if type(provider) is str and provider == "synthetic_native":
+        return True
+    active = current_context()
+    attached = namespace.get("_native_content_policy_context")
+    for context in (attached, active):
+        if context is None:
+            continue
+        if type(context) is not NativeContentContext:
+            return True
+        if (context._controlled_main_bound is not False
+                or context._controlled_main_payload is not None):
+            return True
+    return False
+
+
+def _invalidate_constructed_attempt(agent, adapter=None):
+    namespace = _namespace(agent)
+    binding = _owned_constructed_binding(agent)
+    candidates = [adapter]
+    if type(binding) is _ConstructedMain and binding in _constructed_bindings:
+        candidates.append(binding.adapter)
+    for candidate in candidates:
+        if type(candidate) is NativeMainPayloadAdapter and candidate in _adapters:
+            candidate._invalidate()
+    for context in (namespace.get("_native_content_policy_context"), current_context()):
+        if type(context) is NativeContentContext:
+            context._denied = True
+            invalidate_controlled_context(context)
+
+
+def _validate_constructor_options(agent, adapter, supplied):
+    try:
+        from run_agent import AIAgent
+        _require(type(agent) is AIAgent)
+        _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
+        _require(adapter._constructed is None and adapter._turn_agent is None)
+        _require(not adapter._records and not adapter._turn_frames and not adapter._busy)
+        _require(current_context() is adapter._context)
+        _require(current_context(agent) is adapter._context)
+        supported = {"provider", "api_mode", "model", "session_id", "quiet_mode",
+                     "enabled_toolsets", "skip_memory", "skip_context_files",
+                     "skip_background_review", "max_tokens"}
+        options = {}
+        for name, default in _CONSTRUCTOR_DEFAULTS.items():
+            if name == "tool_delay" and name not in supplied:
+                continue
+            _require(name in supplied)
+            value = supplied[name]
+            if name not in supported:
+                _require(type(value) is type(default))
+                _require(value == default)
+            options[name] = value
+        for name, expected in (("provider", "synthetic_native"),
+                               ("api_mode", "chat_completions")):
+            _require(type(options[name]) is str and options[name] == expected)
+        _identifier(options["model"])
+        _identifier(options["session_id"])
+        for name in ("quiet_mode", "skip_memory", "skip_context_files", "skip_background_review"):
+            _require(options[name] is True)
+        tools = options["enabled_toolsets"]
+        _require(type(tools) is list and len(tools) == 0)
+        if options["max_tokens"] is not None:
+            _integer(options["max_tokens"], 4096)
+        snapshot = _json(options)
+        adapter.validate_scope()
+        _require(_json(options) == snapshot)
+        _require(options["model"] == adapter._selected.destination.model_ref)
+        return options
+    except BaseException:
+        _invalidate_constructed_attempt(agent, adapter)
+        raise
+
+
+def _initialize_controlled_main(agent, options):
+    """Set inert state without configuration, discovery, or resource creation."""
+    namespace = _namespace(agent)
+    _require(not namespace)
+    for name, value in options.items():
+        namespace[name] = value
+    namespace.update(
+        tools=[], valid_tool_names=set(), _persist_disabled=True,
+        compression_enabled=False, _memory_store=None, _memory_manager=None,
+        _session_db=None, context_compressor=None, _primary_runtime=None,
+        _fallback_model=None, _fallback_chain=[], prefill_messages=[],
+        _session_messages=[], request_overrides={}, _client_kwargs={},
+        client=None, _anthropic_client=None, _cached_system_prompt=None,
+        base_url="", api_key=None, _native_content_policy_required=True,
+        _native_controlled_options=_json(options),
+        _interrupt_requested=False, _interrupt_message=None,
+        _tool_interrupt_reason=None, _interrupt_thread_signal_pending=False,
+        _execution_thread_id=None, _active_request_abort=None,
+        _active_children=set(), _active_children_lock=threading.Lock(),
+        _tool_worker_threads=set(), _tool_worker_threads_lock=threading.Lock(),
+        _pending_redirect=None, _pending_redirect_lock=threading.Lock(),
+        _hard_interrupt_requested=threading.Event(),
+    )
+
+
+@dataclass(eq=False)
+class _ConstructedMain:
+    agent: object
+    adapter: NativeMainPayloadAdapter
+    state: bytes
+    anchors: tuple
+    methods: tuple
+    closed: bool = False
+
+
+def _constructed_state(namespace):
+    dynamic = {"_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason",
+               "_interrupt_thread_signal_pending"}
+    opaque = {"_native_controlled_binding", "_native_content_policy_context",
+              "_active_children_lock", "_tool_worker_threads_lock",
+              "_pending_redirect_lock", "_hard_interrupt_requested"}
+    value = {}
+    for name, item in namespace.items():
+        _require(type(name) is str)
+        if name in dynamic or name in opaque:
+            continue
+        if name == "_native_controlled_options":
+            _require(type(item) is bytes)
+            value[name] = item.decode("ascii")
+        elif name in ("valid_tool_names", "_active_children", "_tool_worker_threads"):
+            _require(type(item) is set and len(item) == 0)
+            value[name] = []
+        else:
+            _require(type(item) in (str, int, bool, list, dict, type(None)))
+            if type(item) in (list, dict):
+                _require(len(item) == 0)
+            value[name] = item
+    return _json(value)
+
+
+def _verify_constructed(binding):
+    from run_agent import AIAgent
+    _require(type(binding) is _ConstructedMain and binding in _constructed_bindings)
+    _require(type(binding.closed) is bool and binding.closed is False)
+    agent, adapter = binding.agent, binding.adapter
+    _require(type(agent) is AIAgent)
+    _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
+    namespace = _namespace(agent)
+    _require(namespace.get("_native_controlled_binding") is binding)
+    _require(adapter._constructed is binding and adapter._turn_agent is agent)
+    _require(namespace.get("_native_content_policy_context") is adapter._bound_context)
+    _require(set(namespace) == {name for name, _ in binding.anchors})
+    dynamic = {"_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason",
+               "_interrupt_thread_signal_pending"}
+    for name, original in binding.anchors:
+        if name not in dynamic:
+            _require(namespace[name] is original)
+    _require(_constructed_state(namespace) == binding.state)
+    if type(namespace["_interrupt_requested"]) is not bool:
+        raise NativeContentPolicyDenied("controlled_native_interrupt_invalid")
+    _require(type(namespace["_interrupt_thread_signal_pending"]) is bool)
+    _require(namespace["_interrupt_message"] is None)
+    reason = namespace["_tool_interrupt_reason"]
+    _require(reason is None or (type(reason) is str and reason == "user interrupt"))
+    for port, name, method in binding.methods:
+        _require(_same_method(getattr(port, name), method))
+
+
+def _bind_constructed_main(agent, adapter: NativeMainPayloadAdapter) -> None:
+    try:
+        from run_agent import AIAgent
+        from agent import conversation_loop
+        _require(type(agent) is AIAgent)
+        _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
+        _require(adapter._constructed is None and adapter._turn_agent is None)
+        _require(not adapter._records and not adapter._turn_frames)
+        _require(current_context() is adapter._bound_context)
+        adapter.validate_scope()
+        agent._native_content_policy_context = adapter._bound_context
+        binding = _ConstructedMain(agent, adapter, b"", (), ())
+        agent._native_controlled_binding = binding
+        adapter._constructed = binding
+        adapter._turn_agent = agent
+        adapter._preparation_enabled = True
+        binding.methods = tuple((port, name, _method(getattr(port, name))) for port, name in (
+            (agent, "run_conversation"), (agent, "close"), (agent, "interrupt"),
+            (agent, "_interruptible_api_call"),
+            (conversation_loop, "_try_controlled_text_turn"),
+            (conversation_loop, "build_turn_context"),
+            (sys.modules[__name__], "_complete_controlled_turn"),
+            (adapter, "_verify_completions"),
+        ))
+        binding.anchors = tuple(vars(agent).items())
+        binding.state = _constructed_state(vars(agent))
+        _constructed_bindings.add(binding)
+        adapter.validate_scope()
+    except BaseException:
+        _invalidate_constructed_attempt(agent, adapter)
+        raise
+
+
+def _constructed_adapter(agent):
+    try:
+        binding = _namespace(agent).get("_native_controlled_binding")
+        _verify_constructed(binding)
+        _require(current_context(agent) is binding.adapter._bound_context)
+        binding.adapter.validate_scope()
+        return binding.adapter
+    except Exception:
+        _invalidate_constructed_attempt(agent)
+        raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+    except BaseException:
+        _invalidate_constructed_attempt(agent)
+        raise
+
+
+@dataclass(frozen=True, slots=True)
+class _NativeCompletion:
+    frame: _TurnFrame
+    invocation: NativeMainInvocation
+    parents: tuple
+    payload: bytes
+    content: object
+    result: dict
+    anchors: tuple
+
+
+def _native_result_anchors(result):
+    return (result, *result.values(), *result["messages"],
+            *(value for row in result["messages"] for value in row.values()))
+
+
+def _native_result_bytes(result):
+    _require(type(result) is dict)
+    for name, value in result.items():
+        _require(type(name) is str)
+        if name == "messages":
+            _history(value)
+        else:
+            _require(type(value) in (str, int, bool, type(None)))
+    return _json(result)
+
+
+def _complete_controlled_turn(agent, *, turn_context: TurnContext,
+                              response: NativeMainResponse) -> dict:
+    adapter = _constructed_adapter(agent)
+    with adapter._turn_operation(agent):
+        _require(adapter._turn_pending is None)
+        _require(len(adapter._turn_frames) == len(adapter._records) == len(adapter._completions) + 1)
+        frame, invocation = adapter._turn_frames[-1], adapter._records[-1]
+        _require(frame.output is turn_context and frame.prepared is not None)
+        _require(response is invocation.native_response)
+        _require(_response_bytes(response, agent.model) == invocation.response_bytes)
+        messages = [dict(row) for row in turn_context.messages]
+        messages.append({"role": "assistant", "content": response.choices[0].message.content})
+        totals = [sum(getattr(record.native_response.usage, name) for record in adapter._records)
+                  for name in ("prompt_tokens", "completion_tokens", "total_tokens")]
+        for total in totals:
+            _integer(total, _MAX_INT, 0)
+        prompt, completion, total = totals
+        _require(prompt + completion == total)
+        result = dict(
+            final_response=response.choices[0].message.content, last_reasoning=None,
+            messages=messages, api_calls=1, completed=True,
+            turn_exit_reason="text_response(finish_reason=stop)", failed=False,
+            partial=False, interrupted=False, response_transformed=False,
+            pre_transform_response=None, response_previewed=False,
+            model=agent.model, provider="synthetic_native", base_url="",
+            input_tokens=prompt, output_tokens=completion, cache_read_tokens=0,
+            cache_write_tokens=0, reasoning_tokens=0, prompt_tokens=prompt,
+            completion_tokens=completion, total_tokens=total,
+            last_prompt_tokens=response.usage.prompt_tokens, estimated_cost_usd=None,
+            cost_status="unknown", cost_source=None, service_tier=None,
+            session_id=agent.session_id,
+        )
+        payload = _native_result_bytes(result)
+        _require(len(payload) <= _MAX_NATIVE_RESULT)
+        parents = (frame.admitted, frame.input_content, frame.output_content,
+                   *frame.request_contents, invocation.request_content, invocation.result_content,
+                   *(row.content for row in adapter._completions))
+        content = adapter._runtime.derive(adapter._handle, parents, payload, path="main")
+        adapter._interrupt_turn()
+        completed = _NativeCompletion(
+            frame, invocation, parents, payload, content, result, _native_result_anchors(result),
+        )
+        adapter._completions += (completed,)
+        adapter._completion_anchors += ((completed, frame, invocation, parents, payload,
+                                         content, result, completed.anchors),)
+        adapter._interrupt_turn()
+        return result
+
+
+def _close_constructed_main(agent) -> bool:
+    if not _controlled_attempt(agent):
+        return False
+    _invalidate_constructed_attempt(agent)
+    binding = _owned_constructed_binding(agent)
+    if binding is not None:
+        binding.closed = True
+    return True
