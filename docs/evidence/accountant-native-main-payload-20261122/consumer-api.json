@@ -96,6 +96,7 @@
     },
     "bind_controlled_main": "context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int] -> NativeMainPayloadAdapter",
     "validate_controlled_scope": "context: NativeContentContext -> None",
+    "invalidate_controlled_context": "context: NativeContentContext -> None",
     "dispatch_controlled_main": "agent: object, api_kwargs: dict -> tuple[bool, NativeMainResponse | None]"
   },
   "scope_helper": "agent.content_policy.validate_native_scope(context)",
@@ -113,9 +114,10 @@
   "shared_coverage": "Operator-supplied exact eight-path controlled ports. Each fixture qualifies those same port instances before native support checks.",
   "dependency_delivery": "Exact reviewed local wheel installed with --no-index --no-deps in this task .venv. No manifest changes.",
   "runtime_and_test_sha256": {
-    "agent/content_policy.py": "378118e0a77799dcae37412e73eacb907a1ec8f086e6cf492c0d65ada1e14d9f",
+    "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
     "agent/chat_completion_helpers.py": "2a67037f44dc62b68ac3aa831cf90aabe05143d4519239ac6eb200422885b597",
-    "agent/native_main_payload.py": "3d4325e737ed6fb0b03a0a9f521b0844ee542a60322006be86d115031a98a956",
-    "tests/agent/test_native_main_payload.py": "4999e64ce37a3ae40ef37d0fc58e3d256f8d4f80fe8c4cce0491d7a817eb8c66"
-  }
+    "agent/native_main_payload.py": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11",
+    "tests/agent/test_native_main_payload.py": "6d719d9eac13a4beb5d8a6b9fa8216fbcca114322f8082ddc678b4bc93ab37e9"
+  },
+  "copied_context_rule": "Rejecting a copied or mismatched controlled context invalidates its attached adapter and original context."
 }

@@ -620,6 +620,14 @@ def validate_controlled_scope(context: NativeContentContext) -> None:
     _attached(context).validate_scope()
 
 
+def invalidate_controlled_context(context: NativeContentContext) -> None:
+    adapter = context._controlled_main_payload
+    if type(adapter) is NativeMainPayloadAdapter:
+        adapter._invalid = True
+        if type(adapter._context) is NativeContentContext:
+            adapter._context._denied = True
+
+
 def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, NativeMainResponse | None]:
     context = current_context(agent)
     if context is not None and context._controlled_main_bound:

@@ -796,3 +796,24 @@ async def test_async_auxiliary_refuses_after_scope_entry_and_profile_drop(entryp
             pytest.fail("Async auxiliary function returned")
     assert entered and world.context._denied
     assert world.adapter.send_count == 1 and world.sdk_calls == []
+
+
+@pytest.mark.parametrize("kind", ["copy", "foreign_active_scope"])
+def test_rejected_context_attachment_invalidates_original_adapter(kind):
+    world = World().bind()
+    if kind == "copy":
+        copied = copy.copy(world.context)
+        world.agent._native_content_policy_context = copied
+        denied(world, world.call)
+        world.agent._native_content_policy_context = world.context
+    else:
+        entered = False
+        with pytest.raises(NativeContentPolicyDenied):
+            with content_policy_scope(world.context):
+                entered = True
+                world.agent._native_content_policy_context = NativeContentContext(world.admission, world.request)
+                world.call()
+                pytest.fail("Foreign context returned")
+        assert entered
+        world.agent._native_content_policy_context = world.context
+    denied(world, world.call)

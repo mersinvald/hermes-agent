@@ -160,8 +160,8 @@
   },
   "documents": {
     "design.md": {
-      "words": 2190,
-      "sentences": 224,
+      "words": 2213,
+      "sentences": 227,
       "violations": {
         "long_sentence(>20w)": 0,
         "semicolon": 0,

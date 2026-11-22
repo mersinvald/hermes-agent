@@ -378,3 +378,7 @@ This evidence directory is the only other allowed edit location.
 Existing tests and all other native boundaries stay unchanged.
 Root authorizes the exact accepted local-wheel install in this task-owned environment.
 Root retains Beads writes, acceptance, and publication.
+
+Rejecting a copied controlled context invalidates its attached adapter and original context.
+The internal `invalidate_controlled_context(context: NativeContentContext) -> None` helper propagates that invalidation.
+It grants no operation permission.

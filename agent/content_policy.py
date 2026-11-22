@@ -63,6 +63,9 @@ class NativeContentContext:
 
     def invalidate(self):
         self._denied = True
+        if self._controlled_main_bound:
+            from agent.native_main_payload import invalidate_controlled_context
+            invalidate_controlled_context(self)
 
     def _current(self, request_handle):
         if request_handle is not self.request_handle or self._denied:
@@ -144,6 +147,9 @@ def current_context(agent=None):
         return None
     if (type(context) is not NativeContentContext or context not in _contexts
             or (active is not None and attached is not None and active is not attached)):
+        for candidate in (context, active):
+            if type(candidate) is NativeContentContext and candidate._controlled_main_bound:
+                candidate.invalidate()
         raise NativeContentPolicyDenied("content_policy_context_missing")
     return context
 
