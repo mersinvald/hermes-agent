@@ -1,0 +1,53 @@
+{
+  "receipts": {
+    "native_base": "2a84496fad0724fb3f79b9c37cef3f2c283e781c",
+    "PWA_publication": "095d81d5299a775f43fe2458e7ac3eb8ef22bb45",
+    "design_source": "072eda7696f2b727139b070aa9fb879c76934b56",
+    "design_path": "docs/mesh/evidence/accountant-native-turn-preparation-contracts-20261122/next-component-design.md",
+    "design_sha256": "83494927245f5b5386c84bc53d60341e0ab703a01524c8381e457779f5d1ab4b",
+    "receipts": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.10.final-review.json",
+        "sha256": "e6bb47bd6abd555729f9ecc921139cf26f859baf741ebe200d0e4df5c7e3ddc4"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.10.publication-receipt.json",
+        "sha256": "72a1fdc629e185a61031bd1dd125ba4273fba424b307d44bab7ce49e7cfc1dc1"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.9.final-review.json",
+        "sha256": "d8bd7c45aaf500bb91c5c47fbf777a18d5d67f3e8e73de70a9221d4e3ced5254"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.9.publication-receipt.json",
+        "sha256": "6c4a7b3b64ac99f08dbd2c2da4e9d125b00ea8c390383733dc490c88740b21ca"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.3.native-handoff.json",
+        "sha256": "c65427f142f641ee92e692a6f35a0eb73d2fc9c5de9600a6e8e90766f836dbe9"
+      }
+    ],
+    "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/hermes_content_policy-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+    "engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa"
+  },
+  "input_receipts_sha256": "b5f5314fdcf53d9963ce3eb9b00de21242462cec79f815f55d798a2418cfa02d",
+  "protected_receipts_verified": 5,
+  "private_receipt_contents_published": false,
+  "immutable_pwa_objects": {
+    "docs/mesh/accountant-implementation-plan.md": {
+      "blob": "515ae3e8ddb03ecb6cc8fdb6c7691b0658f12178",
+      "sha256": "9d7ccc6c37e767237a5d39e92c62605ad6d1f05f8a137e3082402f75e0826024"
+    },
+    "docs/mesh/accountant-contract-architecture.md": {
+      "blob": "89bb23a050b5d5ae9b2fae5dcc5b10d8635c810f",
+      "sha256": "554657d328ccf20b9e2999faf1e95163a927d3c0b040aab3389d7db39c611878"
+    }
+  },
+  "required_sections": [
+    "Original P10",
+    "17.8",
+    "17.9"
+  ],
+  "public_invocation_and_adapter_signatures_unchanged": true
+}

@@ -66,6 +66,7 @@ Parents include raw, prepared, materialized request, invocation request/result, 
 Later raw, prepared, and request proofs also retain earlier complete result handles.
 The adapter retains bytes, handles, returned dictionaries, nested object anchors, and invocation correspondence together.
 Any later change to retained results, responses, usage, labels, state, attachments, or methods denies reuse.
+
 `NativeMainInvocation` and all existing public adapter signatures remain unchanged.
 
 The result uses the approved native fields in `native-api.json`.

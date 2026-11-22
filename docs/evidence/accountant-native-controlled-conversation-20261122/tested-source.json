@@ -1,0 +1,56 @@
+{
+  "source_freeze": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "native_base": "2a84496fad0724fb3f79b9c37cef3f2c283e781c",
+  "files": [
+    {
+      "path": "run_agent.py",
+      "sha256": "68e5e3361846afe3761f1014370c5dd0f8fdf5e169f5f811554200596085c863",
+      "git_blob": "d9db81111be7d7f6256ae77102cf0f6836de8f6a"
+    },
+    {
+      "path": "agent/agent_init.py",
+      "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+      "git_blob": "46c0de27cbeb50a5232ac848e8cb2a60c55b14bb"
+    },
+    {
+      "path": "agent/conversation_loop.py",
+      "sha256": "e05bcb5a7cd37daaab4e7e6c87326cd9b6264357fbf80161069ae6ce03cb9e68",
+      "git_blob": "963e2036929b00846a2db0ebea817d8b61fab8b5"
+    },
+    {
+      "path": "agent/native_main_payload.py",
+      "sha256": "2c7f4e5e300382e76cd1dd102094341355636ff871be9aaeedaee630947f2454",
+      "git_blob": "f712ec2070a64e8bf769425176f439689e09d440"
+    },
+    {
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "sha256": "e28a6e81316f3cee944b6eb1da9360273067c00a8cad23b450c7ce189ea21a11",
+      "git_blob": "fcbe208cd285cf408f8a53fbcd7094fcb56a4d83"
+    },
+    {
+      "path": "tests/agent/test_native_turn_context.py",
+      "sha256": "f03823025f07602ffee6d047d48ebe6150a781c0c4785d7060c0f4d122ec1c10",
+      "git_blob": "25a6155a6214e6a8656a45eace67cea7f301bf70"
+    },
+    {
+      "path": "tests/agent/test_native_main_payload.py",
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+      "git_blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb"
+    },
+    {
+      "path": "tests/agent/test_meta_agent_init.py",
+      "sha256": "7952bda9e4aff11035aaf669700717691a8c61a9bdf67e3f4eabecb1e5b20238",
+      "git_blob": "60be0da0bf7605cc08ba03da6f679ce733bc5311"
+    },
+    {
+      "path": "tests/agent/test_turn_context.py",
+      "sha256": "546d350b8ca17608892ae67f56757c4ebe443db0c6205fb9af2ab55a88603b81",
+      "git_blob": "dc790c06d690cca21385cf1ddb40ac3b6e29b45c"
+    },
+    {
+      "path": "tests/agent/test_turn_finalizer_cleanup_guard.py",
+      "sha256": "d0d9aa846bc7b16865d8d6db6c788e42036f4ee8ae0aec89ba8467cf0adfccbd",
+      "git_blob": "89e7ca04f9a4c214606ea1a3276e5806f3277f26"
+    }
+  ]
+}

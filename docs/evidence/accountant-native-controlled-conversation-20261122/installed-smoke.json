@@ -1,0 +1,28 @@
+{
+  "environment": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.11/.venv",
+  "python": "3.11.15",
+  "native_dependencies": "uv sync --frozen --offline --no-install-project --extra dev",
+  "native_dependency_count": 84,
+  "wheel_install": "uv pip install --python .venv/bin/python --no-index --no-deps --offline <exact accepted wheel>",
+  "total_installed_distributions": 85,
+  "distribution": "hermes-content-policy==0.1.0",
+  "installed_engine": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.11/.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+  "engine_unchanged": true,
+  "native_build": false,
+  "index_lookup": false,
+  "pwa_server_package": false,
+  "copied_engine": false,
+  "checkout_engine_import": false,
+  "duplicate_installed_functional_selection": false,
+  "shared_api": {
+    "admit": "(self, request_handle: 'object', payload: 'bytes') -> 'ContentHandle'",
+    "derive": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path') -> 'ContentHandle'",
+    "dispatch": "(self, request_handle: 'object', content: 'ContentHandle', *, path: 'Path', route_ref: 'str') -> 'ContentHandle'"
+  },
+  "shared_limits": {
+    "handles": 128,
+    "retained_bytes": 8388608
+  }
+}
