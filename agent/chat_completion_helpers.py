@@ -1352,10 +1352,30 @@ def _controlled_main_api_call(agent, api_kwargs: dict, *, context):
     This synchronous operation cannot preempt a callback or enforce a deadline.
     It starts no worker, heartbeat, watchdog, or SDK lifecycle callback.
     """
-    from agent.content_policy import NativeContentPolicyDenied
+    from agent.content_policy import (
+        NativeContentContext, NativeContentPolicyDenied, current_context,
+        validate_native_scope,
+    )
+    from agent.native_main_payload import invalidate_controlled_context
+
+    adapter = context._controlled_main_payload if type(context) is NativeContentContext else None
+
+    def check_attachment():
+        if current_context(agent) is not context:
+            raise NativeContentPolicyDenied("content_policy_context_missing")
+        if type(context) is not NativeContentContext or context._controlled_main_bound is not True:
+            raise NativeContentPolicyDenied("controlled_native_adapter_missing")
+        if context._controlled_main_payload is not adapter:
+            raise NativeContentPolicyDenied("controlled_native_attachment_invalid")
+
+    def check_context():
+        check_attachment()
+        validate_native_scope(context)
+        check_attachment()
 
     def check_interrupt():
         interrupted = getattr(agent, "_interrupt_requested", False)
+        check_context()
         if type(interrupted) is not bool:
             raise NativeContentPolicyDenied("controlled_native_interrupt_invalid")
         if interrupted is True:
@@ -1365,6 +1385,7 @@ def _controlled_main_api_call(agent, api_kwargs: dict, *, context):
         raise NativeContentPolicyDenied("controlled_native_adapter_missing")
 
     try:
+        check_context()
         check_interrupt()
         response = _dispatch_nonstreaming_api_request(
             agent, api_kwargs, make_client=refuse_client,
@@ -1372,8 +1393,10 @@ def _controlled_main_api_call(agent, api_kwargs: dict, *, context):
         check_interrupt()
         return response
     except BaseException:
-        if context is not None:
-            context.invalidate()
+        if type(context) is NativeContentContext:
+            # Do not convert a malformed bound marker during invalidation.
+            context._denied = True
+            invalidate_controlled_context(context)
         raise
 
 

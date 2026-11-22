@@ -1296,3 +1296,112 @@ def test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle(monkeypatc
     assert selections == [platform == "cron"]
     assert any(event[0] == "activity" for event in events)
     assert world.adapter is None and not world.ports["main"].sent
+
+
+class InterruptReadAgent(SimpleNamespace):
+    def __getattribute__(self, name):
+        if name == "_interrupt_requested":
+            return vars(self)["read_interrupt"]()
+        return super().__getattribute__(name)
+
+
+def change_on_interrupt_read(world, boundary, change):
+    reads = []
+
+    def read_interrupt():
+        reads.append(None)
+        if len(reads) == (1 if boundary == "before" else 2):
+            change()
+        return False
+
+    world.agent = InterruptReadAgent(**vars(world.agent), read_interrupt=read_interrupt)
+    return reads
+
+
+def test_controlled_caller_correction_retained_payload_false_marker_cannot_select_moa(caller_boundary):
+    world = caller_boundary.configure(World().bind())
+    first_response = caller_boundary.call(world)
+    record, = world.adapter.invocations
+    assert first_response is record.native_response
+    world.binding = replace(world.binding, profiles=())
+    world.context._controlled_main_bound = False
+    world.agent.provider = "moa"
+    assert world.context._controlled_main_payload is world.adapter
+    with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+        caller_boundary.call(world, next_request(world))
+    assert world.context._denied and world.adapter._invalid
+    assert world.adapter.invocations == (record,)
+    assert world.adapter.send_count == len(world.ports["main"].sent) == 1
+    assert len(caller_boundary.dispatches) == 1 and world.sdk_calls == []
+
+
+@pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+@pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                         ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+        caller_boundary, marker, boundary):
+    world = caller_boundary.configure(World().bind())
+    Unsupported.calls.clear()
+
+    def change():
+        world.context._controlled_main_bound = marker
+
+    if boundary == "entry":
+        change()
+    else:
+        change_on_interrupt_read(world, boundary, change)
+    released = []
+    with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+        released.append(caller_boundary.call(world))
+    count = int(boundary == "release")
+    assert released == [] and Unsupported.calls == []
+    assert world.context._denied and world.adapter._invalid
+    assert world.adapter.send_count == len(world.ports["main"].sent) == count
+    assert len(world.adapter.invocations) == len(caller_boundary.dispatches) == count
+    assert world.sdk_calls == []
+    if count:
+        record, = world.adapter.invocations
+        assert record.native_response.choices[0].message.content == "Invented answer A"
+        assert record.response_bytes == reply()
+
+
+@pytest.mark.parametrize("boundary", ["before", "release"])
+@pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+        caller_boundary, boundary, fact):
+    world = caller_boundary.configure(World().bind())
+    foreign = World().bind() if fact == "context" else None
+
+    def change():
+        if fact == "context":
+            world.agent._native_content_policy_context = foreign.context
+        elif fact == "detached":
+            world.context._controlled_main_payload = None
+        elif fact == "copied_adapter":
+            world.context._controlled_main_payload = copy.copy(world.adapter)
+        elif fact == "marker_false":
+            world.context._controlled_main_bound = False
+        else:
+            world.binding = replace(world.binding, auth_epoch=8)
+
+    reads = change_on_interrupt_read(world, boundary, change)
+    released = []
+    with pytest.raises(NativeContentPolicyDenied) as caught:
+        released.append(caller_boundary.call(world))
+    assert str(caught.value) in (
+        "controlled_native_adapter_missing", "controlled_native_attachment_invalid",
+        "controlled_native_payload_denied", "content_policy_context_missing",
+    )
+    count = int(boundary == "release")
+    assert released == [] and len(reads) == count + 1
+    assert world.context._denied
+    assert world.adapter.send_count == len(world.ports["main"].sent) == count
+    assert len(world.adapter.invocations) == len(caller_boundary.dispatches) == count
+    assert world.sdk_calls == []
+    if foreign is not None:
+        assert foreign.adapter.send_count == 0 and foreign.sdk_calls == []
+    if count:
+        record, = world.adapter.invocations
+        assert record.envelope is world.ports["main"].sent[0]
+        assert record.response_bytes == reply()
+        assert record.native_response.choices[0].message.content == "Invented answer A"
