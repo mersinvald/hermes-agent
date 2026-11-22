@@ -1,0 +1,103 @@
+{
+  "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "mode": "python-prose-v1 for Python. prose-v1 for Markdown.",
+  "baseline_records": [
+    "chat_completion_helpers-writing-before.txt",
+    "test_native_main_payload-writing-before.txt"
+  ],
+  "baseline": {
+    "chat_completion_helpers": {
+      "words": 12677,
+      "total": 343,
+      "per100w": 2.71,
+      "em_dash": 156
+    },
+    "test_native_main_payload": {
+      "words": 9,
+      "total": 0,
+      "per100w": 0,
+      "em_dash": 0
+    }
+  },
+  "candidate": {
+    "agent/chat_completion_helpers.py": {
+      "words": 12735,
+      "sentences": 1726,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 47,
+        "contraction": 105,
+        "passive_voice": 81,
+        "ing_main_verb": 6,
+        "nominalization": 10,
+        "phrasal_verb": 0,
+        "banned_word": 5,
+        "marketing_adjective": 1,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 88
+      },
+      "total": 343,
+      "total_per100w": 2.69,
+      "em_dash(slop-marker)": 156,
+      "longest_sentence_words": 15,
+      "sample_marketing": [
+        "first-class"
+      ],
+      "sample_banned": [
+        "ensure",
+        "additionally"
+      ],
+      "mode": "python-prose-v1"
+    },
+    "tests/agent/test_native_main_payload.py": {
+      "words": 9,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 9,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "docs/evidence/accountant-native-main-caller-20261122/README.md": {
+      "words": 593,
+      "sentences": 56,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 20,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  },
+  "limit": "Mechanical English checks do not certify technical correctness."
+}

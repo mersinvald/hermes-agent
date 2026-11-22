@@ -1,0 +1,44 @@
+{
+  "base_commit": "143d64987cb8aa651b89029a651ae885dd9b665c",
+  "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+  "changed_runtime_functions": [
+    "_controlled_main_api_call"
+  ],
+  "all_initial_test_bytes_preserved_as_prefix": true,
+  "initial_P10_5_cases_preserved": 187,
+  "initial_caller_cases_preserved": 86,
+  "new_correction_cases": 32,
+  "source_changed_paths": [
+    "agent/chat_completion_helpers.py",
+    "tests/agent/test_native_main_payload.py"
+  ],
+  "initial_evidence_blobs": {
+    "docs/evidence/accountant-native-main-caller-20261122/README.md": "3612175a641656f8f94b83331fd3b16514a2ba20",
+    "docs/evidence/accountant-native-main-caller-20261122/SHA256SUMS": "e3d9363c839b8b45be92f22cfce29837c6164038",
+    "docs/evidence/accountant-native-main-caller-20261122/chat_completion_helpers-writing-before.txt": "1060bfe61c7b179b7c7399cb2151f11791b3b467",
+    "docs/evidence/accountant-native-main-caller-20261122/checks.json": "89e767ff072ce9ed60e150f2b8b226df90b29121",
+    "docs/evidence/accountant-native-main-caller-20261122/consumer-api.json": "173e23a552890c06314dcc50c02eb2c5d6bd6a4f",
+    "docs/evidence/accountant-native-main-caller-20261122/edit-1.log": "9c1375bcfe9632332c63977faf0cc72517d63ac7",
+    "docs/evidence/accountant-native-main-caller-20261122/edit-2.json": "f0714c711855560fa90f864b5cf9c4b312213d42",
+    "docs/evidence/accountant-native-main-caller-20261122/edit-2.log": "a2f1a440031154b183c0028425952b27a4bdb1ee",
+    "docs/evidence/accountant-native-main-caller-20261122/final-focused.json": "a2976731d6a79824cb2ba1efde6166a6b7973700",
+    "docs/evidence/accountant-native-main-caller-20261122/final-focused.log": "dcee3667be3b45582ef31b40199debb78b697cfb",
+    "docs/evidence/accountant-native-main-caller-20261122/installed-smoke.json": "6e5e47f7b3d1c862ab0e92d8d697c1abd6675cf1",
+    "docs/evidence/accountant-native-main-caller-20261122/pins.json": "37aae45cff43517e55b2737204696543e15eb53e",
+    "docs/evidence/accountant-native-main-caller-20261122/reproduction.log": "28a3540a4e03b91a4c77b9cbfaf9274c4b4f4a56",
+    "docs/evidence/accountant-native-main-caller-20261122/resource-preservation.json": "394657cda297dbe6515488aa466e646eda3bf1ef",
+    "docs/evidence/accountant-native-main-caller-20261122/setup.json": "523001500f53e406b3e8d4c1d25fd50aa0586f6b",
+    "docs/evidence/accountant-native-main-caller-20261122/test_native_main_payload-writing-before.txt": "45a5e4b4e30e8399183e4a333cebca8ee5d85180",
+    "docs/evidence/accountant-native-main-caller-20261122/writing-check.json": "1754359ecacf4c5aabe08f876d70187b44288449"
+  },
+  "prior_result_scope": "105 cases at 8e7fecd24b119a90b2936726358b66acdeb0b0f7, not the current correction.",
+  "installed_dependency_evidence_reused_from": "../installed-smoke.json",
+  "installed_dependency_evidence_scope": "Original P10.7 setup and installed import/API smoke. No duplicate selection, install, sync, or build.",
+  "old_resource_evidence_scope": "../resource-preservation.json applies to 8e7fecd24b119a90b2936726358b66acdeb0b0f7 relative to 5a68423dfab155604999f4da223ff8cde22dbe46.",
+  "beads_writes": false,
+  "beads_sync": false,
+  "other_checkouts_modified": false,
+  "manifests_changed": false,
+  "initial_evidence_preservation": "Only the parent README changed. All initial reports, logs, API, pins, and checksum manifest retain their initial bytes.",
+  "unchanged_installed_engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa"
+}

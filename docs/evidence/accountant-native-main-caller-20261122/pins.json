@@ -1,0 +1,128 @@
+{
+  "native_base": "5a68423dfab155604999f4da223ff8cde22dbe46",
+  "pwa_base": "df34b86c05c671d3e7832a7822fe8e54a77a70fd",
+  "source_commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "native_base_objects": [
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "agent/chat_completion_helpers.py",
+      "blob": "322287379fd621741b7e0dbbf0394665e84cd658",
+      "sha256": "2a67037f44dc62b68ac3aa831cf90aabe05143d4519239ac6eb200422885b597"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "agent/native_main_payload.py",
+      "blob": "7d0d32deb9ea2a26bde7a43b1b744822359799a6",
+      "sha256": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "agent/content_policy.py",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "tests/agent/test_native_main_payload.py",
+      "blob": "95a9b7089a777d387c2bf50d0ea6111993a4b936",
+      "sha256": "6d719d9eac13a4beb5d8a6b9fa8216fbcca114322f8082ddc678b4bc93ab37e9"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "agent/conversation_loop.py",
+      "blob": "f99c60b06f11fcec421938a2a0421726172faca4",
+      "sha256": "28032fbc17b82f55556efaf813e8f0e8e0fa2710d58b4654cdb5e2209a838f96"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "agent/turn_context.py",
+      "blob": "3bf0c76660f756a3a379531b17542b6e33e606a7",
+      "sha256": "1dae11fd99647cad1cdcf8bce4ca85d84c26ef4d82ceee4d6874a7e2d6b9ebda"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "run_agent.py",
+      "blob": "2164f935314b29a8c6ff4d57b4def46e1779f07c",
+      "sha256": "ce3420f65ac7248741ced852ee4886519be7e3b07c3f2c9a3cc40504f4a63727"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "pyproject.toml",
+      "blob": "9c3cc68212b18c68757a20d8a206f9976e84f8c5",
+      "sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab"
+    },
+    {
+      "commit": "5a68423dfab155604999f4da223ff8cde22dbe46",
+      "path": "uv.lock",
+      "blob": "c587226281ab792b006534c8d2d320de2e7d05f7",
+      "sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5"
+    }
+  ],
+  "source_objects": [
+    {
+      "commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+      "path": "agent/chat_completion_helpers.py",
+      "blob": "d71f4a090d4e66e1112b6ce4e49e228a542ac268",
+      "sha256": "a32dd5df6df92b3e7f2901d7bc89d70a10271c50c61148c1f029e8f8cdbf5f08"
+    },
+    {
+      "commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+      "path": "agent/native_main_payload.py",
+      "blob": "7d0d32deb9ea2a26bde7a43b1b744822359799a6",
+      "sha256": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11"
+    },
+    {
+      "commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+      "path": "agent/content_policy.py",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    {
+      "commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+      "path": "tests/agent/test_native_main_payload.py",
+      "blob": "35b33dcd18d838a1c37045aed203043584b0256f",
+      "sha256": "40130945ab77d04390f5ee7de19b5e5ce84c9ee37c28c178a817b47ee184b024"
+    }
+  ],
+  "canonical_design_objects": [
+    {
+      "commit": "df34b86c05c671d3e7832a7822fe8e54a77a70fd",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "blob": "021f806f27291c668e1867190d1f0bff3cfbe91e",
+      "sha256": "b1c2c5167bcb370769f7f5da9faefa5b079741875431da40c7a2279a2954aacc"
+    },
+    {
+      "commit": "df34b86c05c671d3e7832a7822fe8e54a77a70fd",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "blob": "c189f6d9cd8da7a33291600560f0b59deb5091ce",
+      "sha256": "99f8be8fe8ee3717f56c5a8a5fdd94bc428465cdff619e26e9fafa8fab64fda7"
+    }
+  ],
+  "input_handoff": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.7.input-receipts.json",
+    "sha256": "6412f99f8bb50bdd139d3d1f4de9d75ca7524ddc20e35e476c7fbe0ec6cbec13"
+  },
+  "receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.5.final-review.json",
+      "sha256": "42539b4ecdf7f73610406e85a8f682ec094a210e6d05b4f1df64ec527c82cc90"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.5.publication-receipt.json",
+      "sha256": "a1b7ec1f61612198975113c12fc5ccf640ce38eb8904c8249bac8eb985773122"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.6.final-review.json",
+      "sha256": "b744b29f71c55e0d95dd87155dda32b4d51a421837ef33808dd260dc6aae2f4b"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.6.publication-receipt.json",
+      "sha256": "78c793abb4de0583952f8a55a1162949f795e4b951e31e1cbae05ae48f22fff3"
+    }
+  ],
+  "wheel": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/hermes_content_policy-0.1.0-py3-none-any.whl",
+    "sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc"
+  },
+  "shared_engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa"
+}

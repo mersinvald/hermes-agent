@@ -1,0 +1,30 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_main_payload.py",
+    "--file-timeout",
+    "90",
+    "--file-retries",
+    "0",
+    "-k",
+    "test_controlled_caller_correction",
+    "-q",
+    "-p",
+    "docs.evidence.accountant-native-main-caller-20261122.correction.offline"
+  ],
+  "runtime_scope": "Working-tree caller correction over 143d64987cb8aa651b89029a651ae885dd9b665c",
+  "source_sha256": {
+    "agent/chat_completion_helpers.py": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+    "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736"
+  },
+  "offline_plugin_sha256": "237405f1fdfdf15d4fb6bc8c7a2db805d71372fe8b344fa159a59a960e23fbbb",
+  "seconds": 9.567,
+  "exit_code": 0,
+  "file_retries": 0,
+  "source_stable_during_run": true,
+  "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+  "passed": 32,
+  "failed": 0,
+  "skipped": 0,
+  "runner_seconds": 9.2
+}

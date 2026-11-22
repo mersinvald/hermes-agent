@@ -1346,9 +1346,68 @@ def direct_api_call(agent, api_kwargs: dict):
             )
 
 
+def _controlled_main_api_call(agent, api_kwargs: dict, *, context):
+    """Forward on the bound thread with cancellation checks at both boundaries.
+
+    This synchronous operation cannot preempt a callback or enforce a deadline.
+    It starts no worker, heartbeat, watchdog, or SDK lifecycle callback.
+    """
+    from agent.content_policy import (
+        NativeContentContext, NativeContentPolicyDenied, current_context,
+        validate_native_scope,
+    )
+    from agent.native_main_payload import invalidate_controlled_context
+
+    adapter = context._controlled_main_payload if type(context) is NativeContentContext else None
+
+    def check_attachment():
+        if current_context(agent) is not context:
+            raise NativeContentPolicyDenied("content_policy_context_missing")
+        if type(context) is not NativeContentContext or context._controlled_main_bound is not True:
+            raise NativeContentPolicyDenied("controlled_native_adapter_missing")
+        if context._controlled_main_payload is not adapter:
+            raise NativeContentPolicyDenied("controlled_native_attachment_invalid")
+
+    def check_context():
+        check_attachment()
+        validate_native_scope(context)
+        check_attachment()
+
+    def check_interrupt():
+        interrupted = getattr(agent, "_interrupt_requested", False)
+        check_context()
+        if type(interrupted) is not bool:
+            raise NativeContentPolicyDenied("controlled_native_interrupt_invalid")
+        if interrupted is True:
+            raise InterruptedError("Agent interrupted during API call")
+
+    def refuse_client(*args, **kwargs):
+        raise NativeContentPolicyDenied("controlled_native_adapter_missing")
+
+    try:
+        check_context()
+        check_interrupt()
+        response = _dispatch_nonstreaming_api_request(
+            agent, api_kwargs, make_client=refuse_client,
+        )
+        check_interrupt()
+        return response
+    except BaseException:
+        if type(context) is NativeContentContext:
+            # Do not convert a malformed bound marker during invalidation.
+            context._denied = True
+            invalidate_controlled_context(context)
+        raise
+
+
 def interruptible_api_call(agent, api_kwargs: dict):
     """
-    Run the API call in a background thread so the main conversation loop
+    Forward controlled calls synchronously on the bound thread.
+
+    Controlled calls check cancellation before dispatch and before caller release.
+    They have no in-flight preemption, watchdog, or callback deadline.
+
+    Ordinary calls run in a background thread so the main conversation loop
     can detect interrupts without waiting for the full HTTP round-trip.
 
     Each worker thread gets its own OpenAI client instance. Interrupts only
@@ -1360,6 +1419,20 @@ def interruptible_api_call(agent, api_kwargs: dict):
     the main retry loop can try again with backoff / credential rotation /
     provider fallback.
     """
+    from agent.content_policy import NativeContentContext, _active, current_context
+
+    namespace = vars(agent) if hasattr(agent, "__dict__") else {}
+    candidates = (_active.get(), namespace.get("_native_content_policy_context"))
+    controlled_attachment = any(
+        type(candidate) is NativeContentContext and (
+            candidate._controlled_main_bound is not False
+            or candidate._controlled_main_payload is not None)
+        for candidate in candidates
+    )
+    provider = getattr(agent, "provider", None)
+    if controlled_attachment or (type(provider) is str and provider == "synthetic_native"):
+        return _controlled_main_api_call(agent, api_kwargs, context=current_context(agent))
+
     # Cron and other non-interactive, nested-pool contexts must not spawn the
     # interrupt worker — it wedges before the socket opens on the 2nd+ call
     # (#62151). Run inline instead. See should_use_direct_api_call.

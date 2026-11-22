@@ -1,0 +1,32 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_main_payload.py",
+    "--file-timeout",
+    "90",
+    "--file-retries",
+    "0",
+    "-k",
+    "test_controlled_caller_correction",
+    "-q",
+    "-p",
+    "docs.evidence.accountant-native-main-caller-20261122.correction.offline"
+  ],
+  "runtime_base_commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "test_scope": "Reviewed runtime bytes plus new working-tree additive tests. These tests are not unchanged reviewed-source evidence.",
+  "source_sha256": {
+    "agent/chat_completion_helpers.py": "a32dd5df6df92b3e7f2901d7bc89d70a10271c50c61148c1f029e8f8cdbf5f08",
+    "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736"
+  },
+  "offline_plugin_sha256": "237405f1fdfdf15d4fb6bc8c7a2db805d71372fe8b344fa159a59a960e23fbbb",
+  "seconds": 14.553,
+  "exit_code": 1,
+  "file_retries": 0,
+  "source_stable_during_run": true,
+  "passed": 0,
+  "failed": 32,
+  "skipped": 0,
+  "deselected": 273,
+  "pytest_seconds": 10.82,
+  "runner_seconds": 11.4
+}

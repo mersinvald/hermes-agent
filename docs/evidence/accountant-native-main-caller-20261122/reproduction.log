@@ -1,0 +1,140 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~32 tests) under ['tests/agent/test_native_main_payload.py']; running with -j 8
+[100.0% |    32/~32 | ✓0 | ✗2] ✗ tests/agent/test_native_main_payload.py (2✗, 2.0s)
+
+  ╔╍ Failed: tests/agent/test_native_main_payload.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║         send_threads = []
+  ║         world.ports["main"].hook = lambda envelope: send_threads.append(threading.get_ident())
+  ║         request = {"model": "invented_model", "messages": [
+  ║             {"role": "user", "content": "Invented document A"}]}
+  ║         with content_policy_scope(world.context):
+  ║ >           result = caller_boundary.call(world, request)
+  ║                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ 
+  ║ tests/agent/test_native_main_payload.py:875: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ tests/agent/test_native_main_payload.py:859: in call
+  ║     return helpers.interruptible_api_call(world.agent, request)
+  ║            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ agent/chat_completion_helpers.py:1366: in interruptible_api_call
+  ║     if should_use_direct_api_call(agent):
+  ║        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ args = (namespace(_native_content_policy_required=True, _native_content_policy_context=<agent.content_policy.NativeContentCon...0>, _close_request_anthropic_client=<function caller_boundary.<locals>.forbidden at 0x7cca80d2e200>, platform='cron'),)
+  ║ kwargs = {}
+  ║ 
+  ║     def forbidden(*args, **kwargs):
+  ║ >       pytest.fail("Controlled caller reached scheduling or lifecycle machinery")
+  ║ E       Failed: Controlled caller reached scheduling or lifecycle machinery
+  ║ 
+  ║ tests/agent/test_native_main_payload.py:827: Failed
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_complete_bytes_identity_and_bound_thread[cli-False]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_complete_bytes_identity_and_bound_thread[cron-True]
+  ║ 2 failed, 187 deselected in 1.42s
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_main_payload.py -k test_controlled_caller_complete_bytes -q
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 2 failed (100% complete) in 2.0s (8 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 2.0s  (runner wall: 2.0s, parallelism: 8x)
+  P50: 1.96s  P90: 1.96s  P95: 1.96s  P99: 1.96s  Max: 1.96s
+  <1s: 0 files (0%)  <2s: 1 files (100%)
+  Top 10 slowest:
+      1.96s  tests/agent/test_native_main_payload.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_main_payload.py ---
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__ test_controlled_caller_complete_bytes_identity_and_bound_thread[cli-False] __
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7cca80e709a0>, call=<function caller_boundary.<locals>.call at 0x7cca80e70a40>, dispatches=[])
+platform = 'cli', direct_setting = False
+
+    @pytest.mark.parametrize("platform,direct_setting", [("cli", False), ("cron", True)])
+    def test_controlled_caller_complete_bytes_identity_and_bound_thread(caller_boundary, platform, direct_setting):
+        world = caller_boundary.configure(World().bind())
+        world.agent.platform = platform
+        assert direct_setting is (platform == "cron")
+        owner_thread = threading.get_ident()
+        send_threads = []
+        world.ports["main"].hook = lambda envelope: send_threads.append(threading.get_ident())
+        request = {"model": "invented_model", "messages": [
+            {"role": "user", "content": "Invented document A"}]}
+        with content_policy_scope(world.context):
+>           result = caller_boundary.call(world, request)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_main_payload.py:875: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_main_payload.py:859: in call
+    return helpers.interruptible_api_call(world.agent, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1366: in interruptible_api_call
+    if should_use_direct_api_call(agent):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (namespace(_native_content_policy_required=True, _native_content_policy_context=<agent.content_policy.NativeContentCon...60>, _close_request_anthropic_client=<function caller_boundary.<locals>.forbidden at 0x7cca80e70860>, platform='cli'),)
+kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       pytest.fail("Controlled caller reached scheduling or lifecycle machinery")
+E       Failed: Controlled caller reached scheduling or lifecycle machinery
+
+tests/agent/test_native_main_payload.py:827: Failed
+__ test_controlled_caller_complete_bytes_identity_and_bound_thread[cron-True] __
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7cca80d2e340>, call=<function caller_boundary.<locals>.call at 0x7cca80d2e3e0>, dispatches=[])
+platform = 'cron', direct_setting = True
+
+    @pytest.mark.parametrize("platform,direct_setting", [("cli", False), ("cron", True)])
+    def test_controlled_caller_complete_bytes_identity_and_bound_thread(caller_boundary, platform, direct_setting):
+        world = caller_boundary.configure(World().bind())
+        world.agent.platform = platform
+        assert direct_setting is (platform == "cron")
+        owner_thread = threading.get_ident()
+        send_threads = []
+        world.ports["main"].hook = lambda envelope: send_threads.append(threading.get_ident())
+        request = {"model": "invented_model", "messages": [
+            {"role": "user", "content": "Invented document A"}]}
+        with content_policy_scope(world.context):
+>           result = caller_boundary.call(world, request)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_main_payload.py:875: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_main_payload.py:859: in call
+    return helpers.interruptible_api_call(world.agent, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1366: in interruptible_api_call
+    if should_use_direct_api_call(agent):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (namespace(_native_content_policy_required=True, _native_content_policy_context=<agent.content_policy.NativeContentCon...0>, _close_request_anthropic_client=<function caller_boundary.<locals>.forbidden at 0x7cca80d2e200>, platform='cron'),)
+kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       pytest.fail("Controlled caller reached scheduling or lifecycle machinery")
+E       Failed: Controlled caller reached scheduling or lifecycle machinery
+
+tests/agent/test_native_main_payload.py:827: Failed
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_complete_bytes_identity_and_bound_thread[cli-False]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_complete_bytes_identity_and_bound_thread[cron-True]
+2 failed, 187 deselected in 1.42s
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_native_main_payload.py  (2 tests failed)

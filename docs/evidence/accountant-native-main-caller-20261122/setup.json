@@ -1,0 +1,35 @@
+[
+  {
+    "name": "locked-setup",
+    "command": [
+      "uv",
+      "sync",
+      "--locked",
+      "--python",
+      "/home/mersinvald/.local/share/uv/python/cpython-3.11-linux-x86_64-gnu/bin/python3.11",
+      "--extra",
+      "dev",
+      "--extra",
+      "homeassistant",
+      "--no-install-project",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "seconds": 0.519
+  },
+  {
+    "name": "wheel-install",
+    "command": [
+      "uv",
+      "pip",
+      "install",
+      "--python",
+      ".venv/bin/python",
+      "--no-index",
+      "--no-deps",
+      "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/hermes_content_policy-0.1.0-py3-none-any.whl"
+    ],
+    "exit_code": 0,
+    "seconds": 0.034
+  }
+]

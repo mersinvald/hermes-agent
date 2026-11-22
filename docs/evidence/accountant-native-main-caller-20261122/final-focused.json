@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_main_payload.py",
+    "tests/agent/test_content_policy_dispatch.py",
+    "tests/agent/test_cron_inline_api_call_62151.py",
+    "tests/cron/test_cron_direct_api_call_62151.py",
+    "tests/cron/test_cron_direct_api_call_watchdog.py",
+    "tests/agent/test_cascading_interrupt_6600.py",
+    "--file-timeout",
+    "150",
+    "--file-retries",
+    "0",
+    "-k",
+    "test_controlled_caller or test_complete_native_payload_and_result_release or test_every_accepted_result_handle_remains_a_derive_parent or test_missing_required_sibling_route_prevents_native_main or test_rejected_context_attachment_invalidates_original_adapter or test_ordinary_request_uses_actual_request_local_client_and_unchanged_arguments or test_should_use_direct_api_call_only_for_cron_openai_wire or test_direct_api_call_interrupt_aborts_active_client_and_raises or test_direct_api_call_runs_two_sequential_requests_on_same_thread or test_healthy_call_is_untouched_by_the_watchdog or test_interrupt_abort_is_not_misclassified_as_provider_staleness or test_non_streaming_cancel_does_not_surface_network_error",
+    "-q"
+  ],
+  "source_commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "source_sha256": {
+    "agent/chat_completion_helpers.py": "a32dd5df6df92b3e7f2901d7bc89d70a10271c50c61148c1f029e8f8cdbf5f08",
+    "tests/agent/test_native_main_payload.py": "40130945ab77d04390f5ee7de19b5e5ce84c9ee37c28c178a817b47ee184b024"
+  },
+  "exit_code": 0,
+  "seconds": 26.301,
+  "file_retries": 0,
+  "deadline_seconds": 600,
+  "source_stable_during_run": true,
+  "passed": 105,
+  "failed": 0,
+  "skipped": 0,
+  "retries": 0,
+  "runner_seconds": 25.9,
+  "selection": {
+    "additive_caller": 86,
+    "representative_accepted_adapter": 11,
+    "affected_ordinary_compatibility": 8
+  },
+  "tests_rerun_on_installed_duplicate_environment": false
+}

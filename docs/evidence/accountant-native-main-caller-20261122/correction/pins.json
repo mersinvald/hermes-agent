@@ -1,0 +1,29 @@
+{
+  "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+  "reviewed_runtime_commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "reviewed_candidate_commit": "143d64987cb8aa651b89029a651ae885dd9b665c",
+  "source_sha256": {
+    "agent/chat_completion_helpers.py": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+    "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736",
+    "agent/native_main_payload.py": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11",
+    "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+  },
+  "source_git_blobs": {
+    "agent/chat_completion_helpers.py": "85f44ee7a7b91ede70347ed7bcefb3b1d280915d",
+    "tests/agent/test_native_main_payload.py": "104faab9e64245d9ec2c2ad304b798e43d5db806",
+    "agent/native_main_payload.py": "7d0d32deb9ea2a26bde7a43b1b744822359799a6",
+    "agent/content_policy.py": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a"
+  },
+  "review_finding_sha256": "20a16793ca5e05d376888a4c9be0d9e95aac7e0afd9971d5c071b3b9d4e2c26a",
+  "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+  "installed_engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "prior_installed_smoke_source": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "prior_installed_smoke_sha256": "b36f6bdf7e0705125053ea13e2b17d8a03f06e7ae9ccf59f9357aaf23c62ca7c",
+  "current_document_sha256": {
+    "docs/evidence/accountant-native-main-caller-20261122/README.md": "4252dc614374f3e683e26804c4ed563bf62be9698b40190e5612c2793f906550",
+    "docs/evidence/accountant-native-main-caller-20261122/correction/README.md": "6f16158cb349bcaf79c4c19e88af43f56aafeaf22e039ca05342fe70a5c49b6f",
+    "docs/evidence/accountant-native-main-caller-20261122/correction/consumer-api.json": "374217b59153d0c2e0a2e2942f51fc3f7f8d8b51ec695932021d64ed660d7568"
+  },
+  "red_runtime_sha256": "a32dd5df6df92b3e7f2901d7bc89d70a10271c50c61148c1f029e8f8cdbf5f08",
+  "red_test_sha256": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736"
+}
