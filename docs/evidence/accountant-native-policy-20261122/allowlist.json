@@ -35,19 +35,6 @@
     "tests/agent/test_content_policy_tool_results.py"
   ],
   "native_dependency_after_separate_artifact_decision": [],
-  "separate_dependency_worktree_required": {
-    "repository": "Hermes PWA",
-    "base": "2a05257840cee4bd421466c1f420df850e6980fb",
-    "proposed_paths": [
-      "packages/content-policy/pyproject.toml",
-      "packages/content-policy/src/hermes_content_policy/__init__.py",
-      "server/src/hermes_pwa_server/content_destination_policy.py",
-      "pyproject.toml",
-      "uv.lock",
-      "server/tests/test_content_policy_package.py",
-      "docs/mesh/evidence/accountant-native-policy-package-20261122/"
-    ]
-  },
   "excluded": [
     "original native checkout working files",
     "Infra writes",
@@ -69,6 +56,25 @@
     "distribution": "hermes-content-policy==0.1.0",
     "import": "hermes_content_policy",
     "mode": "Reviewed hash-pinned wheel, no index/dependency lookup, task-owned validation environment. Root supplies accepted receipt.",
-    "native_manifests": "Keep pyproject.toml and uv.lock unchanged."
+    "native_manifests": "Keep pyproject.toml and uv.lock unchanged.",
+    "status": "accepted_by_root",
+    "approval_message": "msg_f882209c55c8",
+    "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+    "source_commit": "2c04efb3de76e9739c3c85717c021623b8b14727",
+    "merge_commit": "01ae0dcf2b3df18ae83e7fe11d1c5ffb6c0916fe"
+  },
+  "native_implementation_source": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+  "historical_dependency_proposal": {
+    "repository": "Hermes PWA",
+    "base": "2a05257840cee4bd421466c1f420df850e6980fb",
+    "proposed_paths": [
+      "packages/content-policy/pyproject.toml",
+      "packages/content-policy/src/hermes_content_policy/__init__.py",
+      "server/src/hermes_pwa_server/content_destination_policy.py",
+      "pyproject.toml",
+      "uv.lock",
+      "server/tests/test_content_policy_package.py",
+      "docs/mesh/evidence/accountant-native-policy-package-20261122/"
+    ]
   }
 }

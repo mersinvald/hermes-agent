@@ -1,0 +1,302 @@
+{
+  "source_commit": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+  "source_base": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+  "approval_message": "msg_46c9b42c553e",
+  "canonical_import": "hermes_content_policy",
+  "shared_engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "shared_engine_operations": [
+    "ContentPolicyRuntime.admit with empty control bytes for ordinary checks"
+  ],
+  "native_payload_dispatch_via_shared_engine": false,
+  "production_destination_qualification": false,
+  "sensitive_real_provider_dispatch": false,
+  "production_transports": [],
+  "required_sensitive_paths": [
+    "main",
+    "fallback",
+    "title",
+    "compression",
+    "memory",
+    "delegate",
+    "a2a",
+    "tool_result"
+  ],
+  "thread_contract": "Each ordinary check constructs its own shared runtime. No ContentHandle crosses a thread. Sensitive thread handoff remains unsupported.",
+  "result_contract": "Missing trusted producer-profile port or any constrained profile invalidates enabled reuse. No positive constrained result propagation.",
+  "signature_method": "Tracked source AST inspection, not a runtime signature test. Native tests exercise the actual functions.",
+  "native_api": {
+    "agent/content_policy.py:NativeContentPolicyDenied": {
+      "methods": {}
+    },
+    "agent/content_policy.py:shared_policy": {
+      "signature": "",
+      "async": false
+    },
+    "agent/content_policy.py:require_ordinary": {
+      "signature": "profiles",
+      "async": false
+    },
+    "agent/content_policy.py:NativeContentContext": {
+      "methods": {
+        "__init__": "self, admission, request_handle, *, result_profiles=None",
+        "invalidate": "self",
+        "_current": "self, request_handle",
+        "current": "self, request_handle",
+        "check": "self, path",
+        "result": "self, producer"
+      }
+    },
+    "agent/content_policy.py:current_context": {
+      "signature": "agent=None",
+      "async": false
+    },
+    "agent/content_policy.py:guard_native_content": {
+      "signature": "path, agent=None",
+      "async": false
+    },
+    "agent/content_policy.py:guard_tool_result": {
+      "signature": "agent, producer",
+      "async": false
+    },
+    "agent/content_policy.py:checked_native_call": {
+      "signature": "path, callback, agent=None",
+      "async": false
+    },
+    "agent/content_policy.py:content_policy_scope": {
+      "signature": "context",
+      "async": false
+    },
+    "agent/content_policy.py:ingress_policy": {
+      "signature": "ingress",
+      "async": false
+    },
+    "agent/content_policy.py:guard_inbound": {
+      "signature": "runner, event, source",
+      "async": false
+    },
+    "agent/content_policy.py:guard_completion": {
+      "signature": "runner, source",
+      "async": false
+    },
+    "agent/content_policy.py:guard_completion_event": {
+      "signature": "runner, event",
+      "async": true
+    },
+    "gateway/pwa_config.py:identifier": {
+      "signature": "value",
+      "async": false
+    },
+    "gateway/pwa_config.py:bounded_text": {
+      "signature": "value, maximum=512",
+      "async": false
+    },
+    "gateway/pwa_config.py:closed": {
+      "signature": "value, allowed, required=()",
+      "async": false
+    },
+    "gateway/pwa_config.py:canonical": {
+      "signature": "value",
+      "async": false
+    },
+    "gateway/pwa_config.py:source_identity": {
+      "signature": "source",
+      "async": false
+    },
+    "gateway/pwa_config.py:parse_principal": {
+      "signature": "data",
+      "async": false
+    },
+    "gateway/pwa_config.py:NativeContentPolicyConfig": {
+      "methods": {
+        "from_dict": "cls, raw"
+      }
+    },
+    "gateway/pwa_ownership.py:timestamp": {
+      "signature": "value",
+      "async": false
+    },
+    "gateway/pwa_ownership.py:object_json": {
+      "signature": "raw",
+      "async": false
+    },
+    "gateway/pwa_ownership.py:NativeContentPolicyAdmission": {
+      "methods": {
+        "__init__": "self, ingress, ownership",
+        "check_configuration": "self",
+        "source_owner": "self, source",
+        "authorize": "self, principal, root",
+        "admit_event": "self, event, source, root",
+        "copy_event": "self, event, replacement",
+        "check_event": "self, event, source",
+        "bind_execution": "self, execution, event",
+        "check_execution": "self, execution",
+        "context": "self, execution, selection",
+        "release": "self, execution"
+      }
+    }
+  },
+  "objects": [
+    {
+      "path": "agent/content_policy.py",
+      "git_blob": "1df8206601283adf12b0dc8a153d2b86750ba21a",
+      "sha256": "fb23467a8e0b0ad345f0d016f18b890d1df4e59176d8b327529d1b5e1c008477",
+      "byte_size": 9663
+    },
+    {
+      "path": "gateway/pwa_config.py",
+      "git_blob": "659fe13cdc55ae4352816dae90576173358b0997",
+      "sha256": "14efc6bec7523ac85a135f28b22efadb22746bd573a12c2596f6828bd56c8a04",
+      "byte_size": 18305
+    },
+    {
+      "path": "gateway/pwa_http.py",
+      "git_blob": "91a60377db772639d423a6a2e513e010c165f7bf",
+      "sha256": "52a6d2cfee3f296cde0b04c0c9964ddbd43a1a994295fc8f8215adb12dc75a25",
+      "byte_size": 36283
+    },
+    {
+      "path": "gateway/pwa_ownership.py",
+      "git_blob": "7395d3973244024c56747d364bc4c58929c38355",
+      "sha256": "5cf742927617bda4ba8440cb1a66c5cd8b420fc88379c734a9365d92050084d1",
+      "byte_size": 23831
+    },
+    {
+      "path": "gateway/conversation_control.py",
+      "git_blob": "ae759bb20193662b5a4d22e664de9461a8dccdb7",
+      "sha256": "a335ddab330816019aa233dfcfdddfea9a057bc293aaefffe3d81745d41610ae",
+      "byte_size": 22673
+    },
+    {
+      "path": "gateway/native_commands.py",
+      "git_blob": "a4d117e3b7e60ed13961b5fbe6621e878eebbec0",
+      "sha256": "27c2d331ff0d1f24669dd10904ebf344a3583803ceafb349568ba000850a1004",
+      "byte_size": 27743
+    },
+    {
+      "path": "gateway/run.py",
+      "git_blob": "37fc20f4eb09f6e034dcad330c4186d267f7becd",
+      "sha256": "697da4d039178c238132838a5f02c7759b0dd8f2d1f1b71fca25c31ff9b66e15",
+      "byte_size": 1668748
+    },
+    {
+      "path": "run_agent.py",
+      "git_blob": "2164f935314b29a8c6ff4d57b4def46e1779f07c",
+      "sha256": "ce3420f65ac7248741ced852ee4886519be7e3b07c3f2c9a3cc40504f4a63727",
+      "byte_size": 441207
+    },
+    {
+      "path": "agent/conversation_loop.py",
+      "git_blob": "f99c60b06f11fcec421938a2a0421726172faca4",
+      "sha256": "28032fbc17b82f55556efaf813e8f0e8e0fa2710d58b4654cdb5e2209a838f96",
+      "byte_size": 497818
+    },
+    {
+      "path": "agent/turn_context.py",
+      "git_blob": "3bf0c76660f756a3a379531b17542b6e33e606a7",
+      "sha256": "1dae11fd99647cad1cdcf8bce4ca85d84c26ef4d82ceee4d6874a7e2d6b9ebda",
+      "byte_size": 77914
+    },
+    {
+      "path": "agent/chat_completion_helpers.py",
+      "git_blob": "7831047fab0616b41ded1613262b6bffe3845e16",
+      "sha256": "bb0e34775d5d1999893df4dcf60d28245a982468d4d4bbac3053c24f2100df39",
+      "byte_size": 271909
+    },
+    {
+      "path": "agent/auxiliary_client.py",
+      "git_blob": "24dd1f4e2ebe8f382ce2313d4b697d3430f1b1bf",
+      "sha256": "efc71132fed61982d1403b58ce7729d09f92dcb9e14dadb7bfcd77ede87c5610",
+      "byte_size": 508847
+    },
+    {
+      "path": "agent/title_generator.py",
+      "git_blob": "23c831c59f0a2fcb54a952bc782f81c03ca2fb30",
+      "sha256": "08142431c58428ba12b478944b7cd0a61f433da169be048c314e12fd990a2062",
+      "byte_size": 34224
+    },
+    {
+      "path": "agent/context_compressor.py",
+      "git_blob": "02003274ac6b093a9b6dec02e3748d297df7a59b",
+      "sha256": "fd6e396b6e3545c3989ec9475ae4afd79a358d63c35c516242f2f259d1e7120b",
+      "byte_size": 440046
+    },
+    {
+      "path": "agent/memory_manager.py",
+      "git_blob": "60329e3c80f1406a54de98abe4bbd359bf16ae56",
+      "sha256": "0c4d90d44fd9bce88d410e7f7a827731eb301a1a5b192ada38691cd4e74842b8",
+      "byte_size": 60309
+    },
+    {
+      "path": "agent/tool_executor.py",
+      "git_blob": "87f839d85904a83541cc64233c0ed3bc25382333",
+      "sha256": "857005ae0a3a316151f91d1410210ee032343e28a9fad4b67ce55dc3c3ae9b83",
+      "byte_size": 134867
+    },
+    {
+      "path": "tools/delegate_tool.py",
+      "git_blob": "4fabd81cdfc08f0c9fa5e1ad6f4e6dcd57da537d",
+      "sha256": "7b5f36594948bb19f05d883c75b8d5c79a1f306fd4fcc80e657ac853df6c093d",
+      "byte_size": 238325
+    },
+    {
+      "path": "tools/async_delegation.py",
+      "git_blob": "ece28676446d02ee6c859356c7feb7899434c223",
+      "sha256": "4d3698be67d58caa14c0228ff6ae57c03084142b59f4b986343141db206b5705",
+      "byte_size": 70631
+    },
+    {
+      "path": "plugins/platforms/a2a/tools.py",
+      "git_blob": "2021e61e889303a5fb7845add598d9416fa145e6",
+      "sha256": "17c19b7b6f7f9f07d79e215da6a505a1a60c04eee5c53e5f5db127933b85cffb",
+      "byte_size": 48028
+    },
+    {
+      "path": "tests/gateway/test_native_content_policy.py",
+      "git_blob": "98d6e0b30259b4929f6802de944c5221703230bb",
+      "sha256": "ff33c2e0d6d5f34186349fe239dd15ba9be91dc0eab42a42c21615550cfbb8bd",
+      "byte_size": 11178
+    },
+    {
+      "path": "tests/agent/test_content_policy.py",
+      "git_blob": "ea5887393237dd118f894f3839f5c52446d1a05a",
+      "sha256": "263892845a118651fdb5f5b7877375782130a6491bc070dd61dd9a022ff7c658",
+      "byte_size": 4823
+    },
+    {
+      "path": "tests/agent/test_content_policy_dispatch.py",
+      "git_blob": "0831f6490cb748826ba68cf2cbec5e15306ab1c7",
+      "sha256": "3df9ebaca1b05043678a476e214a77a4915c9231b4e3cf9753894637ff06a1a6",
+      "byte_size": 4381
+    },
+    {
+      "path": "tests/agent/test_content_policy_auxiliary.py",
+      "git_blob": "00529860fb37eee563bdc2e9f462eadaa0baeb0d",
+      "sha256": "441c03df6b707d0c79af5417ab1a9f1bb749f5c33c31ce2e68ca18d857a5fb59",
+      "byte_size": 4225
+    },
+    {
+      "path": "tests/agent/test_content_policy_memory.py",
+      "git_blob": "2d38d9e5f23c781dcbe141cc961b608531bb7299",
+      "sha256": "378aa9bc7354a138bf19fd0a4704297a299fccf6b67862323fcbc4140a74bab5",
+      "byte_size": 2447
+    },
+    {
+      "path": "tests/tools/test_content_policy_delegation.py",
+      "git_blob": "fe5e3dd81189955ea2c38921bc225bbb6937f480",
+      "sha256": "9f0b6e6c1a38f2650aba820f9ec355f78f5375047db21575f7b05f6ab37b831f",
+      "byte_size": 3462
+    },
+    {
+      "path": "tests/plugins/test_a2a_content_policy.py",
+      "git_blob": "e611ded3f45208ba4740499db324867dc5819757",
+      "sha256": "8cd9f2e01764b915ddaca732c94d3c9445583279f22f70a1579646356f19a608",
+      "byte_size": 1184
+    },
+    {
+      "path": "tests/agent/test_content_policy_tool_results.py",
+      "git_blob": "170bcc4f293dbbb1c0d5d783f91d52b681c802f5",
+      "sha256": "37ae1aeed125b8ca70c4236ea73db76941453f9790e1e5d1363180174b62fd85",
+      "byte_size": 1963
+    }
+  ]
+}

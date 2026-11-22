@@ -1,0 +1,42 @@
+{
+  "issue": "hpwa-p10.2",
+  "dependency_issue": "hpwa-p10.3",
+  "pending_question_id": "msg_269b4afb64fb",
+  "root_acceptance": "accepted_shared_package_and_local_native_consumer_artifact",
+  "source_commit": "2c04efb3de76e9739c3c85717c021623b8b14727",
+  "evidence_commit": "6224a968cbce628da6659d8681cc5780324e952d",
+  "merge_commit": "01ae0dcf2b3df18ae83e7fe11d1c5ffb6c0916fe",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/hermes_content_policy-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+  "artifact_receipt_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/artifact-receipt.json",
+  "artifact_receipt_sha256": "5022ec178fb8e31a960272b680c63438e8bd45b3a6caf50329deffd0f58dec45",
+  "consumer_api_git_ref": "6224a968cbce628da6659d8681cc5780324e952d:docs/mesh/evidence/accountant-native-policy-package-20261122/consumer-api.json",
+  "consumer_api_sha256": "cfbd72db1340f24d255ef1a70bc417213398d9c209bac81a816b27cc2b6e0203",
+  "engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "distribution": "hermes-content-policy",
+  "version": "0.1.0",
+  "canonical_import": "hermes_content_policy",
+  "requires_python": "<3.14,>=3.11",
+  "runtime_dependencies": [],
+  "tested_standalone_python": [
+    "3.11.15",
+    "3.13.3"
+  ],
+  "python312_runtime_checked": false,
+  "consumer_install_authority": "Exact hashed wheel in task-owned validation environment only, without index or dependency lookup.",
+  "native_manifest_changes_approved": false,
+  "native_push_or_pr_approved": false,
+  "sensitive_real_provider_dispatch_approved": false,
+  "full_P10_accepted": false,
+  "root_review_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.3.final-review.json",
+  "publication_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.3.publication-receipt.json",
+  "approval_message": "msg_f882209c55c8",
+  "upstream_artifact_receipt_status": "candidate, root acceptance pending",
+  "upstream_receipts_preserved_in_place": true,
+  "install_flags": [
+    "--no-index",
+    "--no-deps",
+    "--offline"
+  ],
+  "native_manifests_unchanged": true
+}

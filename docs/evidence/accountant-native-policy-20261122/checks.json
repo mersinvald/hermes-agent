@@ -1,0 +1,345 @@
+{
+  "source_commit": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+  "native": {
+    "source_commit": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+    "selection": [
+      "tests/gateway/test_native_content_policy.py",
+      "tests/agent/test_content_policy.py",
+      "tests/agent/test_content_policy_dispatch.py",
+      "tests/agent/test_content_policy_auxiliary.py",
+      "tests/agent/test_content_policy_memory.py",
+      "tests/tools/test_content_policy_delegation.py",
+      "tests/plugins/test_a2a_content_policy.py",
+      "tests/agent/test_content_policy_tool_results.py"
+    ],
+    "flags": [],
+    "exit_code": 0,
+    "seconds": 11.98,
+    "stdout_sha256": "65c444a59a8bce3b4d451a3e76a7f6eb2fcde52a962070844043863835c1a543",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": 137,
+    "failed": 0,
+    "skipped": 0
+  },
+  "compatibility": {
+    "source_commit": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+    "selection": [
+      "tests/gateway/test_native_commands.py",
+      "tests/agent/test_title_generator.py",
+      "tests/gateway/test_pwa_image_provider.py",
+      "tests/gateway/test_pwa_models.py",
+      "tests/gateway/test_async_delegation_session_binding.py"
+    ],
+    "flags": [
+      "-k",
+      "receipt_retry_conflict_auth_and_atomic_input or pre_agent_failure_releases_own_reservation or managed_destination_is_captured_and_forwarded_strictly or managed_destination_is_copied_into_background_worker or broken_validator_fails_open or real_sdk_images_history_and_no_text_retry or default_outage_does_not_block_an_existing_healthy_selection or catalog_uses_opaque_ids_and_reports_each_route_truthfully or live_spawning_session_rebinds_from_different_route or compression_parent_follows_real_sessiondb_lineage"
+    ],
+    "exit_code": 0,
+    "seconds": 20.77,
+    "stdout_sha256": "89fe9187305ca03cb997bab737f837a3f85b532ae82f0fe7184337d880113190",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0
+  },
+  "validation_python": "3.11.15",
+  "new_tests_use_invented_content": true,
+  "real_model_or_production_calls": 0,
+  "additional_shared_service_simulations": 0,
+  "canonical_engine_import": {
+    "version": "0.1.0",
+    "engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+    "pwa_server_distribution_installed": false
+  },
+  "setup": [
+    {
+      "step": "uv sync --locked --extra dev --no-install-project --offline",
+      "exit_code": 1,
+      "reason": "ruff 0.15.10 was absent from the dependency cache."
+    },
+    {
+      "step": "uv sync --locked --extra dev --no-install-project",
+      "exit_code": 0,
+      "seconds": 3.43,
+      "scope": "Existing locked native dependencies only. No shared-package index lookup."
+    },
+    {
+      "step": "first two-file runner selection",
+      "passed": 44,
+      "failed": 8,
+      "scope": [
+        "tests/agent/test_content_policy.py",
+        "tests/gateway/test_native_content_policy.py"
+      ],
+      "reason": "Missing aiohttp optional dependency during real native cancellation import. Original output remains in the conversation tool result."
+    },
+    {
+      "step": "uv sync --locked --extra dev --extra homeassistant --no-install-project --inexact",
+      "exit_code": 0,
+      "seconds": 1.87,
+      "scope": "Existing locked aiohttp 3.14.3 and dependencies. No runtime manifest change."
+    }
+  ],
+  "historical_edit_reports": [
+    {
+      "stage": "edit-2",
+      "source": "uncommitted implementation tree, before frozen source commit",
+      "passed": 95,
+      "failed": 1,
+      "skipped": 0,
+      "scope": "Seven new files. The decoded durable result field assertion used result_json instead of result.",
+      "reports": {
+        "stdout": {
+          "path": "/tmp/hpwa-p10.2-validation/edit-2.stdout",
+          "sha256": "1614d868284a131fb151507cdf3e9a52bc03eadb44e5ffce25369fe96523feac"
+        },
+        "stderr": {
+          "path": "/tmp/hpwa-p10.2-validation/edit-2.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "stage": "edit-3",
+      "source": "uncommitted implementation tree, before frozen source commit",
+      "passed": 59,
+      "failed": 1,
+      "skipped": 0,
+      "scope": "Context, gateway and delegation files. Image-receipt fixture omitted model initialization.",
+      "reports": {
+        "stdout": {
+          "path": "/tmp/hpwa-p10.2-validation/edit-3.stdout",
+          "sha256": "0d455921eec534ae258a035b8ffc5bd0855195545f64e309e438b03f4501c410"
+        },
+        "stderr": {
+          "path": "/tmp/hpwa-p10.2-validation/edit-3.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "stage": "edit-4",
+      "source": "uncommitted implementation tree, before frozen source commit",
+      "passed": 83,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "Context, gateway, memory and auxiliary files.",
+      "reports": {
+        "stdout": {
+          "path": "/tmp/hpwa-p10.2-validation/edit-4.stdout",
+          "sha256": "0194626d13b64f8767d81243939b8880b0fadf13e55cb1aee49c4518f367ef1e"
+        },
+        "stderr": {
+          "path": "/tmp/hpwa-p10.2-validation/edit-4.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "stage": "final-native",
+      "source": "uncommitted implementation tree, before frozen source commit",
+      "passed": 136,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "Eight new files before final review refinements.",
+      "reports": {
+        "stdout": {
+          "path": "/tmp/hpwa-p10.2-validation/final-native.stdout",
+          "sha256": "55bb50b2dc7629dcf8beffb7bee3d4d8b6a81bfdfdb9e3fde071ed3a10bb9a36"
+        },
+        "stderr": {
+          "path": "/tmp/hpwa-p10.2-validation/final-native.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "stage": "compatibility",
+      "source": "uncommitted implementation tree, before frozen source commit",
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "Selected existing compatibility cases before final review refinements.",
+      "reports": {
+        "stdout": {
+          "path": "/tmp/hpwa-p10.2-validation/compatibility.stdout",
+          "sha256": "696532f90ae0c36de5ba1044e2b9d2b30ae8f28bcb13f138ee587376e27ff9b8"
+        },
+        "stderr": {
+          "path": "/tmp/hpwa-p10.2-validation/compatibility.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "shared_evidence_reused": {
+    "P10.1_source": "2b66c7504fb8863208d5dda6c991307fd004a0ca",
+    "policy_cases": 109,
+    "unchanged_transport_cases": 33,
+    "installed_wheel_smoke": "Original recorded scope only.",
+    "facade_postgresql_skips": 5,
+    "facade_skips_verified": false,
+    "P10.3_standalone_python": [
+      "3.11.15",
+      "3.13.3"
+    ],
+    "P10.3_python312_checked": false,
+    "P10.3_initial_selection": "11 passes and one fixture failure. Corrected single-case pass is not a fresh complete selection."
+  },
+  "ste_current_prose": {
+    "README.md": {
+      "words": 255,
+      "sentences": 26,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "design.md": {
+      "words": 2039,
+      "sentences": 210,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 2
+      },
+      "total": 2,
+      "total_per100w": 0.1,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "implementation.md": {
+      "words": 1225,
+      "sentences": 119,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 1
+      },
+      "total": 1,
+      "total_per100w": 0.08,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "source-map.md": {
+      "words": 712,
+      "sentences": 75,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 1
+      },
+      "total": 1,
+      "total_per100w": 0.14,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "validation-plan.md": {
+      "words": 589,
+      "sentences": 65,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 1
+      },
+      "total": 1,
+      "total_per100w": 0.17,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  },
+  "runtime_and_test_hashes": "runtime-api.json",
+  "excluded": [
+    "sensitive real-provider inference",
+    "serialized authentication",
+    "durable policy restoration",
+    "sensitive cross-thread transfer",
+    "native destination qualification",
+    "deployed private-base differences",
+    "actual egress",
+    "financial activation",
+    "full P10",
+    "push or native PR"
+  ],
+  "source_preservation": {
+    "runtime_and_tests_match_frozen_commit": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+    "native_manifests_byte_equal_to_base": true,
+    "changed_paths_within_allowlist": true,
+    "serena_changed_paths": 0,
+    "original_checkouts_edited": false,
+    "Beads_writes": 0,
+    "git_hooks_or_configuration_changed": false
+  },
+  "static_checks": {
+    "ruff": "Passed for the 19 approved runtime files and eight new test files. One existing noqa warning in run_agent.py retained.",
+    "git_diff_check": "passed",
+    "new_runtime_comments_docstrings_ste_findings": 0,
+    "existing_runtime_ste_score_increased": false,
+    "ruff_report": {
+      "exit_code": 0,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_commit": "3b4fe67e8e708532fbe78ee3a088d26353a64d11"
+    }
+  }
+}
