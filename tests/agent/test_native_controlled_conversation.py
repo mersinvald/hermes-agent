@@ -620,3 +620,60 @@ def test_ordinary_close_keeps_cleanup(monkeypatch):
     assert events == ["memory", "process", "vm", "browser", "computer", "client",
                       "cached_openai", "cached_anthropic", "trim"]
     assert agent.client is None
+
+
+class ReservedProviderString(str):
+    pass
+
+
+class ReservedProviderEquality(str):
+    def __eq__(self, other):
+        pytest.fail("Custom provider equality ran")
+
+
+class ReservedProviderConversions(str):
+    def __bool__(self):
+        pytest.fail("Custom provider Boolean conversion ran")
+
+    def __str__(self):
+        pytest.fail("Custom provider string conversion ran")
+
+    def strip(self, *args, **kwargs):
+        pytest.fail("Custom provider strip ran")
+
+
+@pytest.mark.parametrize("provider_class", [
+    str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+    from run_agent import AIAgent
+    from agent.content_policy import current_context
+
+    assert current_context() is None
+    provider = provider_class("synthetic_native")
+    with pytest.raises(NativeContentPolicyDenied):
+        AIAgent(provider=provider)
+    with pytest.raises(NativeContentPolicyDenied):
+        AIAgent(provider=provider, tool_delay=0)
+    assert current_context() is None
+
+
+def test_constructor_exact_ordinary_provider_reaches_ordinary_initialization(excluded, monkeypatch):
+    from run_agent import AIAgent
+    from agent import agent_init
+    from agent.content_policy import current_context
+
+    class OrdinaryInitializationReached(Exception):
+        pass
+
+    calls = []
+
+    def ordinary_stdio():
+        calls.append("stdio")
+        raise OrdinaryInitializationReached
+
+    assert current_context() is None
+    monkeypatch.setattr(agent_init, "_install_safe_stdio", ordinary_stdio)
+    with pytest.raises(OrdinaryInitializationReached):
+        AIAgent(provider="ordinary")
+    assert calls == ["stdio"]

@@ -1218,7 +1218,7 @@ def _controlled_attempt(agent, adapter=None, provider=None):
             or "_native_controlled_options" in namespace):
         return True
     provider = namespace.get("provider") if provider is None else provider
-    if type(provider) is str and provider == "synthetic_native":
+    if isinstance(provider, str) and str.__eq__(provider, "synthetic_native") is True:
         return True
     active = current_context()
     attached = namespace.get("_native_content_policy_context")
