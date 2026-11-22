@@ -1,0 +1,23 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 4 test files (~46 tests) under ['tests/agent/test_native_main_payload.py', 'tests/agent/test_content_policy_dispatch.py', 'tests/agent/test_content_policy.py', 'tests/agent/test_cron_inline_api_call_62151.py']; running with -j 2
+[ 19.6% |     9/~46 | ✓10 | ✗ 0] ✓ tests/agent/test_content_policy.py (10✓, 0.5s)
+[ 28.3% |    13/~46 | ✓44 | ✗ 0] ✓ tests/agent/test_content_policy_dispatch.py (34✓, 1.8s)
+[ 32.6% |    15/~46 | ✓46 | ✗ 0] ✓ tests/agent/test_cron_inline_api_call_62151.py (2✓, 1.2s)
+[100.0% |    46/~46 | ✓233 | ✗  0] ✓ tests/agent/test_native_main_payload.py (187✓, 46.0s)
+
+=== Summary: 4 files, 233 tests passed, 0 failed (100% complete) in 47.7s (2 workers) ===
+  Durations cached to test_durations.json (4 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   4
+  Total subprocess CPU-wall: 49.5s  (runner wall: 47.7s, parallelism: 2x)
+  P50: 1.75s  P90: 45.96s  P95: 45.96s  P99: 45.96s  Max: 45.96s
+  <1s: 1 files (25%)  <2s: 3 files (75%)
+  Top 10 slowest:
+     45.96s  tests/agent/test_native_main_payload.py
+      1.75s  tests/agent/test_content_policy_dispatch.py
+      1.23s  tests/agent/test_cron_inline_api_call_62151.py
+      0.54s  tests/agent/test_content_policy.py

@@ -1,6 +1,6 @@
 {
   "issue": "hpwa-p10.5",
-  "phase": "approved_implementation_source",
+  "phase": "completed_component_pending_root_review",
   "native_base": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
   "canonical_pwa_pin": "1219df6a72b29920741a5ea91e19955300723b65",
   "native_sources": [
@@ -119,5 +119,7 @@
     "design_commit": "82273832f186289c95401eaaa2e66065e48ee93c",
     "shared_refusal_coverage_seam_approved": false,
     "native_publication_approved": false
-  }
+  },
+  "implementation_source_commit": "e15b69ecfdc740f2d1f8643c0b33507d848d5744",
+  "positive_native_payload_boundary": "Controlled invented synchronous chat_completions at the selected native helper only."
 }
