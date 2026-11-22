@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "seconds": 27.672,
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_main_payload.py",
+    "--file-timeout",
+    "110",
+    "--file-retries",
+    "0",
+    "-k",
+    "test_controlled_caller",
+    "-q"
+  ],
+  "source_sha256": {
+    "agent/chat_completion_helpers.py": "231ccfe82c0b0dbe200028e4ae18aad116a7401dfb9d5af76368879c1a07f4fe",
+    "tests/agent/test_native_main_payload.py": "95b25855f4b998c8154084c17ee1d9ab4074eea399752555540e075935924fa6"
+  }
+}

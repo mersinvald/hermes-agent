@@ -1,0 +1,24 @@
+{
+  "native_base": "5a68423dfab155604999f4da223ff8cde22dbe46",
+  "source_commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "base_paths": 11072,
+  "unchanged_base_paths": 11070,
+  "changed_base_paths": [
+    "agent/chat_completion_helpers.py",
+    "tests/agent/test_native_main_payload.py"
+  ],
+  "existing_test_bytes_preserved_as_prefix": true,
+  "unchanged_function_bytes": [
+    "direct_api_call",
+    "_dispatch_nonstreaming_api_request",
+    "interruptible_streaming_api_call",
+    "should_use_direct_api_call"
+  ],
+  "native_manifests_unchanged": true,
+  "existing_evidence_unchanged": true,
+  "protected_package_lock_contents_read_or_edited": false,
+  "method": "One Git tree identity comparison for all base paths. Compare the existing test prefix and unchanged helper source segments.",
+  "other_checkouts_modified": false,
+  "beads_writes": false,
+  "beads_sync": false
+}

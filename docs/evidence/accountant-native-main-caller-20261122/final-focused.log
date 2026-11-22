@@ -1,0 +1,27 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 6 test files (~80 tests) under ['tests/agent/test_native_main_payload.py', 'tests/agent/test_content_policy_dispatch.py', 'tests/agent/test_cron_inline_api_call_62151.py', 'tests/cron/test_cron_direct_api_call_62151.py', 'tests/cron/test_cron_direct_api_call_watchdog.py', 'tests/agent/test_cascading_interrupt_6600.py']; running with -j 8
+[  5.0% |     4/~80 | ✓2 | ✗0] ✓ tests/cron/test_cron_direct_api_call_62151.py (2✓, 0.9s)
+[  7.5% |     6/~80 | ✓3 | ✗0] ✓ tests/agent/test_cascading_interrupt_6600.py (1✓, 2.0s)
+[ 28.7% |    23/~80 | ✓5 | ✗0] ✓ tests/cron/test_cron_direct_api_call_watchdog.py (2✓, 2.5s)
+[ 33.8% |    27/~80 | ✓6 | ✗0] ✓ tests/agent/test_content_policy_dispatch.py (1✓, 2.6s)
+[ 36.2% |    29/~80 | ✓8 | ✗0] ✓ tests/agent/test_cron_inline_api_call_62151.py (2✓, 2.7s)
+[100.0% |    80/~80 | ✓105 | ✗  0] ✓ tests/agent/test_native_main_payload.py (97✓, 25.9s)
+
+=== Summary: 6 files, 105 tests passed, 0 failed (100% complete) in 25.9s (8 workers) ===
+  Durations cached to test_durations.json (6 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   6
+  Total subprocess CPU-wall: 36.7s  (runner wall: 25.9s, parallelism: 8x)
+  P50: 2.64s  P90: 25.93s  P95: 25.93s  P99: 25.93s  Max: 25.93s
+  <1s: 1 files (17%)  <2s: 2 files (33%)
+  Top 10 slowest:
+     25.93s  tests/agent/test_native_main_payload.py
+      2.69s  tests/agent/test_cron_inline_api_call_62151.py
+      2.64s  tests/agent/test_content_policy_dispatch.py
+      2.52s  tests/cron/test_cron_direct_api_call_watchdog.py
+      1.97s  tests/agent/test_cascading_interrupt_6600.py
+      0.94s  tests/cron/test_cron_direct_api_call_62151.py
