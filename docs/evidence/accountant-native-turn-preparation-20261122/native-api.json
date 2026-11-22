@@ -1,0 +1,98 @@
+{
+  "tokens": {
+    "NativeTurnInput": {
+      "slots": [],
+      "public_constructor_authority": false
+    },
+    "NativePreparedTurn": {
+      "slots": [],
+      "public_constructor_authority": false
+    }
+  },
+  "methods": {
+    "admit_turn": "(self, agent: 'object', *, user_message: 'str', system_message: 'str | None', conversation_history: 'list[dict[str, str]] | None', task_id: 'str') -> 'NativeTurnInput'",
+    "seal_turn": "(self, agent: 'object', turn: 'NativeTurnInput', *, turn_context: 'TurnContext') -> 'NativePreparedTurn'",
+    "prepared_request": "(self, agent: 'object', prepared: 'NativePreparedTurn') -> 'dict'"
+  },
+  "build_turn_context": "(agent, user_message: 'Any', system_message: 'Optional[str]', conversation_history: 'Optional[List[Dict[str, Any]]]', task_id: 'Optional[str]', stream_callback, persist_user_message: 'Optional[Any]', persist_user_timestamp: 'Optional[float]' = None, *, persist_user_display_kind: 'Optional[str]' = None, persist_user_display_metadata: 'Optional[Dict[str, Any]]' = None, restore_or_build_system_prompt, install_safe_stdio, sanitize_surrogates, summarize_user_message_for_log, set_session_context, set_current_write_origin, ra, moa_active: 'bool' = False, controlled_input: 'NativeTurnInput | None' = None) -> 'TurnContext'",
+  "turn_context_fields": [
+    {
+      "name": "user_message",
+      "type": "str",
+      "default_none": false
+    },
+    {
+      "name": "original_user_message",
+      "type": "Any",
+      "default_none": false
+    },
+    {
+      "name": "messages",
+      "type": "List[Dict[str, Any]]",
+      "default_none": false
+    },
+    {
+      "name": "conversation_history",
+      "type": "Optional[List[Dict[str, Any]]]",
+      "default_none": false
+    },
+    {
+      "name": "active_system_prompt",
+      "type": "Optional[str]",
+      "default_none": false
+    },
+    {
+      "name": "effective_task_id",
+      "type": "str",
+      "default_none": false
+    },
+    {
+      "name": "turn_id",
+      "type": "str",
+      "default_none": false
+    },
+    {
+      "name": "current_turn_user_idx",
+      "type": "int",
+      "default_none": false
+    },
+    {
+      "name": "should_review_memory",
+      "type": "bool",
+      "default_none": false
+    },
+    {
+      "name": "plugin_user_context",
+      "type": "str",
+      "default_none": false
+    },
+    {
+      "name": "ext_prefetch_cache",
+      "type": "str",
+      "default_none": false
+    },
+    {
+      "name": "preflight_compression_blocked",
+      "type": "bool",
+      "default_none": false
+    },
+    {
+      "name": "controlled_prepared",
+      "type": "NativePreparedTurn | None",
+      "default_none": true
+    }
+  ],
+  "native_main_invocation_fields": [
+    "request_handle",
+    "source",
+    "selection",
+    "producer_policy",
+    "request_bytes",
+    "request_content",
+    "envelope",
+    "observed_destination",
+    "response_bytes",
+    "result_content",
+    "native_response"
+  ]
+}

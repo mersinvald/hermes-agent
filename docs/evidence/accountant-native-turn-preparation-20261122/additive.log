@@ -1,0 +1,164 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 2 test files (~81 tests) under ['tests/agent/test_native_turn_context.py', 'tests/agent/test_native_main_payload.py']; running with -j 8
+[ 69.1% |    56/~81 | ✓7 | ✗0] ✓ tests/agent/test_native_main_payload.py (7✓, 3.7s)
+[100.0% |    81/~81 | ✓173 | ✗  3] ✗ tests/agent/test_native_turn_context.py (166✓ 3✗, 61.3s)
+
+  ╔╍ Failed: tests/agent/test_native_turn_context.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ 
+  ║     @pytest.mark.parametrize("stage", ["admission", "prologue", "materialization"])
+  ║     def test_turn_preparation_scope_rechecked_after_interrupt_flag_read(stage):
+  ║         world = prepared_world()
+  ║         if stage == "admission":
+  ║             operation = lambda: admit(world)
+  ║         else:
+  ║             token = admit(world)
+  ║             if stage == "prologue":
+  ║                 operation = lambda: prepare(world, token)
+  ║             else:
+  ║                 context = prepare(world, token)
+  ║                 operation = lambda: request(world, context)
+  ║     
+  ║         class MutatingAgent(SimpleNamespace):
+  ║             @property
+  ║             def _interrupt_requested(self):
+  ║                 world.binding = replace(world.binding, auth_epoch=8)
+  ║                 return False
+  ║     
+  ║ >       world.agent.__class__ = MutatingAgent
+  ║         ^^^^^^^^^^^^^^^^^^^^^
+  ║ E       TypeError: __class__ assignment only supported for mutable types or ModuleType subclasses
+  ║ 
+  ║ tests/agent/test_native_turn_context.py:571: TypeError
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_scope_rechecked_after_interrupt_flag_read[admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_scope_rechecked_after_interrupt_flag_read[prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_scope_rechecked_after_interrupt_flag_read[materialization]
+  ║ =================== 3 failed, 166 passed in 60.85s (0:01:00) ===================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_turn_context.py -k turn_preparation
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 2 files, 173 tests passed, 3 failed (100% complete) in 61.3s (8 workers) ===
+  Durations cached to test_durations.json (2 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   2
+  Total subprocess CPU-wall: 65.0s  (runner wall: 61.3s, parallelism: 8x)
+  P50: 61.32s  P90: 61.32s  P95: 61.32s  P99: 61.32s  Max: 61.32s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     61.32s  tests/agent/test_native_turn_context.py
+      3.72s  tests/agent/test_native_main_payload.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_turn_context.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.9
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 169 items
+
+tests/agent/test_native_turn_context.py ................................ [ 18%]
+........................................................................ [ 61%]
+.............................................FFF.................        [100%]
+
+=================================== FAILURES ===================================
+__ test_turn_preparation_scope_rechecked_after_interrupt_flag_read[admission] __
+
+stage = 'admission'
+
+    @pytest.mark.parametrize("stage", ["admission", "prologue", "materialization"])
+    def test_turn_preparation_scope_rechecked_after_interrupt_flag_read(stage):
+        world = prepared_world()
+        if stage == "admission":
+            operation = lambda: admit(world)
+        else:
+            token = admit(world)
+            if stage == "prologue":
+                operation = lambda: prepare(world, token)
+            else:
+                context = prepare(world, token)
+                operation = lambda: request(world, context)
+    
+        class MutatingAgent(SimpleNamespace):
+            @property
+            def _interrupt_requested(self):
+                world.binding = replace(world.binding, auth_epoch=8)
+                return False
+    
+>       world.agent.__class__ = MutatingAgent
+        ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: __class__ assignment only supported for mutable types or ModuleType subclasses
+
+tests/agent/test_native_turn_context.py:571: TypeError
+__ test_turn_preparation_scope_rechecked_after_interrupt_flag_read[prologue] ___
+
+stage = 'prologue'
+
+    @pytest.mark.parametrize("stage", ["admission", "prologue", "materialization"])
+    def test_turn_preparation_scope_rechecked_after_interrupt_flag_read(stage):
+        world = prepared_world()
+        if stage == "admission":
+            operation = lambda: admit(world)
+        else:
+            token = admit(world)
+            if stage == "prologue":
+                operation = lambda: prepare(world, token)
+            else:
+                context = prepare(world, token)
+                operation = lambda: request(world, context)
+    
+        class MutatingAgent(SimpleNamespace):
+            @property
+            def _interrupt_requested(self):
+                world.binding = replace(world.binding, auth_epoch=8)
+                return False
+    
+>       world.agent.__class__ = MutatingAgent
+        ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: __class__ assignment only supported for mutable types or ModuleType subclasses
+
+tests/agent/test_native_turn_context.py:571: TypeError
+_ test_turn_preparation_scope_rechecked_after_interrupt_flag_read[materialization] _
+
+stage = 'materialization'
+
+    @pytest.mark.parametrize("stage", ["admission", "prologue", "materialization"])
+    def test_turn_preparation_scope_rechecked_after_interrupt_flag_read(stage):
+        world = prepared_world()
+        if stage == "admission":
+            operation = lambda: admit(world)
+        else:
+            token = admit(world)
+            if stage == "prologue":
+                operation = lambda: prepare(world, token)
+            else:
+                context = prepare(world, token)
+                operation = lambda: request(world, context)
+    
+        class MutatingAgent(SimpleNamespace):
+            @property
+            def _interrupt_requested(self):
+                world.binding = replace(world.binding, auth_epoch=8)
+                return False
+    
+>       world.agent.__class__ = MutatingAgent
+        ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: __class__ assignment only supported for mutable types or ModuleType subclasses
+
+tests/agent/test_native_turn_context.py:571: TypeError
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_scope_rechecked_after_interrupt_flag_read[admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_scope_rechecked_after_interrupt_flag_read[prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_scope_rechecked_after_interrupt_flag_read[materialization]
+=================== 3 failed, 166 passed in 60.85s (0:01:00) ===================
+
+=== 1 file with test failures (3 tests failed) ===
+  tests/agent/test_native_turn_context.py  (3 tests failed)

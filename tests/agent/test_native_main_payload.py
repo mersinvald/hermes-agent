@@ -1405,3 +1405,41 @@ def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment
         assert record.envelope is world.ports["main"].sent[0]
         assert record.response_bytes == reply()
         assert record.native_response.choices[0].message.content == "Invented answer A"
+
+
+@pytest.mark.parametrize("stage", ["raw_pending", "sealed_pending", "consumed"])
+@pytest.mark.parametrize("earlier_direct", [False, True])
+def test_turn_preparation_sticky_dispatch_cannot_fall_back(stage, earlier_direct):
+    from tests.agent.test_native_turn_context import prepared_world, arguments, history, admit, prepare, request
+
+    world = prepared_world()
+    if earlier_direct:
+        world.call()
+    args = arguments("Invented controlled input", history=history(world) if earlier_direct else None)
+    token = admit(world, args)
+    if stage == "raw_pending":
+        kwargs = {"model": "invented_model", "messages": [
+            *(args["conversation_history"] or []), {"role": "user", "content": args["user_message"]}]}
+    else:
+        context = prepare(world, token, args)
+        kwargs = request(world, context)
+        if stage == "sealed_pending":
+            kwargs.pop("stream")
+        else:
+            world.call(kwargs)
+    sends = int(earlier_direct) + int(stage == "consumed")
+    denied(world, lambda: world.call(kwargs), sends=sends)
+
+
+def test_turn_preparation_can_follow_accepted_direct_invocation():
+    from tests.agent.test_native_turn_context import prepared_world, arguments, history, admit, prepare, request
+    from agent.chat_completion_helpers import interruptible_api_call
+
+    world = prepared_world()
+    original = world.call()
+    args = arguments("Invented controlled input", history=history(world))
+    context = prepare(world, admit(world, args), args)
+    result = interruptible_api_call(world.agent, request(world, context))
+    first, second = world.adapter.invocations
+    assert first.native_response is original and second.native_response is result
+    assert world.adapter.send_count == 2 and world.sdk_calls == []

@@ -1,0 +1,21 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 3 test files (~99 tests) under ['tests/agent/test_native_turn_context.py', 'tests/agent/test_native_main_payload.py', 'tests/agent/test_turn_context.py']; running with -j 8
+[ 15.2% |    15/~99 | ✓3 | ✗0] ✓ tests/agent/test_turn_context.py (3✓, 1.1s)
+[ 71.7% |    71/~99 | ✓21 | ✗ 0] ✓ tests/agent/test_native_main_payload.py (18✓, 6.9s)
+[100.0% |    99/~99 | ✓208 | ✗  0] ✓ tests/agent/test_native_turn_context.py (187✓, 70.1s)
+
+=== Summary: 3 files, 208 tests passed, 0 failed (100% complete) in 70.1s (8 workers) ===
+  Durations cached to test_durations.json (3 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   3
+  Total subprocess CPU-wall: 78.1s  (runner wall: 70.1s, parallelism: 8x)
+  P50: 6.88s  P90: 70.11s  P95: 70.11s  P99: 70.11s  Max: 70.11s
+  <1s: 0 files (0%)  <2s: 1 files (33%)
+  Top 10 slowest:
+     70.11s  tests/agent/test_native_turn_context.py
+      6.88s  tests/agent/test_native_main_payload.py
+      1.08s  tests/agent/test_turn_context.py

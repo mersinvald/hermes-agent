@@ -1,0 +1,10 @@
+{
+  "native_base": "0540e68a62275f036c8e7b4a57ee82e08c824b19",
+  "pwa_base": "fc33f2551bcadbd6b2f96febf1e5b55357492284",
+  "sha256": {
+    "agent/native_main_payload.py": "fe7030141a2de70e6f816931e741d45dbfa96a80da62c2746980326dc2bf823b",
+    "agent/turn_context.py": "463426b6e3fcf7d183513d54bb1f989743a49f32df26362744bd99f9ba19a3a5",
+    "tests/agent/test_native_turn_context.py": "b0b62aa6aa5d1a538bca8f22787f046bd35df9a9fbe8f61756003d386f1ea93c",
+    "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+  }
+}

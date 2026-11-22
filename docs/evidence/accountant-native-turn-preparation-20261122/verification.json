@@ -1,0 +1,75 @@
+{
+  "status": "candidate_for_root_acceptance",
+  "final_command": "HERMES_TEST_FILE_RETRIES=0 scripts/run_tests.sh tests/agent/test_native_turn_context.py tests/agent/test_native_main_payload.py tests/agent/test_turn_context.py --file-timeout 150 -k 'turn_preparation or test_complete_native_payload_and_result_release or test_reuse_keeps_parent_restrictions_after_source_profiles_drop or test_eight_record_limit_denies_before_ninth_send or test_controlled_caller_complete_bytes_identity_and_bound_thread or test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle or test_returns_turn_context_with_user_message_appended or test_applies_agent_side_effects or test_ensure_db_session_runs_after_system_prompt_restore'",
+  "final_source_manifest": "tested-source.json",
+  "results": {
+    "passed": 208,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "runner_seconds": 70.1,
+    "file_results": {
+      "tests/agent/test_native_turn_context.py": 187,
+      "tests/agent/test_native_main_payload.py": 18,
+      "tests/agent/test_turn_context.py": 3
+    },
+    "scope_counts": {
+      "new_preparation_and_compatibility_cases": 194,
+      "existing_adapter_caller_representative": 11,
+      "existing_ordinary_prologue": 3
+    }
+  },
+  "earlier_overlapping_runs": [
+    {
+      "log": "first.log",
+      "passed": 1,
+      "failed": 0,
+      "seconds": 1.7
+    },
+    {
+      "log": "expanded.log",
+      "passed": 143,
+      "failed": 0,
+      "seconds": 54.6
+    },
+    {
+      "log": "additive.log",
+      "passed": 173,
+      "failed": 3,
+      "test_file_seconds": 60.85,
+      "failure_scope": "Three fixture failures from SimpleNamespace __class__ reassignment. Runtime and tests were evolving uncommitted iterations. Subsequent edits overlapped an imported subprocess."
+    },
+    {
+      "log": "correction.log",
+      "passed": 21,
+      "failed": 0,
+      "seconds": 7.5
+    }
+  ],
+  "exact_earlier_source_manifests": null,
+  "overlapping_results_additive": false,
+  "representative_selection_rationale": "Changes affect adapter lifecycle/lineage plus one prologue branch. Select direct bytes, parent retention, eight-call limit, actual controlled caller, ordinary caller lifecycle, and ordinary prologue return/side effects/system restoration. Do not rerun historical broad selections.",
+  "static_validation": {
+    "diff_check": true,
+    "ruff": "F,E9 passed for both runtime modules and both affected test modules",
+    "prose_baseline": "ste-before.log",
+    "prose_candidate": "ste-after.log",
+    "new_evidence_prose": "ste-evidence.log",
+    "score_increased": false,
+    "diff_check_scope": "Runtime, tests, and non-log evidence. Raw historical failure logs retain their original whitespace."
+  },
+  "configured_exact_head_checks": "Report after publication against final commit, without a CI success claim for zero checks.",
+  "unchanged_engine_and_wheel": "installed-smoke.json",
+  "unchanged_native_boundaries": "preservation.json",
+  "limits": [
+    "Full P10/P06 remains open",
+    "No actual conversation startup",
+    "No real providers or egress",
+    "No private processing or source/financial qualification",
+    "No durable or serialized restoration",
+    "No sensitive cross-thread support",
+    "No in-flight callback preemption or deadline",
+    "No deployment or activation",
+    "Root owns final acceptance and merge"
+  ]
+}

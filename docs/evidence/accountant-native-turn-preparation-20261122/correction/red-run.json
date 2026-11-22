@@ -1,0 +1,5 @@
+{
+  "command": "HERMES_TEST_FILE_RETRIES=0 scripts/run_tests.sh tests/agent/test_native_turn_context.py --file-timeout 150 -k 'test_turn_preparation_runtime_labels_require_exact_strings or test_turn_preparation_actual_model_read_requires_exact_selected_string'",
+  "exit_code": 1,
+  "wall_seconds": 28.181
+}

@@ -1,0 +1,16 @@
+{
+  "reviewed_commit": "3ed4ef6d8011b1a40866eb7b08fb110c5e2f5f29",
+  "current_api_receipt": "native-api.json",
+  "api_sha256": "eb48ac043de0aaaf9cce570caa3816dc870dab32fea42d0bc76dcfa1f9266581",
+  "unchanged_public_ast_sha256": {
+    "NativeTurnInput": "d8f86dc62f646e30c3987fc5517ee764b9fbe2443b03ce07c7a8de15aa1585c8",
+    "NativePreparedTurn": "488bdac6d7486a68122626e8e94ca250b652ebe247835def3c10e4fd77cba5eb",
+    "NativeMainInvocation": "82ec4cfa30ea54549d7d60ee91f964721836553a540a2454fffbb0920c4cc6d4",
+    "NativeMainPayloadAdapter.admit_turn": "6479ea29d47ced751385fdb2bf05ce9a4192116a8c009def6cfe7881fcebd332",
+    "NativeMainPayloadAdapter.seal_turn": "ddb2cc9ba21b86ab22bd7747b4bb7a37bed1b13ead5d202d7b7138ecff965af6",
+    "NativeMainPayloadAdapter.prepared_request": "151e1abb4dc5cf476cd4b0728f276d3545451331bf87050d0c420d3673ba076d",
+    "TurnContext": "38f79cf617317eef2e926cd2e95f2c4fde3c492866336face76ddd8d65cbc218",
+    "build_turn_context": "133d77af0a46a1a3593ee60222eba5bd2b73dc8e631f1fea528fb3d07873d9cd"
+  },
+  "method": "Compare complete public definitions with reviewed Git objects. Copy the unchanged initial API receipt beside current source pins."
+}

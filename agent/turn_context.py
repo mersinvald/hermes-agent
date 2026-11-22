@@ -29,7 +29,10 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass
-from typing import Any, Dict, List, Mapping, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Optional
+
+if TYPE_CHECKING:
+    from agent.native_main_payload import NativePreparedTurn, NativeTurnInput
 
 from agent.conversation_compression import (
     IDLE_COMPACTION_STATUS_TEMPLATE,
@@ -558,6 +561,7 @@ class TurnContext:
     ext_prefetch_cache: str = ""
     # Turn-start preflight already proved an immediate retry ineffective.
     preflight_compression_blocked: bool = False
+    controlled_prepared: NativePreparedTurn | None = None
 
 
 def build_turn_context(
@@ -580,6 +584,7 @@ def build_turn_context(
     set_current_write_origin,
     ra,
     moa_active: bool = False,
+    controlled_input: NativeTurnInput | None = None,
 ) -> TurnContext:
     """Run the once-per-turn setup and return the loop's input context.
 
@@ -587,6 +592,15 @@ def build_turn_context(
     ``conversation_loop`` module are passed in explicitly to keep this module
     free of an import cycle with ``agent.conversation_loop``.
     """
+    if controlled_input is not None:
+        from agent.native_main_payload import _prepare_controlled_turn
+        return _prepare_controlled_turn(
+            agent, controlled_input,
+            (user_message, system_message, conversation_history, task_id),
+            (stream_callback, persist_user_message, persist_user_timestamp,
+             persist_user_display_kind, persist_user_display_metadata, moa_active),
+        )
+
     # Guard stdio against OSError from broken pipes (systemd/headless/daemon).
     from agent.content_policy import guard_native_content
     guard_native_content("main", agent)
