@@ -1,0 +1,1202 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~54 tests) under ['tests/agent/test_native_main_payload.py']; running with -j 8
+[100.0% |    54/~54 | ✓ 0 | ✗32] ✗ tests/agent/test_native_main_payload.py (32✗, 11.4s)
+
+  ╔╍ Failed: tests/agent/test_native_main_payload.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-entry]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-entry]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-entry]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-entry]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-entry]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-entry]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[context-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[context-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[detached-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[detached-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[copied_adapter-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[copied_adapter-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[marker_false-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[marker_false-release]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[binding-before]
+  ║ FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[binding-release]
+  ║ 32 failed, 273 deselected in 10.82s
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_main_payload.py -k test_controlled_caller_correction -q -p docs.evidence.accountant-native-main-caller-20261122.correction.offline
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 32 failed (100% complete) in 11.4s (8 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 11.4s  (runner wall: 11.4s, parallelism: 8x)
+  P50: 11.41s  P90: 11.41s  P95: 11.41s  P99: 11.41s  Max: 11.41s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     11.41s  tests/agent/test_native_main_payload.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_main_payload.py ---
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                         [100%]
+=================================== FAILURES ===================================
+_ test_controlled_caller_correction_retained_payload_false_marker_cannot_select_moa _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5931a0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document B'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+
+    def test_controlled_caller_correction_retained_payload_false_marker_cannot_select_moa(caller_boundary):
+        world = caller_boundary.configure(World().bind())
+        first_response = caller_boundary.call(world)
+        record, = world.adapter.invocations
+        assert first_response is record.native_response
+        world.binding = replace(world.binding, profiles=())
+        world.context._controlled_main_bound = False
+        world.agent.provider = "moa"
+        assert world.context._controlled_main_payload is world.adapter
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+>           caller_boundary.call(world, next_request(world))
+
+tests/agent/test_native_main_payload.py:1331: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_main_payload.py:860: in call
+    return helpers.interruptible_api_call(world.agent, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1411: in interruptible_api_call
+    return _controlled_main_api_call(agent, api_kwargs, context=current_context(agent))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1369: in _controlled_main_api_call
+    response = _dispatch_nonstreaming_api_request(
+tests/agent/test_native_main_payload.py:844: in observed
+    return dispatch(agent, request, make_client=make_client)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1009: in _dispatch_nonstreaming_api_request
+    return checked_native_call("main", lambda: agent.client.chat.completions.create(**api_kwargs), agent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/content_policy.py:179: in checked_native_call
+    result = callback()
+             ^^^^^^^^^^
+agent/chat_completion_helpers.py:1009: in <lambda>
+    return checked_native_call("main", lambda: agent.client.chat.completions.create(**api_kwargs), agent)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.agent.test_native_main_payload.World object at 0x77b67a596710>
+args = ()
+kwargs = {'model': 'invented_model', 'messages': [{'content': 'Invented document A', 'role': 'user'}, {'role': 'assistant', 'content': 'Invented answer A'}, {'role': 'user', 'content': 'Invented document B'}]}
+
+    def forbidden_provider(self, *args, **kwargs):
+        self.sdk_calls.append("provider")
+>       pytest.fail("SDK provider callback ran")
+E       Failed: SDK provider callback ran
+
+tests/agent/test_native_main_payload.py:164: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-entry] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b3b7b00>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = None, boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b67a5bf990>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b67a5bf990> = <tests.agent.test_native_main_payload.World object at 0x77b67b15b790>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a457310>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a457310> = <tests.agent.test_native_main_payload.World object at 0x77b67b15b790>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b437240>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = None, boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b679d52cd0>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b679d52cd0> = <tests.agent.test_native_main_payload.World object at 0x77b67b0c5f90>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a581950>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a581950> = <tests.agent.test_native_main_payload.World object at 0x77b67b0c5f90>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b450400>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = None, boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-entry] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b451260>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 0, boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b67b3f1110>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b67b3f1110> = <tests.agent.test_native_main_payload.World object at 0x77b67a673b90>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b3f2450>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b3f2450> = <tests.agent.test_native_main_payload.World object at 0x77b67a673b90>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b453880>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 0, boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b679f6a550>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b679f6a550> = <tests.agent.test_native_main_payload.World object at 0x77b679f68550>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b404810>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b404810> = <tests.agent.test_native_main_payload.World object at 0x77b679f68550>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b437740>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 0, boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-entry] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b3b7880>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 1, boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b102200>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 1, boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b4505e0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 1, boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-entry] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b450900>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 'false', boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b437a60>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 'false', boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a6c8d60>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = 'false', boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-entry] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b102340>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = (), boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b67a216ed0>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b67a216ed0> = <tests.agent.test_native_main_payload.World object at 0x77b67a215810>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b3d8490>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b3d8490> = <tests.agent.test_native_main_payload.World object at 0x77b67a215810>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b452020>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = (), boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b67b29b010>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b67b29b010> = <tests.agent.test_native_main_payload.World object at 0x77b67a4c7190>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b2b11d0>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b2b11d0> = <tests.agent.test_native_main_payload.World object at 0x77b67a4c7190>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b4522a0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = (), boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-entry] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b450860>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = {}, boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b67a04ec90>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b67a04ec90> = <tests.agent.test_native_main_payload.World object at 0x77b67a26ad10>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a26af90>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a26af90> = <tests.agent.test_native_main_payload.World object at 0x77b67a26ad10>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a6c8e00>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = {}, boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+            released.append(caller_boundary.call(world))
+        count = int(boundary == "release")
+        assert released == [] and Unsupported.calls == []
+>       assert world.context._denied and world.adapter._invalid
+E       assert (True and False)
+E        +  where True = <agent.content_policy.NativeContentContext object at 0x77b679f5e090>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x77b679f5e090> = <tests.agent.test_native_main_payload.World object at 0x77b67b26ca10>.context
+E        +  and   False = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b2cfbd0>._invalid
+E        +    where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b2cfbd0> = <tests.agent.test_native_main_payload.World object at 0x77b67b26ca10>.adapter
+
+tests/agent/test_native_main_payload.py:1358: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b452de0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = {}, boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-entry] _
+
+agent = namespace(_native_content_policy_required=True, _native_content_policy_context=<agent.content_policy.NativeContentCont...en at 0x77b67b452980>, _close_request_anthropic_client=<function caller_boundary.<locals>.forbidden at 0x77b67b452980>)
+request = {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]}
+make_client = <function _controlled_main_api_call.<locals>.refuse_client at 0x77b67b451760>
+
+    def observed(agent, request, *, make_client):
+        dispatches.append((threading.get_ident(), agent, request))
+>       return dispatch(agent, request, make_client=make_client)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_main_payload.py:844: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+agent/chat_completion_helpers.py:937: in _dispatch_nonstreaming_api_request
+    controlled, response = dispatch_controlled_main(agent, api_kwargs)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:633: in dispatch_controlled_main
+    if context is not None and context._controlled_main_bound:
+       ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+
+    def __bool__(self):
+        self.calls.append("bool")
+>       raise AssertionError("Boolean conversion ran")
+E       AssertionError: Boolean conversion ran
+
+tests/agent/test_native_main_payload.py:1136: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b4504a0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+boundary = 'entry'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+>           released.append(caller_boundary.call(world))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_main_payload.py:1355: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_main_payload.py:860: in call
+    return helpers.interruptible_api_call(world.agent, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1411: in interruptible_api_call
+    return _controlled_main_api_call(agent, api_kwargs, context=current_context(agent))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1376: in _controlled_main_api_call
+    context.invalidate()
+agent/content_policy.py:66: in invalidate
+    if self._controlled_main_bound:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+
+    def __bool__(self):
+        self.calls.append("bool")
+>       raise AssertionError("Boolean conversion ran")
+E       AssertionError: Boolean conversion ran
+
+tests/agent/test_native_main_payload.py:1136: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-before] _
+
+agent = InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.content_policy.NativeCo...idden at 0x77b67b4527a0>, read_interrupt=<function change_on_interrupt_read.<locals>.read_interrupt at 0x77b67b3b7240>)
+request = {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]}
+make_client = <function _controlled_main_api_call.<locals>.refuse_client at 0x77b67b3b74c0>
+
+    def observed(agent, request, *, make_client):
+        dispatches.append((threading.get_ident(), agent, request))
+>       return dispatch(agent, request, make_client=make_client)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_main_payload.py:844: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+agent/chat_completion_helpers.py:937: in _dispatch_nonstreaming_api_request
+    controlled, response = dispatch_controlled_main(agent, api_kwargs)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:633: in dispatch_controlled_main
+    if context is not None and context._controlled_main_bound:
+       ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+
+    def __bool__(self):
+        self.calls.append("bool")
+>       raise AssertionError("Boolean conversion ran")
+E       AssertionError: Boolean conversion ran
+
+tests/agent/test_native_main_payload.py:1136: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b3b6e80>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+boundary = 'before'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+>           released.append(caller_boundary.call(world))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_main_payload.py:1355: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_main_payload.py:860: in call
+    return helpers.interruptible_api_call(world.agent, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1411: in interruptible_api_call
+    return _controlled_main_api_call(agent, api_kwargs, context=current_context(agent))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/chat_completion_helpers.py:1376: in _controlled_main_api_call
+    context.invalidate()
+agent/content_policy.py:66: in invalidate
+    if self._controlled_main_bound:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+
+    def __bool__(self):
+        self.calls.append("bool")
+>       raise AssertionError("Boolean conversion ran")
+E       AssertionError: Boolean conversion ran
+
+tests/agent/test_native_main_payload.py:1136: AssertionError
+_ test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b4500e0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+marker = <tests.agent.test_native_main_payload.UnsupportedInterrupt object at 0x77b67b237f90>
+boundary = 'release'
+
+    @pytest.mark.parametrize("boundary", ["entry", "before", "release"])
+    @pytest.mark.parametrize("marker", [None, 0, 1, "false", (), {}, UnsupportedInterrupt()],
+                             ids=["none", "zero", "one", "string", "tuple", "mapping", "custom"])
+    def test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion(
+            caller_boundary, marker, boundary):
+        world = caller_boundary.configure(World().bind())
+        Unsupported.calls.clear()
+    
+        def change():
+            world.context._controlled_main_bound = marker
+    
+        if boundary == "entry":
+            change()
+        else:
+            change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_adapter_missing$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1354: Failed
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[context-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b3b7060>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'before', fact = 'context'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied) as caught:
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1389: Failed
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[context-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5f8400>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'release', fact = 'context'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied) as caught:
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1389: Failed
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[detached-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5f9260>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'before', fact = 'detached'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied) as caught:
+            released.append(caller_boundary.call(world))
+        assert str(caught.value) in (
+            "controlled_native_adapter_missing", "controlled_native_attachment_invalid",
+            "controlled_native_payload_denied", "content_policy_context_missing",
+        )
+        count = int(boundary == "release")
+        assert released == [] and len(reads) == count + 1
+        assert world.context._denied
+        assert world.adapter.send_count == len(world.ports["main"].sent) == count
+>       assert len(world.adapter.invocations) == len(caller_boundary.dispatches) == count
+E       AssertionError: assert 0 == 1
+E        +  where 0 = len(())
+E        +    where () = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a596750>.invocations
+E        +      where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67a596750> = <tests.agent.test_native_main_payload.World object at 0x77b67b3d8ed0>.adapter
+E        +  and   1 = len([(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67a5f96c0>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})])
+E        +    where [(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67a5f96c0>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})] = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5f9260>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>).dispatches
+
+tests/agent/test_native_main_payload.py:1399: AssertionError
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[detached-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5fb600>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'release', fact = 'detached'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied) as caught:
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1389: Failed
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[copied_adapter-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5867a0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'before', fact = 'copied_adapter'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied) as caught:
+            released.append(caller_boundary.call(world))
+        assert str(caught.value) in (
+            "controlled_native_adapter_missing", "controlled_native_attachment_invalid",
+            "controlled_native_payload_denied", "content_policy_context_missing",
+        )
+        count = int(boundary == "release")
+        assert released == [] and len(reads) == count + 1
+        assert world.context._denied
+        assert world.adapter.send_count == len(world.ports["main"].sent) == count
+>       assert len(world.adapter.invocations) == len(caller_boundary.dispatches) == count
+E       AssertionError: assert 0 == 1
+E        +  where 0 = len(())
+E        +    where () = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b679f5ca10>.invocations
+E        +      where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b679f5ca10> = <tests.agent.test_native_main_payload.World object at 0x77b67b26ca10>.adapter
+E        +  and   1 = len([(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67a6c9940>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})])
+E        +    where [(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67a6c9940>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})] = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5867a0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>).dispatches
+
+tests/agent/test_native_main_payload.py:1399: AssertionError
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[copied_adapter-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a592ac0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'release', fact = 'copied_adapter'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied) as caught:
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1389: Failed
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[marker_false-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b3b74c0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'before', fact = 'marker_false'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied) as caught:
+            released.append(caller_boundary.call(world))
+        assert str(caught.value) in (
+            "controlled_native_adapter_missing", "controlled_native_attachment_invalid",
+            "controlled_native_payload_denied", "content_policy_context_missing",
+        )
+        count = int(boundary == "release")
+        assert released == [] and len(reads) == count + 1
+        assert world.context._denied
+        assert world.adapter.send_count == len(world.ports["main"].sent) == count
+>       assert len(world.adapter.invocations) == len(caller_boundary.dispatches) == count
+E       AssertionError: assert 0 == 1
+E        +  where 0 = len(())
+E        +    where () = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b2cf290>.invocations
+E        +      where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b67b2cf290> = <tests.agent.test_native_main_payload.World object at 0x77b67b2cca50>.adapter
+E        +  and   1 = len([(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67b4527a0>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})])
+E        +    where [(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67b4527a0>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})] = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67b3b74c0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>).dispatches
+
+tests/agent/test_native_main_payload.py:1399: AssertionError
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[marker_false-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5f9e40>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'release', fact = 'marker_false'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied) as caught:
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1389: Failed
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[binding-before] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5faa20>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'before', fact = 'binding'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+        with pytest.raises(NativeContentPolicyDenied) as caught:
+            released.append(caller_boundary.call(world))
+        assert str(caught.value) in (
+            "controlled_native_adapter_missing", "controlled_native_attachment_invalid",
+            "controlled_native_payload_denied", "content_policy_context_missing",
+        )
+        count = int(boundary == "release")
+        assert released == [] and len(reads) == count + 1
+        assert world.context._denied
+        assert world.adapter.send_count == len(world.ports["main"].sent) == count
+>       assert len(world.adapter.invocations) == len(caller_boundary.dispatches) == count
+E       AssertionError: assert 0 == 1
+E        +  where 0 = len(())
+E        +    where () = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b679f7ddd0>.invocations
+E        +      where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x77b679f7ddd0> = <tests.agent.test_native_main_payload.World object at 0x77b67b395c90>.adapter
+E        +  and   1 = len([(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67a5fb920>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})])
+E        +    where [(131625666094912, InterruptReadAgent(_native_content_policy_required=True, _native_content_policy_context=<agent.cont...pt at 0x77b67a5fb920>), {'model': 'invented_model', 'messages': [{'role': 'user', 'content': 'Invented document A'}]})] = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5faa20>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>).dispatches
+
+tests/agent/test_native_main_payload.py:1399: AssertionError
+_ test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[binding-release] _
+
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x77b67a5f93a0>, call=<function caller_boundary.<l...role': 'user', 'content': 'Invented document A'}]})], selector=<function should_use_direct_api_call at 0x77b67b22bc40>)
+boundary = 'release', fact = 'binding'
+
+    @pytest.mark.parametrize("boundary", ["before", "release"])
+    @pytest.mark.parametrize("fact", ["context", "detached", "copied_adapter", "marker_false", "binding"])
+    def test_controlled_caller_correction_interrupt_read_rechecks_current_attachment(
+            caller_boundary, boundary, fact):
+        world = caller_boundary.configure(World().bind())
+        foreign = World().bind() if fact == "context" else None
+    
+        def change():
+            if fact == "context":
+                world.agent._native_content_policy_context = foreign.context
+            elif fact == "detached":
+                world.context._controlled_main_payload = None
+            elif fact == "copied_adapter":
+                world.context._controlled_main_payload = copy.copy(world.adapter)
+            elif fact == "marker_false":
+                world.context._controlled_main_bound = False
+            else:
+                world.binding = replace(world.binding, auth_epoch=8)
+    
+        reads = change_on_interrupt_read(world, boundary, change)
+        released = []
+>       with pytest.raises(NativeContentPolicyDenied) as caught:
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_main_payload.py:1389: Failed
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_retained_payload_false_marker_cannot_select_moa
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[none-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[zero-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[one-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[string-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[tuple-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[mapping-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-entry]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_non_boolean_bound_markers_deny_without_conversion[custom-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[context-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[context-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[detached-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[detached-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[copied_adapter-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[copied_adapter-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[marker_false-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[marker_false-release]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[binding-before]
+FAILED tests/agent/test_native_main_payload.py::test_controlled_caller_correction_interrupt_read_rechecks_current_attachment[binding-release]
+32 failed, 273 deselected in 10.82s
+
+=== 1 file with test failures (32 tests failed) ===
+  tests/agent/test_native_main_payload.py  (32 tests failed)

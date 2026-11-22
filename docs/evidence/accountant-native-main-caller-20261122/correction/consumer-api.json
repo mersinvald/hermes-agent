@@ -1,0 +1,52 @@
+{
+  "module": "agent.chat_completion_helpers",
+  "caller": "interruptible_api_call(agent, api_kwargs: dict)",
+  "new_private_helper": "_controlled_main_api_call(agent, api_kwargs: dict, *, context)",
+  "helper_local_callbacks": [
+    "check_attachment() -> None",
+    "check_context() -> None",
+    "check_interrupt() -> None",
+    "refuse_client(*args, **kwargs)"
+  ],
+  "accepted_helper": "_dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client)",
+  "dispatches_per_controlled_attempt": "Zero for context, attachment, marker, scope, or pre-send cancellation rejection. One accepted-helper invocation for a valid attempt, including later caller-release rejection.",
+  "recognition": "Read active ContextVar and agent namespace only. Resolve current_context for controlled attachments or the exact reserved provider marker.",
+  "policy_owner": "Unchanged agent.native_main_payload adapter and hermes_content_policy 0.1.0.",
+  "cancellation_flag": "Existing _interrupt_requested. Missing means False. Only exact bool values are supported.",
+  "cancellation_boundaries": [
+    "Before accepted-helper invocation",
+    "After accepted-helper return and before caller release"
+  ],
+  "unsupported_flag_reason": "controlled_native_interrupt_invalid",
+  "cancellation_exception": "InterruptedError: Agent interrupted during API call",
+  "sdk_callback_denial": "controlled_native_adapter_missing",
+  "exceptions": "Mark the captured context denied without marker conversion. Use invalidate_controlled_context and re-raise all exceptions, including process-control exceptions.",
+  "post_callback_cancellation": "Preserve actual send count and accepted internal invocation. Do not release caller result.",
+  "positive_mode": "chat_completions",
+  "positive_provider": "synthetic_native",
+  "dependency": "Exact immutable local hermes-content-policy 0.1.0 wheel, installed without index or dependencies.",
+  "direct_api_call": "Unchanged. No separate controlled entrypoint qualification.",
+  "limits": [
+    "No in-flight preemption",
+    "No callback deadline",
+    "No watchdog or heartbeat",
+    "No asynchronous interruption",
+    "No cross-thread transfer",
+    "No SDK or real-provider qualification",
+    "No startup or sibling qualification",
+    "No durable or serialized restoration"
+  ],
+  "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+  "source_sha256": {
+    "agent/chat_completion_helpers.py": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+    "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736",
+    "agent/native_main_payload.py": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11",
+    "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+  },
+  "attachment_contract": "Require the same current registered NativeContentContext and captured sealed adapter. Require the exact True bound marker before native scope validation.",
+  "validation": "Use current_context and validate_native_scope. Check attachment identity before and after validation and after each cancellation-flag read.",
+  "historical_api": "../consumer-api.json at 8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "missing_adapter_reason": "controlled_native_adapter_missing",
+  "changed_attachment_reason": "controlled_native_attachment_invalid",
+  "changed_context_reason": "content_policy_context_missing"
+}

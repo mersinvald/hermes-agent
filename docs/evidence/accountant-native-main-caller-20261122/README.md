@@ -1,5 +1,11 @@
 # Controlled native main caller
 
+The current correction uses source `8767a634aea9c3b47aef3e08860cc29d0a528738`.
+Read [correction/README.md](correction/README.md) and [correction/consumer-api.json](correction/consumer-api.json) for its validation contract and exact pins.
+The correction retains 32 red failures and records 137 passing cases on the corrected source.
+The text below and the initial reports describe source `8e7fecd24b119a90b2936726358b66acdeb0b0f7`.
+The initial `SHA256SUMS` applies to evidence commit `143d64987cb8aa651b89029a651ae885dd9b665c`, before this README update.
+
 This component forwards controlled calls through `interruptible_api_call(agent, api_kwargs)` on the thread bound to the adapter.
 It extends the accepted P10.5 payload adapter at native base `5a68423dfab155604999f4da223ff8cde22dbe46`.
 The canonical design is PWA base `df34b86c05c671d3e7832a7822fe8e54a77a70fd`, original P10 and architecture sections 17.4/17.5.

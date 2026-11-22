@@ -1,0 +1,116 @@
+{
+  "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+  "red": {
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/agent/test_native_main_payload.py",
+      "--file-timeout",
+      "90",
+      "--file-retries",
+      "0",
+      "-k",
+      "test_controlled_caller_correction",
+      "-q",
+      "-p",
+      "docs.evidence.accountant-native-main-caller-20261122.correction.offline"
+    ],
+    "runtime_base_commit": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+    "test_scope": "Reviewed runtime bytes plus new working-tree additive tests. These tests are not unchanged reviewed-source evidence.",
+    "source_sha256": {
+      "agent/chat_completion_helpers.py": "a32dd5df6df92b3e7f2901d7bc89d70a10271c50c61148c1f029e8f8cdbf5f08",
+      "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736"
+    },
+    "offline_plugin_sha256": "237405f1fdfdf15d4fb6bc8c7a2db805d71372fe8b344fa159a59a960e23fbbb",
+    "seconds": 14.553,
+    "exit_code": 1,
+    "file_retries": 0,
+    "source_stable_during_run": true,
+    "passed": 0,
+    "failed": 32,
+    "skipped": 0,
+    "deselected": 273,
+    "pytest_seconds": 10.82,
+    "runner_seconds": 11.4
+  },
+  "green": {
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/agent/test_native_main_payload.py",
+      "--file-timeout",
+      "90",
+      "--file-retries",
+      "0",
+      "-k",
+      "test_controlled_caller_correction",
+      "-q",
+      "-p",
+      "docs.evidence.accountant-native-main-caller-20261122.correction.offline"
+    ],
+    "runtime_scope": "Working-tree caller correction over 143d64987cb8aa651b89029a651ae885dd9b665c",
+    "source_sha256": {
+      "agent/chat_completion_helpers.py": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+      "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736"
+    },
+    "offline_plugin_sha256": "237405f1fdfdf15d4fb6bc8c7a2db805d71372fe8b344fa159a59a960e23fbbb",
+    "seconds": 9.567,
+    "exit_code": 0,
+    "file_retries": 0,
+    "source_stable_during_run": true,
+    "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+    "passed": 32,
+    "failed": 0,
+    "skipped": 0,
+    "runner_seconds": 9.2
+  },
+  "final": {
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/agent/test_native_main_payload.py",
+      "tests/agent/test_content_policy_dispatch.py",
+      "tests/agent/test_cron_inline_api_call_62151.py",
+      "tests/cron/test_cron_direct_api_call_62151.py",
+      "tests/cron/test_cron_direct_api_call_watchdog.py",
+      "tests/agent/test_cascading_interrupt_6600.py",
+      "--file-timeout",
+      "150",
+      "--file-retries",
+      "0",
+      "-k",
+      "test_controlled_caller or test_complete_native_payload_and_result_release or test_every_accepted_result_handle_remains_a_derive_parent or test_missing_required_sibling_route_prevents_native_main or test_rejected_context_attachment_invalidates_original_adapter or test_ordinary_request_uses_actual_request_local_client_and_unchanged_arguments or test_should_use_direct_api_call_only_for_cron_openai_wire or test_direct_api_call_interrupt_aborts_active_client_and_raises or test_direct_api_call_runs_two_sequential_requests_on_same_thread or test_healthy_call_is_untouched_by_the_watchdog or test_interrupt_abort_is_not_misclassified_as_provider_staleness or test_non_streaming_cancel_does_not_surface_network_error",
+      "-q",
+      "-p",
+      "docs.evidence.accountant-native-main-caller-20261122.correction.offline"
+    ],
+    "source_commit": "8767a634aea9c3b47aef3e08860cc29d0a528738",
+    "source_sha256": {
+      "agent/chat_completion_helpers.py": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+      "tests/agent/test_native_main_payload.py": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736",
+      "agent/native_main_payload.py": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11",
+      "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    "offline_plugin_sha256": "237405f1fdfdf15d4fb6bc8c7a2db805d71372fe8b344fa159a59a960e23fbbb",
+    "seconds": 35.082,
+    "exit_code": 0,
+    "file_retries": 0,
+    "deadline_seconds": 110,
+    "source_stable_during_run": true,
+    "selection": {
+      "initial_caller": 86,
+      "new_correction": 32,
+      "representative_accepted_adapter": 11,
+      "affected_ordinary_compatibility": 8
+    },
+    "installed_dependency_tests_repeated": false,
+    "whole_P10_5_suite_repeated": false,
+    "passed": 137,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "runner_seconds": 34.7
+  },
+  "overlapping_scopes_must_not_be_added": true,
+  "unresolved_current_test_failures": 0,
+  "retained_failures": "32 red failures on reviewed runtime bytes with new test bytes. Full output remains in red.log.",
+  "prior_105_cases_source": "8e7fecd24b119a90b2936726358b66acdeb0b0f7",
+  "original_task_status_unchanged": "task_f367fd7277ae/ctx_5a16ab78147b remains succeeded in its recorded scope."
+}

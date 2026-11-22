@@ -1,0 +1,5 @@
+chat_completion_helpers.py       words=12744 total=343 per100w=  2.69 em_dash=156 mode=python-prose-v1
+test_native_main_payload.py      words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+README.md                        words= 649 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
+README.md                        words= 509 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
+offline.py                       words=  10 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
