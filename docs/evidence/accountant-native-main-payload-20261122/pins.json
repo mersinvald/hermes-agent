@@ -1,0 +1,113 @@
+{
+  "issue": "hpwa-p10.5",
+  "phase": "design_pending_root_decision",
+  "native_base": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+  "canonical_pwa_pin": "1219df6a72b29920741a5ea91e19955300723b65",
+  "native_sources": [
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "AGENTS.md",
+      "sha256": "93a12ef7f78a533b3f2b49b1c435eff1a41e18458074a1e231647e189e29250f"
+    },
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "agent/content_policy.py",
+      "sha256": "fb23467a8e0b0ad345f0d016f18b890d1df4e59176d8b327529d1b5e1c008477"
+    },
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "agent/chat_completion_helpers.py",
+      "sha256": "bb0e34775d5d1999893df4dcf60d28245a982468d4d4bbac3053c24f2100df39"
+    },
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "scripts/run_tests.sh",
+      "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e"
+    },
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "tests/agent/test_content_policy.py",
+      "sha256": "263892845a118651fdb5f5b7877375782130a6491bc070dd61dd9a022ff7c658"
+    },
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "tests/agent/test_content_policy_dispatch.py",
+      "sha256": "3df9ebaca1b05043678a476e214a77a4915c9231b4e3cf9753894637ff06a1a6"
+    },
+    {
+      "commit": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
+      "path": "docs/evidence/accountant-native-policy-20261122/checks.json",
+      "sha256": "a4fff07c9c721f7fe551473b6c59548ada7189f2de22129d1007a404e1cf9252"
+    }
+  ],
+  "contract_sources": [
+    {
+      "commit": "1219df6a72b29920741a5ea91e19955300723b65",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "sha256": "275b954e44792aa6903942fbadc713a35a6d03a615e3f3506f395edfc5eb17ae"
+    },
+    {
+      "commit": "1219df6a72b29920741a5ea91e19955300723b65",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "sha256": "caca98c70441c61d870fd7d77c0592a318f00b58da7b6096843731157ef423c8"
+    },
+    {
+      "commit": "1219df6a72b29920741a5ea91e19955300723b65",
+      "path": "docs/mesh/evidence/accountant-native-policy-contracts-20261122/README.md",
+      "sha256": "5b5db2284b649ba25423aa7b08767274afede7d5b9d46d4f1634f17dcf6b523f"
+    },
+    {
+      "commit": "1219df6a72b29920741a5ea91e19955300723b65",
+      "path": "docs/mesh/evidence/accountant-native-policy-package-20261122/consumer-api.json",
+      "sha256": "cfbd72db1340f24d255ef1a70bc417213398d9c209bac81a816b27cc2b6e0203"
+    }
+  ],
+  "engine": {
+    "commit": "1219df6a72b29920741a5ea91e19955300723b65",
+    "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+    "sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa"
+  },
+  "wheel": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/hermes_content_policy-0.1.0-py3-none-any.whl",
+    "sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+    "distribution": "hermes-content-policy",
+    "version": "0.1.0",
+    "canonical_import": "hermes_content_policy",
+    "installed_in_this_phase": false
+  },
+  "handoff_receipt": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.3.native-handoff.json",
+    "sha256": "c65427f142f641ee92e692a6f35a0eb73d2fc9c5de9600a6e8e90766f836dbe9"
+  },
+  "historical_evidence": {
+    "source": "3b4fe67e8e708532fbe78ee3a088d26353a64d11",
+    "native_passes": 137,
+    "selected_compatibility_passes": 21,
+    "python": "3.11.15",
+    "fresh_runtime_checks_in_design_phase": 0,
+    "positive_native_payload_propagation_proven": false
+  },
+  "proposed_runtime_paths": [
+    "agent/content_policy.py",
+    "agent/chat_completion_helpers.py",
+    "agent/native_main_payload.py"
+  ],
+  "proposed_test_paths": [
+    "tests/agent/test_native_main_payload.py"
+  ],
+  "initial_edit_scope": "docs/evidence/accountant-native-main-payload-20261122/",
+  "beads": {
+    "root_owns_writes": true,
+    "prime_exit": 0,
+    "prime_output_empty": true,
+    "where_exit": 1,
+    "where_result": "No active beads workspace found.",
+    "database_created": false
+  },
+  "publication_authorized": false,
+  "runtime_edits_authorized": false,
+  "original_checkout_read_or_edited": false,
+  "protected_package_lock_contents_read_or_edited": false,
+  "installs_or_builds": 0,
+  "model_calls": 0
+}
