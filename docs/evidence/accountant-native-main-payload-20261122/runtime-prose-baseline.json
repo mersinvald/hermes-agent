@@ -1,0 +1,55 @@
+{
+  "agent/content_policy.py": {
+    "words": 134,
+    "sentences": 16,
+    "violations": {
+      "long_sentence(>20w)": 0,
+      "semicolon": 0,
+      "contraction": 0,
+      "passive_voice": 0,
+      "ing_main_verb": 0,
+      "nominalization": 0,
+      "phrasal_verb": 0,
+      "banned_word": 0,
+      "marketing_adjective": 0,
+      "modal_hedge": 0,
+      "long_paragraph(>6s)": 0
+    },
+    "total": 0,
+    "total_per100w": 0.0,
+    "em_dash(slop-marker)": 0,
+    "longest_sentence_words": 11,
+    "sample_marketing": [],
+    "sample_banned": [],
+    "mode": "python-prose-v1"
+  },
+  "agent/chat_completion_helpers.py": {
+    "words": 12677,
+    "sentences": 1720,
+    "violations": {
+      "long_sentence(>20w)": 0,
+      "semicolon": 47,
+      "contraction": 105,
+      "passive_voice": 81,
+      "ing_main_verb": 6,
+      "nominalization": 10,
+      "phrasal_verb": 0,
+      "banned_word": 5,
+      "marketing_adjective": 1,
+      "modal_hedge": 0,
+      "long_paragraph(>6s)": 88
+    },
+    "total": 343,
+    "total_per100w": 2.71,
+    "em_dash(slop-marker)": 156,
+    "longest_sentence_words": 15,
+    "sample_marketing": [
+      "first-class"
+    ],
+    "sample_banned": [
+      "ensure",
+      "additionally"
+    ],
+    "mode": "python-prose-v1"
+  }
+}

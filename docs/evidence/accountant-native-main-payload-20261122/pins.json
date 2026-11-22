@@ -1,6 +1,6 @@
 {
   "issue": "hpwa-p10.5",
-  "phase": "design_pending_root_decision",
+  "phase": "approved_implementation_source",
   "native_base": "a31286bd59f8d701676c1cca82a9e699e416fb7c",
   "canonical_pwa_pin": "1219df6a72b29920741a5ea91e19955300723b65",
   "native_sources": [
@@ -73,7 +73,7 @@
     "distribution": "hermes-content-policy",
     "version": "0.1.0",
     "canonical_import": "hermes_content_policy",
-    "installed_in_this_phase": false
+    "installed_in_this_phase": true
   },
   "handoff_receipt": {
     "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.3.native-handoff.json",
@@ -105,9 +105,19 @@
     "database_created": false
   },
   "publication_authorized": false,
-  "runtime_edits_authorized": false,
+  "runtime_edits_authorized": true,
   "original_checkout_read_or_edited": false,
   "protected_package_lock_contents_read_or_edited": false,
-  "installs_or_builds": 0,
-  "model_calls": 0
+  "installs_or_builds": {
+    "native_locked_dependency_syncs": 1,
+    "accepted_wheel_installs": 1,
+    "builds": 0
+  },
+  "model_calls": 0,
+  "root_approval": {
+    "message_id": "msg_a5ae36e16d64",
+    "design_commit": "82273832f186289c95401eaaa2e66065e48ee93c",
+    "shared_refusal_coverage_seam_approved": false,
+    "native_publication_approved": false
+  }
 }

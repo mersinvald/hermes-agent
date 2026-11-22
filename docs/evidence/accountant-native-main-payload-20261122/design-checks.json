@@ -64,5 +64,5 @@
     "exit_code": 1,
     "reason": "The linter treats all arguments as file paths. The documented file interface passed."
   },
-  "pending_decision": "Approve the exact main-only native adapter with genuine eight-path controlled shared-port coverage and unchanged engine, or require a separate explicit refusal-coverage seam."
+  "pending_decision": "Resolved by root approval msg_a5ae36e16d64. Publication remains unapproved."
 }

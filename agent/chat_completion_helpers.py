@@ -933,6 +933,10 @@ def _dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client):
     interrupt, abort, cancellation, and close semantics stay in the callers —
     this helper only issues the request.
     """
+    from agent.native_main_payload import dispatch_controlled_main
+    controlled, response = dispatch_controlled_main(agent, api_kwargs)
+    if controlled:
+        return response
     from agent.content_policy import guard_native_content
     guard_native_content("main", agent)
     from agent.content_policy import checked_native_call

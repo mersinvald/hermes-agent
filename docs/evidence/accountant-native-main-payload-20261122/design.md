@@ -1,6 +1,6 @@
 # Native controlled main payload proposal
 
-Date: 2026-11-22. Issue: `hpwa-p10.5`. Status: root decision required.
+Date: 2026-11-22. Issue: `hpwa-p10.5`. Status: root approved implementation.
 Native base: `a31286bd59f8d701676c1cca82a9e699e416fb7c`.
 PWA contract pin: `1219df6a72b29920741a5ea91e19955300723b65`.
 
@@ -199,7 +199,7 @@ Use `sort_keys=True`, `ensure_ascii=True`, `allow_nan=False`, and `separators=("
 The complete envelope payload has exactly three fields:
 
 ```json
-{"api_mode":"chat_completions","destination":{"endpoint_ref":"invented_endpoint","model_ref":"invented_model","provider_ref":"invented_provider","revision":1,"transport_ref":"invented_main"},"request":{"messages":[{"content":"Invented document A","role":"user"}],"model":"invented_model"}}
+{"api_mode":"chat_completions","destination":{"endpoint_ref":"invented_endpoint","model_ref":"invented_model","provider_ref":"synthetic_native","revision":1,"transport_ref":"invented_main"},"request":{"messages":[{"content":"Invented document A","role":"user"}],"model":"invented_model"}}
 ```
 
 Reject request bytes above 262,144 bytes before shared admission or port invocation.
@@ -263,7 +263,8 @@ Streaming, sibling API modes, conversation prologues, and auxiliary main calls g
 Tests must prove these refusals with a controlled adapter attached.
 Native refusal therefore closes those native paths without granting a native send capability.
 
-This proposal asks root to approve this distinction explicitly.
+Root approved this distinction in message `msg_a5ae36e16d64`.
+Root reviewed design commit `82273832f186289c95401eaaa2e66065e48ee93c`.
 Complete controlled shared coverage is a prerequisite, not proof of native support for sibling operations.
 If root requires coverage to represent refusal itself, the unchanged API cannot express that fact.
 The smallest alternative seam is an explicit shared refusal binding for a consumer, selection, version, and path.
@@ -349,3 +350,31 @@ Rerun only changed adapter paths and directly affected ordinary compatibility ca
 Full P10, real egress qualification, durable restoration, and sensitive cross-thread transfer remain open.
 Production ingress, configuration, deployment, model calls, private content, and financial logic remain outside this component.
 Do not push or open a native PR before root reviews the completed source and confirms publication.
+
+## Root implementation clarifications
+
+Root approved the unchanged shared engine and genuine eight-path controlled ports.
+The explicit shared refusal-coverage seam remains outside this component.
+Only the selected actual main function gains positive native support.
+
+An attached controlled adapter seals its context against every generic native operation.
+This seal also applies when current source profiles become empty.
+Scope activation validates current facts and attachment identity without generic operation permission.
+Tests must enter that scope before they call a sibling function.
+Ordinary contexts without an adapter keep their current behavior.
+
+An attached adapter owns the dispatch decision.
+Unsupported modes, providers, malformed input, and foreign attachments invalidate the context and raise.
+No rejected controlled request falls through to an SDK branch.
+The reserved `synthetic_native` marker without a valid context and adapter denies before client construction.
+
+Repeat checks of actual agent mode, provider, request model, complete binding, selection, destination, producer policy, and captured identities around callbacks.
+Post-send rejection retains its authorized send count.
+Keep every earlier accepted result handle as a parent.
+Unknown or changed producer policy denies reuse.
+
+The exact source allowlist comprises the three proposed runtime paths and the one proposed test path.
+This evidence directory is the only other allowed edit location.
+Existing tests and all other native boundaries stay unchanged.
+Root authorizes the exact accepted local-wheel install in this task-owned environment.
+Root retains Beads writes, acceptance, and publication.

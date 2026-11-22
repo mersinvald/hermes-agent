@@ -1,6 +1,6 @@
 """Native admission and refusal adapters for the shared content policy.
 
-Sensitive native processing has no qualified transport in this component.
+Generic native operations refuse contexts with a controlled main adapter.
 Ordinary checks use fresh, thread-local shared runtimes without content transfer.
 """
 
@@ -54,6 +54,8 @@ class NativeContentContext:
         self._binding = None
         self._denied = False
         self._local = threading.local()
+        self._controlled_main_payload = None
+        self._controlled_main_bound = False
         with _registry_lock:
             if len(_contexts) >= 128:
                 raise NativeContentPolicyDenied("content_policy_capacity")
@@ -87,6 +89,9 @@ class NativeContentContext:
     def check(self, path):
         if type(self) is not NativeContentContext or self not in _contexts:
             raise NativeContentPolicyDenied("content_policy_context_missing")
+        if self._controlled_main_bound:
+            self.invalidate()
+            raise NativeContentPolicyDenied("controlled_native_operation_unsupported")
         if self._denied or getattr(self._local, "busy", False):
             self.invalidate()
             raise NativeContentPolicyDenied("content_policy_context_stale")
@@ -145,6 +150,12 @@ def current_context(agent=None):
 
 def guard_native_content(path, agent=None):
     context = current_context(agent)
+    provider = getattr(agent, "provider", None) if agent is not None else None
+    if type(provider) is str and provider == "synthetic_native" and (
+            context is None or not context._controlled_main_bound):
+        if context is not None:
+            context.invalidate()
+        raise NativeContentPolicyDenied("controlled_native_adapter_missing")
     if context is not None:
         context.check(path)
     return context
@@ -170,14 +181,25 @@ def content_policy_scope(context):
     if context is not None:
         if type(context) is not NativeContentContext or context not in _contexts:
             raise NativeContentPolicyDenied("content_policy_context_missing")
-        context.check("main")
+        validate_native_scope(context)
     token = _active.set(context)
     try:
         yield
         if context is not None:
-            context.check("main")
+            validate_native_scope(context)
     finally:
         _active.reset(token)
+
+
+def validate_native_scope(context):
+    """Validate scope facts without granting a generic controlled operation."""
+    if type(context) is not NativeContentContext or context not in _contexts:
+        raise NativeContentPolicyDenied("content_policy_context_missing")
+    if context._controlled_main_bound:
+        from agent.native_main_payload import validate_controlled_scope
+        validate_controlled_scope(context)
+    else:
+        context.check("main")
 
 
 def ingress_policy(ingress):
