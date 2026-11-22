@@ -1,0 +1,13 @@
+{
+  "reviewed_commit": "3ed4ef6d8011b1a40866eb7b08fb110c5e2f5f29",
+  "sha256": {
+    "agent/native_main_payload.py": "b267e1536ae54998b1034c5e0a0f45d3382c71abc097a85a89a745b5e3145578",
+    "tests/agent/test_native_turn_context.py": "f03823025f07602ffee6d047d48ebe6150a781c0c4785d7060c0f4d122ec1c10",
+    "agent/turn_context.py": "463426b6e3fcf7d183513d54bb1f989743a49f32df26362744bd99f9ba19a3a5",
+    "agent/chat_completion_helpers.py": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+    "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+    "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+    "tests/agent/test_turn_context.py": "546d350b8ca17608892ae67f56757c4ebe443db0c6205fb9af2ab55a88603b81",
+    "scripts/run_tests.sh": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e"
+  }
+}

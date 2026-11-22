@@ -714,3 +714,123 @@ def test_turn_preparation_ordinary_prologue_keeps_default_and_original_behavior(
     assert context.controlled_prepared is None
     assert context.user_message == context.messages[-1]["content"]
     assert context.active_system_prompt == agent._cached_system_prompt
+
+
+def unsupported_runtime_label(kind, supported, calls):
+    class EqualLabel:
+        def __eq__(self, other):
+            calls.append("equality")
+            return True
+
+        def __str__(self):
+            calls.append("conversion")
+            return supported
+
+    class EqualString(str):
+        def __eq__(self, other):
+            calls.append("equality")
+            return True
+
+        def __str__(self):
+            calls.append("conversion")
+            return supported
+
+    class PlainString(str):
+        def __str__(self):
+            calls.append("conversion")
+            return supported
+
+    if kind == "equal_object":
+        return EqualLabel()
+    if kind == "equal_string":
+        return EqualString(supported)
+    return PlainString(supported)
+
+
+def runtime_label_operation(world, phase, prior_send):
+    if prior_send:
+        context = prepare(world, admit(world))
+        interruptible_api_call(world.agent, request(world, context))
+    args = arguments("Next invented input", history=history(world) if prior_send else None)
+    if phase == "admission":
+        return lambda: admit(world, args)
+    token = admit(world, args)
+    if phase == "prologue":
+        return lambda: prepare(world, token, args)
+    context = prepare(world, token, args)
+    return lambda: request(world, context)
+
+
+def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+    from agent import native_main_payload
+    frames = world.adapter._turn_frames
+    retained = len(world.adapter._runtime._contents)
+    sent = world.adapter.send_count
+    sanitizer_calls = []
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+        pytest.fail("Sanitizer ran after unsupported runtime label")
+
+    monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+    monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+    with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+        operation()
+    assert calls == [] and sanitizer_calls == []
+    assert world.context._denied and world.adapter._turn_pending is None
+    assert world.adapter._preparation_enabled
+    assert world.adapter._turn_frames is frames
+    assert len(world.adapter._runtime._contents) == retained
+    with pytest.raises(NativeContentPolicyDenied):
+        operation()
+    with pytest.raises(NativeContentPolicyDenied):
+        interruptible_api_call(world.agent, {"model": "invented_model", "messages": [
+            {"role": "user", "content": "Invented refused input"}]})
+    assert calls == [] and sanitizer_calls == []
+    assert world.adapter.send_count == len(world.ports["main"].sent) == sent
+    assert len(world.adapter.invocations) == sent and world.sdk_calls == []
+    assert all(not port.sent for path, port in world.ports.items() if path != "main")
+
+
+@pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+@pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                            ("provider", "synthetic_native")])
+@pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+@pytest.mark.parametrize("prior_send", [False, True])
+def test_turn_preparation_runtime_labels_require_exact_strings(
+    phase, field, supported, kind, prior_send, monkeypatch,
+):
+    world = prepared_world()
+    operation = runtime_label_operation(world, phase, prior_send)
+    calls = []
+    setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+    assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+
+@pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+@pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+@pytest.mark.parametrize("prior_send", [False, True])
+def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+    phase, kind, prior_send, monkeypatch,
+):
+    world = prepared_world()
+    active = False
+    reads, calls = [], []
+    value = ("other_invented_model" if kind == "different_model" else
+             unsupported_runtime_label(kind, "invented_model", calls))
+
+    class ModelAgent(SimpleNamespace):
+        @property
+        def model(self):
+            if active:
+                reads.append("model")
+                return value
+            return self.__dict__["model"]
+
+    world.agent = ModelAgent(**vars(world.agent))
+    operation = runtime_label_operation(world, phase, prior_send)
+    assert type(vars(world.agent)["model"]) is str
+    assert vars(world.agent)["model"] == "invented_model"
+    active = True
+    assert_runtime_label_denial(world, operation, calls, monkeypatch)
+    assert reads == ["model"]

@@ -1,5 +1,11 @@
 # Complete-byte controlled native turn preparation
 
+Current notice: the [runtime-label correction](correction/README.md) supersedes the initial runtime validation status below.
+The initial 208-case record, API receipt, source manifest, reports, and logs remain frozen at reviewed commit `3ed4ef6d8011b1a40866eb7b08fb110c5e2f5f29`.
+The parent `SHA256SUMS` covers those initial bytes, including this README before this insertion.
+It does not certify the current source, tests, or README bytes.
+The correction directory supplies separate current pins and validation results.
+
 Date: 2026-11-22. Status: candidate for root acceptance.
 Native base: `0540e68a62275f036c8e7b4a57ee82e08c824b19` (published PR4).
 PWA base: `fc33f2551bcadbd6b2f96febf1e5b55357492284` (accepted PR33).

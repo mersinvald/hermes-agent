@@ -1,0 +1,14 @@
+{
+  "whitespace": "Changed source, tests, and non-log evidence have no trailing whitespace and end with a newline.",
+  "raw_logs": "Captured logs are exempt from whitespace edits.",
+  "python_lint": "ruff.log",
+  "prose_lint": "ste-after.log",
+  "prose_baseline": "ste-before.log",
+  "prose_scores": {
+    "changed_python": 0.0,
+    "parent_readme": 0.0,
+    "correction_readme": 0.0
+  },
+  "prose_em_dashes": 0,
+  "data_scope": "JSON commands, signatures, paths, identifiers, and hashes are technical data, outside prose rules."
+}

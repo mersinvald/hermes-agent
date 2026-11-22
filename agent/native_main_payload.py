@@ -673,7 +673,8 @@ class NativeMainPayloadAdapter:
             _require(len(payload) <= 262_144)
         self._source, self._selected, self._producer_policy = source, selected, producer
         if self._turn_agent is not None:
-            _require(self._turn_agent.model == selected.destination.model_ref)
+            model = self._turn_agent.model
+            _require(type(model) is str and model == selected.destination.model_ref)
             if self._turn_facts is not None:
                 _require((source_row, selection_row, producer_row) == self._turn_facts)
         return source_row, selection_row, producer_row, payload
@@ -706,8 +707,9 @@ class NativeMainPayloadAdapter:
             return
         from agent.message_sanitization import _sanitize_surrogates
         _require(_sanitize_surrogates is _NATIVE_SANITIZER)
-        _require(self._turn_agent.api_mode == "chat_completions")
-        _require(self._turn_agent.provider == "synthetic_native")
+        mode, provider = self._turn_agent.api_mode, self._turn_agent.provider
+        _require(type(mode) is str and mode == "chat_completions")
+        _require(type(provider) is str and provider == "synthetic_native")
         system = self._system_prefix[0] if self._system_prefix else None
         if self._turn_arguments is not None:
             _turn_shape(self._turn_arguments)

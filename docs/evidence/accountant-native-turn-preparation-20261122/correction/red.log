@@ -1,0 +1,2810 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~30 tests) under ['tests/agent/test_native_turn_context.py']; running with -j 8
+[100.0% |    30/~30 | ✓ 6 | ✗54] ✗ tests/agent/test_native_turn_context.py (6✓ 54✗, 26.9s)
+
+  ╔╍ Failed: tests/agent/test_native_turn_context.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-materialization]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-admission]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-prologue]
+  ║ FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-materialization]
+  ║ ================ 54 failed, 6 passed, 187 deselected in 26.57s =================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_turn_context.py -k test_turn_preparation_runtime_labels_require_exact_strings or test_turn_preparation_actual_model_read_requires_exact_selected_string
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 6 tests passed, 54 failed (100% complete) in 26.9s (8 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 26.9s  (runner wall: 26.9s, parallelism: 8x)
+  P50: 26.93s  P90: 26.93s  P95: 26.93s  P99: 26.93s  Max: 26.93s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     26.93s  tests/agent/test_native_turn_context.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_turn_context.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.9
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 247 items / 187 deselected / 60 selected
+
+tests/agent/test_native_turn_context.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 53%]
+FFFFFFFFFFFFF...FFFFFFFFF...                                             [100%]
+
+=================================== FAILURES ===================================
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-api_mode-chat_completions-admission] _
+
+phase = 'admission', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722115640b10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722114223810>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x72211422a840>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722115640b10>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-api_mode-chat_completions-prologue] _
+
+phase = 'prologue', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211410f590>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-api_mode-chat_completions-materialization] _
+
+phase = 'materialization', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114223050>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113f2d810>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5aa20>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114223050>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-provider-synthetic_native-admission] _
+
+phase = 'admission', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211548a550>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113fa3d90>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5b880>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211548a550>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-provider-synthetic_native-prologue] _
+
+phase = 'prologue', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211548bfd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-provider-synthetic_native-materialization] _
+
+phase = 'materialization', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113f05350>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113f07c90>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fcfec0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113f05350>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-api_mode-chat_completions-admission] _
+
+phase = 'admission', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fe4690>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722114074950>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x72211422aa20>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fe4690>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-api_mode-chat_completions-prologue] _
+
+phase = 'prologue', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fdb250>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-api_mode-chat_completions-materialization] _
+
+phase = 'materialization', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140e4a10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x7221140e6a10>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5a3e0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140e4a10>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-provider-synthetic_native-admission] _
+
+phase = 'admission', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113f79210>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113f36790>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fcf560>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113f79210>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-provider-synthetic_native-prologue] _
+
+phase = 'prologue', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211411fd10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-provider-synthetic_native-materialization] _
+
+phase = 'materialization', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211411fc90>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113dc4510>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe1120>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211411fc90>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-api_mode-chat_completions-admission] _
+
+phase = 'admission', field = 'api_mode', supported = 'chat_completions'
+kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113d394d0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113d3ae90>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722114229e40>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113d394d0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-api_mode-chat_completions-prologue] _
+
+phase = 'prologue', field = 'api_mode', supported = 'chat_completions'
+kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211422da50>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-api_mode-chat_completions-materialization] _
+
+phase = 'materialization', field = 'api_mode', supported = 'chat_completions'
+kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113dc6e50>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113f07350>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f58860>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113dc6e50>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-provider-synthetic_native-admission] _
+
+phase = 'admission', field = 'provider', supported = 'synthetic_native'
+kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113dc6410>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722114072d50>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe0e00>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113dc6410>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-provider-synthetic_native-prologue] _
+
+phase = 'prologue', field = 'provider', supported = 'synthetic_native'
+kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113f07550>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-provider-synthetic_native-materialization] _
+
+phase = 'materialization', field = 'provider', supported = 'synthetic_native'
+kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114166c90>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x72211564d590>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f58860>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114166c90>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-api_mode-chat_completions-admission] _
+
+phase = 'admission', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114167fd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113f07fd0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5b920>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114167fd0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-api_mode-chat_completions-prologue] _
+
+phase = 'prologue', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fe7c90>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-api_mode-chat_completions-materialization] _
+
+phase = 'materialization', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fa2290>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113fa2c50>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5b600>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fa2290>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-provider-synthetic_native-admission] _
+
+phase = 'admission', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140f7a10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113fa3f50>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5a8e0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140f7a10>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-provider-synthetic_native-prologue] _
+
+phase = 'prologue', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211413f310>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-provider-synthetic_native-materialization] _
+
+phase = 'materialization', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140e7110>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x7221140e5750>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5bb00>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140e7110>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-admission] _
+
+phase = 'admission', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df5bd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113a7d050>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722115694ae0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df5bd0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-prologue] _
+
+phase = 'prologue', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df5910>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-materialization] _
+
+phase = 'materialization', field = 'api_mode', supported = 'chat_completions'
+kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df49d0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113ae9d10>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe28e0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df49d0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-admission] _
+
+phase = 'admission', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fd8550>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x72211564d010>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722115695580>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fd8550>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-prologue] _
+
+phase = 'prologue', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113fdacd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-materialization] _
+
+phase = 'materialization', field = 'provider', supported = 'synthetic_native'
+kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211564ccd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113a3eb10>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe3b00>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211564ccd0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-admission] _
+
+phase = 'admission', field = 'api_mode', supported = 'chat_completions'
+kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211564ced0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113a3fa90>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe3ce0>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211564ced0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-prologue] _
+
+phase = 'prologue', field = 'api_mode', supported = 'chat_completions'
+kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb6690>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-materialization] _
+
+phase = 'materialization', field = 'api_mode', supported = 'chat_completions'
+kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb4190>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x7221140f4c50>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe1f80>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb4190>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-admission] _
+
+phase = 'admission', field = 'provider', supported = 'synthetic_native'
+kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb5e10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113e158d0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe0f40>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb5e10>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-prologue] _
+
+phase = 'prologue', field = 'provider', supported = 'synthetic_native'
+kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211413d390>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-materialization] _
+
+phase = 'materialization', field = 'provider', supported = 'synthetic_native'
+kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb1dd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("field,supported", [("api_mode", "chat_completions"),
+                                                ("provider", "synthetic_native")])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_runtime_labels_require_exact_strings(
+        phase, field, supported, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        operation = runtime_label_operation(world, phase, prior_send)
+        calls = []
+        setattr(world.agent, field, unsupported_runtime_label(kind, supported, calls))
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:807: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113eb3a10>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5a0c0>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113eb1dd0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-admission] _
+
+phase = 'admission', kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113b06610>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113fa0350>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe2340>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113b06610>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-prologue] _
+
+phase = 'prologue', kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113b07cd0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-materialization] _
+
+phase = 'materialization', kind = 'equal_object', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e70b90>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113e702d0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe09a0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e70b90>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-admission] _
+
+phase = 'admission', kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e14ed0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113e17ed0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x7221156944a0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e14ed0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-prologue] _
+
+phase = 'prologue', kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e17310>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-materialization] _
+
+phase = 'materialization', kind = 'equal_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113de5050>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113de7350>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fc8860>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113de5050>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-admission] _
+
+phase = 'admission', kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df5f90>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113df5b90>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe09a0>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df5f90>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-prologue] _
+
+phase = 'prologue', kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113df5690>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-materialization] _
+
+phase = 'materialization', kind = 'plain_string', prior_send = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211413d290>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113df4b50>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5ade0>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72211413d290>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-admission] _
+
+phase = 'admission', kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e985d0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113fa0fd0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fcade0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113e985d0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-prologue] _
+
+phase = 'prologue', kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113aec1d0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-materialization] _
+
+phase = 'materialization', kind = 'equal_object', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114321850>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722114323d90>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe28e0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114321850>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-admission] _
+
+phase = 'admission', kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113aed550>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113aee410>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe2160>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113aed550>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-prologue] _
+
+phase = 'prologue', kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722114321e10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-materialization] _
+
+phase = 'materialization', kind = 'equal_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113af1750>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113af04d0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe2fc0>
+calls = ['equality', 'equality', 'equality', 'equality', 'equality', 'equality', ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113af1750>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-admission] _
+
+phase = 'admission', kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140f4c90>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x7221140f40d0>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113fe1f80>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140f4c90>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-prologue] _
+
+phase = 'prologue', kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7221140f6f10>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_turn_context.py:778: in assert_runtime_label_denial
+    operation()
+tests/agent/test_native_turn_context.py:759: in <lambda>
+    return lambda: prepare(world, token, args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_turn_context.py:51: in prepare
+    return build_turn_context(world.agent, **args, stream_callback=None, persist_user_message=None,
+agent/turn_context.py:597: in build_turn_context
+    return _prepare_controlled_turn(
+agent/native_main_payload.py:1062: in _prepare_controlled_turn
+    return _attached(context)._prepare_turn(agent, token, arguments, exclusions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:828: in _prepare_turn
+    sanitized = _NATIVE_SANITIZER(user)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'Next invented input'
+
+    def blocked_sanitizer(value):
+        sanitizer_calls.append(value)
+>       pytest.fail("Sanitizer ran after unsupported runtime label")
+E       Failed: Sanitizer ran after unsupported runtime label
+
+tests/agent/test_native_turn_context.py:773: Failed
+_ test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-materialization] _
+
+phase = 'materialization', kind = 'plain_string', prior_send = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113b27ad0>
+
+    @pytest.mark.parametrize("phase", ["admission", "prologue", "materialization"])
+    @pytest.mark.parametrize("kind", ["equal_object", "equal_string", "plain_string", "different_model"])
+    @pytest.mark.parametrize("prior_send", [False, True])
+    def test_turn_preparation_actual_model_read_requires_exact_selected_string(
+        phase, kind, prior_send, monkeypatch,
+    ):
+        world = prepared_world()
+        active = False
+        reads, calls = [], []
+        value = ("other_invented_model" if kind == "different_model" else
+                 unsupported_runtime_label(kind, "invented_model", calls))
+    
+        class ModelAgent(SimpleNamespace):
+            @property
+            def model(self):
+                if active:
+                    reads.append("model")
+                    return value
+                return self.__dict__["model"]
+    
+        world.agent = ModelAgent(**vars(world.agent))
+        operation = runtime_label_operation(world, phase, prior_send)
+        assert type(vars(world.agent)["model"]) is str
+        assert vars(world.agent)["model"] == "invented_model"
+        active = True
+>       assert_runtime_label_denial(world, operation, calls, monkeypatch)
+
+tests/agent/test_native_turn_context.py:835: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x722113fda750>
+operation = <function runtime_label_operation.<locals>.<lambda> at 0x722113f5b4c0>
+calls = []
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x722113b27ad0>
+
+    def assert_runtime_label_denial(world, operation, calls, monkeypatch):
+        from agent import native_main_payload
+        frames = world.adapter._turn_frames
+        retained = len(world.adapter._runtime._contents)
+        sent = world.adapter.send_count
+        sanitizer_calls = []
+    
+        def blocked_sanitizer(value):
+            sanitizer_calls.append(value)
+            pytest.fail("Sanitizer ran after unsupported runtime label")
+    
+        monkeypatch.setattr(native_main_payload, "_NATIVE_SANITIZER", blocked_sanitizer)
+        monkeypatch.setattr("agent.message_sanitization._sanitize_surrogates", blocked_sanitizer)
+>       with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_invalid$"):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_turn_context.py:777: Failed
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-api_mode-chat_completions-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-api_mode-chat_completions-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-api_mode-chat_completions-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-provider-synthetic_native-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-provider-synthetic_native-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_object-provider-synthetic_native-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-api_mode-chat_completions-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-api_mode-chat_completions-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-api_mode-chat_completions-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-provider-synthetic_native-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-provider-synthetic_native-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-equal_string-provider-synthetic_native-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-api_mode-chat_completions-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-api_mode-chat_completions-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-api_mode-chat_completions-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-provider-synthetic_native-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-provider-synthetic_native-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[False-plain_string-provider-synthetic_native-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-api_mode-chat_completions-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-api_mode-chat_completions-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-api_mode-chat_completions-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-provider-synthetic_native-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-provider-synthetic_native-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_object-provider-synthetic_native-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-api_mode-chat_completions-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-api_mode-chat_completions-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-plain_string-provider-synthetic_native-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_object-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-equal_string-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[False-plain_string-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_object-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-equal_string-materialization]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-admission]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-prologue]
+FAILED tests/agent/test_native_turn_context.py::test_turn_preparation_actual_model_read_requires_exact_selected_string[True-plain_string-materialization]
+================ 54 failed, 6 passed, 187 deselected in 26.57s =================
+
+=== 1 file with test failures (54 tests failed) ===
+  tests/agent/test_native_turn_context.py  (54 tests failed)

@@ -1,0 +1,106 @@
+{
+  "status": "correction_candidate_for_root_acceptance",
+  "finding_id": "P10.9-R1-runtime-label-types",
+  "reviewed_commit": "3ed4ef6d8011b1a40866eb7b08fb110c5e2f5f29",
+  "runs": {
+    "red": {
+      "command": "HERMES_TEST_FILE_RETRIES=0 scripts/run_tests.sh tests/agent/test_native_turn_context.py --file-timeout 150 -k 'test_turn_preparation_runtime_labels_require_exact_strings or test_turn_preparation_actual_model_read_requires_exact_selected_string'",
+      "exit_code": 1,
+      "wall_seconds": 28.181,
+      "files": 1,
+      "passed": 6,
+      "failed": 54,
+      "runner_seconds": 26.9,
+      "retries": 0,
+      "log": "red.log",
+      "source_manifest": "red-source.json",
+      "skipped": 0,
+      "deselected_in_turn_module": 187,
+      "failure_reasons": {
+        "Failed: DID NOT RAISE NativeContentPolicyDenied": 36,
+        "Failed: Sanitizer ran after unsupported runtime label": 18
+      },
+      "passing_scope": "Six actual-property cases with a different exact model string. Three phases, before and after an accepted send."
+    },
+    "green": {
+      "command": "HERMES_TEST_FILE_RETRIES=0 scripts/run_tests.sh tests/agent/test_native_turn_context.py --file-timeout 150 -k 'test_turn_preparation_runtime_labels_require_exact_strings or test_turn_preparation_actual_model_read_requires_exact_selected_string'",
+      "exit_code": 0,
+      "wall_seconds": 23.733,
+      "files": 1,
+      "passed": 60,
+      "failed": 0,
+      "runner_seconds": 23.4,
+      "retries": 0,
+      "log": "green.log",
+      "source_manifest": "green-source.json",
+      "skipped": 0,
+      "deselected_in_turn_module": 187
+    },
+    "current": {
+      "command": "HERMES_TEST_FILE_RETRIES=0 scripts/run_tests.sh tests/agent/test_native_turn_context.py tests/agent/test_native_main_payload.py tests/agent/test_turn_context.py --file-timeout 150 -k 'turn_preparation or test_turn_preparation_runtime_labels_require_exact_strings or test_turn_preparation_actual_model_read_requires_exact_selected_string or test_complete_native_payload_and_result_release or test_reuse_keeps_parent_restrictions_after_source_profiles_drop or test_eight_record_limit_denies_before_ninth_send or test_controlled_caller_complete_bytes_identity_and_bound_thread or test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle or test_returns_turn_context_with_user_message_appended or test_applies_agent_side_effects or test_ensure_db_session_runs_after_system_prompt_restore'",
+      "exit_code": 0,
+      "wall_seconds": 92.746,
+      "files": 3,
+      "passed": 268,
+      "failed": 0,
+      "runner_seconds": 92.4,
+      "retries": 0,
+      "log": "current.log",
+      "source_manifest": "current-source.json",
+      "skipped": 0,
+      "deselected_in_turn_module": 0,
+      "file_pass_counts": {
+        "tests/agent/test_native_turn_context.py": 247,
+        "tests/agent/test_native_main_payload.py": 18,
+        "tests/agent/test_turn_context.py": 3
+      },
+      "scope_pass_counts": {
+        "new_runtime_label_regressions": 60,
+        "initial_turn_preparation_module": 187,
+        "initial_mode_compatibility": 7,
+        "existing_payload_caller": 11,
+        "existing_ordinary_prologue": 3
+      }
+    }
+  },
+  "overlap": {
+    "initial_208_record": "../verification.json",
+    "initial_record_unchanged": true,
+    "current_equals_initial_208_plus_new_60": true,
+    "green_is_subset_of_current": true,
+    "pass_counts_are_not_additive": true,
+    "historical_187_233_105_137_suites_repeated": false,
+    "installed_package_selection_repeated": false
+  },
+  "pins": {
+    "current_runtime_sha256": "b267e1536ae54998b1034c5e0a0f45d3382c71abc097a85a89a745b5e3145578",
+    "current_test_sha256": "f03823025f07602ffee6d047d48ebe6150a781c0c4785d7060c0f4d122ec1c10",
+    "current_api_receipt_sha256": "eb48ac043de0aaaf9cce570caa3816dc870dab32fea42d0bc76dcfa1f9266581",
+    "public_definition_comparison": "api-preservation.json"
+  },
+  "static_validation": {
+    "ruff": ".venv/bin/python -m ruff check --select F,E9 agent/native_main_payload.py tests/agent/test_native_turn_context.py",
+    "ruff_passed": true,
+    "whitespace_scope": "Changed source, tests, and non-log evidence. Raw captured logs retain their bytes.",
+    "ste_linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+    "ste_linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+    "ste_baseline": "ste-before.log",
+    "ste_current": "ste-after.log",
+    "ste_scores": "All changed Python prose and both READMEs score 0.00 with zero em dashes. Code, commands, identifiers, and quoted output are outside prose rules."
+  },
+  "feedback": {
+    "red_wall_seconds": 28.181,
+    "green_wall_seconds": 23.733,
+    "final_wall_seconds": 92.746,
+    "unexpected_slow_setup": false
+  },
+  "publication": "Normal hooks and standard non-force push. Keep PR5 draft. Report exact-head configured checks separately after publication. Zero checks do not establish CI success.",
+  "limits": [
+    "Root owns acceptance and merge.",
+    "Full P10/P06 remains open.",
+    "No conversation startup or real providers/egress.",
+    "No private/model processing, restoration, or sensitive cross-thread qualification.",
+    "No source/financial qualification, financial writes, activation, or deployment.",
+    "No live service, offensive probe, Beads write or sync, or configuration change."
+  ]
+}

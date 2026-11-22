@@ -1,0 +1,7 @@
+{
+  "reviewed_commit": "3ed4ef6d8011b1a40866eb7b08fb110c5e2f5f29",
+  "sha256": {
+    "agent/native_main_payload.py": "fe7030141a2de70e6f816931e741d45dbfa96a80da62c2746980326dc2bf823b",
+    "tests/agent/test_native_turn_context.py": "f03823025f07602ffee6d047d48ebe6150a781c0c4785d7060c0f4d122ec1c10"
+  }
+}
