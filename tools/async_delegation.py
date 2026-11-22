@@ -820,6 +820,8 @@ def dispatch_async_delegation(
         ``{"status": "dispatched", "delegation_id": ...}`` on success, or
         ``{"status": "rejected", "error": ...}`` when at capacity.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("delegate")
     from agent.native_execution_context import native_execution_cancel_requested
 
     if native_execution_cancel_requested():
@@ -1070,6 +1072,8 @@ def dispatch_async_delegation_batch(
     ``{"status": "rejected", "error": ...}`` when the async pool is at
     capacity.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("delegate")
     from agent.native_execution_context import native_execution_cancel_requested
 
     if native_execution_cancel_requested():

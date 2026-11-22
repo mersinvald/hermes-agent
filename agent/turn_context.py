@@ -270,6 +270,8 @@ def _maybe_title_session_at_turn_start(agent: Any, messages: List[Any]) -> None:
     TUI/desktop, ACP) gets identical behavior without each one re-implementing
     the call. Fully defensive: titling is cosmetic and must never break a turn.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("title", agent)
     session_db = getattr(agent, "_session_db", None)
     session_id = getattr(agent, "session_id", None)
     if not session_db or not session_id:
@@ -586,6 +588,8 @@ def build_turn_context(
     free of an import cycle with ``agent.conversation_loop``.
     """
     # Guard stdio against OSError from broken pipes (systemd/headless/daemon).
+    from agent.content_policy import guard_native_content
+    guard_native_content("main", agent)
     install_safe_stdio()
 
     # Recover a session rotated by another path before binding log/turn ids or

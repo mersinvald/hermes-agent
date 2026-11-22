@@ -1,0 +1,334 @@
+{
+  "date": "2026-11-22",
+  "native_base": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+  "pwa_accepted_main": "2a05257840cee4bd421466c1f420df850e6980fb",
+  "pwa_runtime_test_source": "2b66c7504fb8863208d5dda6c991307fd004a0ca",
+  "pwa_published_candidate": "2a4ebf0de869f2c3eb00d7e7794b128e111c7719",
+  "pwa_published_pr": 29,
+  "infra_read_only": "9b766df2925968f12687b008e9f452c3a37360b0",
+  "rejected_native_checkout_head": "711d3bc5ac1c7e91bff6a25beade35e6c5215924",
+  "unqualified_historical_image_prefix": "f1990df3",
+  "inspection_scope": "Named tracked objects only. No private payloads, credentials, remotes, configuration, historical runtime logs, or .serena contents.",
+  "objects": [
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "AGENTS.md",
+      "git_blob": "e140522e964a4736efbcc12727a7eff8683dffea",
+      "sha256": "93a12ef7f78a533b3f2b49b1c435eff1a41e18458074a1e231647e189e29250f",
+      "byte_size": 95906
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/auxiliary_client.py",
+      "git_blob": "8f4a146d6315e062690e247a252ee7a395c1767f",
+      "sha256": "9ea26e586f69956f613ab00fffabddd43cd71e1f26bd7cd2b878c9e9dc71fcbf",
+      "byte_size": 507129
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/chat_completion_helpers.py",
+      "git_blob": "258e056612ac4a57113942495484dac07f30cf4f",
+      "sha256": "98693898ba6ca30c45fe27cc4edbc1784d67e4f264326a885110a3bd2388b7fb",
+      "byte_size": 269801
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/context_compressor.py",
+      "git_blob": "04bd59cf8b2344c165410a5dd690503e1fb52738",
+      "sha256": "67ad06be67dc43b712fabeb778fe6b07bd2dd1f989b52309f506d4c9ddc6da9a",
+      "byte_size": 439710
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/conversation_compression.py",
+      "git_blob": "7b6ca234a912d6ebea3bba4f99ac58d135a0dda0",
+      "sha256": "4009c986a8282da4c34076363bed5f5aaca640457c7275f000110369333c5079",
+      "byte_size": 278294
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/conversation_loop.py",
+      "git_blob": "c7c93775e73d2be05469da22ba67191586e91476",
+      "sha256": "7b108342f25c6b714cc4b13e7c12c26f1c5d5336779a9069f6aa5fe46975c410",
+      "byte_size": 497720
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/delegation_context.py",
+      "git_blob": "9b8bce97597a964e01507a744d9b67a0a41762bc",
+      "sha256": "d185d1746efa5516a2697dc7e58b1e049300239300475766e91decbfc0c2f754",
+      "byte_size": 6426
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/memory_manager.py",
+      "git_blob": "496562c2e87f5ae34c4760ca81253c038b121cd8",
+      "sha256": "a706285f0bbad1cbca57c2c1cf5151ec3fda04e586210333eb6639966b956639",
+      "byte_size": 58621
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/memory_provider.py",
+      "git_blob": "014f8955032963190e14800c63217bc036147e65",
+      "sha256": "902e061d33b372cc28facd8c7bf7fe032aacda3f17ea1e4107fea9fd01885335",
+      "byte_size": 17972
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/native_execution_context.py",
+      "git_blob": "b616ddcbfe594cf889d44bf1b3a060cf7b71ed8d",
+      "sha256": "09a2decbdb0682d0dd68d1ecc07af2a9d7d73567f935ebcbe0af29d10506ee64",
+      "byte_size": 1314
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/title_generator.py",
+      "git_blob": "d583137917b17291e183afe6513779a21466ce46",
+      "sha256": "cf3b06fca8102377a0cd7f1c102aed5f0532d233e6749ebfbfaaaec1c0b0d434",
+      "byte_size": 33567
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/tool_executor.py",
+      "git_blob": "44671ece99fcdcecbff943bebee2de895a6eea13",
+      "sha256": "a8134910e45cd8aba99c425d32618e30b5f21443f9f4742b35e6f9eaa61fc30d",
+      "byte_size": 134301
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/tool_result_classification.py",
+      "git_blob": "c71fc6c31db124b9449d1f757881f51a01b1819f",
+      "sha256": "186cf924dcc689abc6847584aa3acfd6d0d01104f3a76b30886cea6f1f8b9ab2",
+      "byte_size": 1336
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "agent/turn_context.py",
+      "git_blob": "47612667ae49cf72f22088ff4f8182ce4ad0ac87",
+      "sha256": "6c863a5a1eb6c9debcb9832b12a9c9145ee7858463a18c62a77cf8284cad7297",
+      "byte_size": 77717
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/conversation_control.py",
+      "git_blob": "8b0d719dc697ef62166c523571ce62793b223549",
+      "sha256": "15cc020036adf2d0920a3c1e086b2736b9e29b5e64a374178547a55d0663b2ed",
+      "byte_size": 21150
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/native_commands.py",
+      "git_blob": "2d7cb2d6876b63393d3eb7bc1ea64ae50b2e5429",
+      "sha256": "440650bc06ce117e053feb3794ad884a6bccf93215f037fe87d4234110891ea1",
+      "byte_size": 26140
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/pwa_config.py",
+      "git_blob": "e6ca09d4e13e1ee42ec8429f37851431b3e6c34b",
+      "sha256": "056687fa9d79f1e2bcaa3dcb45981edc285d36c600aadb07a525fa488bcd1b79",
+      "byte_size": 16297
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/pwa_http.py",
+      "git_blob": "43011d5aca99d74de0145f81f597659edd2eeda0",
+      "sha256": "37a91023f3e4fdcbbb9c4c772b168d6c591e2860086e4fa943069368dfeac27e",
+      "byte_size": 36017
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/pwa_image_policy.py",
+      "git_blob": "f2da04c79085006619991eef71fba3273d0ca38f",
+      "sha256": "ec033a6949be162385183363686988bce33455012c06401529ce57d63ead2edb",
+      "byte_size": 18197
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/pwa_models.py",
+      "git_blob": "c2df40c9256a0c83e5436167fc0b368c5d52c6aa",
+      "sha256": "2bf1a7497eb63395bc1bdc92605e0a1b08c937648d394a4b346a52a17c49fbe0",
+      "byte_size": 3167
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/pwa_ownership.py",
+      "git_blob": "f87ad7a24aada9813790f877f9277663201dbab2",
+      "sha256": "f16dce5fbc64cda309afe97e8083ed74d87c1b0e78bfd0be1da12e3dec9bf95b",
+      "byte_size": 16566
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "gateway/run.py",
+      "git_blob": "f60e827f780a0182e92f296ada4d88aa60a31838",
+      "sha256": "4fd0e9301fed55457d7cc270dd1eaedf6924bb6ddd04740b54028978691053cc",
+      "byte_size": 1665013
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "hermes_state_commands.py",
+      "git_blob": "3f52e245d5fe35e8ab05a8d566d43354999db4a6",
+      "sha256": "e28cdc01df4e96771325d587de3521ae1db793a4732c37dd85dfb20e11a87b35",
+      "byte_size": 24254
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "plugins/platforms/a2a/provenance.py",
+      "git_blob": "fb24f61274af335da60ec2006736e28b366c333e",
+      "sha256": "39c411820edee20d7b4a5551049f09a7ea0fa01975ce8401add201373ab8979e",
+      "byte_size": 5214
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "plugins/platforms/a2a/tools.py",
+      "git_blob": "4714366682254bfde904cb49c6b44a36c294fa47",
+      "sha256": "fca75ed2832d8a0cbb30e6d1607df3c2bfbd87346adededa57fa423ad0a507cd",
+      "byte_size": 47938
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "pyproject.toml",
+      "git_blob": "9c3cc68212b18c68757a20d8a206f9976e84f8c5",
+      "sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+      "byte_size": 34259
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "run_agent.py",
+      "git_blob": "6bc2414766d2c02c037473d662cd320545089726",
+      "sha256": "e39b78f7d01a936e09a3b408ef4a99083b4e17005090b9882e5ff416985eee77",
+      "byte_size": 440846
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "tools/async_delegation.py",
+      "git_blob": "e3b01d395a09d81eb9ae35e616ceb91f93810cba",
+      "sha256": "2ea6f6aa4cd1c6a3bcfacaf7b7a854648adf32aa25dca31f0bfc899111e117f9",
+      "byte_size": 70441
+    },
+    {
+      "repository": "native",
+      "commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+      "path": "tools/delegate_tool.py",
+      "git_blob": "6a7cd25cbd435b8faaa16460b537e33306048f7a",
+      "sha256": "5d8f75b15d7eeac42a98e3cdda980bf3980e82296d354018d28ca51a7ab3b9e0",
+      "byte_size": 237671
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "server/src/hermes_pwa_server/content_destination_policy.py",
+      "git_blob": "ab679ef9167bfc3c7bc23ef547c86eab62c25f03",
+      "sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+      "byte_size": 20699
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "server/tests/test_content_destination_policy.py",
+      "git_blob": "7c0998ef72231d4ead5716c3a535b37711d4319f",
+      "sha256": "5f122a7d8571fc9469cb7b9180679cffc7b4764140d5377a14639d3a8d52b3c5",
+      "byte_size": 23022
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "server/tests/content_destination_policy_fakes.py",
+      "git_blob": "db29f0e615dc8ad4f9016cd818f4aa8c9abb0ae9",
+      "sha256": "afd2ad855d2fffccba73408fac55474b78c301000d883142468e78e2c762ba6c",
+      "byte_size": 4963
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "pyproject.toml",
+      "git_blob": "db022b5fe4db59c115f4da371722f113b50994f5",
+      "sha256": "df5a2359306b81444c5df942d1964f9cb53f8f293ec093f7c6a51579ed8a3fd1",
+      "byte_size": 1509
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/README.md",
+      "git_blob": "e1140759229d3481f55cb7cb2f7aa825edb0b8ce",
+      "sha256": "cd75348572d20e6dedf8d8317e76813b88b4dd3368cf03c683bd528ec73277b0",
+      "byte_size": 4569
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/design.md",
+      "git_blob": "d1db01b594ee36db09213951b620950934c673b1",
+      "sha256": "b66634f8f896796cde7f80f6d5975f5b1c2bc2eafb6ee73cddd1c89c0dedc7f5",
+      "byte_size": 18496
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/source-map.md",
+      "git_blob": "4493a31fa83aa75389bd63aebdcd5aad4c58a645",
+      "sha256": "1f1273bd723c4f1b4bec57b7eb694c556bddc8303011e7b92f98579f2ce8701b",
+      "byte_size": 10727
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/runtime-api.json",
+      "git_blob": "ac98c4f8d9b7d5a0ba8bab018ac17b7caa1d1c99",
+      "sha256": "bd493d40de86b44cd4de918270f14516016840a62ca694ee2ce1ade47c920482",
+      "byte_size": 3425
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/source-pins.json",
+      "git_blob": "366ccae239f442c89bd7d9b26a3a3b30784436ff",
+      "sha256": "911cfe6ead987b3b4ead992979176b70cda8cc14f5fbd29f24e7797f08304b37",
+      "byte_size": 16998
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/checks.json",
+      "git_blob": "b7cc322527aa0845e7afea2ab4e7615d5c853c70",
+      "sha256": "46d45ec8d3bfca71c6a13c59953a6c7b13b1efcbba2da08e1e8178d61cf6fffc",
+      "byte_size": 99203
+    },
+    {
+      "repository": "pwa",
+      "commit": "2a05257840cee4bd421466c1f420df850e6980fb",
+      "path": "docs/mesh/evidence/accountant-destination-policy-20261122/preservation.json",
+      "git_blob": "6f5e23218394a5b4da6f03be84ebd886da631462",
+      "sha256": "0652b3df1d4e421cefa04522b4af3da8085564feb43a736be199e555bf3e7095",
+      "byte_size": 1095
+    }
+  ]
+}

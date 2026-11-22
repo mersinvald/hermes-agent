@@ -1732,6 +1732,8 @@ def _build_child_agent(
     routing subagents to a different provider:model pair (e.g. cheap/fast
     model on OpenRouter while the parent runs on Nous Portal).
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("delegate", parent_agent)
     from run_agent import AIAgent
     import uuid as _uuid
 
@@ -2214,6 +2216,10 @@ def _build_child_agent(
     except Exception:
         logger.debug("subagent_start hook invocation failed", exc_info=True)
 
+    policy_context = guard_native_content("delegate", parent_agent)
+    if policy_context is not None:
+        child._native_content_policy_context = policy_context
+        child._native_content_policy_required = True
     return child
 
 
@@ -2608,6 +2614,8 @@ def _run_single_child(
     ``truncated`` is derived as ``exit_reason == "max_iterations"`` only, so the
     parent-visible truncation flag stays truthful for all of the above.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("delegate", parent_agent)
     child_start = time.monotonic()
 
     # Get the progress callback from the child agent
@@ -3638,6 +3646,8 @@ def _finalize_child_results(
     parent_agent,
 ) -> None:
     """Apply host-owned summary, memory, hook, and cost contracts once."""
+    from agent.content_policy import guard_native_content
+    guard_native_content("delegate", parent_agent)
     with _parent_finalization_lock(parent_agent):
         _apply_summary_budget(results, parent_agent)
         child_by_index = {index: child for index, _task, child in children}
@@ -3861,6 +3871,8 @@ def delegate_task(
 
     Returns JSON with results array, one entry per task.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("delegate", parent_agent)
     if parent_agent is None:
         return tool_error("delegate_task requires a parent agent context.")
 

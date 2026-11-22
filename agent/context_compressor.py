@@ -4938,6 +4938,8 @@ Summary generation was unavailable, so this is a best-effort deterministic fallb
         the middle turns without a summary rather than inject a useless
         placeholder.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("compression", self)
         prompt_started_at = time.monotonic()
         if self._compression_cancelled():
             raise AuxiliaryExplicitCancellation()
@@ -7061,6 +7063,8 @@ This compaction should PRIORITISE preserving all information related to the focu
         a focused prompt that merges one exchange into the running summary.
         Returns the updated summary text, or ``None`` on failure.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("compression", self)
         from agent.auxiliary_client import call_llm, aux_interrupt_protection
 
         messages = self._build_micro_summary_prompt(
@@ -7684,6 +7688,8 @@ This compaction should PRIORITISE preserving all information related to the focu
         """
         # Reset per-call summary failure state — callers inspect these fields
         # after compress() returns to decide whether to surface a warning.
+        from agent.content_policy import guard_native_content
+        guard_native_content("compression", self)
         self._last_summary_dropped_count = 0
         self._last_summary_fallback_used = False
         self._last_feasibility_skip = False

@@ -92,6 +92,9 @@ class NativePwaHttp:
             event_limits=self.config.event_limits,
             model_catalog=self.models,
         )
+        if self.config.content_policy is not None and self.config.content_policy.enabled:
+            from gateway.pwa_ownership import NativeContentPolicyAdmission
+            self.ingress.content_policy = NativeContentPolicyAdmission(self.ingress, self.ownership)
         self.telegram_channel = TelegramConversationChannel(self.ingress)
         self.history_scan = NativeHistoryScan(self)
         self.inspector = NativeInspector(self)

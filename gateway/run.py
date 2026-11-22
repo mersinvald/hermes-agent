@@ -6009,6 +6009,8 @@ class TurnRunner:
         managed_execution = False
         managed_image_row = None
         managed_image_model = None
+        content_context = None
+        content_adapter = None
         managed_image_history = any(
             isinstance(message.get("display_metadata"), dict)
             and message["display_metadata"].get("pwa_images") is not None
@@ -6018,6 +6020,11 @@ class TurnRunner:
             native_ingress = getattr(self._runner, "conversation_ingress", None)
             state = self._runner._peek_session_state(ctx.session_key)
             execution = state.turn.conversation_execution if state else None
+            from agent.content_policy import ingress_policy
+            if native_ingress is not None:
+                content_adapter = ingress_policy(native_ingress)
+                if content_adapter is not None:
+                    content_adapter.check_execution(execution)
             managed_execution = bool(
                 native_ingress is not None
                 and execution is not None
@@ -6103,7 +6110,12 @@ class TurnRunner:
                         )
                     raise
                 model, runtime_kwargs = route.model, route.runtime
+                if content_adapter is not None:
+                    content_context = content_adapter.context(execution, captured)
             else:
+                if content_adapter is not None:
+                    from agent.content_policy import NativeContentPolicyDenied
+                    raise NativeContentPolicyDenied("content_policy_selection_missing")
                 model, runtime_kwargs = self._runner._resolve_session_agent_runtime(
                     source=ctx.source,
                     session_key=ctx.session_key,
@@ -6114,6 +6126,18 @@ class TurnRunner:
                 model, runtime_kwargs.get("provider"), ctx.session_key or "",
             )
         except Exception as exc:
+            from agent.content_policy import NativeContentPolicyDenied
+            if isinstance(exc, NativeContentPolicyDenied):
+                if managed_prelease is not None:
+                    managed_prelease["db"].release_session_turn_lease(
+                        managed_prelease["root"], managed_prelease["holder"])
+                    managed_prelease = None
+                if execution is not None:
+                    native_ingress.db.native_execution_close(
+                        execution.execution_id, native_ingress._command_owner, outcome="failed")
+                return {"final_response": "Native content policy refused this execution.",
+                        "messages": [], "api_calls": 0, "tools": [], "failed": True,
+                        "error": str(exc)}
             if (managed_image_history and managed_execution) or (
                 managed_image_row is not None and json.loads(
                     managed_image_row["payload_json"])["payload"].get("image_ids")):
@@ -6529,6 +6553,11 @@ class TurnRunner:
 
         if managed_prelease is not None:
             agent._preacquired_session_turn_lease = managed_prelease
+        for policy_consumer in (agent, getattr(agent, "_memory_manager", None),
+                                getattr(agent, "context_compressor", None)):
+            if policy_consumer is not None:
+                policy_consumer._native_content_policy_context = content_context
+                policy_consumer._native_content_policy_required = content_adapter is not None
         if managed_execution:
             agent._managed_pwa_title_destination = (
                 _managed_conversation_title_destination(ctx.user_config)
@@ -7348,15 +7377,18 @@ class TurnRunner:
                 if native_context:
                     native_ingress.cancellations.bind_worker(native_context.execution, agent)
                 try:
-                    with scope:
+                    from agent.content_policy import content_policy_scope
+                    with scope, content_policy_scope(content_context):
                         result = agent.run_conversation(_api_run_message, **_conversation_kwargs)
                 finally:
                     if native_context:
                         native_ingress.cancellations.unbind_worker(native_context.execution, agent)
-            except BaseException:
+            except BaseException as exc:
                 if native_context:
+                    from agent.content_policy import NativeContentPolicyDenied
                     native_context.finish(failed=True, outcome=(
-                        "failed" if agent._native_media_guard is not None else None))
+                        "failed" if (agent._native_media_guard is not None
+                                     or isinstance(exc, NativeContentPolicyDenied)) else None))
                 raise
             else:
                 if native_context:
@@ -20198,6 +20230,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         list is empty, the ``_enrich_message_with_vision`` text path has
         already run and images are represented in-text.
         """
+        from agent.content_policy import guard_inbound
+        guard_inbound(self, event, source)
         history = history or []
         _pending_stt_prepared = hasattr(event, "_gateway_pending_stt_text")
         message_text = (
@@ -20603,6 +20637,8 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         session_key: Optional[str] = None,
     ) -> Optional[str]:
         """Run inbound preprocessing under the routed profile when multiplexed."""
+        from agent.content_policy import guard_inbound
+        guard_inbound(self, event, source)
         if getattr(getattr(self, "config", None), "multiplex_profiles", False):
             with _profile_runtime_scope(self._resolve_profile_home_for_source(source)):
                 return await self._prepare_inbound_message_text(
@@ -27606,6 +27642,12 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         is not a transactional boundary: a process crash after adapter
         acceptance can still cause durable at-least-once replay.
         """
+        from agent.content_policy import guard_completion_event, NativeContentPolicyDenied
+        try:
+            await guard_completion_event(self, evt)
+        except NativeContentPolicyDenied:
+            logger.warning("Native content policy refused completion restoration; stored results remain pending")
+            return False
         source = await asyncio.to_thread(self._build_process_event_source, evt)
         if not source:
             # API-server-originated sessions bind a RAW session key (the
@@ -27839,6 +27881,12 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         event or the event has no gateway route. No cross-process exactly-once
         guarantee is claimed.
         """
+        from agent.content_policy import guard_completion_event, NativeContentPolicyDenied
+        try:
+            await guard_completion_event(self, evt)
+        except NativeContentPolicyDenied:
+            logger.warning("Native content policy refused completion restoration; stored results remain pending")
+            return False
         identity = self._completion_delivery_identity(evt)
         durable_claim_id = ""
         durable_delegation_id = ""
@@ -28138,6 +28186,12 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         """Fan in concurrent process completions that share one conversation."""
         # Some unit tests construct GatewayRunner with object.__new__.  Keep the
         # batching seam lazy so those focused lifecycle tests remain valid.
+        from agent.content_policy import guard_completion_event, NativeContentPolicyDenied
+        try:
+            await guard_completion_event(self, evt)
+        except NativeContentPolicyDenied:
+            logger.warning("Native content policy refused completion restoration; stored results remain pending")
+            return False
         if not hasattr(self, "_completion_notification_batches"):
             self._completion_notification_batches = {}
         if not hasattr(self, "_completion_notification_batch_tasks"):
@@ -28247,6 +28301,13 @@ class GatewayRunner(GatewayAuthorizationMixin, GatewayKanbanWatchersMixin, Gatew
         group is deliverable by this runner (siblings that still need a retry
         are requeued here before returning).
         """
+        from agent.content_policy import guard_completion_event, NativeContentPolicyDenied
+        try:
+            for policy_event in group:
+                await guard_completion_event(self, policy_event)
+        except NativeContentPolicyDenied:
+            logger.warning("Native content policy refused completion restoration; stored results remain pending")
+            return False
         from tools.process_registry import process_registry as _pr
 
         deliverable: list[tuple[dict, str]] = []
