@@ -1,6 +1,6 @@
 # Native shared content policy proposal
 
-Date: 2026-11-22. Task: `hpwa-p10.2`. Status: design gate, runtime approval pending.
+Date: 2026-11-22. Task: `hpwa-p10.2`. Status: root approved the bounded component.
 Native base: `089fadba6cfeacc5af9ebffcec1e6f72ae9eed28`.
 [source-pins.json](source-pins.json) identifies every inspected source object.
 [source-map.md](source-map.md) identifies the native call sites and gaps.
@@ -213,3 +213,24 @@ Broader production qualifications, persistent restoration, and publication requi
 This design stage changes only this evidence directory.
 It runs no native, PWA, or Accountant tests and makes no network calls.
 Root retains Beads writes, final acceptance, cross-repository decisions, merge, and publication.
+
+## Root decision before runtime edits
+
+Root approved design commit `bbacf9cb87cd4b83fae3c21454e7b581c7acb9f6` through message `msg_46c9b42c553e`.
+The 19 native runtime paths and eight new test paths remain exact.
+Sensitive real-provider processing must deny before preprocessing or any downstream content operation.
+Missing or ambiguous authority denies enabled work.
+An absent section preserves unqualified legacy behavior outside the enforcement claim.
+
+Root assigned package extraction to `hpwa-p10.3` in its separate PWA worktree.
+The delivery seam is a reviewed hash-pinned wheel installed without index or dependency lookup.
+Root will supply its exact accepted artifact receipt.
+Native `pyproject.toml` and `uv.lock` must remain unchanged.
+The optional extra proposed above is not approved.
+The native adapter can use a lazy canonical import while artifact validation awaits that receipt.
+
+Keep serialized and durable restoration unsupported.
+Determine enabled scope from current trusted source configuration, never a missing restored JSON flag.
+Retain idempotent owned receipt readback without authorizing execution or preprocessing.
+Preserve stored rows and use truthful failure outcomes.
+Do not push or open a native PR before root reviews completed source and confirms the target.

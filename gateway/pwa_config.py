@@ -177,6 +177,46 @@ class PwaModelCatalogConfig:
 
 
 @dataclass(frozen=True)
+class NativeContentPolicyConfig:
+    enabled: bool
+    auth_epoch: int
+    policy_revision: int
+    assignments: tuple[tuple[str, tuple[str, ...]], ...]
+
+    @classmethod
+    def from_dict(cls, raw):
+        if raw is None:
+            return None
+        closed(raw, {"enabled", "auth_epoch", "policy_revision", "assignments"}, {"enabled"})
+        if type(raw["enabled"]) is not bool:
+            raise ValueError("content policy enabled must be boolean")
+        if not raw["enabled"]:
+            closed(raw, {"enabled"})
+            return cls(False, 1, 1, ())
+        closed(raw, {"enabled", "auth_epoch", "policy_revision", "assignments"},
+               {"enabled", "auth_epoch", "policy_revision", "assignments"})
+        for key in ("auth_epoch", "policy_revision"):
+            if type(raw[key]) is not int or not 1 <= raw[key] <= 9007199254740991:
+                raise ValueError("content policy revision must be a positive integer")
+        rows = raw["assignments"]
+        if type(rows) is not dict or not 1 <= len(rows) <= 100:
+            raise ValueError("content policy requires explicit source assignments")
+        assignments = []
+        for source_id, profiles in rows.items():
+            identifier(source_id)
+            if type(profiles) is not list or len(profiles) > 32:
+                raise ValueError("invalid content policy profiles")
+            for profile in profiles:
+                identifier(profile)
+                if len(profile) > 128:
+                    raise ValueError("invalid content policy profile")
+            if len(set(profiles)) != len(profiles):
+                raise ValueError("duplicate content policy profile")
+            assignments.append((source_id, tuple(profiles)))
+        return cls(True, raw["auth_epoch"], raw["policy_revision"], tuple(sorted(assignments)))
+
+
+@dataclass(frozen=True)
 class PwaHttpConfig:
     enabled: bool = False
     concierge_id: str = "default"
@@ -202,6 +242,7 @@ class PwaHttpConfig:
     workload_context: PwaWorkloadConfig | None = None
     inspector_model_names: tuple[str, ...] = ()
     inspector_provider_names: tuple[str, ...] = ()
+    content_policy: NativeContentPolicyConfig | None = None
 
     @classmethod
     def from_dict(cls, raw):
@@ -396,6 +437,7 @@ class PwaHttpConfig:
             models=models,
             images=ImageLimits.from_dict(raw.get("images", {})),
             workload_context=PwaWorkloadConfig.from_dict(raw.get("workload_context")),
+            content_policy=NativeContentPolicyConfig.from_dict(raw.get("content_policy")),
             **observed,
             **numbers,
         )

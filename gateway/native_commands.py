@@ -273,7 +273,10 @@ class DurableCommandIngressMixin:
             ).hexdigest()
             if not hmac.compare_digest(old["fingerprint"], fingerprint):
                 raise CommandConflict("command ID reused with a different payload")
-            if image_ids:
+            policy_raw = getattr(self.runner.config, "pwa_http", None) or {}
+            policy_section = policy_raw.get("content_policy")
+            policy_enabled = type(policy_section) is dict and policy_section.get("enabled") is True
+            if image_ids and not policy_enabled:
                 images = getattr(self, "images", None)
                 if images is None:
                     raise ValueError("native images unavailable")
@@ -281,6 +284,13 @@ class DurableCommandIngressMixin:
             self._arm_command_recovery()
             self._commands_finished(projection["conversation_id"])
             return receipt(old)
+        from agent.content_policy import ingress_policy
+        policy = ingress_policy(self)
+        if policy is not None:
+            policy.authorize(principal, projection["conversation_id"])
+            if len(policy.commands) >= 128:
+                from agent.content_policy import NativeContentPolicyDenied
+                raise NativeContentPolicyDenied("content_policy_capacity")
         if self.runner._get_proxy_url():
             raise ValueError("durable commands require the local native executor")
         if body.get("type") not in {"send", "steer", "queue"}:
@@ -318,6 +328,8 @@ class DurableCommandIngressMixin:
             scope, body, effect="start" if body["type"] == "send" else "queue",
             images=attachments,
         )
+        if policy is not None:
+            policy.commands.add((row["scope"], row["command_id"]))
         self._arm_command_recovery()
         if new:
             owner = self._owner(projection["conversation_id"])
@@ -437,6 +449,20 @@ class DurableCommandIngressMixin:
         )
         if not self.runner._is_user_authorized_for_source(grant.source):
             raise PermissionError("native source is not authorized")
+        from agent.content_policy import ingress_policy, NativeContentPolicyDenied
+        try:
+            policy = ingress_policy(self)
+            if policy is not None:
+                policy.authorize(Principal(issuer, subject), row["conversation_id"])
+                command_key = (row["scope"], row["command_id"])
+                if command_key not in policy.commands:
+                    raise NativeContentPolicyDenied("content_policy_restoration_required")
+        except NativeContentPolicyDenied:
+            refused_execution = str(uuid4())
+            self.db.native_execution_open(row["conversation_id"], refused_execution,
+                self._command_owner, command=(row["scope"], row["command_id"]), origin="pwa")
+            self.db.native_execution_close(refused_execution, self._command_owner, outcome="failed")
+            raise
         source = replace(grant.source, native_conversation_route=row["conversation_id"])
         entry = await self.runner.async_session_store.bind_conversation_alias(
             source, projection["native_session_id"]

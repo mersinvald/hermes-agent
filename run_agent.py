@@ -7408,6 +7408,8 @@ class AIAgent:
         part of the canonical history and can make the next user turn fail before
         the agent has a chance to recover.
         """
+        from agent.content_policy import guard_tool_result
+        guard_tool_result(self, tool_name)
         if not _is_multimodal_tool_result(result):
             return result
 
@@ -8701,6 +8703,8 @@ class AIAgent:
         # await that request's exit before opening any live-turn Relay or task
         # instrumentation for the same session. Foreground priority is retained
         # if the review does not acknowledge within the bounded deadline (#84423).
+        from agent.content_policy import guard_native_content
+        guard_native_content("main", self)
         from agent.background_review import cancel_background_review_for_live_turn
 
         cancel_background_review_for_live_turn(self)
@@ -9100,7 +9104,10 @@ class AIAgent:
             # replaces the value with the live runtime after fallback restoration.
             # Keep the scope local instead of storing ContextVar tokens on the agent,
             # which may be observed from another thread.
-            with bind_subagent_parent(self), scoped_runtime_main({}):
+            from agent.content_policy import content_policy_scope
+            with bind_subagent_parent(self), scoped_runtime_main({}), content_policy_scope(
+                guard_native_content("main", self)
+            ):
                 try:
                     if durable_turn_lease_thread is not None:
                         with durable_turn_lease_activity_lock:

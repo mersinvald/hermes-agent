@@ -1105,6 +1105,11 @@ def execute_tool_calls_concurrent(agent, assistant_message, messages: list, effe
     and /steer injection — used when this call is one segment of a larger
     mixed batch and the segmented dispatcher owns the turn-end work.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("tool_result", agent)
+    from agent.content_policy import guard_tool_result
+    for policy_tool_call in assistant_message.tool_calls:
+        guard_tool_result(agent, policy_tool_call.function.name)
     tool_calls = assistant_message.tool_calls
     num_tools = len(tool_calls)
 
@@ -1957,6 +1962,11 @@ def execute_tool_calls_sequential(agent, assistant_message, messages: list, effe
     mixed batch and the segmented dispatcher owns the turn-end work.
     """
     # Resolve the context-scaled tool-output budget once per turn.
+    from agent.content_policy import guard_native_content
+    guard_native_content("tool_result", agent)
+    from agent.content_policy import guard_tool_result
+    for policy_tool_call in assistant_message.tool_calls:
+        guard_tool_result(agent, policy_tool_call.function.name)
     _tool_budget = _budget_for_agent(agent)
 
     # Keep every runtime-tool branch on one bounded execution funnel without

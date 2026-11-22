@@ -368,6 +368,8 @@ def generate_title(
     no request is sent, so a stale title request can't reload a model the
     runtime already unloaded (#19027).
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("title")
     if destination is None and not _auto_title_enabled():
         logger.debug("Auto-title skipped: auxiliary.title_generation.enabled=false")
         return None
@@ -569,6 +571,8 @@ def auto_title_session(
     ImportError repeats on every auto-title attempt until the long-running
     process restarts.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("title")
     try:
         _auto_title_session(
             session_db,
@@ -607,6 +611,8 @@ def _auto_title_session(
     destination: Optional[dict] = None,
 ) -> None:
     """Body of :func:`auto_title_session` — see its docstring."""
+    from agent.content_policy import guard_native_content
+    guard_native_content("title")
     if not session_db or not session_id:
         return
 
@@ -738,6 +744,8 @@ def maybe_auto_title(
     Only acts on the session's opening exchange, and only when the message
     carries real user intent (machine-authored compaction handoffs are skipped).
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("title")
     if not session_db or not session_id or not user_message:
         return
 
@@ -779,9 +787,16 @@ def maybe_auto_title(
     }
     if destination is not None:
         worker_kwargs["destination"] = dict(destination)
+    policy_context = guard_native_content("title")
+    worker_target = auto_title_session
+    worker_args = (session_db, session_id, user_message)
+    if policy_context is not None:
+        import contextvars
+        worker_target = contextvars.copy_context().run
+        worker_args = (auto_title_session, *worker_args)
     thread = threading.Thread(
-        target=auto_title_session,
-        args=(session_db, session_id, user_message),
+        target=worker_target,
+        args=worker_args,
         kwargs=worker_kwargs,
         daemon=True,
         name="auto-title",

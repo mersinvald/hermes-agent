@@ -158,6 +158,10 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         if mode not in {"send", "queue"} or not isinstance(text, str) or not text.strip():
             raise ValueError("expected nonempty text and send or queue mode")
         projection, grant = await asyncio.to_thread(self._authorize, principal, conversation_id)
+        from agent.content_policy import ingress_policy
+        policy = ingress_policy(self)
+        if policy is not None:
+            policy.authorize(principal, projection["conversation_id"])
         source = replace(grant.source)
         # This identity is provisioned server-side. Ordinary gateway auth still
         # runs, and browser text cannot invoke slash/admin/approval commands.
@@ -195,6 +199,10 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         key, state, execution = owner
         if not self._event_authorized(event, execution.conversation_id):
             raise PermissionError("conversation control unavailable")
+        from agent.content_policy import ingress_policy
+        policy = ingress_policy(self)
+        if policy is not None:
+            policy.admit_event(event, event.source, execution.conversation_id)
         if getattr(event, "_native_command_key", None):
             self._enqueue_commands(owner)
             return {"disposition":"queued","execution":self._execution_view(owner)}
@@ -216,6 +224,9 @@ class NativeConversationIngress(DurableCommandIngressMixin):
 
     def copy_event_context(self, event, replacement):
         """Carry native-only trust/origin through trusted event rewrites."""
+        policy = getattr(self, "content_policy", None)
+        if policy is not None:
+            policy.copy_event(event, replacement)
         if getattr(event, "_native_browser_ingress", None) is self:
             replacement._native_browser_ingress = self
             replacement._native_send_mode = event._native_send_mode
@@ -246,6 +257,8 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         return None
 
     async def prepare_admission(self, event, source, key):
+        from agent.content_policy import ingress_policy, NativeContentPolicyDenied
+        policy = ingress_policy(self)
         metadata = event.metadata or {}
         if metadata.get("gateway_session_strict"):
             entry = await self.runner.async_session_store.lookup_by_session_key(key)
@@ -257,7 +270,11 @@ class NativeConversationIngress(DurableCommandIngressMixin):
             )
         projection = await asyncio.to_thread(self._ensure_projection, entry, source, key)
         if projection is None or not self._event_authorized(event, projection["conversation_id"]):
+            if policy is not None:
+                raise NativeContentPolicyDenied("content_policy_event_unauthorized")
             return None, None
+        if policy is not None:
+            policy.admit_event(event, source, projection["conversation_id"])
         owner = self._owner(projection["conversation_id"])
         if owner is not None:
             return None, self._control(event, owner)
@@ -267,6 +284,8 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         # Called in the same synchronous block as the runner's route claim,
         # immediately after prepare_admission returns: there is no await gap.
         if root is not None:
+            from agent.content_policy import ingress_policy
+            policy = ingress_policy(self)
             execution_id = getattr(event, "_native_execution_id", None) or str(uuid4())
             command = getattr(event, "_native_command_key", None)
             try:
@@ -276,6 +295,13 @@ class NativeConversationIngress(DurableCommandIngressMixin):
                 raise
             self.runner._session_state(key).turn.conversation_execution = ConversationExecution(
                 execution_id, root, generation, replace(source), self._origin(event), command)
+            if policy is not None:
+                try:
+                    policy.bind_execution(self.runner._session_state(key).turn.conversation_execution, event)
+                except BaseException:
+                    self.db.native_execution_close(execution_id, self._command_owner, outcome="failed")
+                    self.runner._release_running_agent_state(key)
+                    raise
 
     def _ensure_projection(self, entry, source, key):
         row = self.db.get_session(entry.session_id)
@@ -328,6 +354,9 @@ class NativeConversationIngress(DurableCommandIngressMixin):
         state = self.runner._peek_session_state(key)
         execution = state.turn.conversation_execution if state else None
         if execution is not None and execution.generation == generation:
+            policy = getattr(self, "content_policy", None)
+            if policy is not None:
+                policy.release(execution)
             durable = self.db.native_execution(execution.conversation_id)
             if durable and durable["execution_id"] == execution.execution_id and (not durable["input_started"] or not self.db.native_execution_has_lease(execution.conversation_id)):
                 with self._completion_lock:

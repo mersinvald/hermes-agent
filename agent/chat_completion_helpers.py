@@ -933,13 +933,16 @@ def _dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client):
     interrupt, abort, cancellation, and close semantics stay in the callers —
     this helper only issues the request.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("main", agent)
+    from agent.content_policy import checked_native_call
     if agent.api_mode == "codex_responses":
         request_client = make_client("codex_stream_request")
-        return agent._run_codex_stream(
-            api_kwargs,
-            client=request_client,
-            on_first_delta=getattr(agent, "_codex_on_first_delta", None),
-        )
+        from agent.content_policy import guard_native_content
+        guard_native_content("main", agent)
+        return checked_native_call("main", lambda: agent._run_codex_stream(
+            api_kwargs, client=request_client,
+            on_first_delta=getattr(agent, "_codex_on_first_delta", None)), agent)
     if agent.api_mode == "anthropic_messages":
         # #67142: use a request-local Anthropic client so the stale/interrupt
         # watchdog aborts sockets from the stranger thread while the worker
@@ -947,7 +950,8 @@ def _dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client):
         request_client = make_client(
             "anthropic_messages_request", kind="anthropic_messages"
         )
-        return agent._anthropic_messages_create(api_kwargs, client=request_client)
+        return checked_native_call("main", lambda: agent._anthropic_messages_create(
+            api_kwargs, client=request_client), agent)
     if agent.api_mode == "bedrock_converse":
         # Bedrock uses boto3 directly — no OpenAI client needed.
         # normalize_converse_response produces an OpenAI-compatible
@@ -964,7 +968,7 @@ def _dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client):
         api_kwargs.pop("__bedrock_converse__", None)
         client = _get_bedrock_runtime_client(region)
         try:
-            raw_response = client.converse(**api_kwargs)
+            raw_response = checked_native_call("main", lambda: client.converse(**api_kwargs), agent)
         except Exception as _bedrock_exc:
             # A model that refuses cachePoint in one section (Nova rejects it
             # inside toolConfig.tools, #97281) fails every turn otherwise —
@@ -973,7 +977,7 @@ def _dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client):
                 _bedrock_exc, api_kwargs
             )
             if _retry_kwargs is not None:
-                raw_response = client.converse(**_retry_kwargs)
+                raw_response = checked_native_call("main", lambda: client.converse(**_retry_kwargs), agent)
                 return normalize_converse_response(raw_response)
             # Evict the cached client on stale-connection failures
             # so the outer retry loop builds a fresh client/pool.
@@ -998,9 +1002,11 @@ def _dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client):
         _completions = getattr(getattr(agent.client, "chat", None), "completions", None)
         if not callable(getattr(_completions, "prepare", None)):
             api_kwargs.pop("_moa_prepared_request", None)
-        return agent.client.chat.completions.create(**api_kwargs)
+        return checked_native_call("main", lambda: agent.client.chat.completions.create(**api_kwargs), agent)
     request_client = make_client("chat_completion_request")
-    return request_client.chat.completions.create(**api_kwargs)
+    from agent.content_policy import guard_native_content
+    guard_native_content("main", agent)
+    return checked_native_call("main", lambda: request_client.chat.completions.create(**api_kwargs), agent)
 
 
 def should_use_direct_api_call(agent) -> bool:
@@ -2516,6 +2522,8 @@ def try_activate_fallback(agent, reason: "FailoverReason | None" = None) -> bool
     auth resolution and client construction — no duplicated provider→key
     mappings.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("fallback", agent)
     if reason in {FailoverReason.rate_limit, FailoverReason.billing, FailoverReason.upstream_rate_limit}:
         # Only start cooldown when leaving the primary provider.  If we're
         # already on a fallback and chain-switching, the primary wasn't the
@@ -2998,6 +3006,8 @@ def try_activate_fallback(agent, reason: "FailoverReason | None" = None) -> bool
 
 def handle_max_iterations(agent, messages: list, api_call_count: int) -> str:
     """Request a summary when max iterations are reached. Returns the final response text."""
+    from agent.content_policy import guard_native_content
+    guard_native_content("compression", agent)
     warning = f"⚠️  Reached maximum iterations ({agent.max_iterations}). Requesting summary..."
     if getattr(agent, "suppress_status_output", False):
         # Strict machine-readable mode (hermes chat -Q, oneshot, background
@@ -3020,10 +3030,14 @@ def handle_max_iterations(agent, messages: list, api_call_count: int) -> str:
 
     def _managed_summary_call(request, callback, *, retry_count: int):
         from agent import relay_llm
+        from agent.content_policy import checked_native_call
+
+        def checked_summary(next_request):
+            return checked_native_call("compression", lambda: callback(next_request), agent)
 
         return relay_llm.execute_current(
             request,
-            callback,
+            checked_summary,
             name=str(getattr(agent, "provider", "") or "provider"),
             model_name=str(getattr(agent, "model", "") or ""),
             metadata={
@@ -3162,7 +3176,10 @@ def handle_max_iterations(agent, messages: list, api_call_count: int) -> str:
         if agent.api_mode == "codex_responses":
             codex_kwargs = agent._build_api_kwargs(api_messages)
             codex_kwargs.pop("tools", None)
-            summary_response = agent._run_codex_stream(codex_kwargs)
+            from agent.content_policy import guard_native_content
+            guard_native_content("main", agent)
+            from agent.content_policy import checked_native_call
+            summary_response = checked_native_call("compression", lambda: agent._run_codex_stream(codex_kwargs), agent)
             _ct_sum = agent._get_transport()
             _cnr_sum = _ct_sum.normalize_response(summary_response)
             final_response = (_cnr_sum.content or "").strip()
@@ -3277,7 +3294,10 @@ def handle_max_iterations(agent, messages: list, api_call_count: int) -> str:
             if agent.api_mode == "codex_responses":
                 codex_kwargs = agent._build_api_kwargs(api_messages)
                 codex_kwargs.pop("tools", None)
-                retry_response = agent._run_codex_stream(codex_kwargs)
+                from agent.content_policy import guard_native_content
+                guard_native_content("main", agent)
+                from agent.content_policy import checked_native_call
+                retry_response = checked_native_call("compression", lambda: agent._run_codex_stream(codex_kwargs), agent)
                 _ct_retry = agent._get_transport()
                 _cnr_retry = _ct_retry.normalize_response(retry_response)
                 final_response = (_cnr_retry.content or "").strip()
@@ -3451,6 +3471,8 @@ def interruptible_streaming_api_call(agent, api_kwargs: dict, *, on_first_delta=
     Falls back to _interruptible_api_call on provider errors indicating
     streaming is not supported.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("main", agent)
     if agent._interrupt_requested:
         raise InterruptedError("Agent interrupted before streaming API call")
 
@@ -3572,6 +3594,8 @@ def interruptible_streaming_api_call(agent, api_kwargs: dict, *, on_first_delta=
                     final_kwargs.pop("__bedrock_converse__", None)
                     client = _get_bedrock_runtime_client(region)
                     try:
+                        from agent.content_policy import guard_native_content
+                        guard_native_content("main", agent)
                         raw_response = client.converse_stream(**final_kwargs)
                     except Exception as _bedrock_exc:
                         # Bedrock refuses a cachePoint block in one section for
@@ -3582,6 +3606,8 @@ def interruptible_streaming_api_call(agent, api_kwargs: dict, *, on_first_delta=
                             _bedrock_exc, final_kwargs
                         )
                         if _retry_kwargs is not None:
+                            from agent.content_policy import guard_native_content
+                            guard_native_content("main", agent)
                             return client.converse_stream(**_retry_kwargs).get(
                                 "stream", []
                             )
@@ -4102,6 +4128,8 @@ def interruptible_streaming_api_call(agent, api_kwargs: dict, *, on_first_delta=
             attempt_request_client["value"] = request_client
             last_chunk_time["t"] = time.time()
             agent._touch_activity("waiting for provider response (streaming)")
+            from agent.content_policy import guard_native_content
+            guard_native_content("main", agent)
             return request_client.chat.completions.create(**stream_kwargs)
 
         def _stream_created(raw_stream: Any) -> None:
@@ -4687,6 +4715,8 @@ def interruptible_streaming_api_call(agent, api_kwargs: dict, *, on_first_delta=
                 final_kwargs,
                 log_prefix=getattr(agent, "log_prefix", ""),
             )
+            from agent.content_policy import guard_native_content
+            guard_native_content("main", agent)
             manager = request_client.messages.stream(**final_kwargs)
             _stream_context["manager"] = manager
             return manager.__enter__()

@@ -1937,6 +1937,8 @@ def run_conversation(
     Returns:
         Dict: Complete conversation result with final response and message history
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("main", agent)
     if moa_config is None:
         try:
             from hermes_cli.moa_config import decode_moa_turn

@@ -1,5 +1,5 @@
 {
-  "status": "proposed_requires_root_approval",
+  "status": "approved_by_root_msg_46c9b42c553e",
   "initial_stage": [
     "docs/evidence/accountant-native-policy-20261122/"
   ],
@@ -34,10 +34,7 @@
     "tests/plugins/test_a2a_content_policy.py",
     "tests/agent/test_content_policy_tool_results.py"
   ],
-  "native_dependency_after_separate_artifact_decision": [
-    "pyproject.toml",
-    "uv.lock"
-  ],
+  "native_dependency_after_separate_artifact_decision": [],
   "separate_dependency_worktree_required": {
     "repository": "Hermes PWA",
     "base": "2a05257840cee4bd421466c1f420df850e6980fb",
@@ -64,5 +61,14 @@
     "push",
     "PR",
     "merge"
-  ]
+  ],
+  "approval_message": "msg_46c9b42c553e",
+  "dependency_delivery": {
+    "task": "hpwa-p10.3",
+    "worktree": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.3",
+    "distribution": "hermes-content-policy==0.1.0",
+    "import": "hermes_content_policy",
+    "mode": "Reviewed hash-pinned wheel, no index/dependency lookup, task-owned validation environment. Root supplies accepted receipt.",
+    "native_manifests": "Keep pyproject.toml and uv.lock unchanged."
+  }
 }

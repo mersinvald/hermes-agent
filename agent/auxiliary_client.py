@@ -3472,6 +3472,8 @@ def _relay_auxiliary_call(callback):
 
     @functools.wraps(callback)
     def wrapped(*args, **kwargs):
+        from agent.content_policy import guard_native_content
+        guard_native_content("main")
         task = args[0] if args else kwargs.get("task")
         token = _RELAY_AUX_CALL_CONTEXT.set({
             "task": str(task or "unknown"),
@@ -3498,6 +3500,8 @@ def _relay_auxiliary_call_async(callback):
 
     @functools.wraps(callback)
     async def wrapped(*args, **kwargs):
+        from agent.content_policy import guard_native_content
+        guard_native_content("main")
         task = args[0] if args else kwargs.get("task")
         token = _RELAY_AUX_CALL_CONTEXT.set({
             "task": str(task or "unknown"),
@@ -3573,6 +3577,8 @@ def _relay_sync_completion(
     api_mode: str | None = None,
     create: Callable[[dict[str, Any]], Any] | None = None,
 ) -> Any:
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     callback = create or (lambda request: client.chat.completions.create(**request))
     route = _relay_auxiliary_metadata(provider=provider, api_mode=api_mode)
     # Protected compression calls isolate only the provider callback and stream
@@ -3601,6 +3607,8 @@ async def _relay_async_completion(
     api_mode: str | None = None,
     create: Callable[[dict[str, Any]], Any] | None = None,
 ) -> Any:
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     callback = create or (lambda request: client.chat.completions.create(**request))
     route = _relay_auxiliary_metadata(provider=provider, api_mode=api_mode)
     if route is None:
@@ -3627,10 +3635,14 @@ def _relay_sync_stream(
 ) -> Any:
     route = _relay_auxiliary_metadata(provider=provider, api_mode=api_mode)
     if route is None:
+        from agent.content_policy import guard_native_content
+        guard_native_content("main")
         return client.chat.completions.create(**kwargs)
     provider_name, fallback_model, metadata = route
     from agent import relay_llm
 
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     return relay_llm.stream_current(
         kwargs,
         lambda request: client.chat.completions.create(**request),
@@ -9458,9 +9470,13 @@ def _create_with_progress(
     stream-only provider rejects the plain call by definition, so the
     original error is surfaced to the normal recovery chains instead.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     _notify_aux_dispatch()
     _notify_aux_progress()  # Preserve the watchdog's historical dispatch tick.
     if (not _aux_progress_active() and not force_stream) or _client_streams_internally(client):
+        from agent.content_policy import guard_native_content
+        guard_native_content("main")
         response = client.chat.completions.create(**kwargs)
         if not _client_streams_internally(client):
             _notify_aux_provider_response()
@@ -9471,6 +9487,8 @@ def _create_with_progress(
     stream_kwargs["stream"] = True
     stream_kwargs["stream_options"] = {"include_usage": True}
     try:
+        from agent.content_policy import guard_native_content
+        guard_native_content("main")
         chunks = client.chat.completions.create(**stream_kwargs)
     except Exception as exc:
         # Genuine provider failures (auth, credit, rate limit, network) are
@@ -9494,6 +9512,8 @@ def _create_with_progress(
             "non-streaming", task or "call", exc,
         )
         _notify_aux_dispatch()
+        from agent.content_policy import guard_native_content
+        guard_native_content("main")
         response = client.chat.completions.create(**kwargs)
         _notify_aux_provider_response()
         return response
@@ -9712,10 +9732,14 @@ async def _acreate_with_stream(
     complete response (credit @kudi88, PR #60686 — async contract fixed to
     ``async for`` and tool-call deltas preserved per sweeper review).
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     total_ceiling = _aux_stream_total_ceiling(kwargs.get("timeout"))
     stream_kwargs = dict(kwargs)
     stream_kwargs["stream"] = True
     stream_kwargs["stream_options"] = {"include_usage": True}
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     chunks = await client.chat.completions.create(**stream_kwargs)
     # Defensive: shims may hand back a complete response despite stream=True.
     if hasattr(chunks, "choices"):
@@ -9750,6 +9774,8 @@ def call_llm(
     strict_destination: bool = False,
 ) -> Any:
     """Run an auxiliary LLM request, applying the configured task limit."""
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     queue_started_at = time.monotonic()
     semaphore = _acquire_sync_aux_semaphore(task)
     if semaphore is not None:
@@ -9900,6 +9926,8 @@ def _call_llm_impl(
     # A managed strict call already carries its complete destination snapshot.
     # Resolve aliases without consulting the task's mutable config or the main
     # runtime captured for ordinary auxiliary fallback.
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     requested_provider = str(provider or "").strip().lower()
     requested_model = str(model or "").strip()
     requested_base_url = str(base_url or "").strip()
@@ -10121,6 +10149,8 @@ def _call_llm_impl(
             # Return the provider call directly; the MoA facade converts a
             # completed response into a one-chunk delta iterator at its
             # boundary.
+            from agent.content_policy import guard_native_content
+            guard_native_content("main")
             return client.chat.completions.create(**kwargs)
         return _relay_sync_stream(
             client,
@@ -10773,6 +10803,8 @@ async def async_call_llm(
     route_info: Optional[Dict[str, str]] = None,
 ) -> Any:
     """Run an asynchronous auxiliary LLM request under the configured limit."""
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     semaphore = _acquire_async_aux_semaphore(task)
     if semaphore is not None:
         await semaphore.acquire()
@@ -10821,6 +10853,8 @@ async def _async_call_llm_impl(
     """
     # Keep every async phase on the same runtime identity, even if another
     # session switches models while this task is awaiting network I/O.
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     main_runtime = _normalize_main_runtime(main_runtime)
     resolved_provider, resolved_model, resolved_base_url, resolved_api_key, resolved_api_mode = _resolve_task_provider_model(
         task, provider, model, base_url, api_key)
@@ -10947,6 +10981,8 @@ async def _async_call_llm_impl(
         async def _acreate(_kwargs: Dict[str, Any]) -> Any:
             if _force_stream_async:
                 return await _acreate_with_stream(client, _kwargs, task)
+            from agent.content_policy import guard_native_content
+            guard_native_content("main")
             return await client.chat.completions.create(**_kwargs)
 
         try:

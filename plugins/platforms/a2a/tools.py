@@ -300,6 +300,8 @@ def _send_task(agent_label: str, peer: dict, message: str, context_id: str,
     Raises urllib errors / ValueError for the caller to format. Handles
     outbound redaction, audit, persistence, and metrics.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("a2a")
     base_url = peer.get("url", "")
     headers = _auth_header(peer.get("auth", {}) or {})
     # One auth snapshot covers discovery, GetTask, SendMessage, and persistence.

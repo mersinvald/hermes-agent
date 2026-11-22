@@ -597,6 +597,8 @@ class MemoryManager:
         Returns merged context text labeled by provider. Empty providers
         are skipped. Failures in one provider don't block others.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         clean_query = self._strip_skill_scaffolding(query)
         if not clean_query:
             return ""
@@ -616,6 +618,8 @@ class MemoryManager:
     def _prefetch_provider(
         self, provider: MemoryProvider, query: str, *, session_id: str = ""
     ) -> str:
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         if provider.name == "builtin":
             return provider.prefetch(query, session_id=session_id)
 
@@ -624,7 +628,9 @@ class MemoryManager:
 
         def _run() -> None:
             try:
+                guard_native_content("memory", self)
                 result_box["value"] = provider.prefetch(query, session_id=session_id) or ""
+                guard_native_content("memory", self)
             except Exception as exc:  # pragma: no cover - re-raised by caller
                 error_box["value"] = exc
 
@@ -707,6 +713,8 @@ class MemoryManager:
         wedged provider can never block the caller. See ``sync_all`` for
         the full rationale (agent stuck "running" minutes after a turn).
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         providers = list(self._providers)
         if not providers:
             return
@@ -766,6 +774,8 @@ class MemoryManager:
         before turn N+1; provider implementations don't need their own
         ordering guarantees.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         providers = list(self._providers)
         if not providers:
             return
@@ -811,11 +821,20 @@ class MemoryManager:
         wrap, a provider resolving ambient state (config paths, secrets)
         from the worker would silently land on the default profile.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         import contextvars
         from functools import partial
 
         ctx = contextvars.copy_context()
-        fn = partial(ctx.run, fn)
+        callback = fn
+
+        def checked_callback():
+            guard_native_content("memory", self)
+            callback()
+            guard_native_content("memory", self)
+
+        fn = partial(ctx.run, checked_callback)
         executor = self._get_sync_executor()
         if executor is None:
             if self._shutting_down:
@@ -953,6 +972,8 @@ class MemoryManager:
         Returns JSON string result. Raises ValueError if no provider
         handles the tool.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         provider = self._tool_to_provider.get(tool_name)
         if provider is None:
             return tool_error(f"No memory provider handles tool '{tool_name}'")
@@ -972,6 +993,8 @@ class MemoryManager:
 
         kwargs may include: remaining_tokens, model, platform, tool_count.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         for provider in self._providers:
             try:
                 provider.on_turn_start(turn_number, message, **kwargs)
@@ -983,6 +1006,8 @@ class MemoryManager:
 
     def on_session_end(self, messages: List[Dict[str, Any]]) -> None:
         """Notify all providers of session end."""
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         for provider in self._providers:
             try:
                 provider.on_session_end(messages)
@@ -1021,6 +1046,8 @@ class MemoryManager:
         ``_submit_background`` degrades to inline execution — the pre-#16454
         synchronous behavior, slow but correct.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         if not self._providers:
             return
         snapshot = list(messages or [])
@@ -1066,6 +1093,8 @@ class MemoryManager:
         transcript was truncated; providers caching per-turn document
         state should invalidate.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         if not new_session_id:
             return
         # Only forward ``rewound`` when it's actually set. Passing it
@@ -1134,6 +1163,8 @@ class MemoryManager:
         its exception is propagated so the caller can preserve the
         uncompressed transcript.
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         parts = []
         checkpoint_succeeded = False
         for provider in self._providers:
@@ -1222,6 +1253,8 @@ class MemoryManager:
 
         Skips the builtin provider itself (it's the source of the write).
         """
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         for provider in self._providers:
             if provider.name == "builtin":
                 continue
@@ -1325,6 +1358,8 @@ class MemoryManager:
     def on_delegation(self, task: str, result: str, *,
                       child_session_id: str = "", **kwargs) -> None:
         """Notify all providers that a subagent completed."""
+        from agent.content_policy import guard_native_content
+        guard_native_content("memory", self)
         for provider in self._providers:
             try:
                 provider.on_delegation(

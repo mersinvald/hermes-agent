@@ -35,6 +35,151 @@ def object_json(raw):
     return value
 
 
+class NativeContentPolicyAdmission:
+    """Bind current native authorization to the shared ordinary admission port."""
+
+    def __init__(self, ingress, ownership):
+        self.ingress, self.ownership = ingress, ownership
+        self.raw = ingress.runner.config.pwa_http
+        self.config = ownership.config
+        self.events = {}
+        self.executions = {}
+        self.commands = set()
+
+    def check_configuration(self):
+        from agent.content_policy import NativeContentPolicyDenied, shared_policy
+        from gateway.pwa_config import PwaHttpConfig
+
+        raw = self.ingress.runner.config.pwa_http
+        try:
+            parsed = PwaHttpConfig.from_dict(raw)
+        except ValueError:
+            raise NativeContentPolicyDenied("content_policy_configuration_invalid") from None
+        if (raw is not self.raw or parsed != self.config
+                or self.ownership.config is not self.config
+                or self.ingress._grant_provider is not self.ownership
+                or getattr(self.ingress, "content_policy", None) is not self):
+            raise NativeContentPolicyDenied("content_policy_configuration_changed")
+        shared_policy()
+
+    def source_owner(self, source):
+        from agent.content_policy import NativeContentPolicyDenied
+        from gateway.pwa_config import source_identity
+
+        self.check_configuration()
+        identity = source_identity(source)
+        matches = [(owner.principal, candidate.source_id)
+                   for owner in self.config.bindings for candidate in owner.sources
+                   if source_identity(candidate.source) == identity]
+        if len(matches) != 1:
+            raise NativeContentPolicyDenied("content_policy_owner_ambiguous")
+        return matches[0]
+
+    def authorize(self, principal, root):
+        from agent.content_policy import NativeContentPolicyDenied, require_ordinary
+
+        self.check_configuration()
+        projection, grant = self.ownership.authorize(principal, root)
+        owner, source_id = self.source_owner(grant.source)
+        if owner != principal or not self.ingress.runner._is_user_authorized_for_source(grant.source):
+            raise NativeContentPolicyDenied("content_policy_owner_changed")
+        profiles = dict(self.config.content_policy.assignments).get(source_id)
+        require_ordinary(profiles)
+        return projection, grant
+
+    def admit_event(self, event, source, root):
+        from agent.content_policy import NativeContentPolicyDenied
+        from gateway.pwa_config import source_identity
+
+        principal, _ = self.source_owner(source)
+        projection, grant = self.authorize(principal, root)
+        if (not self.ingress._event_authorized(event, root)
+                or source_identity(source) != source_identity(grant.source)):
+            raise NativeContentPolicyDenied("content_policy_event_unauthorized")
+        if id(event) not in self.events and len(self.events) >= 128:
+            raise NativeContentPolicyDenied("content_policy_capacity")
+        self.events[id(event)] = (event, principal, projection["conversation_id"], source_identity(source))
+
+    def copy_event(self, event, replacement):
+        registered = self.events.get(id(event))
+        if registered is not None and registered[0] is event:
+            self.admit_event(replacement, replacement.source, registered[2])
+
+    def check_event(self, event, source):
+        from agent.content_policy import NativeContentPolicyDenied
+        from gateway.pwa_config import source_identity
+
+        registered = self.events.get(id(event))
+        if registered is None or registered[0] is not event or registered[3] != source_identity(source):
+            raise NativeContentPolicyDenied("content_policy_event_missing")
+        self.authorize(registered[1], registered[2])
+
+    def bind_execution(self, execution, event):
+        from agent.content_policy import NativeContentPolicyDenied
+
+        self.check_event(event, execution.source)
+        if len(self.executions) >= 128:
+            raise NativeContentPolicyDenied("content_policy_capacity")
+        registered = self.events[id(event)]
+        if registered[2] != execution.conversation_id:
+            raise NativeContentPolicyDenied("content_policy_execution_changed")
+        self.executions[execution.execution_id] = (execution, registered[1])
+
+    def check_execution(self, execution):
+        from agent.content_policy import NativeContentPolicyDenied
+
+        registered = self.executions.get(getattr(execution, "execution_id", None))
+        if registered is None or registered[0] is not execution:
+            raise NativeContentPolicyDenied("content_policy_restoration_required")
+        self.authorize(registered[1], execution.conversation_id)
+        row = self.ingress.db.native_execution(execution.conversation_id)
+        if (row is None or row["execution_id"] != execution.execution_id
+                or row["owner"] != self.ingress._command_owner):
+            raise NativeContentPolicyDenied("content_policy_execution_changed")
+        return registered[1]
+
+    def context(self, execution, selection):
+        from agent.content_policy import NativeContentContext, NativeContentPolicyDenied, shared_policy
+        import hashlib
+
+        principal = self.check_execution(execution)
+        policy = shared_policy()
+        request = object()
+        captured_selection = dict(selection)
+        captured_process_owner = self.ingress._command_owner
+
+        class Admission:
+            def current(port, handle):
+                if handle is not request:
+                    raise NativeContentPolicyDenied("content_policy_binding_missing")
+                if self.ingress._command_owner != captured_process_owner:
+                    raise NativeContentPolicyDenied("content_policy_execution_changed")
+                self.check_execution(execution)
+                actual = self.ingress.db.native_model_selection(execution.conversation_id)
+                if actual != captured_selection:
+                    raise NativeContentPolicyDenied("content_policy_selection_changed")
+                owner = hashlib.sha256(canonical(list(self.ownership.scope(principal))).encode()).hexdigest()
+                root = hashlib.sha256(execution.conversation_id.encode()).hexdigest()
+                selected = hashlib.sha256(actual["model_id"].encode()).hexdigest()
+                cfg = self.config.content_policy
+                return policy.ExecutionBinding(owner, execution.execution_id, root, "native",
+                    cfg.auth_epoch, cfg.policy_revision, selected, actual["model_version"], ())
+
+        context = NativeContentContext(Admission(), request)
+        context.check("main")
+        return context
+
+    def release(self, execution):
+        self.executions.pop(execution.execution_id, None)
+        self.events = {key: value for key, value in self.events.items()
+                       if value[2] != execution.conversation_id}
+        if execution.command is not None:
+            self.commands.discard(execution.command)
+        self.commands = {key for key in self.commands
+                         if (row := self.ingress.db.native_command_lookup(*key)) is not None
+                         and row["phase"] in {"queued", "steer"}}
+
+
 class NativePwaOwnership:
     def __init__(self, runner, db, config, *, secret):
         self.runner, self.db, self.config = runner, db, config
