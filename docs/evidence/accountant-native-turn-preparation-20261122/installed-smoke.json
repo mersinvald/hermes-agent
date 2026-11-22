@@ -1,0 +1,48 @@
+{
+  "python": "3.11.15",
+  "environment": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.9/.venv",
+  "native_dependencies": "uv sync --frozen --offline --no-install-project --extra dev",
+  "dependency_count": 84,
+  "wheel_install": "uv pip install --python .venv/bin/python --no-index --no-deps --offline <exact accepted wheel>",
+  "distribution": "0.1.0",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.3/hermes_content_policy-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+  "installed_engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "installed_engine_in_task_environment": true,
+  "resource_package": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.9/.venv/lib/python3.11/site-packages/hermes_content_policy",
+  "exports": {
+    "admit": "(self, request_handle: 'object', payload: 'bytes') -> 'ContentHandle'",
+    "derive": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path') -> 'ContentHandle'",
+    "dispatch": "(self, request_handle: 'object', content: 'ContentHandle', *, path: 'Path', route_ref: 'str') -> 'ContentHandle'"
+  },
+  "pwa_server_distribution_absent": true,
+  "native_build": false,
+  "index_lookup": false,
+  "engine_changed": false,
+  "input_receipts": {
+    "native_base": "0540e68a62275f036c8e7b4a57ee82e08c824b19",
+    "pwa_base": "fc33f2551bcadbd6b2f96febf1e5b55357492284",
+    "design_source": "cf20b02d44d91dc172e5bf29f2b26ce1c6894e06",
+    "design_path": "docs/mesh/evidence/accountant-native-main-caller-contracts-20261122/next-component-design.md",
+    "design_sha256": "ff4ecf3f8dba5db04f1c6fe7ee7f72ba057e2d3d8e6b3a667f21c9346d20a405",
+    "receipts": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.8.final-review.json",
+        "sha256": "9aadc31bebf37695d66411f84d5c39625a6f31d283364c93597d5b9740f89e38"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.8.publication-receipt.json",
+        "sha256": "a0f2c61e99a7ad84b7cc7cc1b3028292d03e185103f697a3b28e47557429184e"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.7.publication-receipt.json",
+        "sha256": "2f88eed4db8c307318c0ef5586bcd55cc0f5b5716cea4db896ee0ee5a1ff97f6"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.3.native-handoff.json",
+        "sha256": "c65427f142f641ee92e692a6f35a0eb73d2fc9c5de9600a6e8e90766f836dbe9"
+      }
+    ]
+  },
+  "input_receipts_sha256": "f71e5b24eb8794c8018aecaa9efc9dd194ddaaa2cb636783baa46a963211a7a0"
+}

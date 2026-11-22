@@ -1,0 +1,67 @@
+{
+  "base": "0540e68a62275f036c8e7b4a57ee82e08c824b19",
+  "unchanged_sources": [
+    {
+      "path": "agent/content_policy.py",
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+      "base_blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "byte_identical": true
+    },
+    {
+      "path": "agent/chat_completion_helpers.py",
+      "sha256": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+      "base_blob": "85f44ee7a7b91ede70347ed7bcefb3b1d280915d",
+      "byte_identical": true
+    },
+    {
+      "path": "run_agent.py",
+      "sha256": "ce3420f65ac7248741ced852ee4886519be7e3b07c3f2c9a3cc40504f4a63727",
+      "base_blob": "2164f935314b29a8c6ff4d57b4def46e1779f07c",
+      "byte_identical": true
+    },
+    {
+      "path": "agent/conversation_loop.py",
+      "sha256": "28032fbc17b82f55556efaf813e8f0e8e0fa2710d58b4654cdb5e2209a838f96",
+      "base_blob": "f99c60b06f11fcec421938a2a0421726172faca4",
+      "byte_identical": true
+    },
+    {
+      "path": "agent/turn_finalizer.py",
+      "sha256": "584ade4613a11565c2ccd48546327adb9682f58ec70ace9d02921c3c240c14d5",
+      "base_blob": "bc279c767a5d22ea28c726a9b698d5ebefbb7e97",
+      "byte_identical": true
+    },
+    {
+      "path": "agent/message_sanitization.py",
+      "sha256": "8a595fa5a2b8faf6080430840255404f638d932bed23d51af3ce5a99fe02cc54",
+      "base_blob": "d7b374a5007b2fbada09295eff2513a353600544",
+      "byte_identical": true
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+      "base_blob": "9c3cc68212b18c68757a20d8a206f9976e84f8c5",
+      "byte_identical": true
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5",
+      "base_blob": "c587226281ab792b006534c8d2d320de2e7d05f7",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/run_tests.sh",
+      "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e",
+      "base_blob": "4445d6d5428b657e3d780903915229acbc1666ce",
+      "byte_identical": true
+    }
+  ],
+  "earlier_adapter_test_prefix_bytes": 64721,
+  "earlier_adapter_test_prefix_sha256": "8ec1f383ab02e05d40446c6198da34fd94730cd036516606d67c94ef718c4736",
+  "earlier_evidence_diff": "",
+  "artifact_receipt_sha256": "5022ec178fb8e31a960272b680c63438e8bd45b3a6caf50329deffd0f58dec45",
+  "package_lock_contents_read": false,
+  "config_routes_deployments_changed": false,
+  "shared_engine_changed": false,
+  "beads_mutations_or_sync": false
+}

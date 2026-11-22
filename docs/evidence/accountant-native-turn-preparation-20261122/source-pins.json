@@ -1,0 +1,26 @@
+{
+  "native_base": "0540e68a62275f036c8e7b4a57ee82e08c824b19",
+  "pwa_base": "fc33f2551bcadbd6b2f96febf1e5b55357492284",
+  "immutable_requirements": [
+    {
+      "git_ref": "fc33f2551bcadbd6b2f96febf1e5b55357492284:docs/mesh/accountant-implementation-plan.md",
+      "git_blob": "7fb57e890219c6feebde132181cee77a08664f27",
+      "sha256": "57cf906e8b1c39bfb84fb5de6a6bc5d05a90be1c92bcf3071f1cf4709095c057"
+    },
+    {
+      "git_ref": "fc33f2551bcadbd6b2f96febf1e5b55357492284:docs/mesh/accountant-contract-architecture.md",
+      "git_blob": "b3453d444d857d8c9371850ee2eb93588fc33b09",
+      "sha256": "649c05f39a20b00591e39647afd54622aee6b9d1c7e9be0c7e768423459b5145"
+    },
+    {
+      "git_ref": "fc33f2551bcadbd6b2f96febf1e5b55357492284:docs/mesh/evidence/accountant-native-main-caller-contracts-20261122/next-component-design.md",
+      "git_blob": "2bed754c3a4ec85efd432076d261ca57d7ec56e1",
+      "sha256": "ff4ecf3f8dba5db04f1c6fe7ee7f72ba057e2d3d8e6b3a667f21c9346d20a405"
+    }
+  ],
+  "runtime_and_test_pins": "tested-source.json",
+  "unchanged_native_pins": "preservation.json",
+  "dependency_pins": "installed-smoke.json",
+  "earlier_iteration_exact_source_pins": null,
+  "earlier_iteration_scope": "Evolving uncommitted iterations, without frozen source manifests. Some subsequent edits overlapped an imported test subprocess. Their logs are historical observations only."
+}
