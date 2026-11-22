@@ -1,0 +1,68 @@
+{
+  "status": "proposed_requires_root_approval",
+  "initial_stage": [
+    "docs/evidence/accountant-native-policy-20261122/"
+  ],
+  "native_runtime": [
+    "agent/content_policy.py",
+    "gateway/pwa_config.py",
+    "gateway/pwa_http.py",
+    "gateway/pwa_ownership.py",
+    "gateway/conversation_control.py",
+    "gateway/native_commands.py",
+    "gateway/run.py",
+    "run_agent.py",
+    "agent/conversation_loop.py",
+    "agent/turn_context.py",
+    "agent/chat_completion_helpers.py",
+    "agent/auxiliary_client.py",
+    "agent/title_generator.py",
+    "agent/context_compressor.py",
+    "agent/memory_manager.py",
+    "agent/tool_executor.py",
+    "tools/delegate_tool.py",
+    "tools/async_delegation.py",
+    "plugins/platforms/a2a/tools.py"
+  ],
+  "native_tests_new": [
+    "tests/gateway/test_native_content_policy.py",
+    "tests/agent/test_content_policy.py",
+    "tests/agent/test_content_policy_dispatch.py",
+    "tests/agent/test_content_policy_auxiliary.py",
+    "tests/agent/test_content_policy_memory.py",
+    "tests/tools/test_content_policy_delegation.py",
+    "tests/plugins/test_a2a_content_policy.py",
+    "tests/agent/test_content_policy_tool_results.py"
+  ],
+  "native_dependency_after_separate_artifact_decision": [
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "separate_dependency_worktree_required": {
+    "repository": "Hermes PWA",
+    "base": "2a05257840cee4bd421466c1f420df850e6980fb",
+    "proposed_paths": [
+      "packages/content-policy/pyproject.toml",
+      "packages/content-policy/src/hermes_content_policy/__init__.py",
+      "server/src/hermes_pwa_server/content_destination_policy.py",
+      "pyproject.toml",
+      "uv.lock",
+      "server/tests/test_content_policy_package.py",
+      "docs/mesh/evidence/accountant-native-policy-package-20261122/"
+    ]
+  },
+  "excluded": [
+    "original native checkout working files",
+    "Infra writes",
+    "native runtime/test edits before approval",
+    "production transport qualifications",
+    "financial logic",
+    "HTTP schemas",
+    "Git hooks and repository configuration",
+    ".serena contents",
+    "deployments",
+    "push",
+    "PR",
+    "merge"
+  ]
+}

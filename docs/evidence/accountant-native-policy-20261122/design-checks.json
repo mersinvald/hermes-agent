@@ -1,0 +1,149 @@
+{
+  "stage": "design_only_before_runtime_approval",
+  "base_commit": "089fadba6cfeacc5af9ebffcec1e6f72ae9eed28",
+  "source_objects_verified": 40,
+  "frozen_source_equality": [
+    {
+      "path": "server/src/hermes_pwa_server/content_destination_policy.py",
+      "accepted_equals_frozen_runtime_source": true,
+      "sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa"
+    },
+    {
+      "path": "server/tests/test_content_destination_policy.py",
+      "accepted_equals_frozen_runtime_source": true,
+      "sha256": "5f122a7d8571fc9469cb7b9180679cffc7b4764140d5377a14639d3a8d52b3c5"
+    },
+    {
+      "path": "server/tests/content_destination_policy_fakes.py",
+      "accepted_equals_frozen_runtime_source": true,
+      "sha256": "afd2ad855d2fffccba73408fac55474b78c301000d883142468e78e2c762ba6c"
+    }
+  ],
+  "runtime_tests_run": false,
+  "network_or_model_calls": 0,
+  "reused_evidence": {
+    "source": "2b66c7504fb8863208d5dda6c991307fd004a0ca",
+    "policy_cases": 109,
+    "unchanged_transport_cases": 33,
+    "installed_wheel_smoke": "passed at recorded source",
+    "facade_postgresql_skips": 5,
+    "facade_skips_verified": false
+  },
+  "ste_linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "ste_results": {
+    "README.md": {
+      "words": 195,
+      "sentences": 19,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "design.md": {
+      "words": 1871,
+      "sentences": 193,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 2
+      },
+      "total": 2,
+      "total_per100w": 0.11,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "source-map.md": {
+      "words": 712,
+      "sentences": 75,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 1
+      },
+      "total": 1,
+      "total_per100w": 0.14,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "validation-plan.md": {
+      "words": 589,
+      "sentences": 65,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 1
+      },
+      "total": 1,
+      "total_per100w": 0.17,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  },
+  "ste_remaining_findings": "Mechanical paragraph counts in Markdown tables. No sentence, banned-word, passive, contraction, or em-dash findings.",
+  "retained_tool_failures": [
+    {
+      "operation": "STE linter --help",
+      "exit_code": 1,
+      "reason": "The bundled script treats --help as a filename.",
+      "effect": "No prose or runtime check failure. Subsequent actual-file lint completed."
+    },
+    {
+      "operation": "Exploratory rg with nonexistent candidate paths or unmatched zsh globs",
+      "exit_codes": [
+        1,
+        2
+      ],
+      "effect": "No runtime validation. Resolved actual files through rg --files and read the accepted sources."
+    }
+  ],
+  "scope": "No runtime/test/dependency changes. No original native checkout edits. No Beads writes. No .serena content access."
+}
