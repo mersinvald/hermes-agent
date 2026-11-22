@@ -1,0 +1,123 @@
+{
+  "module": "agent.native_main_payload",
+  "shared_import": "hermes_content_policy",
+  "shared_version": "0.1.0",
+  "shared_engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "native_api": {
+    "NativeMainSelection": {
+      "fields": {
+        "selection_id": "str",
+        "selection_version": "int",
+        "api_mode": "str",
+        "destination": "Destination"
+      },
+      "methods": {}
+    },
+    "NativeResultPolicy": {
+      "fields": {
+        "producer_ref": "str",
+        "revision": "int",
+        "profiles": "tuple[str, ...]"
+      },
+      "methods": {}
+    },
+    "NativeMainMessage": {
+      "fields": {
+        "role": "str",
+        "content": "str",
+        "tool_calls": "None"
+      },
+      "methods": {}
+    },
+    "NativeMainChoice": {
+      "fields": {
+        "index": "int",
+        "message": "NativeMainMessage",
+        "finish_reason": "str"
+      },
+      "methods": {}
+    },
+    "NativeMainUsage": {
+      "fields": {
+        "prompt_tokens": "int",
+        "completion_tokens": "int",
+        "total_tokens": "int"
+      },
+      "methods": {}
+    },
+    "NativeMainResponse": {
+      "fields": {
+        "id": "str",
+        "object": "str",
+        "created": "int",
+        "model": "str",
+        "choices": "tuple[NativeMainChoice, ...]",
+        "usage": "NativeMainUsage"
+      },
+      "methods": {}
+    },
+    "NativeMainInvocation": {
+      "fields": {
+        "request_handle": "object",
+        "source": "ExecutionBinding",
+        "selection": "NativeMainSelection",
+        "producer_policy": "NativeResultPolicy",
+        "request_bytes": "bytes",
+        "request_content": "ContentHandle",
+        "envelope": "DispatchEnvelope",
+        "observed_destination": "Destination",
+        "response_bytes": "bytes",
+        "result_content": "ContentHandle",
+        "native_response": "NativeMainResponse"
+      },
+      "methods": {}
+    },
+    "NativeSelectionPort": {
+      "fields": {},
+      "methods": {
+        "current": "self, request_handle: object -> NativeMainSelection"
+      }
+    },
+    "NativeResultPolicyPort": {
+      "fields": {},
+      "methods": {
+        "current": "self, producer_ref: str -> NativeResultPolicy"
+      }
+    },
+    "NativeMainPayloadAdapter": {
+      "fields": {},
+      "methods": {
+        "__init__": "self, context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int] -> None",
+        "invocations": "self -> tuple[NativeMainInvocation, ...]",
+        "send_count": "self -> int",
+        "validate_scope": "self -> None",
+        "dispatch": "self, agent: object, api_kwargs: dict -> NativeMainResponse"
+      }
+    },
+    "bind_controlled_main": "context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int] -> NativeMainPayloadAdapter",
+    "validate_controlled_scope": "context: NativeContentContext -> None",
+    "invalidate_controlled_context": "context: NativeContentContext -> None",
+    "dispatch_controlled_main": "agent: object, api_kwargs: dict -> tuple[bool, NativeMainResponse | None]"
+  },
+  "scope_helper": "agent.content_policy.validate_native_scope(context)",
+  "positive_boundary": "agent.chat_completion_helpers._dispatch_nonstreaming_api_request(agent, api_kwargs: dict, *, make_client)",
+  "api_mode": "chat_completions",
+  "provider": "synthetic_native",
+  "record_limit": 8,
+  "request_limit_bytes": 262144,
+  "result_limit_bytes": 65536,
+  "result_depth_limit": 8,
+  "result_node_limit": 2048,
+  "producer_profile_rule": "Current known producer profiles must be covered by the first source binding and retained parents. Any changed producer policy denies reuse.",
+  "result_release": "A successful shared dispatch returns the exact retained result handle before the adapter constructs and releases the native response.",
+  "generic_operations": "Attached controlled contexts always refuse generic native operations, including after source profiles become empty.",
+  "shared_coverage": "Operator-supplied exact eight-path controlled ports. Each fixture qualifies those same port instances before native support checks.",
+  "dependency_delivery": "Exact reviewed local wheel installed with --no-index --no-deps in this task .venv. No manifest changes.",
+  "runtime_and_test_sha256": {
+    "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+    "agent/chat_completion_helpers.py": "2a67037f44dc62b68ac3aa831cf90aabe05143d4519239ac6eb200422885b597",
+    "agent/native_main_payload.py": "f35e94748285c2a9de8d5cc0331b3c7fc091659dd4e5555c237198520d051e11",
+    "tests/agent/test_native_main_payload.py": "6d719d9eac13a4beb5d8a6b9fa8216fbcca114322f8082ddc678b4bc93ab37e9"
+  },
+  "copied_context_rule": "Rejecting a copied or mismatched controlled context invalidates its attached adapter and original context."
+}

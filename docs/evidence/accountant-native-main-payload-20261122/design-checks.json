@@ -1,0 +1,68 @@
+{
+  "phase": "design_only",
+  "runtime_tests_run": 0,
+  "installs": 0,
+  "builds": 0,
+  "git_diff_check": "passed before staging",
+  "ste": {
+    "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+    "sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+    "new_documents_no_existing_baseline": true,
+    "results": {
+      "design.md": {
+        "words": 1963,
+        "sentences": 201,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 17,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      },
+      "validation-plan.md": {
+        "words": 537,
+        "sentences": 55,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    }
+  },
+  "nonruntime_command_failure": {
+    "command": "ste-lint.py --help",
+    "exit_code": 1,
+    "reason": "The linter treats all arguments as file paths. The documented file interface passed."
+  },
+  "pending_decision": "Resolved by root approval msg_a5ae36e16d64. Publication remains unapproved."
+}
