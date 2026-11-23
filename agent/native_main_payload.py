@@ -1113,6 +1113,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        formatter = _issued_call_format_window(adapter)
+        if formatter is not None:
+            return formatter.current(handle)
         issued = _issued_window(adapter)
         if issued is not None:
             return issued.current(handle)
@@ -1137,6 +1140,9 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        formatter = _issued_call_format_window(self.adapter)
+        if formatter is not None:
+            return formatter.resolve(self)
         issued = _issued_window(self.adapter)
         if issued is not None:
             return issued.resolve(self)
@@ -1362,6 +1368,58 @@ class NativeMainPayloadAdapter:
             self._deny()
         finally:
             self._busy = False
+
+    def bind_issued_call_format(
+        self, result: NativeIssuedCallResult, *,
+        formatter_request: object,
+        formatter_selection: NativeSelectionPort,
+        formatter_producer_ref: str,
+        formatter_main_route_ref: str,
+    ) -> NativeIssuedCallFormatInput:
+        try:
+            owner = _IssuedCallFormat(self, result, (formatter_request, formatter_selection,
+                formatter_producer_ref, formatter_main_route_ref), sys._getframe())
+            return owner.bind()
+        except BaseException as error:
+            owner = _issued_call_formats.get(self)
+            if owner is not None:
+                owner.phase = owner.phase_anchor = "denied"
+                owner.active_call = owner.call_anchor = owner.entry = owner.public = None
+                if owner.control_exception is not None:
+                    raise owner.control_exception
+            if not isinstance(error, Exception) or isinstance(error, InterruptedError):
+                raise
+            if type(error) is NativeContentPolicyDenied:
+                raise
+            raise NativeContentPolicyDenied("controlled_native_issued_format_denied") from None
+
+    def run_issued_call_format(
+        self, authorization: NativeIssuedCallFormatInput,
+    ) -> NativeIssuedCallFormatResult:
+        try:
+            owner = _issued_call_formats.get(self)
+            _issued_format_require(owner is not None and owner.parent is self, "binding_missing")
+            return owner.run(authorization, sys._getframe())
+        except BaseException as error:
+            owner = _issued_call_formats.get(self)
+            if owner is not None:
+                owner.phase = owner.phase_anchor = "denied"
+                owner.active_call = owner.call_anchor = owner.entry = owner.public = None
+                if owner.control_exception is not None:
+                    raise owner.control_exception
+            if not isinstance(error, Exception) or isinstance(error, InterruptedError):
+                raise
+            if type(error) is NativeContentPolicyDenied:
+                raise
+            raise NativeContentPolicyDenied("controlled_native_issued_format_denied") from None
+
+    @property
+    def issued_call_format_results(self) -> tuple[NativeIssuedCallFormatResult, ...]:
+        owner = _issued_call_formats.get(self)
+        if owner is None:
+            return ()
+        owner.scope_access()
+        return tuple(result for result, _ in owner.records)
 
     def bind_issued_call_execution(
         self, observation: NativeToolCallObservation, *,
@@ -3139,6 +3197,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        formatter = _issued_call_format_window(self)
+        if formatter is not None:
+            return formatter.around(callback)
         issued = _issued_window(self)
         if issued is not None:
             return issued.around(callback)
@@ -7507,3 +7568,760 @@ _ISSUED_CALL_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__c
 
 _ISSUED_CALL_CODE += tuple((function, "__wrapped__", function.__wrapped__, function.__wrapped__.__code__)
     for function in (_IssuedCallExecution.window, _controlled_delegate_builder, _controlled_delegate_runner))
+
+
+class NativeIssuedCallFormatInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Formatter tokens require operator admission")
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallFormatBinding:
+    token: NativeIssuedCallFormatInput
+    source_adapter: object
+    source_result: NativeIssuedCallResult
+    formatter_request: object
+    selection: NativeMainSelection
+    producer_policy: NativeResultPolicy
+    authorization_bytes: bytes
+    authorization_content: object
+    input_bytes: bytes
+    input_content: object
+    anchors: tuple
+    thread: int
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallFormatResult:
+    binding: NativeIssuedCallFormatBinding
+    source_result: NativeIssuedCallResult
+    message: dict
+    message_bytes: bytes
+    message_content: object
+    anchors: tuple
+
+
+_issued_call_formats = _DelegateFrames()
+
+
+def _issued_format_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_issued_format_" + reason)
+
+
+def _issued_call_format_window(adapter):
+    owner = _issued_call_formats.get(adapter)
+    return owner if owner is not None and owner.active_call is not None else None
+
+
+def _issued_format_bytes(message):
+    return json.dumps(message, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
+
+
+def _issued_format_content(runtime, handle, payload, parents, profiles):
+    record = runtime._content(handle)
+    _issued_format_require(record.payload is payload and _same_anchors(record.parents, parents)
+        and set(profiles) <= set(record.profiles), "content_changed")
+    return record
+
+
+def _issued_format_constructed(adapter, closed):
+    binding, agent = adapter._constructed, adapter._turn_agent
+    _issued_format_require(type(binding) is _ConstructedMain and binding in _constructed_bindings
+        and binding.agent is agent and binding.adapter is adapter and binding.closed is closed, "constructor_changed")
+    namespace = _namespace(agent)
+    _issued_format_require(namespace.get("_native_controlled_binding") is binding
+        and namespace.get("_native_content_policy_context") is adapter._bound_context
+        and set(namespace) == {name for name, _ in binding.anchors}
+        and _constructed_state(namespace) == binding.state, "attached_context_changed")
+    dynamic = {"_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason", "_interrupt_thread_signal_pending"}
+    _issued_format_require(all(namespace[name] is value for name, value in binding.anchors if name not in dynamic),
+        "constructor_anchor_changed")
+    for obj, name, method in binding.methods:
+        _issued_format_require(_same_method(getattr(obj, name), method), "constructor_method_changed")
+    flag = namespace.get("_interrupt_requested")
+    _issued_format_require(type(flag) is bool and type(namespace.get("_interrupt_thread_signal_pending")) is bool,
+        "control_invalid")
+    if flag:
+        raise InterruptedError("Agent interrupted during issued-call format")
+    _issued_format_require(namespace.get("_interrupt_message") is None
+        and namespace.get("_tool_interrupt_reason") in (None, "user interrupt"), "control_changed")
+
+
+def _validate_issued_call_format_source(source, result, view) -> None:
+    view.access()
+    _issued_format_require(source is view.parent and result is view.source_result and view.source_frame is None
+        and view.stage_frame is view.entry, "source_window_invalid")
+    view.source_frame = sys._getframe()
+    try:
+        view.source_active()
+        p, e = view.probe, view.execution
+        _issued_format_require(type(p) is _ToolCallProbe and type(e) is _IssuedCallExecution
+            and _tool_call_probes.get(source) is p and source._tool_probe_owner is p
+            and _issued_call_frames.get(source) is e and source._issued_call_owner is e
+            and e.parent is p.parent is source, "source_owner_changed")
+        _issued_format_require(p.phase == p.phase_anchor == e.phase == e.phase_anchor == "released"
+            and p.attempted is e.attempted is True and p.stage_index == e.stage_index == 8
+            and p.depth == e.depth == 0 and not e.checking
+            and p.active_call is p.run_frame is p.bind_frame is e.active_call is e.entry is e.public is None,
+            "source_not_terminal")
+        _issued_format_require(type(result) is NativeIssuedCallResult and len(e.result_anchors) == 1
+            and e.result_anchors[0][0] is result
+            and _same_anchors(_row(result, NativeIssuedCallResult), e.result_anchors[0][1]), "source_result_changed")
+        o = result.observation
+        _issued_format_require(o is e.observation and type(o) is NativeToolCallObservation
+            and len(p.records) == len(p.record_anchors) == 1 and p.records[0] is p.record_anchors[0][0] is o
+            and _same_anchors(_row(o, NativeToolCallObservation), p.record_anchors[0][1])
+            and o.binding is p.binding is p.registered_binding
+            and _same_anchors(_row(p.binding, NativeToolCallProbeBinding), p.binding_anchor), "observation_changed")
+        _issued_format_require(source._constructed is p.constructed and p.closed is p.constructed.closed
+            and source._send_count == 1 and source._aux_send_count == source._fallback_send_count == 0
+            and not source._busy and not source._invalid and not source._bound_context._denied,
+            "source_state_changed")
+        _issued_format_require(all(getattr(source, name) is value for name, value in p.native_facts)
+            and _same_anchors(tuple(getattr(source, name) for name in (
+                "_turn_frames", "_records", "_record_anchors", "_completions", "_completion_anchors",
+                "_aux_frames", "_aux_records", "_aux_local_results", "_failed_main_attempts", "_fallback_records")), p.proof),
+            "source_records_changed")
+        _issued_format_require(source._operation is source._checked_operation is p.operation
+            and source._pending is None and p.partial_send[4] == 1
+            and _same_anchors(_row(p.partial_send[0], _PendingOperation), p.operation_anchor)
+            and _same_anchors(_nested_anchors(p.envelope), p.envelope_anchor), "source_send_changed")
+        _issued_format_require(o.observation_content is p.observation_content and o.observation_bytes is p.observation_bytes
+            and o.response_content is p.response_content and o.response_bytes is p.response_bytes
+            and o.envelope is p.envelope and p.envelope.payload is p.wire_bytes, "source_payload_changed")
+        _tool_probe_request(p.request)
+        _issued_format_require(_same_anchors(_nested_anchors(p.request), p.request_anchors)
+            and _json(p.request) == p.request_bytes, "source_request_changed")
+        _issued_format_require(_same_anchors(_nested_anchors((p.source, p.selection, p.producer))[1:], p.original_anchors)
+            and _same_anchors(_nested_anchors(e.options), e.option_anchors)
+            and _same_anchors(_nested_anchors(e.decoded), e.decoded_anchors)
+            and _same_anchors(_nested_anchors((e.initial, e.originals))[1:], e.initial_anchors), "source_facts_changed")
+        b, frame = result.binding, e.frame
+        _issued_format_require(b is e.binding is e.registered_binding
+            and _same_anchors(_row(b, NativeIssuedCallBinding), e.binding_anchor)
+            and b.token is e.token is e.registered_token and b.source_adapter is source and b.observation is o
+            and frame is e.registered_frame is b.anchors[-1] is _delegate_frames.get(e.adapter)
+            and frame.binding is b.delegation_binding is b.anchors[-2]
+            and b.anchors[-3] is e.execution_methods is e.execution_method_anchor, "execution_binding_changed")
+        a = e.adapter
+        _issued_format_require(type(a) is NativeMainPayloadAdapter and a in _adapters
+            and a is b.adapter and a._issued_call_frame is e and _issued_call_frames.get(a) is e
+            and a._delegate_frame is frame and a._context is a._bound_context is e.context
+            and a._handle is e.options[0] and a._turn_agent is b.agent is e.agent
+            and not a._invalid and not a._bound_context._denied and not a._busy and a._send_count == 0
+            and not a._turn_frames and not a._records and not a._completions, "execution_changed")
+        _issued_format_require(frame.phase == frame.phase_anchor == "released" and frame.terminal
+            and not frame.running and not frame.invalid and not frame.checking and frame.slot is frame.slot_anchor is None
+            and frame.agent is e.agent and frame.parent is a and frame.delegate_sends == 1, "delegate_not_terminal")
+        invocation = result.invocation
+        _issued_format_require(invocation is frame.record is frame.registered_record
+            and invocation.binding is frame.binding and invocation.token is frame.token
+            and _same_anchors(_row(invocation, NativeDelegateInvocation), frame.record_anchor)
+            and _same_anchors(_nested_anchors(frame.record_anchor[2:])[1:], frame.record_nested)
+            and _same_anchors(_nested_anchors(invocation.arguments), invocation.argument_anchors)
+            and frame.encode_arguments(invocation.arguments) == invocation.raw_bytes, "invocation_changed")
+        rows, positional, keywords = invocation.arguments
+        values = dict(goal=e.decoded["goal"], context=e.decoded["context"], role=e.decoded["role"], parent_agent=e.agent)
+        _issued_format_require(not positional and tuple(n for n, _ in keywords) == tuple(values)
+            and len(rows) == 12 and all(type(present) is bool and present is (name in values)
+                and value is values.get(name) for name, present, value in rows)
+            and all(value is values[name] for name, value in keywords), "call_presence_changed")
+        call = json.loads(o.observation_bytes)["call"]
+        _issued_format_require(call == e.call_value and _json(call) == e.call_bytes
+            and call["id"] == o.call_id and "|" not in o.call_id and o.call_id.strip() == o.call_id
+            and call["function"]["name"] == o.function_name == "delegate_task"
+            and call["function"]["arguments"] == o.arguments_json == _json(e.decoded).decode("ascii"), "call_changed")
+        for text in (o.call_id, o.function_name, o.arguments_json, result.aggregate):
+            _text(text)
+        _issued_format_require(result.aggregate is e.aggregate and result.aggregate.encode("utf-8") == invocation.aggregate_bytes
+            and result.result_bytes is e.result_bytes and result.result_content is e.result_content,
+            "aggregate_changed")
+        _issued_format_require(result.result_bytes == _json(dict(call=call,
+            execution_arguments=json.loads(invocation.raw_bytes), observation=json.loads(o.observation_bytes),
+            result=json.loads(result.aggregate))), "result_bytes_changed")
+        child = frame.child_adapter
+        _issued_format_require(type(child) is NativeMainPayloadAdapter and child is invocation.child_adapter
+            and child._delegate_parent_frame is frame and child._turn_agent is invocation.child is frame.child
+            and child._send_count == 1 and child._invalid and child._bound_context._denied
+            and not child._busy and child._context is child._bound_context is frame.child_context,
+            "closed_child_changed")
+        completion = invocation.child_completion
+        _issued_format_require(len(child._completions) == len(child._records) == len(child._turn_frames) == 1
+            and child._completions[0] is completion and child._records[0] is invocation.child_invocation
+            and child._turn_frames[0] is invocation.child_input and completion.invocation is invocation.child_invocation
+            and len(completion.result) == 29 and _native_result_bytes(completion.result) == completion.payload
+            and _same_anchors(_native_result_anchors(completion.result), completion.anchors), "completion_changed")
+        child._verify_turns()
+        child._verify_records()
+        child._verify_completions()
+        _issued_format_require(result.closed_child_proof is frame.closed_proof
+            and _same_anchors(frame.closed_proof, frame.proof()), "closed_proof_changed")
+        for adapter, closed in ((source, p.closed), (a, False), (child, True)):
+            _issued_format_constructed(adapter, closed)
+            _issued_format_require(adapter._runtime is adapter._captured_runtime is view.runtime
+                and adapter._admission is source._admission
+                and adapter._bound_context.admission is source._admission
+                and adapter._bound_context.request_handle is adapter._handle
+                and adapter._bound_context._controlled_main_payload is adapter
+                and adapter._bound_context._controlled_main_bound is True, "runtime_context_changed")
+        for owner in (p, e):
+            _issued_format_require(owner.methods is owner.methods_anchor, "source_methods_changed")
+            for obj, name, method in owner.methods:
+                _issued_format_require(_same_method(getattr(obj, name), method), "source_method_changed")
+        for obj, name, method, code in e.execution_methods:
+            _issued_format_require(_same_method(getattr(obj, name), method) and method[-1].__code__ is code,
+                "execution_method_changed")
+        for obj, name, method in (*frame.methods, *frame.extra_methods):
+            _issued_format_require(_same_method(getattr(obj, name), method), "delegate_method_changed")
+        for name in _ISSUED_FRAME_METHODS:
+            _issued_format_require(_same_method(getattr(frame, name), (frame, getattr(_DelegateFrame, name))),
+                "frame_method_changed")
+        for adapter in (source, a, child):
+            for name in _ISSUED_ADAPTER_METHODS:
+                _issued_format_require(_same_method(getattr(adapter, name), (adapter, getattr(NativeMainPayloadAdapter, name))),
+                    "adapter_method_changed")
+        for function, code in e.method_codes:
+            _issued_format_require(function.__code__ is code, "source_code_changed")
+        _issued_format_require(all(getattr(view.runtime, name) is value for name, value in p.runtime_facts)
+            and _same_anchors(_nested_anchors(view.runtime._route_rows), p.runtime_routes)
+            and len(view.runtime._ports) == len(p.runtime_ports)
+            and all(view.runtime._ports.get(name) is port for name, port in p.runtime_ports), "runtime_ports_changed")
+        for handle, payload, parents, profiles in (
+            (p.binding.authorization_content, p.binding.authorization_bytes, (), p.original_profiles),
+            (p.request_content, p.request_bytes, (p.binding.authorization_content,), p.original_profiles),
+            (p.wire_content, p.wire_bytes, (p.binding.authorization_content, p.request_content), p.original_profiles),
+            (p.response_content, p.response_bytes, (p.wire_content,), p.original_profiles),
+            (p.observation_content, p.observation_bytes,
+                (p.binding.authorization_content, p.request_content, p.wire_content, p.response_content), p.original_profiles),
+            (e.authorization_content, e.authorization_bytes, (), e.profile_union),
+            (e.issued_content, e.issued_bytes, (p.observation_content, e.authorization_content), e.profile_union),
+            (invocation.raw_content, invocation.raw_bytes, (e.issued_content,), e.profile_union),
+            (invocation.leaf_content, invocation.leaf_bytes, (invocation.raw_content,), e.profile_union),
+            (invocation.request_content, frame.plan, (invocation.raw_content, invocation.leaf_content), e.profile_union),
+            (invocation.accepted_content, frame.plan, (invocation.request_content,), e.profile_union),
+            (invocation.child_seed, invocation.leaf_bytes, (invocation.accepted_content,), e.profile_union),
+            (completion.content, completion.payload, completion.parents, e.profile_union),
+            (frame.outputs[-2][1], invocation.entry_bytes, (invocation.accepted_content, completion.content), e.profile_union),
+            (invocation.receiver_result, invocation.aggregate_bytes,
+                (invocation.accepted_content, completion.content, frame.outputs[-2][1]), e.profile_union),
+            (result.return_facts.returned_content, invocation.aggregate_bytes,
+                (invocation.request_content, invocation.accepted_content, invocation.receiver_result), e.profile_union),
+            (result.result_content, result.result_bytes,
+                (e.issued_content, result.return_facts.returned_content), e.profile_union),
+        ):
+            _issued_format_content(view.runtime, handle, payload, parents, profiles)
+        turn, main = invocation.child_input, invocation.child_invocation
+        _issued_format_require(turn.input_content is turn.admitted and len(turn.request_contents) == 1
+            and main.request_handle is frame.binding.child_request
+            and child._kwargs is None and type(invocation.child_request) is dict
+            and _json(dict(api_mode="chat_completions",
+                destination=_destination_value(main.selection.destination), request=invocation.child_request)) == main.request_bytes
+            and main.envelope.payload is main.request_bytes
+            and main.observed_destination is main.envelope.destination
+            and _destination(main.envelope.destination) == _destination(main.selection.destination),
+            "child_request_changed")
+        prepared_bytes = _json(dict(turn_context=json.loads(turn.output_bytes), request=json.loads(turn.request_bytes)))
+        for handle, payload, parents in (
+            (turn.admitted, turn.raw_bytes, (invocation.child_seed,)),
+            (turn.output_content, prepared_bytes, (turn.admitted, turn.input_content)),
+            (turn.request_contents[0], turn.request_bytes, (turn.admitted, turn.input_content, turn.output_content)),
+            (main.request_content, main.request_bytes, (turn.admitted, turn.input_content, turn.output_content)),
+            (main.result_content, main.response_bytes, (main.request_content,)),
+            (invocation.ack_content, invocation.ack_bytes, (invocation.request_content,)),
+        ):
+            content = view.runtime._content(handle)
+            _issued_format_require(content.payload == payload and _same_anchors(content.parents, parents)
+                and set(e.profile_union) <= set(content.profiles), "child_stage_changed")
+        facts = result.return_facts
+        _issued_format_require(type(facts) is shared_policy().DelegateReturnFacts and facts is invocation.return_facts
+            and facts.envelope is invocation.envelope and facts.accepted_content is invocation.accepted_content
+            and facts.receiver_result is invocation.receiver_result and facts.sender is invocation.envelope.source
+            and _binding(facts.sender)[:8] == e.initial[1][0][:8]
+            and _binding(facts.receiver)[:8] == e.initial[2][0][:8]
+            and set(e.profile_union) <= set(facts.profiles), "return_changed")
+        issued = view.runtime._envelopes.get(id(invocation.envelope))
+        acceptance = view.runtime._delegate_acceptances.get(id(invocation.accepted_content))
+        _issued_format_require(issued is not None and issued.sender_handle is e.options[0]
+            and acceptance is not None and acceptance.receiver_request is e.options[4]
+            and acceptance.receiver is facts.receiver
+            and view.runtime._delegate_returns.get(id(invocation.envelope)) is invocation.envelope,
+            "registered_return_changed")
+        view.runtime._delegate_anchors(issued, acceptance, invocation.receiver_result)
+        entry = json.loads(invocation.entry_bytes)
+        _issued_format_require(invocation.entry_bytes == json.dumps(entry, ensure_ascii=False).encode("utf-8")
+            and result.aggregate == json.dumps(dict(results=[entry], total_duration_seconds=entry["duration_seconds"]),
+                ensure_ascii=False) and entry["summary"] == completion.result["final_response"], "entry_changed")
+        view.runtime._check_operator()
+        if view.pending_handle is not None:
+            view.current_row = view.callback(source._admission.current, view.pending_handle)
+    except BaseException as error:
+        import asyncio
+        if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+            if view.control_exception is None:
+                view.control_exception = error
+        raise
+    finally:
+        view.source_frame = None
+
+
+class _IssuedCallFormat:
+    """Retain one actual formatter result from an original terminal issued call."""
+
+    def __init__(self, source, result, options, public):
+        _issued_format_require(type(source) is NativeMainPayloadAdapter and source in _adapters, "source_invalid")
+        _issued_format_require(source not in _issued_call_formats and not hasattr(source, "_issued_call_format_owner"),
+            "attempt_spent")
+        self.parent, self.source_result, self.options = source, result, options
+        self.probe, self.execution = _tool_call_probes.get(source), _issued_call_frames.get(source)
+        self.runtime, self.thread, self.catalog = source._runtime, source._thread, source._operator_configuration
+        self.catalog_anchors, self.option_anchors = _nested_anchors(self.catalog), _nested_anchors(options)
+        self.public, self.entry = public, None
+        self.active_call = self.call_anchor = object()
+        self.source_frame = self.stage_frame = None
+        self.depth = self.stage_index = 0
+        self.phase = self.phase_anchor = "binding"
+        self.checking = self.attempted = False
+        self.token = self.registered_token = object.__new__(NativeIssuedCallFormatInput)
+        self.binding = self.registered_binding = self.binding_anchor = None
+        self.authorization_bytes = self.authorization_content = self.input_bytes = self.input_content = None
+        self.message_content = self.message = self.message_bytes = self.message_anchors = None
+        self.partial_results = self.partial_anchors = self.records = ()
+        self.initial = self.originals = None
+        self.source_snapshots = self.graph_snapshots = None
+        self.pending_handle = self.current_row = None
+        self.control_exception = None
+        self.methods = self.methods_anchor = ()
+        source._issued_call_format_owner = self
+        _issued_format_require(len(_issued_call_formats) < 128, "capacity_denied")
+        _issued_call_formats[source] = self
+        _issued_format_require(current_context() is None or current_context() is source._bound_context, "scope_invalid")
+        _identifier(options[2])
+        _identifier(options[3])
+        self.route = next((route for route in self.catalog[0] if route.route_ref == options[3]), None)
+        _issued_format_require(self.route is not None and self.route.path == "main", "route_missing")
+        self.selected_routes = tuple(next((route for route in self.catalog[0]
+            if route.path == "main" and route.destination is original[1].destination
+            and (route.consumer_ref, route.selection_id, route.selection_version)
+                == (row[0][3], row[0][6], row[0][7])), None)
+            for original, row in zip(self.execution.originals, self.execution.initial)) + (self.route,)
+        _issued_format_require(all(route is not None for route in self.selected_routes), "selected_route_missing")
+        _issued_format_require(all(options[1] is not port for port in self.execution.selections)
+            and options[2] not in self.execution.producers, "independent_formatter_ports_required")
+        self.wall_time = _format_timestamp_module.wall_time
+        self.wall_method = _method(self.wall_time)
+        self.wall_code = getattr(self.wall_time, "__code__", None)
+        self.formatter = _format_helpers.make_tool_result_message
+        self.helper_constants = tuple((name, getattr(_format_helpers, name)) for name in (
+            "_UNTRUSTED_TOOL_NAMES", "_UNTRUSTED_TOOL_PREFIXES", "_UNTRUSTED_WRAP_MIN_CHARS",
+            "_DELIMITER_TOKEN_RE", "_UPSTREAM_ELISION_PATTERNS", "_ELISION_SCAN_MIN_CHARS",
+            "_ELISION_SCAN_MAX_CHARS", "_UPSTREAM_ELISION_NOTICE"))
+        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
+            (source._admission, "current"), (source._result_port, "current"), (source, "_clock"),
+            (options[1], "current"),
+            *((port, "current") for port in self.execution.selections),
+            *((port, name) for _, port in self.catalog[2] for name in ("resolve", "send")),
+            *((self.runtime, name) for name in ("_check_operator", "_content", "_delegate_anchors", "_delegate_ancestry",
+                "_call", "_current", "_now", "_coverage", "_fresh", "admit", "derive", "derive_for_selection", "dispatch", "accept", "return_from_delegate")),
+            *((self, name) for name in _ISSUED_FORMAT_METHODS)))
+        self.methods_anchor = self.methods
+        self.method_codes = tuple((method[-1], method[-1].__code__) for _, _, method in self.methods
+            if hasattr(method[-1], "__code__"))
+
+    def access(self):
+        _issued_format_require(self.depth == 0 and threading.get_ident() == self.thread, "reentry_or_thread")
+        _issued_format_require(_issued_call_formats.get(self.parent) is self
+            and self.parent._issued_call_format_owner is self and self.token is self.registered_token, "owner_changed")
+        _issued_format_require(self.phase is self.phase_anchor and self.phase in ("binding", "bound", "running")
+            and self.active_call is self.call_anchor and self.active_call is not None and self.entry is not None,
+            "window_missing")
+        _issued_format_require(self.entry.f_locals.get("self") is self and self.entry.f_back is self.public
+            and self.entry.f_globals is globals() and self.public.f_globals is globals(), "frame_changed")
+        bind = self.entry.f_code is _IssuedCallFormat.bind.__code__
+        _issued_format_require(bind or self.entry.f_code is _IssuedCallFormat.run.__code__, "frame_invalid")
+        _issued_format_require(self.public.f_code is (NativeMainPayloadAdapter.bind_issued_call_format.__code__
+            if bind else NativeMainPayloadAdapter.run_issued_call_format.__code__)
+            and self.public.f_locals.get("self") is self.parent, "public_frame_invalid")
+        if bind:
+            _issued_format_require(self.public.f_locals.get("result") is self.source_result
+                and _same_anchors(tuple(self.public.f_locals.get(name) for name in (
+                    "formatter_request", "formatter_selection", "formatter_producer_ref", "formatter_main_route_ref")),
+                    self.options), "bind_input_changed")
+        else:
+            _issued_format_require(self.public.f_locals.get("authorization") is self.token
+                and self.entry.f_locals.get("authorization") is self.token, "token_changed")
+        current = sys._getframe()
+        while current is not None and current is not self.entry:
+            current = current.f_back
+        _issued_format_require(current is self.entry and current_context() in (None, self.parent._bound_context),
+            "scope_or_frame_invalid")
+        _issued_format_require(self.stage_frame is None or self.stage_frame is self.entry, "stage_changed")
+
+    def verify(self):
+        self.access()
+        _issued_format_require(NativeMainPayloadAdapter.issued_call_format_results.fget is _ISSUED_FORMAT_GETTER,
+            "getter_changed")
+        for obj, name, function, code in (*_TOOL_PROBE_CODE, *_ISSUED_CALL_CODE, *_ISSUED_FORMAT_CODE):
+            _issued_format_require(getattr(obj, name, None) is function and function.__code__ is code, "code_changed")
+        _issued_format_require(self.methods is self.methods_anchor and self.parent._runtime is self.runtime
+            and self.parent._operator_configuration is self.catalog
+            and _same_anchors(_nested_anchors(self.catalog), self.catalog_anchors)
+            and _same_anchors(_nested_anchors(self.options), self.option_anchors), "facts_changed")
+        for obj, name, method in self.methods:
+            _issued_format_require(_same_method(getattr(obj, name), method), "method_changed")
+        for function, code in self.method_codes:
+            _issued_format_require(function.__code__ is code, "method_code_changed")
+        _issued_format_require(_format_timestamp_module.wall_time is self.wall_time
+            and _same_method(self.wall_time, self.wall_method)
+            and getattr(self.wall_time, "__code__", None) is self.wall_code
+            and self.formatter is _format_helpers.make_tool_result_message
+            and all(getattr(_format_helpers, name) is value for name, value in self.helper_constants), "formatter_changed")
+        if self.source_snapshots is not None:
+            for obj, pairs, anchors in self.source_snapshots:
+                actual = tuple(vars(obj).items())
+                _issued_format_require(tuple(name for name, _ in actual) == tuple(name for name, _ in pairs)
+                    and _same_anchors(tuple(value for _, value in actual), tuple(value for _, value in pairs))
+                    and _same_anchors(_nested_anchors(tuple(value for _, value in actual))[1:], anchors),
+                    "terminal_state_changed")
+            for handle, original, anchor in self.graph_snapshots:
+                content = self.runtime._content(handle)
+                _issued_format_require(content is original and _same_anchors(tuple(getattr(content, f.name)
+                    for f in fields(content)), anchor), "ancestry_changed")
+            for adapter, closed in ((self.parent, self.probe.closed), (self.execution.adapter, False),
+                    (self.execution.frame.child_adapter, True)):
+                _issued_format_constructed(adapter, closed)
+        if self.binding is not None:
+            _issued_format_require(self.binding is self.registered_binding
+                and _same_anchors(_row(self.binding, NativeIssuedCallFormatBinding), self.binding_anchor)
+                and _same_anchors(self.binding.anchors, (self.options, self.catalog_anchors, self.initial_anchors,
+                    self.source_snapshots, self.graph_snapshots, self.methods, self.wall_time)), "binding_changed")
+        _issued_format_require(len(self.partial_results) <= 1
+            and _same_anchors(_nested_anchors(self.partial_results)[1:], self.partial_anchors), "partial_changed")
+        if self.message is not None:
+            _issued_format_require(_same_anchors(_nested_anchors(self.message), self.message_anchors)
+                and _issued_format_bytes(self.message) == self.message_bytes, "message_changed")
+
+    def checkpoint(self):
+        self.verify()
+        _issued_format_require(self.stage_frame is self.entry and not self.checking, "checkpoint_reentry")
+        self.checking = True
+        try:
+            _validate_issued_call_format_source(self.parent, self.source_result, self)
+            if self.source_snapshots is None:
+                e, p = self.execution, self.probe
+                objects = (self.parent, p, e, e.adapter, e.frame, e.frame.child_adapter)
+                self.source_snapshots = tuple((obj, tuple(vars(obj).items()),
+                    _nested_anchors(tuple(vars(obj).values()))[1:]) for obj in objects)
+                graph = self.runtime._delegate_ancestry(self.source_result.result_content)
+                self.graph_snapshots = tuple((row.handle, row, tuple(getattr(row, f.name) for f in fields(row))) for row in graph)
+                self.profiles = tuple(sorted(set(e.profile_union) | {p for row in graph for p in row.profiles}))
+            for _ in range(2):
+                facts, originals = [], []
+                handles = (*self.execution.capabilities, self.options[0])
+                _issued_format_require(len({id(handle) for handle in handles}) == 5, "capabilities_invalid")
+                for handle, selection, producer_ref in zip(handles,
+                        (*self.execution.selections, self.options[1]), (*self.execution.producers, self.options[2])):
+                    admitted = self.callback(self.parent._admission.current, handle)
+                    selected = self.callback(selection.current, handle)
+                    producer = self.callback(self.parent._result_port.current, producer_ref)
+                    row = _binding(admitted), _selection(selected), _producer(producer)
+                    _issued_format_require(row[0][6:8] == row[1][:2] and row[1][3][1] == "synthetic_native"
+                        and row[2][0] == producer_ref, "authority_invalid")
+                    facts.append(row)
+                    originals.append((admitted, selected, producer))
+                facts, originals = tuple(facts), tuple(originals)
+                for i in range(4):
+                    original, actual = self.execution.initial[i], facts[i]
+                    _issued_format_require(actual[0][:8] == original[0][:8] and set(actual[0][8]) <= set(original[0][8])
+                        and actual[1:] == original[1:] and originals[i][1] is self.execution.originals[i][1]
+                        and originals[i][2] is self.execution.originals[i][2], "source_authority_changed")
+                f = facts[4]
+                _issued_format_require(all(originals[4][1].destination is not item[1].destination for item in originals[:4]),
+                    "independent_formatter_selection_required")
+                _issued_format_require(f[0][:6] == facts[1][0][:6] and set(f[2][2]) <= set(self.profiles)
+                    and self.route.destination is originals[4][1].destination, "formatter_holder_invalid")
+                if self.initial is None:
+                    _issued_format_require(set(self.profiles) <= set(f[0][8]), "source_profiles_not_authorized")
+                    self.initial, self.originals = facts, originals
+                    self.initial_anchors = _nested_anchors((facts, originals))[1:]
+                    self.profiles = tuple(sorted(set(self.profiles) | set(f[0][8]) | set(f[2][2])))
+                _issued_format_require(_same_anchors(_nested_anchors((self.initial, self.originals))[1:],
+                    self.initial_anchors), "initial_changed")
+                for actual, original, current, retained in zip(facts, self.initial, originals, self.originals):
+                    _issued_format_require(actual[0][:8] == original[0][:8] and set(actual[0][8]) <= set(original[0][8])
+                        and actual[1:] == original[1:] and current[1] is retained[1] and current[2] is retained[2],
+                        "authority_changed")
+                receiver = _binding(self.callback(self.parent._admission.current, self.execution.receiver_port))
+                _issued_format_require(receiver[:8] == self.execution.initial[2][0][:8]
+                    and set(receiver[8]) <= set(self.execution.initial[2][0][8]), "receiver_changed")
+                now = self.callback(self.parent._clock)
+                _integer(now, minimum=0)
+                allowed = {r.route_ref for r in self.catalog[0]}
+                _issued_format_require(set(self.profiles) <= {p.profile_ref for p in self.catalog[1]}, "profile_missing")
+                for profile in self.catalog[1]:
+                    if profile.profile_ref in self.profiles:
+                        _issued_format_require(profile.required_paths == shared_policy().PATHS, "profile_changed")
+                        allowed.intersection_update(profile.allowed_routes)
+                for i, route in (*enumerate(self.selected_routes), (2, self.execution.routes[2])):
+                    _route_facts(route)
+                    holder = self.initial[i][0]
+                    _issued_format_require(route.route_ref in allowed and now < route.expires_at
+                        and (route.consumer_ref, route.selection_id, route.selection_version) == (holder[3], holder[6], holder[7]),
+                        "selected_expired_or_denied")
+                    if route is self.selected_routes[i]:
+                        _issued_format_require(self.originals[i][1].destination is route.destination, "destination_changed")
+                for holder, _, _ in facts:
+                    for path in shared_policy().PATHS:
+                        _issued_format_require(any(route.route_ref in allowed and route.path == path
+                            and (route.consumer_ref, route.selection_id, route.selection_version) == (holder[3], holder[6], holder[7])
+                            and now < route.expires_at for route in self.catalog[0]), "coverage_missing")
+                for route in self.catalog[0]:
+                    actual = self.callback(self.parent._operator_transports[route.destination.transport_ref].resolve)
+                    _issued_format_require(actual is route.destination, "destination_changed")
+                for handle, payload, parents in ((self.authorization_content, self.authorization_bytes, ()),
+                        (self.input_content, self.input_bytes, (self.source_result.result_content, self.authorization_content)),
+                        (self.message_content, self.message_bytes, (self.input_content,))):
+                    if handle is not None:
+                        _issued_format_content(self.runtime, handle, payload, parents, self.profiles)
+                self.runtime._check_operator()
+                self.verify()
+        finally:
+            self.checking = False
+
+    def callback(self, callback, *args):
+        self.verify()
+        _issued_format_require(self.stage_frame is self.entry and any(_same_method(callback, method)
+            for _, _, method in self.methods), "callback_invalid")
+        self.runtime._check_operator()
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            import asyncio
+            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                if self.control_exception is None:
+                    self.control_exception = error
+            raise
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                try:
+                    self.verify()
+                    self.runtime._check_operator()
+                except BaseException as error:
+                    import asyncio
+                    if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                        if self.control_exception is None:
+                            self.control_exception = error
+                    raise
+
+    def source_active(self):
+        self.access()
+        frame = self.source_frame
+        _issued_format_require(frame is not None and frame.f_code is _validate_issued_call_format_source.__code__
+            and frame.f_locals.get("source") is self.parent and frame.f_locals.get("result") is self.source_result
+            and frame.f_locals.get("view") is self and self.stage_frame is self.entry, "source_frame_invalid")
+        current = sys._getframe()
+        while current is not None and current is not frame:
+            current = current.f_back
+        _issued_format_require(current is frame, "source_frame_missing")
+        return True
+
+    @contextmanager
+    def window(self):
+        self.access()
+        _issued_format_require(self.stage_frame is None and self.stage_index < 4, "capacity_denied")
+        self.stage_index += 1
+        self.stage_frame = self.entry
+        try:
+            self.checkpoint()
+            yield
+            self.checkpoint()
+        finally:
+            self.stage_frame = None
+
+    def current(self, handle):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_format_require(caller.f_code is _Admission.current.__code__ and caller.f_locals.get("adapter") is self.parent
+            and self.stage_frame is self.entry and any(handle is h for h in (*self.execution.capabilities, self.options[0])),
+            "admission_frame_invalid")
+        frame = caller.f_back
+        _issued_format_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime, "runtime_callback_frame_invalid")
+        frame = frame.f_back
+        _issued_format_require(frame.f_code is type(self.runtime)._current.__code__
+            and frame.f_locals.get("self") is self.runtime and frame.f_locals.get("request_handle") is handle,
+            "runtime_frame_invalid")
+        while frame is not None and frame.f_code not in (type(self.runtime).admit.__code__, type(self.runtime).derive.__code__,
+                type(self.runtime).derive_for_selection.__code__):
+            frame = frame.f_back
+        _issued_format_require(frame is not None and frame.f_locals.get("self") is self.runtime
+            and frame.f_locals.get("request_handle") is self.options[0] and frame.f_back is self.entry
+            and ((self.stage_index == 1 and frame.f_code in (type(self.runtime).admit.__code__,
+                type(self.runtime).derive_for_selection.__code__)) or
+                (self.stage_index == 3 and frame.f_code is type(self.runtime).derive.__code__)), "operation_invalid")
+        _issued_format_require(self.pending_handle is None, "admission_reentry")
+        self.pending_handle, self.current_row = handle, None
+        try:
+            _validate_issued_call_format_source(self.parent, self.source_result, self)
+            return self.current_row
+        finally:
+            self.pending_handle = self.current_row = None
+
+    def around(self, callback):
+        self.access()
+        caller = sys._getframe(1)
+        _issued_format_require(caller.f_code is NativeMainPayloadAdapter._around.__code__
+            and caller.f_locals.get("self") is self.parent and self.runtime._busy
+            and self.stage_frame is self.entry and _same_method(callback, _method(self.parent._clock)), "clock_invalid")
+        frame = caller.f_back
+        _issued_format_require(frame.f_code is self.runtime._clock.__code__
+            and frame.f_back.f_code is type(self.runtime)._call.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "clock_frame_invalid")
+        return self.callback(callback)
+
+    def resolve(self, wrapper):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_format_require(caller.f_code is _Transport.resolve.__code__ and caller.f_locals.get("self") is wrapper
+            and any(wrapper is w for _, w in self.catalog[3]) and self.runtime._busy
+            and self.stage_frame is self.entry, "resolve_invalid")
+        frame = caller.f_back
+        _issued_format_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime
+            and frame.f_back.f_code is type(self.runtime)._coverage.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "resolve_frame_invalid")
+        actual = self.callback(wrapper.port.resolve)
+        _issued_format_require(any(wrapper.port is self.parent._operator_transports[r.destination.transport_ref]
+            and actual is r.destination for r in self.catalog[0]), "resolve_destination_changed")
+        return actual
+
+    def bind(self):
+        self.entry = sys._getframe()
+        try:
+            with self.window():
+                call = self.execution.call_value
+                authorization = dict(format_mode="delegate_result_v1", source_call=call,
+                    formatter_holder=self.initial[4][0], selection=self.initial[4][1],
+                    producer_policy=self.initial[4][2], main_route_ref=self.options[3])
+                self.authorization_bytes = _json(authorization)
+                _issued_format_require(len(self.authorization_bytes) <= _MAX_NATIVE_RESULT, "capacity_denied")
+                self.authorization_content = self.runtime.admit(self.options[0], self.authorization_bytes)
+                self.input_bytes = _json(dict(call=call, content=self.source_result.aggregate,
+                    effect_disposition=dict(present=False), name=self.source_result.observation.function_name,
+                    tool_call_id=self.source_result.observation.call_id))
+                _issued_format_require(len(self.input_bytes) <= _MAX_NATIVE_RESULT
+                    and len(self.authorization_bytes) + len(self.input_bytes) <= 786432, "capacity_denied")
+                self.input_content = self.runtime.derive_for_selection(self.options[0],
+                    (self.source_result.result_content, self.authorization_content), self.input_bytes, path="tool_result",
+                    parent_requests=(self.execution.options[0], self.options[0]))
+                self.binding = NativeIssuedCallFormatBinding(self.token, self.parent, self.source_result, self.options[0],
+                    self.originals[4][1], self.originals[4][2], self.authorization_bytes, self.authorization_content,
+                    self.input_bytes, self.input_content, (self.options, self.catalog_anchors, self.initial_anchors,
+                        self.source_snapshots, self.graph_snapshots, self.methods, self.wall_time), self.thread)
+                self.registered_binding = self.binding
+                self.binding_anchor = _row(self.binding, NativeIssuedCallFormatBinding)
+                self.phase = self.phase_anchor = "bound"
+            return self.token
+        finally:
+            self.active_call = self.call_anchor = self.entry = self.public = None
+
+    def run(self, authorization, public):
+        _issued_format_require(self.phase == self.phase_anchor == "bound" and not self.attempted
+            and type(authorization) is NativeIssuedCallFormatInput and authorization is self.token
+            and threading.get_ident() == self.thread and self.depth == 0
+            and current_context() in (None, self.parent._bound_context), "attempt_invalid")
+        self.attempted = True
+        self.entry, self.public = sys._getframe(), public
+        self.active_call = self.call_anchor = object()
+        self.phase = self.phase_anchor = "running"
+        try:
+            with self.window():
+                pass
+            with self.window():
+                _issued_format_require(not self.partial_results, "partial_capacity_denied")
+                self.partial_results = ((None, None, None),)
+                self.partial_anchors = _nested_anchors(self.partial_results)[1:]
+                self.depth += 1
+                try:
+                    message = self.formatter(self.source_result.observation.function_name, self.source_result.aggregate,
+                        self.source_result.observation.call_id)
+                    anchors = _nested_anchors(message)
+                    self.partial_results = ((message, anchors, None),)
+                    self.partial_anchors = _nested_anchors(self.partial_results)[1:]
+                    payload = _issued_format_bytes(message)
+                    self.partial_results = ((message, anchors, payload),)
+                    self.partial_anchors = _nested_anchors(self.partial_results)[1:]
+                except BaseException as error:
+                    import asyncio
+                    if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                        if self.control_exception is None:
+                            self.control_exception = error
+                    raise
+                finally:
+                    self.depth -= 1
+                self.verify()
+                self.runtime._check_operator()
+                self.checkpoint()
+                _issued_format_require(type(message) is dict and tuple(message) == (
+                    "role", "name", "tool_name", "content", "tool_call_id", "timestamp")
+                    and message["role"] == "tool"
+                    and message["name"] is message["tool_name"] is self.source_result.observation.function_name
+                    and message["content"] is self.source_result.aggregate
+                    and message["tool_call_id"] is self.source_result.observation.call_id
+                    and type(message["timestamp"]) is float and math.isfinite(message["timestamp"]), "message_invalid")
+                for value in message.values():
+                    if type(value) is str:
+                        _text(value)
+                _issued_format_require(len(payload) <= _MAX_NATIVE_RESULT
+                    and len(payload) + len(self.authorization_bytes) + len(self.input_bytes) <= 786432, "capacity_denied")
+                self.message, self.message_bytes, self.message_anchors = message, payload, anchors
+                self.message_content = self.runtime.derive(self.options[0], (self.input_content,), payload, path="tool_result")
+            with self.window():
+                result = NativeIssuedCallFormatResult(self.binding, self.source_result, self.message, self.message_bytes,
+                    self.message_content, self.message_anchors)
+            self.records = ((result, _row(result, NativeIssuedCallFormatResult)),)
+            self.phase = self.phase_anchor = "released"
+            return result
+        finally:
+            self.active_call = self.call_anchor = self.entry = self.public = None
+
+    def scope_access(self):
+        _issued_format_require(self.depth == 0 and threading.get_ident() == self.thread, "reentry_or_thread")
+        _issued_format_require(_issued_call_formats.get(self.parent) is self and self.parent._issued_call_format_owner is self
+            and type(self.records) is tuple and len(self.records) <= 1, "records_changed")
+        for result, anchor in self.records:
+            _issued_format_require(_same_anchors(_row(result, NativeIssuedCallFormatResult), anchor)
+                and result.binding is self.registered_binding and result.source_result is self.source_result
+                and _same_anchors(_nested_anchors(result.message), result.anchors)
+                and _issued_format_bytes(result.message) == result.message_bytes, "record_changed")
+
+
+from agent import tool_dispatch_helpers as _format_helpers
+from agent import message_metadata as _format_timestamp_module
+
+_ISSUED_FORMAT_METHODS = ("__init__", "access", "verify", "checkpoint", "callback", "source_active", "window", "current",
+    "around", "resolve", "bind", "run", "scope_access")
+_ISSUED_FORMAT_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__)
+    for obj, names in (
+        (_IssuedCallFormat, _ISSUED_FORMAT_METHODS),
+        (NativeMainPayloadAdapter, ("bind_issued_call_format", "run_issued_call_format")),
+        (sys.modules[__name__], ("_validate_issued_call_format_source", "_issued_call_format_window",
+            "_issued_format_require", "_issued_format_bytes", "_issued_format_content", "_issued_format_constructed",
+            "_row", "_binding", "_selection", "_producer", "_json", "_text", "_method", "_same_method",
+            "_nested_anchors", "_same_anchors", "_constructed_state", "_namespace", "_native_result_anchors",
+            "_native_result_bytes", "_tool_probe_request", "_identifier", "_integer", "_route_facts", "_destination_value")),
+        (_format_helpers, ("make_tool_result_message", "_normalize_tool_call_id", "_is_untrusted_tool",
+            "_detect_upstream_elision", "_maybe_append_elision_notice", "_tool_output_risk_metadata",
+            "_neutralize_delimiters", "_maybe_wrap_untrusted", "stamp_message_timestamp")),
+        (_format_timestamp_module, ("stamp_message_timestamp",)),
+    ) for name in names)
+_ISSUED_FORMAT_CODE += ((_IssuedCallFormat.window, "__wrapped__", _IssuedCallFormat.window.__wrapped__,
+    _IssuedCallFormat.window.__wrapped__.__code__),)
+
+_ISSUED_FORMAT_GETTER = NativeMainPayloadAdapter.issued_call_format_results.fget
+_ISSUED_FORMAT_CODE += ((NativeMainPayloadAdapter.issued_call_format_results, "fget", _ISSUED_FORMAT_GETTER,
+    _ISSUED_FORMAT_GETTER.__code__),)

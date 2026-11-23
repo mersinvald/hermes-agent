@@ -1,0 +1,30 @@
+{
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37",
+  "HOME": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/home",
+  "original_HOME_read": false,
+  "PYTHONPATH_workaround": false,
+  "runner_changed": false,
+  "isolation_before_first_check": true,
+  "retries": 0,
+  "file_timeout_seconds": 700,
+  "bytecode": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/cache/bytecode",
+  "pytest": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/cache/pytest",
+  "durations": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/cache/test_durations.json",
+  "state": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/tmp",
+  "wrapper": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/python-wrapper",
+    "bytes": 284,
+    "sha256": "d563fbe565a58322c13d505889dfe7ea9160bdb19e86325b5ba5421fc8761989"
+  },
+  "driver": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/python-driver.py",
+    "bytes": 793,
+    "sha256": "b3fa125941ab59be9d5521ba3edc035a95861fe6a5793d3843fef923c234dd74"
+  },
+  "runner": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/run-scope.py",
+    "bytes": 1551,
+    "sha256": "d4a0fa2d0e466a16710c5f246ded86503f49292768d151ed9b474516bd449b52"
+  },
+  "canonical_runner": "scripts/run_tests.sh"
+}

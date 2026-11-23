@@ -1,0 +1,76 @@
+{
+  "AST": true,
+  "old_signatures_unchanged": true,
+  "old_shapes_unchanged": true,
+  "old_body_suffixes_equal": true,
+  "source_patch": {
+    "bytes": 56375,
+    "sha256": "e733be01b29445e403f312d63a15cc3a17c746c63ad7584a7706e559326a8cda",
+    "context_lines": 0,
+    "forward_matches": true,
+    "inverse_matches": true,
+    "commands": [
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "--check",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.37/docs/evidence/accountant-native-issued-call-format-20261123/source-boundary.patch"
+      ],
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.37/docs/evidence/accountant-native-issued-call-format-20261123/source-boundary.patch"
+      ],
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "--reverse",
+        "--check",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.37/docs/evidence/accountant-native-issued-call-format-20261123/source-boundary.patch"
+      ],
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "--reverse",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.37/docs/evidence/accountant-native-issued-call-format-20261123/source-boundary.patch"
+      ]
+    ]
+  },
+  "native_shared_bounds_unchanged": true,
+  "no_source_file_inspections_in_new_unit_tests": true,
+  "static_example_match": {
+    "scope": "positive-07",
+    "all_three_actual_vectors_equal": true,
+    "verification": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/inputs/pwa/docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/verification.json",
+      "bytes": 91233,
+      "sha256": "1d3612e5b1b618256ce3bba4b105b67ae3d4c0877228fb2eed6d0d18d7e8fd97"
+    },
+    "actual_hashes": [
+      {
+        "index": 24,
+        "stage": "Bf",
+        "bytes": 549,
+        "sha256": "715c2b63944f8998d18ff9019b4d3f2c293e862a658cf7a6711f5c20c650570e"
+      },
+      {
+        "index": 25,
+        "stage": "If",
+        "bytes": 608,
+        "sha256": "8add4005a3d53086e71e75bdf8f23216802187c18e6d9868f3ffeb454a1ca34c"
+      },
+      {
+        "index": 26,
+        "stage": "Mf",
+        "bytes": 466,
+        "sha256": "9abee50a0dcd82d70714e9f9ceb06f0162620ec8da7534d7d70f6d27581a8efb"
+      }
+    ]
+  },
+  "positive_body_unchanged": true,
+  "whole_task_whitespace": true
+}
