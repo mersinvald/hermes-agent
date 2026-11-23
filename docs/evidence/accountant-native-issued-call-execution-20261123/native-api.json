@@ -1,0 +1,113 @@
+{
+  "methods": {
+    "__init__": "self, context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int], _delegation_frame: object=None, _memory_prompt_frame: object=None, _issued_call_frame: object=None -> None",
+    "bind_issued_call_execution": "self, observation: NativeToolCallObservation, *, execution_request: object, execution_selection: NativeSelectionPort, execution_producer_ref: str, execution_main_route_ref: str, receiver_request: object, receiver_selection: NativeSelectionPort, receiver_producer_ref: str, child_request: object, child_selection: NativeSelectionPort, child_producer_ref: str, delegate_route_ref: str, child_main_route_ref: str, child_session_id: str, child_task_id: str -> NativeIssuedCallInput",
+    "run_issued_call_execution": "self, authorization: NativeIssuedCallInput -> NativeIssuedCallResult",
+    "issued_call_results": "self -> tuple[NativeIssuedCallResult, ...]"
+  },
+  "records": {
+    "NativeIssuedCallBinding": [
+      {
+        "name": "token",
+        "annotation": "NativeIssuedCallInput"
+      },
+      {
+        "name": "source_adapter",
+        "annotation": "object"
+      },
+      {
+        "name": "observation",
+        "annotation": "NativeToolCallObservation"
+      },
+      {
+        "name": "execution_request",
+        "annotation": "object"
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      },
+      {
+        "name": "agent",
+        "annotation": "object"
+      },
+      {
+        "name": "adapter",
+        "annotation": "object"
+      },
+      {
+        "name": "delegation_binding",
+        "annotation": "NativeDelegateBinding"
+      },
+      {
+        "name": "authorization_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "authorization_content",
+        "annotation": "object"
+      },
+      {
+        "name": "issued_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "issued_content",
+        "annotation": "object"
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple"
+      },
+      {
+        "name": "thread",
+        "annotation": "int"
+      }
+    ],
+    "NativeIssuedCallResult": [
+      {
+        "name": "binding",
+        "annotation": "NativeIssuedCallBinding"
+      },
+      {
+        "name": "observation",
+        "annotation": "NativeToolCallObservation"
+      },
+      {
+        "name": "invocation",
+        "annotation": "NativeDelegateInvocation"
+      },
+      {
+        "name": "return_facts",
+        "annotation": "object"
+      },
+      {
+        "name": "closed_child_proof",
+        "annotation": "tuple"
+      },
+      {
+        "name": "aggregate",
+        "annotation": "str"
+      },
+      {
+        "name": "result_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "result_content",
+        "annotation": "object"
+      }
+    ]
+  },
+  "token": {
+    "name": "NativeIssuedCallInput",
+    "slots": [],
+    "direct_constructor": "TypeError"
+  },
+  "old_signature_exception": "NativeMainPayloadAdapter.__init__ adds keyword-only _issued_call_frame: object = None.",
+  "shared_API_changed": false
+}

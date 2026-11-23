@@ -1,0 +1,2738 @@
+{
+  "scopes": [
+    {
+      "name": "first",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=686d24f697b7f3387d3d33e5753fa70f71ad45393f083758f43349a79bb013f8",
+        "-o",
+        "accountant_test_sha256=65e6deb4aed97c6707aa55188320cb253b37e677e18bdd8e0ea2d862f691f27a"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "686d24f697b7f3387d3d33e5753fa70f71ad45393f083758f43349a79bb013f8",
+        "tests/tools/test_native_issued_call_execution.py": "65e6deb4aed97c6707aa55188320cb253b37e677e18bdd8e0ea2d862f691f27a"
+      },
+      "seconds": 90.11434419500438,
+      "exit_code": 1,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first.cases.jsonl",
+          "bytes": 1043,
+          "sha256": "ee06e53b7b4db3d760ec4c7a2f18af1a03b48da2e347e959bdb9e5363a9ea4cd"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first.json",
+          "bytes": 1102,
+          "sha256": "7a65f60114265ef3c4007542a89f9c57221e3ef35978843d0c35f88a84576530"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first.log",
+          "bytes": 12248,
+          "sha256": "0f746eae9bee1cce93b95204b604059653caed483532b06c57ebfb1658559cc8"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first.xml",
+          "bytes": 6616,
+          "sha256": "a9426d7712d5eb653d687dd4262d9bdbb4d2dc37186e7834c2365efcc1483546"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/first/native_main_payload.py",
+          "bytes": 383804,
+          "sha256": "686d24f697b7f3387d3d33e5753fa70f71ad45393f083758f43349a79bb013f8"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/first/test_native_issued_call_execution.py",
+          "bytes": 12641,
+          "sha256": "65e6deb4aed97c6707aa55188320cb253b37e677e18bdd8e0ea2d862f691f27a"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 79.034,
+          "outcome": "failed",
+          "properties": {
+            "setup_seconds": "2.009056",
+            "call_seconds": "77.024158"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "686d24f697b7f3387d3d33e5753fa70f71ad45393f083758f43349a79bb013f8",
+          "test_sha256": "65e6deb4aed97c6707aa55188320cb253b37e677e18bdd8e0ea2d862f691f27a"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 2.0090563210032997,
+          "source_sha256": "686d24f697b7f3387d3d33e5753fa70f71ad45393f083758f43349a79bb013f8",
+          "test_sha256": "65e6deb4aed97c6707aa55188320cb253b37e677e18bdd8e0ea2d862f691f27a"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "failed",
+          "phase": "call",
+          "seconds": 77.02415787299833,
+          "source_sha256": "686d24f697b7f3387d3d33e5753fa70f71ad45393f083758f43349a79bb013f8",
+          "test_sha256": "65e6deb4aed97c6707aa55188320cb253b37e677e18bdd8e0ea2d862f691f27a"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "first-corrected",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-corrected.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=4e87a67cdc7e7c89453a33593058a09e012003d84275c1a2a751231a475fc2be",
+        "-o",
+        "accountant_test_sha256=05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "4e87a67cdc7e7c89453a33593058a09e012003d84275c1a2a751231a475fc2be",
+        "tests/tools/test_native_issued_call_execution.py": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+      },
+      "seconds": 71.17766303099779,
+      "exit_code": 1,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-corrected.cases.jsonl",
+          "bytes": 1042,
+          "sha256": "d2eccc89d0ac6edacfb823fb71a66d0fbd486ba4deaf85cfeaf312c1963104a1"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-corrected.json",
+          "bytes": 1122,
+          "sha256": "415d44c02c65cecee4fe265703580d66beba642662cdb9fe1f09b1eeda530c5e"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-corrected.log",
+          "bytes": 18615,
+          "sha256": "06ff13b0656d07aec307b4be96683c6dd2ed88f30712fdd58c97638f7573e97c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-corrected.xml",
+          "bytes": 13285,
+          "sha256": "24861d7c6f2b0fc425521ef4d8dba13cd78842e2d0571c2a81171da85f735caa"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/first-corrected/native_main_payload.py",
+          "bytes": 383884,
+          "sha256": "4e87a67cdc7e7c89453a33593058a09e012003d84275c1a2a751231a475fc2be"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/first-corrected/test_native_issued_call_execution.py",
+          "bytes": 12669,
+          "sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 68.961,
+          "outcome": "failed",
+          "properties": {
+            "setup_seconds": "1.554814",
+            "call_seconds": "67.405682"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "4e87a67cdc7e7c89453a33593058a09e012003d84275c1a2a751231a475fc2be",
+          "test_sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.5548137950027012,
+          "source_sha256": "4e87a67cdc7e7c89453a33593058a09e012003d84275c1a2a751231a475fc2be",
+          "test_sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "failed",
+          "phase": "call",
+          "seconds": 67.4056818809986,
+          "source_sha256": "4e87a67cdc7e7c89453a33593058a09e012003d84275c1a2a751231a475fc2be",
+          "test_sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "first-anchors-corrected",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-anchors-corrected.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=a8d7e66e79ecd396caffd9b2f291854d3ab77c8081b23f52fc6cb2ed8e051b86",
+        "-o",
+        "accountant_test_sha256=05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "a8d7e66e79ecd396caffd9b2f291854d3ab77c8081b23f52fc6cb2ed8e051b86",
+        "tests/tools/test_native_issued_call_execution.py": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+      },
+      "seconds": 186.64419375900616,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-anchors-corrected.cases.jsonl",
+          "bytes": 1044,
+          "sha256": "0e0391d2c54a383931914fe9c4af22702265600ca463bd01d51f5f4e69a50152"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-anchors-corrected.json",
+          "bytes": 1139,
+          "sha256": "4bbb51096a45d1e44274206568358aed6258fa5ea5458d47e029782f7747bb84"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-anchors-corrected.log",
+          "bytes": 1074,
+          "sha256": "676dd56a32fea5bfe14d72b2a60d912888eb49ad28f168967a8d4954e66c0589"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/first-anchors-corrected.xml",
+          "bytes": 39429,
+          "sha256": "5eeb516578cd188c441d94844e17b652616c03649b7765d064b46673671d9c12"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/first-anchors-corrected/native_main_payload.py",
+          "bytes": 383979,
+          "sha256": "a8d7e66e79ecd396caffd9b2f291854d3ab77c8081b23f52fc6cb2ed8e051b86"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/first-anchors-corrected/test_native_issued_call_execution.py",
+          "bytes": 12669,
+          "sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 185.257,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.611611",
+            "call_seconds": "183.645066"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "a8d7e66e79ecd396caffd9b2f291854d3ab77c8081b23f52fc6cb2ed8e051b86",
+          "test_sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.6116114040050888,
+          "source_sha256": "a8d7e66e79ecd396caffd9b2f291854d3ab77c8081b23f52fc6cb2ed8e051b86",
+          "test_sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 183.64506633400015,
+          "source_sha256": "a8d7e66e79ecd396caffd9b2f291854d3ab77c8081b23f52fc6cb2ed8e051b86",
+          "test_sha256": "05e16e6d113d6746655e96b85ce437e3d82de40143226077a99f1be2a047ee6c"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "feedback",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result or test_original_runner_clock_control_and_partial_delegate or test_pre_callback_source_identity_and_scalars",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/feedback.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+        "-o",
+        "accountant_test_sha256=f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+        "tests/tools/test_native_issued_call_execution.py": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+      },
+      "seconds": 216.03459936199943,
+      "exit_code": 1,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/feedback.cases.jsonl",
+          "bytes": 6819,
+          "sha256": "2d357167c406b716bc0eeef48abdd04c7d217eab94577eada1152955d633b56c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/feedback.json",
+          "bytes": 1217,
+          "sha256": "e39a971ff83544b0de9dfefb2b2cacc9d0f564076c6f81866ec5adee407ec405"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/feedback.log",
+          "bytes": 9328,
+          "sha256": "5fa7893ea91160cf1ffdec92c6220575a5a7b000ae359debb13ba2ea24ab8df0"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/feedback.xml",
+          "bytes": 42374,
+          "sha256": "92498e7ea69860009079cb9f16b9979c507df57136fc1f35e6c11b6df39f9e6f"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/feedback/native_main_payload.py",
+          "bytes": 386506,
+          "sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/feedback/test_native_issued_call_execution.py",
+          "bytes": 25546,
+          "sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 89.968,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.485224",
+            "call_seconds": "88.481978",
+            "teardown_seconds": "0.001285"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[copied-observation]",
+          "seconds": 15.039,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.037427",
+            "call_seconds": "15.001413",
+            "teardown_seconds": "0.000565"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[scalar-subclass]",
+          "seconds": 12.98,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.013722",
+            "call_seconds": "12.96551",
+            "teardown_seconds": "0.000511"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[wrong-thread]",
+          "seconds": 12.268,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012964",
+            "call_seconds": "12.254684",
+            "teardown_seconds": "0.000524"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "seconds": 84.223,
+          "outcome": "failed",
+          "properties": {
+            "setup_seconds": "0.013882",
+            "call_seconds": "84.208879"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.4852237890008837,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 88.48197845799587,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0012852670042775571,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[copied-observation]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[copied-observation]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.03742730899830349,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[copied-observation]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 15.001412878002157,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[copied-observation]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.000565346002986189,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[scalar-subclass]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[scalar-subclass]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.013722124000196345,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[scalar-subclass]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 12.965509693000058,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[scalar-subclass]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005109600024297833,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[wrong-thread]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[wrong-thread]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012963528999534901,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[wrong-thread]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 12.254683873004979,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_pre_callback_source_identity_and_scalars[wrong-thread]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005244060012046248,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.013882381994335447,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "failed",
+          "phase": "call",
+          "seconds": 84.20887910300371,
+          "source_sha256": "1140294388a9b45979a2511cb92cd425d81c9654187aa5090a9638cce2324c03",
+          "test_sha256": "f68a86c2780ab24df1fdbe52a10fc9431dded3f12f3fed039b4d1f54886aa4f2"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "focused",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "not test_pre_callback_source_identity_and_scalars",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/focused.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+        "-o",
+        "accountant_test_sha256=e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+        "tests/tools/test_native_issued_call_execution.py": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+      },
+      "seconds": 118.15972507499828,
+      "exit_code": 1,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/focused.cases.jsonl",
+          "bytes": 5042,
+          "sha256": "79a212b17e0cae7db4fdcb2e25e4e495ab2e4886e7e5301809714df4bfa1e357"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/focused.json",
+          "bytes": 1106,
+          "sha256": "a62d43b1c6694f89f3e3ad3b6bcebb2ac09c356ce94506a6a58821f0c23331e3"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/focused.log",
+          "bytes": 20915,
+          "sha256": "edab30eac106e4d97668f1c5a62b868eba01edd57706841f2486ccf7559078bc"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/focused.xml",
+          "bytes": 14775,
+          "sha256": "cb580fc57cacbbeab9697955d92f827e6c07dcdaa24b9d862f9a80b656a12438"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/focused/native_main_payload.py",
+          "bytes": 387033,
+          "sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/focused/test_native_issued_call_execution.py",
+          "bytes": 26720,
+          "sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 45.706,
+          "outcome": "failed",
+          "properties": {
+            "setup_seconds": "1.577135",
+            "call_seconds": "44.128195",
+            "teardown_seconds": "0.000623"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "seconds": 31.633,
+          "outcome": "failed",
+          "properties": {
+            "setup_seconds": "0.030219",
+            "call_seconds": "31.602034",
+            "teardown_seconds": "0.000516"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[execution]",
+          "seconds": 31.08,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012001",
+            "call_seconds": "31.067519",
+            "teardown_seconds": "0.000565"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.5771353070012992,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "failed",
+          "phase": "call",
+          "seconds": 44.128194886994606,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0006233059975784272,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.03021918600279605,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "failed",
+          "phase": "call",
+          "seconds": 31.602034158000606,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005163209934835322,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[execution]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[execution]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012001260001852643,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[execution]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 31.067518679003115,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[execution]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005645929995807819,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.013294730000779964,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate.",
+      "interrupted_nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+      "requested_nodeids": [
+        "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+        "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+        "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[execution]",
+        "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+        "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+        "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+        "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+        "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[resolve]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+        "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+        "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+        "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+        "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+        "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+        "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+        "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[goal]"
+      ],
+      "not_started_nodeids": [
+        "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+        "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+        "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+        "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[resolve]",
+        "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+        "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+        "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+        "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+        "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+        "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+        "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+        "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[goal]"
+      ],
+      "interrupted_accounting": "Incomplete. No pass or zero-charge claim."
+    },
+    {
+      "name": "compatibility",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+        "tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path",
+        "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/compatibility.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+        "-o",
+        "accountant_test_sha256=e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+        "tests/tools/test_native_issued_call_execution.py": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+      },
+      "seconds": 117.83140323299449,
+      "exit_code": 1,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/compatibility.cases.jsonl",
+          "bytes": 7540,
+          "sha256": "089ebc859539d4933539145dd30be7c142bafeb46d71c5f4b40ad2036e62e9e7"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/compatibility.json",
+          "bytes": 1288,
+          "sha256": "45acfc370055f58fb31896c4a886ca7c73d1f979f7084c5a7fda81fe1c03c505"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/compatibility.log",
+          "bytes": 8867,
+          "sha256": "6a0c1d050247f6ddf91d2087dc55013690adaea1c4d10a5cdce5bc5ae972ad96"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/compatibility.xml",
+          "bytes": 2186,
+          "sha256": "985fea845864dac5e30e2334d6bef22536b214e254afd3c4778faf414489f7bf"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/compatibility/native_main_payload.py",
+          "bytes": 387033,
+          "sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/compatibility/test_native_issued_call_execution.py",
+          "bytes": 26720,
+          "sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[replay]",
+          "seconds": 13.305,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.632049",
+            "call_seconds": "11.669931",
+            "teardown_seconds": "0.002904"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+          "seconds": 11.57,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.028024",
+            "call_seconds": "11.541884",
+            "teardown_seconds": "0.000472"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[executor]",
+          "seconds": 11.286,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012231",
+            "call_seconds": "11.273143",
+            "teardown_seconds": "0.000628"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[bind]",
+          "seconds": 11.269,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.013952",
+            "call_seconds": "11.254153",
+            "teardown_seconds": "0.000481"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[ordinary-caller]",
+          "seconds": 11.471,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.01193",
+            "call_seconds": "11.458151",
+            "teardown_seconds": "0.000515"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[replay]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[replay]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.6320493719977094,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[replay]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 11.66993125499721,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[replay]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0029041730012977496,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.028023954000673257,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 11.541884249003488,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004721259974758141,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[executor]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[executor]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01223072900029365,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[executor]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 11.273143133003032,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[executor]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0006281759997364134,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[bind]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[bind]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.013952000997960567,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[bind]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 11.254153330002737,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[bind]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004805029966519214,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[ordinary-caller]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[ordinary-caller]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01193036200129427,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[ordinary-caller]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 11.458151400998759,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[ordinary-caller]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005153490055818111,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[delegation]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[delegation]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012186945001303684,
+          "source_sha256": "14a28cda446f9ae29c816fe872865bfc670b20083faa75acdee5fa80bbd422d9",
+          "test_sha256": "e5c98a79d6c665b38fe7c732793749e428488a29344a656926ed5932aaebded4"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate.",
+      "requested_parametrized_selector_was_broadened": true,
+      "passed_file_receipts_without_separate_setup_XML": [
+        {
+          "nodeid": "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+          "subprocess_seconds": 1.08
+        },
+        {
+          "nodeid": "tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path",
+          "subprocess_seconds": 49.48
+        }
+      ],
+      "xml_scope": "Five probe cases only. The canonical runner reused the XML path across files.",
+      "unchanged_test_pins": {
+        "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+        "tests/tools/test_native_controlled_delegation.py": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c",
+        "tests/tools/test_native_tool_call_probe.py": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+      },
+      "interrupted_nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[delegation]",
+      "not_started_parameters": [
+        "memory",
+        "auxiliary",
+        "fallback",
+        "runtime-admit"
+      ]
+    },
+    {
+      "name": "earliest-unresolved",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "(test_independent_holder_drift and (source or receiver or child)) or test_selected_expiry or (test_callback_reentry and not send)",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/earliest-unresolved.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+        "-o",
+        "accountant_test_sha256=faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+        "tests/tools/test_native_issued_call_execution.py": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+      },
+      "seconds": 353.9225762539936,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/earliest-unresolved.cases.jsonl",
+          "bytes": 15421,
+          "sha256": "2e5244586938f4a075f6ee065003da15319223860a46fe1ab52866da86ecef09"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/earliest-unresolved.failures.construction.jsonl",
+          "bytes": 1850,
+          "sha256": "1a494a862b1ea21d093b5d80b17f7e80beb260921a22efba30a7a783d989810c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/earliest-unresolved.json",
+          "bytes": 1228,
+          "sha256": "949af36cbdccf8e551d22757842465c2bb6e4a41868f83b06571c0b89f869a7a"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/earliest-unresolved.log",
+          "bytes": 1080,
+          "sha256": "92ca881d9214274749dfff259966fae2fda93fd893b036c0b548703a13ce3c1f"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/earliest-unresolved.xml",
+          "bytes": 4637,
+          "sha256": "576c9b2c77a2a6395e29e2c4717fbc64feb57edf530fbaed3c5c3ebb66c78081"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/earliest-unresolved/native_main_payload.py",
+          "bytes": 387421,
+          "sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/earliest-unresolved/test_native_issued_call_execution.py",
+          "bytes": 28359,
+          "sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "seconds": 32.216,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.558596",
+            "call_seconds": "30.656622",
+            "teardown_seconds": "0.000791"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "seconds": 30.809,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.016598",
+            "call_seconds": "30.791854",
+            "teardown_seconds": "0.000538"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+          "seconds": 31.083,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.013654",
+            "call_seconds": "31.068767",
+            "teardown_seconds": "0.000507"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+          "seconds": 36.071,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012217",
+            "call_seconds": "36.058473",
+            "teardown_seconds": "0.00052"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+          "seconds": 33.769,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012362",
+            "call_seconds": "33.756539",
+            "teardown_seconds": "0.000504"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+          "seconds": 33.284,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012068",
+            "call_seconds": "33.271088",
+            "teardown_seconds": "0.000474"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+          "seconds": 31.153,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.01204",
+            "call_seconds": "31.140432",
+            "teardown_seconds": "0.00047"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+          "seconds": 30.841,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.0119",
+            "call_seconds": "30.829065",
+            "teardown_seconds": "0.000478"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+          "seconds": 31.105,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012128",
+            "call_seconds": "31.092224",
+            "teardown_seconds": "0.000487"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+          "seconds": 31.159,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012126",
+            "call_seconds": "31.146001",
+            "teardown_seconds": "0.000551"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[resolve]",
+          "seconds": 30.871,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012412",
+            "call_seconds": "30.858044"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.558595857997716,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 30.65662179300125,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[source]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.000791006998042576,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.016598125999735203,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 30.791854039998725,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[receiver]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005378510031732731,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.013654449001478497,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 31.068767051001487,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_independent_holder_drift_refuses_before_admission[child]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005073229986010119,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012217331001011189,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 36.05847319000168,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_1_main]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005201769963605329,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012361918001261074,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 33.75653924400103,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_2_delegate]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005037860028096475,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01206783300585812,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 33.271087633002026,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_selected_expiry_refuses_live_alternate[route_3_main]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004739089999930002,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012040420995617751,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 31.14043174299877,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[admission]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.00046951200056355447,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.011900452002009843,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 30.829065307996643,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[selection]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.00047812699631322175,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01212798900087364,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 31.09222411200608,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[producer]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004865540031460114,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012125956003728788,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 31.14600106999569,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[clock]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005514379954547621,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[resolve]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[resolve]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01241226300044218,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[resolve]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 30.858044294996944,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "closed-source-correction",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/closed-source-correction.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+        "-o",
+        "accountant_test_sha256=faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+        "tests/tools/test_native_issued_call_execution.py": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+      },
+      "seconds": 100.77164766600617,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/closed-source-correction.cases.jsonl",
+          "bytes": 1043,
+          "sha256": "3f3b1f0b0c52387b4d6dd92f273e42db6a63c56fddaf35f3a707c371cbb6aa5b"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/closed-source-correction.failures.construction.jsonl",
+          "bytes": 161,
+          "sha256": "7cc7682064b3195c49d212dde1e1d8eb706da909cdf3e44a6cb2d54300e8c6bc"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/closed-source-correction.json",
+          "bytes": 1160,
+          "sha256": "6092be6bf2774d047dd36fe448fe7d3bc5aea888f077223999142accf492c291"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/closed-source-correction.log",
+          "bytes": 1076,
+          "sha256": "528116c47343ffce135b835a6e9c32736bdb68123b5321b2eaeae976b608e423"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/closed-source-correction.xml",
+          "bytes": 39426,
+          "sha256": "46762cd091da5334d335d83bf6a5aaf6bc26ed7cc80938375158805b5a06d6fb"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/closed-source-correction/native_main_payload.py",
+          "bytes": 387421,
+          "sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/closed-source-correction/test_native_issued_call_execution.py",
+          "bytes": 28359,
+          "sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 99.36,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.516315",
+            "call_seconds": "97.842506"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.5163148350038682,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 97.84250632600015,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "execution-unresolved",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "(test_callback_reentry and send) or test_original_runner_clock_control or test_late_release or test_copied_token or test_genuine_capacity or test_actual_capture",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/execution-unresolved.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+        "-o",
+        "accountant_test_sha256=faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+        "tests/tools/test_native_issued_call_execution.py": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+      },
+      "seconds": 443.4004223519951,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/execution-unresolved.cases.jsonl",
+          "bytes": 10973,
+          "sha256": "d15b0e7e67e5b5296197e8ca36fd12e5d5aa2058e340f82a1e7e9af2184178c1"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/execution-unresolved.failures.construction.jsonl",
+          "bytes": 1311,
+          "sha256": "3f3fcd2d663d5356782293deabd721c9abc4874e03b457dea9619d96a9011ac5"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/execution-unresolved.json",
+          "bytes": 1261,
+          "sha256": "692f33bd88e50b5b72a85dcc03e615fb70a7dbe70c613dd690ad24ed12534c14"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/execution-unresolved.log",
+          "bytes": 1076,
+          "sha256": "ec819f67578d6d5f33fddec388039e779c301f31ae4dc84a7cdde856973af6b5"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/execution-unresolved.xml",
+          "bytes": 4528,
+          "sha256": "bbf47ee7b4685da02576e28b099bbc51c64b869607bbdaaac4cefaa31fb415a5"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/execution-unresolved/native_main_payload.py",
+          "bytes": 387421,
+          "sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/execution-unresolved/test_native_issued_call_execution.py",
+          "bytes": 28359,
+          "sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "seconds": 45.358,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.469723",
+            "call_seconds": "43.8878",
+            "teardown_seconds": "0.000495"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "seconds": 52.285,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.01618",
+            "partial_proof": "{\"delegate_sends\": 1, \"child_sends\": 0, \"content_slots\": 13, \"retained_bytes\": 13249, \"envelopes\": 2, \"exact_clock\": true, \"exact_control\": true}",
+            "call_seconds": "52.268571",
+            "teardown_seconds": "0.00052"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+          "seconds": 95.357,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012396",
+            "partial_proof": "{\"mode\": \"expiry\", \"source_sends\": 1, \"delegate_sends\": 1, \"child_sends\": 1, \"result_retained\": true, \"closed_child\": true, \"retained_bytes\": 22967, \"content_slots\": 23, \"envelopes\": 3}",
+            "call_seconds": "95.343864",
+            "teardown_seconds": "0.000529"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+          "seconds": 95.887,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012358",
+            "partial_proof": "{\"mode\": \"health\", \"source_sends\": 1, \"delegate_sends\": 1, \"child_sends\": 1, \"result_retained\": true, \"closed_child\": true, \"retained_bytes\": 22967, \"content_slots\": 23, \"envelopes\": 3}",
+            "call_seconds": "95.873933",
+            "teardown_seconds": "0.000537"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+          "seconds": 37.224,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012119",
+            "call_seconds": "37.211348",
+            "teardown_seconds": "0.000497"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+          "seconds": 41.964,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.013598",
+            "partial_proof": "{\"fill_admissions\": 7, \"source_sends\": 1, \"delegate_sends\": 0, \"retained_bytes\": 7345467, \"content_slots\": 17, \"envelopes\": 1}",
+            "call_seconds": "41.949545",
+            "teardown_seconds": "0.00052"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+          "seconds": 37.354,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012124",
+            "call_seconds": "37.341099",
+            "teardown_seconds": "0.00055"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[goal]",
+          "seconds": 36.613,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.013034",
+            "call_seconds": "36.599308"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.4697225830022944,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 43.88780026099994,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004945999971823767,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.016179862002900336,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 52.26857068599929,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_runner_clock_control_and_partial_delegate",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005197670034249313,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012395721998473164,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 95.34386411099695,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[expiry]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005287640015012585,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012357849002000876,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 95.87393269900349,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_late_release_retains_result_and_closed_child[health]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005369999998947605,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012119372004235629,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 37.211347607997595,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_copied_token_spends_attempt_without_execution",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.00049668199790176,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01359844899707241,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 41.94954495999991,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_genuine_capacity_refusal_keeps_charges",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005199870065553114,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01212397099880036,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 37.34109943600197,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[background]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005502229978446849,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[goal]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[goal]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.013034256000537425,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_capture_refuses_unselected_arguments[goal]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 36.599307837001106,
+          "source_sha256": "5f80b9abd87650eb80469475596f765a441b1d4ec03736f27d8658581a64394e",
+          "test_sha256": "faa865a51df6b261a07dcea1fb30a1021b872ed9f7051e371a01a7eb38178316"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "final-association",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result or (test_callback_reentry and send) or test_original_execution_identity",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-association.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+        "-o",
+        "accountant_test_sha256=843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+        "tests/tools/test_native_issued_call_execution.py": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+      },
+      "seconds": 218.87342455799808,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-association.cases.jsonl",
+          "bytes": 5288,
+          "sha256": "3f78429d6660050aca281ccc6d3b90fe689877d105a7e3992d5ea3c27314ad1c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-association.failures.construction.jsonl",
+          "bytes": 653,
+          "sha256": "ab3e7ab728ef2be0202ddaa2896ba4fe8c5ff3a623b83449593404c80443c0fe"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-association.json",
+          "bytes": 1218,
+          "sha256": "6bdc1fd801d6d7736ba1c7e19ac6bf9cd89432c277b9f44d505a36917da7eb45"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-association.log",
+          "bytes": 1076,
+          "sha256": "800727d3a3d14335d0a8bf24ca883d1d6c2edcdfc8dcd42e2eb317783f5964a0"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-association.xml",
+          "bytes": 40624,
+          "sha256": "889b481793cd33de9c576ba851e32362cd4eb5ee0ce72f60d9355914fbcd4eed"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/final-association/native_main_payload.py",
+          "bytes": 388519,
+          "sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/final-association/test_native_issued_call_execution.py",
+          "bytes": 29710,
+          "sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 99.87,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.503462",
+            "call_seconds": "98.365811",
+            "teardown_seconds": "0.000588"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "seconds": 45.09,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.017468",
+            "call_seconds": "45.07207",
+            "teardown_seconds": "0.000485"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "seconds": 36.348,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.013031",
+            "call_seconds": "36.334042",
+            "teardown_seconds": "0.000551"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "seconds": 36.012,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012843",
+            "call_seconds": "35.998812"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.5034623639949132,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 98.36581119900075,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005877959993085824,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.0174677549948683,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 45.072069540001394,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004847590025747195,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.01303133799956413,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 36.33404180499929,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005509159964276478,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012843099000747316,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 35.99881194200134,
+          "source_sha256": "1a9190503f6b7f25d7c78d970e88291f37c3da1746a5e26b8decde8837c2b0ab",
+          "test_sha256": "843bcebb79235f2aedd573cd448ae5a81254f55d4b29f74506eb6153c7f81d69"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    },
+    {
+      "name": "final-callback-proof",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_execution.py",
+        "-k",
+        "test_actual_issued_call_to_constructed_leaf_result or (test_callback_reentry and send) or test_original_execution_identity",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-callback-proof.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+        "-o",
+        "accountant_test_sha256=0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+        "tests/tools/test_native_issued_call_execution.py": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+      },
+      "seconds": 240.9341393509967,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-callback-proof.cases.jsonl",
+          "bytes": 5293,
+          "sha256": "22fa727d64e861b445c05cdbd425e3497e75a3144636b45c951a2ba15f0232d8"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-callback-proof.failures.construction.jsonl",
+          "bytes": 652,
+          "sha256": "13399fc0d6d676c2acc5fab9d087af31c558e444f3ae8544188cf4266eb13520"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-callback-proof.json",
+          "bytes": 1223,
+          "sha256": "451d7100c135addda961dc86fe55d569fd201ebc2125da103fb9e5d1c19030dc"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-callback-proof.log",
+          "bytes": 1076,
+          "sha256": "3a98afadc91a14a99f4ace10c0829c6af87571a44f84777229c93d2a013effb8"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/final-callback-proof.xml",
+          "bytes": 46186,
+          "sha256": "039754aed9acef565ad8ac1af5b099d2853a423085a4ca1e4f993bffdce10611"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/final-callback-proof/native_main_payload.py",
+          "bytes": 392279,
+          "sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/scopes/final-callback-proof/test_native_issued_call_execution.py",
+          "bytes": 30758,
+          "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        }
+      ],
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "seconds": 117.01,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.553587",
+            "call_seconds": "115.456126",
+            "teardown_seconds": "0.000546"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "seconds": 46.527,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.017009",
+            "call_seconds": "46.509291",
+            "teardown_seconds": "0.0005"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "seconds": 38.111,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.014617",
+            "call_seconds": "38.095486",
+            "teardown_seconds": "0.000508"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "seconds": 37.574,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.015245",
+            "call_seconds": "37.557872"
+          }
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.5535872650070814,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 115.45612597899162,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_actual_issued_call_to_constructed_leaf_result",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005461770051624626,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.017008930997690186,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 46.509290838002926,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_callback_reentry_has_no_execution_window[send]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005002909892937168,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.014617007007473148,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 38.095485625992296,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[frame]",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005083849973743781,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.015245119997416623,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_execution.py::test_original_execution_identity_refuses_copies[method]",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 37.55787223301013,
+          "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+          "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+        }
+      ],
+      "claim": "This scope only. No fresh combined aggregate."
+    }
+  ],
+  "retries": 0,
+  "combined_current_aggregate": false,
+  "original_P10_33": {
+    "implementation_task": "task_b852ac8db51b",
+    "source_candidate": "f43f58cd91d598d3e10a7c45cc7d82e255261310",
+    "correction_task": "task_46d39ad575eb",
+    "corrected_candidate": "3654f1fdb4315404fd3953a7a47b6056572844bf",
+    "accepted_native": "693b1bcc1919cfad4419b90a1a1eaae7a3471956",
+    "focused_cases": 64,
+    "final_cases": 5,
+    "scope": "Separate historical scopes. All old bytes remain unchanged."
+  },
+  "reuse": {
+    "early_refusals": "Three feedback cases retain their old pins. They refuse before E construction.",
+    "execution_drift": "The completed focused execution-drift case retains its old pins. It refuses before E admission.",
+    "ordinary_direct_host": "The two compatibility file receipts retain their old pins. No issued owner exists.",
+    "probe": "Five completed probe XML cases retain their old pins. No issued owner exists.",
+    "settled_eleven_and_eight": "The later corrections add frame/method identity checks and pre-callback partial-proof retention. Existing original guards, bounds, data stages, route/capability checks, control objects and partial charges remain intact. Their earlier exact pins remain attached. No old scope becomes a new aggregate."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "base": "693b1bcc1919cfad4419b90a1a1eaae7a3471956",
+  "files": {
+    "agent/native_main_payload.py": {
+      "bytes": 392279,
+      "sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+      "mode": "0o664"
+    },
+    "tests/tools/test_native_issued_call_execution.py": {
+      "bytes": 30758,
+      "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e",
+      "mode": "0o664"
+    },
+    "docs/evidence/accountant-native-issued-call-execution-20261123/consumer-contract.md": {
+      "bytes": 4287,
+      "sha256": "dcb4455327a8cf4570e5a7674a04a30ef74d872eed2c19167a8de72796b7caab",
+      "mode": "0o664"
+    },
+    "docs/evidence/accountant-native-issued-call-execution-20261123/native-api.json": {
+      "bytes": 3450,
+      "sha256": "6028844c16cc175f503d34a2e1d9dded6ec4537238ae7dc70583ccd77f2fd9dd",
+      "mode": "0o664"
+    },
+    "pyproject.toml": {
+      "bytes": 34259,
+      "sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+      "mode": "0o664"
+    },
+    "uv.lock": {
+      "bytes": 724335,
+      "sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5",
+      "mode": "0o664"
+    }
+  },
+  "shared_wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "shared_engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d"
+}

@@ -1,0 +1,27 @@
+{
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35",
+  "HOME": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/home",
+  "original_HOME_read": false,
+  "PYTHONPATH_workaround": false,
+  "runner_changed": false,
+  "isolation_before_first_check": true,
+  "retries": 0,
+  "file_timeout_seconds": 700,
+  "bytecode": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/bytecode",
+  "pytest": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/pytest",
+  "durations": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/cache/test_durations.json",
+  "state": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/tmp",
+  "raw_receipts": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts",
+  "wrapper": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/python-wrapper",
+    "bytes": 284,
+    "sha256": "8222f7a1bed55d5a21fc183c4165c6c384df4a6c319ed393ada7186b616cd6b7"
+  },
+  "driver": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/python-driver.py",
+    "bytes": 793,
+    "sha256": "bf20608ad6543973577df7d7fe0b99234552db609b7220dbccd234ba2abc7525"
+  },
+  "canonical_runner": "scripts/run_tests.sh",
+  "native_functional_scope": "Source checkout with locked offline dependencies."
+}

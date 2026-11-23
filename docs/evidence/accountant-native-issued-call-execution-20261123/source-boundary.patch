@@ -1,0 +1,853 @@
+diff --git a/agent/native_main_payload.py b/agent/native_main_payload.py
+index 48b2bff395..612c90b73f 100644
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -59,0 +60 @@ _tool_call_probes = _DelegateFrames()
++_issued_call_frames = _DelegateFrames()
+@@ -217,0 +219,3 @@ def _resumption_callback(adapter, callback, *args):
++    issued = _issued_window(adapter)
++    if issued is not None:
++        return issued.callback(callback, *args)
+@@ -1111,0 +1116,3 @@ class _Admission:
++        issued = _issued_window(adapter)
++        if issued is not None:
++            return issued.current(handle)
+@@ -1132,0 +1140,3 @@ class _Transport:
++        issued = _issued_window(self.adapter)
++        if issued is not None:
++            return issued.resolve(self)
+@@ -1141,0 +1152,3 @@ class _Transport:
++        issued = _issued_window(adapter)
++        if issued is not None:
++            return issued.send(self, envelope)
+@@ -1214,0 +1228 @@ class NativeMainPayloadAdapter:
++        _issued_call_frame: object = None,
+@@ -1216,0 +1231,4 @@ class NativeMainPayloadAdapter:
++        _require(_issued_call_frame is None or (_delegation_frame is None and _memory_prompt_frame is None))
++        if _issued_call_frame is not None:
++            _require(type(_issued_call_frame) is _IssuedCallExecution)
++            _issued_call_frame.open_view(self, context)
+@@ -1314,2 +1332,2 @@ class NativeMainPayloadAdapter:
+-                           if _memory_prompt_frame is None else
+-                           _memory_prompt_frame.parent._transport_wrappers[name])
++                           if _memory_prompt_frame is None and _issued_call_frame is None else
++                           (_memory_prompt_frame or _issued_call_frame).parent._transport_wrappers[name])
+@@ -1324,0 +1343,2 @@ class NativeMainPayloadAdapter:
++            if _issued_call_frame is not None:
++                self._operator_configuration = _issued_call_frame.catalog
+@@ -1328 +1348,3 @@ class NativeMainPayloadAdapter:
+-            if _memory_prompt_frame is not None:
++            if _issued_call_frame is not None:
++                self._runtime = _issued_call_frame.runtime
++            elif _memory_prompt_frame is not None:
+@@ -1343,0 +1366,48 @@ class NativeMainPayloadAdapter:
++    def bind_issued_call_execution(
++        self, observation: NativeToolCallObservation, *,
++        execution_request: object,
++        execution_selection: NativeSelectionPort,
++        execution_producer_ref: str,
++        execution_main_route_ref: str,
++        receiver_request: object,
++        receiver_selection: NativeSelectionPort,
++        receiver_producer_ref: str,
++        child_request: object,
++        child_selection: NativeSelectionPort,
++        child_producer_ref: str,
++        delegate_route_ref: str,
++        child_main_route_ref: str,
++        child_session_id: str,
++        child_task_id: str,
++    ) -> NativeIssuedCallInput:
++        try:
++            owner = _IssuedCallExecution(self, observation, (
++                execution_request, execution_selection, execution_producer_ref, execution_main_route_ref,
++                receiver_request, receiver_selection, receiver_producer_ref,
++                child_request, child_selection, child_producer_ref, delegate_route_ref,
++                child_main_route_ref, child_session_id, child_task_id), sys._getframe())
++            return owner.bind()
++        except BaseException as error:
++            _issued_failure(self, error)
++
++    def run_issued_call_execution(
++        self, authorization: NativeIssuedCallInput,
++    ) -> NativeIssuedCallResult:
++        try:
++            owner = _issued_call_frames.get(self)
++            _issued_require(owner is not None and owner.parent is self, "binding_missing")
++            return owner.run(authorization, sys._getframe())
++        except BaseException as error:
++            _issued_failure(self, error)
++
++    @property
++    def issued_call_results(self) -> tuple[NativeIssuedCallResult, ...]:
++        owner = _issued_call_frames.get(self)
++        if owner is None:
++            return ()
++        _issued_require(type(owner.result_anchors) is tuple and len(owner.result_anchors) <= 1, "records_changed")
++        for result, anchor in owner.result_anchors:
++            _issued_require(_same_anchors(_row(result, NativeIssuedCallResult), anchor)
++                            and result.binding is owner.registered_binding, "result_changed")
++        return tuple(result for result, _ in owner.result_anchors)
++
+@@ -1430,0 +1501,5 @@ class NativeMainPayloadAdapter:
++        issued = _issued_window(self)
++        issued_scope = False
++        if issued is not None:
++            issued.access()
++            issued_scope = self is issued.parent and issued.source_active()
+@@ -1450 +1525,2 @@ class NativeMainPayloadAdapter:
+-        if self._constructed is not None and not (memory is not None and memory.closed):
++        if self._constructed is not None and not (memory is not None and memory.closed) and not (
++                issued_scope and issued.source_owner.closed):
+@@ -1467,0 +1544,2 @@ class NativeMainPayloadAdapter:
++                if issued is not None and self is issued.adapter:
++                    wrapper_owner = issued.parent
+@@ -1498 +1576 @@ class NativeMainPayloadAdapter:
+-        if self._agent is not None and not (delegate_scope or probe_scope):
++        if self._agent is not None and not (delegate_scope or probe_scope or issued_scope):
+@@ -1500 +1578 @@ class NativeMainPayloadAdapter:
+-        if self._turn_agent is not None and not (delegate_scope or probe_scope):
++        if self._turn_agent is not None and not (delegate_scope or probe_scope or issued_scope):
+@@ -3063,0 +3142,3 @@ class NativeMainPayloadAdapter:
++        issued = _issued_window(self)
++        if issued is not None:
++            return issued.around(callback)
+@@ -3077,0 +3159,4 @@ class NativeMainPayloadAdapter:
++            issued = _issued_call_frames.get(self)
++            if issued is not None and self is issued.adapter:
++                issued.scope_access()
++                return
+@@ -5553,0 +5639,3 @@ class _DelegateFrame:
++            issued = _issued_window(self.parent)
++            if issued is not None:
++                return issued.delegate_call(self, callback, *args)
+@@ -5573,0 +5662,3 @@ class _DelegateFrame:
++        issued = _issued_window(self.parent)
++        if issued is not None:
++            return issued.delegate_checkpoint(self)
+@@ -5639 +5730,3 @@ class _DelegateFrame:
+-            result = self.parent._admission.current(valid)
++            issued = _issued_window(self.parent)
++            result = (self.parent._admission.current(valid) if issued is None else
++                      issued.callback(self.parent._admission.current, valid))
+@@ -5714 +5807,3 @@ class _DelegateFrame:
+-        raw_content = self.stage(raw, ())
++        issued = _issued_window(self.parent)
++        raw_content = (self.stage(raw, ()) if issued is None else
++                       issued.capture(self, raw, self.arguments))
+@@ -5757 +5852,3 @@ class _DelegateFrame:
+-            output = wrapper.port.send(envelope)
++            issued = _issued_window(self.parent)
++            output = (wrapper.port.send(envelope) if issued is None else
++                      issued.callback(wrapper.port.send, envelope))
+@@ -6069 +6166,2 @@ def _controlled_delegate_runner(arguments):
+-    start = frame.parent._clock()
++    issued = _issued_window(frame.parent)
++    start = frame.parent._clock() if issued is None else frame.call(frame.parent._clock)
+@@ -6074 +6172 @@ def _controlled_delegate_runner(arguments):
+-    end = frame.parent._clock()
++    end = frame.parent._clock() if issued is None else frame.call(frame.parent._clock)
+@@ -6312,0 +6411,7 @@ class _ToolCallProbe:
++        issued = _issued_window(p)
++        if issued is not None:
++            issued.access()
++            if issued.source_active():
++                _probe_require(self.phase == "released" and self.attempted and self.run_frame is None,
++                               "source_window_invalid")
++                return
+@@ -6709,0 +6815,695 @@ _TOOL_PROBE_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__co
++
++
++class NativeIssuedCallInput:
++    __slots__ = ()
++
++    def __new__(cls):
++        raise TypeError("Issued-call tokens require operator admission")
++
++
++@dataclass(frozen=True, slots=True)
++class NativeIssuedCallBinding:
++    token: NativeIssuedCallInput
++    source_adapter: object
++    observation: NativeToolCallObservation
++    execution_request: object
++    selection: NativeMainSelection
++    producer_policy: NativeResultPolicy
++    agent: object
++    adapter: object
++    delegation_binding: NativeDelegateBinding
++    authorization_bytes: bytes
++    authorization_content: object
++    issued_bytes: bytes
++    issued_content: object
++    anchors: tuple
++    thread: int
++
++
++@dataclass(frozen=True, slots=True)
++class NativeIssuedCallResult:
++    binding: NativeIssuedCallBinding
++    observation: NativeToolCallObservation
++    invocation: NativeDelegateInvocation
++    return_facts: object
++    closed_child_proof: tuple
++    aggregate: str
++    result_bytes: bytes
++    result_content: object
++
++
++def _issued_require(condition, reason):
++    if not condition:
++        raise NativeContentPolicyDenied("controlled_native_issued_call_" + reason)
++
++
++def _issued_window(adapter):
++    owner = _issued_call_frames.get(adapter)
++    if owner is None:
++        frame = getattr(adapter, "_delegate_parent_frame", None)
++        owner = _issued_call_frames.get(frame.parent) if type(frame) is _DelegateFrame else None
++    return owner if owner is not None and (owner.active_call is not None or adapter is not owner.parent) else None
++
++
++def _issued_failure(source, error):
++    owner = _issued_call_frames.get(source)
++    if owner is not None:
++        owner.phase = owner.phase_anchor = "denied"
++        owner.active_call = owner.call_anchor = None
++        if owner.adapter is not None:
++            owner.adapter._invalidate()
++        if owner.control_exception is not None:
++            raise owner.control_exception
++    if not isinstance(error, Exception) or isinstance(error, InterruptedError):
++        raise error
++    if type(error) is NativeContentPolicyDenied:
++        raise error
++    if type(error) is shared_policy().PolicyError and error.args == ("capacity_exhausted",):
++        raise NativeContentPolicyDenied("controlled_native_issued_call_capacity_denied") from None
++    raise NativeContentPolicyDenied("controlled_native_issued_call_authority_denied") from None
++
++
++def _validate_issued_call_source(
++    source: NativeMainPayloadAdapter,
++    observation: NativeToolCallObservation,
++    view: _IssuedCallExecution,
++) -> None:
++    view.access()
++    _issued_require(source is view.parent and observation is view.observation
++                    and view.source_frame is None, "source_invalid")
++    view.source_frame = sys._getframe()
++    try:
++        probe = view.source_owner
++        _issued_require(_tool_call_probes.get(source) is probe and source._tool_probe_owner is probe,
++                        "source_owner_changed")
++        _issued_require(probe.phase == "released" and probe.attempted is True
++                        and probe.active_call is probe.run_frame is probe.bind_frame is None,
++                        "source_not_released")
++        _issued_require(type(observation) is NativeToolCallObservation and len(probe.records) == 1
++                        and probe.records[0] is observation and probe.record_anchors[0][0] is observation,
++                        "observation_invalid")
++        _issued_require(observation.binding is probe.binding is probe.registered_binding
++                        and source._constructed is probe.constructed
++                        and source._send_count == 1 and not source._busy, "source_changed")
++        probe.verify()
++        _issued_require(observation.observation_content is probe.observation_content
++                        and observation.observation_bytes is probe.observation_bytes
++                        and observation.response_content is probe.response_content
++                        and observation.response_bytes is probe.response_bytes
++                        and observation.envelope is probe.envelope, "source_content_changed")
++        call = json.loads(observation.observation_bytes)["call"]
++        _issued_require(call == view.call_value and call["id"] == observation.call_id
++                        and call["function"]["name"] == observation.function_name == "delegate_task"
++                        and call["function"]["arguments"] == observation.arguments_json, "call_changed")
++    finally:
++        view.source_frame = None
++
++
++class _IssuedCallExecution:
++    """Own one issued call and its original delegated result."""
++
++    def __init__(self, source, observation, options, public):
++        _issued_require(type(source) is NativeMainPayloadAdapter and source in _adapters, "source_invalid")
++        _issued_require(source not in _issued_call_frames and not hasattr(source, "_issued_call_owner"), "attempt_spent")
++        self.parent, self.observation, self.options = source, observation, options
++        self.source_owner = _tool_call_probes.get(source)
++        self.runtime, self.thread = source._runtime, source._thread
++        self.catalog, self.catalog_anchors = source._operator_configuration, _nested_anchors(source._operator_configuration)
++        self.public = public
++        self.entry = self.stage_frame = self.stage_anchor = self.source_frame = None
++        self.active_call = self.call_anchor = object()
++        self.depth = self.stage_index = 0
++        self.phase = self.phase_anchor = "binding"
++        self.adapter = self.agent = self.context = self.frame = None
++        self.registered_frame = None
++        self.binding = self.registered_binding = self.binding_anchor = None
++        self.token = object.__new__(NativeIssuedCallInput)
++        self.registered_token = self.token
++        self.result_anchors = ()
++        self.initial = self.originals = None
++        self.authorization_bytes = self.authorization_content = self.issued_bytes = self.issued_content = None
++        self.result_bytes = self.result_content = self.aggregate = None
++        self.control_exception = None
++        self.partial_responses = self.partial_response_anchors = ()
++        self.partial_operations = self.partial_operation_anchors = ()
++        self.execution_methods = self.execution_method_anchor = ()
++        self.attempted = self.checking = False
++        self.methods = ()
++        source._issued_call_owner = self
++        _issued_require(len(_issued_call_frames) < 128, "capacity_denied")
++        _issued_call_frames[source] = self
++        _issued_require(current_context() is source._bound_context and self.source_owner is not None, "source_scope_invalid")
++        _issued_require(type(observation) is NativeToolCallObservation, "observation_invalid")
++        for index in (2, 3, 6, 9, 10, 11, 12, 13):
++            _identifier(options[index])
++        self.option_anchors = _nested_anchors(options)
++        self.call_value = json.loads(observation.observation_bytes)["call"]
++        self.call_bytes = _json(self.call_value)
++        self.decoded = _tool_probe_arguments(observation.arguments_json)
++        _issued_require(bool(self.decoded["goal"].strip()), "goal_invalid")
++        self.decoded_anchors = _nested_anchors(self.decoded)
++        self.capabilities = (source._handle, options[0], options[4], options[7])
++        _issued_require(len({id(h) for h in self.capabilities}) == 4, "capabilities_invalid")
++        self.selections = (source._selection_port, options[1], options[5], options[8])
++        self.producers = (source._producer_ref, options[2], options[6], options[9])
++        refs = (source._route_ref, options[3], options[10], options[11])
++        self.routes = tuple(next((r for r in self.catalog[0] if r.route_ref == ref), None) for ref in refs)
++        _issued_require(all(r is not None for r in self.routes)
++                        and tuple(r.path for r in self.routes) == ("main", "main", "delegate", "main"), "routes_invalid")
++        self.receiver_port = source._operator_transports[self.routes[2].destination.transport_ref]
++        from run_agent import AIAgent
++        from tools import delegate_tool
++        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
++            *((port, "current") for port in self.selections), (source._admission, "current"),
++            (source._result_port, "current"), (source, "_clock"),
++            *((port, name) for _, port in self.catalog[2] for name in ("resolve", "send")),
++            *((self.runtime, name) for name in ("admit", "derive", "derive_for_selection", "dispatch",
++                "accept", "return_from_delegate", "_check_operator", "_content")),
++            (AIAgent, "__init__"),
++            *((delegate_tool, name) for name in ("delegate_task", "_build_child_agent", "_run_single_child",
++                "_build_child_system_prompt", "_normalize_role")),
++            *((self, name) for name in ("access", "verify", "checkpoint", "callback", "source_active",
++                "window", "bind", "run", "current", "around", "resolve", "send", "open_view",
++                "capture", "check_arguments", "delegate_call", "delegate_checkpoint", "scope_access"))))
++        self.methods_anchor = self.methods
++        self.method_codes = tuple((method[-1], method[-1].__code__) for _, _, method in self.methods
++                                  if hasattr(method[-1], "__code__"))
++
++    def access(self):
++        _issued_require(self.depth == 0 and threading.get_ident() == self.thread, "reentry_or_thread")
++        _issued_require(_issued_call_frames.get(self.parent) is self and self.parent._issued_call_owner is self,
++                        "owner_changed")
++        _issued_require(self.phase is self.phase_anchor and self.phase in ("binding", "bound", "running", "released"),
++                        "owner_denied")
++        _issued_require(self.active_call is self.call_anchor and self.active_call is not None
++                        and self.entry is not None, "window_missing")
++        _issued_require(self.entry.f_locals.get("self") is self and self.entry.f_back is self.public, "frame_changed")
++        bind = self.entry.f_code is _IssuedCallExecution.bind.__code__
++        _issued_require(bind or self.entry.f_code is _IssuedCallExecution.run.__code__, "frame_invalid")
++        _issued_require(self.public.f_code is (NativeMainPayloadAdapter.bind_issued_call_execution.__code__ if bind
++                        else NativeMainPayloadAdapter.run_issued_call_execution.__code__)
++                        and self.public.f_locals.get("self") is self.parent, "public_frame_invalid")
++        if bind:
++            _issued_require(self.public.f_locals.get("observation") is self.observation, "observation_changed")
++            names = ("execution_request", "execution_selection", "execution_producer_ref", "execution_main_route_ref",
++                "receiver_request", "receiver_selection", "receiver_producer_ref", "child_request", "child_selection",
++                "child_producer_ref", "delegate_route_ref", "child_main_route_ref", "child_session_id", "child_task_id")
++            _issued_require(_same_anchors(tuple(self.public.f_locals.get(n) for n in names), self.options), "options_changed")
++        else:
++            _issued_require(self.public.f_locals.get("authorization") is self.token
++                            and self.entry.f_locals.get("authorization") is self.token, "token_invalid")
++        current = sys._getframe()
++        frames = []
++        while current is not None and current is not self.entry:
++            frames.append(current)
++            current = current.f_back
++        _issued_require(current is self.entry, "frame_missing")
++        if self.stage_frame is not None:
++            _issued_require(self.stage_frame is self.stage_anchor
++                            and (self.stage_frame is self.entry or self.stage_frame in frames), "stage_missing")
++        frame = self.frame or (_delegate_frames.get(self.adapter) if self.adapter is not None else None)
++        child = frame.child_context if frame is not None else None
++        _issued_require(any(current_context() is c for c in (self.parent._bound_context, self.context, child, None)),
++                        "scope_invalid")
++
++    def source_active(self):
++        self.access()
++        if self.source_frame is None:
++            return False
++        frame = self.source_frame
++        _issued_require(frame.f_code is _validate_issued_call_source.__code__
++                        and frame.f_locals.get("view") is self and frame.f_locals.get("source") is self.parent
++                        and frame.f_locals.get("observation") is self.observation, "source_frame_invalid")
++        current = sys._getframe()
++        while current is not None and current is not frame:
++            current = current.f_back
++        _issued_require(current is frame and self.stage_frame is not None, "source_window_missing")
++        return True
++
++    def verify(self):
++        self.access()
++        for obj, name, function, code in _ISSUED_CALL_CODE:
++            _issued_require(getattr(obj, name, None) is function and function.__code__ is code, "original_code_changed")
++        _issued_require(self.parent._runtime is self.parent._captured_runtime is self.runtime
++                        and self.parent._operator_configuration is self.catalog, "runtime_changed")
++        _issued_require(_same_anchors(_nested_anchors(self.catalog), self.catalog_anchors)
++                        and _same_anchors(_nested_anchors(self.options), self.option_anchors)
++                        and _same_anchors(_nested_anchors(self.decoded), self.decoded_anchors)
++                        and _json(self.call_value) == self.call_bytes, "facts_changed")
++        _issued_require(self.methods is self.methods_anchor, "methods_changed")
++        _issued_require(self.token is self.registered_token, "token_changed")
++        for obj, name, original in self.methods:
++            _issued_require(_same_method(getattr(obj, name, None), original), "method_changed")
++        for function, code in self.method_codes:
++            _issued_require(function.__code__ is code, "method_code_changed")
++        _issued_require(type(self.partial_responses) is tuple and len(self.partial_responses) <= 2
++                        and _same_anchors(_nested_anchors(self.partial_responses)[1:], self.partial_response_anchors),
++                        "partial_response_changed")
++        _issued_require(type(self.partial_operations) is tuple
++                        and len(self.partial_operations) == len(self.partial_responses)
++                        and _same_anchors(_nested_anchors(self.partial_operations)[1:], self.partial_operation_anchors),
++                        "partial_operation_changed")
++        if self.adapter is not None and hasattr(self.adapter, "_captured"):
++            a = self.adapter
++            _issued_require(type(a) is NativeMainPayloadAdapter and _issued_call_frames.get(a) is self and a._issued_call_frame is self
++                            and not a._invalid and not a._bound_context._denied
++                            and a._bound_context is self.context and a._handle is self.options[0], "execution_changed")
++            if hasattr(a, "_runtime"):
++                _issued_require(a._runtime is a._captured_runtime is self.runtime, "runtime_changed")
++            _issued_require(self.execution_methods is self.execution_method_anchor, "execution_methods_changed")
++            for obj, name, original, code in self.execution_methods:
++                _issued_require(obj is a and _same_method(getattr(a, name), original)
++                                and original[-1].__code__ is code, "execution_method_changed")
++        if self.registered_frame is not None:
++            _issued_require(self.frame is self.registered_frame is _delegate_frames.get(self.adapter)
++                            and self.adapter._delegate_frame is self.frame, "delegate_owner_changed")
++            for name in _ISSUED_FRAME_METHODS:
++                _issued_require(_same_method(getattr(self.frame, name), (self.frame, getattr(_DelegateFrame, name))),
++                                "delegate_method_changed")
++            child = self.frame.child_adapter
++            if child is not None:
++                _issued_require(type(child) is NativeMainPayloadAdapter, "child_adapter_changed")
++                for name in _ISSUED_ADAPTER_METHODS:
++                    _issued_require(_same_method(getattr(child, name), (child, getattr(NativeMainPayloadAdapter, name))),
++                                    "child_method_changed")
++        if self.binding is not None:
++            _issued_require(self.binding is self.registered_binding
++                            and _same_anchors(_row(self.binding, NativeIssuedCallBinding), self.binding_anchor)
++                            and self.frame is self.binding.anchors[-1]
++                            and self.frame.binding is self.binding.anchors[-2] is self.binding.delegation_binding
++                            and self.execution_methods is self.binding.anchors[-3], "binding_changed")
++        for result, anchor in self.result_anchors:
++            _issued_require(_same_anchors(_row(result, NativeIssuedCallResult), anchor), "result_changed")
++
++    def callback(self, callback, *args):
++        self.verify()
++        _issued_require(any(_same_method(callback, method) for _, _, method in self.methods), "callback_invalid")
++        self.runtime._check_operator()
++        response_slot = None
++        frame = self.registered_frame
++        if (frame is not None and len(args) == 1 and frame.partial_sends
++                and args[0] is frame.partial_sends[-1][1]
++                and any(_same_method(callback, _method(port.send)) for _, port in self.catalog[2])):
++            caller = sys._getframe(1)
++            _issued_require(caller.f_code is _DelegateFrame.send.__code__ and caller.f_locals.get("self") is frame
++                            and caller.f_locals.get("envelope") is args[0] and self.stage_index == 4
++                            and self.phase == "running" and frame.running, "send_callback_window_invalid")
++            _issued_require(len(self.partial_operations) < 2
++                            and len(frame.partial_sends) == len(self.partial_operations) + 1,
++                            "partial_capacity_denied")
++            adapter, envelope, operation = frame.partial_sends[-1]
++            pending = adapter._pending
++            _issued_require(type(operation) is _PendingOperation
++                            and adapter._operation is adapter._checked_operation is operation
++                            and type(pending) is tuple and pending[0] is envelope,
++                            "partial_operation_changed")
++            response_slot = len(self.partial_operations), adapter, envelope, operation, pending
++            self.partial_operations += ((frame, adapter, envelope, operation, pending),)
++            self.partial_operation_anchors = _nested_anchors(self.partial_operations)[1:]
++            self.partial_responses += ((adapter, envelope, None),)
++            self.partial_response_anchors = _nested_anchors(self.partial_responses)[1:]
++        self.depth += 1
++        try:
++            output = callback(*args)
++            if response_slot is not None:
++                index, adapter, envelope, operation, pending = response_slot
++                self.partial_responses = (*self.partial_responses[:index], (adapter, envelope, output))
++                self.partial_response_anchors = _nested_anchors(self.partial_responses)[1:]
++                _issued_require(adapter._pending is pending and adapter._operation is adapter._checked_operation is operation,
++                                "partial_operation_changed")
++            return output
++        except BaseException as error:
++            import asyncio
++            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
++                if self.control_exception is None:
++                    self.control_exception = error
++            raise
++        finally:
++            self.depth -= 1
++            if self.control_exception is None:
++                self.runtime._check_operator()
++                self.verify()
++
++    def checkpoint(self):
++        self.verify()
++        _issued_require(not self.checking, "checkpoint_reentry")
++        self.checking = True
++        try:
++            _validate_issued_call_source(self.parent, self.observation, self)
++            for _ in range(2):
++                facts, originals = [], []
++                for handle, selection, producer_ref in zip(self.capabilities, self.selections, self.producers):
++                    source = self.callback(self.parent._admission.current, handle)
++                    selected = self.callback(selection.current, handle)
++                    producer = self.callback(self.parent._result_port.current, producer_ref)
++                    row = _binding(source), _selection(selected), _producer(producer)
++                    _issued_require(row[1][:2] == row[0][6:8] and row[1][3][1] == "synthetic_native"
++                                    and row[2][0] == producer_ref, "authority_invalid")
++                    facts.append(row)
++                    originals.append((source, selected, producer))
++                facts, originals = tuple(facts), tuple(originals)
++                p, e, r, m = (f[0] for f in facts)
++                _issued_require(p[:6] == e[:6] and e[0] == r[0] and e[2] == r[2]
++                                and e[4:6] == r[4:6] and e[1] != r[1] and e[3] != r[3]
++                                and r[:6] == m[:6] and m[1] == self.options[13], "holders_invalid")
++                _issued_require(originals[0][1] is self.source_owner.selection
++                                and originals[0][2] is self.source_owner.producer
++                                and facts[0][0][:8] == self.source_owner.initial[0][:8]
++                                and facts[0][1:] == self.source_owner.initial[1:], "source_authority_changed")
++                if self.initial is None:
++                    self.initial, self.originals = facts, originals
++                    self.initial_anchors = _nested_anchors((facts, originals))[1:]
++                    self.profile_union = tuple(sorted({p for f in facts for p in (*f[0][8], *f[2][2])}
++                        | set(self.source_owner.original_profiles)))
++                _issued_require(_same_anchors(_nested_anchors((self.initial, self.originals))[1:], self.initial_anchors),
++                                "initial_changed")
++                for index, (actual, original) in enumerate(zip(facts, self.initial)):
++                    _issued_require(actual[0][:8] == original[0][:8] and set(actual[0][8]) <= set(original[0][8])
++                                    and actual[1:] == original[1:]
++                                    and originals[index][1] is self.originals[index][1]
++                                    and originals[index][2] is self.originals[index][2]
++                                    and set(actual[2][2]) <= set(self.profile_union), "authority_changed")
++                port = _binding(self.callback(self.parent._admission.current, self.receiver_port))
++                _issued_require(port[:8] == self.initial[2][0][:8]
++                                and set(port[8]) <= set(self.initial[2][0][8]), "receiver_port_changed")
++                now = self.callback(self.parent._clock)
++                _integer(now, minimum=0)
++                allowed = {route.route_ref for route in self.catalog[0]}
++                for profile in self.catalog[1]:
++                    if profile.profile_ref in self.profile_union:
++                        allowed.intersection_update(profile.allowed_routes)
++                for i, route in enumerate(self.routes):
++                    _route_facts(route)
++                    _issued_require(now < route.expires_at and route.route_ref in allowed, "selected_expired_or_denied")
++                    holder = self.initial[i][0]
++                    _issued_require((route.consumer_ref, route.selection_id, route.selection_version)
++                                    == (holder[3], holder[6], holder[7]), "selected_holder_invalid")
++                    if i != 2:
++                        _issued_require(self.originals[i][1].destination is route.destination, "selected_destination_changed")
++                for row in self.initial:
++                    for path in shared_policy().PATHS:
++                        _issued_require(any(route.route_ref in allowed and route.path == path
++                            and (route.consumer_ref, route.selection_id, route.selection_version)
++                            == (row[0][3], row[0][6], row[0][7]) and now < route.expires_at
++                            for route in self.catalog[0]), "coverage_missing")
++                for route in self.catalog[0]:
++                    actual = self.callback(self.parent._operator_transports[route.destination.transport_ref].resolve)
++                    _issued_require(actual is route.destination, "destination_changed")
++                frame = self.frame or (_delegate_frames.get(self.adapter) if self.adapter is not None else None)
++                for agent in (self.source_owner.agent, self.agent, frame.child if frame is not None else None):
++                    if agent is not None:
++                        flag = _namespace(agent).get("_interrupt_requested")
++                        _issued_require(type(flag) is bool, "control_invalid")
++                        if flag:
++                            raise InterruptedError("Agent interrupted during issued-call execution")
++                for handle, payload, parents in (
++                    (self.authorization_content, self.authorization_bytes, ()),
++                    (self.issued_content, self.issued_bytes,
++                     (self.observation.observation_content, self.authorization_content)),
++                    (self.result_content, self.result_bytes,
++                     (self.issued_content, frame.record.return_facts.returned_content)
++                     if frame is not None and frame.record is not None and frame.record.return_facts is not None else ()),
++                ):
++                    if handle is not None:
++                        content = self.runtime._content(handle)
++                        _issued_require(content.payload is payload and _same_anchors(content.parents, parents)
++                                        and set(self.profile_union) <= set(content.profiles), "content_changed")
++                self.runtime._check_operator()
++                self.verify()
++        finally:
++            self.checking = False
++
++    @contextmanager
++    def window(self):
++        self.access()
++        _issued_require(self.stage_frame is None and self.stage_index < 8, "capacity_denied")
++        self.stage_index += 1
++        self.stage_frame = self.stage_anchor = self.entry
++        try:
++            self.checkpoint()
++            yield
++            self.checkpoint()
++        finally:
++            self.stage_frame = self.stage_anchor = None
++
++    def current(self, handle):
++        self.verify()
++        valid = next((h for h in self.capabilities if handle is h), None)
++        if valid is None:
++            wrapper = next((w for _, w in self.catalog[3] if handle is w), None)
++            _issued_require(wrapper is not None and wrapper.port is self.receiver_port, "capability_invalid")
++            valid = self.receiver_port
++        refresh = self.stage_index == 4 and self.frame is not None
++        if refresh:
++            _issued_require(_same_method(self.adapter._checkpoint,
++                            (self.adapter, NativeMainPayloadAdapter._checkpoint)), "checkpoint_method_changed")
++            self.adapter._checkpoint()
++        result = self.callback(self.parent._admission.current, valid)
++        if refresh:
++            self.adapter._checkpoint()
++        return result
++
++    def around(self, callback):
++        self.access()
++        _issued_require(_same_method(callback, _method(self.parent._clock)), "clock_invalid")
++        self.checkpoint()
++        output = self.callback(callback)
++        self.checkpoint()
++        return output
++
++    def resolve(self, wrapper):
++        self.verify()
++        _issued_require(any(wrapper is w for _, w in self.catalog[3]), "wrapper_invalid")
++        actual = self.callback(wrapper.port.resolve)
++        _destination(actual)
++        return actual
++
++    def send(self, wrapper, envelope):
++        self.access()
++        frame = self.frame
++        _issued_require(frame is not None and frame is _delegate_frames.get(self.adapter)
++                        and frame.running and self.phase == "running" and self.stage_index == 4,
++                        "send_window_invalid")
++        return frame.send(wrapper, envelope)
++
++    def open_view(self, adapter, context):
++        self.access()
++        _issued_require(self.phase == "binding" and self.stage_index == 2 and self.adapter is None
++                        and current_context() is None and context is self.context, "constructor_window_invalid")
++        _issued_require(context.admission is self.parent._admission and context.request_handle is self.options[0],
++                        "constructor_context_invalid")
++        self.adapter = adapter
++        adapter._issued_call_frame = self
++        _issued_call_frames[adapter] = self
++        self.execution_methods = tuple((adapter, name, _method(getattr(adapter, name)),
++                                        getattr(adapter, name).__func__.__code__)
++            for name in _ISSUED_ADAPTER_METHODS)
++        self.execution_method_anchor = self.execution_methods
++
++    def delegate_call(self, frame, callback, *args):
++        self.access()
++        _issued_require(frame is _delegate_frames.get(self.adapter) or (
++            self.phase == "binding" and self.stage_index == 2 and frame.parent is self.adapter
++            and not hasattr(self.adapter, "_delegate_frame")), "delegate_frame_invalid")
++        if _same_method(callback, (self.adapter, NativeMainPayloadAdapter._checkpoint)):
++            caller = sys._getframe(2)
++            _issued_require(caller.f_code is _DelegateFrame.current.__code__
++                            and caller.f_locals.get("self") is frame and not args, "internal_checkpoint_invalid")
++            return self.adapter._checkpoint()
++        return self.callback(callback, *args)
++
++    def delegate_checkpoint(self, frame):
++        self.access()
++        _issued_require(frame is _delegate_frames.get(self.adapter) and frame.parent is self.adapter,
++                        "delegate_frame_invalid")
++        caller = sys._getframe(1)
++        _issued_require(caller.f_code is _DelegateFrame.checkpoint.__code__
++                        and caller.f_locals.get("self") is frame, "checkpoint_frame_invalid")
++        _issued_require(not frame.checking, "checkpoint_reentry")
++        frame.checking = True
++        try:
++            self.checkpoint()
++            _issued_require(frame.runtime is self.runtime and frame.agent is self.agent
++                            and frame.binding.parent_request is self.options[0]
++                            and frame.binding.receiver_request is self.options[4]
++                            and frame.binding.child_request is self.options[7]
++                            and frame.binding.delegate_route is self.routes[2]
++                            and frame.binding.child_main_route is self.routes[3], "delegation_changed")
++            for actual, original in zip(frame.initial, self.initial[1:]):
++                _issued_require(actual[0][:8] == original[0][:8] and actual[1:] == original[1:]
++                                and set(actual[0][8]) <= set(original[0][8]), "delegation_authority_changed")
++            if frame.record is not None:
++                self.check_arguments(frame.arguments)
++                _issued_require(self.runtime._content(frame.record.raw_content).parents == (self.issued_content,),
++                                "raw_parent_changed")
++        except BaseException as error:
++            _remember_delegate_control(frame, error)
++            raise
++        finally:
++            frame.checking = False
++        _DelegateFrame.verify(frame)
++        _issued_require(_delegate_frames.get(self.adapter) is frame and self.adapter._delegate_frame is frame,
++                        "delegate_owner_changed")
++        for name in _ISSUED_FRAME_METHODS:
++            _issued_require(_same_method(getattr(frame, name), (frame, getattr(_DelegateFrame, name))),
++                            "delegate_method_changed")
++
++    def check_arguments(self, arguments):
++        self.access()
++        rows, positional, keywords = arguments
++        names = ("goal", "context", "role", "parent_agent")
++        _issued_require(type(positional) is tuple and not positional
++                        and tuple(name for name, _ in keywords) == names, "arguments_presence_invalid")
++        _issued_require(len(rows) == 12 and all(type(present) is bool and present is (name in names)
++                        for name, present, _ in rows), "arguments_presence_invalid")
++        _issued_require(tuple(name for name, _, _ in rows) == (
++            "goal", "context", "tasks", "max_iterations", "role", "background", "output_schema", "action",
++            "subagent_id", "message", "parent_agent", "credentials_cfg"), "argument_rows_changed")
++        values = dict(goal=self.decoded["goal"], context=self.decoded["context"], role=self.decoded["role"],
++                      parent_agent=self.agent)
++        _issued_require(all(value is values[name] for name, value in keywords)
++                        and all(value is values.get(name) for name, _, value in rows), "arguments_changed")
++        _issued_require(self.observation.arguments_json == _json(self.decoded).decode("ascii")
++                        and self.observation.call_id == self.call_value["id"]
++                        and self.observation.function_name == self.call_value["function"]["name"] == "delegate_task",
++                        "call_changed")
++
++    def capture(self, frame, raw, arguments):
++        self.access()
++        _issued_require(frame is self.frame is _delegate_frames.get(self.adapter) and self.phase == "running"
++                        and self.stage_index == 4 and current_context() is self.context, "capture_window_invalid")
++        self.check_arguments(arguments)
++        _issued_require(len(frame.inputs) < 8, "capacity_denied")
++        content = self.runtime.derive(self.options[0], (self.issued_content,), raw, path="delegate")
++        frame.inputs += ((raw, content),)
++        return content
++
++    def scope_access(self):
++        if self.active_call is not None:
++            self.access()
++            self.checkpoint()
++            return
++        _issued_require(self.phase == self.phase_anchor == "released" and self.depth == 0
++                        and threading.get_ident() == self.thread and self.result_anchors
++                        and current_context() in (None, self.parent._bound_context, self.context), "terminal_scope_invalid")
++        result, anchor = self.result_anchors[0]
++        _issued_require(_same_anchors(_row(result, NativeIssuedCallResult), anchor)
++                        and self.frame.phase == "released" and self.frame.terminal
++                        and not self.frame.running and self.frame.child_adapter._constructed.closed,
++                        "terminal_proof_changed")
++
++    def bind(self):
++        self.entry = sys._getframe()
++        from agent.content_policy import content_policy_scope
++        from run_agent import AIAgent
++        try:
++            with self.window():
++                rows = self.initial
++                value = dict(call=self.call_value,
++                    execution=dict(holder=rows[1][0], selection=rows[1][1], producer_policy=rows[1][2],
++                                   main_route_ref=self.options[3]),
++                    receiver=dict(holder=rows[2][0], selection=rows[2][1], producer_policy=rows[2][2],
++                                  delegate_route_ref=self.options[10]),
++                    child=dict(holder=rows[3][0], selection=rows[3][1], producer_policy=rows[3][2],
++                               main_route_ref=self.options[11], session_id=self.options[12], task_id=self.options[13]))
++                self.authorization_bytes = _json(value)
++                _issued_require(len(self.authorization_bytes) <= _MAX_NATIVE_RESULT, "capacity_denied")
++                self.authorization_content = self.runtime.admit(self.options[0], self.authorization_bytes)
++                self.issued_bytes = _json(dict(authorization=value, observation=json.loads(self.observation.observation_bytes)))
++                _issued_require(len(self.issued_bytes) <= _MAX_NATIVE_RESULT, "capacity_denied")
++                self.issued_content = self.runtime.derive_for_selection(self.options[0],
++                    (self.observation.observation_content, self.authorization_content), self.issued_bytes,
++                    path="delegate", parent_requests=(self.parent._handle, self.options[0]))
++            with self.window():
++                with content_policy_scope(None):
++                    self.context = NativeContentContext(self.parent._admission, self.options[0])
++                    routes, profiles, transports, _ = self.catalog
++                    a = NativeMainPayloadAdapter(self.context, selection=self.options[1],
++                        result_policy=self.parent._result_port, producer_ref=self.options[2], main_route_ref=self.options[3],
++                        profiles=profiles, routes=routes, transports=transports, clock=self.parent._clock,
++                        _issued_call_frame=self)
++                    with content_policy_scope(self.context):
++                        self.agent = AIAgent(controlled_main=a, provider="synthetic_native", api_mode="chat_completions",
++                            model=self.originals[1][1].destination.model_ref, session_id=self.options[12],
++                            enabled_toolsets=[], quiet_mode=True, skip_memory=True, skip_context_files=True,
++                            skip_background_review=True)
++                        a.bind_delegation(self.agent, receiver_request=self.options[4], receiver_selection=self.options[5],
++                            receiver_producer_ref=self.options[6], child_request=self.options[7], child_selection=self.options[8],
++                            child_producer_ref=self.options[9], delegate_route_ref=self.options[10],
++                            child_main_route_ref=self.options[11], child_session_id=self.options[12], child_task_id=self.options[13])
++                        self.frame = _delegate_frames[a]
++                        self.registered_frame = self.frame
++                self.binding = NativeIssuedCallBinding(self.token, self.parent, self.observation, self.options[0],
++                    self.originals[1][1], self.originals[1][2], self.agent, a, self.frame.binding,
++                    self.authorization_bytes, self.authorization_content, self.issued_bytes, self.issued_content,
++                    (self.option_anchors, self.catalog_anchors, self.methods, self.initial_anchors,
++                     self.execution_methods, self.registered_frame.binding, self.registered_frame), self.thread)
++                self.registered_binding = self.binding
++                self.binding_anchor = _row(self.binding, NativeIssuedCallBinding)
++                self.phase = self.phase_anchor = "bound"
++            return self.token
++        finally:
++            self.active_call = self.call_anchor = self.entry = self.public = None
++
++    def run(self, authorization, public):
++        _issued_require(self.phase == self.phase_anchor == "bound" and not self.attempted
++                        and type(authorization) is NativeIssuedCallInput and authorization is self.token
++                        and current_context() is self.parent._bound_context, "attempt_invalid")
++        self.attempted = True
++        self.entry, self.public = sys._getframe(), public
++        self.active_call = self.call_anchor = object()
++        self.phase = self.phase_anchor = "running"
++        from agent.content_policy import content_policy_scope
++        from tools.delegate_tool import delegate_task
++        try:
++            with self.window():
++                self.frame.checkpoint()
++            with self.window():
++                with content_policy_scope(self.context):
++                    self.aggregate = delegate_task(goal=self.decoded["goal"], context=self.decoded["context"],
++                        role=self.decoded["role"], parent_agent=self.agent)
++            with self.window():
++                frame = self.frame
++                self.check_arguments(frame.record.arguments)
++                frame.checkpoint()
++                frame.check_return()
++                _issued_require(frame.phase == "released" and frame.terminal and not frame.running
++                                and frame.child_adapter._constructed.closed
++                                and _same_anchors(frame.closed_proof, frame.proof())
++                                and self.aggregate.encode("utf-8") == frame.record.aggregate_bytes
++                                and self.adapter._send_count == 0, "result_association_invalid")
++            with self.window():
++                self.result_bytes = _json(dict(call=self.call_value,
++                    execution_arguments=json.loads(frame.record.raw_bytes),
++                    observation=json.loads(self.observation.observation_bytes), result=json.loads(self.aggregate)))
++                _issued_require(len(self.result_bytes) <= _MAX_NATIVE_RESULT, "capacity_denied")
++                self.result_content = self.runtime.derive(self.options[0],
++                    (self.issued_content, frame.record.return_facts.returned_content), self.result_bytes, path="tool_result")
++                result = NativeIssuedCallResult(self.binding, self.observation, frame.record,
++                    frame.record.return_facts, frame.closed_proof, self.aggregate, self.result_bytes, self.result_content)
++                self.result_anchors = ((result, _row(result, NativeIssuedCallResult)),)
++            with self.window():
++                frame.checkpoint()
++            with self.window():
++                self.phase = self.phase_anchor = "released"
++            return result
++        finally:
++            self.active_call = self.call_anchor = self.entry = self.public = None
++
++
++_ISSUED_ADAPTER_METHODS = ("_identity", "_snapshot", "_checkpoint", "_around", "validate_scope", "_model_open",
++    "_invalidate", "_deny", "bind_delegation", "_verify_records", "_verify_turns", "_verify_completions")
++_ISSUED_FRAME_METHODS = tuple(n for n, f in vars(_DelegateFrame).items() if callable(f))
++
++_ISSUED_CALL_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__)
++    for obj, names in (
++        (_IssuedCallExecution, tuple(n for n, f in vars(_IssuedCallExecution).items() if callable(f))),
++        (NativeMainPayloadAdapter, ("bind_issued_call_execution", "run_issued_call_execution", "__init__",
++            *_ISSUED_ADAPTER_METHODS)),
++        (_DelegateFrame, _ISSUED_FRAME_METHODS),
++        (sys.modules[__name__], ("_validate_issued_call_source", "_issued_window", "_issued_failure",
++            "_resumption_callback", "_controlled_delegate_runner")),
++    ) for name in names)
++
++_ISSUED_CALL_CODE += tuple((function, "__wrapped__", function.__wrapped__, function.__wrapped__.__code__)
++    for function in (_IssuedCallExecution.window, _controlled_delegate_builder, _controlled_delegate_runner))
