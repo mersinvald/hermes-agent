@@ -1,0 +1,92 @@
+{
+  "methods": {
+    "bind_issued_call_format": "self, result: NativeIssuedCallResult, *, formatter_request: object, formatter_selection: NativeSelectionPort, formatter_producer_ref: str, formatter_main_route_ref: str -> NativeIssuedCallFormatInput",
+    "run_issued_call_format": "self, authorization: NativeIssuedCallFormatInput -> NativeIssuedCallFormatResult",
+    "issued_call_format_results": "self -> tuple[NativeIssuedCallFormatResult, ...]"
+  },
+  "records": {
+    "NativeIssuedCallFormatBinding": [
+      {
+        "name": "token",
+        "annotation": "NativeIssuedCallFormatInput"
+      },
+      {
+        "name": "source_adapter",
+        "annotation": "object"
+      },
+      {
+        "name": "source_result",
+        "annotation": "NativeIssuedCallResult"
+      },
+      {
+        "name": "formatter_request",
+        "annotation": "object"
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      },
+      {
+        "name": "authorization_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "authorization_content",
+        "annotation": "object"
+      },
+      {
+        "name": "input_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "input_content",
+        "annotation": "object"
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple"
+      },
+      {
+        "name": "thread",
+        "annotation": "int"
+      }
+    ],
+    "NativeIssuedCallFormatResult": [
+      {
+        "name": "binding",
+        "annotation": "NativeIssuedCallFormatBinding"
+      },
+      {
+        "name": "source_result",
+        "annotation": "NativeIssuedCallResult"
+      },
+      {
+        "name": "message",
+        "annotation": "dict"
+      },
+      {
+        "name": "message_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "message_content",
+        "annotation": "object"
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple"
+      }
+    ]
+  },
+  "token": {
+    "name": "NativeIssuedCallFormatInput",
+    "slots": [],
+    "direct_constructor": "TypeError"
+  },
+  "old_constructor_and_all_old_signatures_unchanged": true,
+  "shared_API_changed": false
+}

@@ -1,0 +1,1462 @@
+{
+  "task": "hpwa-p10.37",
+  "native_base": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+  "native_tree": "1230d5dd31c8eb067c5e87cb14689fa20c2271ea",
+  "PWA_publication": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+  "PWA_candidate": "03c8b392bf661447b08cff80b8451b09b1841003",
+  "proposal_sha256": "a5f974fab0507e46c1b7739953dd974f728c4b31edb93fc12c63a16c1569dc81",
+  "tracked": [
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "blob": "e140522e964a4736efbcc12727a7eff8683dffea",
+      "bytes": 95906,
+      "sha256": "93a12ef7f78a533b3f2b49b1c435eff1a41e18458074a1e231647e189e29250f"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/agent_init.py",
+      "mode": "100644",
+      "blob": "46c0de27cbeb50a5232ac848e8cb2a60c55b14bb",
+      "bytes": 162327,
+      "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/chat_completion_helpers.py",
+      "mode": "100644",
+      "blob": "9a8ec5f35c8fb62751821d530c7f2016c15cd418",
+      "bytes": 275491,
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/content_policy.py",
+      "mode": "100644",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "bytes": 11094,
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/conversation_loop.py",
+      "mode": "100644",
+      "blob": "eeb145af9551762481a5a3903063b2fbaf6d78d2",
+      "bytes": 501328,
+      "sha256": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/message_metadata.py",
+      "mode": "100644",
+      "blob": "284edc523d332e01192c18dae7e120349726f6a2",
+      "bytes": 1326,
+      "sha256": "8dbb47726075348eb4ef6a184d52885cb39bf2366e240966c4d07ab82ac41d17"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/message_sanitization.py",
+      "mode": "100644",
+      "blob": "d7b374a5007b2fbada09295eff2513a353600544",
+      "bytes": 46563,
+      "sha256": "8a595fa5a2b8faf6080430840255404f638d932bed23d51af3ce5a99fe02cc54"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/native_main_payload.py",
+      "mode": "100644",
+      "blob": "612c90b73facda495c39cc26113126c0f7866f54",
+      "bytes": 392279,
+      "sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/tool_dispatch_helpers.py",
+      "mode": "100644",
+      "blob": "8f27586b3959636b7ede82819faf63a023a5a111",
+      "bytes": 34600,
+      "sha256": "a24099f33a8fc8a140c6abbf21f9f6c9966506fdf87b941283ded9605552b27a"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/tool_executor.py",
+      "mode": "100644",
+      "blob": "87f839d85904a83541cc64233c0ed3bc25382333",
+      "bytes": 134867,
+      "sha256": "857005ae0a3a316151f91d1410210ee032343e28a9fad4b67ce55dc3c3ae9b83"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/transports/base.py",
+      "mode": "100644",
+      "blob": "b516967b6af02ce59f32755d0c80cbadfc2e0e2d",
+      "bytes": 3024,
+      "sha256": "e9b0d020f9cf1aae5d0a470363c7694cb3f3f0257fbeff00fc80435e9b80befe"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/transports/chat_completions.py",
+      "mode": "100644",
+      "blob": "e2a6707b09af16c7adee3797e90bb7447b51858a",
+      "bytes": 52313,
+      "sha256": "fec0186cdb5536f657f8428ef873ea8871bed7d178db629b5a15a1c50f765003"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "agent/transports/types.py",
+      "mode": "100644",
+      "blob": "6ad20f2376d1c3d65c8902ddc05599c082e617f0",
+      "bytes": 6332,
+      "sha256": "148b1f6389d10952a70da2a79c7a6baf056f7a41178b9b5e0b673626dad2fa2b"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/README.md",
+      "mode": "100644",
+      "blob": "75506c5215ba37b546cea38f0d73aeaeef6a5314",
+      "bytes": 7021,
+      "sha256": "97cd3ead97c90139f0466ee99d6341bff695bb70eea337746bae4d8e6c9a10ed"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/SHA256SUMS",
+      "mode": "100644",
+      "blob": "79de663f2ba9a35999131dae64e4569d18860e33",
+      "bytes": 1106,
+      "sha256": "4a6274c86f64136607be9736a966c0ffe37bbfef60e0d25a1d6c803ef9733596"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/consumer-contract.md",
+      "mode": "100644",
+      "blob": "58b1e687060613c74b277d1506723aec307e58e6",
+      "bytes": 4287,
+      "sha256": "dcb4455327a8cf4570e5a7674a04a30ef74d872eed2c19167a8de72796b7caab"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/dependency.json",
+      "mode": "100644",
+      "blob": "572d191ffcbf7b6a2d6d9cb1c7b57f72ef437d59",
+      "bytes": 5242,
+      "sha256": "e09b8ea92d4fa248eb37c505ce3ea8ec2dd4f8836e2ce2a64c6a530f63ac6264"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/input-pins.json",
+      "mode": "100644",
+      "blob": "03ffb71f505c37ef437d873bd4e43875440936e8",
+      "bytes": 21650,
+      "sha256": "e890f974f951cf4007b3e379e30882edd4ce3b3d68c6ec648e1c472cb3ab4914"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/native-api.json",
+      "mode": "100644",
+      "blob": "0c64fcc48e6f1b850137c2e64336823f2cbe0116",
+      "bytes": 3450,
+      "sha256": "6028844c16cc175f503d34a2e1d9dded6ec4537238ae7dc70583ccd77f2fd9dd"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/observed-bytes.json",
+      "mode": "100644",
+      "blob": "d4350f5ebec8609a6973b4a28b00fa4832a2a594",
+      "bytes": 46596,
+      "sha256": "702c1f4d96acf2f59af7fa94c89c2ddaffec76f241b1ee29c215b23f0d6ba2e2"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/runner-isolation.json",
+      "mode": "100644",
+      "blob": "af3a01935b9dbadd6b632e9a0119148f88f7f61d",
+      "bytes": 1395,
+      "sha256": "fe04418090cefd199861becb48ad3a1c3e16495a7edbffb42f18d5a2819693d3"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/source-boundary.patch",
+      "mode": "100644",
+      "blob": "ad02864fd44d171b0f1ef40688963c9edccf1f8b",
+      "bytes": 52413,
+      "sha256": "3074c3ab6da4a4cbfd9b09ab89ae8b3d0b31b19b94db5066f2ebaaad260c77cf"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/source-freeze.json",
+      "mode": "100644",
+      "blob": "c02e655cdc0e75e6fc1adcdde56af951ae9eaa8a",
+      "bytes": 1480,
+      "sha256": "4268225283bdd9a5fa42c1a158e1ee0edc11f348e4c385560eaf2f93b65e4477"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/source-preservation.json",
+      "mode": "100644",
+      "blob": "29f9460c04f3af6e7a005ecab073a37ff9ae58f3",
+      "bytes": 135602,
+      "sha256": "540ebf27c9677b7cd49abe6046a15a3c79e1ac5fa2addcfa2545f9914cf5e28a"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/static-checks.json",
+      "mode": "100644",
+      "blob": "4cfef53fc8f844320e1ebc93b4a0ea4c33c8c276",
+      "bytes": 1814,
+      "sha256": "34839371dbc8d9f02a258f8260da6a3be51f875d044b6593a46905d63d3d7864"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/validation-scopes.json",
+      "mode": "100644",
+      "blob": "979930faa7fb722ed11f7770a0565909b2efba2b",
+      "bytes": 133666,
+      "sha256": "aa52ead4ca8651462472cef4e8b780161c3303d1c8450bcb5081497b1a1ac512"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-issued-call-execution-20261123/writing-check.json",
+      "mode": "100644",
+      "blob": "ab72978628675f89e6ffa01e4628723bb25ead71",
+      "bytes": 3491,
+      "sha256": "2e1cc963a09d1f4940eb35632e38149610d11776ae1e43f9b0046c1a143a94d6"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/README.md",
+      "mode": "100644",
+      "blob": "e2c0b4582a09a19b13d4f5b80765ce53226b92b9",
+      "bytes": 2979,
+      "sha256": "a56c2fa980587657a60bf23d22920adf16a22975b18a5651921a500e795d6f7e"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/SHA256SUMS",
+      "mode": "100644",
+      "blob": "99ee8706cae5ac280ed56d25c5dca1c3fe432a38",
+      "bytes": 1272,
+      "sha256": "da7b764f35b291cbcf1d5e86225c87af6cbf73ecd9113c7e3784bec14cea687d"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/consumer-contract.md",
+      "mode": "100644",
+      "blob": "1b2c834e3a52b7701390a4489c20b8fabb165908",
+      "bytes": 6610,
+      "sha256": "891daa8a5900b1b16e830db9de2657818a5a097e836a92ad64c9d1d1b5666399"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/dependency.json",
+      "mode": "100644",
+      "blob": "5cfe2f6983ae9a5f518b1bf4583eaabf8710bbe4",
+      "bytes": 3216,
+      "sha256": "6939e9aaa0834374ce2006335a967dd72620051f771752c738206706019ea4ef"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/format-correction.md",
+      "mode": "100644",
+      "blob": "ebcfd20fc1f0ceab4723e5ddbeeb7a28ccbaa0df",
+      "bytes": 3777,
+      "sha256": "ae2b9898763a1bbb1bced4113be8033992bf9950bb9b66ef560e9ecacf451bbe"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/input-pins.json",
+      "mode": "100644",
+      "blob": "dcc8f3fbcdaf6c7a57410fc97091b259ca51e00c",
+      "bytes": 6775,
+      "sha256": "0f72fe0a47c264e6cbbf1c48899369fec901dde8d7a72dd61667cd7992b11880"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/native-api.json",
+      "mode": "100644",
+      "blob": "81023e61dcac272e1871ee0c71104235df535130",
+      "bytes": 2778,
+      "sha256": "7854cecda074b6ba02921a367e07458aace393800ad22e81496a4647be754617"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/observed-bytes.json",
+      "mode": "100644",
+      "blob": "bab0cff2eb37527d64a372585dfd7348f19dddf9",
+      "bytes": 9189,
+      "sha256": "078b06392bb6a35b503ed1fa4988190aa8ca3d4f59a8555bd5c9aac823fdba1a"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/runner-isolation.json",
+      "mode": "100644",
+      "blob": "8a40d959ec302fdd8ec942f56d29382da18b4d58",
+      "bytes": 2208,
+      "sha256": "5690deb6bceea22589420cb3cd477d89b393cf7e3ccbe6f88e820fcc9a069968"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-boundary.patch",
+      "mode": "100644",
+      "blob": "e17f9f2313492b314299bda89a6d0b86ecd499e5",
+      "bytes": 41863,
+      "sha256": "b4f0133693b6fe32fd925f47d9db2118a1f0e8581905b1405874a42385696314"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-freeze.json",
+      "mode": "100644",
+      "blob": "de83d532ac4dccd9910b70d60402480d878fdb20",
+      "bytes": 5246,
+      "sha256": "a356eb62eba14611fbb8194b54a02ff908f5c90790da317bfaadf52f7706baf4"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-preservation.json",
+      "mode": "100644",
+      "blob": "fdbdb616fc7a011f35dcf2e90554ddba1d39ae90",
+      "bytes": 12665,
+      "sha256": "e1f535fa78c4da675da5f787a5dde27c7685fd0f3f8e5dbc1899d4a3b5883344"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/static-checks.json",
+      "mode": "100644",
+      "blob": "0b53ff854a99042b9d3f564a8618490df250a31e",
+      "bytes": 2436,
+      "sha256": "6652e3a093d993dc96e6efce5b417317002848f9ab10e7b23389fc544afd2fa9"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/validation-scopes.json",
+      "mode": "100644",
+      "blob": "4c588491d7a50cb49842cd77b828c6008c26b455",
+      "bytes": 144825,
+      "sha256": "8ee7921c8d0fb6957f61c654b496fb66b33bbfef8ca8baaf4ab13ffe158597d6"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/vectors.json",
+      "mode": "100644",
+      "blob": "146df269b7139bfaa1f5b3550de3b5961a8ab927",
+      "bytes": 4735,
+      "sha256": "e0462529d76acf7a8a2bf76aec59b8cb806c5260a5b3fb18a87a9451bffed36a"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/writing-check.json",
+      "mode": "100644",
+      "blob": "19c19283fa3d4eefdfdd4d827af4abdc9833d660",
+      "bytes": 5083,
+      "sha256": "418239720feb2611d861797f2b79d2385345349a5df6209a26b9405160941ef9"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "run_agent.py",
+      "mode": "100644",
+      "blob": "c84a0304464e87ea899f07078e29a4c8ff8ef7c4",
+      "bytes": 442455,
+      "sha256": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tests/tools/test_native_controlled_delegation.py",
+      "mode": "100644",
+      "blob": "691b2a52c95c621983d69abd35a5bcdeb69cb06f",
+      "bytes": 32595,
+      "sha256": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tests/tools/test_native_issued_call_execution.py",
+      "mode": "100644",
+      "blob": "a413572199885607d3288029f64f0f3332834559",
+      "bytes": 30758,
+      "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tests/tools/test_native_tool_call_probe.py",
+      "mode": "100644",
+      "blob": "a2c33928aa3d1984bfb9b0f753255b517a7dbfa0",
+      "bytes": 27886,
+      "sha256": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tools/budget_config.py",
+      "mode": "100644",
+      "blob": "ec02576a76387b6707f7d5408d2d124620cfa2c3",
+      "bytes": 7810,
+      "sha256": "d644c484594bb9c8d155af134a6c2d2704bd068c4e33bafba9a5847f1c2530b3"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tools/delegate_tool.py",
+      "mode": "100644",
+      "blob": "c92affcda74c29c4bba2474dfd9a781db5a64811",
+      "bytes": 238976,
+      "sha256": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tools/threat_patterns.py",
+      "mode": "100644",
+      "blob": "f171137972680dc17b30ea8ae02f75b0b176906e",
+      "bytes": 14344,
+      "sha256": "b37a7256d4127f26fc03a2002f81aa14dce73a31854498d666a82c3e778e2d0b"
+    },
+    {
+      "repository": "native",
+      "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+      "path": "tools/tool_result_storage.py",
+      "mode": "100644",
+      "blob": "1fc3085677a46e17e686857ea5d8ba8e90de52e8",
+      "bytes": 17196,
+      "sha256": "b256a421fdc08e26667f3e5142240ca406762c5c800fe00a4bade4438aaa51a1"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "blob": "a6e6dff29baeaff3945dbafed482d98fe8c083e4",
+      "bytes": 2797,
+      "sha256": "e4c7e948a58647447df4f882e4942e2045a1fc9d22470853096f1715b5f812d6"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/README.md",
+      "mode": "100644",
+      "blob": "6175dc998d6cf727584bc4b39c491f536ca67113",
+      "bytes": 2236,
+      "sha256": "9c5b7b452e7f753ddb05f625130eb7c9eb492d814cf0439d0d461b0eb4e820b8"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "mode": "100644",
+      "blob": "8f32263c11dfb91329076321db68a8da5286b6f2",
+      "bytes": 395915,
+      "sha256": "a98d0d8312b78d1084e18d35e5bd478ae369dceb95f0de144fad0c860295064b"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "mode": "100644",
+      "blob": "5546c123903f1fd9ac71bb5444100df24d64347d",
+      "bytes": 208532,
+      "sha256": "8832f73cc2c0b31369cbc82f99c03ea63fbc21bf469aa27a1bae9935c993e74e"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/README.md",
+      "mode": "100644",
+      "blob": "d49660bca6f08d08623c4fbdbaca726db38f3a1e",
+      "bytes": 6324,
+      "sha256": "3ad71897616fe8dbc8cc1fe3424b408202695c40c250f5a926deddd1a9c38432"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/SHA256SUMS",
+      "mode": "100644",
+      "blob": "33f4e87a4facf864c60bf96f229d22454b5afb87",
+      "bytes": 713,
+      "sha256": "ec582568c6de0c20f76e5f8ec2d435a325ee7e5da389fdcafa66e8d9ece84ba1"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/next-component-design.md",
+      "mode": "100644",
+      "blob": "40ea8b5d8ffcc9964d69f56f27a26522e23b551a",
+      "bytes": 18037,
+      "sha256": "a5f974fab0507e46c1b7739953dd974f728c4b31edb93fc12c63a16c1569dc81"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/source-map.md",
+      "mode": "100644",
+      "blob": "2d0abd855d7fcc8f1d10da6ab0f3eb766a52fdf8",
+      "bytes": 28648,
+      "sha256": "380bd030b96882de0c83de566b9a265dd95a68a87e0c82d3f8a88c8cc425a934"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/source-pins.json",
+      "mode": "100644",
+      "blob": "539908044dc5d6e51d9051cd868730359245bc21",
+      "bytes": 59195,
+      "sha256": "93e17c657be9c3c3dea3ba47b1f91b090aadeb1dba59a5e2dc7ee898bda2f83b"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/verification.json",
+      "mode": "100644",
+      "blob": "6b35d040472cd5ec11bce74ddc227a8be06f1372",
+      "bytes": 91233,
+      "sha256": "1d3612e5b1b618256ce3bba4b105b67ae3d4c0877228fb2eed6d0d18d7e8fd97"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/writing-check.json",
+      "mode": "100644",
+      "blob": "58583fb8e05900d051d411d0ce453c9152f1078e",
+      "bytes": 6804,
+      "sha256": "a402f57735d14fc80ef4dd4c5c2d61736c681415a26fcf6cc4a8552ff18bfe7f"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-memory-prompt-contracts-20261123/next-component-design.md",
+      "mode": "100644",
+      "blob": "c0961f956b6cdb954ac9ecc70077b0a0347fe253",
+      "bytes": 21600,
+      "sha256": "71014420d0740c5ff198cec82f7e9e06c050e97ac3a9e51a902da9f116bef42c"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-memory-prompt-contracts-20261123/source-map.md",
+      "mode": "100644",
+      "blob": "1027e744c7c4cea2f80b244dfb677bdff921ff0a",
+      "bytes": 12082,
+      "sha256": "6556e18556e813e2f471da2c20f39dbbf017a1b3a0d78e98b0a51282220d32bf"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/README.md",
+      "mode": "100644",
+      "blob": "954eca041cfd357d40991dd99bba6ac4dc5ace70",
+      "bytes": 3021,
+      "sha256": "aa5a51d1e1501e66330b37e422621987033aa59cb23be2f9661ac4c16123b22b"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/SHA256SUMS",
+      "mode": "100644",
+      "blob": "cc9748983683d079bd812ca32e372c42d0704836",
+      "bytes": 499,
+      "sha256": "6dfc6c971c53fbf04aff83e367427a15c5f9b72727951344915a27ea0069ba82"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/next-component-design.md",
+      "mode": "100644",
+      "blob": "e84b608814134618fbc866aaba80580e7518002c",
+      "bytes": 19727,
+      "sha256": "4d724a1a3d66d91e7756f3372b68cd351ac60c198dda685bf073d77b81204099"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/source-map.md",
+      "mode": "100644",
+      "blob": "2a610b7fd52fe8184d82d539e9724f6a94e2d8da",
+      "bytes": 11279,
+      "sha256": "4af3a43b8f6a307c5fc3f6e43d5a30e5163f7588c27c4d51ac4ce17b8903e07e"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/source-pins.json",
+      "mode": "100644",
+      "blob": "bfc703295af64964f364552873c995b71e60da75",
+      "bytes": 32472,
+      "sha256": "07b713a76cb0143e3d93a3c393c44d91641c60e7e69f7eaaf0b9bba794ff40ff"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/verification.json",
+      "mode": "100644",
+      "blob": "0532b2d56bda1583d86c6fba40d1883c212883dc",
+      "bytes": 55082,
+      "sha256": "641fa195dddf94d11a761c3d00774677cdc80dfb145dca90d4491161b106c7d0"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/writing-check.json",
+      "mode": "100644",
+      "blob": "ae6c70fd34a449839388b816f5e5c6f0f16cfdd0",
+      "bytes": 6830,
+      "sha256": "dabd62ce34e4c881ae18713c03fca272d13d7af1bb5918c0184d0b8b2593d943"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-20261123/api.json",
+      "mode": "100644",
+      "blob": "ba391f14bdf8b57df64a673b53b3b4ae46d3f7db",
+      "bytes": 10695,
+      "sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "docs/v1-implementation-plan.md",
+      "mode": "100644",
+      "blob": "e27e37ee340509aefb0fd84bbc789a3ed90142cf",
+      "bytes": 33712,
+      "sha256": "dd1312f3aee814ab9a9219b9cf767ca2b6d9f44c89f579ef720361c88c56e1d0"
+    },
+    {
+      "repository": "pwa",
+      "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+      "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+      "mode": "100644",
+      "blob": "7d7046d85cccfea171c758b95fc3ec76c606c35e",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    }
+  ],
+  "root_receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.36.static-verification.json",
+      "bytes": 1099,
+      "sha256": "f5d3ccce60291af18ddeab47c31809921d332be084244526f1c443e8fa434b32"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.36.final-review.json",
+      "bytes": 1253,
+      "sha256": "99308be2f0a64cdade6336b555abf85d216c8260f77fa3e17157d61e6f1b8c0a"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.36.publication-receipt.json",
+      "bytes": 865,
+      "sha256": "38971c420de60c6237fecab0736b7633ca1138a93109fee3f258c54ba98b9013"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.source-verification.json",
+      "bytes": 1904,
+      "sha256": "c18182268a04215fdc649a318547ee596b9da1dbe1c940989a629eb7dc21ee3a"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.evidence-verification.json",
+      "bytes": 1443,
+      "sha256": "0e5a1887e9299c8fa4e91b49583fbd82dc3ea80c50cc9c581d59604bf5cc1fa3"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.final-review.json",
+      "bytes": 1589,
+      "sha256": "5bc3ff7cf20922bb23f0936902583fd276732677953572b0045527708b81206a"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.publication-receipt.json",
+      "bytes": 851,
+      "sha256": "ae78e0749974006ce1ffacbfda0f95ebb8ed2d00e99088bfde113c98bada9fa8"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.23.native-handoff.json",
+      "bytes": 2278,
+      "sha256": "308d0c5a2e7a0bea715a1ac2ddfebbeb32e65263ca3236bbc5b1001478adfed9"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.36/receipts/worker-handoff.json",
+      "bytes": 4817,
+      "sha256": "a37cc8709389dfb31e161eefe3a81461fd1b19c4b9aadcf201259b9f3d67b23d"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/worker-handoff.json",
+      "bytes": 163582,
+      "sha256": "6aa0e5f4ef1989829ba654cd1c9354afce5025c415bb358bccd4ee637d03b573"
+    }
+  ],
+  "spec_sha256": "e1b3487b6891f164711ecc6254f52354210e601a3c55df30c074a59750e3ec69",
+  "application_execution": false,
+  "verification": {
+    "receipt_sha256": "ee20394d49d46d57acd2a80b79a86b1fadb13e13a44250d62ef6a9c6370c58aa",
+    "verified": [
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "AGENTS.md",
+        "mode": "100644",
+        "blob": "e140522e964a4736efbcc12727a7eff8683dffea",
+        "bytes": 95906,
+        "sha256": "93a12ef7f78a533b3f2b49b1c435eff1a41e18458074a1e231647e189e29250f"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/agent_init.py",
+        "mode": "100644",
+        "blob": "46c0de27cbeb50a5232ac848e8cb2a60c55b14bb",
+        "bytes": 162327,
+        "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/chat_completion_helpers.py",
+        "mode": "100644",
+        "blob": "9a8ec5f35c8fb62751821d530c7f2016c15cd418",
+        "bytes": 275491,
+        "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/content_policy.py",
+        "mode": "100644",
+        "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+        "bytes": 11094,
+        "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/conversation_loop.py",
+        "mode": "100644",
+        "blob": "eeb145af9551762481a5a3903063b2fbaf6d78d2",
+        "bytes": 501328,
+        "sha256": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/message_metadata.py",
+        "mode": "100644",
+        "blob": "284edc523d332e01192c18dae7e120349726f6a2",
+        "bytes": 1326,
+        "sha256": "8dbb47726075348eb4ef6a184d52885cb39bf2366e240966c4d07ab82ac41d17"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/message_sanitization.py",
+        "mode": "100644",
+        "blob": "d7b374a5007b2fbada09295eff2513a353600544",
+        "bytes": 46563,
+        "sha256": "8a595fa5a2b8faf6080430840255404f638d932bed23d51af3ce5a99fe02cc54"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/native_main_payload.py",
+        "mode": "100644",
+        "blob": "612c90b73facda495c39cc26113126c0f7866f54",
+        "bytes": 392279,
+        "sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/tool_dispatch_helpers.py",
+        "mode": "100644",
+        "blob": "8f27586b3959636b7ede82819faf63a023a5a111",
+        "bytes": 34600,
+        "sha256": "a24099f33a8fc8a140c6abbf21f9f6c9966506fdf87b941283ded9605552b27a"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/tool_executor.py",
+        "mode": "100644",
+        "blob": "87f839d85904a83541cc64233c0ed3bc25382333",
+        "bytes": 134867,
+        "sha256": "857005ae0a3a316151f91d1410210ee032343e28a9fad4b67ce55dc3c3ae9b83"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/transports/base.py",
+        "mode": "100644",
+        "blob": "b516967b6af02ce59f32755d0c80cbadfc2e0e2d",
+        "bytes": 3024,
+        "sha256": "e9b0d020f9cf1aae5d0a470363c7694cb3f3f0257fbeff00fc80435e9b80befe"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/transports/chat_completions.py",
+        "mode": "100644",
+        "blob": "e2a6707b09af16c7adee3797e90bb7447b51858a",
+        "bytes": 52313,
+        "sha256": "fec0186cdb5536f657f8428ef873ea8871bed7d178db629b5a15a1c50f765003"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "agent/transports/types.py",
+        "mode": "100644",
+        "blob": "6ad20f2376d1c3d65c8902ddc05599c082e617f0",
+        "bytes": 6332,
+        "sha256": "148b1f6389d10952a70da2a79c7a6baf056f7a41178b9b5e0b673626dad2fa2b"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/README.md",
+        "mode": "100644",
+        "blob": "75506c5215ba37b546cea38f0d73aeaeef6a5314",
+        "bytes": 7021,
+        "sha256": "97cd3ead97c90139f0466ee99d6341bff695bb70eea337746bae4d8e6c9a10ed"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/SHA256SUMS",
+        "mode": "100644",
+        "blob": "79de663f2ba9a35999131dae64e4569d18860e33",
+        "bytes": 1106,
+        "sha256": "4a6274c86f64136607be9736a966c0ffe37bbfef60e0d25a1d6c803ef9733596"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/consumer-contract.md",
+        "mode": "100644",
+        "blob": "58b1e687060613c74b277d1506723aec307e58e6",
+        "bytes": 4287,
+        "sha256": "dcb4455327a8cf4570e5a7674a04a30ef74d872eed2c19167a8de72796b7caab"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/dependency.json",
+        "mode": "100644",
+        "blob": "572d191ffcbf7b6a2d6d9cb1c7b57f72ef437d59",
+        "bytes": 5242,
+        "sha256": "e09b8ea92d4fa248eb37c505ce3ea8ec2dd4f8836e2ce2a64c6a530f63ac6264"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/input-pins.json",
+        "mode": "100644",
+        "blob": "03ffb71f505c37ef437d873bd4e43875440936e8",
+        "bytes": 21650,
+        "sha256": "e890f974f951cf4007b3e379e30882edd4ce3b3d68c6ec648e1c472cb3ab4914"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/native-api.json",
+        "mode": "100644",
+        "blob": "0c64fcc48e6f1b850137c2e64336823f2cbe0116",
+        "bytes": 3450,
+        "sha256": "6028844c16cc175f503d34a2e1d9dded6ec4537238ae7dc70583ccd77f2fd9dd"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/observed-bytes.json",
+        "mode": "100644",
+        "blob": "d4350f5ebec8609a6973b4a28b00fa4832a2a594",
+        "bytes": 46596,
+        "sha256": "702c1f4d96acf2f59af7fa94c89c2ddaffec76f241b1ee29c215b23f0d6ba2e2"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/runner-isolation.json",
+        "mode": "100644",
+        "blob": "af3a01935b9dbadd6b632e9a0119148f88f7f61d",
+        "bytes": 1395,
+        "sha256": "fe04418090cefd199861becb48ad3a1c3e16495a7edbffb42f18d5a2819693d3"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/source-boundary.patch",
+        "mode": "100644",
+        "blob": "ad02864fd44d171b0f1ef40688963c9edccf1f8b",
+        "bytes": 52413,
+        "sha256": "3074c3ab6da4a4cbfd9b09ab89ae8b3d0b31b19b94db5066f2ebaaad260c77cf"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/source-freeze.json",
+        "mode": "100644",
+        "blob": "c02e655cdc0e75e6fc1adcdde56af951ae9eaa8a",
+        "bytes": 1480,
+        "sha256": "4268225283bdd9a5fa42c1a158e1ee0edc11f348e4c385560eaf2f93b65e4477"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/source-preservation.json",
+        "mode": "100644",
+        "blob": "29f9460c04f3af6e7a005ecab073a37ff9ae58f3",
+        "bytes": 135602,
+        "sha256": "540ebf27c9677b7cd49abe6046a15a3c79e1ac5fa2addcfa2545f9914cf5e28a"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/static-checks.json",
+        "mode": "100644",
+        "blob": "4cfef53fc8f844320e1ebc93b4a0ea4c33c8c276",
+        "bytes": 1814,
+        "sha256": "34839371dbc8d9f02a258f8260da6a3be51f875d044b6593a46905d63d3d7864"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/validation-scopes.json",
+        "mode": "100644",
+        "blob": "979930faa7fb722ed11f7770a0565909b2efba2b",
+        "bytes": 133666,
+        "sha256": "aa52ead4ca8651462472cef4e8b780161c3303d1c8450bcb5081497b1a1ac512"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-issued-call-execution-20261123/writing-check.json",
+        "mode": "100644",
+        "blob": "ab72978628675f89e6ffa01e4628723bb25ead71",
+        "bytes": 3491,
+        "sha256": "2e1cc963a09d1f4940eb35632e38149610d11776ae1e43f9b0046c1a143a94d6"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/README.md",
+        "mode": "100644",
+        "blob": "e2c0b4582a09a19b13d4f5b80765ce53226b92b9",
+        "bytes": 2979,
+        "sha256": "a56c2fa980587657a60bf23d22920adf16a22975b18a5651921a500e795d6f7e"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/SHA256SUMS",
+        "mode": "100644",
+        "blob": "99ee8706cae5ac280ed56d25c5dca1c3fe432a38",
+        "bytes": 1272,
+        "sha256": "da7b764f35b291cbcf1d5e86225c87af6cbf73ecd9113c7e3784bec14cea687d"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/consumer-contract.md",
+        "mode": "100644",
+        "blob": "1b2c834e3a52b7701390a4489c20b8fabb165908",
+        "bytes": 6610,
+        "sha256": "891daa8a5900b1b16e830db9de2657818a5a097e836a92ad64c9d1d1b5666399"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/dependency.json",
+        "mode": "100644",
+        "blob": "5cfe2f6983ae9a5f518b1bf4583eaabf8710bbe4",
+        "bytes": 3216,
+        "sha256": "6939e9aaa0834374ce2006335a967dd72620051f771752c738206706019ea4ef"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/format-correction.md",
+        "mode": "100644",
+        "blob": "ebcfd20fc1f0ceab4723e5ddbeeb7a28ccbaa0df",
+        "bytes": 3777,
+        "sha256": "ae2b9898763a1bbb1bced4113be8033992bf9950bb9b66ef560e9ecacf451bbe"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/input-pins.json",
+        "mode": "100644",
+        "blob": "dcc8f3fbcdaf6c7a57410fc97091b259ca51e00c",
+        "bytes": 6775,
+        "sha256": "0f72fe0a47c264e6cbbf1c48899369fec901dde8d7a72dd61667cd7992b11880"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/native-api.json",
+        "mode": "100644",
+        "blob": "81023e61dcac272e1871ee0c71104235df535130",
+        "bytes": 2778,
+        "sha256": "7854cecda074b6ba02921a367e07458aace393800ad22e81496a4647be754617"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/observed-bytes.json",
+        "mode": "100644",
+        "blob": "bab0cff2eb37527d64a372585dfd7348f19dddf9",
+        "bytes": 9189,
+        "sha256": "078b06392bb6a35b503ed1fa4988190aa8ca3d4f59a8555bd5c9aac823fdba1a"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/runner-isolation.json",
+        "mode": "100644",
+        "blob": "8a40d959ec302fdd8ec942f56d29382da18b4d58",
+        "bytes": 2208,
+        "sha256": "5690deb6bceea22589420cb3cd477d89b393cf7e3ccbe6f88e820fcc9a069968"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-boundary.patch",
+        "mode": "100644",
+        "blob": "e17f9f2313492b314299bda89a6d0b86ecd499e5",
+        "bytes": 41863,
+        "sha256": "b4f0133693b6fe32fd925f47d9db2118a1f0e8581905b1405874a42385696314"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-freeze.json",
+        "mode": "100644",
+        "blob": "de83d532ac4dccd9910b70d60402480d878fdb20",
+        "bytes": 5246,
+        "sha256": "a356eb62eba14611fbb8194b54a02ff908f5c90790da317bfaadf52f7706baf4"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-preservation.json",
+        "mode": "100644",
+        "blob": "fdbdb616fc7a011f35dcf2e90554ddba1d39ae90",
+        "bytes": 12665,
+        "sha256": "e1f535fa78c4da675da5f787a5dde27c7685fd0f3f8e5dbc1899d4a3b5883344"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/static-checks.json",
+        "mode": "100644",
+        "blob": "0b53ff854a99042b9d3f564a8618490df250a31e",
+        "bytes": 2436,
+        "sha256": "6652e3a093d993dc96e6efce5b417317002848f9ab10e7b23389fc544afd2fa9"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/validation-scopes.json",
+        "mode": "100644",
+        "blob": "4c588491d7a50cb49842cd77b828c6008c26b455",
+        "bytes": 144825,
+        "sha256": "8ee7921c8d0fb6957f61c654b496fb66b33bbfef8ca8baaf4ab13ffe158597d6"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/vectors.json",
+        "mode": "100644",
+        "blob": "146df269b7139bfaa1f5b3550de3b5961a8ab927",
+        "bytes": 4735,
+        "sha256": "e0462529d76acf7a8a2bf76aec59b8cb806c5260a5b3fb18a87a9451bffed36a"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "docs/evidence/accountant-native-tool-call-probe-20261123/writing-check.json",
+        "mode": "100644",
+        "blob": "19c19283fa3d4eefdfdd4d827af4abdc9833d660",
+        "bytes": 5083,
+        "sha256": "418239720feb2611d861797f2b79d2385345349a5df6209a26b9405160941ef9"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "run_agent.py",
+        "mode": "100644",
+        "blob": "c84a0304464e87ea899f07078e29a4c8ff8ef7c4",
+        "bytes": 442455,
+        "sha256": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tests/tools/test_native_controlled_delegation.py",
+        "mode": "100644",
+        "blob": "691b2a52c95c621983d69abd35a5bcdeb69cb06f",
+        "bytes": 32595,
+        "sha256": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tests/tools/test_native_issued_call_execution.py",
+        "mode": "100644",
+        "blob": "a413572199885607d3288029f64f0f3332834559",
+        "bytes": 30758,
+        "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tests/tools/test_native_tool_call_probe.py",
+        "mode": "100644",
+        "blob": "a2c33928aa3d1984bfb9b0f753255b517a7dbfa0",
+        "bytes": 27886,
+        "sha256": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tools/budget_config.py",
+        "mode": "100644",
+        "blob": "ec02576a76387b6707f7d5408d2d124620cfa2c3",
+        "bytes": 7810,
+        "sha256": "d644c484594bb9c8d155af134a6c2d2704bd068c4e33bafba9a5847f1c2530b3"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tools/delegate_tool.py",
+        "mode": "100644",
+        "blob": "c92affcda74c29c4bba2474dfd9a781db5a64811",
+        "bytes": 238976,
+        "sha256": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tools/threat_patterns.py",
+        "mode": "100644",
+        "blob": "f171137972680dc17b30ea8ae02f75b0b176906e",
+        "bytes": 14344,
+        "sha256": "b37a7256d4127f26fc03a2002f81aa14dce73a31854498d666a82c3e778e2d0b"
+      },
+      {
+        "repository": "native",
+        "commit": "039ed142b24c1c0b5697cee6796c33e5deccc239",
+        "path": "tools/tool_result_storage.py",
+        "mode": "100644",
+        "blob": "1fc3085677a46e17e686857ea5d8ba8e90de52e8",
+        "bytes": 17196,
+        "sha256": "b256a421fdc08e26667f3e5142240ca406762c5c800fe00a4bade4438aaa51a1"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "AGENTS.md",
+        "mode": "100644",
+        "blob": "a6e6dff29baeaff3945dbafed482d98fe8c083e4",
+        "bytes": 2797,
+        "sha256": "e4c7e948a58647447df4f882e4942e2045a1fc9d22470853096f1715b5f812d6"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/README.md",
+        "mode": "100644",
+        "blob": "6175dc998d6cf727584bc4b39c491f536ca67113",
+        "bytes": 2236,
+        "sha256": "9c5b7b452e7f753ddb05f625130eb7c9eb492d814cf0439d0d461b0eb4e820b8"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/accountant-contract-architecture.md",
+        "mode": "100644",
+        "blob": "8f32263c11dfb91329076321db68a8da5286b6f2",
+        "bytes": 395915,
+        "sha256": "a98d0d8312b78d1084e18d35e5bd478ae369dceb95f0de144fad0c860295064b"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/accountant-implementation-plan.md",
+        "mode": "100644",
+        "blob": "5546c123903f1fd9ac71bb5444100df24d64347d",
+        "bytes": 208532,
+        "sha256": "8832f73cc2c0b31369cbc82f99c03ea63fbc21bf469aa27a1bae9935c993e74e"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/README.md",
+        "mode": "100644",
+        "blob": "d49660bca6f08d08623c4fbdbaca726db38f3a1e",
+        "bytes": 6324,
+        "sha256": "3ad71897616fe8dbc8cc1fe3424b408202695c40c250f5a926deddd1a9c38432"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/SHA256SUMS",
+        "mode": "100644",
+        "blob": "33f4e87a4facf864c60bf96f229d22454b5afb87",
+        "bytes": 713,
+        "sha256": "ec582568c6de0c20f76e5f8ec2d435a325ee7e5da389fdcafa66e8d9ece84ba1"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/next-component-design.md",
+        "mode": "100644",
+        "blob": "40ea8b5d8ffcc9964d69f56f27a26522e23b551a",
+        "bytes": 18037,
+        "sha256": "a5f974fab0507e46c1b7739953dd974f728c4b31edb93fc12c63a16c1569dc81"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/source-map.md",
+        "mode": "100644",
+        "blob": "2d0abd855d7fcc8f1d10da6ab0f3eb766a52fdf8",
+        "bytes": 28648,
+        "sha256": "380bd030b96882de0c83de566b9a265dd95a68a87e0c82d3f8a88c8cc425a934"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/source-pins.json",
+        "mode": "100644",
+        "blob": "539908044dc5d6e51d9051cd868730359245bc21",
+        "bytes": 59195,
+        "sha256": "93e17c657be9c3c3dea3ba47b1f91b090aadeb1dba59a5e2dc7ee898bda2f83b"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/verification.json",
+        "mode": "100644",
+        "blob": "6b35d040472cd5ec11bce74ddc227a8be06f1372",
+        "bytes": 91233,
+        "sha256": "1d3612e5b1b618256ce3bba4b105b67ae3d4c0877228fb2eed6d0d18d7e8fd97"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-issued-call-execution-contracts-20261123/writing-check.json",
+        "mode": "100644",
+        "blob": "58583fb8e05900d051d411d0ce453c9152f1078e",
+        "bytes": 6804,
+        "sha256": "a402f57735d14fc80ef4dd4c5c2d61736c681415a26fcf6cc4a8552ff18bfe7f"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-memory-prompt-contracts-20261123/next-component-design.md",
+        "mode": "100644",
+        "blob": "c0961f956b6cdb954ac9ecc70077b0a0347fe253",
+        "bytes": 21600,
+        "sha256": "71014420d0740c5ff198cec82f7e9e06c050e97ac3a9e51a902da9f116bef42c"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-memory-prompt-contracts-20261123/source-map.md",
+        "mode": "100644",
+        "blob": "1027e744c7c4cea2f80b244dfb677bdff921ff0a",
+        "bytes": 12082,
+        "sha256": "6556e18556e813e2f471da2c20f39dbbf017a1b3a0d78e98b0a51282220d32bf"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/README.md",
+        "mode": "100644",
+        "blob": "954eca041cfd357d40991dd99bba6ac4dc5ace70",
+        "bytes": 3021,
+        "sha256": "aa5a51d1e1501e66330b37e422621987033aa59cb23be2f9661ac4c16123b22b"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/SHA256SUMS",
+        "mode": "100644",
+        "blob": "cc9748983683d079bd812ca32e372c42d0704836",
+        "bytes": 499,
+        "sha256": "6dfc6c971c53fbf04aff83e367427a15c5f9b72727951344915a27ea0069ba82"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/next-component-design.md",
+        "mode": "100644",
+        "blob": "e84b608814134618fbc866aaba80580e7518002c",
+        "bytes": 19727,
+        "sha256": "4d724a1a3d66d91e7756f3372b68cd351ac60c198dda685bf073d77b81204099"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/source-map.md",
+        "mode": "100644",
+        "blob": "2a610b7fd52fe8184d82d539e9724f6a94e2d8da",
+        "bytes": 11279,
+        "sha256": "4af3a43b8f6a307c5fc3f6e43d5a30e5163f7588c27c4d51ac4ce17b8903e07e"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/source-pins.json",
+        "mode": "100644",
+        "blob": "bfc703295af64964f364552873c995b71e60da75",
+        "bytes": 32472,
+        "sha256": "07b713a76cb0143e3d93a3c393c44d91641c60e7e69f7eaaf0b9bba794ff40ff"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/verification.json",
+        "mode": "100644",
+        "blob": "0532b2d56bda1583d86c6fba40d1883c212883dc",
+        "bytes": 55082,
+        "sha256": "641fa195dddf94d11a761c3d00774677cdc80dfb145dca90d4491161b106c7d0"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-native-tool-call-contracts-20261123/writing-check.json",
+        "mode": "100644",
+        "blob": "ae6c70fd34a449839388b816f5e5c6f0f16cfdd0",
+        "bytes": 6830,
+        "sha256": "dabd62ce34e4c881ae18713c03fca272d13d7af1bb5918c0184d0b8b2593d943"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/mesh/evidence/accountant-shared-delegate-return-20261123/api.json",
+        "mode": "100644",
+        "blob": "ba391f14bdf8b57df64a673b53b3b4ae46d3f7db",
+        "bytes": 10695,
+        "sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "docs/v1-implementation-plan.md",
+        "mode": "100644",
+        "blob": "e27e37ee340509aefb0fd84bbc789a3ed90142cf",
+        "bytes": 33712,
+        "sha256": "dd1312f3aee814ab9a9219b9cf767ca2b6d9f44c89f579ef720361c88c56e1d0"
+      },
+      {
+        "repository": "pwa",
+        "commit": "0be4174c453aeab48afd05b4ed8737f2bde58626",
+        "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+        "mode": "100644",
+        "blob": "7d7046d85cccfea171c758b95fc3ec76c606c35e",
+        "bytes": 40548,
+        "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.36.static-verification.json",
+        "bytes": 1099,
+        "sha256": "f5d3ccce60291af18ddeab47c31809921d332be084244526f1c443e8fa434b32"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.36.final-review.json",
+        "bytes": 1253,
+        "sha256": "99308be2f0a64cdade6336b555abf85d216c8260f77fa3e17157d61e6f1b8c0a"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.36.publication-receipt.json",
+        "bytes": 865,
+        "sha256": "38971c420de60c6237fecab0736b7633ca1138a93109fee3f258c54ba98b9013"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.source-verification.json",
+        "bytes": 1904,
+        "sha256": "c18182268a04215fdc649a318547ee596b9da1dbe1c940989a629eb7dc21ee3a"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.evidence-verification.json",
+        "bytes": 1443,
+        "sha256": "0e5a1887e9299c8fa4e91b49583fbd82dc3ea80c50cc9c581d59604bf5cc1fa3"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.final-review.json",
+        "bytes": 1589,
+        "sha256": "5bc3ff7cf20922bb23f0936902583fd276732677953572b0045527708b81206a"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.35.publication-receipt.json",
+        "bytes": 851,
+        "sha256": "ae78e0749974006ce1ffacbfda0f95ebb8ed2d00e99088bfde113c98bada9fa8"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.23.native-handoff.json",
+        "bytes": 2278,
+        "sha256": "308d0c5a2e7a0bea715a1ac2ddfebbeb32e65263ca3236bbc5b1001478adfed9"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.36/receipts/worker-handoff.json",
+        "bytes": 4817,
+        "sha256": "a37cc8709389dfb31e161eefe3a81461fd1b19c4b9aadcf201259b9f3d67b23d"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.35/receipts/worker-handoff.json",
+        "bytes": 163582,
+        "sha256": "6aa0e5f4ef1989829ba654cd1c9354afce5025c415bb358bccd4ee637d03b573"
+      }
+    ],
+    "prior_attempt": "External protected destination directory was absent. No source edit occurred."
+  },
+  "canonical_receipt": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.37.input-receipts.json",
+    "bytes": 30292,
+    "sha256": "ee20394d49d46d57acd2a80b79a86b1fadb13e13a44250d62ef6a9c6370c58aa"
+  },
+  "root_positive_review": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/root-positive07-review.json",
+    "bytes": 4617,
+    "sha256": "7f950af620974f66e52650515d62f3607071b647d3e3c9e4e7d9de502cce1719"
+  }
+}
