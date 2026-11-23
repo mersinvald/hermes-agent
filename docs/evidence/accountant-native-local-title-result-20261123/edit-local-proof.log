@@ -1,0 +1,138 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~55 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    55/~55 | ✓4 | ✗1] ✗ tests/agent/test_native_controlled_conversation.py (4✓ 1✗, 56.4s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:1395: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ tests/agent/test_native_controlled_conversation.py:757: in title_from
+  ║     return generate_title(text, controlled_aux=token, **options)
+  ║            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ agent/title_generator.py:489: in generate_title
+  ║     adapter = _controlled_title_entry(user_message, controlled_aux,
+  ║ agent/native_main_payload.py:1805: in _controlled_title_entry
+  ║     _require(type(user_message) is str and user_message is frame.text)
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ condition = False
+  ║ 
+  ║     def _require(condition):
+  ║         if not condition:
+  ║ >           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+  ║ E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+  ║ 
+  ║ agent/native_main_payload.py:400: NativeContentPolicyDenied
+  ║ ============================= slowest 5 durations ==============================
+  ║ 31.59s call     tests/agent/test_native_controlled_conversation.py::test_local_title_then_main_then_sent_title_keeps_ordered_original_parents
+  ║ 5.92s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+  ║ 5.81s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[user_message-]
+  ║ 5.74s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[user_message-<system-reminder></system-reminder>]
+  ║ 5.65s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_local_title_then_main_then_sent_title_keeps_ordered_original_parents
+  ║ ================= 1 failed, 4 passed, 201 deselected in 56.07s =================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k local_title_actual_empty_sources or local_title_then_main --durations=5
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 4 tests passed, 1 failed (100% complete) in 56.4s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 56.4s  (runner wall: 56.4s, parallelism: 16x)
+  P50: 56.39s  P90: 56.39s  P95: 56.39s  P99: 56.39s  Max: 56.39s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     56.39s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.16
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 206 items / 201 deselected / 5 selected
+
+tests/agent/test_native_controlled_conversation.py ....F                 [100%]
+
+=================================== FAILURES ===================================
+__ test_local_title_then_main_then_sent_title_keeps_ordered_original_parents ___
+
+excluded = <function excluded.<locals>.forbidden at 0x72c736871b20>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x72c7368713a0>, call=<function caller_boundary.<l...tem-reminder>', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x72c736e88540>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x72c736d63850>
+
+    def test_local_title_then_main_then_sent_title_keeps_ordered_original_parents(
+            excluded, caller_boundary, monkeypatch):
+        derived = observe_title_derivations(monkeypatch)
+        block_title_edges(monkeypatch, excluded, local=False)
+        world = auxiliary_world()
+        first = turn(world, "<system-reminder></system-reminder>")
+        with content_policy_scope(world.context):
+            bind_title(world)
+            assert title_from(world, first) is None
+        local, = world.adapter.auxiliary_local_results
+        world.binding = replace(world.binding, profiles=())
+        world.title_binding = replace(world.title_binding, profiles=())
+        second = turn(world, "<system-reminder>Keep receipts</system-reminder>", first["messages"])
+        with content_policy_scope(world.context):
+            assert title_from(world, second) == "Invented document review"
+        sent, = world.adapter.auxiliary_invocations
+        assert world.adapter.auxiliary_local_results[0] is local
+        assert len(world.adapter.invocations) == world.adapter.send_count == 2
+        assert world.adapter.auxiliary_send_count == 1
+        assert first["total_tokens"] == 5 and second["total_tokens"] == sum(r.native_response.usage.total_tokens for r in world.adapter.invocations) == 10
+        assert world.agent.model == "invented_model"
+        assert json.loads(sent.input_stages[2]) == json.loads(sent.input_stages[3]) == "Keep receipts"
+        assert len(sent.input_stages) == 7 and len(sent.output_stages) == 4
+        main_returns = [row for row in derived if row[0] is world.request and any(p is local.output_content for p in row[1])]
+        assert main_returns
+        for row in main_returns:
+            assert row[1][-1] is local.output_content and row[4][-1] is world.title_request
+        assert sent.parents[-1] is local.output_content and sent.parent_requests[-1] is world.title_request
+        assert all(e.profiles == ("restricted_documents",) for e in (*world.ports["main"].sent, *world.title_ports["title"].sent))
+        with content_policy_scope(world.context):
+>           assert title_from(world, first) is None
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_controlled_conversation.py:1395: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:757: in title_from
+    return generate_title(text, controlled_aux=token, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/title_generator.py:489: in generate_title
+    adapter = _controlled_title_entry(user_message, controlled_aux,
+agent/native_main_payload.py:1805: in _controlled_title_entry
+    _require(type(user_message) is str and user_message is frame.text)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+
+    def _require(condition):
+        if not condition:
+>           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+
+agent/native_main_payload.py:400: NativeContentPolicyDenied
+============================= slowest 5 durations ==============================
+31.59s call     tests/agent/test_native_controlled_conversation.py::test_local_title_then_main_then_sent_title_keeps_ordered_original_parents
+5.92s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+5.81s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[user_message-]
+5.74s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[user_message-<system-reminder></system-reminder>]
+5.65s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_local_title_then_main_then_sent_title_keeps_ordered_original_parents
+================= 1 failed, 4 passed, 201 deselected in 56.07s =================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/agent/test_native_controlled_conversation.py  (1 test failed)

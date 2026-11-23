@@ -1,0 +1,86 @@
+{
+  "runs": [
+    {
+      "log": "edit-local-first.log",
+      "stage": "intermediate feedback; no frozen final-source claim",
+      "passed": 0,
+      "failed": 2,
+      "runner_wall_seconds": 11.8,
+      "process_wall_seconds": "not captured separately; runner timing retained"
+    },
+    {
+      "log": "edit-local-proof.log",
+      "stage": "intermediate feedback; no frozen final-source claim",
+      "passed": 4,
+      "failed": 1,
+      "runner_wall_seconds": 56.4,
+      "process_wall_seconds": "not captured separately; runner timing retained"
+    },
+    {
+      "log": "edit-local-control.log",
+      "stage": "intermediate feedback; no frozen final-source claim",
+      "passed": 6,
+      "failed": 0,
+      "runner_wall_seconds": 60.2,
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "(local_title_actual_empty_sources and IMPORTANT) or local_title_cancellation or local_title_then_main",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "--durations=5"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 60.514
+    },
+    {
+      "log": "edit-local-refusals.log",
+      "stage": "intermediate feedback; no frozen final-source claim",
+      "passed": 7,
+      "failed": 6,
+      "runner_wall_seconds": 55.3,
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "(local_title_completion_requires and (unprepared or copied_stages or mutated_output)) or (local_title_current_facts and (source_epoch or selection)) or (local_title_lifecycle and (reentry or process or thread)) or local_title_profile_removal or local_title_changed_resolved or (local_title_cancellation and post_publication_policy)",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "--durations=5"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 55.668
+    },
+    {
+      "log": "edit-local-ownership.log",
+      "stage": "intermediate feedback; no frozen final-source claim",
+      "passed": 6,
+      "failed": 0,
+      "runner_wall_seconds": 103.4,
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "(local_title_completion_requires and (unprepared or copied_stages or mutated_output)) or (local_title_current_facts and source_epoch) or local_title_mixed_capacity or (local_title_actual_empty_sources and IMPORTANT)",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "--durations=5"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 103.753
+    }
+  ],
+  "aggregation": "Counts overlap and do not add to final results.",
+  "interruptions": "No interrupted functional run in this task.",
+  "overlap": "Read-only checks and evidence writing overlap final execution. Frozen runtime/test files remain unchanged."
+}

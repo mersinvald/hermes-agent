@@ -1,0 +1,15 @@
+[
+  "scripts/run_tests.sh",
+  "tests/agent/test_native_controlled_conversation.py",
+  "tests/agent/test_title_generator.py",
+  "-k",
+  "local_title or retained_title_empty_snippet_completes_local_without_send or retained_title_main_title_with_independent_selections or real_constructor_first_and_repeated_entrypoints or retained_title_changed_facts_refuse_before_summary or retained_title_preparation_refuses_unproved_stages or retained_title_semantic_none_has_complete_output_proof or retained_title_published_records_never_change_during_completion or (actual_siblings_refuse_after_constructed_turn and title) or title_policy_denial_escapes_broad_catches or ordinary_title_helper_interruption_keeps_existing_fallback or broken_validator_fails_open or title_failure_callback_cannot_suppress_policy_denial",
+  "--file-retries",
+  "0",
+  "--file-timeout",
+  "600",
+  "-j",
+  "2",
+  "--",
+  "--durations=8"
+]

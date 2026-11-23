@@ -1,0 +1,40 @@
+{
+  "scope": "Local invented synchronous native title completion and directly affected compatibility.",
+  "final_selection": {
+    "passed": 80,
+    "failed": 0,
+    "runner_wall_seconds": 478.1,
+    "process_wall_seconds": 478.423,
+    "file_retries": 0,
+    "skips_reported": false,
+    "per_file": [
+      {
+        "path": "tests/agent/test_native_controlled_conversation.py",
+        "passed": 68,
+        "seconds": 478.13
+      },
+      {
+        "path": "tests/agent/test_title_generator.py",
+        "passed": 12,
+        "seconds": 0.64
+      }
+    ]
+  },
+  "source_pins_unchanged": true,
+  "installed_smoke": "One exact installed shared wheel API/import/representative derivation smoke. Native imports use this source worktree.",
+  "api_sha256": "eefc24ed98b1b1d5dbf959c5119910450ddc3c22d5e4137075e85f765243aaee",
+  "consumer_proposal_sha256": "f21d0f989994562b89d4e76578eb4c2d3992a7706e0f8aa0af98b5b224d0bc71",
+  "intermediate_scopes": "intermediate-scopes.json",
+  "prose": {
+    "existing_python_scores_unchanged": true,
+    "new_prose_findings": 0,
+    "new_em_dashes": 0
+  },
+  "limitations": [
+    "No fresh full native, PWA, or shared suite.",
+    "No installed native functional selection.",
+    "No real providers, egress, private/model, durable restoration, sensitive cross-thread, source, financial, production, deployment, or activation qualification.",
+    "Full P10/P06 and root acceptance remain open."
+  ],
+  "root_test_exception": "msg_4a5394fffe06"
+}

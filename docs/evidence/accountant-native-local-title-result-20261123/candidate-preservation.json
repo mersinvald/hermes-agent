@@ -1,0 +1,69 @@
+{
+  "native_base": "4d47543f91aaf94d4abc3bac2c04a47a411a1be2",
+  "source_files": {
+    "agent/native_main_payload.py": {
+      "sha256": "3d778105fa58bedd703fbafaa68bef2e1b79cbeed9f1bf82cdb4122b888af0ae",
+      "git_blob": "7307475a68f4e4ce2288828cc61e2b2c8381b28d"
+    },
+    "agent/title_generator.py": {
+      "sha256": "27ee62f4b21ecfa696bfb613690e80021b54af8a7af3db90675b99d88c6fab60",
+      "git_blob": "f99f973dbc14fc01ef8a852e3e9e66c461f17808"
+    },
+    "tests/agent/test_native_controlled_conversation.py": {
+      "sha256": "767fa210bdd31570dd8d5149c24bf56b61e0f0a31df9fd042d19ba8027abce9a",
+      "git_blob": "29cfb013b0f754fc66de7698fe96586804ea6041"
+    },
+    "tests/agent/test_title_generator.py": {
+      "sha256": "5ad9c0ca16eee987263996c90dbb28922cb0a806826fd11c49b396922628bbe3",
+      "git_blob": "16cdadfd98a18b2d869ef0407444f6710a795727"
+    }
+  },
+  "preserved_public_method_signatures": [
+    "__init__",
+    "invocations",
+    "send_count",
+    "_deny",
+    "_invalidate",
+    "_identity",
+    "_snapshot",
+    "_verify_records",
+    "_verify_turns",
+    "_verify_completions",
+    "_interrupt_operation",
+    "_interrupt_turn",
+    "_turn_operation",
+    "admit_turn",
+    "_prepare_turn",
+    "seal_turn",
+    "_turn_request",
+    "prepared_request",
+    "auxiliary_invocations",
+    "auxiliary_send_count",
+    "_derive",
+    "_callback_scope",
+    "_aux_snapshot",
+    "_verify_auxiliary",
+    "_retain_aux_frame",
+    "_accept_aux_record",
+    "_retain_aux_record",
+    "bind_auxiliary",
+    "auxiliary_input",
+    "_checked_aux_frame",
+    "_transform_auxiliary",
+    "seal_auxiliary",
+    "_dispatch_retained_operation",
+    "dispatch_auxiliary",
+    "complete_auxiliary",
+    "_checkpoint",
+    "_around",
+    "validate_scope",
+    "dispatch"
+  ],
+  "preserved_original_test_definitions": 67,
+  "approved_test_exception": {
+    "message": "msg_4a5394fffe06",
+    "old": "test_retained_title_empty_snippet_refuses_without_fabricated_result",
+    "new": "test_retained_title_empty_snippet_completes_local_without_send",
+    "zero_send_assertion_preserved": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "accepted_dependency_receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/artifact-receipt.json",
+      "sha256": "36d766a205e9ef1ca25f8757b49d170b2d656096f15576a078e6efeda3685e5b"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.13.final-review.json",
+      "sha256": "afa732cb10b8de521b87efd75d4394d064f685a9c6738eb3af5e40839d9591ea"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.13.publication-receipt.json",
+      "sha256": "8d1c3aadce177e85664e724ae5d24c89dd4396a09dd993b9986e14581784f2fd"
+    }
+  ],
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/hermes_content_policy-0.2.0-py3-none-any.whl",
+  "wheel_sha256": "b6dd72e900cea284b16f0aee0cb706824ce7e495176fb826c96fb508bfea5e6a",
+  "engine_sha256": "576e057d0b59053a254a5a766509526824e14640081fdb31ba58b1b03517a625",
+  "delivery": [
+    "uv",
+    "pip",
+    "install",
+    "--offline",
+    "--no-index",
+    "--no-deps",
+    "--python",
+    ".venv/bin/python",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/hermes_content_policy-0.2.0-py3-none-any.whl"
+  ]
+}

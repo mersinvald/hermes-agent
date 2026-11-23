@@ -1,0 +1,16 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_controlled_conversation.py",
+    "-k",
+    "(local_title_actual_empty_sources and IMPORTANT) or local_title_cancellation or local_title_then_main",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "--",
+    "--durations=5"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 60.514
+}
