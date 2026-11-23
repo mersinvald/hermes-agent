@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "patches": [
+    {
+      "path": "source-first.patch",
+      "before_sha256": "83b0d35970ba95e9c9f3feda20712307f37d4ae50998eadcb6fa65ce38b50012",
+      "after_sha256": "5bd78cb38329a1879aa2d12a52999ac33683ed9e2119aa9ab31f7ce938aa85ee",
+      "sha256": "fcffb42511033d0edcd353e913642ea4cfcea5c7595b0a23b34e3cdc9871275c",
+      "format": "unified, zero context; reconstruct with git apply --unidiff-zero"
+    },
+    {
+      "path": "source-stage.patch",
+      "before_sha256": "5bd78cb38329a1879aa2d12a52999ac33683ed9e2119aa9ab31f7ce938aa85ee",
+      "after_sha256": "3fde1ef149b7fabd1e62a3999ecac33e57577c35cf49e5d09c39fcc449b947be",
+      "sha256": "f3cddf0afe532bfbfc90969b870b4f6323d8ced490e6ca13aad4162120ed46e2",
+      "format": "unified, zero context; reconstruct with git apply --unidiff-zero"
+    },
+    {
+      "path": "source-boundary.patch",
+      "before_sha256": "3fde1ef149b7fabd1e62a3999ecac33e57577c35cf49e5d09c39fcc449b947be",
+      "after_sha256": "56ca97bd1c2a6ef300c007a701610b849cbcf318bae9ebcbbf484b0caca70cdf",
+      "sha256": "4d4a47c9af8147b64f34a3a9c3b36b6c52777bf4598d12566217cb7b1d13076e",
+      "format": "unified, zero context; reconstruct with git apply --unidiff-zero"
+    },
+    {
+      "path": "source-ownership.patch",
+      "before_sha256": "56ca97bd1c2a6ef300c007a701610b849cbcf318bae9ebcbbf484b0caca70cdf",
+      "after_sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+      "sha256": "eacce246acc847e6c6284ddf812e8b6731a6d0767f3085d930455cbbb62bb69e",
+      "format": "unified, zero context; reconstruct with git apply --unidiff-zero"
+    },
+    {
+      "path": "source-runtime-health.patch",
+      "before_sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+      "after_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "sha256": "4a3057933593326562bc94cd52c82a7606b81a64ae8580bb039c674fc9582718",
+      "format": "unified, zero context; reconstruct with git apply --unidiff-zero"
+    }
+  ],
+  "current_runtime": {
+    "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+    "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+  },
+  "source_reuse": [
+    {
+      "scope": "boundary",
+      "qualified_source": {
+        "agent/native_main_payload.py": {
+          "sha256": "56ca97bd1c2a6ef300c007a701610b849cbcf318bae9ebcbbf484b0caca70cdf",
+          "blob": "0c6229e16dd424deafb6ac9b87ce9464f1edbe2c"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "9b56e9256f7a30f225886d2c54e646fc6fd91bfb7433c6f4b17773bdb31cff6d",
+          "blob": "3c89394528dec579bffa35199fedf5ebee6d7aed"
+        }
+      },
+      "inverse": "Later changes add original route/method anchors and runtime-health checks. Original binding capture, option bytes, early exact-type denial and shared capacity charging remain unchanged. Capacity failure precedes authorization issuance and the new bound checks. No 15-case rerun."
+    },
+    {
+      "scope": "ordinary/main/default",
+      "qualified_source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+          "blob": "ea6cf8595659d61ddc89f1f6a6def581ae8914ca"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3b60823dc104908e90c7dd54e18715195df762a8d4eb4fd0f8d14ba8c4ab203e",
+          "blob": "3d6b8109f758ed9c0a5b04a4adf6c3c944f6883d"
+        }
+      },
+      "inverse": "The final runtime correction changes only the registered resumption owner. These three representatives never register that owner. Their original code paths remain byte-identical."
+    },
+    {
+      "scope": "release/identity/failure",
+      "qualified_source": {
+        "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+        "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+      },
+      "inverse": "All use exact final runtime bytes. Final consumer changes add receipt metadata and start rows only. Every functional test body and fixture for native construction remains identical."
+    },
+    {
+      "scope": "recorder",
+      "qualified_source": {
+        "agent/native_main_payload.py": {
+          "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+          "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+          "blob": "bf73d63a2f0dbc494539a5207ead7dc46242d5f0"
+        }
+      },
+      "inverse": "Current consumer metadata fixture executes on one existing early-denial control. No model operation or qualification rerun follows."
+    }
+  ],
+  "not_a_fresh_corrected_union": true,
+  "all_source_corrections_reconstructed_by_exact_bytes": true
+}

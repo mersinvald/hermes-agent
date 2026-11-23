@@ -1,0 +1,197 @@
+{
+  "scope": "identity",
+  "pins_recorded_before_selection": {
+    "agent/native_main_payload.py": {
+      "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+    },
+    "tests/tools/test_native_parent_resumption.py": {
+      "sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d",
+      "blob": "25a0ad47232275833a825c57767911e0230da530"
+    }
+  },
+  "phases": [
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_retained_profiles_and_terminal_operations",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 1.5514294619933935,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_retained_profiles_and_terminal_operations",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 46.82927134700003,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_retained_profiles_and_terminal_operations",
+      "outcome": "passed",
+      "phase": "teardown",
+      "seconds": 0.0004821480033569969,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[resume]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 0.015692628003307618,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[resume]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 35.460720620001666,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[resume]",
+      "outcome": "passed",
+      "phase": "teardown",
+      "seconds": 0.00047514600009890273,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[public]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 0.012144718995841686,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[public]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 35.9194989969983,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[public]",
+      "outcome": "passed",
+      "phase": "teardown",
+      "seconds": 0.0004957540004397742,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[dispatch]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 0.017857573999208398,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[dispatch]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 36.73449414600327,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[dispatch]",
+      "outcome": "passed",
+      "phase": "teardown",
+      "seconds": 0.0005615100017166696,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[helper]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 0.013756849999481346,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[helper]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 36.44212650299596,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[helper]",
+      "outcome": "passed",
+      "phase": "teardown",
+      "seconds": 0.0006434890019590966,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[keyboard-binding]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 0.013508502997865435,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[keyboard-binding]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 2.0399839820020134,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[keyboard-binding]",
+      "outcome": "passed",
+      "phase": "teardown",
+      "seconds": 0.0006755009962944314,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[system-exit-binding]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 0.0173249789950205,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[system-exit-binding]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 1.8519944549989305,
+      "pin_receipt_source": "split-pins.json",
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d"
+    }
+  ],
+  "raw_receipt_sha256": "d6e7b577e5977c74aeff97ef0d7579f1f7d5336339214838de359b94dbc05ebb",
+  "note": "Selection-wide preflight hashes precede every case. Recorder control also emits hashes and a start row directly."
+}

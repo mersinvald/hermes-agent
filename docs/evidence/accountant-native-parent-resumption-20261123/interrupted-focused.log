@@ -1,0 +1,39 @@
+▶ no local venv — using Nix dev venv via HERMES_PYTHON: /home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runner-python
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~13 tests) under ['tests/tools/test_native_parent_resumption.py']; running with -j 16
+[100.0% |    13/~13 | ✓0 | ✗0] ✗ tests/tools/test_native_parent_resumption.py (13 tests, 650.0s)
+
+  ╔╍ Failed: tests/tools/test_native_parent_resumption.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ (650s exceeded; process tree SIGKILL'd)
+  ║ .................
+  ║
+  ║  Repro: python -m pytest tests/tools/test_native_parent_resumption.py -q -k not binding_rejects and not original_presence and not reentrant_binding and not bound_authority and not authorization_capacity --durations=25 --basetemp=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/test-state/focused-tmp -o cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/test-state/pytest-cache --junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/focused.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 0 failed (100% complete) in 650.0s (16 workers) ===
+
+=== ✗ NO TESTS RAN — 0 collected across 1 file. This is NOT a pass. ===
+  Common causes: the selected venv has no pytest; a -k/-m filter matched nothing; or collection errored in every file.
+  Check the per-file output above for the real error.
+  Durations cached to /home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 650.0s  (runner wall: 650.0s, parallelism: 16x)
+  P50: 650.04s  P90: 650.04s  P95: 650.04s  P99: 650.04s  Max: 650.04s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+    650.04s  tests/tools/test_native_parent_resumption.py
+
+=== Failure output ===
+
+--- tests/tools/test_native_parent_resumption.py ---
+(650s exceeded; process tree SIGKILL'd)
+.................
+
+=== 1 file where no tests ran (collection/import error, timeout before collection, etc.) ===
+  tests/tools/test_native_parent_resumption.py

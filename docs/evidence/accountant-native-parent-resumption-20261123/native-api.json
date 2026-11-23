@@ -1,0 +1,1534 @@
+{
+  "scope": "Worktree source imports with exact installed hermes-content-policy 0.4.0; no installed native distribution",
+  "signatures": {
+    "bind_parent_resumption": "(self, agent: 'object', *, instruction: 'str', system_message: 'str | None' = None) -> 'NativeParentResumption'",
+    "resume_parent": "(self, agent: 'object', authorization: 'NativeParentResumption') -> 'dict'"
+  },
+  "records": {
+    "NativeParentResumptionBinding": {
+      "frozen": true,
+      "slots": [
+        "token",
+        "agent",
+        "delegation_frame",
+        "delegation_binding",
+        "parent_request",
+        "selection",
+        "producer_policy",
+        "main_route",
+        "instruction",
+        "system_message",
+        "task_id",
+        "options",
+        "authorization_bytes",
+        "authorization_content",
+        "snapshots",
+        "anchors",
+        "thread"
+      ],
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeParentResumption",
+          "meaning": "The opaque original token issued after genuine P admission."
+        },
+        {
+          "name": "agent",
+          "annotation": "object",
+          "meaning": "The original unused constructed parent."
+        },
+        {
+          "name": "delegation_frame",
+          "annotation": "object",
+          "meaning": "The original registered delegation frame."
+        },
+        {
+          "name": "delegation_binding",
+          "annotation": "NativeDelegateBinding",
+          "meaning": "The exact original delegation binding."
+        },
+        {
+          "name": "parent_request",
+          "annotation": "object",
+          "meaning": "The original authenticated P capability."
+        },
+        {
+          "name": "selection",
+          "annotation": "NativeMainSelection",
+          "meaning": "The original parent selection record."
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "NativeResultPolicy",
+          "meaning": "The original parent producer policy."
+        },
+        {
+          "name": "main_route",
+          "annotation": "object",
+          "meaning": "The original selected parent-main route."
+        },
+        {
+          "name": "instruction",
+          "annotation": "str",
+          "meaning": "The exact original built-in instruction object."
+        },
+        {
+          "name": "system_message",
+          "annotation": "str | None",
+          "meaning": "The original system text object or None."
+        },
+        {
+          "name": "task_id",
+          "annotation": "str",
+          "meaning": "The original P execution ID object."
+        },
+        {
+          "name": "options",
+          "annotation": "tuple",
+          "meaning": "Original presence rows, positional arguments, and ordered keyword pairs."
+        },
+        {
+          "name": "authorization_bytes",
+          "annotation": "bytes",
+          "meaning": "Complete canonical instruction, system, task, and authenticated binding references."
+        },
+        {
+          "name": "authorization_content",
+          "annotation": "object",
+          "meaning": "The genuine P-held authorization content handle."
+        },
+        {
+          "name": "snapshots",
+          "annotation": "tuple",
+          "meaning": "Original delegation snapshots, facts, constructed binding, methods, catalog, and owner methods."
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple",
+          "meaning": "Complete original nested snapshot anchors checked alongside the original native verifiers."
+        },
+        {
+          "name": "thread",
+          "annotation": "int",
+          "meaning": "The original owning thread ID."
+        }
+      ]
+    },
+    "NativeParentResumptionInvocation": {
+      "frozen": true,
+      "slots": [
+        "binding",
+        "delegation",
+        "return_facts",
+        "returned_content",
+        "closed_child_proof",
+        "arguments",
+        "argument_anchors",
+        "raw_bytes",
+        "input_parents",
+        "input_content",
+        "turn_frame",
+        "preparation_contents",
+        "request",
+        "request_bytes",
+        "request_content",
+        "envelope",
+        "observed_destination",
+        "response_bytes",
+        "native_invocation",
+        "native_completion",
+        "result",
+        "result_bytes",
+        "result_content"
+      ],
+      "fields": [
+        {
+          "name": "binding",
+          "annotation": "NativeParentResumptionBinding",
+          "meaning": "The exact registered resumption binding."
+        },
+        {
+          "name": "delegation",
+          "annotation": "NativeDelegateInvocation",
+          "meaning": "The exact released original delegation invocation."
+        },
+        {
+          "name": "return_facts",
+          "annotation": "object",
+          "meaning": "The original genuine shared delegate-return facts."
+        },
+        {
+          "name": "returned_content",
+          "annotation": "object",
+          "meaning": "The original returned P content handle."
+        },
+        {
+          "name": "closed_child_proof",
+          "annotation": "tuple",
+          "meaning": "The original sealed closed-child proof tuple."
+        },
+        {
+          "name": "arguments",
+          "annotation": "tuple",
+          "meaning": "The actual user, system, None history, and original task tuple."
+        },
+        {
+          "name": "argument_anchors",
+          "annotation": "tuple",
+          "meaning": "Complete nested anchors for the actual argument tuple."
+        },
+        {
+          "name": "raw_bytes",
+          "annotation": "bytes",
+          "meaning": "Complete existing _turn_bytes serialization with original constructor option presence."
+        },
+        {
+          "name": "input_parents",
+          "annotation": "tuple",
+          "meaning": "Exactly returned_content followed by authorization_content."
+        },
+        {
+          "name": "input_content",
+          "annotation": "object",
+          "meaning": "The genuine first resumed P derivation handle."
+        },
+        {
+          "name": "turn_frame",
+          "annotation": "_TurnFrame | None",
+          "meaning": "The actual current immutable native parent turn frame, when created."
+        },
+        {
+          "name": "preparation_contents",
+          "annotation": "tuple",
+          "meaning": "Actual native preparation and normalized request stage handles, bounded by eight."
+        },
+        {
+          "name": "request",
+          "annotation": "dict | None",
+          "meaning": "The original actual parent request dictionary, when created."
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes | None",
+          "meaning": "Complete canonical destination-bound wire request bytes, when created."
+        },
+        {
+          "name": "request_content",
+          "annotation": "object",
+          "meaning": "The actual shared parent wire-request content handle."
+        },
+        {
+          "name": "envelope",
+          "annotation": "object",
+          "meaning": "The original parent transport envelope."
+        },
+        {
+          "name": "observed_destination",
+          "annotation": "object",
+          "meaning": "The actual observed original parent destination."
+        },
+        {
+          "name": "response_bytes",
+          "annotation": "bytes | None",
+          "meaning": "The actual complete raw parent response bytes, when available."
+        },
+        {
+          "name": "native_invocation",
+          "annotation": "NativeMainInvocation | None",
+          "meaning": "The actual parent NativeMainInvocation, when created."
+        },
+        {
+          "name": "native_completion",
+          "annotation": "_NativeCompletion | None",
+          "meaning": "The actual parent _NativeCompletion, when created."
+        },
+        {
+          "name": "result",
+          "annotation": "dict | None",
+          "meaning": "The exact dictionary from actual controlled completion, when created."
+        },
+        {
+          "name": "result_bytes",
+          "annotation": "bytes | None",
+          "meaning": "Complete canonical bytes of the actual native result, when created."
+        },
+        {
+          "name": "result_content",
+          "annotation": "object",
+          "meaning": "The genuine derived native completion content handle."
+        }
+      ]
+    }
+  },
+  "opaque_token": {
+    "name": "NativeParentResumption",
+    "slots": [],
+    "issuance": "Identity only, after genuine P admission"
+  },
+  "original_dataclasses": {
+    "NativeDelegateBinding": [
+      [
+        "parent_request",
+        "object"
+      ],
+      [
+        "receiver_request",
+        "object"
+      ],
+      [
+        "child_request",
+        "object"
+      ],
+      [
+        "receiver_selection",
+        "NativeSelectionPort"
+      ],
+      [
+        "child_selection",
+        "NativeSelectionPort"
+      ],
+      [
+        "receiver_producer_ref",
+        "str"
+      ],
+      [
+        "child_producer_ref",
+        "str"
+      ],
+      [
+        "delegate_route",
+        "object"
+      ],
+      [
+        "child_main_route",
+        "object"
+      ],
+      [
+        "child_session_id",
+        "str"
+      ],
+      [
+        "child_task_id",
+        "str"
+      ],
+      [
+        "snapshots",
+        "tuple"
+      ],
+      [
+        "anchors",
+        "tuple"
+      ]
+    ],
+    "NativeDelegateInvocation": [
+      [
+        "token",
+        "NativeDelegateInput"
+      ],
+      [
+        "binding",
+        "NativeDelegateBinding"
+      ],
+      [
+        "arguments",
+        "tuple"
+      ],
+      [
+        "argument_anchors",
+        "tuple"
+      ],
+      [
+        "raw_bytes",
+        "bytes"
+      ],
+      [
+        "raw_content",
+        "object"
+      ],
+      [
+        "leaf_bytes",
+        "bytes"
+      ],
+      [
+        "leaf_content",
+        "object"
+      ],
+      [
+        "request_content",
+        "object"
+      ],
+      [
+        "envelope",
+        "object"
+      ],
+      [
+        "ack_bytes",
+        "bytes | None"
+      ],
+      [
+        "ack_content",
+        "object"
+      ],
+      [
+        "accepted_content",
+        "object"
+      ],
+      [
+        "child_seed",
+        "object"
+      ],
+      [
+        "child",
+        "object"
+      ],
+      [
+        "child_adapter",
+        "object"
+      ],
+      [
+        "child_input",
+        "object"
+      ],
+      [
+        "child_request",
+        "object"
+      ],
+      [
+        "child_invocation",
+        "object"
+      ],
+      [
+        "child_completion",
+        "object"
+      ],
+      [
+        "entry_bytes",
+        "bytes | None"
+      ],
+      [
+        "aggregate_bytes",
+        "bytes | None"
+      ],
+      [
+        "receiver_result",
+        "object"
+      ],
+      [
+        "return_facts",
+        "object"
+      ]
+    ],
+    "_FallbackBinding": [
+      [
+        "handle",
+        "object"
+      ],
+      [
+        "port",
+        "object"
+      ],
+      [
+        "producer_ref",
+        "str"
+      ],
+      [
+        "route",
+        "object"
+      ],
+      [
+        "holder",
+        "tuple"
+      ],
+      [
+        "selected",
+        "tuple"
+      ],
+      [
+        "producer",
+        "tuple"
+      ],
+      [
+        "original_profiles",
+        "tuple"
+      ]
+    ],
+    "_FailedSendObservation": [
+      [
+        "operation",
+        "object"
+      ],
+      [
+        "envelope",
+        "object"
+      ],
+      [
+        "observed_destination",
+        "object"
+      ],
+      [
+        "exception_type",
+        "type"
+      ],
+      [
+        "send_count_before",
+        "int"
+      ],
+      [
+        "send_count_after",
+        "int"
+      ]
+    ],
+    "NativeFailedMainAttempt": [
+      [
+        "turn_frame",
+        "object"
+      ],
+      [
+        "request_handle",
+        "object"
+      ],
+      [
+        "source",
+        "object"
+      ],
+      [
+        "selection",
+        "object"
+      ],
+      [
+        "producer_policy",
+        "object"
+      ],
+      [
+        "source_bytes",
+        "bytes"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "request",
+        "dict"
+      ],
+      [
+        "request_bytes",
+        "bytes"
+      ],
+      [
+        "request_content",
+        "object"
+      ],
+      [
+        "send_observation",
+        "_FailedSendObservation"
+      ],
+      [
+        "shared_failure",
+        "object"
+      ],
+      [
+        "failure_facts",
+        "object"
+      ],
+      [
+        "failure_content",
+        "object"
+      ]
+    ],
+    "_FallbackFrame": [
+      [
+        "token",
+        "NativeFallbackInput"
+      ],
+      [
+        "failed_main",
+        "NativeFailedMainAttempt"
+      ],
+      [
+        "binding",
+        "_FallbackBinding"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "source_content",
+        "object"
+      ],
+      [
+        "input_stages",
+        "tuple"
+      ],
+      [
+        "stage_contents",
+        "tuple"
+      ],
+      [
+        "request",
+        "dict | None"
+      ],
+      [
+        "request_bytes",
+        "bytes | None"
+      ],
+      [
+        "request_anchors",
+        "tuple"
+      ],
+      [
+        "activated",
+        "bool"
+      ],
+      [
+        "invocation",
+        "object"
+      ],
+      [
+        "result",
+        "dict | None"
+      ],
+      [
+        "result_bytes",
+        "bytes | None"
+      ],
+      [
+        "result_content",
+        "object"
+      ],
+      [
+        "result_anchors",
+        "tuple"
+      ]
+    ],
+    "NativeFallbackInvocation": [
+      [
+        "failed_main",
+        "NativeFailedMainAttempt"
+      ],
+      [
+        "request_handle",
+        "object"
+      ],
+      [
+        "source",
+        "object"
+      ],
+      [
+        "selection",
+        "object"
+      ],
+      [
+        "producer_policy",
+        "object"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "input_stages",
+        "tuple"
+      ],
+      [
+        "stage_contents",
+        "tuple"
+      ],
+      [
+        "request",
+        "dict"
+      ],
+      [
+        "request_bytes",
+        "bytes"
+      ],
+      [
+        "request_content",
+        "object"
+      ],
+      [
+        "envelope",
+        "object"
+      ],
+      [
+        "observed_destination",
+        "object"
+      ],
+      [
+        "response_bytes",
+        "bytes | None"
+      ],
+      [
+        "result_content",
+        "object"
+      ],
+      [
+        "native_response",
+        "object"
+      ],
+      [
+        "output_stages",
+        "tuple"
+      ],
+      [
+        "output_contents",
+        "tuple"
+      ],
+      [
+        "output",
+        "dict | None"
+      ],
+      [
+        "output_bytes",
+        "bytes | None"
+      ],
+      [
+        "output_content",
+        "object"
+      ]
+    ],
+    "_TurnFrame": [
+      [
+        "token",
+        "NativeTurnInput"
+      ],
+      [
+        "arguments",
+        "tuple"
+      ],
+      [
+        "raw_bytes",
+        "bytes"
+      ],
+      [
+        "admitted",
+        "object"
+      ],
+      [
+        "input_content",
+        "object"
+      ],
+      [
+        "options",
+        "bytes"
+      ],
+      [
+        "input_anchors",
+        "tuple"
+      ],
+      [
+        "output",
+        "object"
+      ],
+      [
+        "output_anchors",
+        "tuple"
+      ],
+      [
+        "output_bytes",
+        "bytes | None"
+      ],
+      [
+        "output_content",
+        "object"
+      ],
+      [
+        "prepared",
+        "NativePreparedTurn | None"
+      ],
+      [
+        "request_bytes",
+        "bytes | None"
+      ],
+      [
+        "request_contents",
+        "tuple"
+      ]
+    ],
+    "NativeMainSelection": [
+      [
+        "selection_id",
+        "str"
+      ],
+      [
+        "selection_version",
+        "int"
+      ],
+      [
+        "api_mode",
+        "str"
+      ],
+      [
+        "destination",
+        "Destination"
+      ]
+    ],
+    "NativeResultPolicy": [
+      [
+        "producer_ref",
+        "str"
+      ],
+      [
+        "revision",
+        "int"
+      ],
+      [
+        "profiles",
+        "tuple[str, ...]"
+      ]
+    ],
+    "NativeMainMessage": [
+      [
+        "role",
+        "str"
+      ],
+      [
+        "content",
+        "str"
+      ],
+      [
+        "tool_calls",
+        "None"
+      ]
+    ],
+    "NativeMainChoice": [
+      [
+        "index",
+        "int"
+      ],
+      [
+        "message",
+        "NativeMainMessage"
+      ],
+      [
+        "finish_reason",
+        "str"
+      ]
+    ],
+    "NativeMainUsage": [
+      [
+        "prompt_tokens",
+        "int"
+      ],
+      [
+        "completion_tokens",
+        "int"
+      ],
+      [
+        "total_tokens",
+        "int"
+      ]
+    ],
+    "NativeMainResponse": [
+      [
+        "id",
+        "str"
+      ],
+      [
+        "object",
+        "str"
+      ],
+      [
+        "created",
+        "int"
+      ],
+      [
+        "model",
+        "str"
+      ],
+      [
+        "choices",
+        "tuple[NativeMainChoice, ...]"
+      ],
+      [
+        "usage",
+        "NativeMainUsage"
+      ]
+    ],
+    "NativeMainInvocation": [
+      [
+        "request_handle",
+        "object"
+      ],
+      [
+        "source",
+        "ExecutionBinding"
+      ],
+      [
+        "selection",
+        "NativeMainSelection"
+      ],
+      [
+        "producer_policy",
+        "NativeResultPolicy"
+      ],
+      [
+        "request_bytes",
+        "bytes"
+      ],
+      [
+        "request_content",
+        "ContentHandle"
+      ],
+      [
+        "envelope",
+        "DispatchEnvelope"
+      ],
+      [
+        "observed_destination",
+        "Destination"
+      ],
+      [
+        "response_bytes",
+        "bytes"
+      ],
+      [
+        "result_content",
+        "ContentHandle"
+      ],
+      [
+        "native_response",
+        "NativeMainResponse"
+      ]
+    ],
+    "NativeAuxiliaryInvocation": [
+      [
+        "source_completion",
+        "object"
+      ],
+      [
+        "source_frame",
+        "object"
+      ],
+      [
+        "source_invocation",
+        "NativeMainInvocation"
+      ],
+      [
+        "source_handle",
+        "object"
+      ],
+      [
+        "request_handle",
+        "object"
+      ],
+      [
+        "source",
+        "object"
+      ],
+      [
+        "target",
+        "object"
+      ],
+      [
+        "path",
+        "str"
+      ],
+      [
+        "task",
+        "str"
+      ],
+      [
+        "selection",
+        "NativeMainSelection"
+      ],
+      [
+        "producer_policy",
+        "NativeResultPolicy"
+      ],
+      [
+        "source_bytes",
+        "bytes"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "input_stages",
+        "tuple"
+      ],
+      [
+        "stage_contents",
+        "tuple"
+      ],
+      [
+        "request_bytes",
+        "bytes"
+      ],
+      [
+        "request_content",
+        "object"
+      ],
+      [
+        "envelope",
+        "object"
+      ],
+      [
+        "observed_destination",
+        "object"
+      ],
+      [
+        "response_bytes",
+        "bytes | None"
+      ],
+      [
+        "result_content",
+        "object"
+      ],
+      [
+        "native_response",
+        "NativeMainResponse | None"
+      ],
+      [
+        "output_stages",
+        "tuple"
+      ],
+      [
+        "output_contents",
+        "tuple"
+      ],
+      [
+        "output_bytes",
+        "bytes | None"
+      ],
+      [
+        "output",
+        "dict | None"
+      ],
+      [
+        "output_content",
+        "object"
+      ]
+    ],
+    "NativeAuxiliaryLocalResult": [
+      [
+        "source_completion",
+        "object"
+      ],
+      [
+        "source_frame",
+        "object"
+      ],
+      [
+        "source_invocation",
+        "NativeMainInvocation"
+      ],
+      [
+        "source_handle",
+        "object"
+      ],
+      [
+        "request_handle",
+        "object"
+      ],
+      [
+        "source",
+        "ExecutionBinding"
+      ],
+      [
+        "target",
+        "ExecutionBinding"
+      ],
+      [
+        "path",
+        "str"
+      ],
+      [
+        "task",
+        "str"
+      ],
+      [
+        "selection",
+        "NativeMainSelection"
+      ],
+      [
+        "producer_policy",
+        "NativeResultPolicy"
+      ],
+      [
+        "language",
+        "str"
+      ],
+      [
+        "operation_index",
+        "int"
+      ],
+      [
+        "outcome",
+        "str"
+      ],
+      [
+        "reason",
+        "str"
+      ],
+      [
+        "source_bytes",
+        "bytes"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "source_content",
+        "ContentHandle"
+      ],
+      [
+        "input_stages",
+        "tuple[bytes, ...]"
+      ],
+      [
+        "stage_contents",
+        "tuple[ContentHandle, ...]"
+      ],
+      [
+        "output_stages",
+        "tuple[bytes, ...]"
+      ],
+      [
+        "output_contents",
+        "tuple[ContentHandle, ...]"
+      ],
+      [
+        "output_bytes",
+        "bytes"
+      ],
+      [
+        "output",
+        "dict"
+      ],
+      [
+        "output_content",
+        "ContentHandle"
+      ]
+    ],
+    "_AuxiliaryTitlePreparation": [
+      [
+        "kind",
+        "str"
+      ],
+      [
+        "stages",
+        "tuple[bytes, ...]"
+      ],
+      [
+        "value",
+        "dict"
+      ]
+    ],
+    "_AuxiliaryBinding": [
+      [
+        "handle",
+        "object"
+      ],
+      [
+        "port",
+        "object"
+      ],
+      [
+        "producer_ref",
+        "str"
+      ],
+      [
+        "route",
+        "object"
+      ],
+      [
+        "language",
+        "str"
+      ],
+      [
+        "source",
+        "tuple"
+      ],
+      [
+        "selected",
+        "tuple"
+      ],
+      [
+        "producer",
+        "tuple"
+      ],
+      [
+        "original_profiles",
+        "tuple"
+      ]
+    ],
+    "_AuxiliaryFrame": [
+      [
+        "token",
+        "NativeAuxiliaryInput"
+      ],
+      [
+        "completion",
+        "object"
+      ],
+      [
+        "field",
+        "str"
+      ],
+      [
+        "text",
+        "str"
+      ],
+      [
+        "source_bytes",
+        "bytes"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "source_content",
+        "object"
+      ],
+      [
+        "stages",
+        "tuple"
+      ],
+      [
+        "stage_contents",
+        "tuple"
+      ],
+      [
+        "request",
+        "dict | None"
+      ],
+      [
+        "request_bytes",
+        "bytes | None"
+      ],
+      [
+        "request_anchors",
+        "tuple"
+      ],
+      [
+        "sealed",
+        "NativeAuxiliaryRequest | None"
+      ],
+      [
+        "record",
+        "NativeAuxiliaryInvocation | None"
+      ],
+      [
+        "preparation",
+        "_AuxiliaryTitlePreparation | None"
+      ],
+      [
+        "preparation_anchors",
+        "tuple"
+      ],
+      [
+        "local_result",
+        "NativeAuxiliaryLocalResult | None"
+      ]
+    ],
+    "_CompressionBinding": [
+      [
+        "auxiliary",
+        "_AuxiliaryBinding"
+      ],
+      [
+        "context_length",
+        "int"
+      ],
+      [
+        "summary_date",
+        "str"
+      ]
+    ],
+    "_CompressionPreparation": [
+      [
+        "stages",
+        "tuple[bytes, ...]"
+      ],
+      [
+        "value",
+        "dict"
+      ],
+      [
+        "has_user_turn",
+        "bool"
+      ],
+      [
+        "pruned_skill_names",
+        "tuple[str, ...]"
+      ]
+    ],
+    "_CompressionFrame": [
+      [
+        "token",
+        "NativeAuxiliaryInput"
+      ],
+      [
+        "completion",
+        "object"
+      ],
+      [
+        "messages",
+        "list"
+      ],
+      [
+        "source_bytes",
+        "bytes"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "parent_requests",
+        "tuple"
+      ],
+      [
+        "source_content",
+        "ContentHandle"
+      ],
+      [
+        "stages",
+        "tuple"
+      ],
+      [
+        "stage_contents",
+        "tuple"
+      ],
+      [
+        "request",
+        "dict | None"
+      ],
+      [
+        "request_bytes",
+        "bytes | None"
+      ],
+      [
+        "request_anchors",
+        "tuple"
+      ],
+      [
+        "sealed",
+        "NativeAuxiliaryRequest | None"
+      ],
+      [
+        "record",
+        "NativeAuxiliaryInvocation | None"
+      ],
+      [
+        "preparation",
+        "_CompressionPreparation | None"
+      ],
+      [
+        "preparation_anchors",
+        "tuple"
+      ]
+    ],
+    "_PendingOperation": [
+      [
+        "handle",
+        "object"
+      ],
+      [
+        "source",
+        "object"
+      ],
+      [
+        "selected",
+        "NativeMainSelection"
+      ],
+      [
+        "producer",
+        "NativeResultPolicy"
+      ],
+      [
+        "path",
+        "str"
+      ],
+      [
+        "route_ref",
+        "str"
+      ],
+      [
+        "payload",
+        "bytes"
+      ],
+      [
+        "content",
+        "object"
+      ],
+      [
+        "auxiliary",
+        "bool"
+      ]
+    ],
+    "_ConstructedMain": [
+      [
+        "agent",
+        "object"
+      ],
+      [
+        "adapter",
+        "NativeMainPayloadAdapter"
+      ],
+      [
+        "state",
+        "bytes"
+      ],
+      [
+        "anchors",
+        "tuple"
+      ],
+      [
+        "methods",
+        "tuple"
+      ],
+      [
+        "closed",
+        "bool"
+      ]
+    ],
+    "_NativeCompletion": [
+      [
+        "frame",
+        "_TurnFrame"
+      ],
+      [
+        "invocation",
+        "NativeMainInvocation"
+      ],
+      [
+        "parents",
+        "tuple"
+      ],
+      [
+        "payload",
+        "bytes"
+      ],
+      [
+        "content",
+        "object"
+      ],
+      [
+        "result",
+        "dict"
+      ],
+      [
+        "anchors",
+        "tuple"
+      ]
+    ]
+  },
+  "original_adapter_signatures": {
+    "__init__": "self, context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int], _delegation_frame: object=None",
+    "invocations": "self",
+    "send_count": "self",
+    "failed_main_attempts": "self",
+    "fallback_invocations": "self",
+    "fallback_send_count": "self",
+    "_deny": "self",
+    "_invalidate": "self",
+    "_identity": "self",
+    "_snapshot": "self",
+    "_verify_records": "self",
+    "_verify_turns": "self",
+    "_verify_completions": "self",
+    "_interrupt_operation": "self",
+    "_interrupt_turn": "self",
+    "_turn_operation": "self, agent",
+    "admit_turn": "self, agent: object, *, user_message: str, system_message: str | None, conversation_history: list[dict[str, str]] | None, task_id: str",
+    "_prepare_turn": "self, agent, token, arguments, exclusions",
+    "seal_turn": "self, agent: object, turn: NativeTurnInput, *, turn_context: TurnContext",
+    "_turn_request": "self, frame",
+    "prepared_request": "self, agent: object, prepared: NativePreparedTurn",
+    "auxiliary_invocations": "self",
+    "auxiliary_send_count": "self",
+    "auxiliary_local_results": "self",
+    "_completed_auxiliary_outputs": "self",
+    "_derive": "self, handle, parents, payload, *, path",
+    "_callback_scope": "self",
+    "_model_open": "self",
+    "bind_delegation": "self, agent: object, *, receiver_request: object, receiver_selection: NativeSelectionPort, receiver_producer_ref: str, child_request: object, child_selection: NativeSelectionPort, child_producer_ref: str, delegate_route_ref: str, child_main_route_ref: str, child_session_id: str, child_task_id: str",
+    "_verify_fallback": "self",
+    "_retain_fallback_frame": "self, frame",
+    "_retain_fallback_invocation": "self, record",
+    "_fallback_snapshot": "self, main",
+    "bind_fallback": "self, agent: object, *, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str",
+    "_begin_fallback": "self, agent: object, *, failure: FailedDispatch",
+    "_fallback_derive": "self, payload, additional",
+    "_activate_fallback": "self, agent: object, token: NativeFallbackInput",
+    "_dispatch_fallback": "self, agent: object, token: NativeFallbackInput",
+    "_complete_fallback_turn": "self, agent: object, *, turn_context: TurnContext, response: NativeMainResponse",
+    "_aux_snapshot": "self, main",
+    "_verify_auxiliary": "self",
+    "_retain_aux_frame": "self, frame",
+    "_accept_aux_record": "self, record",
+    "_retain_aux_record": "self, record, frame=None",
+    "bind_auxiliary": "self, agent: object, *, path: str, task: str, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str, language: str",
+    "auxiliary_input": "self, agent: object, *, source: dict, field: str",
+    "_checked_aux_frame": "self, token, *, sealed=False",
+    "_prepare_auxiliary_title": "self, token",
+    "_transform_auxiliary": "self, token, *, response=None",
+    "seal_auxiliary": "self, agent: object, source: NativeAuxiliaryInput, *, stages: tuple[bytes, ...], request: dict",
+    "_dispatch_retained_operation": "self, operation",
+    "dispatch_auxiliary": "self, request: NativeAuxiliaryRequest, *, arguments: dict",
+    "complete_auxiliary": "self, request: NativeAuxiliaryRequest, *, response: NativeMainResponse, stages: tuple[bytes, ...], output: dict",
+    "complete_auxiliary_local": "self, agent: object, source: NativeAuxiliaryInput, *, stages: tuple[bytes, ...], output: dict",
+    "_aux_frame_binding": "self, frame",
+    "_derive_auxiliary_output": "self, binding, parents, payload, path",
+    "_compression_snapshot": "self, main",
+    "bind_compression": "self, agent: object, *, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str, context_length: int, summary_date: str",
+    "compression_input": "self, agent: object, *, source: dict",
+    "_prepare_compression": "self, token: NativeAuxiliaryInput",
+    "_compression_response_transform": "self, frame, response",
+    "_compression_output_stages": "self, request: NativeAuxiliaryRequest, response: NativeMainResponse",
+    "_checkpoint": "self",
+    "_around": "self, callback",
+    "validate_scope": "self",
+    "dispatch": "self, agent: object, api_kwargs: dict"
+  },
+  "phases": [
+    "bound",
+    "entered",
+    "admitted",
+    "sent",
+    "completed",
+    "released",
+    "denied"
+  ],
+  "stage_sequence": [
+    "prologue",
+    "admission",
+    "preparation",
+    "seal",
+    "prepared_request",
+    "dispatch",
+    "completion",
+    "scope_exit"
+  ],
+  "shared_runtime_health": "Original captured runtime, existing anchored _check_operator and _operator methods, and completed operation checks."
+}

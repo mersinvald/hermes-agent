@@ -1,0 +1,103 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -1444,0 +1445 @@
++        stage = None
+@@ -1447 +1448 @@
+-                owner.access()
++                stage = owner.enter_stage()
+@@ -1476,0 +1478,2 @@
++            if stage is not None:
++                owner.exit_stage(stage)
+@@ -1691,0 +1695 @@
++            owner.check_stage()
+@@ -2814,0 +2819,2 @@
++        owner = _parent_resumptions.get(self)
++        stage = None
+@@ -2816 +2821,0 @@
+-            owner = _parent_resumptions.get(self)
+@@ -2818 +2823 @@
+-                owner.access()
++                stage = owner.enter_stage()
+@@ -2913,0 +2919,2 @@
++            if stage is not None:
++                owner.exit_stage(stage)
+@@ -3768,0 +3776,2 @@
++        self.active_anchor = self.stage = self.stage_anchor = None
++        self.stage_index = 0
+@@ -3806 +3815,3 @@
+-            _require(_same_anchors(_nested_anchors(b.snapshots), b.anchors))
++            _require(b.snapshots is self.snapshots and b.anchors is self.snapshot_anchors)
++            _require(_same_anchors(b.snapshots, (self.frame.binding.snapshots, self.frame.initial,
++                self.parent._constructed, self.parent._constructed.methods, self.frame.catalog, self.methods)))
+@@ -3817 +3828 @@
+-            _require(_same_anchors(_nested_anchors(self.record_anchor)[1:], self.record_nested))
++            _require(_same_anchors(self.mutable_anchors(r), self.record_nested))
+@@ -3830 +3841 @@
+-                _require(self.parent._turn_frames == (r.turn_frame,))
++                _require(_same_anchors(self.parent._turn_frames, (r.turn_frame,)))
+@@ -3844,0 +3856 @@
++        from agent import conversation_loop
+@@ -3858 +3870,6 @@
+-            (sys.modules[__name__], "_resumption_callback")))
++            (sys.modules[__name__], "_resumption_callback"),
++            (conversation_loop, "_try_controlled_text_turn")))
++        self.stage_codes = tuple(_method(function)[-1].__code__ for function in (
++            conversation_loop._try_controlled_text_turn, self.parent.admit_turn,
++            self.parent._prepare_turn, self.parent.seal_turn, self.parent.prepared_request,
++            self.parent.dispatch, _complete_controlled_turn, conversation_loop._try_controlled_text_turn))
+@@ -3860,0 +3878 @@
++        self.snapshots, self.snapshot_anchors = snapshots, _nested_anchors(snapshots)
+@@ -3871 +3889 @@
+-            self.options, encoded, content, snapshots, _nested_anchors(snapshots), self.frame.thread)
++            self.options, encoded, content, snapshots, self.snapshot_anchors, self.frame.thread)
+@@ -3877,0 +3896,7 @@
++        try:
++            self._access()
++        except BaseException:
++            self.frame.invalidate()
++            raise
++
++    def _access(self):
+@@ -3878,0 +3904 @@
++        _require(self.active_call is self.active_anchor)
+@@ -3894,0 +3921,28 @@
++    def enter_stage(self):
++        self.access()
++        _require(self.stage is None and self.stage_index < len(self.stage_codes))
++        code = self.stage_codes[self.stage_index]
++        caller = sys._getframe(1)
++        while caller is not None and caller.f_code is not code:
++            caller = caller.f_back
++        _require(caller is not None)
++        self.stage = self.stage_anchor = (self.active_call, caller, object())
++        self.stage_index += 1
++        self.checkpoint()
++        return self.stage
++
++    def check_stage(self):
++        _require(self.stage is not None and self.stage is self.stage_anchor)
++        _require(self.stage[0] is self.active_call)
++        caller = sys._getframe(1)
++        while caller is not None and caller is not self.stage[1]:
++            caller = caller.f_back
++        _require(caller is self.stage[1])
++
++    def exit_stage(self, stage):
++        if self.phase != "denied":
++            self.access()
++            _require(self.stage is stage is self.stage_anchor)
++            self.checkpoint()
++        self.stage = self.stage_anchor = None
++
+@@ -3899 +3953,4 @@
+-        self.record_nested = _nested_anchors(self.record_anchor)[1:]
++        self.record_nested = self.mutable_anchors(self.record)
++
++    def mutable_anchors(self, record):
++        return _nested_anchors((record.turn_frame, record.request, record.result))[1:]
+@@ -3983,0 +4041 @@
++        self.active_anchor = self.active_call
+@@ -3990,0 +4049 @@
++            _require(self.stage_index == len(self.stage_codes) and self.stage is None)
+@@ -4001,0 +4061 @@
++            self.active_anchor = self.stage = self.stage_anchor = None

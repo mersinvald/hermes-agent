@@ -1,0 +1,44 @@
+{
+  "scope": "recorder",
+  "pins_recorded_before_selection": {
+    "agent/native_main_payload.py": {
+      "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+    },
+    "tests/tools/test_native_parent_resumption.py": {
+      "sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+      "blob": "bf73d63a2f0dbc494539a5207ead7dc46242d5f0"
+    }
+  },
+  "phases": [
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options0]",
+      "outcome": "pending",
+      "phase": "start",
+      "seconds": 0.0,
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+      "pin_receipt_source": "recorder-pins.json"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options0]",
+      "outcome": "passed",
+      "phase": "setup",
+      "seconds": 1.630662471994583,
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+      "pin_receipt_source": "recorder-pins.json"
+    },
+    {
+      "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options0]",
+      "outcome": "passed",
+      "phase": "call",
+      "seconds": 2.0011549669943633,
+      "source_sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "test_sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+      "pin_receipt_source": "recorder-pins.json"
+    }
+  ],
+  "raw_receipt_sha256": "33ee90fd83d3bd1d6390944a94b6ce8df409b8d4ff27cab8a58d3a43a168d946",
+  "note": "Selection-wide preflight hashes precede every case. Recorder control also emits hashes and a start row directly."
+}

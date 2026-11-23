@@ -1,0 +1,12 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -3857,0 +3858 @@
++        self.frame.runtime._check_operator()
+@@ -3859,0 +3861 @@
++        self.frame.runtime._check_operator()
+@@ -3877,0 +3880 @@
++            (self.frame.runtime, "_check_operator"), (self.frame.runtime, "_operator"),
+@@ -4035,0 +4039 @@
++        _require(not self.frame.runtime._busy)
+@@ -4069,0 +4074 @@
++            _require(not self.frame.runtime._busy)
