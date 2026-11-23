@@ -1,0 +1,116 @@
+{
+  "byte_facts": {
+    "empty_result": {
+      "bytes": 32,
+      "sha256": "f87661743e6e96ece438d3a69d2ba49aebb1cc8e00661af59a64fd346faa5c2f"
+    },
+    "getter_block": {
+      "bytes": 359,
+      "sha256": "ccf4ac249b0c29904c33330172bd9f4410bfeccfd3f0590d6bb0cef7abb36e67"
+    },
+    "request": {
+      "bytes": 19,
+      "sha256": "c1115f389258bbd38c28b6d0754ebeaaa4e63fbf5c933e8c49dd68bf285d0b0c"
+    },
+    "result": {
+      "bytes": 671,
+      "sha256": "66decc8c2d60a7c82e086aa93eb2cc0f69ae41049d62fd63421528b97219c10a"
+    },
+    "source": {
+      "bytes": 1463,
+      "sha256": "0fe1a84786527bde32197283f590b71ae78570b86a490e0e6de5ad7338a7f271"
+    }
+  },
+  "capture": "The recorded positive capture has two admissions, one memory derivation, three slots, 2153 retained bytes, zero envelopes, zero model calls, and zero sends.",
+  "empty": {
+    "block": null,
+    "capture_sends": 0,
+    "getter_calls": 1,
+    "qualification_sends": 8,
+    "result_bytes": "{\"block\":null,\"target\":\"memory\"}",
+    "source_bytes": "{\"block\":\"\",\"flags\":{\"memory_enabled\":true,\"user_profile_enabled\":true},\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection\",3,[\"restricted_documents\"]],\"limits\":{\"memory_char_limit\":2200,\"user_char_limit\":1375},\"main_producer\":[\"invented_producer\",4,[\"restricted_documents\"]],\"options\":[[\"self\",true],[\"agent\",true],[\"store\",true],[\"producer_ref\",true],[\"target\",false]],\"producer\":[\"invented_memory_producer\",6,[\"restricted_documents\"]],\"selection\":{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint\",\"model_ref\":\"invented_model\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_main\"},\"selection_id\":\"selection\",\"selection_version\":3},\"source\":{\"owner_ref\":\"owner\",\"profile_ref\":\"invented_host_profile\",\"source_version\":1},\"target\":\"memory\"}"
+  },
+  "getter_observer": "The tests use a narrow function-call trace to observe the unchanged getter frame. No performance profiler or getter replacement runs.",
+  "nonempty": {
+    "capture_sends": 0,
+    "getter_block": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nMEMORY (your personal notes) [1% \u2014 28/2,200 chars]\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nBlue squares use two counts.",
+    "getter_calls": 1,
+    "ordered_parents": true,
+    "producer_identity": true,
+    "qualification_sends": 8,
+    "request_bytes": "{\"target\":\"memory\"}",
+    "result_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"target\":\"memory\"}",
+    "result_identity": true,
+    "retained_bytes": 2153,
+    "slots": 3,
+    "source_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"flags\":{\"memory_enabled\":true,\"user_profile_enabled\":true},\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection\",3,[\"restricted_documents\"]],\"limits\":{\"memory_char_limit\":2200,\"user_char_limit\":1375},\"main_producer\":[\"invented_producer\",4,[\"restricted_documents\"]],\"options\":[[\"self\",true],[\"agent\",true],[\"store\",true],[\"producer_ref\",true],[\"target\",false]],\"producer\":[\"invented_memory_producer\",6,[\"restricted_documents\"]],\"selection\":{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint\",\"model_ref\":\"invented_model\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_main\"},\"selection_id\":\"selection\",\"selection_version\":3},\"source\":{\"owner_ref\":\"owner\",\"profile_ref\":\"invented_host_profile\",\"source_version\":1},\"target\":\"memory\"}",
+    "source_identity": true
+  },
+  "partial_failures": [
+    {
+      "kind": "partial_proof",
+      "nodeid": "test_late_poison_cannot_release_from_graph_reads[getter]",
+      "observed": {
+        "boundary": "getter",
+        "capture_sends": 0,
+        "getter_returned": true,
+        "released_to_caller": false,
+        "result_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"target\":\"memory\"}",
+        "result_derived": false,
+        "slots": 2
+      }
+    },
+    {
+      "kind": "partial_proof",
+      "nodeid": "test_late_poison_cannot_release_from_graph_reads[derived]",
+      "observed": {
+        "boundary": "derived",
+        "capture_sends": 0,
+        "getter_returned": true,
+        "released_to_caller": false,
+        "result_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"target\":\"memory\"}",
+        "result_derived": true,
+        "slots": 3
+      }
+    },
+    {
+      "kind": "partial_proof",
+      "nodeid": "test_late_poison_cannot_release_from_graph_reads[release]",
+      "observed": {
+        "boundary": "release",
+        "capture_sends": 0,
+        "getter_returned": true,
+        "released_to_caller": false,
+        "result_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"target\":\"memory\"}",
+        "result_derived": true,
+        "slots": 3
+      }
+    },
+    {
+      "kind": "capacity_proof",
+      "nodeid": "test_one_genuine_byte_capacity_boundary",
+      "observed": {
+        "capture_admissions": 2,
+        "capture_sends": 0,
+        "charged_bytes": 8387938,
+        "completed_results": 0,
+        "failed_derivations": 1,
+        "result_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"target\":\"memory\"}",
+        "setup_admissions": 8
+      }
+    },
+    {
+      "kind": "partial_admission",
+      "nodeid": "test_binding_failure_retains_one_actual_admission",
+      "observed": {
+        "capture_sends": 0,
+        "getter_calls": 0,
+        "retained_bytes": 1463,
+        "slots": 1,
+        "source_bytes": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"flags\":{\"memory_enabled\":true,\"user_profile_enabled\":true},\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection\",3,[\"restricted_documents\"]],\"limits\":{\"memory_char_limit\":2200,\"user_char_limit\":1375},\"main_producer\":[\"invented_producer\",4,[\"restricted_documents\"]],\"options\":[[\"self\",true],[\"agent\",true],[\"store\",true],[\"producer_ref\",true],[\"target\",false]],\"producer\":[\"invented_memory_producer\",6,[\"restricted_documents\"]],\"selection\":{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint\",\"model_ref\":\"invented_model\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_main\"},\"selection_id\":\"selection\",\"selection_version\":3},\"source\":{\"owner_ref\":\"owner\",\"profile_ref\":\"invented_host_profile\",\"source_version\":1},\"target\":\"memory\"}",
+        "token_issued": false
+      }
+    }
+  ],
+  "qualification": "Each new fixture uses one original P holder and eight genuine catalog qualification dispatches before binding. Those sends are separate from capture."
+}

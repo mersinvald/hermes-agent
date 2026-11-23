@@ -1,0 +1,72 @@
+{
+  "compatibility_scopes": [
+    {
+      "cases": 2,
+      "name": "main-representatives",
+      "wall_seconds": 5.690144059000886
+    },
+    {
+      "cases": 1,
+      "name": "terminal-representative",
+      "wall_seconds": 44.47265684999729
+    }
+  ],
+  "consumer_prose_adjustment": {
+    "change": "One paragraph break after the initial freeze message. Technical text, source, tests, API, dependency, and functional results are unchanged.",
+    "final_sha256": "b695e49079f313efd77a3bdaf6bcdc40375fdf72d9bc29096c0c6c83b95059bc",
+    "initial_sha256": "14f1769bafef6ea97d968127ffbfda5736c9a57ef2363ee49ad869e1d9e64e1d"
+  },
+  "focused_scope": {
+    "cases": 83,
+    "source_sha256": "20f87da5bb0a5f0237c9b7a2080dc2335410c108490b7ce9a61109be57fc2866",
+    "wall_seconds": 85.71003787300288
+  },
+  "initial_freeze_message": "msg_d97ae32e4677",
+  "initial_freeze_sha256": "ed5b6c0de27986eb0af657cf7da49d788d23841f15c746fa9e24d5dd13b8e74b",
+  "limits": "Full P10/P06 and all private/egress/durable/cross-thread/source/financial/production/native-manifest/index gates remain open. Real source provisioning and prompt consumption are unqualified.",
+  "native_base": "e54325fa147202988164024cf9da33b6c7336b84",
+  "pins": {
+    "agent/native_main_payload.py": {
+      "blob": "9d667717a37293c51fbab8c5dfe11f5477f9de1c",
+      "bytes": 269581,
+      "sha256": "20f87da5bb0a5f0237c9b7a2080dc2335410c108490b7ce9a61109be57fc2866"
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/consumer-contract.md": {
+      "blob": "0ea73aaff7019559e10bcc54e6404984fb2ae287",
+      "bytes": 5842,
+      "sha256": "b695e49079f313efd77a3bdaf6bcdc40375fdf72d9bc29096c0c6c83b95059bc"
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/dependency.json": {
+      "blob": "a6c5110362a3f30c11af930ed992912b5d5ed7a4",
+      "bytes": 3465,
+      "sha256": "3deeb1e798db9d7840fa0bc97268dac640ff89e53e02fdb179167e3d6c52697a"
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/native-api.json": {
+      "blob": "5f9c8c05f5f4dbeb55291c038422ea84b0660f2a",
+      "bytes": 3099,
+      "sha256": "435ebdf21b72add977ad65ec2b631940b502877b3d50337f7a84b6700f7ee6c8"
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/observed-bytes.json": {
+      "blob": "74515f5dea97161caf4baf50b51a2759f6bb890f",
+      "bytes": 12268,
+      "sha256": "c374879b440f3a7f458b4886b5509203eaf2568c8fd9c4a912b8ef37220e5dff"
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/source-boundary.patch": {
+      "blob": "a08d681184c772d48a5786831b82e55a316294c8",
+      "bytes": 38420,
+      "sha256": "cac4efe1f64c345ce42202b5d18bcfe7f6e5c0519fe5273be6ec5229352f0ff5"
+    },
+    "tests/tools/test_native_memory_snapshot.py": {
+      "blob": "5667e9ab139305ac3439090e2264f254366c5d38",
+      "bytes": 32367,
+      "sha256": "b9d4a977c89ed9a691679b64ae10687a110eb467db06ae13e2155049829b97b7"
+    }
+  },
+  "proposal_sha256": "d65672a0fcd0ff76b97e35f2e793e4c44ca727a1654d8cc32b459710db7aa9d5",
+  "pwa_candidate": "ca5a9a9d892f61bc0a0075f6d399d3e42a8191a3",
+  "pwa_publication": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+  "schema_version": 1,
+  "source_commit": "090f73950df25df5152ccfdfb3024ed1ec083a88",
+  "source_map_sha256": "15e1bf2fd7d8824fdee2e614080eacc8f4a73bbafb6fd1ee48ad3fa7c433c77f",
+  "status": "Source/API/consumer freeze after focused checks. Root acceptance remains pending."
+}
