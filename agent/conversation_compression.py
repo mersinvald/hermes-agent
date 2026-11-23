@@ -3125,6 +3125,8 @@ def compress_context(
         prompt — the session is NOT rotated.  Callers should detect the
         no-op via ``len(returned) == len(input)`` and stop the retry loop.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("compression", agent)
     _compressor_attempt_snapshot = _snapshot_compressor_attempt_state(
         agent.context_compressor
     )

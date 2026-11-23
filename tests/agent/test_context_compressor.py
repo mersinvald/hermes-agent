@@ -3702,3 +3702,46 @@ class TestSanitizeToolPairsWhitespace:
         tool_call_ids = [m.get("tool_call_id") for m in out if m.get("role") == "tool"]
         assert "call_orphan" not in tool_call_ids, "genuinely orphaned result must be removed"
         assert " call_orphan " not in tool_call_ids, "original whitespace form must also be gone"
+
+
+def test_summary_shared_helpers_preserve_ordinary_first_iterative_and_legacy(monkeypatch):
+    from agent import context_compressor as compression
+    calls = []
+    monkeypatch.setattr(compression, "get_model_context_length", lambda *a, **kw: 65536)
+    def completion(**options):
+        calls.append(options)
+        return SimpleNamespace(choices=[SimpleNamespace(finish_reason="stop", message=SimpleNamespace(
+            content="<think>scratch</think>## Goal\nKeep the blue folder."))])
+    monkeypatch.setattr(compression, "call_llm", completion)
+    turns = [{"role": "user", "content": "Keep the blue folder."},
+             {"role": "assistant", "content": "The blue folder stays."}]
+    compressor = ContextCompressor("invented", quiet_mode=True, tail_mode="lean")
+    first = compressor._generate_summary(turns, focus_topic="blue folder", memory_context="<invented>")
+    assert first.startswith(compression.SUMMARY_PREFIX) and "scratch" not in first
+    assert compressor._previous_summary and first != compressor._previous_summary
+    assert compression._LEAN_USER_MESSAGES_HEADING in first
+    assert "FOCUS TOPIC" in calls[0]["messages"][0]["content"]
+    assert "\\u003cinvented\\u003e" in calls[0]["messages"][0]["content"]
+    compressor._generate_summary(turns)
+    assert "PREVIOUS SUMMARY:" in calls[1]["messages"][0]["content"]
+    assert "NEW TURNS TO INCORPORATE:" in calls[1]["messages"][0]["content"]
+    legacy = ContextCompressor("invented", quiet_mode=True, tail_mode="legacy")
+    legacy._generate_summary(turns)
+    assert compression._LEAN_SESSION_LOG_HEADING not in calls[2]["messages"][0]["content"]
+    assert all("max_tokens" not in call for call in calls)
+    assert compressor.compression_count == legacy.compression_count == 0
+
+
+def test_default_compressor_keeps_optional_policy_dependency_lazy(monkeypatch):
+    import builtins
+    from agent import context_compressor as compression
+    original = builtins.__import__
+    def checked(name, *args, **kwargs):
+        if name == "hermes_content_policy" or name.startswith("hermes_content_policy."):
+            pytest.fail("Default construction imported the optional policy dependency")
+        return original(name, *args, **kwargs)
+    monkeypatch.setattr(builtins, "__import__", checked)
+    monkeypatch.setattr(compression, "get_model_context_length", lambda *a, **kw: pytest.fail("Eager lookup"))
+    compressor = ContextCompressor("invented", quiet_mode=True)
+    assert compressor._resolved_context_length is None
+    assert compressor._previous_summary is None and compressor.compression_count == 0

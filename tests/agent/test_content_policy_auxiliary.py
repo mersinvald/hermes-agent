@@ -191,3 +191,35 @@ def test_retained_auxiliary_missing_token_with_malformed_marker_refuses(excluded
             world.context._controlled_main_bound = marker
             titles.generate_title("Invented source")
     assert world.context._denied and world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("provider_class", [str, ReservedProviderConversions, ReservedProviderEquality, ReservedProviderString])
+def test_compression_reserved_constructor_without_owner_refuses(provider_class, monkeypatch):
+    from agent import context_compressor as compression
+    def forbidden(*args, **kwargs):
+        pytest.fail("Unowned compressor reached ordinary construction")
+    monkeypatch.setattr(compression, "resolve_model_threshold", forbidden)
+    monkeypatch.setattr(compression, "get_model_context_length", forbidden)
+    with pytest.raises(NativeContentPolicyDenied):
+        ContextCompressor(model="invented", provider=provider_class("synthetic_native"))
+
+
+@pytest.mark.parametrize("entry", ["agent", "direct"])
+def test_history_compression_host_refuses_before_first_effect_with_empty_profiles(
+    excluded, caller_boundary, monkeypatch, entry,
+):
+    from agent import conversation_compression
+    world = auxiliary_world()
+    world.binding = replace(world.binding, profiles=())
+    monkeypatch.setattr(conversation_compression, "_snapshot_compressor_attempt_state", excluded)
+    monkeypatch.setattr(conversation_compression, "_claim_compressor_attempt", excluded)
+    before = dict(vars(world.agent))
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            if entry == "agent":
+                world.agent._compress_context([], "Fixed system")
+            else:
+                conversation_compression.compress_context(world.agent, [], "Fixed system")
+    assert vars(world.agent) == before
+    assert world.adapter.send_count == world.adapter.auxiliary_send_count == 0
+    assert world.context._denied
