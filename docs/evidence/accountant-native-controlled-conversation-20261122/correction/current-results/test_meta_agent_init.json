@@ -1,0 +1,37 @@
+{
+  "exit_code": 0,
+  "reports": {
+    "tests/agent/test_meta_agent_init.py::test_agent_init_explicit_chat_wins_over_mandate": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_meta_agent_init.py::test_agent_init_meta_base_url_implies_codex_responses": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ]
+  },
+  "selected": [
+    "tests/agent/test_meta_agent_init.py::test_agent_init_meta_base_url_implies_codex_responses",
+    "tests/agent/test_meta_agent_init.py::test_agent_init_explicit_chat_wins_over_mandate"
+  ]
+}

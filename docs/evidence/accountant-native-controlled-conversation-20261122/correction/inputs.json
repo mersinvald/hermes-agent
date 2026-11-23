@@ -1,0 +1,21 @@
+{
+  "review_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.11.review-correction.json",
+  "review_receipt_sha256": "17cd1b7f57911d89ab4f41886b5c02271221189b39a605bfefe0ff80a0ed2ab9",
+  "required_correction": [
+    "P10.11-R1-reserved-provider-detection"
+  ],
+  "R2": "withdrawn; no implementation, observer, or probe",
+  "original_succeeded_task": "task_85614dc1044a",
+  "correction_task": "task_96016b92880f",
+  "original_source_commit": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "original_evidence_commit": "4fe5dea92a40837cb74df0cf92cb24f10f414165",
+  "public_API_sha256": "01a5bb5b432843b5db10b59d503c05154321b3db550265cde99cfc8382e278c2",
+  "environment": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.11/.venv",
+  "engine_sha256": "28fa3b07c5d6f8a64b9aa970fbdb8a212ac2e7a03d9e4fa6d3020c9ddf0554aa",
+  "wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+  "installation_actions": 0,
+  "installed_functional_selections": 0,
+  "builds": 0,
+  "syncs": 0,
+  "index_lookups": 0
+}

@@ -1,0 +1,173 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~30 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 8
+[100.0% |    30/~30 | ✓3 | ✗3] ✗ tests/agent/test_native_controlled_conversation.py (3✓ 3✗, 3.7s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ tests/agent/test_native_controlled_conversation.py:655: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ run_agent.py:546: in __init__
+  ║     init_agent(
+  ║ agent/agent_init.py:687: in init_agent
+  ║     _install_safe_stdio()
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ args = (), kwargs = {}
+  ║ 
+  ║     def forbidden(*args, **kwargs):
+  ║ >       pytest.fail("Excluded controlled lifecycle callback ran")
+  ║ E       Failed: Excluded controlled lifecycle callback ran
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:29: Failed
+  ║ ============================= slowest 8 durations ==============================
+  ║ 0.98s setup    tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty
+  ║ 0.81s call     tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty
+  ║ 0.03s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]
+  ║ 0.02s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_equality]
+  ║ 0.02s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[exact]
+  ║ 0.01s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_exact_ordinary_provider_reaches_ordinary_initialization
+  ║ 0.01s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]
+  ║ 
+  ║ (1 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_equality]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]
+  ║ 3 failed, 3 passed, 89 deselected in 3.14s
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k test_constructor_reserved_provider_without_adapter_refuses or test_constructor_exact_ordinary_provider_reaches_ordinary_initialization or test_empty_text_stays_empty --durations=8 -q --junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.11/docs/evidence/accountant-native-controlled-conversation-20261122/correction/red.junit.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 3 tests passed, 3 failed (100% complete) in 3.7s (8 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 3.7s  (runner wall: 3.7s, parallelism: 8x)
+  P50: 3.69s  P90: 3.69s  P95: 3.69s  P99: 3.69s  Max: 3.69s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      3.69s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+..FFF.                                                                   [100%]
+=================================== FAILURES ===================================
+__ test_constructor_reserved_provider_without_adapter_refuses[plain_subclass] __
+
+excluded = <function excluded.<locals>.forbidden at 0x78408824f060>
+provider_class = <class 'tests.agent.test_native_controlled_conversation.ReservedProviderString'>
+
+    @pytest.mark.parametrize("provider_class", [
+        str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+    ], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+    def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+        from run_agent import AIAgent
+        from agent.content_policy import current_context
+    
+        assert current_context() is None
+        provider = provider_class("synthetic_native")
+        with pytest.raises(NativeContentPolicyDenied):
+>           AIAgent(provider=provider)
+
+tests/agent/test_native_controlled_conversation.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+run_agent.py:546: in __init__
+    init_agent(
+agent/agent_init.py:687: in init_agent
+    _install_safe_stdio()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (), kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       pytest.fail("Excluded controlled lifecycle callback ran")
+E       Failed: Excluded controlled lifecycle callback ran
+
+tests/agent/test_native_controlled_conversation.py:29: Failed
+_ test_constructor_reserved_provider_without_adapter_refuses[custom_equality] __
+
+excluded = <function excluded.<locals>.forbidden at 0x784088278900>
+provider_class = <class 'tests.agent.test_native_controlled_conversation.ReservedProviderEquality'>
+
+    @pytest.mark.parametrize("provider_class", [
+        str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+    ], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+    def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+        from run_agent import AIAgent
+        from agent.content_policy import current_context
+    
+        assert current_context() is None
+        provider = provider_class("synthetic_native")
+        with pytest.raises(NativeContentPolicyDenied):
+>           AIAgent(provider=provider)
+
+tests/agent/test_native_controlled_conversation.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+run_agent.py:546: in __init__
+    init_agent(
+agent/agent_init.py:687: in init_agent
+    _install_safe_stdio()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (), kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       pytest.fail("Excluded controlled lifecycle callback ran")
+E       Failed: Excluded controlled lifecycle callback ran
+
+tests/agent/test_native_controlled_conversation.py:29: Failed
+_ test_constructor_reserved_provider_without_adapter_refuses[custom_conversions] _
+
+excluded = <function excluded.<locals>.forbidden at 0x78408827bce0>
+provider_class = <class 'tests.agent.test_native_controlled_conversation.ReservedProviderConversions'>
+
+    @pytest.mark.parametrize("provider_class", [
+        str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+    ], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+    def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+        from run_agent import AIAgent
+        from agent.content_policy import current_context
+    
+        assert current_context() is None
+        provider = provider_class("synthetic_native")
+        with pytest.raises(NativeContentPolicyDenied):
+>           AIAgent(provider=provider)
+
+tests/agent/test_native_controlled_conversation.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+run_agent.py:546: in __init__
+    init_agent(
+agent/agent_init.py:687: in init_agent
+    _install_safe_stdio()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (), kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       pytest.fail("Excluded controlled lifecycle callback ran")
+E       Failed: Excluded controlled lifecycle callback ran
+
+tests/agent/test_native_controlled_conversation.py:29: Failed
+============================= slowest 8 durations ==============================
+0.98s setup    tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty
+0.81s call     tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty
+0.03s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]
+0.02s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_equality]
+0.02s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[exact]
+0.01s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_exact_ordinary_provider_reaches_ordinary_initialization
+0.01s setup    tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]
+
+(1 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]
+FAILED tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_equality]
+FAILED tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]
+3 failed, 3 passed, 89 deselected in 3.14s
+
+=== 1 file with test failures (3 tests failed) ===
+  tests/agent/test_native_controlled_conversation.py  (3 tests failed)

@@ -1,0 +1,37 @@
+{
+  "exit_code": 0,
+  "reports": {
+    "tests/agent/test_turn_finalizer_cleanup_guard.py::test_clean_turn_has_no_cleanup_errors_key": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_turn_finalizer_cleanup_guard.py::test_single_cleanup_step_raises_does_not_skip_others[persist_session]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ]
+  },
+  "selected": [
+    "tests/agent/test_turn_finalizer_cleanup_guard.py::test_single_cleanup_step_raises_does_not_skip_others[persist_session]",
+    "tests/agent/test_turn_finalizer_cleanup_guard.py::test_clean_turn_has_no_cleanup_errors_key"
+  ]
+}

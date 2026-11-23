@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "reports": {
+    "tests/agent/test_native_main_payload.py::test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle[absent-cron]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ]
+  },
+  "selected": [
+    "tests/agent/test_native_main_payload.py::test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle[absent-cron]"
+  ]
+}

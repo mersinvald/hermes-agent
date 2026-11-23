@@ -1,5 +1,8 @@
 # Controlled native construction and text turns
 
+Current notice: [R1 correction evidence](correction/README.md) records the reserved-provider constructor correction and its separate source pins.
+The original report and 100-result scope below remain historical evidence for their recorded source.
+
 Status: completed implementation for coordinator acceptance.
 Source/API freeze: `62d5eaf0033343eb66b749360274bb5246d6d1da`.
 Native base: `2a84496fad0724fb3f79b9c37cef3f2c283e781c`.

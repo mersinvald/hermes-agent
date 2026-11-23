@@ -1,0 +1,13 @@
+diff --git a/agent/native_main_payload.py b/agent/native_main_payload.py
+index f712ec2070..fc16476236 100644
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -1107,7 +1107,7 @@ def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, Nat
+     if context is not None and context._controlled_main_bound:
+         return True, _attached(context).dispatch(agent, api_kwargs)
+     provider = getattr(agent, "provider", None)
+-    if type(provider) is str and provider == "synthetic_native":
++    if isinstance(provider, str) and str.__eq__(provider, "synthetic_native") is True:
+         if context is not None:
+             context.invalidate()
+         raise NativeContentPolicyDenied("controlled_native_adapter_missing")

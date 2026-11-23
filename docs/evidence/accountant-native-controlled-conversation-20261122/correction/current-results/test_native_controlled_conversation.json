@@ -1,0 +1,1432 @@
+{
+  "exit_code": 0,
+  "reports": {
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[a2a-False]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[compression-True]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[delegate-True]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[fallback-False]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[memory-False]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[stream-True]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[title-False]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[tool_result-True]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[admission]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[before]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[complete]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[send]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_close_recognizes_partial_closed_and_reserved_bindings": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_completion_requires_exact_frame_and_response[context]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_completion_requires_exact_frame_and_response[response]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_completion_requires_latest_original_response_once": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_adapter_reuse_and_consumption": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_defaults_match_the_validation_contract": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_exact_ordinary_provider_reaches_ordinary_initialization": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change0]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change10]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change11]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change12]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change13]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change14]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change15]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change16]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change17]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change18]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change19]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change1]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change20]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change2]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change3]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change4]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change5]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change6]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change7]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change8]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change9]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_requires_current_registered_adapter_and_exact_class": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_equality]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[exact]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_cumulative_integer_bound_retains_actual_invocation": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[binding]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[bound]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[client]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[context]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[method]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[option_presence]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[payload]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[producer]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[provider]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[scope]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[selection]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_changes_inside_send_reject_release[options]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_changes_inside_send_reject_release[prepared]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_current_changes_inside_send_reject_release[session]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[anchor]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[invocation]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[message]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[response]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[root]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[usage]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_eight_turn_limit": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes0]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes1]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes2]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes3]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes4]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes5]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes6]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes7]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes8]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes9]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_entry_with_foreign_active_context_invalidates_both": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_interrupt_flag_requires_exact_boolean[1]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_interrupt_flag_requires_exact_boolean[flag1]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_ordinary_close_keeps_cleanup": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_ordinary_method_keeps_forwarding_and_instrumentation": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_ordinary_module_keeps_prologue_forwarding": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_owned_binding_cannot_disappear_into_ordinary_fallback": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_process_control_exceptions_propagate[KeyboardInterrupt]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_process_control_exceptions_propagate[SystemExit]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[copied]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[missing]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[system]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_result_byte_bound_releases_no_partial_result": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_unqualified_required_port_never_admits_or_sends": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_controlled_conversation.py::test_wrong_thread_and_caught_reentry_invalidate": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ]
+  },
+  "selected": [
+    "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]",
+    "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]",
+    "tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change0]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change1]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change2]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change3]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change4]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change5]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change6]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change7]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change8]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change9]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change10]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change11]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change12]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change13]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change14]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change15]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change16]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change17]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change18]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change19]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_options_refuse_before_callbacks[change20]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_adapter_reuse_and_consumption",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_requires_current_registered_adapter_and_exact_class",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes0]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes1]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes2]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes3]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes4]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes5]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes6]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes7]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes8]",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_options_refuse_before_input_processing[changes9]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[context]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[bound]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[payload]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[binding]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[provider]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[method]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[client]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[option_presence]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[selection]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[producer]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_binding_changes_refuse[scope]",
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[root]",
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[message]",
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[anchor]",
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[response]",
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[usage]",
+    "tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[invocation]",
+    "tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[missing]",
+    "tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[copied]",
+    "tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[system]",
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[before]",
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[admission]",
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[send]",
+    "tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[complete]",
+    "tests/agent/test_native_controlled_conversation.py::test_interrupt_flag_requires_exact_boolean[1]",
+    "tests/agent/test_native_controlled_conversation.py::test_interrupt_flag_requires_exact_boolean[flag1]",
+    "tests/agent/test_native_controlled_conversation.py::test_process_control_exceptions_propagate[KeyboardInterrupt]",
+    "tests/agent/test_native_controlled_conversation.py::test_process_control_exceptions_propagate[SystemExit]",
+    "tests/agent/test_native_controlled_conversation.py::test_wrong_thread_and_caught_reentry_invalidate",
+    "tests/agent/test_native_controlled_conversation.py::test_completion_requires_latest_original_response_once",
+    "tests/agent/test_native_controlled_conversation.py::test_eight_turn_limit",
+    "tests/agent/test_native_controlled_conversation.py::test_cumulative_integer_bound_retains_actual_invocation",
+    "tests/agent/test_native_controlled_conversation.py::test_close_recognizes_partial_closed_and_reserved_bindings",
+    "tests/agent/test_native_controlled_conversation.py::test_result_byte_bound_releases_no_partial_result",
+    "tests/agent/test_native_controlled_conversation.py::test_completion_requires_exact_frame_and_response[response]",
+    "tests/agent/test_native_controlled_conversation.py::test_completion_requires_exact_frame_and_response[context]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[fallback-False]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[compression-True]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[memory-False]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[delegate-True]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[a2a-False]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[tool_result-True]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[title-False]",
+    "tests/agent/test_native_controlled_conversation.py::test_actual_siblings_refuse_after_constructed_turn[stream-True]",
+    "tests/agent/test_native_controlled_conversation.py::test_ordinary_method_keeps_forwarding_and_instrumentation",
+    "tests/agent/test_native_controlled_conversation.py::test_ordinary_module_keeps_prologue_forwarding",
+    "tests/agent/test_native_controlled_conversation.py::test_owned_binding_cannot_disappear_into_ordinary_fallback",
+    "tests/agent/test_native_controlled_conversation.py::test_current_changes_inside_send_reject_release[session]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_changes_inside_send_reject_release[prepared]",
+    "tests/agent/test_native_controlled_conversation.py::test_current_changes_inside_send_reject_release[options]",
+    "tests/agent/test_native_controlled_conversation.py::test_unqualified_required_port_never_admits_or_sends",
+    "tests/agent/test_native_controlled_conversation.py::test_entry_with_foreign_active_context_invalidates_both",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_defaults_match_the_validation_contract",
+    "tests/agent/test_native_controlled_conversation.py::test_ordinary_close_keeps_cleanup",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[exact]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_equality]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]",
+    "tests/agent/test_native_controlled_conversation.py::test_constructor_exact_ordinary_provider_reaches_ordinary_initialization"
+  ]
+}

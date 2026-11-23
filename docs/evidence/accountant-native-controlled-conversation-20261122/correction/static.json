@@ -1,0 +1,250 @@
+{
+  "STE_linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+  "STE_linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "prose": {
+    "agent/native_main_payload.py": {
+      "baseline": {
+        "words": 68,
+        "sentences": 7,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 11,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "candidate": {
+        "words": 68,
+        "sentences": 7,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 11,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    "tests/agent/test_native_controlled_conversation.py": {
+      "baseline": {
+        "words": 15,
+        "sentences": 2,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 8,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "candidate": {
+        "words": 15,
+        "sentences": 2,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 8,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    "docs/evidence/accountant-native-controlled-conversation-20261122/README.md": {
+      "baseline": {
+        "words": 946,
+        "sentences": 93,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 19,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "candidate": {
+        "words": 977,
+        "sentences": 95,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 19,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    },
+    "docs/evidence/accountant-native-controlled-conversation-20261122/correction/README.md": {
+      "candidate": {
+        "words": 639,
+        "sentences": 65,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    },
+    "docs/evidence/accountant-native-controlled-conversation-20261122/correction/record_selection.py": {
+      "candidate": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    }
+  },
+  "new_prose_violations": 0,
+  "prose_score_increases": 0,
+  "new_em_dashes": 0,
+  "initial_new_report_score": 0.31,
+  "final_new_report_score": 0.0,
+  "unsupported_linter_help_attempt": {
+    "exit_code": 1,
+    "log": "ste-help-failure.txt",
+    "cause": "The linter treats --help as a filename"
+  },
+  "whitespace": {
+    "checked": [
+      "agent/native_main_payload.py",
+      "tests/agent/test_native_controlled_conversation.py",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/README.md",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/README.md",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-results/test_meta_agent_init.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-results/test_native_controlled_conversation.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-results/test_native_main_payload.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-results/test_native_turn_context.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-results/test_turn_context.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-results/test_turn_finalizer_cleanup_guard.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-run.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/current-source.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/failed-green-run.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/failed-green-source.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/green-run.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/inputs.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/preservation.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/record_selection.py",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/red-run.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/red-source.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/ruff.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/selection-ids.json",
+      "docs/evidence/accountant-native-controlled-conversation-20261122/correction/verification.json"
+    ],
+    "violations": [],
+    "git_diff_check_exit_code": 0,
+    "raw_artifacts_preserved_without_whitespace_changes": [
+      "*.txt",
+      "*.xml",
+      "*.patch"
+    ]
+  },
+  "ruff": "ruff.json"
+}

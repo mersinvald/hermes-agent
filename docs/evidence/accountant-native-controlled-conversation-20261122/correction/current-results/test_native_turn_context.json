@@ -1,0 +1,52 @@
+{
+  "exit_code": 0,
+  "reports": {
+    "tests/agent/test_native_turn_context.py::test_turn_preparation_first_complete_bytes_and_actual_caller": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_turn_context.py::test_turn_preparation_repeated_history_and_exact_parents_after_profile_drop": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ],
+    "tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-admission]": [
+      {
+        "outcome": "passed",
+        "phase": "setup"
+      },
+      {
+        "outcome": "passed",
+        "phase": "call"
+      },
+      {
+        "outcome": "passed",
+        "phase": "teardown"
+      }
+    ]
+  },
+  "selected": [
+    "tests/agent/test_native_turn_context.py::test_turn_preparation_first_complete_bytes_and_actual_caller",
+    "tests/agent/test_native_turn_context.py::test_turn_preparation_repeated_history_and_exact_parents_after_profile_drop",
+    "tests/agent/test_native_turn_context.py::test_turn_preparation_runtime_labels_require_exact_strings[True-equal_string-provider-synthetic_native-admission]"
+  ]
+}
