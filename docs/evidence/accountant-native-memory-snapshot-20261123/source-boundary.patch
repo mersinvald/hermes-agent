@@ -2,22 +2,13 @@ diff --git a/agent/native_main_payload.py b/agent/native_main_payload.py
 index ad98b201b7..9d667717a3 100644
 --- a/agent/native_main_payload.py
 +++ b/agent/native_main_payload.py
-@@ -29,6 +29,11 @@ from agent.content_policy import (
-     NativeContentContext, NativeContentPolicyDenied, current_context, shared_policy,
- )
- from agent.message_sanitization import _sanitize_surrogates as _NATIVE_SANITIZER
+@@ -31,0 +32,5 @@ from agent.message_sanitization import _sanitize_surrogates as _NATIVE_SANITIZER
 +from tools.memory_tool import MemoryStore as _BUILTIN_MEMORY_STORE
 +
 +_MEMORY_GETTER = _BUILTIN_MEMORY_STORE.format_for_system_prompt
 +_MEMORY_GETTER_CODE = _MEMORY_GETTER.__code__
 +_MEMORY_CLASS_ANCHORS = tuple(value for pair in vars(_BUILTIN_MEMORY_STORE).items() for value in pair)
- 
- _ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", re.ASCII)
- _MAX_INT = (1 << 53) - 1
-@@ -49,6 +54,105 @@ class _DelegateFrames(weakref.WeakKeyDictionary):
- 
- _delegate_frames = _DelegateFrames()
- _parent_resumptions = _DelegateFrames()
+@@ -51,0 +57,99 @@ _parent_resumptions = _DelegateFrames()
 +_memory_snapshots = _DelegateFrames()
 +
 +
@@ -117,96 +108,36 @@ index ad98b201b7..9d667717a3 100644
 +                _memory_failure(adapter, error)
 +            raise
 +    return captured
- 
- 
- class NativeParentResumption:
-@@ -107,7 +211,7 @@ class NativeParentResumptionInvocation:
- 
- 
- def _resumption_callback(adapter, callback, *args):
+@@ -110 +214 @@ def _resumption_callback(adapter, callback, *args):
 -    owner = _parent_resumptions.get(adapter)
 +    owner = _memory_snapshots.get(adapter) or _parent_resumptions.get(adapter)
-     return callback(*args) if owner is None else owner.callback(callback, *args)
- 
- 
-@@ -682,6 +786,8 @@ class NativeSelectionPort(Protocol):
- class NativeResultPolicyPort(Protocol):
-     def current(self, producer_ref: str) -> NativeResultPolicy: ...
- 
+@@ -684,0 +789,2 @@ class NativeResultPolicyPort(Protocol):
 +    def memory_source(self, request_handle: object, producer_ref: str) -> NativeMemorySource: ...
 +
- 
- def _require(condition):
-     if not condition:
-@@ -1218,6 +1324,11 @@ class NativeMainPayloadAdapter:
- 
-     def _invalidate(self):
-         self._invalid = True
+@@ -1220,0 +1327,5 @@ class NativeMainPayloadAdapter:
 +        memory = _memory_snapshots.get(self)
 +        if memory is not None:
 +            memory.phase = memory.phase_anchor = "denied"
 +            memory.active_call = memory.call_frame = memory.public_frame = None
 +            memory.active_anchor = memory.getter_frame = None
-         frame = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
-         if frame is not None:
-             frame.invalidate()
-@@ -1230,6 +1341,9 @@ class NativeMainPayloadAdapter:
-             self._bound_context._denied = True
- 
-     def _identity(self):
+@@ -1232,0 +1344,3 @@ class NativeMainPayloadAdapter:
 +        memory = _memory_snapshots.get(self)
 +        if memory is not None:
 +            memory.verify()
-         frame = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
-         delegate_scope = False
-         if frame is not None:
-@@ -1241,7 +1355,7 @@ class NativeMainPayloadAdapter:
-             _require(type(interrupted) is bool)
-             if interrupted is True:
-                 raise InterruptedError("Agent interrupted during API call")
+@@ -1244 +1358 @@ class NativeMainPayloadAdapter:
 -        if self._constructed is not None:
 +        if self._constructed is not None and not (memory is not None and memory.closed):
-             _verify_constructed(self._constructed)
-         context = self._context
-         _require(context is self._bound_context)
-@@ -1322,6 +1436,9 @@ class NativeMainPayloadAdapter:
-         _destination(self._main_route.destination)
-         _require(selected.destination == self._main_route.destination)
-         retained_delegate_profiles = ()
+@@ -1324,0 +1439,3 @@ class NativeMainPayloadAdapter:
 +        memory = _memory_snapshots.get(self)
 +        if memory is not None:
 +            retained_delegate_profiles = memory.original_profiles
-         delegation = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
-         if delegation is not None:
-             delegation.verify()
-@@ -1446,6 +1563,7 @@ class NativeMainPayloadAdapter:
-         owner = _parent_resumptions.get(self)
-         stage = None
-         try:
+@@ -1448,0 +1566 @@ class NativeMainPayloadAdapter:
 +            _memory_require(self not in _memory_snapshots, "model_work_denied")
-             if owner is not None and owner.active_call is not None:
-                 stage = owner.enter_stage()
-             _require(not self._busy)
-@@ -1689,6 +1807,7 @@ class NativeMainPayloadAdapter:
-         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
- 
-     def _model_open(self):
+@@ -1691,0 +1810 @@ class NativeMainPayloadAdapter:
 +        _memory_require(self not in _memory_snapshots, "model_work_denied")
-         owner = _parent_resumptions.get(self)
-         if owner is None:
-             _require(self not in _delegate_frames and not hasattr(self, "_delegate_frame"))
-@@ -1706,6 +1825,7 @@ class NativeMainPayloadAdapter:
-         child_main_route_ref: str, child_session_id: str, child_task_id: str,
-     ) -> None:
-         try:
+@@ -1708,0 +1828 @@ class NativeMainPayloadAdapter:
 +            _memory_require(self not in _memory_snapshots, "new_binding_denied")
-             _require(self not in _delegate_frames)
-             _DelegateFrame(self, agent, receiver_request, receiver_selection, receiver_producer_ref,
-                 child_request, child_selection, child_producer_ref, delegate_route_ref,
-@@ -1735,6 +1855,24 @@ class NativeMainPayloadAdapter:
-                 raise owner.control_exception
-             raise
- 
+@@ -1737,0 +1858,18 @@ class NativeMainPayloadAdapter:
 +    @_capture_memory_binding
 +    def bind_memory_snapshot(
 +        self, agent: object, *, store: object,
@@ -225,19 +156,11 @@ index ad98b201b7..9d667717a3 100644
 +        except BaseException as error:
 +            _memory_failure(self, error)
 +
-     def _verify_fallback(self):
-         _integer(self._fallback_send_count, 1, 0)
-         _require(type(self._fallback_terminal) is bool)
-@@ -2806,12 +2944,19 @@ class NativeMainPayloadAdapter:
- 
-     def validate_scope(self) -> None:
-         try:
+@@ -2808,0 +2947,3 @@ class NativeMainPayloadAdapter:
 +            memory = _memory_snapshots.get(self)
 +            if memory is not None:
 +                memory.scope_access()
-             _require(not self._busy)
-             self._busy = True
-             self._checkpoint()
+@@ -2812,3 +2953,7 @@ class NativeMainPayloadAdapter:
 -        except Exception:
 -            self._deny()
 -        except BaseException:
@@ -248,22 +171,10 @@ index ad98b201b7..9d667717a3 100644
 +                _memory_failure(self, error)
 +            if isinstance(error, Exception):
 +                self._deny()
-             if self._preparation_enabled:
-                 self._invalidate()
-             raise
-@@ -3643,6 +3788,8 @@ def _constructed_adapter(agent):
-     try:
-         binding = _namespace(agent).get("_native_controlled_binding")
-         owned = _owned_constructed_binding(agent)
+@@ -3645,0 +3791,2 @@ def _constructed_adapter(agent):
 +        if owned is not None:
 +            _memory_require(owned.adapter not in _memory_snapshots, "model_work_denied")
-         owner = _parent_resumptions.get(owned.adapter) if owned is not None else None
-         if owner is not None:
-             owner.access()
-@@ -3741,6 +3888,17 @@ def _close_constructed_main(agent) -> bool:
-     if not _controlled_attempt(agent):
-         return False
-     owned = _owned_constructed_binding(agent)
+@@ -3743,0 +3891,11 @@ def _close_constructed_main(agent) -> bool:
 +    memory = _memory_snapshots.get(owned.adapter) if owned is not None else None
 +    if memory is not None and memory.phase == "released":
 +        try:
@@ -275,13 +186,7 @@ index ad98b201b7..9d667717a3 100644
 +            return True
 +        except BaseException as error:
 +            _memory_failure(owned.adapter, error)
-     frame = getattr(owned.adapter, "_delegate_parent_frame", None) if owned is not None else None
-     if (frame is not None and owned.closed and not frame.invalid
-             and frame.phase in ("returned", "released") and frame.child is agent):
-@@ -3753,6 +3911,396 @@ def _close_constructed_main(agent) -> bool:
-     return True
- 
- 
+@@ -3755,0 +3914,390 @@ def _close_constructed_main(agent) -> bool:
 +class _MemorySnapshot:
 +    """Own one authenticated read of the original frozen memory block."""
 +
@@ -672,6 +577,3 @@ index ad98b201b7..9d667717a3 100644
 +            self.getter_frame = None
 +
 +
- class _ParentResumption:
-     """Retain one operator authorization and its actual parent proof."""
- 

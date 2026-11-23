@@ -16,7 +16,9 @@ Source commit is `090f73950df25df5152ccfdfb3024ed1ec083a88`.
 [The source freeze](source-freeze.json) pins source, test, API, consumer, dependency, and byte evidence.
 [The source boundary](source-boundary.json) verifies 217 original signatures, 28 annotated shapes, and all original constructors.
 It also verifies 11522 unchanged other base paths.
-[The source patch](source-boundary.patch) passes the inverse check against the final runtime.
+
+[The source patch](source-boundary.patch) uses zero context lines to pass the repository whitespace check.
+Use `git apply --unidiff-zero` to apply it and add `--reverse --check` for the inverse check.
 
 The actual parent keeps both memory fields at `None`.
 The operator source lookup binds the exact original store, target, producer policy, owner, profile reference, and version.

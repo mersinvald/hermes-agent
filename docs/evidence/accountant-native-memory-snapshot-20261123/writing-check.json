@@ -51,10 +51,9 @@
     "docs/evidence/accountant-native-memory-snapshot-20261123/README.md": {
       "em_dash(slop-marker)": 0,
       "longest_sentence_words": 20,
-      "mode": "prose-v1",
       "sample_banned": [],
       "sample_marketing": [],
-      "sentences": 91,
+      "sentences": 92,
       "total": 0,
       "total_per100w": 0.0,
       "violations": {
@@ -70,7 +69,7 @@
         "phrasal_verb": 0,
         "semicolon": 0
       },
-      "words": 886
+      "words": 898
     },
     "docs/evidence/accountant-native-memory-snapshot-20261123/consumer-contract.md": {
       "em_dash(slop-marker)": 0,
