@@ -102,5 +102,6 @@ The host must supply the accepted dependency.
 The consumer requires the original active content-policy scope and bound adapter thread.
 No real provider, egress, durable restoration, sensitive cross-thread, source, financial, or production qualification follows.
 Root owns source acceptance, canonical Beads, and merge.
+
 Read configured checks at the published head.
 Zero checks grants no CI success claim.

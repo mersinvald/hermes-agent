@@ -1,3 +1,3 @@
-README.md                        words= 882 total=  1 per100w=  0.11 em_dash= 0 mode=prose-v1
+README.md                        words= 882 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
 consumer-proposal.md             words= 153 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
 pr-body.md                       words= 167 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
