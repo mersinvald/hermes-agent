@@ -1,0 +1,21 @@
+{
+  "version": "ruff 0.15.10",
+  "selection": "F,E9",
+  "files": {
+    "agent/native_main_payload.py": {
+      "baseline": [],
+      "candidate": [],
+      "candidate_exit_code": 0
+    },
+    "tests/agent/test_native_controlled_conversation.py": {
+      "baseline": [],
+      "candidate": [],
+      "candidate_exit_code": 0
+    },
+    "docs/evidence/accountant-native-controlled-conversation-20261122/correction/record_selection.py": {
+      "baseline": [],
+      "candidate": [],
+      "candidate_exit_code": 0
+    }
+  }
+}

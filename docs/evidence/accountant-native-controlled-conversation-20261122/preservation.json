@@ -1,0 +1,105 @@
+{
+  "allowlist_respected": true,
+  "source_freeze": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "changed": [
+    "agent/agent_init.py",
+    "agent/conversation_loop.py",
+    "agent/native_main_payload.py",
+    "docs/evidence/accountant-native-controlled-conversation-20261122/consumer-proposal.md",
+    "docs/evidence/accountant-native-controlled-conversation-20261122/native-api.json",
+    "run_agent.py",
+    "tests/agent/test_native_controlled_conversation.py"
+  ],
+  "protected": [
+    {
+      "path": "agent/content_policy.py",
+      "base_blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "source_blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "unchanged": true
+    },
+    {
+      "path": "agent/chat_completion_helpers.py",
+      "base_blob": "85f44ee7a7b91ede70347ed7bcefb3b1d280915d",
+      "source_blob": "85f44ee7a7b91ede70347ed7bcefb3b1d280915d",
+      "unchanged": true
+    },
+    {
+      "path": "agent/turn_context.py",
+      "base_blob": "8737d1726f08d3206ed87031ffff6c2b19f212b3",
+      "source_blob": "8737d1726f08d3206ed87031ffff6c2b19f212b3",
+      "unchanged": true
+    },
+    {
+      "path": "agent/message_sanitization.py",
+      "base_blob": "d7b374a5007b2fbada09295eff2513a353600544",
+      "source_blob": "d7b374a5007b2fbada09295eff2513a353600544",
+      "unchanged": true
+    },
+    {
+      "path": "agent/turn_finalizer.py",
+      "base_blob": "bc279c767a5d22ea28c726a9b698d5ebefbb7e97",
+      "source_blob": "bc279c767a5d22ea28c726a9b698d5ebefbb7e97",
+      "unchanged": true
+    },
+    {
+      "path": "pyproject.toml",
+      "base_blob": "9c3cc68212b18c68757a20d8a206f9976e84f8c5",
+      "source_blob": "9c3cc68212b18c68757a20d8a206f9976e84f8c5",
+      "unchanged": true
+    },
+    {
+      "path": "uv.lock",
+      "base_blob": "c587226281ab792b006534c8d2d320de2e7d05f7",
+      "source_blob": "c587226281ab792b006534c8d2d320de2e7d05f7",
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "base_blob": "406b73b205a32c1ddc7fd1dabfb02250efa5407f",
+      "source_blob": "406b73b205a32c1ddc7fd1dabfb02250efa5407f",
+      "unchanged": true
+    },
+    {
+      "path": "package-lock.json",
+      "base_blob": "5e1f45ced265188afa3e3d967505d8ea1a28254b",
+      "source_blob": "5e1f45ced265188afa3e3d967505d8ea1a28254b",
+      "unchanged": true
+    },
+    {
+      "path": "tests/agent/test_native_turn_context.py",
+      "base_blob": "25a6155a6214e6a8656a45eace67cea7f301bf70",
+      "source_blob": "25a6155a6214e6a8656a45eace67cea7f301bf70",
+      "unchanged": true
+    },
+    {
+      "path": "tests/agent/test_native_main_payload.py",
+      "base_blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb",
+      "source_blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb",
+      "unchanged": true
+    },
+    {
+      "path": "tests/agent/test_meta_agent_init.py",
+      "base_blob": "60be0da0bf7605cc08ba03da6f679ce733bc5311",
+      "source_blob": "60be0da0bf7605cc08ba03da6f679ce733bc5311",
+      "unchanged": true
+    },
+    {
+      "path": "tests/agent/test_turn_context.py",
+      "base_blob": "dc790c06d690cca21385cf1ddb40ac3b6e29b45c",
+      "source_blob": "dc790c06d690cca21385cf1ddb40ac3b6e29b45c",
+      "unchanged": true
+    },
+    {
+      "path": "tests/agent/test_turn_finalizer_cleanup_guard.py",
+      "base_blob": "89e7ca04f9a4c214606ea1a3276e5806f3277f26",
+      "source_blob": "89e7ca04f9a4c214606ea1a3276e5806f3277f26",
+      "unchanged": true
+    }
+  ],
+  "package_lock_contents_read": false,
+  "other_checkout_changes": false,
+  "canonical_beads_mutated": false,
+  "accepted_tests_modified": false,
+  "manifests_changed": false,
+  "shared_engine_changed": false
+}

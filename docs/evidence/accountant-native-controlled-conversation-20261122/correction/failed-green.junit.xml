@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="6" time="2.232" timestamp="2026-11-22T23:17:34.697424+00:00" hostname="devenv-personal"><testcase classname="tests.agent.test_native_controlled_conversation" name="test_empty_text_stays_empty" time="1.308" /><testcase classname="tests.agent.test_native_controlled_conversation" name="test_constructor_reserved_provider_without_adapter_refuses[exact]" time="0.018" /><testcase classname="tests.agent.test_native_controlled_conversation" name="test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]" time="0.015"><failure message="Failed: Excluded controlled lifecycle callback ran">excluded = &lt;function excluded.&lt;locals&gt;.forbidden at 0x7807acb487c0&gt;
+provider_class = &lt;class 'tests.agent.test_native_controlled_conversation.ReservedProviderString'&gt;
+
+    @pytest.mark.parametrize("provider_class", [
+        str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+    ], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+    def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+        from run_agent import AIAgent
+        from agent.content_policy import current_context
+    
+        assert current_context() is None
+        provider = provider_class("synthetic_native")
+        with pytest.raises(NativeContentPolicyDenied):
+&gt;           AIAgent(provider=provider)
+
+tests/agent/test_native_controlled_conversation.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+run_agent.py:546: in __init__
+    init_agent(
+agent/agent_init.py:687: in init_agent
+    _install_safe_stdio()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (), kwargs = {}
+
+    def forbidden(*args, **kwargs):
+&gt;       pytest.fail("Excluded controlled lifecycle callback ran")
+E       Failed: Excluded controlled lifecycle callback ran
+
+tests/agent/test_native_controlled_conversation.py:29: Failed</failure></testcase><testcase classname="tests.agent.test_native_controlled_conversation" name="test_constructor_reserved_provider_without_adapter_refuses[custom_equality]" time="0.020"><failure message="Failed: Excluded controlled lifecycle callback ran">excluded = &lt;function excluded.&lt;locals&gt;.forbidden at 0x7807acb20720&gt;
+provider_class = &lt;class 'tests.agent.test_native_controlled_conversation.ReservedProviderEquality'&gt;
+
+    @pytest.mark.parametrize("provider_class", [
+        str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+    ], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+    def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+        from run_agent import AIAgent
+        from agent.content_policy import current_context
+    
+        assert current_context() is None
+        provider = provider_class("synthetic_native")
+        with pytest.raises(NativeContentPolicyDenied):
+&gt;           AIAgent(provider=provider)
+
+tests/agent/test_native_controlled_conversation.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+run_agent.py:546: in __init__
+    init_agent(
+agent/agent_init.py:687: in init_agent
+    _install_safe_stdio()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (), kwargs = {}
+
+    def forbidden(*args, **kwargs):
+&gt;       pytest.fail("Excluded controlled lifecycle callback ran")
+E       Failed: Excluded controlled lifecycle callback ran
+
+tests/agent/test_native_controlled_conversation.py:29: Failed</failure></testcase><testcase classname="tests.agent.test_native_controlled_conversation" name="test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]" time="0.015"><failure message="Failed: Excluded controlled lifecycle callback ran">excluded = &lt;function excluded.&lt;locals&gt;.forbidden at 0x7807acb20220&gt;
+provider_class = &lt;class 'tests.agent.test_native_controlled_conversation.ReservedProviderConversions'&gt;
+
+    @pytest.mark.parametrize("provider_class", [
+        str, ReservedProviderString, ReservedProviderEquality, ReservedProviderConversions,
+    ], ids=["exact", "plain_subclass", "custom_equality", "custom_conversions"])
+    def test_constructor_reserved_provider_without_adapter_refuses(excluded, provider_class):
+        from run_agent import AIAgent
+        from agent.content_policy import current_context
+    
+        assert current_context() is None
+        provider = provider_class("synthetic_native")
+        with pytest.raises(NativeContentPolicyDenied):
+&gt;           AIAgent(provider=provider)
+
+tests/agent/test_native_controlled_conversation.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+run_agent.py:546: in __init__
+    init_agent(
+agent/agent_init.py:687: in init_agent
+    _install_safe_stdio()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (), kwargs = {}
+
+    def forbidden(*args, **kwargs):
+&gt;       pytest.fail("Excluded controlled lifecycle callback ran")
+E       Failed: Excluded controlled lifecycle callback ran
+
+tests/agent/test_native_controlled_conversation.py:29: Failed</failure></testcase><testcase classname="tests.agent.test_native_controlled_conversation" name="test_constructor_exact_ordinary_provider_reaches_ordinary_initialization" time="0.015" /></testsuite></testsuites>

@@ -1,0 +1,27 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 6 test files (~142 tests) under ['tests/agent/test_native_controlled_conversation.py', 'tests/agent/test_native_turn_context.py', 'tests/agent/test_native_main_payload.py', 'tests/agent/test_meta_agent_init.py', 'tests/agent/test_turn_context.py', 'tests/agent/test_turn_finalizer_cleanup_guard.py']; running with -j 8
+[ 39.4% |    56/~142 | ✓1 | ✗0] ✓ tests/agent/test_native_main_payload.py (1✓, 1.6s)
+[ 50.0% |    71/~142 | ✓3 | ✗0] ✓ tests/agent/test_turn_context.py (2✓, 2.0s)
+[ 51.4% |    73/~142 | ✓5 | ✗0] ✓ tests/agent/test_turn_finalizer_cleanup_guard.py (2✓, 2.1s)
+[ 57.7% |    82/~142 | ✓7 | ✗0] ✓ tests/agent/test_meta_agent_init.py (2✓, 3.6s)
+[ 78.9% |   112/~142 | ✓10 | ✗ 0] ✓ tests/agent/test_native_turn_context.py (3✓, 3.9s)
+[100.0% |   142/~142 | ✓105 | ✗  0] ✓ tests/agent/test_native_controlled_conversation.py (95✓, 49.4s)
+
+=== Summary: 6 files, 105 tests passed, 0 failed (100% complete) in 49.4s (8 workers) ===
+  Durations cached to test_durations.json (6 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   6
+  Total subprocess CPU-wall: 62.6s  (runner wall: 49.4s, parallelism: 8x)
+  P50: 3.58s  P90: 49.42s  P95: 49.42s  P99: 49.42s  Max: 49.42s
+  <1s: 0 files (0%)  <2s: 2 files (33%)
+  Top 10 slowest:
+     49.42s  tests/agent/test_native_controlled_conversation.py
+      3.92s  tests/agent/test_native_turn_context.py
+      3.58s  tests/agent/test_meta_agent_init.py
+      2.10s  tests/agent/test_turn_finalizer_cleanup_guard.py
+      2.00s  tests/agent/test_turn_context.py
+      1.60s  tests/agent/test_native_main_payload.py

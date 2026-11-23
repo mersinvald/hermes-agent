@@ -1,0 +1,47 @@
+{
+  "run_agent.py": {
+    "baseline": [
+      [
+        "F401",
+        "`agent.process_bootstrap._get_proxy_for_base_url` imported but unused"
+      ]
+    ],
+    "candidate": [
+      [
+        "F401",
+        "`agent.process_bootstrap._get_proxy_for_base_url` imported but unused"
+      ]
+    ],
+    "new_diagnostics": 0
+  },
+  "agent/agent_init.py": {
+    "baseline": [
+      [
+        "F821",
+        "Undefined name `RateLimitState`"
+      ]
+    ],
+    "candidate": [
+      [
+        "F821",
+        "Undefined name `RateLimitState`"
+      ]
+    ],
+    "new_diagnostics": 0
+  },
+  "agent/conversation_loop.py": {
+    "baseline": [],
+    "candidate": [],
+    "new_diagnostics": 0
+  },
+  "agent/native_main_payload.py": {
+    "baseline": [],
+    "candidate": [],
+    "new_diagnostics": 0
+  },
+  "tests/agent/test_native_controlled_conversation.py": {
+    "baseline": [],
+    "candidate": [],
+    "new_diagnostics": 0
+  }
+}

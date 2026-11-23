@@ -1,0 +1,4 @@
+run_agent.py                     words=9785 total=311 per100w=  3.18 em_dash=255 mode=python-prose-v1
+agent_init.py                    words=8371 total=236 per100w=  2.82 em_dash=82 mode=python-prose-v1
+conversation_loop.py             words=21884 total=614 per100w=  2.81 em_dash=280 mode=python-prose-v1
+native_main_payload.py           words=  50 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1

@@ -1,0 +1,34 @@
+{
+  "reviewed_runtime_commit": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "evidence_parent_commit": "4fe5dea92a40837cb74df0cf92cb24f10f414165",
+  "sha256": {
+    "run_agent.py": "68e5e3361846afe3761f1014370c5dd0f8fdf5e169f5f811554200596085c863",
+    "agent/agent_init.py": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+    "agent/conversation_loop.py": "e05bcb5a7cd37daaab4e7e6c87326cd9b6264357fbf80161069ae6ce03cb9e68",
+    "agent/native_main_payload.py": "d21c7e8c586f8a5f2a628b3b13746d70615a233a22bd6f3976dcc49c3ab83fce",
+    "tests/agent/test_native_controlled_conversation.py": "8607c9feeb1791ce9853b7113abef7e3200aa0c62a3c5e7dd96981ff60b64260",
+    "tests/agent/test_native_turn_context.py": "f03823025f07602ffee6d047d48ebe6150a781c0c4785d7060c0f4d122ec1c10",
+    "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+    "tests/agent/test_meta_agent_init.py": "7952bda9e4aff11035aaf669700717691a8c61a9bdf67e3f4eabecb1e5b20238",
+    "tests/agent/test_turn_context.py": "546d350b8ca17608892ae67f56757c4ebe443db0c6205fb9af2ab55a88603b81",
+    "tests/agent/test_turn_finalizer_cleanup_guard.py": "d0d9aa846bc7b16865d8d6db6c788e42036f4ee8ae0aec89ba8467cf0adfccbd"
+  },
+  "public_API_sha256": "01a5bb5b432843b5db10b59d503c05154321b3db550265cde99cfc8382e278c2",
+  "original_tests_preserved_as_exact_prefix": true,
+  "runtime_correction": "_controlled_attempt recognizes the reserved string with isinstance and direct str.__eq__",
+  "result_recorder_sha256": "820b57122eb7b5f61cbc7020962041f60d1cf82482803dbe5770153eee40aa7c",
+  "source_commit": "3a8483330014d5a29131b0daf2c8955b8e63fc15",
+  "source_tree": "698ab1e7216ed5b0abb5a67a72269f6ddf869bbe",
+  "git_blobs": {
+    "run_agent.py": "d9db81111be7d7f6256ae77102cf0f6836de8f6a",
+    "agent/agent_init.py": "46c0de27cbeb50a5232ac848e8cb2a60c55b14bb",
+    "agent/conversation_loop.py": "963e2036929b00846a2db0ebea817d8b61fab8b5",
+    "agent/native_main_payload.py": "467ed94fa6c740b5bd4f3ae22e7dde6c81f04ae8",
+    "tests/agent/test_native_controlled_conversation.py": "6f835b6c47945fefa6ea2e5f4f82aa560b4876f2",
+    "tests/agent/test_native_turn_context.py": "25a6155a6214e6a8656a45eace67cea7f301bf70",
+    "tests/agent/test_native_main_payload.py": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb",
+    "tests/agent/test_meta_agent_init.py": "60be0da0bf7605cc08ba03da6f679ce733bc5311",
+    "tests/agent/test_turn_context.py": "dc790c06d690cca21385cf1ddb40ac3b6e29b45c",
+    "tests/agent/test_turn_finalizer_cleanup_guard.py": "89e7ca04f9a4c214606ea1a3276e5806f3277f26"
+  }
+}

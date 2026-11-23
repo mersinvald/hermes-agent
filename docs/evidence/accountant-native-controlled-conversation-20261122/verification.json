@@ -1,0 +1,90 @@
+{
+  "status": "completed_for_coordinator_acceptance",
+  "source_freeze": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "results": {
+    "passed": 100,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "runner_seconds": 49.3,
+    "distinct_counts": {
+      "new_integration": 90,
+      "existing_compatibility": 10
+    },
+    "per_file": {
+      "tests/agent/test_native_controlled_conversation.py": 90,
+      "tests/agent/test_native_turn_context.py": 3,
+      "tests/agent/test_native_main_payload.py": 1,
+      "tests/agent/test_meta_agent_init.py": 2,
+      "tests/agent/test_turn_context.py": 2,
+      "tests/agent/test_turn_finalizer_cleanup_guard.py": 2
+    }
+  },
+  "command": "HERMES_TEST_FILE_RETRIES=0 scripts/run_tests.sh tests/agent/test_native_controlled_conversation.py tests/agent/test_native_turn_context.py tests/agent/test_native_main_payload.py tests/agent/test_meta_agent_init.py tests/agent/test_turn_context.py tests/agent/test_turn_finalizer_cleanup_guard.py -k 'test_native_controlled_conversation or test_turn_preparation_first_complete_bytes_and_actual_caller or test_turn_preparation_repeated_history_and_exact_parents_after_profile_drop or (test_turn_preparation_runtime_labels_require_exact_strings and True-equal_string-provider-synthetic_native-admission) or test_agent_init_meta_base_url_implies_codex_responses or test_agent_init_explicit_chat_wins_over_mandate or test_returns_turn_context_with_user_message_appended or test_applies_agent_side_effects or (test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle and absent and cron) or test_clean_turn_has_no_cleanup_errors_key or (test_single_cleanup_step_raises_does_not_skip_others and persist_session)' --file-timeout 150 --file-retries 0 --durations=8 -q",
+  "environment": {
+    "task_owned": true,
+    "network_callbacks_blocked": true,
+    "invented_configuration": true,
+    "excluded_callbacks_fail_on_use": true
+  },
+  "prior_overlaps": [
+    {
+      "log": "edit-first.txt",
+      "passed": 3,
+      "failed": 0,
+      "seconds": 6.3
+    },
+    {
+      "log": "edit-group.txt",
+      "passed": 66,
+      "failed": 2,
+      "seconds": 39.5
+    },
+    {
+      "log": "edit-correction.txt",
+      "passed": 17,
+      "failed": 0,
+      "seconds": 10.8
+    },
+    {
+      "log": "edit-complete.txt",
+      "passed": 84,
+      "failed": 1,
+      "seconds": 46.0
+    },
+    {
+      "log": "edit-last.txt",
+      "passed": 10,
+      "failed": 0,
+      "seconds": 5.3
+    }
+  ],
+  "prior_counts_additive": false,
+  "earlier_exact_source_manifests": false,
+  "source_edits_during_imported_test_scope": false,
+  "smoke": {
+    "completed": 1,
+    "earlier_path_failure": 1,
+    "functional_selections": 0,
+    "native_builds": 0
+  },
+  "static": {
+    "new_ruff_F_E9_diagnostics": 0,
+    "unchanged_baseline_diagnostics": 2,
+    "python_prose_score_increases": 0,
+    "whitespace_check": "source/tests/non-log evidence",
+    "raw_failure_whitespace_preserved": true
+  },
+  "configured_exact_head_checks": "Report against the final published commit at handoff; no zero-check CI success claim.",
+  "limits": [
+    "Full P10/P06 open",
+    "No real providers or egress",
+    "No private/model processing",
+    "No source or financial qualification",
+    "No durable or serialized restoration",
+    "No sensitive cross-thread dispatch",
+    "No in-flight preemption or deadline",
+    "No production test, financial write, deployment, or activation",
+    "Coordinator owns acceptance and merge"
+  ]
+}

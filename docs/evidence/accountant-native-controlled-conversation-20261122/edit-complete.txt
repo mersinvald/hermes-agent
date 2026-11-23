@@ -1,0 +1,96 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~26 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 8
+[100.0% |    26/~26 | ✓84 | ✗ 1] ✗ tests/agent/test_native_controlled_conversation.py (84✓ 1✗, 46.0s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7757805e47c0>, call=<function caller_boundary.<locals>.call at 0x7757805e5d00>, dispatches=[], selector=<function should_use_direct_api_call at 0x775780fe1b20>)
+  ║ 
+  ║     def test_unqualified_required_port_never_constructs_or_sends(excluded, caller_boundary):
+  ║         world = World(missing=("memory",)).bind(qualify=False)
+  ║ >       refuses(world, lambda: construct(world))
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:558: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ world = <tests.agent.test_native_main_payload.World object at 0x7757801d3190>
+  ║ callback = <function test_unqualified_required_port_never_constructs_or_sends.<locals>.<lambda> at 0x7757805e5260>
+  ║ sends = 0
+  ║ 
+  ║     def refuses(world, callback, sends=0):
+  ║ >       with pytest.raises(NativeContentPolicyDenied):
+  ║ E       Failed: DID NOT RAISE NativeContentPolicyDenied
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:76: Failed
+  ║ ============================= slowest 8 durations ==============================
+  ║ 10.03s call     tests/agent/test_native_controlled_conversation.py::test_eight_turn_limit
+  ║ 1.37s call     tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]
+  ║ 1.36s call     tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]
+  ║ 0.78s call     tests/agent/test_native_controlled_conversation.py::test_wrong_thread_and_caught_reentry_invalidate
+  ║ 0.71s call     tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[copied]
+  ║ 0.69s call     tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[response]
+  ║ 0.69s call     tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[missing]
+  ║ 0.68s call     tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[usage]
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_unqualified_required_port_never_constructs_or_sends
+  ║ 1 failed, 84 passed in 45.61s
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -q --durations=8
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 84 tests passed, 1 failed (100% complete) in 46.0s (8 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 46.0s  (runner wall: 46.0s, parallelism: 8x)
+  P50: 46.00s  P90: 46.00s  P95: 46.00s  P99: 46.00s  Max: 46.00s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     46.00s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+........................................................................ [ 84%]
+...........F.                                                            [100%]
+=================================== FAILURES ===================================
+___________ test_unqualified_required_port_never_constructs_or_sends ___________
+
+excluded = <function excluded.<locals>.forbidden at 0x7757805e5da0>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7757805e47c0>, call=<function caller_boundary.<locals>.call at 0x7757805e5d00>, dispatches=[], selector=<function should_use_direct_api_call at 0x775780fe1b20>)
+
+    def test_unqualified_required_port_never_constructs_or_sends(excluded, caller_boundary):
+        world = World(missing=("memory",)).bind(qualify=False)
+>       refuses(world, lambda: construct(world))
+
+tests/agent/test_native_controlled_conversation.py:558: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+world = <tests.agent.test_native_main_payload.World object at 0x7757801d3190>
+callback = <function test_unqualified_required_port_never_constructs_or_sends.<locals>.<lambda> at 0x7757805e5260>
+sends = 0
+
+    def refuses(world, callback, sends=0):
+>       with pytest.raises(NativeContentPolicyDenied):
+E       Failed: DID NOT RAISE NativeContentPolicyDenied
+
+tests/agent/test_native_controlled_conversation.py:76: Failed
+============================= slowest 8 durations ==============================
+10.03s call     tests/agent/test_native_controlled_conversation.py::test_eight_turn_limit
+1.37s call     tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]
+1.36s call     tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]
+0.78s call     tests/agent/test_native_controlled_conversation.py::test_wrong_thread_and_caught_reentry_invalidate
+0.71s call     tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[copied]
+0.69s call     tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[response]
+0.69s call     tests/agent/test_native_controlled_conversation.py::test_repeated_turn_requires_original_history_and_prefix[missing]
+0.68s call     tests/agent/test_native_controlled_conversation.py::test_earlier_results_remain_bound[usage]
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_unqualified_required_port_never_constructs_or_sends
+1 failed, 84 passed in 45.61s
+
+=== 1 file with test failures (1 test failed) ===
+  tests/agent/test_native_controlled_conversation.py  (1 test failed)

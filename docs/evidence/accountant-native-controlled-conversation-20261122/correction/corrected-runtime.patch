@@ -1,0 +1,13 @@
+diff --git a/agent/native_main_payload.py b/agent/native_main_payload.py
+index f712ec2070..467ed94fa6 100644
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -1218,7 +1218,7 @@ def _controlled_attempt(agent, adapter=None, provider=None):
+             or "_native_controlled_options" in namespace):
+         return True
+     provider = namespace.get("provider") if provider is None else provider
+-    if type(provider) is str and provider == "synthetic_native":
++    if isinstance(provider, str) and str.__eq__(provider, "synthetic_native") is True:
+         return True
+     active = current_context()
+     attached = namespace.get("_native_content_policy_context")

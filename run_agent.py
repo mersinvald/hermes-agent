@@ -46,7 +46,11 @@ import time
 import threading
 import uuid
 import warnings
-from typing import List, Dict, Any, Optional, Callable
+from typing import TYPE_CHECKING, List, Dict, Any, Optional, Callable
+
+if TYPE_CHECKING:
+    from agent.native_main_payload import NativeMainPayloadAdapter
+
 # NOTE: `from openai import OpenAI` is deliberately NOT at module top — the
 # SDK pulls ~240 ms of imports. We expose `OpenAI` as a thin proxy object
 # that imports the SDK on first call/isinstance check. This preserves:
@@ -524,8 +528,13 @@ class AIAgent:
         pass_session_id: bool = False,
         requested_provider: str = None,
         capabilities: Dict[str, bool] | None = None,
+        *,
+        controlled_main: "NativeMainPayloadAdapter | None" = None,
     ):
         """Forwarder — see ``agent.agent_init.init_agent``."""
+        from agent.native_main_payload import _controlled_attempt, _validate_constructor_options
+        if _controlled_attempt(self, controlled_main, provider):
+            _validate_constructor_options(self, controlled_main, locals())
         if tool_delay is not None:
             warnings.warn(
                 "tool_delay is deprecated and ignored; sequential tool calls "
@@ -615,6 +624,7 @@ class AIAgent:
             checkpoint_max_total_size_mb=checkpoint_max_total_size_mb,
             checkpoint_max_file_size_mb=checkpoint_max_file_size_mb,
             pass_session_id=pass_session_id,
+            controlled_main=controlled_main,
         )
 
     def _get_session_db_for_recall(self):
@@ -4639,6 +4649,9 @@ class AIAgent:
         Safe to call multiple times (idempotent).  Each cleanup step is
         independently guarded so a failure in one does not prevent the rest.
         """
+        from agent.native_main_payload import _close_constructed_main
+        if _close_constructed_main(self):
+            return
         # AIAgent.close() is the hard owner boundary. Gateway cleanup may
         # call shutdown_memory_provider() first; its idempotence prevents
         # duplicate extraction while direct callers cannot skip provider close.
@@ -8698,6 +8711,14 @@ class AIAgent:
         moa_config: Optional[dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """Forwarder — see ``agent.conversation_loop.run_conversation``."""
+        from agent.conversation_loop import _try_controlled_text_turn
+        controlled, result = _try_controlled_text_turn(
+            self, user_message, system_message, conversation_history, task_id,
+            stream_callback, persist_user_message, persist_user_timestamp,
+            persist_user_display_kind, persist_user_display_metadata, moa_config,
+        )
+        if controlled:
+            return result
         # A review deliberately shares this agent's session_id for prompt-cache
         # parity. Fence review startup or interrupt an admitted request, then
         # await that request's exit before opening any live-turn Relay or task

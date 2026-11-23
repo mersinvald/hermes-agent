@@ -1,0 +1,81 @@
+{
+  "source_freeze": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "files": [
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/README.md",
+      "sha256": "b38b0e13c30d037d3399aa1612b627fc68f2241b4e28e3a2d41b54eb57ea442d"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/consumer-proposal.md",
+      "sha256": "2e3063f24058bad46f8b325ec8558f153a0097220dc3967825d4818293c4b4d1"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/edit-complete.txt",
+      "sha256": "4fa09fba17ce963dcd401cdc28bef9b49dad534ed729c9d03719b7b1d8c0b32a"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/edit-correction.txt",
+      "sha256": "d3efa948530b617fe4da338e37c645402d7ac4a10717e08765e454ecdff2e15c"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/edit-first.txt",
+      "sha256": "3be404146e82f506d32422ee544f7a39f84634420e1009142a0fcaaf5f7b94a3"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/edit-group.txt",
+      "sha256": "da6f1d86963cccdf6e8a9d7c4d087b5860564037b43fdd5496629d8b05352425"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/edit-last.txt",
+      "sha256": "8198a5dc4ff981833ad4cd8694531e6ebb59eab75b49de5c156064ae57cbf93d"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/final-focused.txt",
+      "sha256": "d77cd9a504d78e749c4d4b01126af353e7d6558afed32096baa423aef8b528df"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/inputs.json",
+      "sha256": "fa2bc849bf3db34d2beeb74c038fd33bd9048d4e0e586e23ad72ebf15e0a4965"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/installed-smoke.json",
+      "sha256": "a4d0d22c87d6505762134c74de38daa1591e651663922d5d7f8e81a3332c8c82"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/native-api.json",
+      "sha256": "01a5bb5b432843b5db10b59d503c05154321b3db550265cde99cfc8382e278c2"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/pr-body.md",
+      "sha256": "b036ff53801a2fa38bffa50e0f45bc0f494225b49733488d3908cadd33175b9e"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/preservation.json",
+      "sha256": "3c30db243851ce7b9f0894af804b75f410ca32ac873366af8bc39d79262b9b6a"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/ruff.json",
+      "sha256": "2cfd8352e191bea151bdc2d375b2ca72f6b60c2f13db3736bbcbec5dad70c0c2"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/ste-after.txt",
+      "sha256": "5d15ab1decaa48dfa4a7c63972b50539a80f7c8958f83a2c180c2391699b0864"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/ste-before.txt",
+      "sha256": "22fcbe2563b20524e146b14f1e091b355993627f4b0c0e3ddc101932df515f80"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/ste-evidence.txt",
+      "sha256": "6c33ca39ca97799fd33d7967e68fe5e070a166a3cdc12e364ec121f113d985f7"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/tested-source.json",
+      "sha256": "60e3c2fd8c10be30660fc46a965f1349cced4869cf1d35aba0be3a0fa6800cef"
+    },
+    {
+      "path": "docs/evidence/accountant-native-controlled-conversation-20261122/verification.json",
+      "sha256": "b465262dc991af35c5705c608404e7cde751c8f91c40745ca13198682647c0dd"
+    }
+  ]
+}

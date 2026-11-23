@@ -1,0 +1,13 @@
+{
+  "reviewed_runtime_commit": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "evidence_parent_commit": "4fe5dea92a40837cb74df0cf92cb24f10f414165",
+  "sha256": {
+    "run_agent.py": "68e5e3361846afe3761f1014370c5dd0f8fdf5e169f5f811554200596085c863",
+    "agent/agent_init.py": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+    "agent/conversation_loop.py": "e05bcb5a7cd37daaab4e7e6c87326cd9b6264357fbf80161069ae6ce03cb9e68",
+    "agent/native_main_payload.py": "2c7f4e5e300382e76cd1dd102094341355636ff871be9aaeedaee630947f2454",
+    "tests/agent/test_native_controlled_conversation.py": "8607c9feeb1791ce9853b7113abef7e3200aa0c62a3c5e7dd96981ff60b64260"
+  },
+  "public_API_sha256": "01a5bb5b432843b5db10b59d503c05154321b3db550265cde99cfc8382e278c2",
+  "original_tests_preserved_as_exact_prefix": true
+}

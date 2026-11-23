@@ -1,0 +1,131 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~17 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 8
+[100.0% |    17/~17 | ✓66 | ✗ 2] ✗ tests/agent/test_native_controlled_conversation.py (66✓ 2✗, 39.5s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ excluded = <function excluded.<locals>.forbidden at 0x7438c72b9f80>
+  ║ caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7438c72bb740>, call=<function caller_boundary.<locals>.call at 0x7438c72bb240>, dispatches=[], selector=<function should_use_direct_api_call at 0x7438c7e277e0>)
+  ║ monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7438c70f9ed0>
+  ║ 
+  ║     def test_close_recognizes_partial_closed_and_reserved_bindings(excluded, caller_boundary, monkeypatch):
+  ║         from run_agent import AIAgent
+  ║         retained = []
+  ║         original = native_main_payload._bind_constructed_main
+  ║     
+  ║         def failing(agent, adapter):
+  ║             retained.append(agent)
+  ║             raise KeyboardInterrupt
+  ║     
+  ║         monkeypatch.setattr(native_main_payload, "_bind_constructed_main", failing)
+  ║         world = World().bind()
+  ║         with pytest.raises(KeyboardInterrupt):
+  ║             construct(world)
+  ║         partial, = retained
+  ║         partial.close()
+  ║         partial.close()
+  ║ >       assert world.context._denied
+  ║ E       assert False
+  ║ E        +  where False = <agent.content_policy.NativeContentContext object at 0x7438c6fd2c90>._denied
+  ║ E        +    where <agent.content_policy.NativeContentContext object at 0x7438c6fd2c90> = <tests.agent.test_native_main_payload.World object at 0x7438c70fa1d0>.context
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:411: AssertionError
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[send]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_close_recognizes_partial_closed_and_reserved_bindings
+  ║ 2 failed, 66 passed in 39.12s
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -q
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 66 tests passed, 2 failed (100% complete) in 39.5s (8 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 39.5s  (runner wall: 39.5s, parallelism: 8x)
+  P50: 39.49s  P90: 39.49s  P95: 39.49s  P99: 39.49s  Max: 39.49s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     39.49s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+.........................................................F.........F     [100%]
+=================================== FAILURES ===================================
+___________ test_bare_interrupt_preserves_pending_cancellation[send] ___________
+
+excluded = <function excluded.<locals>.forbidden at 0x7438c7413920>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7438c7413600>, call=<function caller_boundary.<l...ed document A', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7438c7e277e0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7438c7719a90>
+when = 'send'
+
+    @pytest.mark.parametrize("when", ["before", "send", "complete"])
+    def test_bare_interrupt_preserves_pending_cancellation(excluded, caller_boundary, monkeypatch, when):
+        world = construct()
+        if when == "before":
+            world.agent.interrupt()
+        elif when == "send":
+            world.ports["main"].hook = lambda envelope: world.agent.interrupt()
+        else:
+            derive = ContentPolicyRuntime.derive
+    
+            def cancel(runtime, handle, parents, payload, *, path):
+                content = derive(runtime, handle, parents, payload, path=path)
+                if b'"final_response"' in payload:
+                    world.agent.interrupt()
+                return content
+    
+            monkeypatch.setattr(ContentPolicyRuntime, "derive", cancel)
+        with pytest.raises(InterruptedError, match="^Agent interrupted during API call$"):
+            turn(world)
+        assert world.agent._interrupt_requested is True and world.context._denied
+        assert world.agent._execution_thread_id is world.agent._active_request_abort is None
+        assert not world.agent._active_children and not world.agent._tool_worker_threads
+        assert world.adapter.send_count == (0 if when == "before" else 1)
+>       assert len(world.adapter.invocations) == (1 if when == "complete" else 0)
+E       AssertionError: assert 1 == 0
+E        +  where 1 = len((NativeMainInvocation(request_handle=<object object at 0x7438ca587aa0>, source=ExecutionBinding(owner_ref='owner', exe...l_calls=None), finish_reason='stop'),), usage=NativeMainUsage(prompt_tokens=3, completion_tokens=2, total_tokens=5))),))
+E        +    where (NativeMainInvocation(request_handle=<object object at 0x7438ca587aa0>, source=ExecutionBinding(owner_ref='owner', exe...l_calls=None), finish_reason='stop'),), usage=NativeMainUsage(prompt_tokens=3, completion_tokens=2, total_tokens=5))),) = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7438c76fde90>.invocations
+E        +      where <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7438c76fde90> = <tests.agent.test_native_main_payload.World object at 0x7438c73a9d50>.adapter
+
+tests/agent/test_native_controlled_conversation.py:314: AssertionError
+__________ test_close_recognizes_partial_closed_and_reserved_bindings __________
+
+excluded = <function excluded.<locals>.forbidden at 0x7438c72b9f80>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7438c72bb740>, call=<function caller_boundary.<locals>.call at 0x7438c72bb240>, dispatches=[], selector=<function should_use_direct_api_call at 0x7438c7e277e0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7438c70f9ed0>
+
+    def test_close_recognizes_partial_closed_and_reserved_bindings(excluded, caller_boundary, monkeypatch):
+        from run_agent import AIAgent
+        retained = []
+        original = native_main_payload._bind_constructed_main
+    
+        def failing(agent, adapter):
+            retained.append(agent)
+            raise KeyboardInterrupt
+    
+        monkeypatch.setattr(native_main_payload, "_bind_constructed_main", failing)
+        world = World().bind()
+        with pytest.raises(KeyboardInterrupt):
+            construct(world)
+        partial, = retained
+        partial.close()
+        partial.close()
+>       assert world.context._denied
+E       assert False
+E        +  where False = <agent.content_policy.NativeContentContext object at 0x7438c6fd2c90>._denied
+E        +    where <agent.content_policy.NativeContentContext object at 0x7438c6fd2c90> = <tests.agent.test_native_main_payload.World object at 0x7438c70fa1d0>.context
+
+tests/agent/test_native_controlled_conversation.py:411: AssertionError
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_bare_interrupt_preserves_pending_cancellation[send]
+FAILED tests/agent/test_native_controlled_conversation.py::test_close_recognizes_partial_closed_and_reserved_bindings
+2 failed, 66 passed in 39.12s
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_native_controlled_conversation.py  (2 tests failed)

@@ -1,0 +1,68 @@
+{
+  "status": "implemented_and_verified_for_root_acceptance",
+  "source_commit": "3a8483330014d5a29131b0daf2c8955b8e63fc15",
+  "reviewed_runtime_commit": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+  "original_evidence_commit": "4fe5dea92a40837cb74df0cf92cb24f10f414165",
+  "runs": {
+    "red": {
+      "selected": 6,
+      "passed": 3,
+      "failed": 3,
+      "failed_ids": [
+        "test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]",
+        "test_constructor_reserved_provider_without_adapter_refuses[custom_equality]",
+        "test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]"
+      ],
+      "runner_seconds": 3.7
+    },
+    "failed-green": {
+      "selected": 6,
+      "passed": 3,
+      "failed": 3,
+      "failed_ids": [
+        "test_constructor_reserved_provider_without_adapter_refuses[plain_subclass]",
+        "test_constructor_reserved_provider_without_adapter_refuses[custom_equality]",
+        "test_constructor_reserved_provider_without_adapter_refuses[custom_conversions]"
+      ],
+      "runner_seconds": 2.7
+    },
+    "green": {
+      "selected": 6,
+      "passed": 6,
+      "failed": 0,
+      "failed_ids": [],
+      "runner_seconds": 2.0
+    }
+  },
+  "current": {
+    "passed": 105,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "runner_seconds": 49.4,
+    "original_IDs": 100,
+    "added_IDs": 5,
+    "ID_record": "selection-ids.json"
+  },
+  "counts_additive": false,
+  "current_is_historical_cumulative_suite": false,
+  "historical_original_scope": {
+    "passed": 100,
+    "runner_seconds": 49.3,
+    "source_commit": "62d5eaf0033343eb66b749360274bb5246d6d1da",
+    "unchanged": true
+  },
+  "no_source_edits_during_each_imported_test_scope": true,
+  "functional_scope": "R1 actual constructor regression with invented configuration, blocked network and fail-on-use ordinary callbacks",
+  "R2": "No implementation, binding observer, or probe",
+  "static": "Zero scoped Ruff F/E9 diagnostics; separate STE and whitespace records",
+  "CI": "Report exact published head at worker handoff; zero checks do not imply CI success",
+  "limits": [
+    "Root owns acceptance, canonical Beads and merge",
+    "Draft PR6 remains unmerged",
+    "Full P10/P06 open",
+    "No real provider, egress, private/model processing, durable restoration, source or financial qualification",
+    "No production, service, financial write, deployment or activation",
+    "No install, sync, build, index lookup or repeated installed functional selection"
+  ]
+}

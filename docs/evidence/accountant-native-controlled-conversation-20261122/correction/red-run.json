@@ -1,0 +1,21 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_controlled_conversation.py",
+    "-k",
+    "test_constructor_reserved_provider_without_adapter_refuses or test_constructor_exact_ordinary_provider_reaches_ordinary_initialization or test_empty_text_stays_empty",
+    "--file-timeout",
+    "120",
+    "--file-retries",
+    "0",
+    "--durations=8",
+    "-q",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.11/docs/evidence/accountant-native-controlled-conversation-20261122/correction/red.junit.xml"
+  ],
+  "HERMES_TEST_FILE_RETRIES": "0",
+  "started_utc": "2026-11-22T23:17:12.073537+00:00",
+  "elapsed_seconds": 6.685,
+  "exit_code": 1,
+  "source_manifest": "red-source.json",
+  "retries": 0
+}
