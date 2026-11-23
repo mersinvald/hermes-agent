@@ -722,3 +722,24 @@ def test_title_failure_callback_cannot_suppress_policy_denial(monkeypatch):
     monkeypatch.setattr(titles, "call_llm", ordinary_failure)
     with pytest.raises(NativeContentPolicyDenied, match="^invented_callback_denial$"):
         titles.generate_title("Invented source", destination={}, failure_callback=denied)
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("", None), (" \t\n", None), ("<system-reminder></system-reminder>", None),
+    ("<system-reminder>Keep receipts</system-reminder>", "Retained receipt review"),
+])
+def test_ordinary_local_title_empty_and_wrapper_behavior_stays_compatible(monkeypatch, text, expected):
+    from types import SimpleNamespace
+    from agent import title_generator as titles
+    calls = []
+    def invoke(**arguments):
+        calls.append(arguments)
+        return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(
+            content='{"title":"Retained receipt review"}'))])
+    monkeypatch.setattr(titles, "call_llm", invoke)
+    monkeypatch.setattr(titles, "_auto_title_enabled", lambda: True)
+    monkeypatch.setattr(titles, "_title_language", lambda: "")
+    assert titles.generate_title(text) == expected
+    assert len(calls) == int(expected is not None)
+    if calls:
+        assert calls[0]["messages"][1]["content"] == "Keep receipts"

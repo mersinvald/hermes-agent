@@ -219,7 +219,7 @@ def strip_control_wrappers(text: str) -> str:
     return current
 
 
-def _summarize_user_message(user_message: str, *, _check=None, _stages=None) -> str:
+def _summarize_user_message(user_message: str, *, _check=None, _stages=None, _facts=None) -> str:
     """Reduce a user turn to the text worth titling.
 
     A ``/skill`` invocation expands into a message that embeds the whole skill
@@ -230,6 +230,9 @@ def _summarize_user_message(user_message: str, *, _check=None, _stages=None) -> 
     wrappers left around it.
     """
     if not user_message:
+        if _facts is not None:
+            _facts.extend((dict(step="summary", mode="empty_input", value=""),
+                           dict(step="wrappers", applied=False, value="")))
         return ""
     described = None
     try:
@@ -251,7 +254,12 @@ def _summarize_user_message(user_message: str, *, _check=None, _stages=None) -> 
         _check()
     if _stages is not None:
         _stages.append(text)
-    return strip_control_wrappers(text)
+    if _facts is not None:
+        _facts.append(dict(step="summary", mode="described" if described is not None else "original", value=text))
+    wrapped = strip_control_wrappers(text)
+    if _facts is not None:
+        _facts.append(dict(step="wrappers", applied=True, value=wrapped))
+    return wrapped
 
 
 def is_titleable_user_message(user_message: str) -> bool:
@@ -366,10 +374,10 @@ def _controlled_title_constants():
         _CONTROL_WRAPPERS])
 
 
-def _title_snippet(user_message, check=None, stages=None):
+def _title_snippet(user_message, check=None, stages=None, facts=None):
     if check is not None:
         check()
-        wrapped = _summarize_user_message(user_message, _check=check, _stages=stages)
+        wrapped = _summarize_user_message(user_message, _check=check, _stages=stages, _facts=facts)
         check()
     else:
         wrapped = _summarize_user_message(user_message)
@@ -395,11 +403,26 @@ def _title_word_decision(title):
 
 
 def _title_input_stages(user_message, language, selected, check):
-    from agent.native_main_payload import _AUX_CALL_DEFAULTS, _json, _require
+    from agent.native_main_payload import _require
+    kind, stages, value = _title_preparation_stages(user_message, language, selected, check)
+    _require(kind == "dispatch")
+    return stages, value
+
+
+def _title_preparation_stages(user_message, language, selected, check):
+    from agent.native_main_payload import _AUX_CALL_DEFAULTS, _json
     check()
     summary = []
-    wrapped, snippet = _title_snippet(user_message, check, summary)
-    _require(bool(snippet.strip()))
+    facts = []
+    wrapped, snippet = _title_snippet(user_message, check, summary, facts)
+    has_text = bool(snippet.strip())
+    check()
+    if not has_text:
+        stages = tuple(_json(value) for value in (
+            user_message, *facts, snippet,
+            dict(step="snippet_decision", max_chars=MAX_TITLE_INPUT_CHARS, has_text=has_text)))
+        check()
+        return "local_no_send", stages, {"title": None}
     check()
     rule, prompt = _title_prompt(language, check)
     messages = [{"role": "system", "content": prompt}, {"role": "user", "content": snippet}]
@@ -410,7 +433,7 @@ def _title_input_stages(user_message, language, selected, check):
         max_tokens=64, temperature=0.3, extra_body={"response_format": _TITLE_RESPONSE_FORMAT},
         strict_destination=True)
     check()
-    return stages, request
+    return "dispatch", stages, request
 
 
 def _title_output_stages(response, check):
@@ -467,7 +490,11 @@ def generate_title(
         (timeout, failure_callback, main_runtime, runtime_validator, destination))
     if adapter is not None:
         try:
-            stages, request = adapter._transform_auxiliary(controlled_aux)
+            preparation = adapter._prepare_auxiliary_title(controlled_aux)
+            if preparation.kind == "local_no_send":
+                return adapter.complete_auxiliary_local(adapter._turn_agent, controlled_aux,
+                    stages=preparation.stages, output=preparation.value)["title"]
+            stages, request = preparation.stages, preparation.value
             sealed = adapter.seal_auxiliary(adapter._turn_agent, controlled_aux, stages=stages, request=request)
             response = call_llm(**request, controlled_aux=sealed)
             stages, output = adapter._transform_auxiliary(sealed, response=response)

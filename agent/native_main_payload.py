@@ -303,6 +303,43 @@ class NativeAuxiliaryInvocation:
 
 
 @dataclass(frozen=True, slots=True)
+class NativeAuxiliaryLocalResult:
+    source_completion: object
+    source_frame: object
+    source_invocation: NativeMainInvocation
+    source_handle: object
+    request_handle: object
+    source: ExecutionBinding
+    target: ExecutionBinding
+    path: str
+    task: str
+    selection: NativeMainSelection
+    producer_policy: NativeResultPolicy
+    language: str
+    operation_index: int
+    outcome: str
+    reason: str
+    source_bytes: bytes
+    parents: tuple
+    parent_requests: tuple
+    source_content: ContentHandle
+    input_stages: tuple[bytes, ...]
+    stage_contents: tuple[ContentHandle, ...]
+    output_stages: tuple[bytes, ...]
+    output_contents: tuple[ContentHandle, ...]
+    output_bytes: bytes
+    output: dict
+    output_content: ContentHandle
+
+
+@dataclass(frozen=True, slots=True)
+class _AuxiliaryTitlePreparation:
+    kind: str
+    stages: tuple[bytes, ...]
+    value: dict
+
+
+@dataclass(frozen=True, slots=True)
 class _AuxiliaryBinding:
     handle: object
     port: object
@@ -332,6 +369,9 @@ class _AuxiliaryFrame:
     request_anchors: tuple = ()
     sealed: NativeAuxiliaryRequest | None = None
     record: NativeAuxiliaryInvocation | None = None
+    preparation: _AuxiliaryTitlePreparation | None = None
+    preparation_anchors: tuple = ()
+    local_result: NativeAuxiliaryLocalResult | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -642,6 +682,8 @@ class NativeMainPayloadAdapter:
         self._aux_frames = ()
         self._aux_records = ()
         self._aux_anchors = ()
+        self._aux_local_results = ()
+        self._aux_local_anchors = ()
         self._aux_send_count = 0
         self._operation = self._checked_operation = None
         self._records = ()
@@ -1085,15 +1127,26 @@ class NativeMainPayloadAdapter:
     def auxiliary_send_count(self) -> int:
         return self._aux_send_count
 
+    @property
+    def auxiliary_local_results(self) -> tuple[NativeAuxiliaryLocalResult, ...]:
+        return self._aux_local_results
+
+    def _completed_auxiliary_outputs(self):
+        for frame, _ in self._aux_frames:
+            record = frame.local_result if frame.local_result is not None else frame.record
+            if record is not None and record.output_content is not None:
+                yield record.output_content, record.request_handle
+
     def _derive(self, handle, parents, payload, *, path):
-        previous = tuple(r.output_content for r in self._aux_records if r.output_content is not None)
+        completed = tuple(self._completed_auxiliary_outputs())
+        previous = tuple(content for content, _ in completed)
         if not previous:
             return self._runtime.derive(handle, parents, payload, path=path)
         parents = (*parents, *previous)
         return self._runtime.derive_for_selection(
             handle, parents, payload, path=path,
             parent_requests=(*(self._handle for _ in parents[:-len(previous)]),
-                             *(self._aux_binding.handle for _ in previous)),
+                             *(capability for _, capability in completed)),
         )
 
     def _callback_scope(self):
@@ -1159,6 +1212,14 @@ class NativeMainPayloadAdapter:
                          == record.response_bytes)
             if record.output is not None:
                 _require(_json(record.output) == record.output_bytes)
+        _require(type(self._aux_local_results) is tuple and len(self._aux_local_results) <= 8)
+        _require(len(self._aux_local_results) == len(self._aux_local_anchors))
+        for record, anchor in zip(self._aux_local_results, self._aux_local_anchors):
+            _require(record is anchor[0])
+            actual = _row(record, NativeAuxiliaryLocalResult)
+            _require(all(a is b for a, b in zip(actual, anchor[1])))
+            _require(_same_anchors(_nested_anchors(actual)[1:], anchor[2]))
+            _require(_json(record.output) == record.output_bytes)
         _require(type(self._aux_frames) is tuple and len(self._aux_frames) <= 8)
         for frame, anchor in self._aux_frames:
             _require(type(frame) is _AuxiliaryFrame)
@@ -1169,6 +1230,15 @@ class NativeMainPayloadAdapter:
             selected = (frame.completion.frame.arguments[0] if frame.field == "user_message"
                         else frame.completion.result["final_response"])
             _require(frame.text is selected and _json(selected) == frame.source_bytes)
+            if frame.preparation is not None:
+                preparation = frame.preparation
+                _require(type(preparation) is _AuxiliaryTitlePreparation)
+                _require(preparation.kind in ("dispatch", "local_no_send"))
+                _require(_same_anchors(_nested_anchors(preparation), frame.preparation_anchors))
+                _stage_tuple(preparation.stages)
+            if frame.local_result is not None:
+                _require(frame.record is None and frame.sealed is None and frame.request is None)
+                _require(any(frame.local_result is record for record in self._aux_local_results))
             if frame.record is not None and frame.record.native_response is not None:
                 _require(_response_bytes(frame.record.native_response,
                     frame.record.selection.destination.model_ref) == frame.record.response_bytes)
@@ -1224,13 +1294,15 @@ class NativeMainPayloadAdapter:
             from agent import skill_commands, agent_runtime_helpers
             self._methods += tuple((port, name, _method(getattr(port, name))) for port, name in (
                 (selection, "current"), (self._runtime, "derive_for_selection"),
-                (self._runtime, "dispatch"),
+                (self._runtime, "dispatch"), (self._runtime, "derive"),
                 *((self, name) for name in (
                     "bind_auxiliary", "auxiliary_input", "seal_auxiliary", "dispatch_auxiliary",
-                    "complete_auxiliary", "_transform_auxiliary", "_dispatch_retained_operation",
+                    "complete_auxiliary", "complete_auxiliary_local", "_prepare_auxiliary_title",
+                    "_completed_auxiliary_outputs", "_transform_auxiliary", "_dispatch_retained_operation",
                     "_verify_auxiliary", "_aux_snapshot", "_callback_scope", "_accept_aux_record")),
                 *((titles, name) for name in (
                     "generate_title", "_controlled_title_constants", "_title_input_stages", "_title_output_stages",
+                    "_title_preparation_stages",
                     "_summarize_user_message", "strip_control_wrappers", "_extract_title_text", "_clean_title",
                     "_title_snippet", "_title_prompt", "_title_word_decision")),
                 (skill_commands, "describe_skill_invocation"),
@@ -1280,14 +1352,15 @@ class NativeMainPayloadAdapter:
             _text(text)
             payload = _json(text)
             _require(len(payload) <= 262_144)
+            completed = tuple(self._completed_auxiliary_outputs())
             parents = (frame.admitted, frame.input_content, frame.output_content,
                        *frame.request_contents, invocation.request_content, invocation.result_content,
                        completion.content, *(row.content for row in self._completions
                                              if row is not completion),
-                       *(row.output_content for row in self._aux_records if row.output_content is not None))
-            previous = sum(row.output_content is not None for row in self._aux_records)
+                       *(content for content, _ in completed))
+            previous = len(completed)
             parent_requests = (*(self._handle for _ in parents[:len(parents)-previous]),
-                               *(self._aux_binding.handle for _ in range(previous)))
+                               *(capability for _, capability in completed))
             content = self._runtime.derive_for_selection(self._aux_binding.handle, parents,
                 payload, path="title", parent_requests=parent_requests)
             self._interrupt_turn()
@@ -1307,16 +1380,32 @@ class NativeMainPayloadAdapter:
         self._interrupt_turn()
         return frame
 
-    def _transform_auxiliary(self, token, *, response=None):
+    def _prepare_auxiliary_title(self, token):
         from agent import title_generator as titles
         with self._turn_operation(self._turn_agent):
+            frame = self._checked_aux_frame(token)
+            _require(frame.sealed is None and frame.preparation is None)
+            kind, stages, value = titles._title_preparation_stages(
+                frame.text, self._aux_binding.language, self._aux_current[1], self._interrupt_turn)
+            _require(kind in ("dispatch", "local_no_send"))
+            _stage_tuple(stages)
+            preparation = _AuxiliaryTitlePreparation(kind, stages, value)
+            self._interrupt_turn()
+            self._retain_aux_frame(replace(frame, preparation=preparation,
+                preparation_anchors=_nested_anchors(preparation)))
+            self._interrupt_turn()
+            return preparation
+
+    def _transform_auxiliary(self, token, *, response=None):
+        from agent import title_generator as titles
+        if response is None:
+            preparation = self._prepare_auxiliary_title(token)
+            with self._turn_operation(self._turn_agent):
+                self._checked_aux_frame(token)
+                _require(preparation.kind == "dispatch")
+                return preparation.stages, preparation.value
+        with self._turn_operation(self._turn_agent):
             frame = self._checked_aux_frame(token, sealed=response is not None)
-            if response is None:
-                _require(frame.sealed is None)
-                stages, request = titles._title_input_stages(
-                    frame.text, self._aux_binding.language, self._aux_current[1], self._interrupt_turn)
-                self._aux_transformation = (frame.token, stages, request, _nested_anchors(request))
-                return stages, request
             _require(frame.record is not None and response is frame.record.native_response)
             stages, output = titles._title_output_stages(response, self._interrupt_turn)
             self._aux_output = (output, stages, output["title"])
@@ -1324,17 +1413,14 @@ class NativeMainPayloadAdapter:
 
     def seal_auxiliary(self, agent: object, source: NativeAuxiliaryInput, *,
                        stages: tuple[bytes, ...], request: dict) -> NativeAuxiliaryRequest:
-        from agent import title_generator as titles
         with self._turn_operation(agent):
             frame = self._checked_aux_frame(source)
             _require(frame.sealed is None)
-            proof = self._aux_transformation
-            _require(proof[0] is source and proof[1] is stages and proof[2] is request)
-            _require(_same_anchors(_nested_anchors(request), proof[3]))
+            proof = frame.preparation
+            _require(type(proof) is _AuxiliaryTitlePreparation and proof.kind == "dispatch")
+            _require(proof.stages is stages and proof.value is request)
+            _require(_same_anchors(_nested_anchors(proof), frame.preparation_anchors))
             _stage_tuple(stages)
-            expected, expected_request = titles._title_input_stages(
-                frame.text, self._aux_binding.language, self._aux_current[1], self._interrupt_turn)
-            _require(stages == expected and _json(request) == _json(expected_request))
             contents = []
             for stage in stages:
                 self._interrupt_turn()
@@ -1426,10 +1512,59 @@ class NativeMainPayloadAdapter:
             payload = _json(output)
             _require(len(payload) <= 262_144)
             parents = (frame.source_content, record.request_content, record.result_content,
-                       *contents, *(row.output_content for row in self._aux_records if row.output_content is not None))
+                       *contents, *(content for content, _ in self._completed_auxiliary_outputs()))
             content = self._runtime.derive(self._aux_binding.handle, parents, payload, path="title")
             self._retain_aux_record(replace(record, output_stages=stages, output_contents=tuple(contents),
                 output_bytes=payload, output=output, output_content=content))
+            self._interrupt_turn()
+            self._aux_pending = None
+            return output
+
+    def complete_auxiliary_local(
+        self,
+        agent: object,
+        source: NativeAuxiliaryInput,
+        *,
+        stages: tuple[bytes, ...],
+        output: dict,
+    ) -> dict:
+        with self._turn_operation(agent):
+            frame = self._checked_aux_frame(source)
+            _require(frame.sealed is None and frame.record is None and frame.local_result is None)
+            proof = frame.preparation
+            _require(type(proof) is _AuxiliaryTitlePreparation and proof.kind == "local_no_send")
+            _require(proof.stages is stages and proof.value is output)
+            _require(_same_anchors(_nested_anchors(proof), frame.preparation_anchors))
+            _stage_tuple(stages)
+            _keys(output, ("title",))
+            _require(output["title"] is None and len(stages) == 5)
+            payload = _json(output)
+            _require(len(payload) <= 262_144)
+            contents = []
+            for stage in stages:
+                self._interrupt_turn()
+                contents.append(self._runtime.derive(self._aux_binding.handle,
+                    (frame.source_content, *contents), stage, path="title"))
+            output_stages = (_json(dict(outcome="local_no_send", reason="empty_title_snippet")),)
+            self._interrupt_turn()
+            decision = self._runtime.derive(self._aux_binding.handle,
+                (frame.source_content, *contents), output_stages[0], path="title")
+            parents = (frame.source_content, *contents, decision,
+                       *(content for content, _ in self._completed_auxiliary_outputs()))
+            self._interrupt_turn()
+            content = self._runtime.derive(self._aux_binding.handle, parents, payload, path="title")
+            self._interrupt_turn()
+            target, selected, producer = self._aux_current
+            record = NativeAuxiliaryLocalResult(frame.completion, frame.completion.frame,
+                frame.completion.invocation, self._handle, self._aux_binding.handle,
+                self._source, target, "title", "title_generation", selected, producer,
+                self._aux_binding.language, len(self._aux_frames), "local_no_send", "empty_title_snippet",
+                frame.source_bytes, frame.parents, frame.parent_requests, frame.source_content,
+                stages, tuple(contents), output_stages, (decision,), payload, output, content)
+            values = _row(record, NativeAuxiliaryLocalResult)
+            self._aux_local_results += (record,)
+            self._aux_local_anchors += ((record, values, _nested_anchors(values)[1:]),)
+            self._retain_aux_frame(replace(frame, stages=stages, stage_contents=tuple(contents), local_result=record))
             self._interrupt_turn()
             self._aux_pending = None
             return output
@@ -1555,7 +1690,7 @@ def _nested_anchors(value):
     records = (NativeMainResponse, NativeMainChoice, NativeMainMessage, NativeMainUsage,
                NativeMainSelection, NativeResultPolicy, policy.ExecutionBinding,
                policy.Destination, policy.DispatchEnvelope, policy.RouteBinding,
-               NativeAuxiliaryInvocation)
+               NativeAuxiliaryInvocation, NativeAuxiliaryLocalResult, _AuxiliaryTitlePreparation)
     def visit(item):
         result.append(item)
         if type(item) is dict:
