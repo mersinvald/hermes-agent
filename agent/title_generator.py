@@ -24,6 +24,7 @@ import threading
 from typing import Any, Callable, Optional
 
 from agent.auxiliary_client import call_llm
+from agent.content_policy import NativeContentPolicyDenied
 from agent.context_compressor import LEGACY_SUMMARY_PREFIX
 from agent.message_content import flatten_message_text
 
@@ -218,7 +219,7 @@ def strip_control_wrappers(text: str) -> str:
     return current
 
 
-def _summarize_user_message(user_message: str) -> str:
+def _summarize_user_message(user_message: str, *, _check=None, _stages=None) -> str:
     """Reduce a user turn to the text worth titling.
 
     A ``/skill`` invocation expands into a message that embeds the whole skill
@@ -234,10 +235,22 @@ def _summarize_user_message(user_message: str) -> str:
     try:
         from agent.skill_commands import describe_skill_invocation
 
+        if _check is not None:
+            _check()
         described = describe_skill_invocation(user_message)
-    except Exception:
+        if _check is not None:
+            _check()
+    except NativeContentPolicyDenied:
+        raise
+    except Exception as error:
+        if _check is not None and isinstance(error, InterruptedError):
+            raise
         logger.debug("Skill-scaffolding summary failed; titling raw", exc_info=True)
     text = described if described is not None else user_message
+    if _check is not None:
+        _check()
+    if _stages is not None:
+        _stages.append(text)
     return strip_control_wrappers(text)
 
 
@@ -282,7 +295,7 @@ def derive_title(user_message: str) -> Optional[str]:
     return line or None
 
 
-def _extract_title_text(content: str) -> str:
+def _extract_title_text(content: str, *, _check=None) -> str:
     """Pull the title out of a model response.
 
     The JSON schema makes the object shape the expected case, but not every
@@ -314,8 +327,16 @@ def _extract_title_text(content: str) -> str:
     try:
         from agent.agent_runtime_helpers import strip_think_blocks
 
+        if _check is not None:
+            _check()
         raw = strip_think_blocks(None, raw).strip()
-    except Exception:
+        if _check is not None:
+            _check()
+    except NativeContentPolicyDenied:
+        raise
+    except Exception as error:
+        if _check is not None and isinstance(error, InterruptedError):
+            raise
         logger.debug("strip_think_blocks unavailable for title output", exc_info=True)
     raw = next((ln.strip() for ln in raw.splitlines() if ln.strip()), "")
     if raw.lower().startswith("title:"):
@@ -338,6 +359,78 @@ def _clean_title(text: str) -> Optional[str]:
     return title
 
 
+def _controlled_title_constants():
+    from agent.native_main_payload import _json
+    return _json([MAX_TITLE_INPUT_CHARS, _MAX_TITLE_WORDS, _TITLE_PROMPT_TEMPLATE,
+        _LANGUAGE_RULE_MATCH_USER, _LANGUAGE_RULE_PINNED, _TITLE_RESPONSE_FORMAT,
+        _CONTROL_WRAPPERS])
+
+
+def _title_snippet(user_message, check=None, stages=None):
+    if check is not None:
+        check()
+        wrapped = _summarize_user_message(user_message, _check=check, _stages=stages)
+        check()
+    else:
+        wrapped = _summarize_user_message(user_message)
+    return wrapped, wrapped[:MAX_TITLE_INPUT_CHARS]
+
+
+def _title_prompt(language, check=None):
+    if check is not None:
+        check()
+    rule = (_LANGUAGE_RULE_PINNED.format(language=language)
+            if language else _LANGUAGE_RULE_MATCH_USER)
+    if check is not None:
+        check()
+    prompt = _TITLE_PROMPT_TEMPLATE.replace("__LANGUAGE_RULE__", rule)
+    if check is not None:
+        check()
+    return rule, prompt
+
+
+def _title_word_decision(title):
+    words = len(title.split()) if title is not None else 0
+    return words, words <= _MAX_TITLE_WORDS
+
+
+def _title_input_stages(user_message, language, selected, check):
+    from agent.native_main_payload import _AUX_CALL_DEFAULTS, _json, _require
+    check()
+    summary = []
+    wrapped, snippet = _title_snippet(user_message, check, summary)
+    _require(bool(snippet.strip()))
+    check()
+    rule, prompt = _title_prompt(language, check)
+    messages = [{"role": "system", "content": prompt}, {"role": "user", "content": snippet}]
+    stages = tuple(_json(value) for value in (
+        user_message, summary[0], wrapped, snippet, rule, prompt, messages))
+    request = dict(_AUX_CALL_DEFAULTS, task="title_generation", provider="synthetic_native",
+        model=selected.destination.model_ref, api_mode="chat_completions", messages=messages,
+        max_tokens=64, temperature=0.3, extra_body={"response_format": _TITLE_RESPONSE_FORMAT},
+        strict_destination=True)
+    check()
+    return stages, request
+
+
+def _title_output_stages(response, check):
+    from agent.native_main_payload import _json
+    check()
+    content = response.choices[0].message.content
+    check()
+    extracted = _extract_title_text(content, _check=check)
+    check()
+    title = _clean_title(extracted)
+    check()
+    words, accepted = _title_word_decision(title)
+    check()
+    output = {"title": title if accepted else None}
+    stages = tuple(_json(value) for value in (
+        content, extracted, title, {"words": words, "accepted": accepted}))
+    check()
+    return stages, output
+
+
 def generate_title(
     user_message: str,
     timeout: Optional[float] = None,
@@ -345,6 +438,7 @@ def generate_title(
     main_runtime: dict = None,
     runtime_validator: Optional[RuntimeValidator] = None,
     destination: Optional[dict] = None,
+    *, controlled_aux=None,
 ) -> Optional[str]:
     """Generate a session title from the user's opening message.
 
@@ -368,6 +462,19 @@ def generate_title(
     no request is sent, so a stale title request can't reload a model the
     runtime already unloaded (#19027).
     """
+    from agent.native_main_payload import _controlled_title_entry
+    adapter = _controlled_title_entry(user_message, controlled_aux,
+        (timeout, failure_callback, main_runtime, runtime_validator, destination))
+    if adapter is not None:
+        try:
+            stages, request = adapter._transform_auxiliary(controlled_aux)
+            sealed = adapter.seal_auxiliary(adapter._turn_agent, controlled_aux, stages=stages, request=request)
+            response = call_llm(**request, controlled_aux=sealed)
+            stages, output = adapter._transform_auxiliary(sealed, response=response)
+            return adapter.complete_auxiliary(sealed, response=response, stages=stages, output=output)["title"]
+        except BaseException:
+            adapter._invalidate()
+            raise
     from agent.content_policy import guard_native_content
     guard_native_content("title")
     if destination is None and not _auto_title_enabled():
@@ -379,11 +486,13 @@ def generate_title(
             if not runtime_validator():
                 logger.debug("Title generation skipped: runtime validator returned False")
                 return None
+        except NativeContentPolicyDenied:
+            raise
         except Exception:
             # Fail open: a broken validator must not disable titling.
             logger.debug("Title runtime validator raised; proceeding", exc_info=True)
 
-    user_snippet = _summarize_user_message(user_message)[:MAX_TITLE_INPUT_CHARS]
+    _, user_snippet = _title_snippet(user_message)
     if not user_snippet.strip():
         return None
 
@@ -392,14 +501,9 @@ def generate_title(
         if destination is not None
         else _title_language()
     )
-    language_rule = (
-        _LANGUAGE_RULE_PINNED.format(language=language)
-        if language
-        else _LANGUAGE_RULE_MATCH_USER
-    )
     # Placeholder substitution, not str.format: the prompt embeds literal JSON
     # braces as few-shot examples, which format() would try to interpolate.
-    prompt = _TITLE_PROMPT_TEMPLATE.replace("__LANGUAGE_RULE__", language_rule)
+    _, prompt = _title_prompt(language)
 
     messages = [
         {"role": "system", "content": prompt},
@@ -437,13 +541,16 @@ def generate_title(
         # blob — reject instead so the caller retries on the next exchange
         # (maybe_auto_title fires for the first two exchanges).
         # Port of can1357/oh-my-pi#7306.
-        if title is not None and len(title.split()) > _MAX_TITLE_WORDS:
+        words, accepted = _title_word_decision(title)
+        if not accepted:
             logger.debug(
                 "Rejecting answer-shaped title output (%d words > %d)",
-                len(title.split()), _MAX_TITLE_WORDS,
+                words, _MAX_TITLE_WORDS,
             )
             return None
         return title
+    except NativeContentPolicyDenied:
+        raise
     except Exception as e:
         # Log at WARNING so this shows up in agent.log without debug mode.
         # Full detail at debug level for operators who need the stack.
@@ -452,6 +559,8 @@ def generate_title(
         if failure_callback is not None:
             try:
                 failure_callback("title generation", e)
+            except NativeContentPolicyDenied:
+                raise
             except Exception:
                 logger.debug("Title generation failure_callback raised", exc_info=True)
         return None
@@ -522,6 +631,8 @@ def apply_instant_title(
     text, or the session already carries a title of at least ``derived``
     authority). Never raises: a titling failure must not affect the turn.
     """
+    from agent.content_policy import guard_native_content
+    guard_native_content("title")
     if not session_db or not session_id:
         return None
     try:

@@ -1,0 +1,22 @@
+{
+  "source_commit": "46b8d6e69a7547c5176ad624f1581d13fa013a94",
+  "pr": {
+    "baseRefName": "mkl",
+    "headRefOid": "46b8d6e69a7547c5176ad624f1581d13fa013a94",
+    "isDraft": true,
+    "number": 7,
+    "url": "https://github.com/mersinvald/hermes-agent/pull/7"
+  },
+  "source_head_checks": {
+    "head": "46b8d6e69a7547c5176ad624f1581d13fa013a94",
+    "check_run_count": 0,
+    "check_runs": [],
+    "commit_status_count": 0,
+    "statuses": []
+  },
+  "ci_claim": "Zero checks grants no CI success claim.",
+  "native_api_sha256": "2baa22dd2090e609863071548394a597c840492a35557110b38e0a5000d8e84f",
+  "scope": "The consumer requires the original active content-policy scope and bound adapter thread.",
+  "publication": "Draft PR only. Root owns acceptance and merge.",
+  "tool_note": "The first PR read used an unsupported --head option. The number-based read succeeded."
+}

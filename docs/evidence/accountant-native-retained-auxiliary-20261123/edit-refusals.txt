@@ -1,0 +1,56 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~39 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    39/~39 | ✓0 | ✗0] ✗ tests/agent/test_native_controlled_conversation.py (39 tests, 300.0s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ (300s exceeded; process tree SIGKILL'd)
+  ║ ============================= test session starts ==============================
+  ║ platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+  ║ rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14
+  ║ configfile: pyproject.toml
+  ║ plugins: asyncio-1.3.0, anyio-4.12.1
+  ║ asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+  ║ collected 145 items / 108 deselected / 37 selected
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py ..................... [ 56%]
+  ║ .............
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k retained_title_cancellation or retained_title_semantic_none or retained_title_changed_facts or retained_title_input_requires or retained_decorated_call
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 0 failed (100% complete) in 300.0s (16 workers) ===
+
+=== ✗ NO TESTS RAN — 0 collected across 1 file. This is NOT a pass. ===
+  Common causes: the selected venv has no pytest; a -k/-m filter matched nothing; or collection errored in every file.
+  Check the per-file output above for the real error.
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 300.0s  (runner wall: 300.0s, parallelism: 16x)
+  P50: 300.03s  P90: 300.03s  P95: 300.03s  P99: 300.03s  Max: 300.03s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+    300.03s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+(300s exceeded; process tree SIGKILL'd)
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 145 items / 108 deselected / 37 selected
+
+tests/agent/test_native_controlled_conversation.py ..................... [ 56%]
+.............
+
+=== 1 file where no tests ran (collection/import error, timeout before collection, etc.) ===
+  tests/agent/test_native_controlled_conversation.py

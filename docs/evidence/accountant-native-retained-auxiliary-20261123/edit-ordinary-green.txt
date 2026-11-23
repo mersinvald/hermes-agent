@@ -1,0 +1,17 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~38 tests) under ['tests/agent/test_title_generator.py']; running with -j 16
+[100.0% |    38/~38 | ✓6 | ✗0] ✓ tests/agent/test_title_generator.py (6✓, 0.5s)
+
+=== Summary: 1 files, 6 tests passed, 0 failed (100% complete) in 0.5s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 0.5s  (runner wall: 0.5s, parallelism: 16x)
+  P50: 0.54s  P90: 0.54s  P95: 0.54s  P99: 0.54s  Max: 0.54s
+  <1s: 1 files (100%)  <2s: 1 files (100%)
+  Top 10 slowest:
+      0.54s  tests/agent/test_title_generator.py

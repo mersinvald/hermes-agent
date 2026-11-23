@@ -1,0 +1,59 @@
+{
+  "initial_git_status": "clean",
+  "protected": [
+    {
+      "path": "agent/content_policy.py",
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+      "unchanged": true
+    },
+    {
+      "path": "agent/conversation_loop.py",
+      "sha256": "e05bcb5a7cd37daaab4e7e6c87326cd9b6264357fbf80161069ae6ce03cb9e68",
+      "unchanged": true
+    },
+    {
+      "path": "agent/turn_finalizer.py",
+      "sha256": "584ade4613a11565c2ccd48546327adb9682f58ec70ace9d02921c3c240c14d5",
+      "unchanged": true
+    },
+    {
+      "path": "agent/agent_init.py",
+      "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+      "unchanged": true
+    },
+    {
+      "path": "run_agent.py",
+      "sha256": "68e5e3361846afe3761f1014370c5dd0f8fdf5e169f5f811554200596085c863",
+      "unchanged": true
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+      "unchanged": true
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5",
+      "unchanged": true
+    }
+  ],
+  "package_lock": "No content read or edit. No checkout outside this issue worktree was edited.",
+  "beads": "No issue, memory, or sync operation. Root owns canonical tracking.",
+  "design_verified": true,
+  "accepted_handoff_verified": true,
+  "additive_tests": [
+    {
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "base_prefix_unchanged": true
+    },
+    {
+      "path": "tests/agent/test_content_policy_auxiliary.py",
+      "base_prefix_unchanged": true
+    },
+    {
+      "path": "tests/agent/test_title_generator.py",
+      "base_prefix_unchanged": true
+    }
+  ],
+  "original_main_record_and_public_signatures": "unchanged"
+}

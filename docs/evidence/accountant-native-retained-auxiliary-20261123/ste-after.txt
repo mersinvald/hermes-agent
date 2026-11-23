@@ -1,0 +1,6 @@
+native_main_payload.py           words=  68 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+title_generator.py               words=2335 total= 86 per100w=  3.68 em_dash=29 mode=python-prose-v1
+auxiliary_client.py              words=16984 total=523 per100w=  3.08 em_dash=248 mode=python-prose-v1
+test_native_controlled_conversation.py words=  15 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+test_content_policy_auxiliary.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+test_title_generator.py          words= 725 total= 23 per100w=  3.17 em_dash= 6 mode=python-prose-v1

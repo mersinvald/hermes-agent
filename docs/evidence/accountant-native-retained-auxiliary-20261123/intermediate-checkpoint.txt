@@ -1,0 +1,29 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 7 test files (~346 tests) under ['tests/agent/test_native_controlled_conversation.py', 'tests/agent/test_native_main_payload.py', 'tests/agent/test_content_policy_auxiliary.py', 'tests/agent/test_title_generator.py', 'tests/agent/test_auxiliary_client.py', 'tests/agent/test_auxiliary_relay.py', 'tests/agent/test_auxiliary_concurrency.py']; running with -j 16
+[  2.0% |     7/~346 | ✓2 | ✗0] ✓ tests/agent/test_auxiliary_relay.py (2✓, 0.6s)
+[  7.2% |    25/~346 | ✓7 | ✗0] ✓ tests/agent/test_auxiliary_concurrency.py (5✓, 2.0s)
+[ 56.9% |   197/~346 | ✓12 | ✗ 0] ✓ tests/agent/test_auxiliary_client.py (5✓, 3.6s)
+[ 73.1% |   253/~346 | ✓32 | ✗ 0] ✓ tests/agent/test_native_main_payload.py (20✓, 7.5s)
+[ 83.8% |   290/~346 | ✓75 | ✗ 0] ✓ tests/agent/test_title_generator.py (43✓, 9.3s)
+[ 86.7% |   300/~346 | ✓107 | ✗  0] ✓ tests/agent/test_content_policy_auxiliary.py (32✓, 19.8s)
+[100.0% |   346/~346 | ✓190 | ✗  0] ✓ tests/agent/test_native_controlled_conversation.py (83✓, 531.0s)
+
+=== Summary: 7 files, 190 tests passed, 0 failed (100% complete) in 531.0s (16 workers) ===
+  Durations cached to test_durations.json (7 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   7
+  Total subprocess CPU-wall: 573.8s  (runner wall: 531.0s, parallelism: 16x)
+  P50: 7.45s  P90: 531.01s  P95: 531.01s  P99: 531.01s  Max: 531.01s
+  <1s: 1 files (14%)  <2s: 2 files (29%)
+  Top 10 slowest:
+    531.01s  tests/agent/test_native_controlled_conversation.py
+     19.81s  tests/agent/test_content_policy_auxiliary.py
+      9.32s  tests/agent/test_title_generator.py
+      7.45s  tests/agent/test_native_main_payload.py
+      3.64s  tests/agent/test_auxiliary_client.py
+      1.99s  tests/agent/test_auxiliary_concurrency.py
+      0.61s  tests/agent/test_auxiliary_relay.py

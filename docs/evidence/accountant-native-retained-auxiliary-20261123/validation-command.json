@@ -1,0 +1,18 @@
+[
+  "scripts/run_tests.sh",
+  "tests/agent/test_native_controlled_conversation.py",
+  "tests/agent/test_native_main_payload.py",
+  "tests/agent/test_content_policy_auxiliary.py",
+  "tests/agent/test_title_generator.py",
+  "tests/agent/test_auxiliary_client.py",
+  "tests/agent/test_auxiliary_relay.py",
+  "tests/agent/test_auxiliary_concurrency.py",
+  "-k",
+  "retained_title or retained_decorated or test_content_policy_auxiliary or test_title_generator or real_constructor_first_and_repeated_entrypoints or empty_text_stays_empty or bare_interrupt_preserves_pending_cancellation or process_control_exceptions_propagate or (actual_siblings_refuse_after_constructed_turn and title) or complete_native_payload_and_result_release or reuse_keeps_parent_restrictions_after_source_profiles_drop or changes_during_authorized_send_reject_output_and_count_the_send or callback_failure_counts_authorized_send_without_releasing_result or retained_original_response_and_handle_identity_are_required or ordinary_provider_without_controlled_adapter_preserves_native_sdk_behavior or strict_destination or explicit_provider_adopts_configured_task_endpoint or async_call_llm_preserves_profile_reasoning_kwargs or auxiliary_retries_share_logical_relay_identity or async_auxiliary_attempt_uses_inherited_relay_adapter or call_llm_caps_concurrent_inflight or semaphore_released_on_exception or api_mode_is_forwarded_to_client_resolution",
+  "--file-retries",
+  "0",
+  "--file-timeout",
+  "600",
+  "--",
+  "--durations=8"
+]

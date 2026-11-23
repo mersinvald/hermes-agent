@@ -1,0 +1,9 @@
+{
+  "version": "0.2.0",
+  "installed_engine": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14/.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "engine_sha256": "576e057d0b59053a254a5a766509526824e14640081fdb31ba58b1b03517a625",
+  "derive_for_selection": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path', parent_requests: 'tuple[object, ...]') -> 'ContentHandle'",
+  "native_imports": "passed",
+  "functional_checks": "not run",
+  "preliminary_failure": "Smoke used absent __version__. Corrected to distribution metadata. No functional tests ran."
+}

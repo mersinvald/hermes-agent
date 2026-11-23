@@ -1,0 +1,40 @@
+Mon Nov 23 03:30:09 2026    docs/evidence/accountant-native-retained-auxiliary-20261123/edit-profile.pstats
+
+         128074871 function calls (124345290 primitive calls) in 42.794 seconds
+
+   Ordered by: cumulative time
+   List reduced from 401 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     3522    0.007    0.000   40.809    0.012 __init__.py:330(_call)
+     2262    0.007    0.000   38.808    0.017 native_main_payload.py:1407(_checkpoint)
+     4524    0.079    0.000   38.801    0.009 native_main_payload.py:778(_snapshot)
+        1    0.000    0.000   38.420   38.420 test_native_controlled_conversation.py:752(title_from)
+     1063    0.005    0.000   36.866    0.035 native_main_payload.py:1418(_around)
+    69240    4.129    0.000   33.591    0.000 native_main_payload.py:741(_identity)
+     3344    0.227    0.000   31.195    0.009 native_main_payload.py:1091(_aux_snapshot)
+        1    0.000    0.000   25.360   25.360 title_generator.py:409(generate_title)
+      228    0.009    0.000   20.702    0.091 __init__.py:393(_coverage)
+      554    0.001    0.000   18.922    0.034 native_main_payload.py:578(resolve)
+       17    0.001    0.000   18.889    1.111 __init__.py:449(derive)
+      362    0.002    0.000   17.917    0.049 __init__.py:348(_current)
+    69222    2.711    0.000   14.972    0.000 native_main_payload.py:1952(_verify_constructed)
+      298    0.000    0.000   13.589    0.046 __init__.py:365(_fresh)
+        1    0.000    0.000   13.059   13.059 native_main_payload.py:1241(auxiliary_input)
+        1    0.000    0.000   12.970   12.970 __init__.py:473(derive_for_selection)
+        2    0.000    0.000   11.523    5.762 __init__.py:503(checkpoint)
+      902    0.001    0.000   10.756    0.012 __init__.py:340(_now)
+        1    0.000    0.000   10.068   10.068 native_main_payload.py:1296(seal_auxiliary)
+    69223    6.304    0.000    9.982    0.000 native_main_payload.py:1927(_constructed_state)
+      278    0.000    0.000    9.773    0.035 native_main_payload.py:713(<lambda>)
+  5399736    4.042    0.000    9.138    0.000 native_main_payload.py:558(_same_method)
+       18    0.001    0.000    8.390    0.466 __init__.py:545(dispatch)
+      228    0.001    0.000    8.168    0.036 native_main_payload.py:567(current)
+        1    0.000    0.000    7.561    7.561 native_main_payload.py:1374(complete_auxiliary)
+        1    0.000    0.000    7.137    7.137 auxiliary_client.py:3473(wrapped)
+        1    0.000    0.000    7.137    7.137 auxiliary_client.py:9756(call_llm)
+        1    0.000    0.000    7.137    7.137 native_main_payload.py:1643(_try_controlled_auxiliary_call)
+        1    0.000    0.000    7.137    7.137 native_main_payload.py:1342(dispatch_auxiliary)
+       54    0.001    0.000    6.523    0.121 __init__.py:527(_checkpoint)
+
+
