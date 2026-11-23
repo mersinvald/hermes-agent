@@ -1,0 +1,131 @@
+{
+  "stages": {
+    "stable_prompt": {
+      "utf8": "Use retained notes.",
+      "bytes": 19,
+      "sha256": "5be1142152191070896be7071e7b13274b7dd838d13b5ef0fd737435afb99990"
+    },
+    "getter_block": {
+      "utf8": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nMEMORY (your personal notes) [1% \u2014 28/2,200 chars]\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nBlue squares use two counts.",
+      "bytes": 359,
+      "sha256": "ccf4ac249b0c29904c33330172bd9f4410bfeccfd3f0590d6bb0cef7abb36e67"
+    },
+    "full_system_prompt": {
+      "utf8": "Use retained notes.\n\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nMEMORY (your personal notes) [1% \u2014 28/2,200 chars]\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nBlue squares use two counts.",
+      "bytes": 380,
+      "sha256": "5015cdd01d6a76e26f200d8deb44c0bd5ded78e8b3cf99fb5af9fb788c82c9e6"
+    },
+    "authorization_bytes": {
+      "utf8": "{\"constructor\":{\"api_mode\":\"chat_completions\",\"enabled_toolsets\":[],\"model\":\"invented_consumer_model\",\"provider\":\"synthetic_native\",\"quiet_mode\":true,\"session_id\":\"memory-consumer-session\",\"skip_background_review\":true,\"skip_context_files\":true,\"skip_memory\":true},\"consumer\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"consumer_selection\",1,[\"restricted_documents\"]],\"controlled_main_present\":true,\"main_route_ref\":\"consumer_main_route\",\"producer_policy\":[\"invented_consumer_producer\",1,[\"restricted_documents\"]],\"producer_ref\":\"invented_consumer_producer\",\"session_id\":\"memory-consumer-session\",\"system_message\":\"Use retained notes.\"}",
+      "bytes": 650,
+      "sha256": "9f83173e8da9942bbde626c11c53ac320ed3d20e069ed4e9ed06f01c340f0ad9"
+    },
+    "raw_turn_bytes": {
+      "utf8": "{\"conversation_history\":null,\"options\":{\"max_tokens\":{\"present\":true,\"value\":null},\"model\":{\"present\":true,\"value\":\"invented_consumer_model\"},\"stream\":{\"present\":false,\"value\":false},\"temperature\":{\"present\":false,\"value\":null}},\"system_message\":\"Use retained notes.\",\"task_id\":\"execution\",\"user_message\":\"How many counts?\"}",
+      "bytes": 324,
+      "sha256": "8cdda52100d590050c634152f919c69353d176f5e7f1e7a4190797320222d7a4"
+    },
+    "turn_context_bytes": {
+      "utf8": "{\"active_system_prompt\":\"Use retained notes.\\n\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"conversation_history\":null,\"current_turn_user_idx\":0,\"effective_task_id\":\"execution\",\"ext_prefetch_cache\":\"\",\"messages\":[{\"content\":\"How many counts?\",\"role\":\"user\"}],\"original_user_message\":\"How many counts?\",\"plugin_user_context\":\"\",\"preflight_compression_blocked\":false,\"should_review_memory\":false,\"turn_id\":\"native-turn-1\",\"user_message\":\"How many counts?\"}",
+      "bytes": 1054,
+      "sha256": "0f439b8e6a5f51704d2a71640d48ee3b667af4e889a44ac7b33c388dbc9bb51d"
+    },
+    "prepared_bytes": {
+      "utf8": "{\"request\":{\"messages\":[{\"content\":\"Use retained notes.\\n\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"role\":\"system\"},{\"content\":\"How many counts?\",\"role\":\"user\"}],\"model\":\"invented_consumer_model\",\"stream\":false},\"turn_context\":{\"active_system_prompt\":\"Use retained notes.\\n\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"conversation_history\":null,\"current_turn_user_idx\":0,\"effective_task_id\":\"execution\",\"ext_prefetch_cache\":\"\",\"messages\":[{\"content\":\"How many counts?\",\"role\":\"user\"}],\"original_user_message\":\"How many counts?\",\"plugin_user_context\":\"\",\"preflight_compression_blocked\":false,\"should_review_memory\":false,\"turn_id\":\"native-turn-1\",\"user_message\":\"How many counts?\"}}",
+      "bytes": 1885,
+      "sha256": "d56f946656e7505b851ce95c6d275f42dece0a58335981317874aff1231987ad"
+    },
+    "normalized_request_bytes": {
+      "utf8": "{\"messages\":[{\"content\":\"Use retained notes.\\n\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"role\":\"system\"},{\"content\":\"How many counts?\",\"role\":\"user\"}],\"model\":\"invented_consumer_model\",\"stream\":false}",
+      "bytes": 803,
+      "sha256": "886a8cdb86a23507777ab52f83876d810d42ee0142be2b5922e08f8f0a0fd48f"
+    },
+    "wire_request_bytes": {
+      "utf8": "{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_consumer_endpoint\",\"model_ref\":\"invented_consumer_model\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_consumer_main\"},\"request\":{\"messages\":[{\"content\":\"Use retained notes.\\n\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"role\":\"system\"},{\"content\":\"How many counts?\",\"role\":\"user\"}],\"model\":\"invented_consumer_model\",\"stream\":false}}",
+      "bytes": 1031,
+      "sha256": "5807c1d6c26e978e6d35170f64d4bb743b7c8d11434837c4af5516c8b422e4b7"
+    },
+    "response_bytes": {
+      "utf8": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"Two counts.\",\"role\":\"assistant\"}}],\"created\":1,\"id\":\"invented-memory-consumer-response\",\"model\":\"invented_consumer_model\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":2,\"prompt_tokens\":5,\"total_tokens\":7}}",
+      "bytes": 284,
+      "sha256": "40cd1f065ecb5b3f4db8ad724ebfec87450eea74dadde3b9af4cdf6bbbe54fa9"
+    },
+    "native_result_bytes": {
+      "utf8": "{\"api_calls\":1,\"base_url\":\"\",\"cache_read_tokens\":0,\"cache_write_tokens\":0,\"completed\":true,\"completion_tokens\":2,\"cost_source\":null,\"cost_status\":\"unknown\",\"estimated_cost_usd\":null,\"failed\":false,\"final_response\":\"Two counts.\",\"input_tokens\":5,\"interrupted\":false,\"last_prompt_tokens\":5,\"last_reasoning\":null,\"messages\":[{\"content\":\"How many counts?\",\"role\":\"user\"},{\"content\":\"Two counts.\",\"role\":\"assistant\"}],\"model\":\"invented_consumer_model\",\"output_tokens\":2,\"partial\":false,\"pre_transform_response\":null,\"prompt_tokens\":5,\"provider\":\"synthetic_native\",\"reasoning_tokens\":0,\"response_previewed\":false,\"response_transformed\":false,\"service_tier\":null,\"session_id\":\"memory-consumer-session\",\"total_tokens\":7,\"turn_exit_reason\":\"text_response(finish_reason=stop)\"}",
+      "bytes": 767,
+      "sha256": "324a5989e554c7c11ae5b531a516ebba8d65b5ec9071aa8a0d005a9db1cfd537"
+    },
+    "empty_full_system_prompt": {
+      "utf8": "Use retained notes.",
+      "bytes": 19,
+      "sha256": "5be1142152191070896be7071e7b13274b7dd838d13b5ef0fd737435afb99990"
+    }
+  },
+  "capture": {
+    "empty_result": {
+      "bytes": 32,
+      "sha256": "f87661743e6e96ece438d3a69d2ba49aebb1cc8e00661af59a64fd346faa5c2f",
+      "utf8": "{\"block\":null,\"target\":\"memory\"}"
+    },
+    "getter_block": {
+      "bytes": 359,
+      "sha256": "ccf4ac249b0c29904c33330172bd9f4410bfeccfd3f0590d6bb0cef7abb36e67",
+      "utf8": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nMEMORY (your personal notes) [1% \u2014 28/2,200 chars]\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nBlue squares use two counts."
+    },
+    "request": {
+      "bytes": 19,
+      "sha256": "c1115f389258bbd38c28b6d0754ebeaaa4e63fbf5c933e8c49dd68bf285d0b0c",
+      "utf8": "{\"target\":\"memory\"}"
+    },
+    "result": {
+      "bytes": 671,
+      "sha256": "66decc8c2d60a7c82e086aa93eb2cc0f69ae41049d62fd63421528b97219c10a",
+      "utf8": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"target\":\"memory\"}"
+    },
+    "source": {
+      "bytes": 1463,
+      "sha256": "0fe1a84786527bde32197283f590b71ae78570b86a490e0e6de5ad7338a7f271",
+      "utf8": "{\"block\":\"\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nMEMORY (your personal notes) [1% \\u2014 28/2,200 chars]\\n\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\nBlue squares use two counts.\",\"flags\":{\"memory_enabled\":true,\"user_profile_enabled\":true},\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection\",3,[\"restricted_documents\"]],\"limits\":{\"memory_char_limit\":2200,\"user_char_limit\":1375},\"main_producer\":[\"invented_producer\",4,[\"restricted_documents\"]],\"options\":[[\"self\",true],[\"agent\",true],[\"store\",true],[\"producer_ref\",true],[\"target\",false]],\"producer\":[\"invented_memory_producer\",6,[\"restricted_documents\"]],\"selection\":{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint\",\"model_ref\":\"invented_model\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_main\"},\"selection_id\":\"selection\",\"selection_version\":3},\"source\":{\"owner_ref\":\"owner\",\"profile_ref\":\"invented_host_profile\",\"source_version\":1},\"target\":\"memory\"}"
+    }
+  },
+  "ancestry": {
+    "M": [
+      "Q",
+      "S"
+    ],
+    "A": [],
+    "I": [
+      "M",
+      "A"
+    ],
+    "I_parent_requests": [
+      "P",
+      "C"
+    ],
+    "T": [
+      "I",
+      "I"
+    ],
+    "K": [
+      "I",
+      "I",
+      "T"
+    ],
+    "W": [
+      "I",
+      "I",
+      "T"
+    ],
+    "R": [
+      "W"
+    ],
+    "N": [
+      "I",
+      "I",
+      "T",
+      "K",
+      "W",
+      "R"
+    ]
+  }
+}

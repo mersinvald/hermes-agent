@@ -1,0 +1,84 @@
+{
+  "base": "8919c9bb4d31ff28325560fb6666a41f6d87efff",
+  "runtime_allowlist": [
+    "agent/native_main_payload.py",
+    "agent/system_prompt.py"
+  ],
+  "test_allowlist": [
+    "tests/tools/test_native_memory_prompt_consumer.py"
+  ],
+  "evidence_allowlist": [
+    "docs/evidence/accountant-native-memory-prompt-consumer-20261123/"
+  ],
+  "preserved_base_paths": 11534,
+  "old_signatures": {
+    "agent/native_main_payload.py": {
+      "old_signatures": 237,
+      "base_sha256": "20f87da5bb0a5f0237c9b7a2080dc2335410c108490b7ce9a61109be57fc2866",
+      "source_sha256": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4"
+    },
+    "agent/system_prompt.py": {
+      "old_signatures": 18,
+      "base_sha256": "40ec9fe2e0b0f60ade85f4b2183904f400719550e4dcf37ba9918b70fc7a2f4c",
+      "source_sha256": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf"
+    }
+  },
+  "old_annotated_shapes": {
+    "NativeMemorySource": 6,
+    "NativeMemorySnapshotBinding": 15,
+    "NativeMemorySnapshotResult": 5,
+    "NativeParentResumptionBinding": 17,
+    "NativeParentResumptionInvocation": 23,
+    "NativeDelegateBinding": 13,
+    "NativeDelegateInvocation": 24,
+    "_FallbackBinding": 8,
+    "_FailedSendObservation": 6,
+    "NativeFailedMainAttempt": 15,
+    "_FallbackFrame": 17,
+    "NativeFallbackInvocation": 22,
+    "_TurnFrame": 14,
+    "NativeMainSelection": 4,
+    "NativeResultPolicy": 3,
+    "NativeMainMessage": 3,
+    "NativeMainChoice": 3,
+    "NativeMainUsage": 3,
+    "NativeMainResponse": 6,
+    "NativeMainInvocation": 11,
+    "NativeAuxiliaryInvocation": 28,
+    "NativeAuxiliaryLocalResult": 26,
+    "_AuxiliaryTitlePreparation": 3,
+    "_AuxiliaryBinding": 9,
+    "_AuxiliaryFrame": 18,
+    "_CompressionBinding": 3,
+    "_CompressionPreparation": 4,
+    "_CompressionFrame": 16,
+    "_PendingOperation": 9,
+    "_ConstructedMain": 6,
+    "_NativeCompletion": 7
+  },
+  "sole_signature_exception": "_memory_prompt_frame: object = None keyword-only, mutually exclusive with _delegation_frame.",
+  "all_other_signatures_and_defaults_preserved": true,
+  "all_old_tests_fixtures_record_fields_annotations_runners_manifests_locks_hooks_and_settings_preserved": true,
+  "source_patch": {
+    "path": "source-boundary.patch",
+    "sha256": "a587f7906b2c0e388ce5bbf6c9689a383d0b24f2eb485d5a0a026bb726835167",
+    "format": "Zero context.",
+    "forward_inverse_verified": true
+  },
+  "original_worktree_changes": "Assigned worktree began clean. No original checkout mutation.",
+  "canonical_beads": "Read-only --readonly --sandbox -C exact canonical path. No writes or sync.",
+  "sourcepins": {
+    "agent/native_main_payload.py": {
+      "bytes": 304102,
+      "sha256": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4"
+    },
+    "agent/system_prompt.py": {
+      "bytes": 56609,
+      "sha256": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf"
+    },
+    "tests/tools/test_native_memory_prompt_consumer.py": {
+      "bytes": 29984,
+      "sha256": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f"
+    }
+  }
+}

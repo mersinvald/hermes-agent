@@ -1,0 +1,61 @@
+{
+  "base": "8919c9bb4d31ff28325560fb6666a41f6d87efff",
+  "pwa_publication": "c0a59fd5e6932efac856d40dcb551a78e5968757",
+  "pwa_candidate": "da9c4273e6c427a61170d3e791bb2022c2f5ae19",
+  "selected_proposal_sha256": "96537f70cf76a7b438302795e3bea4b1954502ebae6f6ad94e7586606e9c5659",
+  "source": {
+    "agent/native_main_payload.py": {
+      "bytes": 304102,
+      "sha256": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4"
+    },
+    "agent/system_prompt.py": {
+      "bytes": 56609,
+      "sha256": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf"
+    },
+    "tests/tools/test_native_memory_prompt_consumer.py": {
+      "bytes": 29984,
+      "sha256": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f"
+    }
+  },
+  "api_sha256": "8e4fa9f75b701de6beb7960e9289fda73a7f05f5000e93d1f919a40f17cafc79",
+  "consumer_contract_sha256": "13a450065c3fb790be9f2b0d7e8ef76122a96bda0ec59a4fa8ab0b5a582dc7fc",
+  "observed_bytes_sha256": "43ca3dfb90a95b76460143244dd73faf27ccffcf7115b8a28b5c984ff03c4d77",
+  "dependency_sha256": "ac60a15a61d385d8106a6654a051c17da410b2bf0d5f00cc99fa68a9e5f00e49",
+  "source_boundary_sha256": "75ff65ddb4b10d4c3a039738c8e789cdf3ff4b4b340eabdaca72768ebf7c0c13",
+  "first_positive_seconds": 18.36405293700227,
+  "focused": {
+    "passed": 54,
+    "wall_seconds": 327.1234647140009,
+    "retries": 0
+  },
+  "send_counts": {
+    "fixed_positive_qualification": 16,
+    "capture": 0,
+    "consumer": 1,
+    "expiry_case_qualification": 17
+  },
+  "retained_graph": {
+    "contents": 10,
+    "envelopes": 1,
+    "retained_bytes": 7897,
+    "native_windows": 8,
+    "scope_exit_adds_no_data_stage": true
+  },
+  "native_limits": {
+    "main_auxiliary_slots_stages": 8,
+    "value_bytes": 262144,
+    "response_bytes": 65536,
+    "messages": 32,
+    "text_characters": 16384,
+    "text_utf8_bytes": 16384
+  },
+  "shared_limits": {
+    "parents": 32,
+    "combined_slots": 128,
+    "retained_bytes": 8388608,
+    "payload_bytes": 1048576,
+    "hops": 128
+  },
+  "full_gates": "Full P10/P06 and private/egress/durable/cross-thread/source/financial/production/native-manifest/index remain open.",
+  "root_authority": "Acceptance, merge, Beads closure, canonical reconciliation."
+}

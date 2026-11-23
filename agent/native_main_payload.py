@@ -55,6 +55,7 @@ class _DelegateFrames(weakref.WeakKeyDictionary):
 _delegate_frames = _DelegateFrames()
 _parent_resumptions = _DelegateFrames()
 _memory_snapshots = _DelegateFrames()
+_memory_prompt_frames = _DelegateFrames()
 
 
 @dataclass(frozen=True, slots=True)
@@ -211,7 +212,9 @@ class NativeParentResumptionInvocation:
 
 
 def _resumption_callback(adapter, callback, *args):
-    owner = _memory_snapshots.get(adapter) or _parent_resumptions.get(adapter)
+    prompt = _memory_prompt_frames.get(adapter)
+    owner = (prompt if prompt is not None and prompt.active_call is not None else
+             _memory_snapshots.get(adapter) or _parent_resumptions.get(adapter))
     return callback(*args) if owner is None else owner.callback(callback, *args)
 
 
@@ -472,6 +475,9 @@ def _turn_bytes(arguments, options):
 
 def _native_state(agent, system):
     namespace = object.__getattribute__(agent, "__dict__")
+    memory_prompt = _memory_prompt_owner(agent)
+    if memory_prompt is not None:
+        memory_prompt.cache_state(namespace)
     _require(type(namespace) is dict)
     for name, cls in (("enabled_toolsets", list), ("tools", list), ("valid_tool_names", set)):
         _require(type(namespace.get(name)) is cls and len(namespace[name]) == 0)
@@ -503,7 +509,8 @@ def _native_state(agent, system):
         if name in empty:
             _require(value is None or (type(value) is empty[name] and len(value) == 0))
         elif name == "_cached_system_prompt":
-            _require(value is None or (type(value) is str and value in ("", system)))
+            _require(memory_prompt is not None or value is None
+                     or (type(value) is str and value in ("", system)))
         elif name == "ephemeral_system_prompt":
             _require(value is None or (type(value) is str and value == ""))
         elif name == "stream":
@@ -516,7 +523,8 @@ def _native_state(agent, system):
             _require(not present or (type(value) is int and value == 0))
         else:
             _require(value is None)
-        snapshot[name] = {"present": present, "value": value}
+        snapshot[name] = {"present": present, "value": (None if memory_prompt is not None
+                          and name == "_cached_system_prompt" else value)}
     options = {}
     for name in ("model", "max_tokens", "temperature"):
         present, value = name in namespace, namespace.get(name)
@@ -1093,6 +1101,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        memory = _memory_prompt_frames.get(adapter)
+        if memory is not None and memory.owns_window():
+            return memory.current(handle)
         frame = _delegate_frames.get(adapter)
         if frame is not None:
             return frame.current(handle)
@@ -1108,12 +1119,18 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        memory = _memory_prompt_frames.get(self.adapter)
+        if memory is not None and memory.owns_window():
+            return memory.resolve(self)
         actual = self.adapter._around(self.port.resolve)
         _destination(actual)
         return actual
 
     def send(self, envelope):
         adapter = self.adapter
+        memory = _memory_prompt_frames.get(adapter)
+        if memory is not None and memory.owns_window():
+            return memory.send(self, envelope)
         frame = _delegate_frames.get(adapter)
         if frame is not None and frame.running:
             return frame.send(self, envelope)
@@ -1180,7 +1197,12 @@ class NativeMainPayloadAdapter:
         profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...],
         transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int],
         _delegation_frame: object = None,
+        _memory_prompt_frame: object = None,
     ) -> None:
+        _require(_delegation_frame is None or _memory_prompt_frame is None)
+        if _memory_prompt_frame is not None:
+            _require(type(_memory_prompt_frame) is _MemoryPrompt)
+            _memory_prompt_frame.open_view(self, context)
         if _delegation_frame is not None:
             _require(type(_delegation_frame) is _DelegateFrame)
             _delegation_frame.open_view(self, context)
@@ -1274,17 +1296,24 @@ class NativeMainPayloadAdapter:
                 _identifier(name)
                 self._methods += tuple((port, method, _method(getattr(port, method)))
                                        for method in ("resolve", "send"))
-                wrappers.append((name, _Transport(self, port, main=name == main_transport)))
+                wrapper = (_Transport(self, port, main=name == main_transport)
+                           if _memory_prompt_frame is None else
+                           _memory_prompt_frame.parent._transport_wrappers[name])
+                wrappers.append((name, wrapper))
             self._operator_routes = routes
             self._operator_profiles = profiles
             self._transport_wrappers = dict(wrappers)
             self._operator_transports = dict(transports)
             self._operator_resolvers = tuple((port, _method(port.resolve)) for _, port in transports)
             self._operator_configuration = (routes, profiles, transports, tuple(wrappers))
+            if _memory_prompt_frame is not None:
+                self._operator_configuration = _memory_prompt_frame.catalog
             self._main_route = selected[0]
             self._busy = True
             self._checkpoint()
-            if _delegation_frame is not None:
+            if _memory_prompt_frame is not None:
+                self._runtime = _memory_prompt_frame.runtime
+            elif _delegation_frame is not None:
                 self._runtime = _delegation_frame.runtime
             else:
                 self._runtime = policy.ContentPolicyRuntime(
@@ -1324,6 +1353,9 @@ class NativeMainPayloadAdapter:
 
     def _invalidate(self):
         self._invalid = True
+        prompt = _memory_prompt_frames.get(self)
+        if prompt is not None:
+            prompt.invalidate()
         memory = _memory_snapshots.get(self)
         if memory is not None:
             memory.phase = memory.phase_anchor = "denied"
@@ -1341,6 +1373,11 @@ class NativeMainPayloadAdapter:
             self._bound_context._denied = True
 
     def _identity(self):
+        prompt = _memory_prompt_frames.get(self)
+        probe_scope = False
+        if prompt is not None and prompt.owns_window():
+            prompt.verify()
+            probe_scope = self is prompt.parent and prompt.source_probe_active()
         memory = _memory_snapshots.get(self)
         if memory is not None:
             memory.verify()
@@ -1372,7 +1409,8 @@ class NativeMainPayloadAdapter:
             for (name, port), (wrapped_name, wrapper) in zip(transports, wrappers):
                 _require(self._operator_transports.get(name) is port)
                 _require(self._transport_wrappers.get(wrapped_name) is wrapper)
-                _require(wrapper.adapter is self and wrapper.port is port)
+                wrapper_owner = prompt.parent if prompt is not None and self is prompt.adapter else self
+                _require(wrapper.adapter is wrapper_owner and wrapper.port is port)
         if self._aux_binding is not None or hasattr(self, "_bound_aux_binding"):
             _require(hasattr(self, "_bound_aux_binding"))
             _require(self._aux_binding is self._bound_aux_binding)
@@ -1402,9 +1440,9 @@ class NativeMainPayloadAdapter:
                   self._result_port, self._clock)
         _require(all(a is b for a, b in zip(actual, self._captured)))
         _require(self._admission is self._captured[0] and self._handle is self._captured[1])
-        if self._agent is not None and not delegate_scope:
+        if self._agent is not None and not (delegate_scope or probe_scope):
             _require(current_context(self._agent) is context)
-        if self._turn_agent is not None and not delegate_scope:
+        if self._turn_agent is not None and not (delegate_scope or probe_scope):
             _require(current_context(self._turn_agent) is context)
         for port, name, method in self._methods:
             _require(_same_method(getattr(port, name), method))
@@ -1435,7 +1473,9 @@ class NativeMainPayloadAdapter:
         _require(selection_row[3][1] == "synthetic_native")
         _destination(self._main_route.destination)
         _require(selected.destination == self._main_route.destination)
-        retained_delegate_profiles = ()
+        prompt = _memory_prompt_frames.get(self)
+        retained_delegate_profiles = (prompt.profile_union if prompt is not None
+                                      and self is prompt.adapter else ())
         memory = _memory_snapshots.get(self)
         if memory is not None:
             retained_delegate_profiles = memory.original_profiles
@@ -1470,7 +1510,12 @@ class NativeMainPayloadAdapter:
             model = self._turn_agent.model
             _require(type(model) is str and model == selected.destination.model_ref)
             if self._turn_facts is not None:
-                _require((source_row, selection_row, producer_row) == self._turn_facts)
+                if prompt is not None and self is prompt.adapter:
+                    _require(source_row[:8] == self._turn_facts[0][:8]
+                             and set(source_row[8]) <= set(prompt.consumer_facts[0][8])
+                             and (selection_row, producer_row) == self._turn_facts[1:])
+                else:
+                    _require((source_row, selection_row, producer_row) == self._turn_facts)
         return source_row, selection_row, producer_row, payload
 
     def _verify_records(self):
@@ -1560,7 +1605,7 @@ class NativeMainPayloadAdapter:
 
     @contextmanager
     def _turn_operation(self, agent):
-        owner = _parent_resumptions.get(self)
+        owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
         stage = None
         try:
             _memory_require(self not in _memory_snapshots, "model_work_denied")
@@ -1579,6 +1624,8 @@ class NativeMainPayloadAdapter:
             self._interrupt_turn()
         except InterruptedError:
             self._invalidate()
+            if type(owner) is _MemoryPrompt:
+                raise
             raise InterruptedError("Agent interrupted during API call") from None
         except NativeContentPolicyDenied:
             self._invalidate()
@@ -1604,8 +1651,10 @@ class NativeMainPayloadAdapter:
         conversation_history: list[dict[str, str]] | None,
         task_id: str,
     ) -> NativeTurnInput:
-        owner = _parent_resumptions.get(self)
-        if owner is not None:
+        owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
+        if type(owner) is _MemoryPrompt:
+            owner.check_input(agent, user_message, system_message, conversation_history, task_id)
+        elif owner is not None:
             owner.access()
             _require(owner.phase == "entered" and owner.record.input_content is None)
             _require(_same_anchors((user_message, system_message, conversation_history, task_id),
@@ -1640,7 +1689,13 @@ class NativeMainPayloadAdapter:
             self._turn_state, self._turn_options = state, options
             self._turn_facts = self._checkpoint()[:3]
             delegation = getattr(self, "_delegate_parent_frame", None)
-            if owner is not None:
+            if type(owner) is _MemoryPrompt:
+                admitted = self._runtime.derive_for_selection(self._handle,
+                    (owner.source.result_content, owner.authorization_content), raw, path="main",
+                    parent_requests=(owner.parent._handle, self._handle))
+                owner.input_content, owner.raw_bytes = admitted, raw
+                owner.transition("entered", "admitted")
+            elif owner is not None:
                 admitted = self._runtime.derive(self._handle, owner.record.input_parents, raw, path="main")
                 owner.retain(raw_bytes=raw, input_content=admitted)
                 owner.transition("entered", "admitted")
@@ -1678,6 +1733,9 @@ class NativeMainPayloadAdapter:
             _require(_turn_bytes(arguments, frame.options) == frame.raw_bytes)
             # The shared registry retains the complete raw bytes before this call.
             user, system, history, task = frame.arguments
+            prompt = _memory_prompt_frames.get(self)
+            if prompt is not None:
+                system = prompt.build_prompt(agent, system)
             sanitized = _NATIVE_SANITIZER(user)
             copied = None if history is None else [dict(row) for row in history]
             messages = ([] if copied is None else [dict(row) for row in copied])
@@ -1693,7 +1751,7 @@ class NativeMainPayloadAdapter:
             frame = replace(frame, output=output, output_anchors=_output_anchors(output), output_bytes=encoded)
             self._turn_frames = (*self._turn_frames[:-1], frame)
             self._turn_pending = frame
-            owner = _parent_resumptions.get(self)
+            owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
             if owner is not None:
                 owner.progress()
         prepared = self.seal_turn(agent, token, turn_context=output)
@@ -1711,6 +1769,9 @@ class NativeMainPayloadAdapter:
             from agent.turn_context import TurnContext
             user, system, history, task = frame.arguments
             clean = _NATIVE_SANITIZER(user)
+            prompt = _memory_prompt_frames.get(self)
+            if prompt is not None:
+                system = prompt.full_prompt
             expected = TurnContext(clean, clean, [*(history or []), {"role": "user", "content": clean}],
                                    history, system, task, f"native-turn-{len(self._records) + 1}", len(history or []))
             _require(_output_bytes(expected) == frame.output_bytes)
@@ -1726,7 +1787,7 @@ class NativeMainPayloadAdapter:
             frame = replace(frame, prepared=prepared, output_content=content, request_bytes=_json(request))
             self._turn_frames = (*self._turn_frames[:-1], frame)
             self._turn_pending = frame
-            owner = _parent_resumptions.get(self)
+            owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
             if owner is not None:
                 owner.progress()
             return prepared
@@ -1762,7 +1823,7 @@ class NativeMainPayloadAdapter:
             frame = replace(frame, request_contents=(*frame.request_contents, content))
             self._turn_frames = (*self._turn_frames[:-1], frame)
             self._turn_pending = frame
-            owner = _parent_resumptions.get(self)
+            owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
             if owner is not None:
                 owner.progress()
                 owner.prepared_request = request
@@ -1808,7 +1869,7 @@ class NativeMainPayloadAdapter:
 
     def _model_open(self):
         _memory_require(self not in _memory_snapshots, "model_work_denied")
-        owner = _parent_resumptions.get(self)
+        owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
         if owner is None:
             _require(self not in _delegate_frames and not hasattr(self, "_delegate_frame"))
         else:
@@ -2933,6 +2994,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        prompt = _memory_prompt_frames.get(self)
+        if prompt is not None and prompt.owns_window() and self is prompt.parent:
+            return prompt.around(callback)
         try:
             self._checkpoint()
             output = _resumption_callback(self, callback)
@@ -2944,6 +3008,10 @@ class NativeMainPayloadAdapter:
 
     def validate_scope(self) -> None:
         try:
+            prompt = _memory_prompt_frames.get(self)
+            if prompt is not None and self is prompt.adapter:
+                prompt.access()
+                prompt.checkpoint()
             memory = _memory_snapshots.get(self)
             if memory is not None:
                 memory.scope_access()
@@ -2964,12 +3032,13 @@ class NativeMainPayloadAdapter:
             self._busy = False
 
     def dispatch(self, agent: object, api_kwargs: dict) -> NativeMainResponse:
-        owner = _parent_resumptions.get(self)
+        owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
         stage = None
         try:
             if owner is not None:
                 stage = owner.enter_stage()
-                _require(owner.phase == "admitted" and api_kwargs is owner.prepared_request)
+                _require(owner.phase == ("request-prepared" if type(owner) is _MemoryPrompt else "admitted")
+                         and api_kwargs is owner.prepared_request)
             self._model_open()
             _require(not self._busy and self._aux_pending is None and len(self._records) < 8)
             self._busy = True
@@ -3048,11 +3117,17 @@ class NativeMainPayloadAdapter:
                 self._interrupt_turn()
             return response
         except InterruptedError:
+            if type(owner) is _MemoryPrompt:
+                self._invalidate()
+                raise
             if not self._preparation_enabled:
                 self._deny()
             self._invalidate()
             raise InterruptedError("Agent interrupted during API call") from None
         except Exception:
+            if type(owner) is _MemoryPrompt:
+                self._invalidate()
+                raise
             self._deny()
         except BaseException:
             if self._preparation_enabled:
@@ -3737,10 +3812,15 @@ def _verify_constructed(binding):
     _require(set(namespace) == {name for name, _ in binding.anchors})
     dynamic = {"_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason",
                "_interrupt_thread_signal_pending"}
+    prompt = _memory_prompt_owner(agent)
+    if prompt is not None:
+        prompt.cache_state(namespace)
     for name, original in binding.anchors:
-        if name not in dynamic:
+        if name not in dynamic and not (prompt is not None and name in _MEMORY_CACHE_NAMES):
             _require(namespace[name] is original)
-    _require(_constructed_state(namespace) == binding.state)
+    state = namespace if prompt is None else dict(namespace, _cached_system_prompt=None,
+                                                _cached_system_prompt_static=None)
+    _require(_constructed_state(state) == binding.state)
     if type(namespace["_interrupt_requested"]) is not bool:
         raise NativeContentPolicyDenied("controlled_native_interrupt_invalid")
     _require(type(namespace["_interrupt_thread_signal_pending"]) is bool)
@@ -3761,6 +3841,9 @@ def _bind_constructed_main(agent, adapter: NativeMainPayloadAdapter) -> None:
         _require(not adapter._records and not adapter._turn_frames)
         _require(current_context() is adapter._bound_context)
         adapter.validate_scope()
+        prompt = _memory_prompt_frames.get(adapter)
+        if prompt is not None:
+            prompt.agent = agent
         agent._native_content_policy_context = adapter._bound_context
         binding = _ConstructedMain(agent, adapter, b"", (), ())
         agent._native_controlled_binding = binding
@@ -3775,6 +3858,8 @@ def _bind_constructed_main(agent, adapter: NativeMainPayloadAdapter) -> None:
             (sys.modules[__name__], "_complete_controlled_turn"),
             (adapter, "_verify_completions"),
         ))
+        if _memory_prompt_frames.get(adapter) is not None:
+            agent._cached_system_prompt_static = None
         binding.anchors = tuple(vars(agent).items())
         binding.state = _constructed_state(vars(agent))
         _constructed_bindings.add(binding)
@@ -3790,7 +3875,8 @@ def _constructed_adapter(agent):
         owned = _owned_constructed_binding(agent)
         if owned is not None:
             _memory_require(owned.adapter not in _memory_snapshots, "model_work_denied")
-        owner = _parent_resumptions.get(owned.adapter) if owned is not None else None
+        owner = (_memory_prompt_frames.get(owned.adapter) or _parent_resumptions.get(owned.adapter)
+                 if owned is not None else None)
         if owner is not None:
             owner.access()
         _verify_constructed(binding)
@@ -3876,7 +3962,7 @@ def _complete_controlled_turn(agent, *, turn_context: TurnContext,
         adapter._completions += (completed,)
         adapter._completion_anchors += ((completed, frame, invocation, parents, payload,
                                          content, result, completed.anchors),)
-        owner = _parent_resumptions.get(adapter)
+        owner = _memory_prompt_frames.get(adapter) or _parent_resumptions.get(adapter)
         if owner is not None:
             owner.progress()
             owner.transition("sent", "completed")
@@ -3891,6 +3977,7 @@ def _close_constructed_main(agent) -> bool:
     memory = _memory_snapshots.get(owned.adapter) if owned is not None else None
     if memory is not None and memory.phase == "released":
         try:
+            _memory_require(current_context() in (None, owned.adapter._bound_context), "scope_invalid")
             memory.scope_access()
             memory.checkpoint()
             memory.closed = True
@@ -3996,6 +4083,9 @@ class _MemorySnapshot:
         self.health()
         self.depth += 1
         try:
+            prompt = _memory_prompt_frames.get(self.parent)
+            if prompt is not None and prompt.active_call is not None:
+                return prompt.callback(callback, *args)
             return callback(*args)
         except BaseException as error:
             import asyncio
@@ -4299,6 +4389,570 @@ class _MemorySnapshot:
             self.parent._busy = False
             self.active_call = self.active_anchor = self.call_frame = self.public_frame = None
             self.getter_frame = None
+
+
+_MEMORY_CACHE_NAMES = ("_cached_system_prompt", "_cached_system_prompt_static")
+
+
+class NativeMemoryPromptInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Memory prompt tokens require operator admission")
+
+
+def _memory_prompt_owner(agent):
+    binding = _owned_constructed_binding(agent)
+    frame = _memory_prompt_frames.get(binding.adapter) if binding is not None else None
+    return frame if frame is not None and frame.adapter is binding.adapter else None
+
+
+def _memory_prompt_access(agent, kind, system=None):
+    binding = _owned_constructed_binding(agent)
+    if binding is None:
+        _require(not _controlled_attempt(agent))
+        return None
+    owner = _memory_prompt_frames.get(binding.adapter)
+    try:
+        _memory_require(binding.adapter not in _memory_snapshots, "prompt_work_denied")
+        _require(owner is not None and owner.adapter is binding.adapter)
+        return owner.prompt_access(agent, kind, system)
+    except BaseException:
+        binding.adapter._invalidate()
+        raise
+
+
+class _MemoryPrompt:
+    """Own one source attempt and one original runtime consumer view."""
+
+    def __init__(self, source_owner, source, context, selection, result_policy,
+                 producer, route, system, session, entry):
+        self.source_owner, self.source = source_owner, source
+        self.parent, self.context = source_owner.parent, context
+        self.runtime, self.thread = source_owner.runtime, source_owner.thread
+        self.options = (context, selection, result_policy, producer, route, system, session)
+        self.option_anchors = _nested_anchors(self.options)
+        self.catalog = source_owner.catalog
+        self.catalog_anchor = source_owner.catalog_anchor
+        self.adapter = self.agent = self.token = None
+        self.phase = self.phase_anchor = "bound"
+        self.depth = self.stage_index = 0
+        self.active_call = self.active_anchor = object()
+        self.entry = entry
+        self.public_frame = self.stage = self.stage_anchor = self.probe = None
+        self.control_exception = None
+        self.checking = self.constructing = self.terminal = False
+        self.consumer_source = self.consumer_selection = self.consumer_producer = None
+        self.consumer_facts = None
+        self.profile_union = source_owner.original_profiles
+        self.authorization_bytes = self.authorization_content = None
+        self.input_content = self.raw_bytes = self.arguments = None
+        self.prepared_request = self.partial_send = None
+        self.full_prompt = self.static_prompt = None
+        self.prompt_frame = self.forward_frame = self.builder_frame = self.parts_frame = None
+        self.prompt_step = 0
+        self.cache_frozen = False
+        self.methods = ()
+        from agent import conversation_loop, system_prompt
+        from run_agent import AIAgent
+        self.stage_codes = tuple(_method(f)[-1].__code__ for f in (
+            conversation_loop._try_controlled_text_turn, self.parent.admit_turn,
+            self.parent._prepare_turn, self.parent.seal_turn, self.parent.prepared_request,
+            self.parent.dispatch, _complete_controlled_turn,
+            conversation_loop._try_controlled_text_turn))
+        self.methods = tuple((port, name, _method(getattr(port, name))) for port, name in (
+            (AIAgent, "__init__"), (AIAgent, "_build_system_prompt"),
+            (NativeMainPayloadAdapter, "__init__"),
+            (system_prompt, "build_system_prompt"), (system_prompt, "build_system_prompt_parts"),
+            (system_prompt, "_append_builtin_memory_parts"),
+            (sys.modules[__name__], "bind_memory_prompt_consumer"),
+            (sys.modules[__name__], "run_memory_prompt_consumer"),
+            (sys.modules[__name__], "_memory_prompt_access"),
+            (sys.modules[__name__], "_prepare_controlled_turn"),
+            (sys.modules[__name__], "_complete_controlled_turn"),
+            (self.runtime, "_check_operator"), (self.runtime, "_operator"),
+            (self.runtime, "admit"), (self.runtime, "derive"),
+            (self.runtime, "derive_for_selection"), (self.runtime, "dispatch"),
+            (self.runtime, "_content"), (self.runtime._admission, "current")))
+        self.methods += tuple((self, name, _method(getattr(self, name))) for name in (
+            "access", "verify", "checkpoint", "callback", "source_probe", "source_probe_active",
+            "owns_window", "current", "around", "resolve", "send", "open_view", "check_input",
+            "enter_stage", "check_stage", "exit_stage", "progress", "transition", "build_prompt",
+            "prompt_access", "cache_state", "invalidate"))
+        self.runtime_anchors = (self.runtime._admission, self.runtime._clock,
+                                self.runtime._transports)
+        self.runtime_anchor_facts = _nested_anchors(self.runtime_anchors)
+
+    def invalidate(self):
+        self.phase = self.phase_anchor = "denied"
+        self.terminal = True
+        if self.adapter is not None:
+            self.adapter._invalid = True
+        self.context._denied = True
+
+    def owns_window(self):
+        if self.active_call is None:
+            return False
+        self.access()
+        return True
+
+    def access(self):
+        _require(self.depth == 0 and threading.get_ident() == self.thread)
+        _require(self.active_call is self.active_anchor and self.active_call is not None)
+        _require(self.phase is self.phase_anchor and self.phase != "denied")
+        frame = sys._getframe(1)
+        while frame is not None and frame is not self.entry:
+            frame = frame.f_back
+        _require(frame is self.entry and frame is not None)
+        if self.token is None:
+            _require(frame.f_code is bind_memory_prompt_consumer.__code__)
+            _require(frame.f_locals.get("source_adapter") is self.parent
+                     and frame.f_locals.get("source") is self.source)
+        else:
+            _require(frame.f_code is run_memory_prompt_consumer.__code__)
+            _require(frame.f_locals.get("token") is self.token)
+            _require(frame.f_locals.get("user_message") is self.arguments[0]
+                     and frame.f_locals.get("task_id") is self.arguments[3])
+        _require(_memory_prompt_frames.get(self.parent) is self)
+        _require(getattr(self.source_owner, "memory_prompt_attempt", None) is self)
+
+    def source_probe_active(self):
+        self.access()
+        if self.probe is None:
+            return False
+        frame = sys._getframe(1)
+        suspended, caller, _ = self.probe
+        while frame is not None and frame is not caller:
+            frame = frame.f_back
+        _require(frame is caller and frame.f_code in (type(self).checkpoint.__code__, type(self).around.__code__))
+        _require(suspended.f_code is type(self).source_probe.__wrapped__.__code__
+                 and suspended.f_locals.get("self") is self and frame.f_locals.get("self") is self)
+        return True
+
+    @contextmanager
+    def source_probe(self):
+        self.access()
+        _require(self.probe is None)
+        self.probe = (sys._getframe(), sys._getframe(2), object())
+        try:
+            yield
+        finally:
+            self.probe = None
+
+    def callback(self, callback, *args):
+        self.access()
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            import asyncio
+            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                if self.control_exception is None:
+                    self.control_exception = error
+            raise
+        finally:
+            self.depth -= 1
+
+    def verify(self):
+        self.access()
+        p, m = self.parent, self.source_owner
+        _require(_memory_snapshots.get(p) is m and m.record is m.registered_record is self.source)
+        _require(m.phase == "released" and not m.closed and m.active_call is None
+                 and m.getter_entered and m.getter_returned)
+        _require(self.source.binding is m.binding is m.registered_binding)
+        _require(p._runtime is p._captured_runtime is self.runtime)
+        _require(not p._invalid and not p._bound_context._denied and not p._constructed.closed)
+        _require(_same_anchors(_nested_anchors(self.options), self.option_anchors))
+        _require(p._operator_configuration is self.catalog
+                 and _same_anchors(_nested_anchors(self.catalog), self.catalog_anchor))
+        _require(_same_anchors((self.runtime._admission, self.runtime._clock, self.runtime._transports),
+                               self.runtime_anchors))
+        _require(_same_anchors(_nested_anchors(self.runtime._transports),
+                               _nested_anchors(self.runtime_anchors[2])))
+        for port, name, method in self.methods:
+            _require(_same_method(getattr(port, name), method))
+        if self.adapter is not None:
+            c = self.adapter
+            _require(_memory_prompt_frames.get(c) is self and c._memory_prompt_frame is self)
+            _require(c._bound_context is self.context and self.context.admission is p._admission)
+            if hasattr(c, "_runtime"):
+                _require(c._runtime is c._captured_runtime is self.runtime)
+            _require(not c._invalid and not self.context._denied)
+            if c._constructed is not None:
+                _require(not c._constructed.closed and c._constructed.agent is self.agent)
+        _require(p.send_count == p.auxiliary_send_count == p.fallback_send_count == 0)
+        if self.consumer_facts is not None:
+            _require(_binding(self.consumer_source)[:8] == self.consumer_facts[0][:8])
+            _require(_selection(self.consumer_selection) == self.consumer_facts[1])
+            _require(_producer(self.consumer_producer) == self.consumer_facts[2])
+        for handle, payload, parents in (
+            (self.authorization_content, self.authorization_bytes, ()),
+            (self.input_content, self.raw_bytes, (self.source.result_content, self.authorization_content)),
+        ):
+            if handle is not None:
+                content = self.runtime._content(handle)
+                _require(content.payload is payload and _same_anchors(content.parents, parents))
+                _require(set(self.profile_union) <= set(content.profiles))
+
+    def checkpoint(self):
+        self.verify()
+        _require(not self.checking)
+        self.checking = True
+        try:
+            with self.source_probe():
+                self.source_owner.checkpoint()
+            for _ in range(2):
+                source = self.callback(self.parent._admission.current, self.context.request_handle)
+                selected = self.callback(self.options[1].current, self.context.request_handle)
+                producer = self.callback(self.options[2].current, self.options[3])
+                facts = _binding(source), _selection(selected), _producer(producer)
+                _require(facts[0][:6] == self.source_owner.initial_facts[0][:6])
+                _require(facts[1][:2] == facts[0][6:8] and facts[1][3][1] == "synthetic_native")
+                _require(facts[2][0] == self.options[3])
+                _require(set(facts[2][2]) <= set((*self.profile_union, *facts[0][8])))
+                if self.consumer_facts is None:
+                    self.consumer_source, self.consumer_selection, self.consumer_producer = source, selected, producer
+                    self.consumer_facts = facts
+                    self.profile_union = tuple(sorted(set((*self.profile_union, *facts[0][8], *facts[2][2]))))
+                    routes = tuple(r for r in self.catalog[0] if r.route_ref == self.options[4])
+                    _require(len(routes) == 1 and routes[0].path == "main")
+                    self.main_route = routes[0]
+                original = self.consumer_facts
+                _require(facts[0][:8] == original[0][:8] and set(facts[0][8]) <= set(original[0][8]))
+                _require(selected is self.consumer_selection and facts[1] == original[1])
+                _require(producer is self.consumer_producer and facts[2] == original[2])
+                _require((self.main_route.consumer_ref, self.main_route.selection_id, self.main_route.selection_version)
+                         == (facts[0][3], facts[0][6], facts[0][7]))
+                _require(selected.destination is self.main_route.destination)
+                now = self.callback(self.parent._clock)
+                _integer(now, minimum=0)
+                _require(now < self.parent._main_route.expires_at and now < self.main_route.expires_at)
+                allowed = set(r.route_ref for r in self.catalog[0])
+                for profile in self.catalog[1]:
+                    if profile.profile_ref in self.profile_union:
+                        allowed.intersection_update(profile.allowed_routes)
+                _require(self.main_route.route_ref in allowed and self.parent._route_ref in allowed)
+                for holder in (self.source_owner.initial_facts[0], original[0]):
+                    for path in shared_policy().PATHS:
+                        _require(any(r.route_ref in allowed and r.path == path
+                            and (r.consumer_ref, r.selection_id, r.selection_version) == (holder[3], holder[6], holder[7])
+                            and now < r.expires_at for r in self.catalog[0]))
+                for route in self.catalog[0]:
+                    _route_facts(route)
+                    actual = self.callback(self.parent._operator_transports[route.destination.transport_ref].resolve)
+                    _require(actual is route.destination)
+                for agent in (self.source_owner.agent, self.agent):
+                    if agent is not None:
+                        flag = _namespace(agent).get("_interrupt_requested")
+                        _require(type(flag) is bool)
+                        if flag:
+                            raise InterruptedError("Agent interrupted during memory prompt")
+                self.runtime._check_operator()
+                self.verify()
+        finally:
+            self.checking = False
+
+    def current(self, handle):
+        self.verify()
+        _require(handle is self.parent._handle or handle is self.context.request_handle)
+        return self.callback(self.parent._admission.current, handle)
+
+    def around(self, callback):
+        self.verify()
+        with self.source_probe():
+            self.parent._checkpoint()
+        output = self.callback(callback)
+        with self.source_probe():
+            self.parent._checkpoint()
+        return output
+
+    def resolve(self, wrapper):
+        self.verify()
+        _require(any(wrapper is original for original in self.parent._transport_wrappers.values()))
+        actual = self.around(wrapper.port.resolve)
+        _destination(actual)
+        return actual
+
+    def send(self, wrapper, envelope):
+        self.access()
+        self.check_stage()
+        self.checkpoint()
+        c = self.adapter
+        _require(self.stage_index == 6 and self.phase == "request-prepared")
+        operation = c._operation
+        _require(type(operation) is _PendingOperation and operation is c._checked_operation)
+        _require(c._busy and c._pending is None and self.partial_send is None and c._send_count == 0)
+        _require(type(envelope) is shared_policy().DispatchEnvelope)
+        _require(operation.handle is self.context.request_handle and operation.path == "main")
+        _require(envelope.payload is operation.payload and envelope.path == operation.path)
+        _require(envelope.source == operation.source and envelope.destination == self.main_route.destination)
+        _require(envelope.recipient_ref == self.consumer_facts[0][3])
+        _require(self.parent._transport_wrappers[envelope.destination.transport_ref] is wrapper)
+        actual = wrapper.resolve()
+        _require(actual is self.main_route.destination and actual == envelope.destination
+                 and c._kwargs is self.prepared_request)
+        c._pending = (envelope, actual, None)
+        c._send_count += 1
+        self.partial_send = (operation, envelope, actual, None)
+        output = self.callback(wrapper.port.send, envelope)
+        c._pending = (envelope, actual, output)
+        self.partial_send = (operation, envelope, actual, output)
+        self.transition("request-prepared", "sent")
+        _require(type(output) is bytes and len(output) <= 65_536)
+        _require(wrapper.resolve() is actual)
+        self.checkpoint()
+        return output
+
+    def open_view(self, adapter, context):
+        self.access()
+        _require(self.constructing and self.adapter is None and context is self.context)
+        _require(current_context() is None and not context._controlled_main_bound and not context._denied)
+        _require(context.admission is self.parent._admission)
+        self.adapter = adapter
+        adapter._memory_prompt_frame = self
+        _memory_prompt_frames[adapter] = self
+
+    def check_input(self, agent, user, system, history, task):
+        self.access()
+        _require(self.phase == "entered" and self.input_content is None)
+        _require(agent is self.agent and _same_anchors((user, system, history, task), self.arguments))
+
+    def enter_stage(self):
+        self.access()
+        _require(self.stage is None and self.stage_index < len(self.stage_codes))
+        caller = sys._getframe(1)
+        code = self.stage_codes[self.stage_index]
+        while caller is not None and caller.f_code is not code:
+            caller = caller.f_back
+        _require(caller is not None)
+        _require(caller.f_locals.get("agent") is self.agent)
+        public = caller
+        from run_agent import AIAgent
+        while public is not None and public.f_code is not AIAgent.run_conversation.__code__:
+            public = public.f_back
+        _require(public is not None and public.f_back is self.entry)
+        if self.public_frame is None:
+            self.public_frame = public
+        _require(public is self.public_frame)
+        _require(_same_anchors(tuple(public.f_locals[n] for n in (
+            "user_message", "system_message", "conversation_history", "task_id")), self.arguments))
+        self.stage = self.stage_anchor = (self.active_call, caller, object())
+        self.stage_index += 1
+        self.checkpoint()
+        return self.stage
+
+    def check_stage(self):
+        self.access()
+        _require(self.stage is self.stage_anchor and self.stage is not None)
+        _require(self.stage[0] is self.active_call)
+        caller = sys._getframe(1)
+        while caller is not None and caller is not self.stage[1]:
+            caller = caller.f_back
+        _require(caller is self.stage[1])
+
+    def exit_stage(self, stage):
+        if self.phase != "denied":
+            self.check_stage()
+            _require(self.stage is stage)
+            self.checkpoint()
+        self.stage = self.stage_anchor = None
+
+    def transition(self, previous, phase):
+        self.access()
+        _require(self.phase == previous)
+        self.phase = self.phase_anchor = phase
+        self.checkpoint()
+
+    def progress(self):
+        self.check_stage()
+        if self.stage_index == 4:
+            self.transition("prompt-built", "sealed")
+        elif self.stage_index == 5:
+            self.transition("sealed", "request-prepared")
+
+    def cache_state(self, namespace):
+        self.access()
+        full, static = (namespace.get(name) for name in _MEMORY_CACHE_NAMES)
+        if self.cache_frozen:
+            _require(full is self.full_prompt and static is self.static_prompt)
+        elif self.prompt_step == 4:
+            _require(full is None and static is self.options[5])
+        else:
+            _require(full is None and static is None)
+
+    def prompt_access(self, agent, kind, system):
+        from agent import system_prompt
+        from run_agent import AIAgent
+        self.check_stage()
+        self.verify()
+        _require(agent is self.agent and self.stage_index == 3 and not self.cache_frozen)
+        _require(self.prompt_frame is not None and self.phase == "admitted")
+        caller = sys._getframe(2)
+        if kind == "build":
+            _require(self.prompt_step == 0 and system is self.options[5])
+            _require(caller.f_code is system_prompt.build_system_prompt.__code__)
+            forward = caller.f_back
+            _require(forward.f_code is AIAgent._build_system_prompt.__code__ and forward.f_back is self.prompt_frame)
+            self.builder_frame, self.forward_frame = caller, forward
+            self.prompt_step = 1
+        elif kind == "parts":
+            _require(self.prompt_step == 1 and system is self.options[5])
+            _require(caller.f_code is system_prompt.build_system_prompt_parts.__code__
+                     and caller.f_back is self.builder_frame)
+            self.parts_frame = caller
+            self.prompt_step = 2
+        elif kind == "append":
+            _require(self.prompt_step == 2 and caller.f_code is system_prompt._append_builtin_memory_parts.__code__
+                     and caller.f_back is self.parts_frame)
+            self.prompt_step = 3
+        elif kind == "joined":
+            _require(self.prompt_step == 3 and caller is self.builder_frame and system is self.options[5])
+            _require(_namespace(agent)["_cached_system_prompt_static"] is system)
+            self.prompt_step = 4
+        else:
+            _require(False)
+        return self.source
+
+    def build_prompt(self, agent, system):
+        self.check_stage()
+        self.checkpoint()
+        _require(agent is self.agent and system is self.options[5] and self.prompt_step == 0)
+        _require(self.prompt_frame is None and self.phase == "admitted")
+        self.prompt_frame = sys._getframe()
+        try:
+            full = agent._build_system_prompt(system)
+            expected = "\n\n".join(part for part in (system, self.source.block) if part)
+            _require(self.prompt_step == 4 and type(full) is str and full == expected)
+            _text(full)
+            self.static_prompt, self.full_prompt = system, full
+            _require(_namespace(agent)["_cached_system_prompt"] is None)
+            agent._cached_system_prompt = full
+            self.cache_frozen = True
+            self.transition("admitted", "prompt-built")
+            return full
+        finally:
+            self.prompt_frame = None
+
+
+def bind_memory_prompt_consumer(
+    source_adapter: NativeMainPayloadAdapter,
+    source: NativeMemorySnapshotResult, *,
+    consumer_context: NativeContentContext,
+    selection: NativeSelectionPort,
+    result_policy: NativeResultPolicyPort,
+    producer_ref: str, main_route_ref: str,
+    system_message: str, session_id: str,
+) -> NativeMemoryPromptInput:
+    _require(type(source_adapter) is NativeMainPayloadAdapter and source_adapter in _adapters)
+    owner = _memory_snapshots.get(source_adapter)
+    _require(owner is not None and type(source) is NativeMemorySnapshotResult)
+    _require(source is owner.record is owner.registered_record and source.binding is owner.registered_binding)
+    _require(current_context() is source_adapter._bound_context and threading.get_ident() == owner.thread)
+    _require(not hasattr(owner, "memory_prompt_attempt"))
+    owner.memory_prompt_attempt = object()
+    frame = None
+    try:
+        for value in (producer_ref, main_route_ref, system_message, session_id):
+            _require(type(value) is str)
+        for value in (producer_ref, main_route_ref, session_id):
+            _identifier(value)
+        _text(system_message)
+        _require(type(consumer_context) is NativeContentContext)
+        _require(consumer_context is not source_adapter._bound_context
+                 and consumer_context.request_handle is not source_adapter._handle)
+        _require(consumer_context.admission is source_adapter._admission
+                 and selection is source_adapter._selection_port and result_policy is source_adapter._result_port)
+        frame = _MemoryPrompt(owner, source, consumer_context, selection, result_policy,
+                              producer_ref, main_route_ref, system_message, session_id, sys._getframe())
+        owner.memory_prompt_attempt = frame
+        _memory_prompt_frames[source_adapter] = frame
+        from agent.content_policy import content_policy_scope
+        from run_agent import AIAgent
+        frame.checkpoint()
+        _require(not consumer_context._controlled_main_bound and not consumer_context._denied)
+        frame.constructing = True
+        with content_policy_scope(None):
+            NativeMainPayloadAdapter(consumer_context, selection=selection, result_policy=result_policy,
+                producer_ref=producer_ref, main_route_ref=main_route_ref, profiles=frame.catalog[1],
+                routes=frame.catalog[0], transports=frame.catalog[2], clock=source_adapter._clock,
+                _memory_prompt_frame=frame)
+            with content_policy_scope(consumer_context):
+                frame.agent = AIAgent(controlled_main=frame.adapter, provider="synthetic_native",
+                    api_mode="chat_completions", model=frame.consumer_selection.destination.model_ref,
+                    session_id=session_id, enabled_toolsets=[], quiet_mode=True, skip_memory=True,
+                    skip_context_files=True, skip_background_review=True, max_tokens=None)
+                constructor = dict(provider="synthetic_native", api_mode="chat_completions",
+                    model=frame.agent.model, session_id=session_id, enabled_toolsets=[], quiet_mode=True,
+                    skip_memory=True, skip_context_files=True, skip_background_review=True)
+                frame.authorization_bytes = _json(dict(constructor=constructor,
+                    consumer=frame.consumer_facts[0], controlled_main_present=True,
+                    main_route_ref=main_route_ref, producer_policy=frame.consumer_facts[2],
+                    producer_ref=producer_ref, session_id=session_id, system_message=system_message))
+                _require(len(frame.authorization_bytes) <= _MAX_NATIVE_RESULT)
+                frame.authorization_content = frame.runtime.admit(consumer_context.request_handle,
+                                                                  frame.authorization_bytes)
+                frame.checkpoint()
+        frame.constructing = False
+        frame.checkpoint()
+        token = object.__new__(NativeMemoryPromptInput)
+        frame.token = token
+        return token
+    except BaseException:
+        if frame is not None:
+            frame.invalidate()
+            if frame.control_exception is not None:
+                raise frame.control_exception
+        elif type(consumer_context) is NativeContentContext and consumer_context is not source_adapter._bound_context:
+            consumer_context._denied = True
+        raise
+    finally:
+        if frame is not None:
+            frame.entry = frame.active_call = frame.active_anchor = None
+
+
+def run_memory_prompt_consumer(
+    token: NativeMemoryPromptInput, *,
+    user_message: str, task_id: str,
+) -> dict:
+    _require(type(token) is NativeMemoryPromptInput)
+    frame = next((f for a in _memory_prompt_frames for f in (_memory_prompt_frames.get(a),)
+                  if f is not None and f.token is token), None)
+    _require(frame is not None)
+    try:
+        _require(frame.phase == "bound" and frame.active_call is None and not frame.terminal)
+        _require(threading.get_ident() == frame.thread)
+        _text(user_message)
+        _identifier(task_id)
+        _require(task_id == frame.consumer_facts[0][1])
+        _require(current_context() in (None, frame.parent._bound_context))
+        frame.arguments = (user_message, frame.options[5], None, task_id)
+        frame.entry = sys._getframe()
+        frame.active_call = frame.active_anchor = object()
+        frame.transition("bound", "entered")
+        from agent.content_policy import content_policy_scope
+        with content_policy_scope(None):
+            with content_policy_scope(frame.context):
+                result = frame.agent.run_conversation(user_message=user_message,
+                    system_message=frame.options[5], conversation_history=None, task_id=task_id)
+                frame.checkpoint()
+                _require(frame.stage_index == 8 and frame.stage is None and frame.phase == "completed")
+                _require(len(frame.adapter._completions) == 1
+                         and result is frame.adapter._completions[0].result)
+                frame.adapter._verify_turns()
+                frame.adapter._verify_records()
+                frame.adapter._verify_completions()
+                frame.terminal = True
+            frame.checkpoint()
+        frame.transition("completed", "released")
+        frame.checkpoint()
+        return result
+    except BaseException:
+        frame.invalidate()
+        if frame.control_exception is not None:
+            raise frame.control_exception
+        raise
+    finally:
+        frame.entry = frame.public_frame = frame.active_call = frame.active_anchor = None
 
 
 class _ParentResumption:

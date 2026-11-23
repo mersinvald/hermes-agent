@@ -1,0 +1,1343 @@
+{
+  "scope": "Separate exact scopes. No cumulative claim or union of their pass counts.",
+  "scopes": [
+    {
+      "name": "first",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+        "--file-retries",
+        "0",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=40b99c858ca5f561c0a5a58bab6772ce84be511cb1042c084b3d75f605e96b27",
+        "-o",
+        "accountant_test_sha256=4af70d308c750fa8d5e82023d721c820aa55852bfddceefeef1ee98b8bef8a56",
+        "--durations=20"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "40b99c858ca5f561c0a5a58bab6772ce84be511cb1042c084b3d75f605e96b27",
+        "agent/system_prompt.py": "c9e25f0445e06bcf4c64ede57dbc79c7456e3fd3284f3cebfe93008c7210c25c",
+        "tests/tools/test_native_memory_prompt_consumer.py": "4af70d308c750fa8d5e82023d721c820aa55852bfddceefeef1ee98b8bef8a56"
+      },
+      "wall_seconds": 21.158563575998414,
+      "exit_code": 1,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+          "outcome": "failed",
+          "total_seconds": 9.702,
+          "durations": {
+            "setup": 2.046672,
+            "call": 7.654461,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first.json",
+          "bytes": 1109,
+          "sha256": "ae24dca9c9154e0faa2e08765568807ed239162ebe62b022a6438e138889d40a"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first.xml",
+          "bytes": 8465,
+          "sha256": "a5bc5e80fbf217d19a5d7cd8ff20f34bf49f6716b25ff3a86c834687e1c958dc"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first.log",
+          "bytes": 14734,
+          "sha256": "46f888a2093648dd873096f7e6c75dbb57b29cd931659e92c64bc23e627fa7f1"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first.cases.jsonl",
+          "bytes": 1061,
+          "sha256": "a879d078a396ca25eab18fdffec98ade6587e40d9ada3f6dfebf10a92dab9ad1"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "first-corrected",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+        "--file-retries",
+        "0",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-corrected.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=fe15c28405bf8c8f4b959de590d680941f09c1198f35a1e9f2a8f8cd13aae7c5",
+        "-o",
+        "accountant_test_sha256=4af70d308c750fa8d5e82023d721c820aa55852bfddceefeef1ee98b8bef8a56",
+        "--durations=20"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "fe15c28405bf8c8f4b959de590d680941f09c1198f35a1e9f2a8f8cd13aae7c5",
+        "agent/system_prompt.py": "c9e25f0445e06bcf4c64ede57dbc79c7456e3fd3284f3cebfe93008c7210c25c",
+        "tests/tools/test_native_memory_prompt_consumer.py": "4af70d308c750fa8d5e82023d721c820aa55852bfddceefeef1ee98b8bef8a56"
+      },
+      "wall_seconds": 30.37350515199796,
+      "exit_code": 1,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+          "outcome": "failed",
+          "total_seconds": 28.104,
+          "durations": {
+            "setup": 1.504577,
+            "call": 26.598538,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-corrected.json",
+          "bytes": 1155,
+          "sha256": "19e54e3b59af53b0c2831e724655193fad7665251706cb0aec6c12eda3086074"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-corrected.xml",
+          "bytes": 22119,
+          "sha256": "9550376169a415610a5a8f28f790cfe75bf744071836cef27ccb9353084cebbe"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-corrected.log",
+          "bytes": 27803,
+          "sha256": "db167ce242566d353fc8e0366256f1a5d212a8e37f0e477280c4670a9f6e4fd1"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-corrected.cases.jsonl",
+          "bytes": 1062,
+          "sha256": "00736f45878c57289125c9d1713a940770ebdb37eb64655205cdebf6a8180d3f"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "first-dispatch-corrected",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+        "--file-retries",
+        "0",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-dispatch-corrected.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=5c7753063cb3010d89d4fe462081f119733a9135a964ca9ac172724df93be969",
+        "-o",
+        "accountant_test_sha256=4af70d308c750fa8d5e82023d721c820aa55852bfddceefeef1ee98b8bef8a56",
+        "--durations=20"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "5c7753063cb3010d89d4fe462081f119733a9135a964ca9ac172724df93be969",
+        "agent/system_prompt.py": "c9e25f0445e06bcf4c64ede57dbc79c7456e3fd3284f3cebfe93008c7210c25c",
+        "tests/tools/test_native_memory_prompt_consumer.py": "4af70d308c750fa8d5e82023d721c820aa55852bfddceefeef1ee98b8bef8a56"
+      },
+      "wall_seconds": 29.7603908279998,
+      "exit_code": 1,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+          "outcome": "failed",
+          "total_seconds": 27.593,
+          "durations": {
+            "setup": 1.46204,
+            "call": 26.130319,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-dispatch-corrected.json",
+          "bytes": 1163,
+          "sha256": "2d36a13dbc83f1019c71607a5d55209f35ce8c9514e034c4bc9d529450831192"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-dispatch-corrected.xml",
+          "bytes": 24277,
+          "sha256": "71f8d04f10cef38c704f6294ccea1df0daf18306897d3ee104e0022caf1afb95"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-dispatch-corrected.log",
+          "bytes": 30130,
+          "sha256": "be0fe0fb8686a06e58a2311eba0c114c297976f5056f8ea302927cdde2fca9c1"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-dispatch-corrected.cases.jsonl",
+          "bytes": 1061,
+          "sha256": "35d26b8ca462028030c92f3d436856c87b51e9feb88b33132288650bcde797e4"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "first-envelope-corrected",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+        "--file-retries",
+        "0",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-envelope-corrected.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=5313b3233837d25e854bef55c928056d527f790b3c7f75ff4f00d6b0b57476fb",
+        "-o",
+        "accountant_test_sha256=bddac10a29c3e98b42bd07f3e55e0e07154e26d9a46d3963df8bfd2f515371a9",
+        "--durations=20"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "5313b3233837d25e854bef55c928056d527f790b3c7f75ff4f00d6b0b57476fb",
+        "agent/system_prompt.py": "c9e25f0445e06bcf4c64ede57dbc79c7456e3fd3284f3cebfe93008c7210c25c",
+        "tests/tools/test_native_memory_prompt_consumer.py": "bddac10a29c3e98b42bd07f3e55e0e07154e26d9a46d3963df8bfd2f515371a9"
+      },
+      "wall_seconds": 18.36405293700227,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+          "outcome": "passed",
+          "total_seconds": 17.082,
+          "durations": {
+            "setup": 1.37363,
+            "call": 15.707445,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-envelope-corrected.json",
+          "bytes": 1164,
+          "sha256": "4f63f945178460cc25ca4d2bbc56574565f126b596ebc5db23286ee5b3c00799"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-envelope-corrected.xml",
+          "bytes": 12719,
+          "sha256": "5c72048cf2cf3f69b87b0903ef603ce49d0e34cf85589dae36a006b5bea20cac"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-envelope-corrected.log",
+          "bytes": 1310,
+          "sha256": "f75d7b673658dc04229ee6176b91c50c8abe19911eda06b60435ca19553243be"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/first-envelope-corrected.cases.jsonl",
+          "bytes": 1062,
+          "sha256": "6b82b2c78dec64d23289760696c4e51e125a78366142036608446302a94a39cb"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "feedback",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_prompt_consumer.py",
+        "-k",
+        "authenticated_empty or copied_record or no_cache_or_namespace or retained_restrictions or ordinary_memory_user",
+        "--file-retries",
+        "0",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/feedback.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=b5c8371636fa3d2da3fc590e8c9c7cb04ae9deb71ac12eaa7a16935f4944217e",
+        "--durations=20"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "b5c8371636fa3d2da3fc590e8c9c7cb04ae9deb71ac12eaa7a16935f4944217e"
+      },
+      "wall_seconds": 50.05743588900077,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_authenticated_empty_and_no_discovery_or_warning_drain",
+          "outcome": "passed",
+          "total_seconds": 12.542,
+          "durations": {
+            "setup": 1.410557,
+            "call": 11.130602,
+            "teardown": 0.000559
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_copied_record_cannot_spend_original_source",
+          "outcome": "passed",
+          "total_seconds": 11.683,
+          "durations": {
+            "setup": 0.015593,
+            "call": 11.667036,
+            "teardown": 0.000525
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_no_cache_or_namespace_reseal[_cached_system_prompt]",
+          "outcome": "passed",
+          "total_seconds": 4.282,
+          "durations": {
+            "setup": 0.012962,
+            "call": 4.268541,
+            "teardown": 0.000455
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_no_cache_or_namespace_reseal[_cached_system_prompt_static]",
+          "outcome": "passed",
+          "total_seconds": 4.158,
+          "durations": {
+            "setup": 0.012759,
+            "call": 4.14487,
+            "teardown": 0.000475
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_no_cache_or_namespace_reseal[session_id]",
+          "outcome": "passed",
+          "total_seconds": 4.225,
+          "durations": {
+            "setup": 0.011313,
+            "call": 4.21347,
+            "teardown": 0.000459
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_retained_restrictions_and_source_close_after_consumer",
+          "outcome": "passed",
+          "total_seconds": 11.796,
+          "durations": {
+            "setup": 0.011455,
+            "call": 11.784469,
+            "teardown": 0.000445
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_ordinary_memory_user_slot_and_warning_status_behavior",
+          "outcome": "passed",
+          "total_seconds": 0.012,
+          "durations": {
+            "setup": 0.010768,
+            "call": 0.00075,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/feedback.json",
+          "bytes": 1219,
+          "sha256": "c5176688980ca7bc08bea926e236d616adba3cbca64c0d1be7a7dc462105fde5"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/feedback.xml",
+          "bytes": 3009,
+          "sha256": "5af777ed531c5d92271418f1a61ddb00f0b6ecf781c0a8afd4f35962697ccc62"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/feedback.log",
+          "bytes": 1062,
+          "sha256": "2e79ca7af53af0c2f7b8c7ad9a578040baca82a78ef24ee03f0ba384952ab2b3"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/feedback.cases.jsonl",
+          "bytes": 9634,
+          "sha256": "c940521c480b59a0e4b39dcebda43704a79dfc0d83237b444b3a2279245be72e"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "focused",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_prompt_consumer.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/focused.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f",
+        "--durations=20"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f"
+      },
+      "wall_seconds": 327.1234647140009,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_actual_constructor_prompt_conversation_send_result",
+          "outcome": "passed",
+          "total_seconds": 16.924,
+          "durations": {
+            "setup": 1.324197,
+            "call": 15.59961,
+            "teardown": 0.000497
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_authenticated_empty_and_no_discovery_or_warning_drain",
+          "outcome": "passed",
+          "total_seconds": 11.383,
+          "durations": {
+            "setup": 0.015192,
+            "call": 11.367066,
+            "teardown": 0.000453
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_copied_record_cannot_spend_original_source",
+          "outcome": "passed",
+          "total_seconds": 11.646,
+          "durations": {
+            "setup": 0.011076,
+            "call": 11.634069,
+            "teardown": 0.000473
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_single_attempt_including_escaping_failure[ports]",
+          "outcome": "passed",
+          "total_seconds": 3.205,
+          "durations": {
+            "setup": 0.011149,
+            "call": 3.193251,
+            "teardown": 0.000476
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_single_attempt_including_escaping_failure[holder]",
+          "outcome": "passed",
+          "total_seconds": 3.195,
+          "durations": {
+            "setup": 0.010883,
+            "call": 3.183826,
+            "teardown": 0.000463
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_single_attempt_including_escaping_failure[options]",
+          "outcome": "passed",
+          "total_seconds": 3.174,
+          "durations": {
+            "setup": 0.011369,
+            "call": 3.162544,
+            "teardown": 0.000451
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_single_attempt_including_escaping_failure[closed]",
+          "outcome": "passed",
+          "total_seconds": 3.206,
+          "durations": {
+            "setup": 0.011034,
+            "call": 3.194188,
+            "teardown": 0.000493
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_single_attempt_including_escaping_failure[late-bind-failure]",
+          "outcome": "passed",
+          "total_seconds": 4.007,
+          "durations": {
+            "setup": 0.011026,
+            "call": 3.995204,
+            "teardown": 0.000447
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_success_spends_source_and_token_once",
+          "outcome": "passed",
+          "total_seconds": 11.435,
+          "durations": {
+            "setup": 0.010812,
+            "call": 11.423375,
+            "teardown": 0.000452
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_no_cache_or_namespace_reseal[_cached_system_prompt]",
+          "outcome": "passed",
+          "total_seconds": 4.215,
+          "durations": {
+            "setup": 0.011132,
+            "call": 4.203738,
+            "teardown": 0.000456
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_no_cache_or_namespace_reseal[_cached_system_prompt_static]",
+          "outcome": "passed",
+          "total_seconds": 4.199,
+          "durations": {
+            "setup": 0.011305,
+            "call": 4.187263,
+            "teardown": 0.000477
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_no_cache_or_namespace_reseal[session_id]",
+          "outcome": "passed",
+          "total_seconds": 4.257,
+          "durations": {
+            "setup": 0.011317,
+            "call": 4.24519,
+            "teardown": 0.000533
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_helpers_outside_authorized_window_refuse_before_discovery[build]",
+          "outcome": "passed",
+          "total_seconds": 4.105,
+          "durations": {
+            "setup": 0.011648,
+            "call": 4.093153,
+            "teardown": 0.000493
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_helpers_outside_authorized_window_refuse_before_discovery[parts]",
+          "outcome": "passed",
+          "total_seconds": 4.19,
+          "durations": {
+            "setup": 0.011651,
+            "call": 4.178208,
+            "teardown": 0.000457
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_helpers_outside_authorized_window_refuse_before_discovery[append]",
+          "outcome": "passed",
+          "total_seconds": 4.052,
+          "durations": {
+            "setup": 0.012446,
+            "call": 4.038944,
+            "teardown": 0.00045
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_helpers_outside_authorized_window_refuse_before_discovery[invalidate]",
+          "outcome": "passed",
+          "total_seconds": 4.112,
+          "durations": {
+            "setup": 0.011366,
+            "call": 4.100178,
+            "teardown": 0.000471
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_helpers_outside_authorized_window_refuse_before_discovery[source-read]",
+          "outcome": "passed",
+          "total_seconds": 4.116,
+          "durations": {
+            "setup": 0.01125,
+            "call": 4.103814,
+            "teardown": 0.000516
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_callback_reentry_has_no_native_window[helper]",
+          "outcome": "passed",
+          "total_seconds": 4.141,
+          "durations": {
+            "setup": 0.011415,
+            "call": 4.129273,
+            "teardown": 0.000462
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_callback_reentry_has_no_native_window[turn]",
+          "outcome": "passed",
+          "total_seconds": 4.16,
+          "durations": {
+            "setup": 0.011109,
+            "call": 4.148387,
+            "teardown": 0.000449
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_callback_reentry_has_no_native_window[source-probe]",
+          "outcome": "passed",
+          "total_seconds": 4.141,
+          "durations": {
+            "setup": 0.011164,
+            "call": 4.129286,
+            "teardown": 0.000434
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_token_stays_on_original_thread",
+          "outcome": "passed",
+          "total_seconds": 4.255,
+          "durations": {
+            "setup": 0.010805,
+            "call": 4.243395,
+            "teardown": 0.000467
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_retained_restrictions_and_source_close_after_consumer",
+          "outcome": "passed",
+          "total_seconds": 11.879,
+          "durations": {
+            "setup": 0.012047,
+            "call": 11.866184,
+            "teardown": 0.000462
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[getter]",
+          "outcome": "passed",
+          "total_seconds": 4.109,
+          "durations": {
+            "setup": 0.011082,
+            "call": 4.096948,
+            "teardown": 0.000489
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[store]",
+          "outcome": "passed",
+          "total_seconds": 4.171,
+          "durations": {
+            "setup": 0.012091,
+            "call": 4.158319,
+            "teardown": 0.000567
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[version]",
+          "outcome": "passed",
+          "total_seconds": 4.174,
+          "durations": {
+            "setup": 0.012302,
+            "call": 4.160923,
+            "teardown": 0.000468
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[producer]",
+          "outcome": "passed",
+          "total_seconds": 4.177,
+          "durations": {
+            "setup": 0.013914,
+            "call": 4.162461,
+            "teardown": 0.000461
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[destination]",
+          "outcome": "passed",
+          "total_seconds": 4.179,
+          "durations": {
+            "setup": 0.011234,
+            "call": 4.166939,
+            "teardown": 0.000461
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[port]",
+          "outcome": "passed",
+          "total_seconds": 4.213,
+          "durations": {
+            "setup": 0.011694,
+            "call": 4.201235,
+            "teardown": 0.000482
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_specific_or_consumer_drift_refuses_before_send[restriction]",
+          "outcome": "passed",
+          "total_seconds": 4.154,
+          "durations": {
+            "setup": 0.011334,
+            "call": 4.142502,
+            "teardown": 0.00047
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_trusted_control_identity_after_actual_send[InterruptedError]",
+          "outcome": "passed",
+          "total_seconds": 9.703,
+          "durations": {
+            "setup": 0.012092,
+            "call": 9.690038,
+            "teardown": 0.000457
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_trusted_control_identity_after_actual_send[CancelledError]",
+          "outcome": "passed",
+          "total_seconds": 9.603,
+          "durations": {
+            "setup": 0.011035,
+            "call": 9.591667,
+            "teardown": 0.000468
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_trusted_control_identity_after_actual_send[KeyboardInterrupt]",
+          "outcome": "passed",
+          "total_seconds": 9.832,
+          "durations": {
+            "setup": 0.011211,
+            "call": 9.820121,
+            "teardown": 0.000436
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_trusted_control_identity_after_actual_send[SystemExit]",
+          "outcome": "passed",
+          "total_seconds": 9.651,
+          "durations": {
+            "setup": 0.010957,
+            "call": 9.639967,
+            "teardown": 0.000466
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_late_runtime_poison_retains_real_completion[caller-return]",
+          "outcome": "passed",
+          "total_seconds": 11.041,
+          "durations": {
+            "setup": 0.01241,
+            "call": 11.028133,
+            "teardown": 0.000456
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_late_runtime_poison_retains_real_completion[scope-exit]",
+          "outcome": "passed",
+          "total_seconds": 11.47,
+          "durations": {
+            "setup": 0.011669,
+            "call": 11.457438,
+            "teardown": 0.000471
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_late_runtime_poison_retains_real_completion[release]",
+          "outcome": "passed",
+          "total_seconds": 11.667,
+          "durations": {
+            "setup": 0.011078,
+            "call": 11.655625,
+            "teardown": 0.000462
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_selected_expiry_beats_other_live_coverage[P]",
+          "outcome": "passed",
+          "total_seconds": 11.825,
+          "durations": {
+            "setup": 0.010814,
+            "call": 11.813908,
+            "teardown": 0.000498
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_original_selected_expiry_beats_other_live_coverage[C]",
+          "outcome": "passed",
+          "total_seconds": 12.273,
+          "durations": {
+            "setup": 0.012404,
+            "call": 12.260547,
+            "teardown": 0.000493
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_bounded_real_byte_capacity_failure",
+          "outcome": "passed",
+          "total_seconds": 11.315,
+          "durations": {
+            "setup": 0.012219,
+            "call": 11.302226,
+            "teardown": 0.000482
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_terminal_guards_remain_unconditional[model]",
+          "outcome": "passed",
+          "total_seconds": 4.219,
+          "durations": {
+            "setup": 0.012003,
+            "call": 4.206824,
+            "teardown": 0.000499
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_terminal_guards_remain_unconditional[new-binding]",
+          "outcome": "passed",
+          "total_seconds": 4.311,
+          "durations": {
+            "setup": 0.011362,
+            "call": 4.298683,
+            "teardown": 0.000531
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_terminal_guards_remain_unconditional[read]",
+          "outcome": "passed",
+          "total_seconds": 4.34,
+          "durations": {
+            "setup": 0.012691,
+            "call": 4.326861,
+            "teardown": 0.000489
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_source_terminal_guards_remain_unconditional[tool]",
+          "outcome": "passed",
+          "total_seconds": 4.379,
+          "durations": {
+            "setup": 0.011723,
+            "call": 4.366347,
+            "teardown": 0.000504
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_ordinary_memory_user_slot_and_warning_status_behavior",
+          "outcome": "passed",
+          "total_seconds": 0.013,
+          "durations": {
+            "setup": 0.012162,
+            "call": 0.000911,
+            "teardown": 0.000318
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_cache_freeze_checks_drift_after_actual_build[before-send]",
+          "outcome": "passed",
+          "total_seconds": 6.485,
+          "durations": {
+            "setup": 0.0118,
+            "call": 6.473117,
+            "teardown": 0.000458
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_cache_freeze_checks_drift_after_actual_build[after-send]",
+          "outcome": "passed",
+          "total_seconds": 10.4,
+          "durations": {
+            "setup": 0.011678,
+            "call": 10.387628,
+            "teardown": 0.000448
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_all_first_six_holder_facts_must_match[owner_ref]",
+          "outcome": "passed",
+          "total_seconds": 3.187,
+          "durations": {
+            "setup": 0.011352,
+            "call": 3.175381,
+            "teardown": 0.000512
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_all_first_six_holder_facts_must_match[execution_ref]",
+          "outcome": "passed",
+          "total_seconds": 3.203,
+          "durations": {
+            "setup": 0.01234,
+            "call": 3.190515,
+            "teardown": 0.000441
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_all_first_six_holder_facts_must_match[lineage_ref]",
+          "outcome": "passed",
+          "total_seconds": 3.182,
+          "durations": {
+            "setup": 0.010997,
+            "call": 3.170463,
+            "teardown": 0.000477
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_all_first_six_holder_facts_must_match[consumer_ref]",
+          "outcome": "passed",
+          "total_seconds": 3.214,
+          "durations": {
+            "setup": 0.011412,
+            "call": 3.202108,
+            "teardown": 0.000477
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_all_first_six_holder_facts_must_match[auth_epoch]",
+          "outcome": "passed",
+          "total_seconds": 3.174,
+          "durations": {
+            "setup": 0.011129,
+            "call": 3.162376,
+            "teardown": 0.000461
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_all_first_six_holder_facts_must_match[policy_revision]",
+          "outcome": "passed",
+          "total_seconds": 3.194,
+          "durations": {
+            "setup": 0.011135,
+            "call": 3.182318,
+            "teardown": 0.00046
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_bind_requires_active_original_source_scope",
+          "outcome": "passed",
+          "total_seconds": 4.084,
+          "durations": {
+            "setup": 0.011127,
+            "call": 4.071995,
+            "teardown": 0.000477
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_memory_prompt_consumer.py::test_private_constructor_exception_requires_registered_frame",
+          "outcome": "passed",
+          "total_seconds": 0.763,
+          "durations": {
+            "setup": 0.011833,
+            "call": 0.750025,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/focused.json",
+          "bytes": 1123,
+          "sha256": "5a04303547e829576b5b2e496a360cb52199c6f09cc63e552a120a44ee6f9b74"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/focused.xml",
+          "bytes": 34462,
+          "sha256": "e8b6974cec9949325176e29b3c598461bc187324b84cc9bcff726541e91a202c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/focused.log",
+          "bytes": 1075,
+          "sha256": "787ebc9667526aabd80ddf652329244b3fc0cb8148751abb3abd113df620dccb"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/focused.cases.jsonl",
+          "bytes": 77690,
+          "sha256": "0f5fc25f68ba9ce52b566a6628b57f614b0983b317754c0364a8efc2cf317456"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "ordinary-prompt",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_system_prompt.py::test_build_system_prompt_records_stable_prefix",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-prompt.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=6d8d2fc1af88e5974bf199330799ce997762fda60b24c53503c79e23eabe3b09",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f",
+        "tests/agent/test_system_prompt.py": "6d8d2fc1af88e5974bf199330799ce997762fda60b24c53503c79e23eabe3b09"
+      },
+      "wall_seconds": 1.6556470599971362,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_system_prompt.py::test_build_system_prompt_records_stable_prefix",
+          "outcome": "passed",
+          "total_seconds": 0.852,
+          "durations": {
+            "setup": null,
+            "call": null,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-prompt.json",
+          "bytes": 1272,
+          "sha256": "28a189e350454168edb580aa0920dcd7d0698505262ef1029ea0c03d5c5d08a5"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-prompt.xml",
+          "bytes": 425,
+          "sha256": "92b43187f98e960aff55885b71991d5c6f5456aec636484e542b1de262f02352"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-prompt.log",
+          "bytes": 1223,
+          "sha256": "c41c286ecc1680fbca7d903c3a12ac5a8d2d74d5d5c20b2832a0ede94cbaeea8"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "ordinary-cache",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_system_prompt_restore.py::TestPromptStabilityInvariant::test_restored_prompt_is_byte_identical_to_stored",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-cache.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=ab27d41ba92f15e49bdcaf5f82d452f543be5c1c3cf7b7164c51a51593f90763",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f",
+        "tests/agent/test_system_prompt_restore.py": "ab27d41ba92f15e49bdcaf5f82d452f543be5c1c3cf7b7164c51a51593f90763"
+      },
+      "wall_seconds": 0.7753418309948756,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_system_prompt_restore.py::TestPromptStabilityInvariant::test_restored_prompt_is_byte_identical_to_stored",
+          "outcome": "passed",
+          "total_seconds": 0.036,
+          "durations": {
+            "setup": null,
+            "call": null,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-cache.json",
+          "bytes": 1319,
+          "sha256": "780a28788dd8e2b4b06d9afc9a3ff4487c29b6fc0ed4013ec93a6c73a13d9157"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-cache.xml",
+          "bytes": 472,
+          "sha256": "9e839453ef084659c74326ffdd11026db401fbc34a83c3b72a375ae7fafa4c1d"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/ordinary-cache.log",
+          "bytes": 1291,
+          "sha256": "bb9446a5d155eb0cff4a89368c77d8505b68c98dddbdd2b2e7bb80e85b569d50"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "capture-representative",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_memory_snapshot.py::test_actual_nonempty_snapshot",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/capture-representative.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=b9d4a977c89ed9a691679b64ae10687a110eb467db06ae13e2155049829b97b7",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f",
+        "tests/tools/test_native_memory_snapshot.py": "b9d4a977c89ed9a691679b64ae10687a110eb467db06ae13e2155049829b97b7"
+      },
+      "wall_seconds": 7.497613872001239,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_memory_snapshot.py::test_actual_nonempty_snapshot",
+          "outcome": "passed",
+          "total_seconds": 6.265,
+          "durations": {
+            "setup": 1.420331,
+            "call": 4.844209,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/capture-representative.json",
+          "bytes": 1279,
+          "sha256": "48fa7a1bbcc4a1baba232333e56204234244390fbef7c7bc843069c9f531000d"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/capture-representative.xml",
+          "bytes": 4724,
+          "sha256": "db839331875d66702062c319656073786fb0dbaba4d4b27c2d9219414c1c1124"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/capture-representative.log",
+          "bytes": 1223,
+          "sha256": "5f83ac4572efe112d870ee6b4f9614a56e05398b8f0b429418cb8a334c69a7d1"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/capture-representative.cases.jsonl",
+          "bytes": 962,
+          "sha256": "fcb1e0fe814729daaf3e15214b6cce22ba7334933931bc62d4d3ef732dedb03a"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "main-representatives",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/main-representatives.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f",
+        "tests/agent/test_native_controlled_conversation.py": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+      },
+      "wall_seconds": 5.836262534998241,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]",
+          "outcome": "passed",
+          "total_seconds": 2.72,
+          "durations": {
+            "setup": null,
+            "call": null,
+            "teardown": null
+          }
+        },
+        {
+          "nodeid": "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]",
+          "outcome": "passed",
+          "total_seconds": 2.089,
+          "durations": {
+            "setup": null,
+            "call": null,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/main-representatives.json",
+          "bytes": 1316,
+          "sha256": "2b453526561fe53e8f2ebcd1470824d751ed21c4da74cc24fdbe65c230b90851"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/main-representatives.xml",
+          "bytes": 690,
+          "sha256": "b62ec013945632f31280548b1d822b24c02fd742f4dde1bd32d1ecb624c70b9c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/main-representatives.log",
+          "bytes": 1301,
+          "sha256": "0989be849fd1c647fbecc7e6a0d28f531e2628f328d4ffec4aefdbc21a5c13a5"
+        }
+      ],
+      "fresh_cumulative_run": false
+    },
+    {
+      "name": "terminal-representative",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/terminal-representative.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+        "-o",
+        "accountant_source_sha256=bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "-o",
+        "accountant_test_sha256=9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+        "agent/system_prompt.py": "e9174e9b6418a0198476afdd9f39ab32c603a77ff6c54b0c3968314bb221abdf",
+        "tests/tools/test_native_memory_prompt_consumer.py": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f",
+        "tests/tools/test_native_controlled_delegation.py": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+      },
+      "wall_seconds": 46.343593588004296,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path",
+          "outcome": "passed",
+          "total_seconds": 45.089,
+          "durations": {
+            "setup": 1.441101,
+            "call": 43.646929,
+            "teardown": null
+          }
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/terminal-representative.json",
+          "bytes": 1300,
+          "sha256": "d9663cc13ef73b25b5e5c64a947485b53ad13b1027ef89663eedc2b26609074d"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/terminal-representative.xml",
+          "bytes": 581,
+          "sha256": "0dcd8dc37c4826b63568f66bcf61055370d8f1c7d1616d2a3cbffc8cf87a1a2b"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts/terminal-representative.log",
+          "bytes": 1270,
+          "sha256": "e6b3991554c2a2c1a88ac21cd415ecbd48365ff5170cd73439eb3d399b249f94"
+        }
+      ],
+      "fresh_cumulative_run": false
+    }
+  ],
+  "historical_reuse": "Accepted P10.29 source and shared 0.4.0 evidence keep their original pins. No cumulative rerun.",
+  "ordinary_representative_setup_durations": "Existing representatives without phase properties retain XML total duration only. New consumer cases retain every setup/call/teardown duration.",
+  "functional_retries": 0,
+  "dependency_delivery": "One exact shared import/API/admission/RECORD smoke only."
+}

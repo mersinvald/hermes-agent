@@ -1,0 +1,17 @@
+{
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31",
+  "HOME": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/home",
+  "original_HOME_read": false,
+  "PYTHONPATH_workaround": false,
+  "runner_changed": false,
+  "isolation_before_first_check": true,
+  "retries": 0,
+  "bytecode": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/bytecode",
+  "pytest": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/pytest",
+  "lint": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/ruff",
+  "durations": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/cache/test_durations.json",
+  "test_state": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/tmp",
+  "raw_receipts": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.31/receipts",
+  "wrapper_sha256": "2eff66e37e562849c4e53a3b9ff58662d1d41383fa854ab997b59d229a402f46",
+  "driver_sha256": "372d227ecf814d4c722212d09f4373837575b48404af25361b6c86c9074fb0b7"
+}
