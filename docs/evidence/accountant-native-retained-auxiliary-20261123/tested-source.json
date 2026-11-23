@@ -1,0 +1,8 @@
+{
+  "agent/native_main_payload.py": "b77e40b5953ca4aad69306154893db4ce3e813bd99521e93fd8aef12ca37b678",
+  "agent/title_generator.py": "b0a322a4db7e24b4bf9ce1ac68dddd5eea14b5fc7a7af330497e3507374ed340",
+  "agent/auxiliary_client.py": "df48bcbd50b39b51b1d5f3eb82531d54803f7220d7483f49121db0e28ef9e952",
+  "tests/agent/test_native_controlled_conversation.py": "07a68c56f397d30bbaaf3ea6b1ed68ae23fe23c871954fab86fc196b3d1da06b",
+  "tests/agent/test_content_policy_auxiliary.py": "23af5e7ca2310b3bb146b10ed819ae272f40a279b5dacae32ba947dcd2ced9c1",
+  "tests/agent/test_title_generator.py": "5bb19113260bb903eaa4db2b1e4001acf6169bb571168c1161c519a85739715a"
+}

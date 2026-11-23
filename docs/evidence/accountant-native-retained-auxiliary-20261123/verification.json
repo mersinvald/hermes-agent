@@ -1,0 +1,180 @@
+{
+  "status": "passed_at_frozen_source",
+  "current": {
+    "passed": 198,
+    "failed": 0,
+    "runner_seconds": 538.6,
+    "exit_code": 0,
+    "wall_seconds": 538.88,
+    "file_retries": 0,
+    "file_timeout_seconds": 600,
+    "per_file": [
+      {
+        "path": "tests/agent/test_auxiliary_relay.py",
+        "passed": 2,
+        "seconds": 0.6
+      },
+      {
+        "path": "tests/agent/test_auxiliary_concurrency.py",
+        "passed": 5,
+        "seconds": 1.8
+      },
+      {
+        "path": "tests/agent/test_auxiliary_client.py",
+        "passed": 5,
+        "seconds": 3.5
+      },
+      {
+        "path": "tests/agent/test_title_generator.py",
+        "passed": 46,
+        "seconds": 6.8
+      },
+      {
+        "path": "tests/agent/test_native_main_payload.py",
+        "passed": 20,
+        "seconds": 7.1
+      },
+      {
+        "path": "tests/agent/test_content_policy_auxiliary.py",
+        "passed": 36,
+        "seconds": 25.0
+      },
+      {
+        "path": "tests/agent/test_native_controlled_conversation.py",
+        "passed": 84,
+        "seconds": 538.6
+      }
+    ],
+    "skips": "No skips reported."
+  },
+  "source_manifest_sha256": "0f7d800da78229bca56871c81cc5cb1a030527ef2dd7ebd9d6b340a284943a0a",
+  "native_api_sha256": "2baa22dd2090e609863071548394a597c840492a35557110b38e0a5000d8e84f",
+  "intermediate_runs": [
+    {
+      "log": "edit-boundaries.txt",
+      "passed": 17,
+      "failed": 0,
+      "runner_seconds": 13.5,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-capacity.txt",
+      "passed": 2,
+      "failed": 0,
+      "runner_seconds": 143.4,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-checkpoint.txt",
+      "passed": 4,
+      "failed": 0,
+      "runner_seconds": 67.0,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-lifecycle.txt",
+      "passed": 12,
+      "failed": 0,
+      "runner_seconds": 100.8,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-main.txt",
+      "passed": 3,
+      "failed": 0,
+      "runner_seconds": 5.7,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-ordinary-green.txt",
+      "passed": 6,
+      "failed": 0,
+      "runner_seconds": 0.5,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-ordinary-red.txt",
+      "passed": 0,
+      "failed": 2,
+      "runner_seconds": 0.6,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-profile.txt",
+      "passed": 2,
+      "failed": 0,
+      "runner_seconds": 87.0,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-record-identity.txt",
+      "passed": 14,
+      "failed": 0,
+      "runner_seconds": 98.5,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-refusals.txt",
+      "passed": 0,
+      "failed": 0,
+      "runner_seconds": 300.0,
+      "status": "incomplete timeout, not a zero-test success"
+    },
+    {
+      "log": "edit-title-first.txt",
+      "passed": 0,
+      "failed": 2,
+      "runner_seconds": 2.7,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "edit-title-second.txt",
+      "passed": 2,
+      "failed": 0,
+      "runner_seconds": 55.4,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "final-focused.txt",
+      "passed": 194,
+      "failed": 0,
+      "runner_seconds": 522.1,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "final-retained-focused.txt",
+      "passed": 198,
+      "failed": 0,
+      "runner_seconds": 538.6,
+      "status": "current exact source"
+    },
+    {
+      "log": "final-source-focused.txt",
+      "passed": 197,
+      "failed": 0,
+      "runner_seconds": 519.3,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "intermediate-checkpoint.txt",
+      "passed": 190,
+      "failed": 0,
+      "runner_seconds": 531.0,
+      "status": "intermediate overlapping scope"
+    },
+    {
+      "log": "intermediate-focused.txt",
+      "passed": 184,
+      "failed": 0,
+      "runner_seconds": 366.5,
+      "status": "intermediate overlapping scope"
+    }
+  ],
+  "intermediate_pin_limit": "Intermediate logs cover evolving source. They are not a final-source claim and do not add to the current total.",
+  "smoke_limit": "One corrected installed API/import smoke. No installed functional duplicate or new wheel build.",
+  "timing": "Some edit groups exceeded two minutes. The final affected selection met the ten-minute target.",
+  "incomplete_run": "The 37-case refusal group exceeded the 300-second file limit after partial progress. No completed-file total follows.",
+  "record_identity": "The last refinement keeps live response proof pending and publishes each completed or failed invocation once.",
+  "ordinary_regression": "Two added ordinary helper interruption cases failed before correction. Six focused cases then passed.",
+  "lint_tool_limit": "The linter treats --help as a filename. All final checks use file arguments."
+}

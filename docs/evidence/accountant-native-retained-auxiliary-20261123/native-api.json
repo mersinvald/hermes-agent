@@ -1,0 +1,79 @@
+{
+  "adapter": {
+    "bind_auxiliary": "(self, agent: 'object', *, path: 'str', task: 'str', request_handle: 'object', selection: 'NativeSelectionPort', producer_ref: 'str', route_ref: 'str', language: 'str') -> 'None'",
+    "auxiliary_input": "(self, agent: 'object', *, source: 'dict', field: 'str') -> 'NativeAuxiliaryInput'",
+    "seal_auxiliary": "(self, agent: 'object', source: 'NativeAuxiliaryInput', *, stages: 'tuple[bytes, ...]', request: 'dict') -> 'NativeAuxiliaryRequest'",
+    "dispatch_auxiliary": "(self, request: 'NativeAuxiliaryRequest', *, arguments: 'dict') -> 'NativeMainResponse'",
+    "complete_auxiliary": "(self, request: 'NativeAuxiliaryRequest', *, response: 'NativeMainResponse', stages: 'tuple[bytes, ...]', output: 'dict') -> 'dict'"
+  },
+  "consumers": {
+    "generate_title": "(user_message: str, timeout: Optional[float] = None, failure_callback: Optional[Callable[[str, BaseException], NoneType]] = None, main_runtime: dict = None, runtime_validator: Optional[Callable[[], bool]] = None, destination: Optional[dict] = None, *, controlled_aux=None) -> Optional[str]",
+    "call_llm": "(task: str = None, *, provider: str = None, model: str = None, base_url: str = None, api_key: str = None, main_runtime: Optional[Dict[str, Any]] = None, messages: list, temperature: Optional[float] = None, max_tokens: int = None, tools: list = None, timeout: float = None, extra_body: dict = None, reasoning_config: Optional[dict] = None, extra_headers: Optional[Dict[str, str]] = None, api_mode: str = None, stream: bool = False, stream_options: dict = None, route_info: Optional[Dict[str, str]] = None, latency_info: Optional[Dict[str, int]] = None, strict_destination: bool = False, controlled_aux=None) -> Any"
+  },
+  "read_only_accessors": {
+    "auxiliary_invocations": "tuple[NativeAuxiliaryInvocation, ...]",
+    "auxiliary_send_count": "int"
+  },
+  "frozen_records": {
+    "NativeMainInvocation": [
+      "request_handle",
+      "source",
+      "selection",
+      "producer_policy",
+      "request_bytes",
+      "request_content",
+      "envelope",
+      "observed_destination",
+      "response_bytes",
+      "result_content",
+      "native_response"
+    ],
+    "NativeAuxiliaryInvocation": [
+      "source_completion",
+      "source_frame",
+      "source_invocation",
+      "source_handle",
+      "request_handle",
+      "source",
+      "target",
+      "path",
+      "task",
+      "selection",
+      "producer_policy",
+      "source_bytes",
+      "parents",
+      "parent_requests",
+      "input_stages",
+      "stage_contents",
+      "request_bytes",
+      "request_content",
+      "envelope",
+      "observed_destination",
+      "response_bytes",
+      "result_content",
+      "native_response",
+      "output_stages",
+      "output_contents",
+      "output_bytes",
+      "output",
+      "output_content"
+    ]
+  },
+  "tokens": {
+    "NativeAuxiliaryInput": "Opaque adapter-owned identity. No public constructor or serialized authority.",
+    "NativeAuxiliaryRequest": "Opaque adapter-owned identity. Single dispatch."
+  },
+  "unchanged": "Constructor APIs and public main adapter signatures retain the native base.",
+  "preserved_main_adapter_signatures": {
+    "__init__": "(self, context: 'NativeContentContext', *, selection: 'NativeSelectionPort', result_policy: 'NativeResultPolicyPort', producer_ref: 'str', main_route_ref: 'str', profiles: 'tuple[ProfilePolicy, ...]', routes: 'tuple[RouteBinding, ...]', transports: 'tuple[tuple[str, TransportPort], ...]', clock: 'Callable[[], int]') -> 'None'",
+    "admit_turn": "(self, agent: 'object', *, user_message: 'str', system_message: 'str | None', conversation_history: 'list[dict[str, str]] | None', task_id: 'str') -> 'NativeTurnInput'",
+    "seal_turn": "(self, agent: 'object', turn: 'NativeTurnInput', *, turn_context: 'TurnContext') -> 'NativePreparedTurn'",
+    "prepared_request": "(self, agent: 'object', prepared: 'NativePreparedTurn') -> 'dict'",
+    "dispatch": "(self, agent: 'object', api_kwargs: 'dict') -> 'NativeMainResponse'",
+    "validate_scope": "(self) -> 'None'"
+  },
+  "accessor_semantics": {
+    "auxiliary_invocations": "Completed and failed operation records. Live response proof stays in the checked pending frame.",
+    "auxiliary_send_count": "Actual auxiliary sends, including failed sends and the live pending operation."
+  }
+}

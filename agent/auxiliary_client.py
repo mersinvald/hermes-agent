@@ -3472,6 +3472,10 @@ def _relay_auxiliary_call(callback):
 
     @functools.wraps(callback)
     def wrapped(*args, **kwargs):
+        from agent.native_main_payload import _auxiliary_attempt
+        provider = kwargs.get("provider")
+        if _auxiliary_attempt(token=kwargs.get("controlled_aux"), provider=provider):
+            return callback(*args, **kwargs)
         from agent.content_policy import guard_native_content
         guard_native_content("main")
         task = args[0] if args else kwargs.get("task")
@@ -3500,6 +3504,8 @@ def _relay_auxiliary_call_async(callback):
 
     @functools.wraps(callback)
     async def wrapped(*args, **kwargs):
+        from agent.native_main_payload import _try_controlled_auxiliary_call
+        _try_controlled_auxiliary_call(arguments={"provider": kwargs.get("provider")})
         from agent.content_policy import guard_native_content
         guard_native_content("main")
         task = args[0] if args else kwargs.get("task")
@@ -3577,6 +3583,8 @@ def _relay_sync_completion(
     api_mode: str | None = None,
     create: Callable[[dict[str, Any]], Any] | None = None,
 ) -> Any:
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    _try_controlled_auxiliary_call(arguments={"provider": provider})
     from agent.content_policy import guard_native_content
     guard_native_content("main")
     callback = create or (lambda request: client.chat.completions.create(**request))
@@ -3607,6 +3615,8 @@ async def _relay_async_completion(
     api_mode: str | None = None,
     create: Callable[[dict[str, Any]], Any] | None = None,
 ) -> Any:
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    _try_controlled_auxiliary_call(arguments={"provider": provider})
     from agent.content_policy import guard_native_content
     guard_native_content("main")
     callback = create or (lambda request: client.chat.completions.create(**request))
@@ -3633,6 +3643,10 @@ def _relay_sync_stream(
     provider: str | None = None,
     api_mode: str | None = None,
 ) -> Any:
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    _try_controlled_auxiliary_call(arguments={"provider": provider})
+    from agent.content_policy import guard_native_content
+    guard_native_content("main")
     route = _relay_auxiliary_metadata(provider=provider, api_mode=api_mode)
     if route is None:
         from agent.content_policy import guard_native_content
@@ -9772,8 +9786,14 @@ def call_llm(
     route_info: Optional[Dict[str, str]] = None,
     latency_info: Optional[Dict[str, int]] = None,
     strict_destination: bool = False,
+    controlled_aux=None,
 ) -> Any:
     """Run an auxiliary LLM request, applying the configured task limit."""
+    arguments = dict(locals())
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    controlled, response = _try_controlled_auxiliary_call(arguments=arguments)
+    if controlled:
+        return response
     from agent.content_policy import guard_native_content
     guard_native_content("main")
     queue_started_at = time.monotonic()
@@ -9926,6 +9946,8 @@ def _call_llm_impl(
     # A managed strict call already carries its complete destination snapshot.
     # Resolve aliases without consulting the task's mutable config or the main
     # runtime captured for ordinary auxiliary fallback.
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    _try_controlled_auxiliary_call(arguments={"provider": provider})
     from agent.content_policy import guard_native_content
     guard_native_content("main")
     requested_provider = str(provider or "").strip().lower()
@@ -10803,6 +10825,8 @@ async def async_call_llm(
     route_info: Optional[Dict[str, str]] = None,
 ) -> Any:
     """Run an asynchronous auxiliary LLM request under the configured limit."""
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    _try_controlled_auxiliary_call(arguments={"provider": provider})
     from agent.content_policy import guard_native_content
     guard_native_content("main")
     semaphore = _acquire_async_aux_semaphore(task)
@@ -10853,6 +10877,8 @@ async def _async_call_llm_impl(
     """
     # Keep every async phase on the same runtime identity, even if another
     # session switches models while this task is awaiting network I/O.
+    from agent.native_main_payload import _try_controlled_auxiliary_call
+    _try_controlled_auxiliary_call(arguments={"provider": provider})
     from agent.content_policy import guard_native_content
     guard_native_content("main")
     main_runtime = _normalize_main_runtime(main_runtime)

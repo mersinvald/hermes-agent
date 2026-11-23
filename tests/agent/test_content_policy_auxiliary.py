@@ -88,3 +88,106 @@ def test_broken_title_validator_cannot_override_policy_denial():
             state["binding"] = replace(state["binding"], auth_epoch=8)
             titles.generate_title("invented", runtime_validator=lambda: (_ for _ in ()).throw(RuntimeError()))
             pytest.fail("title entrypoint returned")
+
+
+from tests.agent.test_native_controlled_conversation import (
+    auxiliary_world, bind_title, turn,
+    excluded as excluded,
+    caller_boundary as caller_boundary,
+    invented_offline_configuration as invented_offline_configuration,
+    ReservedProviderConversions, ReservedProviderEquality, ReservedProviderString,
+)
+
+
+@pytest.mark.parametrize("operation", ["private", "relay", "background", "private_background", "maybe", "instant", "stream"])
+def test_retained_auxiliary_siblings_refuse_with_empty_profiles(excluded, caller_boundary, monkeypatch, operation):
+    from agent import skill_commands
+    monkeypatch.setattr(skill_commands, "describe_skill_invocation", excluded)
+    monkeypatch.setattr(titles.threading, "Thread", excluded)
+    monkeypatch.setattr(auxiliary, "_get_cached_client", excluded)
+    monkeypatch.setattr(auxiliary, "_relay_auxiliary_metadata", excluded)
+    world = auxiliary_world()
+    result = turn(world)
+    with content_policy_scope(world.context):
+        bind_title(world)
+    world.binding = replace(world.binding, profiles=())
+    world.title_binding = replace(world.title_binding, profiles=())
+    storage = SimpleNamespace(get_session_title=excluded, set_session_title=excluded)
+    operations = {
+        "private": lambda: auxiliary._call_llm_impl(messages=[]),
+        "stream": lambda: auxiliary._relay_sync_stream(None, {}),
+        "relay": lambda: auxiliary._relay_sync_completion(None, {}, create=excluded),
+        "background": lambda: titles.auto_title_session(object(), "invented", result["final_response"]),
+        "private_background": lambda: titles._auto_title_session(object(), "invented", result["final_response"]),
+        "maybe": lambda: titles.maybe_auto_title(object(), "invented", result["final_response"]),
+        "instant": lambda: titles.apply_instant_title(storage, "invented", result["final_response"]),
+    }
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            operations[operation]()
+    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("operation", ["async_call_llm", "_async_call_llm_impl", "_relay_async_completion"])
+async def test_retained_auxiliary_async_siblings_refuse(excluded, caller_boundary, monkeypatch, operation):
+    monkeypatch.setattr(auxiliary, "_acquire_async_aux_semaphore", excluded)
+    world = auxiliary_world()
+    turn(world)
+    with content_policy_scope(world.context):
+        bind_title(world)
+    world.binding = replace(world.binding, profiles=())
+    world.title_binding = replace(world.title_binding, profiles=())
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            if operation == "_relay_async_completion":
+                await auxiliary._relay_async_completion(None, {})
+            else:
+                await getattr(auxiliary, operation)(messages=[])
+    assert world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("provider_class", [str, ReservedProviderString,
+    ReservedProviderEquality, ReservedProviderConversions])
+def test_reserved_auxiliary_provider_refuses_before_relay_and_resolution(monkeypatch, provider_class):
+    def forbidden(*args, **kwargs):
+        pytest.fail("Ordinary auxiliary callback ran")
+    monkeypatch.setattr(auxiliary.uuid, "uuid4", forbidden)
+    monkeypatch.setattr(auxiliary, "_acquire_sync_aux_semaphore", forbidden)
+    monkeypatch.setattr(auxiliary, "_get_cached_client", forbidden)
+    with pytest.raises(NativeContentPolicyDenied):
+        auxiliary.call_llm(provider=provider_class("synthetic_native"), messages=[])
+
+
+@pytest.mark.parametrize("provider_class", [str, ReservedProviderEquality, ReservedProviderConversions])
+def test_reserved_private_auxiliary_provider_refuses_without_custom_operations(monkeypatch, provider_class):
+    def forbidden(*args, **kwargs):
+        pytest.fail("Private auxiliary resolution ran")
+    monkeypatch.setattr(auxiliary, "_get_cached_client", forbidden)
+    with pytest.raises(NativeContentPolicyDenied):
+        auxiliary._call_llm_impl(provider=provider_class("synthetic_native"), messages=[])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("operation", ["async_call_llm", "_async_call_llm_impl", "_relay_async_completion"])
+async def test_reserved_async_auxiliary_provider_refuses_before_resolution(monkeypatch, operation):
+    def forbidden(*args, **kwargs):
+        pytest.fail("Async auxiliary resolution ran")
+    monkeypatch.setattr(auxiliary, "_acquire_async_aux_semaphore", forbidden)
+    monkeypatch.setattr(auxiliary, "_relay_auxiliary_metadata", forbidden)
+    with pytest.raises(NativeContentPolicyDenied):
+        if operation == "_relay_async_completion":
+            await auxiliary._relay_async_completion(None, {}, provider=ReservedProviderConversions("synthetic_native"))
+        else:
+            await getattr(auxiliary, operation)(provider=ReservedProviderConversions("synthetic_native"), messages=[])
+
+
+@pytest.mark.parametrize("marker", [None, 0, False, ReservedProviderConversions("invented_marker")])
+def test_retained_auxiliary_missing_token_with_malformed_marker_refuses(excluded, caller_boundary, marker):
+    world = auxiliary_world()
+    turn(world)
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            world.context._controlled_main_bound = marker
+            titles.generate_title("Invented source")
+    assert world.context._denied and world.adapter.auxiliary_send_count == 0

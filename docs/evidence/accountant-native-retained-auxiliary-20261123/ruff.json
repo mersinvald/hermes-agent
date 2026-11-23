@@ -1,0 +1,75 @@
+{
+  "candidate": [
+    {
+      "cell": null,
+      "code": "F401",
+      "end_location": {
+        "column": 12,
+        "row": 49
+      },
+      "filename": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14/agent/auxiliary_client.py",
+      "fix": {
+        "applicability": "safe",
+        "edits": [
+          {
+            "content": "",
+            "end_location": {
+              "column": 1,
+              "row": 50
+            },
+            "location": {
+              "column": 1,
+              "row": 49
+            }
+          }
+        ],
+        "message": "Remove unused import: `copy`"
+      },
+      "location": {
+        "column": 8,
+        "row": 49
+      },
+      "message": "`copy` imported but unused",
+      "noqa_row": 49,
+      "severity": "error",
+      "url": "https://docs.astral.sh/ruff/rules/unused-import"
+    }
+  ],
+  "auxiliary_baseline": [
+    {
+      "cell": null,
+      "code": "F401",
+      "end_location": {
+        "column": 12,
+        "row": 49
+      },
+      "filename": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14/agent/auxiliary_client.py",
+      "fix": {
+        "applicability": "safe",
+        "edits": [
+          {
+            "content": "",
+            "end_location": {
+              "column": 1,
+              "row": 50
+            },
+            "location": {
+              "column": 1,
+              "row": 49
+            }
+          }
+        ],
+        "message": "Remove unused import: `copy`"
+      },
+      "location": {
+        "column": 8,
+        "row": 49
+      },
+      "message": "`copy` imported but unused",
+      "noqa_row": 49,
+      "severity": "error",
+      "url": "https://docs.astral.sh/ruff/rules/unused-import"
+    }
+  ],
+  "new_diagnostics": 0
+}

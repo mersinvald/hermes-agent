@@ -674,3 +674,51 @@ class TestModelSwitchMarkerNotTitleable:
         assert apply_instant_title(db, "sess-1", "南京市秦淮区 小时级天气预报") == (
             "南京市秦淮区 小时级天气预报"
         )
+
+
+@pytest.mark.parametrize("boundary", ["summary", "extract", "validator", "call"])
+def test_title_policy_denial_escapes_broad_catches(monkeypatch, boundary):
+    from agent import title_generator as titles, skill_commands, agent_runtime_helpers
+    from agent.content_policy import NativeContentPolicyDenied
+    calls = []
+    def denied(*args, **kwargs):
+        raise NativeContentPolicyDenied("invented_policy_denial")
+    if boundary == "summary":
+        monkeypatch.setattr(skill_commands, "describe_skill_invocation", denied)
+        operation = lambda: titles._summarize_user_message("Invented source")
+    elif boundary == "extract":
+        monkeypatch.setattr(agent_runtime_helpers, "strip_think_blocks", denied)
+        operation = lambda: titles._extract_title_text("Invented prose")
+    else:
+        monkeypatch.setattr(titles, "call_llm", denied)
+        operation = lambda: titles.generate_title("Invented source", destination={},
+            runtime_validator=denied if boundary == "validator" else None,
+            failure_callback=lambda *args: calls.append(args))
+    with pytest.raises(NativeContentPolicyDenied, match="^invented_policy_denial$"):
+        operation()
+    assert calls == []
+
+
+@pytest.mark.parametrize("boundary", ["summary", "extract"])
+def test_ordinary_title_helper_interruption_keeps_existing_fallback(monkeypatch, boundary):
+    from agent import title_generator as titles, skill_commands, agent_runtime_helpers
+    def interrupted(*args, **kwargs):
+        raise InterruptedError("Invented ordinary helper failure")
+    if boundary == "summary":
+        monkeypatch.setattr(skill_commands, "describe_skill_invocation", interrupted)
+        assert titles._summarize_user_message("Invented source") == "Invented source"
+    else:
+        monkeypatch.setattr(agent_runtime_helpers, "strip_think_blocks", interrupted)
+        assert titles._extract_title_text("Invented prose") == "Invented prose"
+
+
+def test_title_failure_callback_cannot_suppress_policy_denial(monkeypatch):
+    from agent import title_generator as titles
+    from agent.content_policy import NativeContentPolicyDenied
+    def ordinary_failure(*args, **kwargs):
+        raise RuntimeError("Invented ordinary failure")
+    def denied(*args, **kwargs):
+        raise NativeContentPolicyDenied("invented_callback_denial")
+    monkeypatch.setattr(titles, "call_llm", ordinary_failure)
+    with pytest.raises(NativeContentPolicyDenied, match="^invented_callback_denial$"):
+        titles.generate_title("Invented source", destination={}, failure_callback=denied)

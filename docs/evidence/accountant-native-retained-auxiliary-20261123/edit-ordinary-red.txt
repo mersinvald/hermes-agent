@@ -1,0 +1,136 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~38 tests) under ['tests/agent/test_title_generator.py']; running with -j 16
+[100.0% |    38/~38 | ✓0 | ✗2] ✗ tests/agent/test_title_generator.py (2✗, 0.6s)
+
+  ╔╍ Failed: tests/agent/test_title_generator.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║     def test_ordinary_title_helper_interruption_keeps_existing_fallback(monkeypatch, boundary):
+  ║         from agent import title_generator as titles, skill_commands, agent_runtime_helpers
+  ║         def interrupted(*args, **kwargs):
+  ║             raise InterruptedError("Invented ordinary helper failure")
+  ║         if boundary == "summary":
+  ║             monkeypatch.setattr(skill_commands, "describe_skill_invocation", interrupted)
+  ║             assert titles._summarize_user_message("Invented source") == "Invented source"
+  ║         else:
+  ║             monkeypatch.setattr(agent_runtime_helpers, "strip_think_blocks", interrupted)
+  ║ >           assert titles._extract_title_text("Invented prose") == "Invented prose"
+  ║                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ 
+  ║ tests/agent/test_title_generator.py:712: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ agent/title_generator.py:330: in _extract_title_text
+  ║     raw = strip_think_blocks(None, raw).strip()
+  ║           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ args = (None, 'Invented prose'), kwargs = {}
+  ║ 
+  ║     def interrupted(*args, **kwargs):
+  ║ >       raise InterruptedError("Invented ordinary helper failure")
+  ║ E       InterruptedError: Invented ordinary helper failure
+  ║ 
+  ║ tests/agent/test_title_generator.py:706: InterruptedError
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_title_generator.py::test_ordinary_title_helper_interruption_keeps_existing_fallback[summary]
+  ║ FAILED tests/agent/test_title_generator.py::test_ordinary_title_helper_interruption_keeps_existing_fallback[extract]
+  ║ ======================= 2 failed, 43 deselected in 0.33s =======================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_title_generator.py -k ordinary_title_helper_interruption
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 2 failed (100% complete) in 0.6s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 0.6s  (runner wall: 0.6s, parallelism: 16x)
+  P50: 0.59s  P90: 0.59s  P95: 0.59s  P99: 0.59s  Max: 0.59s
+  <1s: 1 files (100%)  <2s: 1 files (100%)
+  Top 10 slowest:
+      0.59s  tests/agent/test_title_generator.py
+
+=== Failure output ===
+
+--- tests/agent/test_title_generator.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 45 items / 43 deselected / 2 selected
+
+tests/agent/test_title_generator.py FF                                   [100%]
+
+=================================== FAILURES ===================================
+___ test_ordinary_title_helper_interruption_keeps_existing_fallback[summary] ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x6fff8e15fcd0>
+boundary = 'summary'
+
+    @pytest.mark.parametrize("boundary", ["summary", "extract"])
+    def test_ordinary_title_helper_interruption_keeps_existing_fallback(monkeypatch, boundary):
+        from agent import title_generator as titles, skill_commands, agent_runtime_helpers
+        def interrupted(*args, **kwargs):
+            raise InterruptedError("Invented ordinary helper failure")
+        if boundary == "summary":
+            monkeypatch.setattr(skill_commands, "describe_skill_invocation", interrupted)
+>           assert titles._summarize_user_message("Invented source") == "Invented source"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_title_generator.py:709: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+agent/title_generator.py:240: in _summarize_user_message
+    described = describe_skill_invocation(user_message)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('Invented source',), kwargs = {}
+
+    def interrupted(*args, **kwargs):
+>       raise InterruptedError("Invented ordinary helper failure")
+E       InterruptedError: Invented ordinary helper failure
+
+tests/agent/test_title_generator.py:706: InterruptedError
+___ test_ordinary_title_helper_interruption_keeps_existing_fallback[extract] ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x6fff8d7fa5d0>
+boundary = 'extract'
+
+    @pytest.mark.parametrize("boundary", ["summary", "extract"])
+    def test_ordinary_title_helper_interruption_keeps_existing_fallback(monkeypatch, boundary):
+        from agent import title_generator as titles, skill_commands, agent_runtime_helpers
+        def interrupted(*args, **kwargs):
+            raise InterruptedError("Invented ordinary helper failure")
+        if boundary == "summary":
+            monkeypatch.setattr(skill_commands, "describe_skill_invocation", interrupted)
+            assert titles._summarize_user_message("Invented source") == "Invented source"
+        else:
+            monkeypatch.setattr(agent_runtime_helpers, "strip_think_blocks", interrupted)
+>           assert titles._extract_title_text("Invented prose") == "Invented prose"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_title_generator.py:712: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+agent/title_generator.py:330: in _extract_title_text
+    raw = strip_think_blocks(None, raw).strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (None, 'Invented prose'), kwargs = {}
+
+    def interrupted(*args, **kwargs):
+>       raise InterruptedError("Invented ordinary helper failure")
+E       InterruptedError: Invented ordinary helper failure
+
+tests/agent/test_title_generator.py:706: InterruptedError
+=========================== short test summary info ============================
+FAILED tests/agent/test_title_generator.py::test_ordinary_title_helper_interruption_keeps_existing_fallback[summary]
+FAILED tests/agent/test_title_generator.py::test_ordinary_title_helper_interruption_keeps_existing_fallback[extract]
+======================= 2 failed, 43 deselected in 0.33s =======================
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_title_generator.py  (2 tests failed)

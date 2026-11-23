@@ -44,6 +44,20 @@ class NativeTurnInput:
         raise TypeError("Native turn tokens require adapter admission")
 
 
+class NativeAuxiliaryInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Auxiliary tokens require retained input")
+
+
+class NativeAuxiliaryRequest:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Auxiliary tokens require retained preparation")
+
+
 class NativePreparedTurn:
     __slots__ = ()
 
@@ -254,6 +268,83 @@ class NativeMainInvocation:
     response_bytes: bytes
     result_content: ContentHandle
     native_response: NativeMainResponse
+
+
+@dataclass(frozen=True, slots=True)
+class NativeAuxiliaryInvocation:
+    source_completion: object
+    source_frame: object
+    source_invocation: NativeMainInvocation
+    source_handle: object
+    request_handle: object
+    source: object
+    target: object
+    path: str
+    task: str
+    selection: NativeMainSelection
+    producer_policy: NativeResultPolicy
+    source_bytes: bytes
+    parents: tuple
+    parent_requests: tuple
+    input_stages: tuple
+    stage_contents: tuple
+    request_bytes: bytes
+    request_content: object
+    envelope: object
+    observed_destination: object
+    response_bytes: bytes | None
+    result_content: object
+    native_response: NativeMainResponse | None
+    output_stages: tuple = ()
+    output_contents: tuple = ()
+    output_bytes: bytes | None = None
+    output: dict | None = None
+    output_content: object = None
+
+
+@dataclass(frozen=True, slots=True)
+class _AuxiliaryBinding:
+    handle: object
+    port: object
+    producer_ref: str
+    route: object
+    language: str
+    source: tuple
+    selected: tuple
+    producer: tuple
+    original_profiles: tuple
+
+
+@dataclass(frozen=True, slots=True)
+class _AuxiliaryFrame:
+    token: NativeAuxiliaryInput
+    completion: object
+    field: str
+    text: str
+    source_bytes: bytes
+    parents: tuple
+    parent_requests: tuple
+    source_content: object
+    stages: tuple = ()
+    stage_contents: tuple = ()
+    request: dict | None = None
+    request_bytes: bytes | None = None
+    request_anchors: tuple = ()
+    sealed: NativeAuxiliaryRequest | None = None
+    record: NativeAuxiliaryInvocation | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class _PendingOperation:
+    handle: object
+    source: object
+    selected: NativeMainSelection
+    producer: NativeResultPolicy
+    path: str
+    route_ref: str
+    payload: bytes
+    content: object
+    auxiliary: bool
 
 
 class NativeSelectionPort(Protocol):
@@ -475,7 +566,8 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
-        _require(handle is adapter._handle)
+        _require(handle is adapter._handle or (adapter._aux_binding is not None
+                 and handle is adapter._aux_binding.handle))
         return adapter._around(lambda: adapter._admission.current(handle))
 
 
@@ -490,7 +582,9 @@ class _Transport:
 
     def send(self, envelope):
         adapter = self.adapter
-        _require(self.main and adapter._pending is None)
+        operation = adapter._operation
+        _require(type(operation) is _PendingOperation and adapter._pending is None)
+        _require(adapter._busy and operation is adapter._checked_operation)
         _require(type(envelope) is shared_policy().DispatchEnvelope)
         _binding(envelope.source)
         _destination(envelope.destination)
@@ -499,17 +593,25 @@ class _Transport:
         _require(type(envelope.path) is str)
         _identifier(envelope.recipient_ref)
         adapter._checkpoint()
-        _require(envelope.payload == adapter._request_bytes and envelope.path == "main")
-        _require(envelope.source == adapter._source)
-        _require(envelope.destination == adapter._selected.destination)
-        _require(envelope.recipient_ref == adapter._source.consumer_ref)
+        _require(envelope.payload == operation.payload and envelope.path == operation.path)
+        _require(envelope.source == operation.source)
+        _require(envelope.destination == operation.selected.destination)
+        _require(self is adapter._transport_wrappers[envelope.destination.transport_ref])
+        _require(envelope.recipient_ref == operation.source.consumer_ref)
         actual = self.resolve()
         _require(actual == envelope.destination)
+        adapter._interrupt_operation()
         adapter._pending = (envelope, actual, None)
-        adapter._send_count += 1
-        output = adapter._around(lambda: self.port.send(envelope))
-        _require(type(output) is bytes and len(output) <= 65_536)
+        if operation.auxiliary:
+            _integer(adapter._aux_send_count, _MAX_INT - 1, 0)
+            adapter._aux_send_count += 1
+        else:
+            _integer(adapter._send_count, _MAX_INT - 1, 0)
+            adapter._send_count += 1
+        output = self.port.send(envelope)
         adapter._pending = (envelope, actual, output)
+        adapter._checkpoint()
+        _require(type(output) is bytes and len(output) <= 65_536)
         _require(self.resolve() == actual)
         adapter._checkpoint()
         return output
@@ -535,6 +637,13 @@ class NativeMainPayloadAdapter:
         self._clock = clock
         self._thread = threading.get_ident()
         self._busy = self._invalid = False
+        self._aux_binding = None
+        self._aux_pending = None
+        self._aux_frames = ()
+        self._aux_records = ()
+        self._aux_anchors = ()
+        self._aux_send_count = 0
+        self._operation = self._checked_operation = None
         self._records = ()
         self._record_anchors = ()
         self._send_count = 0
@@ -593,6 +702,12 @@ class NativeMainPayloadAdapter:
                 self._methods += tuple((port, method, _method(getattr(port, method)))
                                        for method in ("resolve", "send"))
                 wrappers.append((name, _Transport(self, port, main=name == main_transport)))
+            self._operator_routes = routes
+            self._operator_profiles = profiles
+            self._transport_wrappers = dict(wrappers)
+            self._operator_transports = dict(transports)
+            self._operator_resolvers = tuple((port, _method(port.resolve)) for _, port in transports)
+            self._operator_configuration = (routes, profiles, transports, tuple(wrappers))
             self._main_route = selected[0]
             self._busy = True
             self._checkpoint()
@@ -621,7 +736,11 @@ class NativeMainPayloadAdapter:
 
     def _invalidate(self):
         self._invalid = True
-        self._turn_pending = None
+        frame = self._aux_pending
+        if type(frame) is _AuxiliaryFrame and type(frame.record) is NativeAuxiliaryInvocation:
+            self._accept_aux_record(frame.record)
+        self._turn_pending = self._aux_pending = None
+        self._operation = self._checked_operation = None
         if type(self._bound_context) is NativeContentContext:
             self._bound_context._denied = True
 
@@ -635,6 +754,20 @@ class NativeMainPayloadAdapter:
         _require(self in _adapters)
         if "_runtime" in vars(self):
             _require(self._runtime is self._captured_runtime)
+        if "_operator_configuration" in vars(self):
+            routes, profiles, transports, wrappers = self._operator_configuration
+            _require(self._operator_routes is routes and self._operator_profiles is profiles)
+            _require(type(self._operator_transports) is dict and len(self._operator_transports) == len(transports))
+            _require(type(self._transport_wrappers) is dict and len(self._transport_wrappers) == len(wrappers))
+            for (name, port), (wrapped_name, wrapper) in zip(transports, wrappers):
+                _require(self._operator_transports.get(name) is port)
+                _require(self._transport_wrappers.get(wrapped_name) is wrapper)
+                _require(wrapper.adapter is self and wrapper.port is port)
+        if self._aux_binding is not None:
+            _require(self._aux_binding is self._bound_aux_binding)
+            values, anchors = self._aux_binding_anchor
+            _require(all(a is b for a, b in zip(_row(self._aux_binding, _AuxiliaryBinding), values)))
+            _require(_same_anchors(_nested_anchors(values)[1:], anchors))
         _require(context._controlled_main_bound is True and context._controlled_main_payload is self)
         _require(threading.get_ident() == self._thread)
         actual = (context.admission, context.request_handle, self._selection_port,
@@ -653,9 +786,12 @@ class NativeMainPayloadAdapter:
         self._verify_records()
         self._verify_turns()
         self._verify_completions()
+        self._verify_auxiliary()
         source = self._admission.current(self._handle)
+        self._identity()
         source_row = _binding(source)
         selected = self._selection_port.current(self._handle)
+        self._identity()
         selection_row = _selection(selected)
         producer = self._result_port.current(self._producer_ref)
         producer_row = _producer(producer)
@@ -682,6 +818,8 @@ class NativeMainPayloadAdapter:
                 selection_row[3])), "request": self._kwargs})
             _require(len(payload) <= 262_144)
         self._source, self._selected, self._producer_policy = source, selected, producer
+        if self._aux_binding is not None:
+            self._aux_snapshot(source_row)
         if self._turn_agent is not None:
             model = self._turn_agent.model
             _require(type(model) is str and model == selected.destination.model_ref)
@@ -762,6 +900,10 @@ class NativeMainPayloadAdapter:
             _require(len(actual) == len(completion.anchors))
             _require(all(a is b for a, b in zip(actual, completion.anchors)))
 
+    def _interrupt_operation(self):
+        if self._turn_agent is not None:
+            self._interrupt_turn()
+
     def _interrupt_turn(self):
         interrupted = getattr(self._turn_agent, "_interrupt_requested", False)
         self._checkpoint()
@@ -811,7 +953,7 @@ class NativeMainPayloadAdapter:
         if not self._busy and self._turn_pending is None and self._turn_state is None:
             self._turn_arguments = arguments
         with self._turn_operation(agent):
-            _require(self._turn_pending is None and len(self._records) < 8)
+            _require(self._turn_pending is None and self._aux_pending is None and len(self._records) < 8)
             _require(len(self._turn_frames) < 8)
             state, options = _native_state(agent, system_message)
             raw = _turn_bytes(arguments, options)
@@ -833,7 +975,7 @@ class NativeMainPayloadAdapter:
             admitted = self._runtime.admit(self._handle, raw)
             parents = (admitted, *(r.result_content for r in self._records),
                        *(row.content for row in self._completions))
-            content = (self._runtime.derive(self._handle, parents, raw, path="main")
+            content = (self._derive(self._handle, parents, raw, path="main")
                        if self._records else admitted)
             self._checkpoint()
             token = object.__new__(NativeTurnInput)
@@ -894,7 +1036,7 @@ class NativeMainPayloadAdapter:
             _require(len(encoded) <= 262_144)
             parents = (frame.admitted, frame.input_content, *(r.result_content for r in self._records),
                        *(row.content for row in self._completions))
-            content = self._runtime.derive(self._handle, parents, encoded, path="main")
+            content = self._derive(self._handle, parents, encoded, path="main")
             self._checkpoint()
             prepared = object.__new__(NativePreparedTurn)
             turn_context.controlled_prepared = prepared
@@ -922,7 +1064,7 @@ class NativeMainPayloadAdapter:
             _require(frame is not None and type(prepared) is NativePreparedTurn and prepared is frame.prepared)
             request = self._turn_request(frame)
             _require(_json(request) == frame.request_bytes)
-            content = self._runtime.derive(
+            content = self._derive(
                 self._handle,
                 (frame.admitted, frame.input_content, frame.output_content,
                  *(r.result_content for r in self._records),
@@ -935,6 +1077,363 @@ class NativeMainPayloadAdapter:
             self._turn_pending = frame
             return request
 
+    @property
+    def auxiliary_invocations(self) -> tuple[NativeAuxiliaryInvocation, ...]:
+        return self._aux_records
+
+    @property
+    def auxiliary_send_count(self) -> int:
+        return self._aux_send_count
+
+    def _derive(self, handle, parents, payload, *, path):
+        previous = tuple(r.output_content for r in self._aux_records if r.output_content is not None)
+        if not previous:
+            return self._runtime.derive(handle, parents, payload, path=path)
+        parents = (*parents, *previous)
+        return self._runtime.derive_for_selection(
+            handle, parents, payload, path=path,
+            parent_requests=(*(self._handle for _ in parents[:-len(previous)]),
+                             *(self._aux_binding.handle for _ in previous)),
+        )
+
+    def _callback_scope(self):
+        _require(not self._invalid and not self._bound_context._denied)
+        _require(threading.get_ident() == self._thread)
+        _require(self._context is self._bound_context)
+        _require(current_context(self._turn_agent) is self._bound_context)
+        _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
+
+    def _aux_snapshot(self, main):
+        binding = self._aux_binding
+        from agent import title_generator as titles
+        _require(titles._controlled_title_constants() == self._title_constants)
+        target = self._admission.current(binding.handle)
+        self._identity()
+        target_row = _binding(target)
+        selected = binding.port.current(binding.handle)
+        self._identity()
+        selection_row = _selection(selected)
+        producer = self._result_port.current(binding.producer_ref)
+        producer_row = _producer(producer)
+        self._identity()
+        _require(target_row[:6] == main[:6])
+        _require(target_row[:8] == binding.source[:8])
+        _require(selection_row == binding.selected)
+        _require(selection_row[:2] == target_row[6:8])
+        _require(producer_row == binding.producer)
+        _require(producer_row[2] == self._initial_producer[2])
+        _require(set(producer_row[2]) <= set(binding.original_profiles))
+        _require(set(producer_row[2]) <= set(self._original_profiles))
+        _require(selected.destination == binding.route.destination)
+        now = self._clock()
+        _integer(now, _MAX_INT, 0)
+        self._identity()
+        for route in self._operator_routes:
+            _require(type(route) is shared_policy().RouteBinding)
+            _integer(route.expires_at)
+            _require(now < route.expires_at)
+            port = self._operator_transports[route.destination.transport_ref]
+            method = next(method for original, method in self._operator_resolvers if port is original)
+            self._callback_scope()
+            _require(_same_method(port.resolve, method))
+            actual = port.resolve()
+            self._callback_scope()
+            _require(_same_method(port.resolve, method))
+            _destination(actual)
+            _require(actual == route.destination)
+        self._identity()
+        self._aux_current = target, selected, producer
+
+    def _verify_auxiliary(self):
+        _integer(self._send_count, _MAX_INT, 0)
+        _integer(self._aux_send_count, _MAX_INT, 0)
+        _require(type(self._aux_records) is tuple and len(self._aux_records) <= 8)
+        _require(len(self._aux_records) == len(self._aux_anchors))
+        for record, anchor in zip(self._aux_records, self._aux_anchors):
+            _require(record is anchor[0])
+            actual = _row(record, NativeAuxiliaryInvocation)
+            _require(all(a is b for a, b in zip(actual, anchor[1])))
+            _require(_same_anchors(_nested_anchors(actual)[1:], anchor[2]))
+            if record.native_response is not None:
+                _require(_response_bytes(record.native_response, record.selection.destination.model_ref)
+                         == record.response_bytes)
+            if record.output is not None:
+                _require(_json(record.output) == record.output_bytes)
+        _require(type(self._aux_frames) is tuple and len(self._aux_frames) <= 8)
+        for frame, anchor in self._aux_frames:
+            _require(type(frame) is _AuxiliaryFrame)
+            actual = _row(frame, _AuxiliaryFrame)
+            _require(all(a is b for a, b in zip(actual, anchor[0])))
+            _require(_same_anchors(_nested_anchors(actual)[1:], anchor[1]))
+            _require(any(frame.completion is row for row in self._completions))
+            selected = (frame.completion.frame.arguments[0] if frame.field == "user_message"
+                        else frame.completion.result["final_response"])
+            _require(frame.text is selected and _json(selected) == frame.source_bytes)
+            if frame.record is not None and frame.record.native_response is not None:
+                _require(_response_bytes(frame.record.native_response,
+                    frame.record.selection.destination.model_ref) == frame.record.response_bytes)
+
+    def _retain_aux_frame(self, frame):
+        values = _row(frame, _AuxiliaryFrame)
+        entry = (frame, (values, _nested_anchors(values)[1:]))
+        if self._aux_pending is None:
+            self._aux_frames += (entry,)
+        else:
+            _require(self._aux_frames[-1][0] is self._aux_pending)
+            self._aux_frames = (*self._aux_frames[:-1], entry)
+        self._aux_pending = frame
+
+    def _accept_aux_record(self, record):
+        if any(original is record for original in self._aux_records):
+            return
+        _require(len(self._aux_records) < 8)
+        values = _row(record, NativeAuxiliaryInvocation)
+        self._aux_records += (record,)
+        self._aux_anchors += ((record, values, _nested_anchors(values)[1:]),)
+
+    def _retain_aux_record(self, record, frame=None):
+        frame = self._aux_pending if frame is None else frame
+        _require(not any(original is frame.record for original in self._aux_records))
+        if record.output is not None or self._invalid:
+            self._accept_aux_record(record)
+        if self._aux_pending is None:
+            updated = replace(frame, record=record)
+            values = _row(updated, _AuxiliaryFrame)
+            self._aux_frames = (*self._aux_frames[:-1],
+                                (updated, (values, _nested_anchors(values)[1:])))
+        else:
+            self._retain_aux_frame(replace(frame, record=record))
+
+    def bind_auxiliary(
+        self, agent: object, *, path: str, task: str,
+        request_handle: object, selection: NativeSelectionPort,
+        producer_ref: str, route_ref: str, language: str,
+    ) -> None:
+        with self._turn_operation(agent):
+            _require(self._constructed is not None and self._aux_binding is None)
+            _require(self._turn_pending is None and self._aux_pending is None)
+            _require(type(path) is str and path == "title")
+            _require(type(task) is str and task == "title_generation")
+            _identifier(producer_ref)
+            _identifier(route_ref)
+            _require(type(language) is str and len(language) <= 128)
+            _require(not any(0xD800 <= ord(c) <= 0xDFFF for c in language))
+            _require(request_handle is not self._handle)
+            _require(callable(getattr(self._runtime, "derive_for_selection", None)))
+            from agent import title_generator as titles, auxiliary_client as auxiliary
+            from agent import skill_commands, agent_runtime_helpers
+            self._methods += tuple((port, name, _method(getattr(port, name))) for port, name in (
+                (selection, "current"), (self._runtime, "derive_for_selection"),
+                (self._runtime, "dispatch"),
+                *((self, name) for name in (
+                    "bind_auxiliary", "auxiliary_input", "seal_auxiliary", "dispatch_auxiliary",
+                    "complete_auxiliary", "_transform_auxiliary", "_dispatch_retained_operation",
+                    "_verify_auxiliary", "_aux_snapshot", "_callback_scope", "_accept_aux_record")),
+                *((titles, name) for name in (
+                    "generate_title", "_controlled_title_constants", "_title_input_stages", "_title_output_stages",
+                    "_summarize_user_message", "strip_control_wrappers", "_extract_title_text", "_clean_title",
+                    "_title_snippet", "_title_prompt", "_title_word_decision")),
+                (skill_commands, "describe_skill_invocation"),
+                (agent_runtime_helpers, "strip_think_blocks"),
+                (auxiliary, "call_llm"),
+                (auxiliary.call_llm, "__wrapped__"),
+                *((sys.modules[__name__], name) for name in (
+                    "_try_controlled_auxiliary_call", "_controlled_title_entry", "_auxiliary_attempt",
+                    "_auxiliary_owner", "_call_arguments_bytes", "_stage_tuple")),
+            ))
+            self._title_constants = titles._controlled_title_constants()
+            target = self._around(lambda: self._admission.current(request_handle))
+            target_row = _binding(target)
+            selected = self._around(lambda: selection.current(request_handle))
+            selection_row = _selection(selected)
+            producer = self._around(lambda: self._result_port.current(producer_ref))
+            producer_row = _producer(producer)
+            _require(target_row[:6] == self._holder[:6])
+            _require(target_row[6:8] != self._holder[6:8])
+            _require(selection_row[:2] == target_row[6:8])
+            _require(selection_row[3][1] == "synthetic_native")
+            _require(producer_row[0] == producer_ref and producer_row[2] == self._initial_producer[2])
+            _require(set(producer_row[2]) <= set(target_row[8]))
+            routes = tuple(r for r in self._operator_routes if r.route_ref == route_ref)
+            _require(len(routes) == 1)
+            route = routes[0]
+            _require(route.path == path and route.selection_id == selected.selection_id)
+            _require(route.selection_version == selected.selection_version)
+            _require(route.consumer_ref == target.consumer_ref and route.destination == selected.destination)
+            self._aux_binding = _AuxiliaryBinding(request_handle, selection, producer_ref, route,
+                language, target_row, selection_row, producer_row, target_row[8])
+            self._bound_aux_binding = self._aux_binding
+            values = _row(self._aux_binding, _AuxiliaryBinding)
+            self._aux_binding_anchor = (values, _nested_anchors(values)[1:])
+            self._interrupt_turn()
+
+    def auxiliary_input(self, agent: object, *, source: dict, field: str) -> NativeAuxiliaryInput:
+        with self._turn_operation(agent):
+            _require(self._aux_binding is not None and self._turn_pending is None and self._aux_pending is None)
+            _require(len(self._aux_frames) < 8)
+            _require(type(source) is dict and type(field) is str)
+            _require(field in ("user_message", "final_response"))
+            completion = next((row for row in self._completions if row.result is source), None)
+            _require(completion is not None)
+            frame, invocation = completion.frame, completion.invocation
+            text = frame.arguments[0] if field == "user_message" else source["final_response"]
+            _text(text)
+            payload = _json(text)
+            _require(len(payload) <= 262_144)
+            parents = (frame.admitted, frame.input_content, frame.output_content,
+                       *frame.request_contents, invocation.request_content, invocation.result_content,
+                       completion.content, *(row.content for row in self._completions
+                                             if row is not completion),
+                       *(row.output_content for row in self._aux_records if row.output_content is not None))
+            previous = sum(row.output_content is not None for row in self._aux_records)
+            parent_requests = (*(self._handle for _ in parents[:len(parents)-previous]),
+                               *(self._aux_binding.handle for _ in range(previous)))
+            content = self._runtime.derive_for_selection(self._aux_binding.handle, parents,
+                payload, path="title", parent_requests=parent_requests)
+            self._interrupt_turn()
+            token = object.__new__(NativeAuxiliaryInput)
+            self._retain_aux_frame(_AuxiliaryFrame(token, completion, field, text, payload,
+                                                  parents, parent_requests, content))
+            return token
+
+    def _checked_aux_frame(self, token, *, sealed=False):
+        frame = self._aux_pending
+        _require(self._aux_binding is not None and frame is not None and self._turn_pending is None)
+        expected = frame.sealed if sealed else frame.token
+        cls = NativeAuxiliaryRequest if sealed else NativeAuxiliaryInput
+        _require(type(token) is cls and token is expected)
+        from agent import title_generator as titles
+        _require(titles._controlled_title_constants() == self._title_constants)
+        self._interrupt_turn()
+        return frame
+
+    def _transform_auxiliary(self, token, *, response=None):
+        from agent import title_generator as titles
+        with self._turn_operation(self._turn_agent):
+            frame = self._checked_aux_frame(token, sealed=response is not None)
+            if response is None:
+                _require(frame.sealed is None)
+                stages, request = titles._title_input_stages(
+                    frame.text, self._aux_binding.language, self._aux_current[1], self._interrupt_turn)
+                self._aux_transformation = (frame.token, stages, request, _nested_anchors(request))
+                return stages, request
+            _require(frame.record is not None and response is frame.record.native_response)
+            stages, output = titles._title_output_stages(response, self._interrupt_turn)
+            self._aux_output = (output, stages, output["title"])
+            return stages, output
+
+    def seal_auxiliary(self, agent: object, source: NativeAuxiliaryInput, *,
+                       stages: tuple[bytes, ...], request: dict) -> NativeAuxiliaryRequest:
+        from agent import title_generator as titles
+        with self._turn_operation(agent):
+            frame = self._checked_aux_frame(source)
+            _require(frame.sealed is None)
+            proof = self._aux_transformation
+            _require(proof[0] is source and proof[1] is stages and proof[2] is request)
+            _require(_same_anchors(_nested_anchors(request), proof[3]))
+            _stage_tuple(stages)
+            expected, expected_request = titles._title_input_stages(
+                frame.text, self._aux_binding.language, self._aux_current[1], self._interrupt_turn)
+            _require(stages == expected and _json(request) == _json(expected_request))
+            contents = []
+            for stage in stages:
+                self._interrupt_turn()
+                contents.append(self._runtime.derive(self._aux_binding.handle,
+                    (frame.source_content, *contents), stage, path="title"))
+            payload = _json(dict(path="title", task="title_generation",
+                selection=list(self._aux_binding.selected[:3]),
+                destination=dict(zip(("transport_ref", "provider_ref", "model_ref", "endpoint_ref", "revision"),
+                                     self._aux_binding.selected[3])), request=request))
+            _require(len(payload) <= 262_144)
+            token = object.__new__(NativeAuxiliaryRequest)
+            self._retain_aux_frame(replace(frame, stages=stages, stage_contents=tuple(contents),
+                request=request, request_bytes=payload, request_anchors=_nested_anchors(request), sealed=token))
+            self._interrupt_turn()
+            return token
+
+    def _dispatch_retained_operation(self, operation):
+        _require(type(operation) is _PendingOperation and operation is self._operation)
+        _require(operation is self._checked_operation and self._busy and self._pending is None)
+        self._interrupt_operation()
+        self._dispatch_result = self._dispatch_response = None
+        result = self._runtime.dispatch(operation.handle, operation.content,
+                                       path=operation.path, route_ref=operation.route_ref)
+        self._dispatch_result = result
+        self._checkpoint()
+        _require(self._pending is not None)
+        envelope, actual, output = self._pending
+        value = _decode_response(output, operation.selected.destination.model_ref)
+        response = _response(value)
+        self._dispatch_response = response
+        self._checkpoint()
+        return result, envelope, actual, output, response
+
+    def dispatch_auxiliary(self, request: NativeAuxiliaryRequest, *, arguments: dict) -> NativeMainResponse:
+        with self._turn_operation(self._turn_agent):
+            frame = self._checked_aux_frame(request, sealed=True)
+            _require(frame.record is None and self._operation is None)
+            _keys(arguments, (*_AUX_CALL_DEFAULTS, "controlled_aux"))
+            _require(arguments.pop("controlled_aux") is request)
+            _require(_same_anchors(_nested_anchors(frame.request), frame.request_anchors))
+            _require(all(arguments[name] is frame.request[name] for name in _AUX_CALL_DEFAULTS))
+            _require(_call_arguments_bytes(arguments) == _call_arguments_bytes(frame.request))
+            content = self._runtime.derive(self._aux_binding.handle,
+                (frame.source_content, *frame.stage_contents), frame.request_bytes, path="title")
+            source, selected, producer = self._aux_current
+            operation = _PendingOperation(self._aux_binding.handle, source, selected, producer,
+                "title", self._aux_binding.route.route_ref, frame.request_bytes, content, True)
+            self._operation = self._checked_operation = operation
+            result = response = None
+            try:
+                result, envelope, actual, output, response = self._dispatch_retained_operation(operation)
+            finally:
+                if self._pending is not None:
+                    envelope, actual, output = self._pending
+                    record = NativeAuxiliaryInvocation(frame.completion, frame.completion.frame,
+                        frame.completion.invocation, self._handle, self._aux_binding.handle,
+                        self._source, source, "title", "title_generation", selected, producer,
+                        frame.source_bytes, frame.parents, frame.parent_requests, frame.stages,
+                        frame.stage_contents, frame.request_bytes, content, envelope, actual,
+                        output if type(output) is bytes and len(output) <= 65_536 else None,
+                        self._dispatch_result, self._dispatch_response)
+                    self._retain_aux_record(record, frame)
+                self._operation = self._checked_operation = self._pending = None
+            self._interrupt_turn()
+            return response
+
+    def complete_auxiliary(self, request: NativeAuxiliaryRequest, *, response: NativeMainResponse,
+                           stages: tuple[bytes, ...], output: dict) -> dict:
+        from agent import title_generator as titles
+        with self._turn_operation(self._turn_agent):
+            frame = self._checked_aux_frame(request, sealed=True)
+            record = frame.record
+            _require(record is not None and response is record.native_response)
+            _require(record.output is None)
+            _stage_tuple(stages)
+            expected, expected_output = titles._title_output_stages(response, self._interrupt_turn)
+            _require(stages == expected)
+            _keys(output, ("title",))
+            _require(type(output["title"]) in (str, type(None)))
+            _require(_json(output) == _json(expected_output))
+            _require(output is self._aux_output[0] and stages is self._aux_output[1])
+            _require(output["title"] is self._aux_output[2])
+            contents = []
+            for stage in stages:
+                self._interrupt_turn()
+                contents.append(self._runtime.derive(self._aux_binding.handle,
+                    (frame.source_content, record.request_content, record.result_content, *contents),
+                    stage, path="title"))
+            payload = _json(output)
+            _require(len(payload) <= 262_144)
+            parents = (frame.source_content, record.request_content, record.result_content,
+                       *contents, *(row.output_content for row in self._aux_records if row.output_content is not None))
+            content = self._runtime.derive(self._aux_binding.handle, parents, payload, path="title")
+            self._retain_aux_record(replace(record, output_stages=stages, output_contents=tuple(contents),
+                output_bytes=payload, output=output, output_content=content))
+            self._interrupt_turn()
+            self._aux_pending = None
+            return output
+
     def _checkpoint(self):
         first = self._snapshot()
         second = self._snapshot()
@@ -943,6 +1442,7 @@ class NativeMainPayloadAdapter:
             _require(first == self._expected)
         if self._holder is None:
             self._holder, self._initial_selection, self._initial_producer = first[0][:8], first[1], first[2]
+            self._original_profiles = first[0][8]
         return first
 
     def _around(self, callback):
@@ -967,7 +1467,7 @@ class NativeMainPayloadAdapter:
 
     def dispatch(self, agent: object, api_kwargs: dict) -> NativeMainResponse:
         try:
-            _require(not self._busy and len(self._records) < 8)
+            _require(not self._busy and self._aux_pending is None and len(self._records) < 8)
             self._busy = True
             frame = None
             if self._preparation_enabled:
@@ -997,7 +1497,7 @@ class NativeMainPayloadAdapter:
                     _require(messages[0]["role"] == "system")
             _require(messages[-1]["role"] == "user")
             if frame is not None:
-                request_content = self._runtime.derive(
+                request_content = self._derive(
                     self._handle,
                     (frame.admitted, frame.input_content, frame.output_content,
                      *(r.result_content for r in self._records),
@@ -1005,21 +1505,18 @@ class NativeMainPayloadAdapter:
                     self._request_bytes, path="main",
                 )
             elif self._records:
-                request_content = self._runtime.derive(
+                request_content = self._derive(
                     self._handle, tuple(r.result_content for r in self._records),
                     self._request_bytes, path="main",
                 )
             else:
                 request_content = self._runtime.admit(self._handle, self._request_bytes)
-            result_content = self._runtime.dispatch(
-                self._handle, request_content, path="main", route_ref=self._route_ref,
+            operation = _PendingOperation(
+                self._handle, self._source, self._selected, self._producer_policy,
+                "main", self._route_ref, self._request_bytes, request_content, False,
             )
-            self._checkpoint()
-            _require(self._pending is not None)
-            envelope, actual, output = self._pending
-            value = _decode_response(output, api_kwargs["model"])
-            response = _response(value)
-            self._checkpoint()
+            self._operation = self._checked_operation = operation
+            result_content, envelope, actual, output, response = self._dispatch_retained_operation(operation)
             record = NativeMainInvocation(
                 self._handle, self._source, self._selected, self._producer_policy,
                 self._request_bytes, request_content, envelope, actual, output,
@@ -1048,7 +1545,141 @@ class NativeMainPayloadAdapter:
             raise
         finally:
             self._agent = self._kwargs = self._pending = self._expected = None
+            self._operation = self._checked_operation = None
             self._busy = False
+
+
+def _nested_anchors(value):
+    result = []
+    policy = shared_policy()
+    records = (NativeMainResponse, NativeMainChoice, NativeMainMessage, NativeMainUsage,
+               NativeMainSelection, NativeResultPolicy, policy.ExecutionBinding,
+               policy.Destination, policy.DispatchEnvelope, policy.RouteBinding,
+               NativeAuxiliaryInvocation)
+    def visit(item):
+        result.append(item)
+        if type(item) is dict:
+            for key, child in item.items():
+                _require(type(key) is str)
+                visit(key)
+                visit(child)
+        elif type(item) in (list, tuple):
+            for child in item:
+                visit(child)
+        elif type(item) in records:
+            for field in fields(item):
+                visit(object.__getattribute__(item, field.name))
+    visit(value)
+    return tuple(result)
+
+
+def _same_anchors(actual, original):
+    return len(actual) == len(original) and all(a is b for a, b in zip(actual, original))
+
+
+def _stage_tuple(stages):
+    _require(type(stages) is tuple and 1 <= len(stages) <= 8)
+    for stage in stages:
+        _require(type(stage) is bytes and len(stage) <= 262_144)
+
+
+_AUX_CALL_DEFAULTS = dict(task=None, provider=None, model=None, base_url=None, api_key=None,
+    main_runtime=None, messages=None, temperature=None, max_tokens=None, tools=None, timeout=None,
+    extra_body=None, reasoning_config=None, extra_headers=None, api_mode=None, stream=False,
+    stream_options=None, route_info=None, latency_info=None, strict_destination=False)
+
+
+def _call_arguments_bytes(arguments):
+    _keys(arguments, tuple(_AUX_CALL_DEFAULTS))
+    for name in ("task", "provider", "model", "api_mode"):
+        _require(type(arguments[name]) is str)
+        _identifier(arguments[name])
+    _require(arguments["task"] == "title_generation")
+    _require(arguments["provider"] == "synthetic_native")
+    _require(arguments["api_mode"] == "chat_completions")
+    _require(type(arguments["max_tokens"]) is int and arguments["max_tokens"] == 64)
+    _require(type(arguments["temperature"]) is float and arguments["temperature"] == 0.3)
+    _require(arguments["stream"] is False and arguments["strict_destination"] is True)
+    for name in ("base_url", "api_key", "main_runtime", "tools", "timeout", "reasoning_config",
+                 "extra_headers", "stream_options", "route_info", "latency_info"):
+        _require(arguments[name] is None)
+    _request(dict(model=arguments["model"], messages=arguments["messages"]))
+    from agent.title_generator import _TITLE_RESPONSE_FORMAT
+    _require(type(arguments["extra_body"]) is dict)
+    _require(_safe_json(arguments["extra_body"]) == _json({"response_format": _TITLE_RESPONSE_FORMAT}))
+    return _json(arguments)
+
+
+def _safe_json(value):
+    def check(item, depth=0):
+        _require(depth <= 8)
+        _require(type(item) in (str, int, float, bool, dict, list, type(None)))
+        if type(item) is dict:
+            _require(len(item) <= 32)
+            for key, child in item.items():
+                _require(type(key) is str)
+                check(child, depth + 1)
+        elif type(item) is list:
+            _require(len(item) <= 32)
+            for child in item:
+                check(child, depth + 1)
+    check(value)
+    payload = _json(value)
+    _require(len(payload) <= 262_144)
+    return payload
+
+
+def _auxiliary_attempt(*, token=None, provider=None):
+    if token is not None:
+        return True
+    if isinstance(provider, str) and str.__eq__(provider, "synthetic_native") is True:
+        return True
+    context = current_context()
+    return context is not None and (context._controlled_main_bound is not False
+                                    or context._controlled_main_payload is not None)
+
+
+def _auxiliary_owner(token, cls):
+    context = current_context()
+    if token is None and type(context) is NativeContentContext and context._controlled_main_bound is True:
+        context.check("title")
+    candidates = [a for a in _adapters if type(token) is cls and any(
+        token is (frame.sealed if cls is NativeAuxiliaryRequest else frame.token)
+        for frame, _ in a._aux_frames)]
+    try:
+        _require(type(token) is cls and len(candidates) == 1)
+        adapter = candidates[0]
+        _require(context is adapter._bound_context)
+        return adapter
+    except BaseException:
+        for adapter in candidates:
+            adapter._invalidate()
+        if type(context) is NativeContentContext:
+            context._denied = True
+            invalidate_controlled_context(context)
+        raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+
+
+def _controlled_title_entry(user_message, token, options):
+    if not _auxiliary_attempt(token=token):
+        return None
+    adapter = _auxiliary_owner(token, NativeAuxiliaryInput)
+    with adapter._turn_operation(adapter._turn_agent):
+        frame = adapter._checked_aux_frame(token)
+        _require(all(value is None for value in options))
+        _require(type(user_message) is str and user_message is frame.text)
+        _require(_json(user_message) == frame.source_bytes)
+        return adapter
+
+
+def _try_controlled_auxiliary_call(*, arguments):
+    _require(type(arguments) is dict)
+    _require(all(type(key) is str for key in arguments))
+    if not _auxiliary_attempt(token=arguments.get("controlled_aux"), provider=arguments.get("provider")):
+        return False, None
+    token = arguments.get("controlled_aux")
+    adapter = _auxiliary_owner(token, NativeAuxiliaryRequest)
+    return True, adapter.dispatch_auxiliary(token, arguments=arguments)
 
 
 def bind_controlled_main(
@@ -1084,8 +1715,7 @@ def validate_controlled_scope(context: NativeContentContext) -> None:
 def invalidate_controlled_context(context: NativeContentContext) -> None:
     adapter = context._controlled_main_payload
     if type(adapter) is NativeMainPayloadAdapter:
-        adapter._invalid = True
-        adapter._turn_pending = None
+        adapter._invalidate()
         if type(adapter._context) is NativeContentContext:
             adapter._context._denied = True
 
@@ -1491,7 +2121,7 @@ def _complete_controlled_turn(agent, *, turn_context: TurnContext,
         parents = (frame.admitted, frame.input_content, frame.output_content,
                    *frame.request_contents, invocation.request_content, invocation.result_content,
                    *(row.content for row in adapter._completions))
-        content = adapter._runtime.derive(adapter._handle, parents, payload, path="main")
+        content = adapter._derive(adapter._handle, parents, payload, path="main")
         adapter._interrupt_turn()
         completed = _NativeCompletion(
             frame, invocation, parents, payload, content, result, _native_result_anchors(result),

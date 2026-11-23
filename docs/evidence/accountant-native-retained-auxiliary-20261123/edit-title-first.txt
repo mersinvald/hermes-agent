@@ -1,0 +1,165 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~31 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    31/~31 | ✓0 | ✗2] ✗ tests/agent/test_native_controlled_conversation.py (2✗, 2.7s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ >       world = auxiliary_world()
+  ║                 ^^^^^^^^^^^^^^^^^
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:764: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ tests/agent/test_native_controlled_conversation.py:734: in auxiliary_world
+  ║     world = construct(AuxiliaryWorld().bind())
+  ║                       ^^^^^^^^^^^^^^^^^^^^^^^
+  ║ tests/agent/test_native_main_payload.py:154: in bind
+  ║     self.qualify()
+  ║ tests/agent/test_native_controlled_conversation.py:729: in qualify
+  ║     runtime.dispatch(self.title_request, source, path=path, route_ref=f"title_{path}")
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:573: in dispatch
+  ║     self._route_for(route, receiver, lineage.profiles, path, self._now())
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:518: in _route_for
+  ║     _require(
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ condition = False, code = 'selection_or_consumer_mismatch'
+  ║ 
+  ║     def _require(condition: bool, code: str) -> None:
+  ║         if not condition:
+  ║ >           raise PolicyError(code)
+  ║ E           hermes_content_policy.PolicyError: selection_or_consumer_mismatch
+  ║ 
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:107: PolicyError
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_retained_title_main_title_with_independent_selections[user_message]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_retained_title_main_title_with_independent_selections[final_response]
+  ║ ======================= 2 failed, 95 deselected in 2.39s =======================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k retained_title_main_title
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 2 failed (100% complete) in 2.7s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 2.7s  (runner wall: 2.7s, parallelism: 16x)
+  P50: 2.71s  P90: 2.71s  P95: 2.71s  P99: 2.71s  Max: 2.71s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      2.71s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.14
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 97 items / 95 deselected / 2 selected
+
+tests/agent/test_native_controlled_conversation.py FF                    [100%]
+
+=================================== FAILURES ===================================
+___ test_retained_title_main_title_with_independent_selections[user_message] ___
+
+excluded = <function excluded.<locals>.forbidden at 0x7cbc3a07a340>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7cbc39703e20>, call=<function caller_boundary.<locals>.call at 0x7cbc39703ec0>, dispatches=[], selector=<function should_use_direct_api_call at 0x7cbc3a25fe20>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7cbc3a0c2010>
+field = 'user_message'
+
+    @pytest.mark.parametrize("field", ["user_message", "final_response"])
+    def test_retained_title_main_title_with_independent_selections(excluded, caller_boundary, monkeypatch, field):
+        from agent import auxiliary_client as auxiliary
+        derived = []
+        derive = ContentPolicyRuntime.derive_for_selection
+        def observed(runtime, handle, parents, payload, *, path, parent_requests):
+            result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+            derived.append((handle, parents, payload, path, parent_requests, result))
+            return result
+        monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+        for name in ("_get_cached_client", "_acquire_sync_aux_semaphore", "_call_llm_impl"):
+            monkeypatch.setattr(auxiliary, name, excluded)
+>       world = auxiliary_world()
+                ^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_controlled_conversation.py:764: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:734: in auxiliary_world
+    world = construct(AuxiliaryWorld().bind())
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_main_payload.py:154: in bind
+    self.qualify()
+tests/agent/test_native_controlled_conversation.py:729: in qualify
+    runtime.dispatch(self.title_request, source, path=path, route_ref=f"title_{path}")
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:573: in dispatch
+    self._route_for(route, receiver, lineage.profiles, path, self._now())
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:518: in _route_for
+    _require(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, code = 'selection_or_consumer_mismatch'
+
+    def _require(condition: bool, code: str) -> None:
+        if not condition:
+>           raise PolicyError(code)
+E           hermes_content_policy.PolicyError: selection_or_consumer_mismatch
+
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:107: PolicyError
+__ test_retained_title_main_title_with_independent_selections[final_response] __
+
+excluded = <function excluded.<locals>.forbidden at 0x7cbc397e0a40>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7cbc397e23e0>, call=<function caller_boundary.<locals>.call at 0x7cbc397e2340>, dispatches=[], selector=<function should_use_direct_api_call at 0x7cbc3a25fe20>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7cbc3a141e10>
+field = 'final_response'
+
+    @pytest.mark.parametrize("field", ["user_message", "final_response"])
+    def test_retained_title_main_title_with_independent_selections(excluded, caller_boundary, monkeypatch, field):
+        from agent import auxiliary_client as auxiliary
+        derived = []
+        derive = ContentPolicyRuntime.derive_for_selection
+        def observed(runtime, handle, parents, payload, *, path, parent_requests):
+            result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+            derived.append((handle, parents, payload, path, parent_requests, result))
+            return result
+        monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+        for name in ("_get_cached_client", "_acquire_sync_aux_semaphore", "_call_llm_impl"):
+            monkeypatch.setattr(auxiliary, name, excluded)
+>       world = auxiliary_world()
+                ^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_controlled_conversation.py:764: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:734: in auxiliary_world
+    world = construct(AuxiliaryWorld().bind())
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_main_payload.py:154: in bind
+    self.qualify()
+tests/agent/test_native_controlled_conversation.py:729: in qualify
+    runtime.dispatch(self.title_request, source, path=path, route_ref=f"title_{path}")
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:573: in dispatch
+    self._route_for(route, receiver, lineage.profiles, path, self._now())
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:518: in _route_for
+    _require(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, code = 'selection_or_consumer_mismatch'
+
+    def _require(condition: bool, code: str) -> None:
+        if not condition:
+>           raise PolicyError(code)
+E           hermes_content_policy.PolicyError: selection_or_consumer_mismatch
+
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:107: PolicyError
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_retained_title_main_title_with_independent_selections[user_message]
+FAILED tests/agent/test_native_controlled_conversation.py::test_retained_title_main_title_with_independent_selections[final_response]
+======================= 2 failed, 95 deselected in 2.39s =======================
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_native_controlled_conversation.py  (2 tests failed)

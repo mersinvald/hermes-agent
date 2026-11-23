@@ -1,0 +1,121 @@
+{
+  "native_base": "414763cb524b3df2fd2099059d85615ced9f1cfc",
+  "PWA_publication": "b3d74d918824a75633cb01607e3fbb19ec501284",
+  "design_source": "229f740ae5e2c46744764c45d1dee92ca0fd5b53",
+  "design_path": "docs/mesh/evidence/accountant-native-controlled-conversation-contracts-20261123/next-component-design.md",
+  "design_sha256": "4f42a6820e587f765658747572ab63e2cec41be729ac7b30cb13ca48c772782c",
+  "accepted_dependency_handoff": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.13.native-handoff.json",
+  "accepted_dependency_handoff_sha256": "150db9af3f785e661ea3d1b7ac5e45a0ecc605e4ff7ccf43fa5c9abd4fce8803",
+  "accepted_dependency": {
+    "schema_version": 1,
+    "status": "root_accepted_local_synthetic_dependency",
+    "root_owns_acceptance_and_native_handoff": true,
+    "source_commit": "c33077a153fc0ae16218a7dbb8e008110c979d0a",
+    "engine_sha256": "576e057d0b59053a254a5a766509526824e14640081fdb31ba58b1b03517a625",
+    "additive_method_sha256": "a8e41fb78d7d67516af96632e43729e898380ef3694d90590f815d6227b38cfe",
+    "api_sha256": "d066c944b5ed7f78c26efd25f4d2c4152745afeb0441512b7fef14456e5a4e5a",
+    "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/hermes_content_policy-0.2.0-py3-none-any.whl",
+    "wheel_sha256": "b6dd72e900cea284b16f0aee0cb706824ce7e495176fb826c96fb508bfea5e6a",
+    "artifact_receipt_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/artifact-receipt.json",
+    "artifact_receipt_sha256": "36d766a205e9ef1ca25f8757b49d170b2d656096f15576a078e6efeda3685e5b",
+    "install_arguments": [
+      "uv",
+      "pip",
+      "install",
+      "--offline",
+      "--no-index",
+      "--no-deps",
+      "--python",
+      "<task-owned-environment>/bin/python",
+      "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/hermes_content_policy-0.2.0-py3-none-any.whl"
+    ],
+    "interpreter_checks": [
+      {
+        "python_version": "3.11.15",
+        "installed_distributions": [
+          [
+            "hermes-content-policy",
+            "0.2.0"
+          ]
+        ],
+        "wall_seconds": 0.299,
+        "smoke": {
+          "version": "0.2.0",
+          "api": "passed",
+          "pwa_identities": 16,
+          "representative_derivation_and_dispatch": "passed",
+          "profile_removal": "passed",
+          "ordinary_derive_refusal": "passed",
+          "dependency_scope": "stdlib only"
+        }
+      },
+      {
+        "python_version": "3.12.3",
+        "installed_distributions": [
+          [
+            "hermes-content-policy",
+            "0.2.0"
+          ]
+        ],
+        "wall_seconds": 0.262,
+        "smoke": {
+          "version": "0.2.0",
+          "api": "passed",
+          "pwa_identities": 16,
+          "representative_derivation_and_dispatch": "passed",
+          "profile_removal": "passed",
+          "ordinary_derive_refusal": "passed",
+          "dependency_scope": "stdlib only"
+        }
+      },
+      {
+        "python_version": "3.13.3",
+        "installed_distributions": [
+          [
+            "hermes-content-policy",
+            "0.2.0"
+          ]
+        ],
+        "wall_seconds": 0.312,
+        "smoke": {
+          "version": "0.2.0",
+          "api": "passed",
+          "pwa_identities": 16,
+          "representative_derivation_and_dispatch": "passed",
+          "profile_removal": "passed",
+          "ordinary_derive_refusal": "passed",
+          "dependency_scope": "stdlib only"
+        }
+      }
+    ],
+    "limits": {
+      "parents": 32,
+      "retained_handles_and_envelopes": 128,
+      "retained_bytes": 8388608,
+      "payload_bytes": 1048576,
+      "hops": 128
+    },
+    "runtime_dependencies": [],
+    "scope": "Local synthetic retained derivation. No serialized or durable authority, native consumer implementation, live transport qualification, public release, deployment, or activation.",
+    "old_wheel_sha256": "c10b082397cc05e9cdaf5c1991b82c0834af3d78729eb0c91b53aaae96b7c2bc",
+    "old_wheel_and_protected_receipts_unchanged": true,
+    "PWA_publication": "b3d74d918824a75633cb01607e3fbb19ec501284",
+    "candidate": "f74ba6f552079e79316345001ab8c3769f82f0b1",
+    "root_review": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.13.final-review.json",
+    "root_review_sha256": "afa732cb10b8de521b87efd75d4394d064f685a9c6738eb3af5e40839d9591ea",
+    "root_publication_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.13.publication-receipt.json",
+    "root_publication_sha256": "8d1c3aadce177e85664e724ae5d24c89dd4396a09dd993b9986e14581784f2fd",
+    "worker_handoff_sha256": "686432f10d33a331a247f783d0718124687827381161506c1392f5c02fe74373",
+    "native_base": "414763cb524b3df2fd2099059d85615ced9f1cfc",
+    "native_use": "Exact local task-owned no-index/no-deps install. Selected native implementation task supplies its own bounded authorization. No serialized trust, real-provider/private/production qualification."
+  },
+  "native_implementation_decision": "Approved exact P10.12 native APIs/paths with task clarifications. No routine design permission pause.",
+  "clarifications": [
+    "Only originally captured operator routes/profiles/transports, no dynamic fabricated coverage.",
+    "Preserve main-only behavior and original main holder/model/producer/capability; scope title facts separately.",
+    "Require main-title-main-title lineage and explicit parent capabilities, including return to main.",
+    "Any no-model semantic abstention needs honest complete local output proof or unsupported-source refusal, never fake response/ordinary fallback."
+  ],
+  "spec_sha256": "7a1f0f1746e699b6316ffb317410f931e35d2b1afe73395951d5396ce837a9f1",
+  "spec_path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.14.spec.md"
+}
