@@ -1,0 +1,9 @@
+{
+  "message_id": "msg_074da19a24d6",
+  "pytest_pid": 2562800,
+  "started_utc": "2026-11-23T09:16:06Z",
+  "ceiling_seconds": 900,
+  "deadline_utc": "2026-11-23T09:31:06Z",
+  "action_if_incomplete": "SIGINT only the owned historical pytest process. Preserve its partial result without a pass claim.",
+  "automatic_rerun": false
+}

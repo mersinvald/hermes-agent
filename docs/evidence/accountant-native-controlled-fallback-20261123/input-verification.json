@@ -1,0 +1,133 @@
+{
+  "checks": {
+    "hpwa-p10.20.native-handoff.json": true,
+    "hpwa-p10.20.publication-receipt.json": true,
+    "hpwa-p10.20.final-review.json": true,
+    "hpwa-p10.19.final-review.json": true,
+    "hpwa-p10.19.publication-receipt.json": true,
+    "hpwa-p10.18.publication-receipt.json": true,
+    "spec": true,
+    "agent/native_main_payload.py": true,
+    "agent/chat_completion_helpers.py": true,
+    "agent/conversation_loop.py": true,
+    "run_agent.py": true,
+    "agent/content_policy.py": true,
+    "agent/context_compressor.py": true,
+    "tests/agent/test_native_controlled_conversation.py": true,
+    "tests/agent/test_content_policy_auxiliary.py": true,
+    "next-component-design.md": true,
+    "source-map.md": true,
+    "wheel": true,
+    "api": true,
+    "artifact_receipt": true,
+    "tree": true
+  },
+  "inputs": {
+    "issue": "hpwa-p10.21",
+    "spec": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.21.spec.md",
+    "spec_sha256": "7da2d1712825b7bc7d503856f09e531957519e5b481feac860ead597df05474c",
+    "native_base": "a905202143476bdf2d0ed7d0a7115e373e8121d9",
+    "native_tree": "f97bb03862dc41ea469014a347253b1dddefb51d",
+    "native_repository": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18",
+    "accepted_shared_publication": "9d97078083e213f1df8143aec0ab9137792567d3",
+    "shared_repository": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.20",
+    "selected_design_path": "docs/mesh/evidence/accountant-native-retained-compression-contracts-20261123/next-component-design.md",
+    "selected_design_sha256": "980e5082f66394aaf67b8420ebfcf410ca7e6028bc8ff011d5231ce59d74e006",
+    "root_receipts": {
+      "hpwa-p10.20.native-handoff.json": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.20.native-handoff.json",
+        "sha256": "39857ae27e686211f6ede02af20c0afa80af3820447d93c8908b43e805b9f09b"
+      },
+      "hpwa-p10.20.publication-receipt.json": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.20.publication-receipt.json",
+        "sha256": "12d2c810b076380627acf13b930dbe708ed3b4f2297e901e058bc69fa394be31"
+      },
+      "hpwa-p10.20.final-review.json": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.20.final-review.json",
+        "sha256": "296492cf298cf3d5b2bf1ec103f90a2f1e141cec10c37f636cf0d27c73a99463"
+      },
+      "hpwa-p10.19.final-review.json": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.19.final-review.json",
+        "sha256": "eaf29aa37c86ad08a4f516cdd48976e8b13bf988990156cdfb37c88c40e46d55"
+      },
+      "hpwa-p10.19.publication-receipt.json": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.19.publication-receipt.json",
+        "sha256": "f4e710bdb2e7130219be6b13e4762d7a0475d4f46dd4d471bbe6efcbceef619d"
+      },
+      "hpwa-p10.18.publication-receipt.json": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.18.publication-receipt.json",
+        "sha256": "2e6cb7bac11da0a75733b4dbf97d71ec2376f7a743aa3d7af6e5f059b1e548dc"
+      }
+    },
+    "native_base_blobs": {
+      "agent/native_main_payload.py": {
+        "sha256": "5d83125e42a69651a2824eb7796a409b1d168ba3b5effe246f71fffd2842df25",
+        "object": "0b33f9b462e2b332b0bb7cca24ba03b823148018"
+      },
+      "agent/chat_completion_helpers.py": {
+        "sha256": "14a0c1244d3e05331560a6d7aa162c41d9e304409af14d7488fdcc2bf3d87b56",
+        "object": "85f44ee7a7b91ede70347ed7bcefb3b1d280915d"
+      },
+      "agent/conversation_loop.py": {
+        "sha256": "e05bcb5a7cd37daaab4e7e6c87326cd9b6264357fbf80161069ae6ce03cb9e68",
+        "object": "963e2036929b00846a2db0ebea817d8b61fab8b5"
+      },
+      "run_agent.py": {
+        "sha256": "19bdd3f891b9b850f7c85fbda10a48027245192b4888f5dba9e6dbc553370687",
+        "object": "b42186d85c5afaf0402178afffc18da7b0312167"
+      },
+      "agent/content_policy.py": {
+        "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+        "object": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a"
+      },
+      "agent/context_compressor.py": {
+        "sha256": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968",
+        "object": "520ff99b0f345508b19e3c10e0ad989a1f8194f2"
+      },
+      "tests/agent/test_native_controlled_conversation.py": {
+        "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+        "object": "686aeb4f234d9522ab096e12b870fa4798ff1c6a"
+      },
+      "tests/agent/test_content_policy_auxiliary.py": {
+        "sha256": "3f5d5f2ad09c59366654c37b95cdedc0ea3561621d8ab95eafacc1cc5b43af2a",
+        "object": "8b7f70528fa7bdbe5ac95978aaba97ff0e44568c"
+      }
+    },
+    "artifact_handoff": {
+      "status": "accepted_for_separately_scoped_native_consumer",
+      "distribution": "hermes-content-policy",
+      "version": "0.3.0",
+      "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.20/hermes_content_policy-0.3.0-py3-none-any.whl",
+      "wheel_sha256": "d2a98ca9dbf09c78726c1bc75d5097752bb281ab4e922b3ea83062cc8bfddb0c",
+      "engine_sha256": "d9c7608d00f9f83c87cf0fa6eb12f6a70453faebf17ef63838d2d297ad2ebace",
+      "api_path": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.20/docs/mesh/evidence/accountant-shared-failed-dispatch-20261123/api.json",
+      "api_sha256": "db73a486c43ba96c545a227a01b95ba146a2d8c68168782468f597c0e9b2fcf4",
+      "artifact_receipt_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.20/artifact-receipt.json",
+      "artifact_receipt_sha256": "2ea2a22e6883b99efc531be360a7e02b2b97ac93761d30069f90254a67c1d781",
+      "source": "171fafba0a637d97cb2972bc57ceb2aa21eb744a",
+      "candidate": "1bfb31b48a3d84168233efe8895583c5dda0c272",
+      "publication": "9d97078083e213f1df8143aec0ab9137792567d3",
+      "publication_tree": "06b066df13f66356971f8b54fec85f71aff6f0ae",
+      "evidence_tree": "3a3d35861f226fc752f9e2273cbafc5d1102fe9a",
+      "final_review_path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.20.final-review.json",
+      "final_review_sha256": "296492cf298cf3d5b2bf1ec103f90a2f1e141cec10c37f636cf0d27c73a99463",
+      "publication_receipt_path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.20.publication-receipt.json",
+      "publication_receipt_sha256": "12d2c810b076380627acf13b930dbe708ed3b4f2297e901e058bc69fa394be31",
+      "delivery": "Exact task-owned --offline --no-index --no-deps install. No native manifest/index/deployment authority.",
+      "preserved_previous_artifacts": [
+        "0.1.0",
+        "0.2.0"
+      ],
+      "qualification": "Synthetic in-process shared API only. Full P10 and real/private/egress/durable/financial/production gates remain open."
+    },
+    "scope": "One terminal synthetic native fallback; exact task clarifications govern. No native manifest, real provider, deployment or activation."
+  },
+  "protected_metadata": {
+    "package-lock.json": {
+      "inode": 78762708,
+      "size": 721545,
+      "mtime_ns": 1795423747957424711,
+      "mode": 33204
+    }
+  }
+}

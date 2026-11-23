@@ -1,0 +1,30 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "1800",
+    "-j",
+    "4",
+    "tests/run_agent/test_provider_fallback.py",
+    "tests/agent/test_native_controlled_conversation.py",
+    "-k",
+    "test_exhausted_returns_false or test_advances_index or real_constructor_first_and_repeated_entrypoints or retained_title_empty_snippet_completes_local_without_send or test_compression_complete_retained_first_summary",
+    "--",
+    "--durations=10",
+    "--tb=short"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 29.225,
+  "source_sha256": {
+    "agent/native_main_payload.py": "6c8b81ca9b8a7f2efd609aa9414036dedfa943adf6fb70b8ede8a8c39beebc38",
+    "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+    "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+    "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+    "tests/agent/test_native_controlled_fallback.py": "1036a48d59bd3c65f0c53071d9f5425ece2ea4043e0d00490db51a9906930317"
+  },
+  "source_unchanged": true,
+  "file_retries": 0,
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+}

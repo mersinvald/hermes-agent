@@ -1,0 +1,7 @@
+{
+  "version": "0.3.0",
+  "engine_sha256": "d9c7608d00f9f83c87cf0fa6eb12f6a70453faebf17ef63838d2d297ad2ebace",
+  "module_path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "dispatch_attempt": "(self, request_handle: 'object', content: 'ContentHandle', *, path: \"Literal['main']\", route_ref: 'str') -> 'ContentHandle | FailedDispatch'",
+  "failure_facts": "(self, request_handle: 'object', failure: 'FailedDispatch') -> 'DispatchFailureFacts'"
+}

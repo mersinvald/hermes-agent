@@ -1,0 +1,13 @@
+{
+  "message_id": "msg_7980c8b1fae5",
+  "decision": "Preserve the accepted constructor. Explicit max_tokens=None. Actual request stream=False with absent temperature. Preserve original present/value schema.",
+  "proposed_constructor_keywords": [
+    "max_tokens",
+    "temperature",
+    "stream"
+  ],
+  "supported_constructor_keywords": [
+    "max_tokens"
+  ],
+  "excluded_paths_changed": false
+}

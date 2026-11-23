@@ -1,0 +1,46 @@
+{
+  "push": {
+    "action": "standard_nonforce_push",
+    "exit_code": 0,
+    "wall_seconds": 4.009,
+    "repository": "mersinvald/hermes-agent",
+    "branch": "mersinvald/hpwa-p10.21",
+    "head": "9890aa3d248780a42dda19a723e9dbb38ea962fa",
+    "process_scoped_existing_gh_helper": true,
+    "saved_configuration_changed": false,
+    "upstreams_changed": false
+  },
+  "pr": {
+    "url": "https://github.com/mersinvald/hermes-agent/pull/10",
+    "is_draft": true,
+    "base": "mkl",
+    "head_branch": "mersinvald/hpwa-p10.21",
+    "created_head": "9890aa3d248780a42dda19a723e9dbb38ea962fa",
+    "wall_seconds": 2.61,
+    "merge_requested": false
+  },
+  "pr_status": {
+    "baseRefName": "mkl",
+    "headRefName": "mersinvald/hpwa-p10.21",
+    "headRefOid": "9890aa3d248780a42dda19a723e9dbb38ea962fa",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/mersinvald/hermes-agent/pull/10"
+  },
+  "check_runs": {
+    "checks": [],
+    "total_count": 0
+  },
+  "commit_statuses": {
+    "state": "pending",
+    "statuses": [],
+    "total_count": 0
+  },
+  "source_commit": "9982e597b8ec93febc17993783e5fa72086994dc",
+  "evidence_commit": "9890aa3d248780a42dda19a723e9dbb38ea962fa",
+  "receipt_scope": "PR creation at the evidence commit. The final receipt-only commit head is reported by worker completion.",
+  "CI_success_claim": false,
+  "merge_performed": false,
+  "normal_hooks": true
+}

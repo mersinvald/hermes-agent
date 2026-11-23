@@ -1,0 +1,16 @@
+{
+  "agent/chat_completion_helpers.py:only_selected_function": true,
+  "ordinary_fallback_body_byte_identical": true,
+  "controlled_caller_byte_identical": true,
+  "run_agent.py:only_selected_function": true,
+  "native_constructor_byte_identical": true,
+  "agent/conversation_loop.py:only_selected_function": true,
+  "existing_record_fields_unchanged": true,
+  "tracked_allowlist": true,
+  "agent/content_policy.py:preserved": true,
+  "agent/context_compressor.py:preserved": true,
+  "tests/agent/test_native_controlled_conversation.py:preserved": true,
+  "tests/agent/test_content_policy_auxiliary.py:preserved": true,
+  "package-lock.json:metadata_preserved": true,
+  "wheel_preserved": true
+}

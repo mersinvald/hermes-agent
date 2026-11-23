@@ -1,0 +1,97 @@
+{
+  "records": {
+    "_FallbackBinding": [
+      "handle",
+      "port",
+      "producer_ref",
+      "route",
+      "holder",
+      "selected",
+      "producer",
+      "original_profiles"
+    ],
+    "_FailedSendObservation": [
+      "operation",
+      "envelope",
+      "observed_destination",
+      "exception_type",
+      "send_count_before",
+      "send_count_after"
+    ],
+    "NativeFailedMainAttempt": [
+      "turn_frame",
+      "request_handle",
+      "source",
+      "selection",
+      "producer_policy",
+      "source_bytes",
+      "parents",
+      "parent_requests",
+      "request",
+      "request_bytes",
+      "request_content",
+      "send_observation",
+      "shared_failure",
+      "failure_facts",
+      "failure_content"
+    ],
+    "_FallbackFrame": [
+      "token",
+      "failed_main",
+      "binding",
+      "parents",
+      "parent_requests",
+      "source_content",
+      "input_stages",
+      "stage_contents",
+      "request",
+      "request_bytes",
+      "request_anchors",
+      "activated",
+      "invocation",
+      "result",
+      "result_bytes",
+      "result_content",
+      "result_anchors"
+    ],
+    "NativeFallbackInvocation": [
+      "failed_main",
+      "request_handle",
+      "source",
+      "selection",
+      "producer_policy",
+      "parents",
+      "parent_requests",
+      "input_stages",
+      "stage_contents",
+      "request",
+      "request_bytes",
+      "request_content",
+      "envelope",
+      "observed_destination",
+      "response_bytes",
+      "result_content",
+      "native_response",
+      "output_stages",
+      "output_contents",
+      "output",
+      "output_bytes",
+      "output_content"
+    ]
+  },
+  "tokens": [
+    "NativeFallbackInput"
+  ],
+  "methods": {
+    "bind_fallback": "self, agent: object, *, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str",
+    "_begin_fallback": "self, agent: object, *, failure: FailedDispatch",
+    "_activate_fallback": "self, agent: object, token: NativeFallbackInput",
+    "_dispatch_fallback": "self, agent: object, token: NativeFallbackInput",
+    "_complete_fallback_turn": "self, agent: object, *, turn_context: TurnContext, response: NativeMainResponse"
+  },
+  "properties": {
+    "failed_main_attempts": "tuple[NativeFailedMainAttempt, ...]",
+    "fallback_invocations": "tuple[NativeFallbackInvocation, ...]",
+    "fallback_send_count": "int"
+  }
+}

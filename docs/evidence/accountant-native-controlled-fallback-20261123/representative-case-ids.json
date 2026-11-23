@@ -1,0 +1,15 @@
+{
+  "receipt": "final-representatives.json",
+  "ids": [
+    "tests/run_agent/test_provider_fallback.py::TestFallbackChainAdvancement::test_exhausted_returns_false",
+    "tests/run_agent/test_provider_fallback.py::TestFallbackChainAdvancement::test_advances_index",
+    "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]",
+    "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]",
+    "tests/agent/test_native_controlled_conversation.py::test_retained_title_empty_snippet_completes_local_without_send",
+    "tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary"
+  ],
+  "passed": 6,
+  "runner_seconds": 28.9,
+  "wall_seconds": 29.225,
+  "identification": "Unchanged definitions and their exact parameter IDs selected by the recorded command."
+}

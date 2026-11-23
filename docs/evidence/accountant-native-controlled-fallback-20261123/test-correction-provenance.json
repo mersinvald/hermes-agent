@@ -1,0 +1,39 @@
+{
+  "unchanged_original_definitions": {
+    "native_case_timing": true,
+    "FallbackWorld": true,
+    "HistoryFallbackWorld": true,
+    "bind_fallback": true,
+    "fallback_world": true,
+    "fail_main": true,
+    "fixed_turn": true,
+    "fallback_excluded": true,
+    "test_fallback_fixed_terminal_proof": true,
+    "counts": true,
+    "denied": true,
+    "test_bound_main_success_stays_main_and_reason_is_not_proof": true,
+    "test_unbound_failure_keeps_terminal_dispatch": true,
+    "test_external_activation_refuses_before_ordinary_effects": true,
+    "test_shared_failure_requires_native_observation_and_original_token": true,
+    "test_ineligible_error_is_terminal_and_controls_keep_identity": true,
+    "test_current_fallback_facts_drift_after_failed_send_refuses": true,
+    "test_fallback_failure_retains_available_proof": true,
+    "test_owned_activation_rejects_nested_changes_and_reentry": true,
+    "test_final_cancellation_retains_complete_result_proof": true,
+    "test_prior_success_ancestry_profile_removal_and_terminal_reuse": true,
+    "test_wrong_thread_refuses_before_transform": true,
+    "test_full_historical_prefix_keeps_bounds_and_original_parents": true
+  },
+  "changed_existing_definitions": [
+    "test_unqualified_siblings_refuse_after_profile_removal"
+  ],
+  "added_definitions": [
+    "TitleFallbackWorld",
+    "test_fallback_older_title_source_keeps_actual_operation_order"
+  ],
+  "root_chronology_decision": "msg_9757aaff6aea",
+  "root_setup_decision": "msg_1f8034d4c3ec",
+  "current_runtime": "frozen-source.json",
+  "earlier_runtime": "frozen-source.before-chronology.json",
+  "earlier_scopes_not_current_green_runs": true
+}

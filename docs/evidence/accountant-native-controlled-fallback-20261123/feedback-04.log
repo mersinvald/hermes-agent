@@ -1,0 +1,104 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~1 tests) under ['tests/agent/test_native_controlled_fallback.py']; running with -j 4
+[100.0% |     1/~1 | ✓0 | ✗2] ✗ tests/agent/test_native_controlled_fallback.py (2✗, 7.2s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_fallback.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║             ^^^^^^^^^^^^^^^^
+  ║ tests/agent/test_native_controlled_fallback.py:99: in fallback_world
+  ║     world = construct(FallbackWorld().bind(), max_tokens=None, temperature=None, stream=False)
+  ║             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ tests/agent/test_native_controlled_conversation.py:64: in construct
+  ║     world.agent = AIAgent(**options)
+  ║                   ^^^^^^^^^^^^^^^^^^
+  ║ E   TypeError: AIAgent.__init__() got an unexpected keyword argument 'temperature'
+  ║ _______________ test_fallback_fixed_terminal_proof[TimeoutError] _______________
+  ║ tests/agent/test_native_controlled_fallback.py:144: in test_fallback_fixed_terminal_proof
+  ║     world = fallback_world()
+  ║             ^^^^^^^^^^^^^^^^
+  ║ tests/agent/test_native_controlled_fallback.py:99: in fallback_world
+  ║     world = construct(FallbackWorld().bind(), max_tokens=None, temperature=None, stream=False)
+  ║             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ tests/agent/test_native_controlled_conversation.py:64: in construct
+  ║     world.agent = AIAgent(**options)
+  ║                   ^^^^^^^^^^^^^^^^^^
+  ║ E   TypeError: AIAgent.__init__() got an unexpected keyword argument 'temperature'
+  ║ ============================= slowest 10 durations =============================
+  ║ 2.85s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+  ║ 2.80s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+  ║ 0.68s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+  ║ 0.01s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+  ║ 
+  ║ (2 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+  ║ FAILED tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+  ║ ============================== 2 failed in 6.86s ===============================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_fallback.py -k test_fallback_fixed_terminal_proof --durations=10 --tb=short
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 2 failed (100% complete) in 7.2s (4 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 7.2s  (runner wall: 7.2s, parallelism: 4x)
+  P50: 7.20s  P90: 7.20s  P95: 7.20s  P99: 7.20s  Max: 7.20s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      7.20s  tests/agent/test_native_controlled_fallback.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_fallback.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 2 items
+
+tests/agent/test_native_controlled_fallback.py FF                        [100%]
+
+=================================== FAILURES ===================================
+_____________ test_fallback_fixed_terminal_proof[ConnectionError] ______________
+tests/agent/test_native_controlled_fallback.py:144: in test_fallback_fixed_terminal_proof
+    world = fallback_world()
+            ^^^^^^^^^^^^^^^^
+tests/agent/test_native_controlled_fallback.py:99: in fallback_world
+    world = construct(FallbackWorld().bind(), max_tokens=None, temperature=None, stream=False)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_controlled_conversation.py:64: in construct
+    world.agent = AIAgent(**options)
+                  ^^^^^^^^^^^^^^^^^^
+E   TypeError: AIAgent.__init__() got an unexpected keyword argument 'temperature'
+_______________ test_fallback_fixed_terminal_proof[TimeoutError] _______________
+tests/agent/test_native_controlled_fallback.py:144: in test_fallback_fixed_terminal_proof
+    world = fallback_world()
+            ^^^^^^^^^^^^^^^^
+tests/agent/test_native_controlled_fallback.py:99: in fallback_world
+    world = construct(FallbackWorld().bind(), max_tokens=None, temperature=None, stream=False)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/agent/test_native_controlled_conversation.py:64: in construct
+    world.agent = AIAgent(**options)
+                  ^^^^^^^^^^^^^^^^^^
+E   TypeError: AIAgent.__init__() got an unexpected keyword argument 'temperature'
+============================= slowest 10 durations =============================
+2.85s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+2.80s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+0.68s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+0.01s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+FAILED tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+============================== 2 failed in 6.86s ===============================
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_native_controlled_fallback.py  (2 tests failed)

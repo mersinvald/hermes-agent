@@ -1,0 +1,28 @@
+{
+  "archived_scope_command": [
+    "git",
+    "diff",
+    "--check",
+    "9982e597b8ec93febc17993783e5fa72086994dc",
+    "9890aa3d248780a42dda19a723e9dbb38ea962fa"
+  ],
+  "archived_scope_exit_code": 2,
+  "reason": "Exact unified patch context lines retain their single-space marker. Preserve those artifact bytes.",
+  "active_scope_command": [
+    "git",
+    "diff",
+    "--check",
+    "a905202143476bdf2d0ed7d0a7115e373e8121d9",
+    "HEAD",
+    "--",
+    "agent/native_main_payload.py",
+    "agent/chat_completion_helpers.py",
+    "agent/conversation_loop.py",
+    "run_agent.py",
+    "tests/agent/test_native_controlled_fallback.py",
+    ":(glob)docs/evidence/accountant-native-controlled-fallback-20261123/*.md",
+    ":(glob)docs/evidence/accountant-native-controlled-fallback-20261123/*.py"
+  ],
+  "active_scope_exit_code": 0,
+  "configuration_changed": false
+}

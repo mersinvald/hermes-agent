@@ -1,0 +1,10 @@
+{
+  "repository": "mersinvald/hermes-agent-pwa",
+  "revision": "9d97078083e213f1df8143aec0ab9137792567d3",
+  "path": "docs/mesh/accountant-implementation-plan.md",
+  "blob_sha256": "0c451b3e64bbad29541b48ec046966b9fad6887042df64dafd64a3559bf72a02",
+  "section_start_line": 1239,
+  "section_end_line": 1254,
+  "section": "### P10 — Общая policy для destination и sensitive content\n\n**Зависимости:** P00, P01. **Владелец:** D + gateway/infra.\n\nСогласовать общий content/destination policy contract для native requests,\ndelegation и tool results. Проверка действует до первого sensitive model call\nи охватывает main, fallback, title, compression, memory, delegate/A2A paths.\nFinance profile задаёт разрешённые локальные назначения конфигурацией.\n\nПереиспользовать существующие policy/hooks; расширять только подтверждённые gaps.\nЕсли native path нельзя ограничить, он не получает финансовый payload. Проверить,\nчто выбранная UI-модель и фактический downstream destination не расходятся.\n\n**Готово когда:** controlled negative tests и egress evidence показывают отсутствие\nутечки на запрещённый backend при failover и делегации. Контракт работает также\nдля synthetic specialist без финансовой логики.\n",
+  "section_sha256": "94b756d25c8ff820e24011537ebfc1bd3ef40598cd7b33fe2fc15f6cd1b0397f"
+}

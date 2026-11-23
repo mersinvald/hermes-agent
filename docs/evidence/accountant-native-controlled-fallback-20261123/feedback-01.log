@@ -1,0 +1,86 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~1 tests) under ['tests/agent/test_native_controlled_fallback.py']; running with -j 4
+[100.0% |     1/~1 | ✓0 | ✗0] ✗ tests/agent/test_native_controlled_fallback.py (2e, 2.3s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_fallback.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ ============================= test session starts ==============================
+  ║ platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+  ║ rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21
+  ║ configfile: pyproject.toml
+  ║ plugins: asyncio-1.3.0, anyio-4.12.1
+  ║ asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+  ║ collected 2 items
+  ║ 
+  ║ tests/agent/test_native_controlled_fallback.py EE                        [100%]
+  ║ 
+  ║ ==================================== ERRORS ====================================
+  ║ ____ ERROR at setup of test_fallback_fixed_terminal_proof[ConnectionError] _____
+  ║ tests/agent/test_native_controlled_fallback.py:132: in fallback_excluded
+  ║     monkeypatch.setattr(module, name, compression_excluded)
+  ║ E   AttributeError: <module 'agent.chat_completion_helpers' from '/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/agent/chat_completion_helpers.py'> has no attribute 'resolve_provider_client'
+  ║ ______ ERROR at setup of test_fallback_fixed_terminal_proof[TimeoutError] ______
+  ║ tests/agent/test_native_controlled_fallback.py:132: in fallback_excluded
+  ║     monkeypatch.setattr(module, name, compression_excluded)
+  ║ E   AttributeError: <module 'agent.chat_completion_helpers' from '/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/agent/chat_completion_helpers.py'> has no attribute 'resolve_provider_client'
+  ║ ============================= slowest 10 durations =============================
+  ║ 0.73s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+  ║ 0.01s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+  ║ 
+  ║ (2 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ ERROR tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+  ║ ERROR tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+  ║ ============================== 2 errors in 1.80s ===============================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_fallback.py -k test_fallback_fixed_terminal_proof --durations=10 --tb=short
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 0 failed (100% complete) in 2.3s (4 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 2.3s  (runner wall: 2.3s, parallelism: 4x)
+  P50: 2.31s  P90: 2.31s  P95: 2.31s  P99: 2.31s  Max: 2.31s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      2.31s  tests/agent/test_native_controlled_fallback.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_fallback.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 2 items
+
+tests/agent/test_native_controlled_fallback.py EE                        [100%]
+
+==================================== ERRORS ====================================
+____ ERROR at setup of test_fallback_fixed_terminal_proof[ConnectionError] _____
+tests/agent/test_native_controlled_fallback.py:132: in fallback_excluded
+    monkeypatch.setattr(module, name, compression_excluded)
+E   AttributeError: <module 'agent.chat_completion_helpers' from '/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/agent/chat_completion_helpers.py'> has no attribute 'resolve_provider_client'
+______ ERROR at setup of test_fallback_fixed_terminal_proof[TimeoutError] ______
+tests/agent/test_native_controlled_fallback.py:132: in fallback_excluded
+    monkeypatch.setattr(module, name, compression_excluded)
+E   AttributeError: <module 'agent.chat_completion_helpers' from '/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/agent/chat_completion_helpers.py'> has no attribute 'resolve_provider_client'
+============================= slowest 10 durations =============================
+0.73s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+0.01s setup    tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+ERROR tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+ERROR tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+============================== 2 errors in 1.80s ===============================
+
+=== 1 file where no tests ran (collection/import error, timeout before collection, etc.) ===
+  tests/agent/test_native_controlled_fallback.py
