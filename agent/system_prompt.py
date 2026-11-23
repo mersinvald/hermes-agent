@@ -432,6 +432,27 @@ def _profile_name_for_home(home: Path) -> str:
         return "default"
 
 
+def _append_builtin_memory_parts(agent: Any, volatile_parts: List[str]) -> None:
+    """Append the authorized built-in memory blocks at their native slot."""
+    from agent.native_main_payload import _memory_prompt_access
+    source = _memory_prompt_access(agent, "append")
+    if source is not None:
+        if source.block:
+            volatile_parts.append(source.block)
+        return
+    if agent._memory_store:
+        if agent._memory_enabled:
+            mem_block = agent._memory_store.format_for_system_prompt("memory")
+            if mem_block:
+                volatile_parts.append(mem_block)
+        # USER.md is always included when enabled.
+        if agent._user_profile_enabled:
+            user_block = agent._memory_store.format_for_system_prompt("user")
+            if user_block:
+                volatile_parts.append(user_block)
+
+
+
 def build_system_prompt_parts(agent: Any, system_message: Optional[str] = None) -> Dict[str, str]:
     """Assemble the system prompt as three ordered cache tiers.
 
@@ -450,6 +471,13 @@ def build_system_prompt_parts(agent: Any, system_message: Optional[str] = None) 
     session — that's the only way to keep upstream prompt caches
     warm across turns.
     """
+    from agent.native_main_payload import _memory_prompt_access
+    source = _memory_prompt_access(agent, "parts", system_message)
+    if source is not None:
+        volatile_parts: List[str] = []
+        _append_builtin_memory_parts(agent, volatile_parts)
+        return {"stable": system_message, "context": "", "volatile": "\n\n".join(volatile_parts)}
+
     # Local import to avoid pulling model_tools at module load.  Tests
     # patch ``run_agent.get_toolset_for_tool`` and similar helpers, so
     # we resolve through ``_ra()`` to honor those patches.
@@ -925,16 +953,7 @@ def build_system_prompt_parts(agent: Any, system_message: Optional[str] = None) 
     if skills_prompt:
         volatile_parts.append(skills_prompt)
 
-    if agent._memory_store:
-        if agent._memory_enabled:
-            mem_block = agent._memory_store.format_for_system_prompt("memory")
-            if mem_block:
-                volatile_parts.append(mem_block)
-        # USER.md is always included when enabled.
-        if agent._user_profile_enabled:
-            user_block = agent._memory_store.format_for_system_prompt("user")
-            if user_block:
-                volatile_parts.append(user_block)
+    _append_builtin_memory_parts(agent, volatile_parts)
 
     # External memory provider system prompt block (additive to built-in).
     # Gated on the same check ``inject_memory_provider_tools`` uses so we
@@ -1050,9 +1069,15 @@ def build_system_prompt(agent: Any, system_message: Optional[str] = None) -> str
     rebuilt (on compaction/restore) the unchanged stable scaffold ahead of
     the change stays in the reused prefix.
     """
+    from agent.native_main_payload import _memory_prompt_access
+    source = _memory_prompt_access(agent, "build", system_message)
     parts = build_system_prompt_parts(agent, system_message=system_message)
     joined = "\n\n".join(p for p in (parts["stable"], parts["context"], parts["volatile"]) if p)
     agent._cached_system_prompt_static = parts["stable"]
+
+    if source is not None:
+        _memory_prompt_access(agent, "joined", system_message)
+        return joined
 
     # Surface context-file truncation warnings through the normal agent status
     # channel so gateway/CLI users see them in chat instead of only in logs.
@@ -1075,6 +1100,8 @@ def invalidate_system_prompt(agent: Any) -> None:
     RAISES falls back to its last good section instead of vanishing
     (fail-open guard, not a freeze).
     """
+    from agent.native_main_payload import _memory_prompt_access
+    _memory_prompt_access(agent, "invalidate")
     agent._cached_system_prompt = None
     agent._cached_system_prompt_static = None
     _snapshot_attr = "_plugin_system_prompt_sections_snapshot"

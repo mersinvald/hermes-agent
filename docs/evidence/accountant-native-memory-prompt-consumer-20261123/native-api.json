@@ -1,0 +1,17 @@
+{
+  "bind_memory_prompt_consumer": "def bind_memory_prompt_consumer(source_adapter: NativeMainPayloadAdapter, source: NativeMemorySnapshotResult, *, consumer_context: NativeContentContext, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, system_message: str, session_id: str) -> NativeMemoryPromptInput",
+  "run_memory_prompt_consumer": "def run_memory_prompt_consumer(token: NativeMemoryPromptInput, *, user_message: str, task_id: str) -> dict",
+  "NativeMemoryPromptInput": {
+    "public_fields": [],
+    "direct_construction": false,
+    "slots": []
+  },
+  "constructor_exception": {
+    "name": "_memory_prompt_frame",
+    "annotation": "object",
+    "default": null,
+    "keyword_only": true,
+    "mutually_exclusive_with": "_delegation_frame",
+    "all_old_parameters_and_defaults_preserved": true
+  }
+}

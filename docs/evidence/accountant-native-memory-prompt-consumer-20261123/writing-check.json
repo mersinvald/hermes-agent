@@ -1,0 +1,31 @@
+{
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "results": [
+    {
+      "path": "agent/native_main_payload.py",
+      "baseline": "native_main_payload.py           words= 114 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1",
+      "candidate": "native_main_payload.py           words= 124 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1"
+    },
+    {
+      "path": "agent/system_prompt.py",
+      "baseline": "system_prompt.py                 words=3813 total=125 per100w=  3.28 em_dash=62 mode=python-prose-v1",
+      "candidate": "system_prompt.py                 words=3823 total=125 per100w=  3.27 em_dash=62 mode=python-prose-v1"
+    },
+    {
+      "path": "tests/tools/test_native_memory_prompt_consumer.py",
+      "candidate": "test_native_memory_prompt_consumer.py words=  10 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1"
+    },
+    {
+      "path": "docs/evidence/accountant-native-memory-prompt-consumer-20261123/README.md",
+      "candidate": "README.md                        words= 393 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1"
+    },
+    {
+      "path": "docs/evidence/accountant-native-memory-prompt-consumer-20261123/consumer-contract.md",
+      "candidate": "consumer-contract.md             words= 749 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1"
+    }
+  ],
+  "new_prose_findings": 0,
+  "new_em_dashes": 0,
+  "old_system_prompt_findings": 125,
+  "old_system_prompt_em_dashes": 62
+}

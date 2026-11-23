@@ -1,0 +1,246 @@
+[
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.30/docs/mesh/evidence/accountant-native-memory-snapshot-contracts-20261123/next-component-design.md",
+    "bytes": 19894,
+    "sha256": "96537f70cf76a7b438302795e3bea4b1954502ebae6f6ad94e7586606e9c5659"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.30/docs/mesh/evidence/accountant-native-memory-snapshot-contracts-20261123/source-map.md",
+    "bytes": 9376,
+    "sha256": "39499dcdd26dd6e095cfa3d8a97ffb4bba98dddddd866f02c34053f2d50c1691"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.30.static-verification.json",
+    "bytes": 931,
+    "sha256": "e14737f8048a2a5766ac197dd05d9e9a012da1ab40f82bc82051817162b6eb6b"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.30.final-review.json",
+    "bytes": 2357,
+    "sha256": "3ad7a1ef64a1a60f1b131ee39db13cb945d900a700de3dc50784259870ff6e14"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.30.publication-receipt.json",
+    "bytes": 809,
+    "sha256": "9371c9d8307d23f9ab2204d96bd89e682359d7777a7f35fad685c434b42cdb19"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.23.native-handoff.json",
+    "bytes": 2278,
+    "sha256": "308d0c5a2e7a0bea715a1ac2ddfebbeb32e65263ca3236bbc5b1001478adfed9"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.29.source-verification.json",
+    "bytes": 1532,
+    "sha256": "d9009eade33396cc1edfb41f43e03114455c69dbc9c5e989d8e15b2e7b5e5043"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.29.evidence-verification.json",
+    "bytes": 2507,
+    "sha256": "92af9f448b29001e22a5f59eb85ab7971d95a6dfec0f2295ff93edaaba22c3ca"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.29.evidence-format-correction.json",
+    "bytes": 1125,
+    "sha256": "8fff817f4867a0b977b2905217fe3a7d530f650c8ab134dde32fd9d288b71296"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.29.final-review.json",
+    "bytes": 2021,
+    "sha256": "e99bfaf749a214ae77c92f96514ef0226bafb3a06223647cb7e001dc8534504b"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.29.publication-receipt.json",
+    "bytes": 1265,
+    "sha256": "d7cf4f621c140092aa09d29e65061b958d10f00ca8f90273df91facd181c836a"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/agent_init.py",
+    "bytes": 162327,
+    "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/auxiliary_client.py",
+    "bytes": 510443,
+    "sha256": "df48bcbd50b39b51b1d5f3eb82531d54803f7220d7483f49121db0e28ef9e952"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/chat_completion_helpers.py",
+    "bytes": 275491,
+    "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/content_policy.py",
+    "bytes": 11094,
+    "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/conversation_loop.py",
+    "bytes": 501328,
+    "sha256": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/native_main_payload.py",
+    "bytes": 269581,
+    "sha256": "20f87da5bb0a5f0237c9b7a2080dc2335410c108490b7ce9a61109be57fc2866"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/prompt_builder.py",
+    "bytes": 119377,
+    "sha256": "1fc4b6fc166caf098aa63c8f01fc71f4d4ed496cf8dd4dcd961e2a2e7713aa80"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/system_prompt.py",
+    "bytes": 55450,
+    "sha256": "40ec9fe2e0b0f60ade85f4b2183904f400719550e4dcf37ba9918b70fc7a2f4c"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/agent/turn_context.py",
+    "bytes": 78569,
+    "sha256": "463426b6e3fcf7d183513d54bb1f989743a49f32df26362744bd99f9ba19a3a5"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/README.md",
+    "bytes": 7277,
+    "sha256": "547adcbdeb266ccd57e9a5e21bc4d740682e5b3bba87bcd492993b1097cc2572"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/SHA256SUMS",
+    "bytes": 935,
+    "sha256": "3ad69b54fe5e210e8fa60aa8813855a0c757362bc7c49fa59a46cf88f4dcac35"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/consumer-contract.md",
+    "bytes": 5842,
+    "sha256": "b695e49079f313efd77a3bdaf6bcdc40375fdf72d9bc29096c0c6c83b95059bc"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/dependency.json",
+    "bytes": 3465,
+    "sha256": "3deeb1e798db9d7840fa0bc97268dac640ff89e53e02fdb179167e3d6c52697a"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/native-api.json",
+    "bytes": 3099,
+    "sha256": "435ebdf21b72add977ad65ec2b631940b502877b3d50337f7a84b6700f7ee6c8"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/observed-bytes.json",
+    "bytes": 12268,
+    "sha256": "c374879b440f3a7f458b4886b5509203eaf2568c8fd9c4a912b8ef37220e5dff"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/runner-isolation.json",
+    "bytes": 1887,
+    "sha256": "7e483fdad4a44fe49140a0fd5be365a695a0f74dbb30ed125d487ced5dc8f61f"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/source-boundary.json",
+    "bytes": 4627,
+    "sha256": "d323dac781746bfffac3901263571b4c0126b2862d3c395853634093da09ce6a"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/source-boundary.patch",
+    "bytes": 34630,
+    "sha256": "3cd3bcd3ba4a8239519775782fdde6a16277c424c953f76b9c1eeab1ed11a1cd"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/source-freeze.json",
+    "bytes": 3914,
+    "sha256": "db4cb0fa824ad047dfeee7b6d5503c04593432d5f52337ef7a91302bf4831db2"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/validation-scopes.json",
+    "bytes": 82715,
+    "sha256": "9229bbb7cb8438f05e955fa98d349b56bb89ddb0f2671e0fbd6756d4a9c0220b"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/docs/evidence/accountant-native-memory-snapshot-20261123/writing-check.json",
+    "bytes": 3387,
+    "sha256": "440328c44def8e87b3ab8e8659b09695263ce48727772ee4a6056497991c9907"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/hermes_cli/main.py",
+    "bytes": 608500,
+    "sha256": "d635411b110d3a8b26a6298ae90b50ac4bc4b9fd83597afc6fb4b29f05ba1eb5"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/run_agent.py",
+    "bytes": 442455,
+    "sha256": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/tests/tools/test_native_memory_snapshot.py",
+    "bytes": 32367,
+    "sha256": "b9d4a977c89ed9a691679b64ae10687a110eb467db06ae13e2155049829b97b7"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.31/tools/memory_tool.py",
+    "bytes": 61966,
+    "sha256": "7fc28391681c0e3291b6176535a6d88af6aa3673341018a2e7bfed3d6b0b8eb9"
+  },
+  {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+    "bytes": 9020,
+    "sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+    "bytes": 40548,
+    "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "docs/mesh/evidence/accountant-native-parent-resumption-contracts-20261123/next-component-design.md",
+    "bytes": 16295,
+    "sha256": "d65672a0fcd0ff76b97e35f2e793e4c44ca727a1654d8cc32b459710db7aa9d5"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "docs/mesh/evidence/accountant-native-parent-resumption-contracts-20261123/source-map.md",
+    "bytes": 12511,
+    "sha256": "15e1bf2fd7d8824fdee2e614080eacc8f4a73bbafb6fd1ee48ad3fa7c433c77f"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "docs/v1-implementation-plan.md",
+    "bytes": 33712,
+    "sha256": "dd1312f3aee814ab9a9219b9cf767ca2b6d9f44c89f579ef720361c88c56e1d0"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "docs/mesh/README.md",
+    "bytes": 2236,
+    "sha256": "9c5b7b452e7f753ddb05f625130eb7c9eb492d814cf0439d0d461b0eb4e820b8"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "docs/mesh/accountant-contract-architecture.md",
+    "bytes": 355084,
+    "sha256": "07e4211e4e99aa3dde066b7b8c0e6296fa644e0d86a6db22a4921180f0c820f6"
+  },
+  {
+    "repository": "pwa",
+    "commit": "1b05162d82db17b9f6290ae5bfd0eb27323b711e",
+    "path": "docs/mesh/accountant-implementation-plan.md",
+    "bytes": 183965,
+    "sha256": "b3f1f17075a847344990691c734a74c8f6c2905c01cbf81828216d5bc3657be5"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.30/docs/mesh/evidence/accountant-native-memory-snapshot-contracts-20261123/source-pins.json",
+    "bytes": 18114,
+    "sha256": "3bb5d22c5d47e9066986d608eb599215ba5746c80dfe2baab31ddd2e7c11feac"
+  },
+  {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.30/docs/mesh/evidence/accountant-native-memory-snapshot-contracts-20261123/verification.json",
+    "bytes": 27434,
+    "sha256": "76b263d224ac2a217f823691d45108116adeac40587296cfe334b89397e7f54c"
+  }
+]
