@@ -6,6 +6,7 @@ Main and auxiliary sends remain separate, including failed sends.
 The title model cannot replace the main model or its captured selection.
 
 The first supported pair is `title` / `title_generation` with invented `synthetic_native` nonstreaming `chat_completions`.
+The consumer requires the original active policy scope on the bound thread.
 Empty snippets refuse before dispatch.
 A semantic `None` after a response requires complete output proof.
 Other consumers remain unsupported.
