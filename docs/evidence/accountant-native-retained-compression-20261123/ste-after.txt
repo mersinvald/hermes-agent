@@ -1,0 +1,7 @@
+native_main_payload.py           words=  68 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+context_compressor.py            words=26636 total=688 per100w=  2.58 em_dash=261 mode=python-prose-v1
+run_agent.py                     words=9785 total=311 per100w=  3.18 em_dash=255 mode=python-prose-v1
+conversation_compression.py      words=15155 total=496 per100w=  3.27 em_dash=147 mode=python-prose-v1
+test_native_controlled_conversation.py words=  15 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+test_content_policy_auxiliary.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+test_context_compressor.py       words=6605 total=141 per100w=  2.13 em_dash=64 mode=python-prose-v1

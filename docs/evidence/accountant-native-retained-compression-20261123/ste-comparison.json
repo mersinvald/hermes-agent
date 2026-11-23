@@ -1,0 +1,384 @@
+{
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "mode": "python-prose-v1",
+  "files": {
+    "agent/native_main_payload.py": {
+      "before": {
+        "words": 68,
+        "sentences": 7,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 11,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "after": {
+        "words": 68,
+        "sentences": 7,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 11,
+        "sample_marketing": [],
+        "sample_banned": []
+      }
+    },
+    "agent/context_compressor.py": {
+      "before": {
+        "words": 26672,
+        "sentences": 3384,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 121,
+          "contraction": 151,
+          "passive_voice": 199,
+          "ing_main_verb": 8,
+          "nominalization": 17,
+          "phrasal_verb": 0,
+          "banned_word": 13,
+          "marketing_adjective": 1,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 180
+        },
+        "total": 690,
+        "total_per100w": 2.59,
+        "em_dash(slop-marker)": 263,
+        "longest_sentence_words": 16,
+        "sample_marketing": [
+          "first-class"
+        ],
+        "sample_banned": [
+          "begin",
+          "begins",
+          "ensure",
+          "ensures"
+        ]
+      },
+      "after": {
+        "words": 26636,
+        "sentences": 3377,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 121,
+          "contraction": 151,
+          "passive_voice": 198,
+          "ing_main_verb": 8,
+          "nominalization": 17,
+          "phrasal_verb": 0,
+          "banned_word": 13,
+          "marketing_adjective": 1,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 179
+        },
+        "total": 688,
+        "total_per100w": 2.58,
+        "em_dash(slop-marker)": 261,
+        "longest_sentence_words": 16,
+        "sample_marketing": [
+          "first-class"
+        ],
+        "sample_banned": [
+          "begin",
+          "begins",
+          "ensure",
+          "ensures"
+        ]
+      }
+    },
+    "run_agent.py": {
+      "before": {
+        "words": 9785,
+        "sentences": 1304,
+        "violations": {
+          "long_sentence(>20w)": 1,
+          "semicolon": 25,
+          "contraction": 60,
+          "passive_voice": 86,
+          "ing_main_verb": 7,
+          "nominalization": 7,
+          "phrasal_verb": 0,
+          "banned_word": 4,
+          "marketing_adjective": 1,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 120
+        },
+        "total": 311,
+        "total_per100w": 3.18,
+        "em_dash(slop-marker)": 255,
+        "longest_sentence_words": 35,
+        "sample_marketing": [
+          "first-class"
+        ],
+        "sample_banned": [
+          "begin",
+          "originate",
+          "ensures"
+        ]
+      },
+      "after": {
+        "words": 9785,
+        "sentences": 1304,
+        "violations": {
+          "long_sentence(>20w)": 1,
+          "semicolon": 25,
+          "contraction": 60,
+          "passive_voice": 86,
+          "ing_main_verb": 7,
+          "nominalization": 7,
+          "phrasal_verb": 0,
+          "banned_word": 4,
+          "marketing_adjective": 1,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 120
+        },
+        "total": 311,
+        "total_per100w": 3.18,
+        "em_dash(slop-marker)": 255,
+        "longest_sentence_words": 35,
+        "sample_marketing": [
+          "first-class"
+        ],
+        "sample_banned": [
+          "begin",
+          "originate",
+          "ensures"
+        ]
+      }
+    },
+    "agent/conversation_compression.py": {
+      "before": {
+        "words": 15155,
+        "sentences": 1952,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 94,
+          "contraction": 130,
+          "passive_voice": 127,
+          "ing_main_verb": 13,
+          "nominalization": 6,
+          "phrasal_verb": 1,
+          "banned_word": 26,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 99
+        },
+        "total": 496,
+        "total_per100w": 3.27,
+        "em_dash(slop-marker)": 147,
+        "longest_sentence_words": 15,
+        "sample_marketing": [],
+        "sample_banned": [
+          "begin",
+          "ensure",
+          "acquire",
+          "additionally"
+        ]
+      },
+      "after": {
+        "words": 15155,
+        "sentences": 1952,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 94,
+          "contraction": 130,
+          "passive_voice": 127,
+          "ing_main_verb": 13,
+          "nominalization": 6,
+          "phrasal_verb": 1,
+          "banned_word": 26,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 99
+        },
+        "total": 496,
+        "total_per100w": 3.27,
+        "em_dash(slop-marker)": 147,
+        "longest_sentence_words": 15,
+        "sample_marketing": [],
+        "sample_banned": [
+          "begin",
+          "ensure",
+          "acquire",
+          "additionally"
+        ]
+      }
+    },
+    "tests/agent/test_native_controlled_conversation.py": {
+      "before": {
+        "words": 15,
+        "sentences": 2,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 8,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "after": {
+        "words": 15,
+        "sentences": 2,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 8,
+        "sample_marketing": [],
+        "sample_banned": []
+      }
+    },
+    "tests/agent/test_content_policy_auxiliary.py": {
+      "before": {
+        "words": 9,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 9,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "after": {
+        "words": 9,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 9,
+        "sample_marketing": [],
+        "sample_banned": []
+      }
+    },
+    "tests/agent/test_context_compressor.py": {
+      "before": {
+        "words": 6605,
+        "sentences": 822,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 18,
+          "contraction": 30,
+          "passive_voice": 64,
+          "ing_main_verb": 1,
+          "nominalization": 2,
+          "phrasal_verb": 0,
+          "banned_word": 4,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 22
+        },
+        "total": 141,
+        "total_per100w": 2.13,
+        "em_dash(slop-marker)": 64,
+        "longest_sentence_words": 16,
+        "sample_marketing": [],
+        "sample_banned": [
+          "begin",
+          "ensure"
+        ]
+      },
+      "after": {
+        "words": 6605,
+        "sentences": 822,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 18,
+          "contraction": 30,
+          "passive_voice": 64,
+          "ing_main_verb": 1,
+          "nominalization": 2,
+          "phrasal_verb": 0,
+          "banned_word": 4,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 22
+        },
+        "total": 141,
+        "total_per100w": 2.13,
+        "em_dash(slop-marker)": 64,
+        "longest_sentence_words": 16,
+        "sample_marketing": [],
+        "sample_banned": [
+          "begin",
+          "ensure"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "prompt_assignments_preserved": 24,
+  "unchanged_actual_helpers": [
+    "_serialize_for_summary",
+    "_sample_summary_input",
+    "_ground_historical_task_snapshot",
+    "_augment_summary_lean",
+    "_with_summary_prefix",
+    "_bound_summary_input",
+    "_validate_summary_user_provenance",
+    "_transcript_has_real_user_turn",
+    "_is_synthetic_compression_user_turn"
+  ],
+  "scope": "AST comparison of original prompt transformations. Runtime compatibility checks remain separate."
+}

@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/hermes_content_policy-0.2.0-py3-none-any.whl",
+  "wheel_sha256": "b6dd72e900cea284b16f0aee0cb706824ce7e495176fb826c96fb508bfea5e6a",
+  "engine_sha256": "576e057d0b59053a254a5a766509526824e14640081fdb31ba58b1b03517a625",
+  "native_environment": "uv sync --locked --offline --no-install-project --extra dev",
+  "delivery": [
+    "uv",
+    "pip",
+    "install",
+    "--offline",
+    "--no-index",
+    "--no-deps",
+    "--python",
+    ".venv/bin/python",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.13/hermes_content_policy-0.2.0-py3-none-any.whl"
+  ],
+  "smoke": "dependency-smoke.json",
+  "scope": "Shared API/import/representative smoke with native source imports. No native installed functional selection.",
+  "native_manifest_edits": false,
+  "wheel_build": false,
+  "PWA_install": false
+}

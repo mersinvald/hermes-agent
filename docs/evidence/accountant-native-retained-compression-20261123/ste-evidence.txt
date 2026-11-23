@@ -1,0 +1,7 @@
+README.md                        words= 718 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
+pr-body.md                       words= 102 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
+consumer-contract.md             words= 639 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
+dependency-smoke.py              words=  10 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+verify-source.py                 words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+run-focused.py                   words=  10 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+run-correction.py                words=   7 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1

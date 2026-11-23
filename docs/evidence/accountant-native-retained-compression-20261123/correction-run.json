@@ -1,0 +1,33 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "900",
+    "-j",
+    "1",
+    "tests/agent/test_native_controlled_conversation.py",
+    "-k",
+    "compression_complete_retained_first_summary or compression_ordered_interleaving or (compression_cancellation and (before_publication or post_publication)) or compression_complete_source_cannot_bypass_request_text_bound",
+    "--",
+    "--durations=8"
+  ],
+  "started_utc": "2026-11-23T06:45:19.429113+00:00",
+  "source_sha256": {
+    "agent/native_main_payload.py": "5d83125e42a69651a2824eb7796a409b1d168ba3b5effe246f71fffd2842df25",
+    "agent/context_compressor.py": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968",
+    "run_agent.py": "19bdd3f891b9b850f7c85fbda10a48027245192b4888f5dba9e6dbc553370687",
+    "agent/conversation_compression.py": "fbbc0c6f606897d42c496f53b76c5cec5925d0f274c1c538ddf099b1abeaf86b",
+    "tests/agent/test_native_controlled_conversation.py": "803c732fb7f5ba8723baaa7deab62ca4bc92afc1c9c770c48cf049b780f74f83",
+    "tests/agent/test_content_policy_auxiliary.py": "3f5d5f2ad09c59366654c37b95cdedc0ea3561621d8ab95eafacc1cc5b43af2a",
+    "tests/agent/test_context_compressor.py": "7d3bb1c83b18d35d079dd65dfbaeb953415d28ca940cddf3ff69b35ded190028"
+  },
+  "api_sha256": "30bb77dd5a5fdcf3b9d5934b1222baaed835ee2be45844df0da8c2393ff83443",
+  "consumer_sha256": "659a9bd002eee89b1026f9a977b8a94f65ecb3c6d929d4a2520bc2ed367f84d6",
+  "exit_code": 1,
+  "wall_seconds": 306.639,
+  "file_retries": 0,
+  "source_hashes_unchanged": true,
+  "scope": "Five current-source correction cases. The earlier 98 passes and two failures remain separate."
+}

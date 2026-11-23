@@ -1,0 +1,8 @@
+{
+  "previous": "Four genuine native completions reached the existing 262144-byte main-preparation record limit.",
+  "decision": "Keep every native/shared limit. Use a fresh operator fixture and one genuine successful completion above the 16384-byte summary-request text limit.",
+  "preserved_contract": "The retained source is the original complete messages list and exact canonical source bytes. The oversized actual prompt refuses without send or fallback.",
+  "runtime_change": false,
+  "previous_scope": "correction-focused.log",
+  "previous_runtime_hash": "5d83125e42a69651a2824eb7796a409b1d168ba3b5effe246f71fffd2842df25"
+}

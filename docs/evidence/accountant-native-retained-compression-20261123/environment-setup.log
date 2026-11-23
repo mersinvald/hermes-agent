@@ -1,0 +1,4 @@
+Using CPython 3.11.15
+Creating virtual environment at: .venv
+Resolved 256 packages in 2ms
+error: Group `dev` is not defined in the project's `dependency-groups` table

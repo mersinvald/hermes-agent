@@ -1,0 +1,13 @@
+{
+  "python": "3.11.15",
+  "version": "0.2.0",
+  "wheel_sha256": "b6dd72e900cea284b16f0aee0cb706824ce7e495176fb826c96fb508bfea5e6a",
+  "engine_sha256": "576e057d0b59053a254a5a766509526824e14640081fdb31ba58b1b03517a625",
+  "installed_engine": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18/.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "native_import": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18/agent/native_main_payload.py",
+  "derive_for_selection": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path', parent_requests: 'tuple[object, ...]') -> 'ContentHandle'",
+  "native_bind_compression": "(self, agent: 'object', *, request_handle: 'object', selection: 'NativeSelectionPort', producer_ref: 'str', route_ref: 'str', context_length: 'int', summary_date: 'str') -> 'None'",
+  "native_compression_input": "(self, agent: 'object', *, source: 'dict') -> 'NativeAuxiliaryInput'",
+  "representative": "shared bridge, dispatch, profile removal, return, and ordinary derivation refusal passed",
+  "scope": "Shared API/import/representative smoke with native source imports. No native installed functional selection."
+}

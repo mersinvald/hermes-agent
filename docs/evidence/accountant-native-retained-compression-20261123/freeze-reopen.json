@@ -1,0 +1,7 @@
+{
+  "reason": "The 100-case selection found a missing compression cancellation checkpoint before publication and an unowned initial-history test fixture.",
+  "runtime_change": "Two-line compression-only checkpoint before proof publication.",
+  "fixture_change": "Build the complete source through four genuine retained native completions. Preserve the source size and complete byte assertions.",
+  "initial_final_run": "final-run.json",
+  "initial_final_log": "final-focused.log"
+}

@@ -1,0 +1,121 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~57 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    57/~57 | ✓0 | ✗1] ✗ tests/agent/test_native_controlled_conversation.py (1✗, 4.8s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║         with content_policy_scope(world.context):
+  ║             bind_compression(world)
+  ║ >           compressor = construct_compressor(world)
+  ║                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:1840: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ tests/agent/test_native_controlled_conversation.py:1816: in construct_compressor
+  ║     return ContextCompressor(**options)
+  ║            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ agent/context_compressor.py:3388: in __init__
+  ║     if _controlled_compression_constructor(self, native_main_adapter, options=options):
+  ║        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ agent/native_main_payload.py:2110: in _controlled_compression_constructor
+  ║     _keys(options, (*_COMPRESSION_DEFAULTS, "model", "provider", "api_mode",
+  ║ agent/native_main_payload.py:496: in _keys
+  ║     _require(type(key) is str and len(key) <= 32)
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ condition = False
+  ║ 
+  ║     def _require(condition):
+  ║         if not condition:
+  ║ >           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+  ║ E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+  ║ 
+  ║ agent/native_main_payload.py:435: NativeContentPolicyDenied
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+  ║ ====================== 1 failed, 209 deselected in 4.30s =======================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k compression_complete_retained_first_summary
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 4.8s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 4.8s  (runner wall: 4.8s, parallelism: 16x)
+  P50: 4.79s  P90: 4.79s  P95: 4.79s  P99: 4.79s  Max: 4.79s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      4.79s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 210 items / 209 deselected / 1 selected
+
+tests/agent/test_native_controlled_conversation.py F                     [100%]
+
+=================================== FAILURES ===================================
+_______________ test_compression_complete_retained_first_summary _______________
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7fd2ed4d9c60>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7fd2ed01f060>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7fd2ee430fe0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fd2ed832dd0>
+
+    def test_compression_complete_retained_first_summary(compression_excluded, caller_boundary, monkeypatch):
+        from agent import context_compressor as compression
+        derived = []
+        derive = ContentPolicyRuntime.derive_for_selection
+        def observed(runtime, handle, parents, payload, *, path, parent_requests):
+            result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+            derived.append((handle, parents, payload, path, parent_requests, result))
+            return result
+        monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+        world = compression_world()
+        first = turn(world, "Keep the blue folder.")
+        prefix = world.agent._cached_system_prompt
+        original = canonical(first)
+        main_record, = world.adapter.invocations
+        with content_policy_scope(world.context):
+            bind_compression(world)
+>           compressor = construct_compressor(world)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_controlled_conversation.py:1840: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:1816: in construct_compressor
+    return ContextCompressor(**options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/context_compressor.py:3388: in __init__
+    if _controlled_compression_constructor(self, native_main_adapter, options=options):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:2110: in _controlled_compression_constructor
+    _keys(options, (*_COMPRESSION_DEFAULTS, "model", "provider", "api_mode",
+agent/native_main_payload.py:496: in _keys
+    _require(type(key) is str and len(key) <= 32)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+
+    def _require(condition):
+        if not condition:
+>           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+
+agent/native_main_payload.py:435: NativeContentPolicyDenied
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+====================== 1 failed, 209 deselected in 4.30s =======================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/agent/test_native_controlled_conversation.py  (1 test failed)

@@ -1,0 +1,37 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -1668,6 +1668,8 @@
+             _require(len(payload) <= 262_144)
+             parents = (frame.source_content, record.request_content, record.result_content, *contents)
+             content = self._derive_auxiliary_output(binding, parents, payload, path)
++            if type(frame) is _CompressionFrame:
++                self._interrupt_turn()
+             self._retain_aux_record(replace(record, output_stages=stages, output_contents=tuple(contents),
+                 output_bytes=payload, output=output, output_content=content))
+             self._interrupt_turn()
+--- a/tests/agent/test_native_controlled_conversation.py
++++ b/tests/agent/test_native_controlled_conversation.py
+@@ -2329,8 +2329,10 @@
+ 
+ def test_compression_complete_source_cannot_bypass_request_text_bound(compression_excluded, caller_boundary):
+     world = compression_world()
+-    history = [dict(role="user" if i % 2 == 0 else "assistant", content="B" * 6000) for i in range(20)]
+-    result = turn(world, "Keep the blue folder.", history)
++    world.ports["main"].output = reply("B" * 16000)
++    result = None
++    for _ in range(4):
++        result = turn(world, "B" * 16000, None if result is None else result["messages"])
+     with content_policy_scope(world.context):
+         bind_compression(world)
+         compressor = construct_compressor(world)
+@@ -2338,8 +2340,8 @@
+         frame = world.adapter._aux_pending
+         assert frame.source_bytes == canonical(result["messages"])
+         assert len(frame.source_bytes) > 120000
+-    compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token))
+-    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 1
++    compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token), 4)
++    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 4
+ 
+ 
+ @pytest.mark.parametrize("operation", ["compress", "micro", "defrag", "prune", "session", "micro_summary", "unowned_summary"])

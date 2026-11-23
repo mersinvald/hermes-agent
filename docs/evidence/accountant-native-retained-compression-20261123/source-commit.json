@@ -1,0 +1,17 @@
+{
+  "commit": "9234aced8395379fa60aefe07cd5d0eb723b906d",
+  "tree": "fe58328bccad87c786a90ca0a62f28ee0b024bfd",
+  "base": "a951a7156c6da9beadd0dff6f0eed85554afd116",
+  "source_sha256": {
+    "agent/native_main_payload.py": "5d83125e42a69651a2824eb7796a409b1d168ba3b5effe246f71fffd2842df25",
+    "agent/context_compressor.py": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968",
+    "run_agent.py": "19bdd3f891b9b850f7c85fbda10a48027245192b4888f5dba9e6dbc553370687",
+    "agent/conversation_compression.py": "fbbc0c6f606897d42c496f53b76c5cec5925d0f274c1c538ddf099b1abeaf86b",
+    "tests/agent/test_native_controlled_conversation.py": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+    "tests/agent/test_content_policy_auxiliary.py": "3f5d5f2ad09c59366654c37b95cdedc0ea3561621d8ab95eafacc1cc5b43af2a",
+    "tests/agent/test_context_compressor.py": "7d3bb1c83b18d35d079dd65dfbaeb953415d28ca940cddf3ff69b35ded190028"
+  },
+  "api_sha256": "9b7a29f22d4f58f2af49bfa5edf3b0eeb2f493d119a56cbdadadffb3f2d1ea0d",
+  "consumer_sha256": "659a9bd002eee89b1026f9a977b8a94f65ecb3c6d929d4a2520bc2ed367f84d6",
+  "normal_hooks": true
+}

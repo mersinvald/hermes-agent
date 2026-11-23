@@ -1,0 +1,36 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "900",
+    "-j",
+    "5",
+    "tests/agent/test_native_controlled_conversation.py",
+    "tests/agent/test_content_policy_auxiliary.py",
+    "tests/agent/test_context_compressor.py",
+    "tests/agent/test_compress_focus.py",
+    "tests/agent/test_compressor_truncated_summary_guard.py",
+    "-k",
+    "(test_compression_ and not (shared_mixed_capacity or binding_exact_facts or constructor_exact_options or invalid_output)) or history_compression_host_refuses or summary_shared_helpers or default_compressor_keeps_optional or real_constructor_first_and_repeated_entrypoints or retained_title_empty_snippet_completes_local_without_send or retained_title_semantic_none_has_complete_output_proof or TestGenerateSummaryNoneContent or TestNonStringContent or TestSummaryFallbackToMainModel or TestSummaryTargetRatio or TestSummaryPromptBounding or TestSummaryPrefixNormalization or focus_topic_injected_into_summary_prompt or no_focus_topic_no_injection or TestResponseFinishReason or length_stop_is_rejected_and_aborts or length_stop_falls_back_to_main_model_once or stop_finish_reason_still_succeeds",
+    "--",
+    "--durations=12"
+  ],
+  "exit_code": 1,
+  "started_utc": "2026-11-23T06:30:22.822830+00:00",
+  "wall_seconds": 663.714,
+  "source_sha256": {
+    "agent/native_main_payload.py": "d12794b1397227bb4f6cbe0d07cec188567df14a6280c2ceda79aeea415c9bb7",
+    "agent/context_compressor.py": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968",
+    "run_agent.py": "19bdd3f891b9b850f7c85fbda10a48027245192b4888f5dba9e6dbc553370687",
+    "agent/conversation_compression.py": "fbbc0c6f606897d42c496f53b76c5cec5925d0f274c1c538ddf099b1abeaf86b",
+    "tests/agent/test_native_controlled_conversation.py": "7d5e258a6c35a63860953742bf8f488b2920d8261a6bd9957cb28f44d9543350",
+    "tests/agent/test_content_policy_auxiliary.py": "3f5d5f2ad09c59366654c37b95cdedc0ea3561621d8ab95eafacc1cc5b43af2a",
+    "tests/agent/test_context_compressor.py": "7d3bb1c83b18d35d079dd65dfbaeb953415d28ca940cddf3ff69b35ded190028"
+  },
+  "source_hashes_unchanged": true,
+  "file_retries": 0,
+  "file_timeout_seconds": 900,
+  "scope": "Focused final selection. The separate current-source 26-case feedback-08 scope is not a fresh combined suite."
+}

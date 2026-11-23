@@ -1,0 +1,313 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~71 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    71/~71 | ✓0 | ✗5] ✗ tests/agent/test_native_controlled_conversation.py (5✗, 15.5s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ ../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:158: in __exit__
+  ║     self.gen.throw(typ, value, traceback)
+  ║ agent/native_main_payload.py:1043: in _turn_operation
+  ║     self._deny()
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ self = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7301a895fe90>
+  ║ 
+  ║     def _deny(self):
+  ║         self._invalidate()
+  ║ >       raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+  ║ E       agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+  ║ 
+  ║ agent/native_main_payload.py:815: NativeContentPolicyDenied
+  ║ ============================= slowest 8 durations ==============================
+  ║ 2.65s call     tests/agent/test_native_controlled_conversation.py::test_compression_owned_tokens_and_constructor_refuse[missing]
+  ║ 2.57s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+  ║ 2.52s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[post_publication]
+  ║ 2.52s call     tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[request]
+  ║ 2.52s call     tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+  ║ 0.64s setup    tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+  ║ 0.02s setup    tests/agent/test_native_controlled_conversation.py::test_compression_owned_tokens_and_constructor_refuse[missing]
+  ║ 0.01s setup    tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_owned_tokens_and_constructor_refuse[missing]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[post_publication]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[request]
+  ║ ====================== 5 failed, 274 deselected in 15.09s ======================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k compression_complete_retained_first_summary or (compression_owned_tokens and missing) or (compression_cancellation and (during_send or post_publication)) or (compression_mutated_proof and request) --durations=8
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 5 failed (100% complete) in 15.5s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 15.5s  (runner wall: 15.5s, parallelism: 16x)
+  P50: 15.46s  P90: 15.46s  P95: 15.46s  P99: 15.46s  Max: 15.46s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     15.46s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 279 items / 274 deselected / 5 selected
+
+tests/agent/test_native_controlled_conversation.py FFFFF                 [100%]
+
+=================================== FAILURES ===================================
+_______________ test_compression_complete_retained_first_summary _______________
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7301a80913a0>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7301a6d46b60>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7301a82ab100>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7301a8385c90>
+
+    def test_compression_complete_retained_first_summary(compression_excluded, caller_boundary, monkeypatch):
+        from agent import context_compressor as compression
+        derived = []
+        derive = ContentPolicyRuntime.derive_for_selection
+        def observed(runtime, handle, parents, payload, *, path, parent_requests):
+            result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+            derived.append((handle, parents, payload, path, parent_requests, result))
+            return result
+        monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+        world = compression_world()
+        first = turn(world, "Keep the blue folder.")
+        prefix = world.agent._cached_system_prompt
+        original = canonical(first)
+        main_record, = world.adapter.invocations
+        with content_policy_scope(world.context):
+>           bind_compression(world)
+
+tests/agent/test_native_controlled_conversation.py:1849: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:1807: in bind_compression
+    world.adapter.bind_compression(world.agent, **options)
+agent/native_main_payload.py:1740: in bind_compression
+    with self._turn_operation(agent):
+../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:158: in __exit__
+    self.gen.throw(typ, value, traceback)
+agent/native_main_payload.py:1043: in _turn_operation
+    self._deny()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7301a6d78910>
+
+    def _deny(self):
+        self._invalidate()
+>       raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+E       agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+
+agent/native_main_payload.py:815: NativeContentPolicyDenied
+________ test_compression_owned_tokens_and_constructor_refuse[missing] _________
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7301a6e22160>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7301a6e223e0>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7301a82ab100>)
+kind = 'missing'
+
+    @pytest.mark.parametrize("kind", ["missing", "copied", "title", "wrong_turns", "focus", "memory", "owner_mutated", "rebound"])
+    def test_compression_owned_tokens_and_constructor_refuse(compression_excluded, caller_boundary, kind):
+        world = compression_world()
+        result = turn(world, "Keep the blue folder.")
+        with content_policy_scope(world.context):
+            bind_title(world)
+>           bind_compression(world)
+
+tests/agent/test_native_controlled_conversation.py:2089: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:1807: in bind_compression
+    world.adapter.bind_compression(world.agent, **options)
+agent/native_main_payload.py:1740: in bind_compression
+    with self._turn_operation(agent):
+../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:158: in __exit__
+    self.gen.throw(typ, value, traceback)
+agent/native_main_payload.py:1043: in _turn_operation
+    self._deny()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7301a85e8910>
+
+    def _deny(self):
+        self._invalidate()
+>       raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+E       agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+
+agent/native_main_payload.py:815: NativeContentPolicyDenied
+_______ test_compression_cancellation_retains_honest_proof[during_send] ________
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7301a8677d80>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7301a6e47600>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7301a82ab100>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7301a6e08250>
+when = 'during_send'
+
+    @pytest.mark.parametrize("when", ["before_source", "after_preparation", "during_send", "after_raw", "before_publication", "post_publication", "invalid_boolean"])
+    def test_compression_cancellation_retains_honest_proof(compression_excluded, caller_boundary, monkeypatch, when):
+        world = compression_world()
+        result = turn(world, "Keep the blue folder.")
+        published = []
+        if when == "during_send":
+            world.compression_ports["compression"].hook = lambda envelope: world.agent.interrupt()
+        def cancel():
+            frame = world.adapter._aux_pending
+            if type(frame) is not native_main_payload._CompressionFrame:
+                return
+            ready = ((frame.preparation is not None) if when in ("after_preparation", "invalid_boolean") else
+                     (frame.record is not None and frame.record.native_response is not None) if when == "after_raw" else
+                     (frame.record is not None and frame.record.output is not None) if when == "post_publication" else False)
+            if ready:
+                if when == "post_publication":
+                    published.append(frame.record)
+                world.agent._interrupt_requested = 1 if when == "invalid_boolean" else True
+        world.admission_hook = cancel
+        if when == "before_publication":
+            original = ContentPolicyRuntime.derive
+            def cancel_final(runtime, handle, parents, payload, *, path):
+                content = original(runtime, handle, parents, payload, path=path)
+                if path == "compression" and set(json.loads(payload)) == {"summary"}:
+                    world.agent._interrupt_requested = True
+                return content
+            monkeypatch.setattr(ContentPolicyRuntime, "derive", cancel_final)
+        with content_policy_scope(world.context):
+>           bind_compression(world)
+
+tests/agent/test_native_controlled_conversation.py:2138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:1807: in bind_compression
+    world.adapter.bind_compression(world.agent, **options)
+agent/native_main_payload.py:1740: in bind_compression
+    with self._turn_operation(agent):
+../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:158: in __exit__
+    self.gen.throw(typ, value, traceback)
+agent/native_main_payload.py:1043: in _turn_operation
+    self._deny()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7301a6a89690>
+
+    def _deny(self):
+        self._invalidate()
+>       raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+E       agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+
+agent/native_main_payload.py:815: NativeContentPolicyDenied
+_____ test_compression_cancellation_retains_honest_proof[post_publication] _____
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7301a6e9a8e0>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7301a6e9afc0>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7301a82ab100>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7301a83d31d0>
+when = 'post_publication'
+
+    @pytest.mark.parametrize("when", ["before_source", "after_preparation", "during_send", "after_raw", "before_publication", "post_publication", "invalid_boolean"])
+    def test_compression_cancellation_retains_honest_proof(compression_excluded, caller_boundary, monkeypatch, when):
+        world = compression_world()
+        result = turn(world, "Keep the blue folder.")
+        published = []
+        if when == "during_send":
+            world.compression_ports["compression"].hook = lambda envelope: world.agent.interrupt()
+        def cancel():
+            frame = world.adapter._aux_pending
+            if type(frame) is not native_main_payload._CompressionFrame:
+                return
+            ready = ((frame.preparation is not None) if when in ("after_preparation", "invalid_boolean") else
+                     (frame.record is not None and frame.record.native_response is not None) if when == "after_raw" else
+                     (frame.record is not None and frame.record.output is not None) if when == "post_publication" else False)
+            if ready:
+                if when == "post_publication":
+                    published.append(frame.record)
+                world.agent._interrupt_requested = 1 if when == "invalid_boolean" else True
+        world.admission_hook = cancel
+        if when == "before_publication":
+            original = ContentPolicyRuntime.derive
+            def cancel_final(runtime, handle, parents, payload, *, path):
+                content = original(runtime, handle, parents, payload, path=path)
+                if path == "compression" and set(json.loads(payload)) == {"summary"}:
+                    world.agent._interrupt_requested = True
+                return content
+            monkeypatch.setattr(ContentPolicyRuntime, "derive", cancel_final)
+        with content_policy_scope(world.context):
+>           bind_compression(world)
+
+tests/agent/test_native_controlled_conversation.py:2138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:1807: in bind_compression
+    world.adapter.bind_compression(world.agent, **options)
+agent/native_main_payload.py:1740: in bind_compression
+    with self._turn_operation(agent):
+../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:158: in __exit__
+    self.gen.throw(typ, value, traceback)
+agent/native_main_payload.py:1043: in _turn_operation
+    self._deny()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7301a6e5cb50>
+
+    def _deny(self):
+        self._invalidate()
+>       raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+E       agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+
+agent/native_main_payload.py:815: NativeContentPolicyDenied
+_______________ test_compression_mutated_proof_refuses[request] ________________
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7301a8675260>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7301a86777e0>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7301a82ab100>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7301a815a1d0>
+kind = 'request'
+
+    @pytest.mark.parametrize("kind", ["request", "stage", "helper", "output", "response"])
+    def test_compression_mutated_proof_refuses(compression_excluded, caller_boundary, monkeypatch, kind):
+        from agent import context_compressor as compression, auxiliary_client
+        world = compression_world()
+        result = turn(world, "Keep the blue folder.")
+        with content_policy_scope(world.context):
+>           bind_compression(world)
+
+tests/agent/test_native_controlled_conversation.py:2274: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:1807: in bind_compression
+    world.adapter.bind_compression(world.agent, **options)
+agent/native_main_payload.py:1740: in bind_compression
+    with self._turn_operation(agent):
+../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:158: in __exit__
+    self.gen.throw(typ, value, traceback)
+agent/native_main_payload.py:1043: in _turn_operation
+    self._deny()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload.NativeMainPayloadAdapter object at 0x7301a895fe90>
+
+    def _deny(self):
+        self._invalidate()
+>       raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+E       agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+
+agent/native_main_payload.py:815: NativeContentPolicyDenied
+============================= slowest 8 durations ==============================
+2.65s call     tests/agent/test_native_controlled_conversation.py::test_compression_owned_tokens_and_constructor_refuse[missing]
+2.57s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+2.52s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[post_publication]
+2.52s call     tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[request]
+2.52s call     tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+0.64s setup    tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+0.02s setup    tests/agent/test_native_controlled_conversation.py::test_compression_owned_tokens_and_constructor_refuse[missing]
+0.01s setup    tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_owned_tokens_and_constructor_refuse[missing]
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[post_publication]
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[request]
+====================== 5 failed, 274 deselected in 15.09s ======================
+
+=== 1 file with test failures (5 tests failed) ===
+  tests/agent/test_native_controlled_conversation.py  (5 tests failed)

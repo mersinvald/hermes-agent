@@ -1,0 +1,34 @@
+{
+  "files": {
+    "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18/package-lock.json": {
+      "st_dev": 64769,
+      "st_ino": 78709835,
+      "st_mode": 33204,
+      "st_size": 721545,
+      "st_mtime_ns": 1795413130372962158
+    },
+    "/home/mersinvald/dev/mkl.dev/hermes-agent/package-lock.json": {
+      "st_dev": 64769,
+      "st_ino": 5032118,
+      "st_mode": 33188,
+      "st_size": 721005,
+      "st_mtime_ns": 1795371502125845655
+    },
+    "/home/mersinvald/dev/mkl.dev/hermes-agent-pwa/.beads.gate.lock": {
+      "st_dev": 64769,
+      "st_ino": 5168370,
+      "st_mode": 33152,
+      "st_size": 0,
+      "st_mtime_ns": 1795192715578003297
+    },
+    "/home/mersinvald/dev/mkl.dev/hermes-agent-pwa/package-lock.json": {
+      "st_dev": 64769,
+      "st_ino": 5032056,
+      "st_mode": 33188,
+      "st_size": 132358,
+      "st_mtime_ns": 1789107278647012387
+    }
+  },
+  "metadata_unchanged": true,
+  "contents_read": false
+}
