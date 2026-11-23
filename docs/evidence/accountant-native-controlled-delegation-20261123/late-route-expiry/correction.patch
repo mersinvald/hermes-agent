@@ -1,0 +1,11 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -3783,6 +3783,8 @@
+                 _require(set(port[8]) <= set(self.initial[1][0][8]))
+                 now = self.call(self.parent._clock)
+                 _integer(now, minimum=0)
++                _require(now < self.binding.delegate_route.expires_at)
++                _require(now < self.binding.child_main_route.expires_at)
+                 allowed = set(r.route_ref for r in self.parent._operator_routes)
+                 inherited = set(p for row in self.initial for p in row[0][8])
+                 inherited.update(p for row in self.initial for p in row[2][2])

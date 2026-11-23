@@ -1,0 +1,90 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~15 tests) under ['tests/tools/test_native_controlled_delegation.py']; running with -j 1
+[100.0% |    15/~15 | ✓0 | ✗1] ✗ tests/tools/test_native_controlled_delegation.py (1✗, 35.9s)
+
+  ╔╍ Failed: tests/tools/test_native_controlled_delegation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ ============================= test session starts ==============================
+  ║ platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+  ║ rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25
+  ║ configfile: pyproject.toml
+  ║ plugins: asyncio-1.3.0, anyio-4.12.1
+  ║ asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+  ║ collected 57 items / 56 deselected / 1 selected
+  ║ 
+  ║ tests/tools/test_native_controlled_delegation.py F                       [100%]
+  ║ 
+  ║ =================================== FAILURES ===================================
+  ║ ___________ test_closed_child_issued_delegate_expiry_forbids_release ___________
+  ║ tests/tools/test_native_controlled_delegation.py:608: in test_closed_child_issued_delegate_expiry_forbids_release
+  ║     assert denial is not None and released is None
+  ║ E   assert (None is not None)
+  ║ =============================== warnings summary ===============================
+  ║ tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+  ║   tests/tools/test_native_controlled_delegation.py:563: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+  ║     def test_closed_child_issued_delegate_expiry_forbids_release(no_delegation_effects, record_property):
+  ║ 
+  ║ -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+  ║ - generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/late-route-expiry/late-issued-expiry-red.xml -
+  ║ ============================== slowest durations ===============================
+  ║ 33.08s call     tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+  ║ 1.62s setup    tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+  ║ 
+  ║ (1 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+  ║ ================= 1 failed, 56 deselected, 1 warning in 35.22s =================
+  ║
+  ║  Repro: python -m pytest tests/tools/test_native_controlled_delegation.py -k test_closed_child_issued_delegate_expiry_forbids_release --durations=0 --tb=short --junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/late-route-expiry/late-issued-expiry-red.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 35.9s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 35.9s  (runner wall: 35.9s, parallelism: 1x)
+  P50: 35.87s  P90: 35.87s  P95: 35.87s  P99: 35.87s  Max: 35.87s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     35.87s  tests/tools/test_native_controlled_delegation.py
+
+=== Failure output ===
+
+--- tests/tools/test_native_controlled_delegation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 57 items / 56 deselected / 1 selected
+
+tests/tools/test_native_controlled_delegation.py F                       [100%]
+
+=================================== FAILURES ===================================
+___________ test_closed_child_issued_delegate_expiry_forbids_release ___________
+tests/tools/test_native_controlled_delegation.py:608: in test_closed_child_issued_delegate_expiry_forbids_release
+    assert denial is not None and released is None
+E   assert (None is not None)
+=============================== warnings summary ===============================
+tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+  tests/tools/test_native_controlled_delegation.py:563: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    def test_closed_child_issued_delegate_expiry_forbids_release(no_delegation_effects, record_property):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/late-route-expiry/late-issued-expiry-red.xml -
+============================== slowest durations ===============================
+33.08s call     tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+1.62s setup    tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+
+(1 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/tools/test_native_controlled_delegation.py::test_closed_child_issued_delegate_expiry_forbids_release
+================= 1 failed, 56 deselected, 1 warning in 35.22s =================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/tools/test_native_controlled_delegation.py  (1 test failed)

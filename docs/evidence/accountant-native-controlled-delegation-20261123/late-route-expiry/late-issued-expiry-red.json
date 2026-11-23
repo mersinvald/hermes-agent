@@ -1,0 +1,55 @@
+{
+  "name": "late-issued-expiry-red",
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "-j",
+    "1",
+    "tests/tools/test_native_controlled_delegation.py",
+    "-k",
+    "test_closed_child_issued_delegate_expiry_forbids_release",
+    "--",
+    "--durations=0",
+    "--tb=short",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/late-route-expiry/late-issued-expiry-red.xml"
+  ],
+  "source_sha256": {
+    "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+  },
+  "source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home/late-route-expiry",
+  "retries": 0,
+  "exit_code": 1,
+  "wall_seconds": 36.26,
+  "source_unchanged": true,
+  "cases": [
+    {
+      "name": "test_closed_child_issued_delegate_expiry_forbids_release",
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "seconds": "34.702",
+      "properties": {
+        "setup_seconds": "1.619669",
+        "actual_delegate_sends": "1",
+        "actual_main_sends": "1",
+        "shared_return_sends": "0",
+        "qualification_sends": "25",
+        "child_closed": "True",
+        "genuine_completion": "True",
+        "shared_return_completed": "True",
+        "sealed_proof_preserved": "True",
+        "coverage_unexpired": "True",
+        "aggregate_released": "True",
+        "phase": "released",
+        "clock": "20",
+        "issued_expiry": "20",
+        "call_seconds": "33.081348"
+      },
+      "status": "failed"
+    }
+  ]
+}

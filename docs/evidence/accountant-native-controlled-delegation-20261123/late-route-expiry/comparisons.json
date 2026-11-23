@@ -1,0 +1,22 @@
+{
+  "base_head": "93d88a4aa29d34fac1bf7e7360e08a0700cf878b",
+  "base_tree": "d4bf8f415e2f5d4e4c51a89713ccb24d09df6030",
+  "base_runtime_sha256": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+  "corrected_runtime_sha256": "83b0d35970ba95e9c9f3feda20712307f37d4ae50998eadcb6fa65ce38b50012",
+  "exact_inverse_matches_base": true,
+  "only_runtime_change": "Two explicit current expiry predicates inside the existing registered frame checkpoint",
+  "original_clock_observation_unchanged": true,
+  "other_top_level_ASTs_unchanged": true,
+  "other_frame_methods_unchanged": true,
+  "raw_interruption_wrapper_AST_unchanged": true,
+  "raw_interruption_inverse_sha256": "689ded8e77ddf8bd78c255c23db61c28f88abd1f4e50dc579622444aa18970f3",
+  "prior_test_prefix_bytes": 29441,
+  "prior_test_prefix_sha256": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422",
+  "all_prior_assertions_and_fixtures_unchanged": true,
+  "prior_evidence_files_preserved": 58,
+  "shared_engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "shared_change": false,
+  "new_runtime_callback": false,
+  "new_authority": false,
+  "fresh_prior_scope_aggregate": false
+}

@@ -551,3 +551,59 @@ def test_raw_admission_control_keeps_original_exception(no_delegation_effects):
     frame = _delegate_frames[world.adapter]
     assert frame.invalid and frame.record is None and not hasattr(frame, "token")
     assert all(not p.sent for p in world.ports.values())
+
+
+class EarlyIssuedDelegateExpiry(ThreeHolders):
+    def __init__(self):
+        super().__init__()
+        self.routes = tuple(replace(route, expires_at=20) if route.route_ref == "issued_delegate"
+                            else route for route in self.routes)
+
+
+def test_closed_child_issued_delegate_expiry_forbids_release(no_delegation_effects, record_property):
+    from agent.content_policy import current_context
+    from agent.native_main_payload import _delegate_frames
+    world = EarlyIssuedDelegateExpiry()
+    observed = {}
+
+    def expire_when_closed(frame):
+        if frame.child_adapter._constructed.closed:
+            assert frame.phase == "returned" and frame.record.return_facts is not None
+            observed.update(frame=frame, record=frame.record, proof=frame.closed_proof)
+            world.now = frame.binding.delegate_route.expires_at
+        else:
+            world.after_complete = expire_when_closed
+
+    world.after_complete = expire_when_closed
+    world.bind()
+    issued = next(route for route in world.routes if route.route_ref == "issued_delegate")
+    coverage = tuple(route for route in world.routes if route.route_ref.startswith("route_"))
+    assert issued.expires_at == 20 and len(coverage) == 24
+    assert all(route.expires_at == 100 for route in coverage)
+    released = denial = None
+    try:
+        released = world.call()
+    except NativeContentPolicyDenied as error:
+        denial = error
+    frame = _delegate_frames[world.adapter]
+    assert observed["frame"] is frame and observed["record"] is frame.record
+    assert frame.closed_proof is observed["proof"]
+    assert all(a is b for a, b in zip(frame.closed_proof, frame.proof()))
+    assert frame.child_adapter._constructed.closed and current_context() is None
+    assert frame.record.child_completion is frame.child_adapter._completions[0]
+    assert frame.record.child_completion.result["completed"] is True
+    assert frame.record.child_completion.result["final_response"] == "Two blue squares."
+    assert frame.record.return_facts is not None and world.now == issued.expires_at
+    assert all(world.now < route.expires_at for route in coverage)
+    assert world.now < frame.binding.child_main_route.expires_at
+    assert len(world.delegate.sent) == len(world.ports[2, "main"].sent) == 1
+    assert len(frame.partial_sends) == sum(len(port.sent) for port in world.ports.values()) == 2
+    assert len(world.qualifications) == sum(len(port.qualification) for port in world.ports.values()) == 25
+    for name, value in dict(actual_delegate_sends=1, actual_main_sends=1, shared_return_sends=0,
+                            qualification_sends=25, child_closed=True, genuine_completion=True,
+                            shared_return_completed=True, sealed_proof_preserved=True,
+                            coverage_unexpired=True, aggregate_released=released is not None,
+                            phase=frame.phase, clock=world.now, issued_expiry=issued.expires_at).items():
+        record_property(name, value)
+    assert denial is not None and released is None
+    assert frame.phase == "returned" and frame.invalid and world.context._denied
