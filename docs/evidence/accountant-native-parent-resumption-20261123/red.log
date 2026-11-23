@@ -1,0 +1,67 @@
+▶ no local venv — using Nix dev venv via HERMES_PYTHON: /home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runner-python
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~1 tests) under ['tests/tools/test_native_parent_resumption.py']; running with -j 16
+[100.0% |     1/~1 | ✓0 | ✗1] ✗ tests/tools/test_native_parent_resumption.py (1✗, 8.1s)
+
+  ╔╍ Failed: tests/tools/test_native_parent_resumption.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ F                                                                        [100%]
+  ║ =================================== FAILURES ===================================
+  ║ ___________________ test_example_one_actual_leaf_and_parent ____________________
+  ║
+  ║ no_delegation_effects = <function excluded.<locals>.forbidden at 0x76cbd3358fe0>
+  ║
+  ║     def test_example_one_actual_leaf_and_parent(no_delegation_effects):
+  ║ >       from agent.native_main_payload import _delegate_frames, _parent_resumptions
+  ║ E       ImportError: cannot import name '_parent_resumptions' from 'agent.native_main_payload' (/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27/agent/native_main_payload.py)
+  ║
+  ║ tests/tools/test_native_parent_resumption.py:34: ImportError
+  ║ ============================= slowest 5 durations ==============================
+  ║ 4.06s setup    tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent
+  ║
+  ║ (2 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent
+  ║ 1 failed in 6.37s
+  ║
+  ║  Repro: python -m pytest tests/tools/test_native_parent_resumption.py -q --durations=5 --basetemp=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/test-state/red-tmp -o cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/test-state/pytest-cache --junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/red.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 8.1s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 8.1s  (runner wall: 8.1s, parallelism: 16x)
+  P50: 8.07s  P90: 8.07s  P95: 8.07s  P99: 8.07s  Max: 8.07s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      8.07s  tests/tools/test_native_parent_resumption.py
+
+=== Failure output ===
+
+--- tests/tools/test_native_parent_resumption.py ---
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________________ test_example_one_actual_leaf_and_parent ____________________
+
+no_delegation_effects = <function excluded.<locals>.forbidden at 0x76cbd3358fe0>
+
+    def test_example_one_actual_leaf_and_parent(no_delegation_effects):
+>       from agent.native_main_payload import _delegate_frames, _parent_resumptions
+E       ImportError: cannot import name '_parent_resumptions' from 'agent.native_main_payload' (/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27/agent/native_main_payload.py)
+
+tests/tools/test_native_parent_resumption.py:34: ImportError
+============================= slowest 5 durations ==============================
+4.06s setup    tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent
+1 failed in 6.37s
+
+=== 1 file with test failures (1 test failed) ===
+  tests/tools/test_native_parent_resumption.py  (1 test failed)

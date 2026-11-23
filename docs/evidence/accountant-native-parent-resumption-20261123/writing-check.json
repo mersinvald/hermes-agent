@@ -1,0 +1,128 @@
+{
+  "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "baseline_native": {
+    "words": 77,
+    "sentences": 8,
+    "violations": {
+      "long_sentence(>20w)": 0,
+      "semicolon": 0,
+      "contraction": 0,
+      "passive_voice": 0,
+      "ing_main_verb": 0,
+      "nominalization": 0,
+      "phrasal_verb": 0,
+      "banned_word": 0,
+      "marketing_adjective": 0,
+      "modal_hedge": 0,
+      "long_paragraph(>6s)": 0
+    },
+    "total": 0,
+    "total_per100w": 0.0,
+    "em_dash(slop-marker)": 0,
+    "longest_sentence_words": 11,
+    "sample_marketing": [],
+    "sample_banned": [],
+    "mode": "python-prose-v1"
+  },
+  "current": {
+    "agent/native_main_payload.py": {
+      "words": 104,
+      "sentences": 11,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 11,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "tests/tools/test_native_parent_resumption.py": {
+      "words": 19,
+      "sentences": 2,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 10,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "docs/evidence/accountant-native-parent-resumption-20261123/README.md": {
+      "words": 689,
+      "sentences": 64,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "docs/evidence/accountant-native-parent-resumption-20261123/consumer-contract.md": {
+      "words": 484,
+      "sentences": 45,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 18,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  },
+  "new_files_have_no_existing_baseline": true,
+  "limits": "Mechanical English prose checks only. This does not certify technical correctness."
+}

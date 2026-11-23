@@ -1,0 +1,12 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -1046,0 +1047,2 @@
++        if owner is not None:
++            owner.partial_send = (*owner.partial_send[:4], adapter._send_count, None)
+@@ -3991,0 +3994 @@
++        self.check_stage()
+@@ -4005 +4007,0 @@
+-        self.access()
+@@ -4008,0 +4011,2 @@
++        self.access()
++        self.check_stage()

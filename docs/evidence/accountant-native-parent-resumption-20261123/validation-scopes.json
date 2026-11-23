@@ -1,0 +1,863 @@
+{
+  "schema_version": 1,
+  "scopes": [
+    {
+      "name": "red",
+      "meaning": "Expected missing-API failure on accepted base.",
+      "exit_code": 1,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 8.1,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "83b0d35970ba95e9c9f3feda20712307f37d4ae50998eadcb6fa65ce38b50012",
+          "commit": "d2d58c118b101c5045b20f765ce19dcfc66839a2"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "1e777e5d494ab32ac7b3c1357d487f4d78a8604b07c89eb6cd5dcd8bd76b1731",
+          "blob": "3e64bcd7ce5341d0089ffbd0df150312030337dd"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_example_one_actual_leaf_and_parent",
+          "seconds": 4.065,
+          "properties": {
+            "setup_seconds": "4.062837",
+            "call_seconds": "0.000416"
+          },
+          "status": "failed",
+          "failure_message": "ImportError: cannot import name '_parent_resumptions' from 'agent.native_main_payload' (/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27/agent/native_main_payload.py)"
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/red.log",
+      "raw_log_sha256": "9df912440e9cae9afbea035f1e6ea395b6bed31d3c6aa37527538707d72509a3",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "aba669574a182dfc51f75884ea40f8b905601d69c81efdcca519ebcc71a77ce1"
+    },
+    {
+      "name": "first",
+      "meaning": "First actual constructed leaf and parent positive. Intermediate source only.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 127.5,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "5bd78cb38329a1879aa2d12a52999ac33683ed9e2119aa9ab31f7ce938aa85ee",
+          "blob": "8e3abb973d641fe466a82c0badaf9727dc09cc70"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "1e777e5d494ab32ac7b3c1357d487f4d78a8604b07c89eb6cd5dcd8bd76b1731",
+          "blob": "3e64bcd7ce5341d0089ffbd0df150312030337dd"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_example_one_actual_leaf_and_parent",
+          "seconds": 126.184,
+          "properties": {
+            "setup_seconds": "1.788681",
+            "call_seconds": "124.394054"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/first.log",
+      "raw_log_sha256": "e0b3b3cba102ea0f592ba98ba82e899cc063d95c9ae73ecf0c2528f354b3f96f",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "04d8317a87bf01a265e408ab454534f205a7c12fe14f37655d6435abe39f7edc"
+    },
+    {
+      "name": "stage",
+      "meaning": "Measured exact native call/stage ownership positive.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 50.9,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3fde1ef149b7fabd1e62a3999ecac33e57577c35cf49e5d09c39fcc449b947be",
+          "blob": "dff60295dd983f8dc2b3b3f1ff25d693a53a2742"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "1e777e5d494ab32ac7b3c1357d487f4d78a8604b07c89eb6cd5dcd8bd76b1731",
+          "blob": "3e64bcd7ce5341d0089ffbd0df150312030337dd"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_example_one_actual_leaf_and_parent",
+          "seconds": 48.691,
+          "properties": {
+            "setup_seconds": "2.108497",
+            "call_seconds": "46.582102"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/stage.log",
+      "raw_log_sha256": "39b4f8b7ff8e076a439eeab39197fbca5943ba4f97d724c41f2f92d26dd71fab",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "e118e67b6e936a9af7d8b48fc76bc0e5e739273f65574fa48d72f75ea36420aa"
+    },
+    {
+      "name": "boundary",
+      "meaning": "Separate original-presence, malformed-input, binding, token, thread and real capacity scope.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 165.1,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "56ca97bd1c2a6ef300c007a701610b849cbcf318bae9ebcbbf484b0caca70cdf",
+          "blob": "0c6229e16dd424deafb6ac9b87ce9464f1edbe2c"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "9b56e9256f7a30f225886d2c54e646fc6fd91bfb7433c6f4b17773bdb31cff6d",
+          "blob": "3c89394528dec579bffa35199fedf5ebee6d7aed"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_example_one_actual_leaf_and_parent",
+          "seconds": 48.329,
+          "properties": {
+            "setup_seconds": "1.528049",
+            "call_seconds": "46.79601",
+            "teardown_seconds": "0.005061"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options0]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_binding_rejects_input_before_callbacks[options0]",
+          "seconds": 1.827,
+          "properties": {
+            "setup_seconds": "0.02193",
+            "call_seconds": "1.804218",
+            "teardown_seconds": "0.000518"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options1]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_binding_rejects_input_before_callbacks[options1]",
+          "seconds": 1.846,
+          "properties": {
+            "setup_seconds": "0.012468",
+            "call_seconds": "1.833063",
+            "teardown_seconds": "0.000492"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options2]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_binding_rejects_input_before_callbacks[options2]",
+          "seconds": 1.844,
+          "properties": {
+            "setup_seconds": "0.012595",
+            "call_seconds": "1.83043",
+            "teardown_seconds": "0.000503"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options3]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_binding_rejects_input_before_callbacks[options3]",
+          "seconds": 1.858,
+          "properties": {
+            "setup_seconds": "0.013133",
+            "call_seconds": "1.84458",
+            "teardown_seconds": "0.000576"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options4]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_binding_rejects_input_before_callbacks[options4]",
+          "seconds": 1.871,
+          "properties": {
+            "setup_seconds": "0.036372",
+            "call_seconds": "1.834604",
+            "teardown_seconds": "0.000444"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_presence_and_capacity_admission[False]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_presence_and_capacity_admission[False]",
+          "seconds": 2.565,
+          "properties": {
+            "setup_seconds": "0.01167",
+            "call_seconds": "2.553325",
+            "teardown_seconds": "0.000485"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_presence_and_capacity_admission[True]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_presence_and_capacity_admission[True]",
+          "seconds": 2.64,
+          "properties": {
+            "setup_seconds": "0.012505",
+            "call_seconds": "2.627027",
+            "teardown_seconds": "0.000493"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_reentrant_binding_never_issues_token",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_reentrant_binding_never_issues_token",
+          "seconds": 1.915,
+          "properties": {
+            "setup_seconds": "0.013856",
+            "call_seconds": "1.90061",
+            "teardown_seconds": "0.000575"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_bound_authority_permits_no_work[direct]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_bound_authority_permits_no_work[direct]",
+          "seconds": 2.498,
+          "properties": {
+            "setup_seconds": "0.012916",
+            "call_seconds": "2.484947",
+            "teardown_seconds": "0.000506"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_bound_authority_permits_no_work[resume]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_bound_authority_permits_no_work[resume]",
+          "seconds": 2.654,
+          "properties": {
+            "setup_seconds": "0.011618",
+            "call_seconds": "2.64147",
+            "teardown_seconds": "0.000501"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_bound_authority_permits_no_work[wrong_thread]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_bound_authority_permits_no_work[wrong_thread]",
+          "seconds": 2.634,
+          "properties": {
+            "setup_seconds": "0.012672",
+            "call_seconds": "2.620708",
+            "teardown_seconds": "0.000466"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_bound_authority_permits_no_work[copied]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_bound_authority_permits_no_work[copied]",
+          "seconds": 2.576,
+          "properties": {
+            "setup_seconds": "0.014602",
+            "call_seconds": "2.561079",
+            "teardown_seconds": "0.00054"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_bound_authority_permits_no_work[unrelated]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_bound_authority_permits_no_work[unrelated]",
+          "seconds": 5.282,
+          "properties": {
+            "setup_seconds": "0.012676",
+            "call_seconds": "5.268641",
+            "teardown_seconds": "0.000457"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_authorization_capacity_failure_is_terminal",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_authorization_capacity_failure_is_terminal",
+          "seconds": 83.677,
+          "properties": {
+            "setup_seconds": "0.012017",
+            "call_seconds": "83.664686"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/boundary.log",
+      "raw_log_sha256": "c27757e215cb21e2da8db256502aea81563b5bda3269258d9b56ca435201b1c2",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "9e7b6a9a8c121db1509ba95b6badb5164a4256a0117f92981343033ecf78268f"
+    },
+    {
+      "name": "focused",
+      "meaning": "Interrupted at file timeout. No accepted case IDs or passing aggregate.",
+      "exit_code": 1,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 650.0,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+          "blob": "ea6cf8595659d61ddc89f1f6a6def581ae8914ca"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3b60823dc104908e90c7dd54e18715195df762a8d4eb4fd0f8d14ba8c4ab203e",
+          "blob": "3d6b8109f758ed9c0a5b04a4adf6c3c944f6883d"
+        }
+      },
+      "cases": [],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/focused.log",
+      "raw_log_sha256": "75fa585408de8f16a6fc862c44a790876f98aa8be954bc2a2dd1d59d95d2b11f",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "timeout_seconds": 650,
+      "progress_markers": 17,
+      "qualified_cases": 0,
+      "owned_runner_settled": true
+    },
+    {
+      "name": "late-poison-red",
+      "meaning": "Actual late shared poisoning allowed a genuine result to escape before correction.",
+      "exit_code": 1,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 49.7,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+          "blob": "ea6cf8595659d61ddc89f1f6a6def581ae8914ca"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "ef9f70537a202d06c177937c66c55609d2a86ecf16bbff145a1fa65ad58eddf6",
+          "blob": "0093aa76f48b2925547cfddabb8ae9a9dfb93c92"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_poison_after_genuine_completion_cannot_release",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_poison_after_genuine_completion_cannot_release",
+          "seconds": 48.597,
+          "properties": {
+            "setup_seconds": "1.550389",
+            "call_seconds": "47.046374"
+          },
+          "status": "failed",
+          "failure_message": "Failed: DID NOT RAISE any of (NativeContentPolicyDenied, PolicyError)"
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/late-poison-red.log",
+      "raw_log_sha256": "a0aa7da46445e32adea79c8205ff02dbb89ea8f36deb4a8386af7794b2920fcb",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "ce8a822709a419d4acfb0a15b8f887a2db76c41680837912533e6d3cd0a95e3f"
+    },
+    {
+      "name": "release",
+      "meaning": "Corrected actual positive, late parent-route expiry and late runtime poisoning.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 149.7,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+          "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "ef9f70537a202d06c177937c66c55609d2a86ecf16bbff145a1fa65ad58eddf6",
+          "blob": "0093aa76f48b2925547cfddabb8ae9a9dfb93c92"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_example_one_actual_leaf_and_parent",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_example_one_actual_leaf_and_parent",
+          "seconds": 49.675,
+          "properties": {
+            "setup_seconds": "1.520894",
+            "call_seconds": "48.153151",
+            "teardown_seconds": "0.000555"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_parent_route_expiry_with_live_coverage[True]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_parent_route_expiry_with_live_coverage[True]",
+          "seconds": 50.058,
+          "properties": {
+            "setup_seconds": "0.01686",
+            "call_seconds": "50.040777",
+            "teardown_seconds": "0.000535"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_poison_after_genuine_completion_cannot_release",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_poison_after_genuine_completion_cannot_release",
+          "seconds": 48.955,
+          "properties": {
+            "setup_seconds": "0.013098",
+            "call_seconds": "48.941367"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/release.log",
+      "raw_log_sha256": "06690ccb9269151874a5fb5de5797f08907b834f090679fe9f7ae07d42a998c2",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "f882a8d2ec003b7455a4ed6a698a250dbdec1fe8d0b7d8fe2209b79473bd7ff1"
+    },
+    {
+      "name": "identity",
+      "meaning": "Current runtime retained profiles, four callback reentry targets and binding control identities.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 198.0,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+          "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d",
+          "blob": "25a0ad47232275833a825c57767911e0230da530"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_retained_profiles_and_terminal_operations",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_retained_profiles_and_terminal_operations",
+          "seconds": 48.381,
+          "properties": {
+            "setup_seconds": "1.551429",
+            "call_seconds": "46.829271",
+            "teardown_seconds": "0.000482"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[resume]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_callback_reentry_before_busy_guard[resume]",
+          "seconds": 35.477,
+          "properties": {
+            "setup_seconds": "0.015693",
+            "call_seconds": "35.460721",
+            "teardown_seconds": "0.000475"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[public]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_callback_reentry_before_busy_guard[public]",
+          "seconds": 35.932,
+          "properties": {
+            "setup_seconds": "0.012145",
+            "call_seconds": "35.919499",
+            "teardown_seconds": "0.000496"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[dispatch]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_callback_reentry_before_busy_guard[dispatch]",
+          "seconds": 36.753,
+          "properties": {
+            "setup_seconds": "0.017858",
+            "call_seconds": "36.734494",
+            "teardown_seconds": "0.000562"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_callback_reentry_before_busy_guard[helper]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_callback_reentry_before_busy_guard[helper]",
+          "seconds": 36.457,
+          "properties": {
+            "setup_seconds": "0.013757",
+            "call_seconds": "36.442127",
+            "teardown_seconds": "0.000643"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[keyboard-binding]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_control_identity_at_trusted_boundaries[keyboard-binding]",
+          "seconds": 2.054,
+          "properties": {
+            "setup_seconds": "0.013509",
+            "call_seconds": "2.039984",
+            "teardown_seconds": "0.000676"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[system-exit-binding]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_control_identity_at_trusted_boundaries[system-exit-binding]",
+          "seconds": 1.87,
+          "properties": {
+            "setup_seconds": "0.017325",
+            "call_seconds": "1.851994"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/identity.log",
+      "raw_log_sha256": "556bd87480fef5c59b37bb441b2707f8893c7a30569e83c2faeae0cede14223a",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "137f2df689ee79043180de8a9d7947dd58993f6c7291bf09381b41f9ea144672"
+    },
+    {
+      "name": "failure",
+      "meaning": "Current runtime send control identities, mutation, used-route expiry and full-text bound.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 369.6,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+          "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3e6717d7e968b8765602caccc5cb749f81bd5b579e3b43434c8bf3e5b18e970d",
+          "blob": "25a0ad47232275833a825c57767911e0230da530"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[interrupted-send]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_control_identity_at_trusted_boundaries[interrupted-send]",
+          "seconds": 46.249,
+          "properties": {
+            "setup_seconds": "1.54249",
+            "call_seconds": "44.705995",
+            "teardown_seconds": "0.000522"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_control_identity_at_trusted_boundaries[cancelled-send]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_control_identity_at_trusted_boundaries[cancelled-send]",
+          "seconds": 44.918,
+          "properties": {
+            "setup_seconds": "0.019677",
+            "call_seconds": "44.897644",
+            "teardown_seconds": "0.000493"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_actual_object_mutation_denies_release[input]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_actual_object_mutation_denies_release[input]",
+          "seconds": 45.647,
+          "properties": {
+            "setup_seconds": "0.01226",
+            "call_seconds": "45.633923",
+            "teardown_seconds": "0.000486"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_actual_object_mutation_denies_release[result]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_actual_object_mutation_denies_release[result]",
+          "seconds": 48.507,
+          "properties": {
+            "setup_seconds": "0.012638",
+            "call_seconds": "48.493779",
+            "teardown_seconds": "0.000487"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_actual_object_mutation_denies_release[delegation]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_actual_object_mutation_denies_release[delegation]",
+          "seconds": 37.031,
+          "properties": {
+            "setup_seconds": "0.012404",
+            "call_seconds": "37.017819",
+            "teardown_seconds": "0.000474"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_original_parent_route_expiry_with_live_coverage[False]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_original_parent_route_expiry_with_live_coverage[False]",
+          "seconds": 37.771,
+          "properties": {
+            "setup_seconds": "0.013885",
+            "call_seconds": "37.757061",
+            "teardown_seconds": "0.00048"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_other_used_route_expiry[issued_delegate]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_other_used_route_expiry[issued_delegate]",
+          "seconds": 35.898,
+          "properties": {
+            "setup_seconds": "0.015665",
+            "call_seconds": "35.881328",
+            "teardown_seconds": "0.000533"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_other_used_route_expiry[route_2_main]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_other_used_route_expiry[route_2_main]",
+          "seconds": 36.52,
+          "properties": {
+            "setup_seconds": "0.013719",
+            "call_seconds": "36.50568",
+            "teardown_seconds": "0.000469"
+          },
+          "status": "passed",
+          "failure_message": null
+        },
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_complete_over_limit_input_is_refused",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_complete_over_limit_input_is_refused",
+          "seconds": 35.976,
+          "properties": {
+            "setup_seconds": "0.020665",
+            "call_seconds": "35.955021"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/failure.log",
+      "raw_log_sha256": "e735e0f1d540e31993b327cdb4ebf24c57355f42c6063360c0dae04271f75db1",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "f0cc0f40b4b387c536f2e28bd969fe26d78271c1f6f6959855b37989aaccf594"
+    },
+    {
+      "name": "recorder",
+      "meaning": "Additive recorder start/phase/hash control. Native test body unchanged.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 4.8,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+          "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+          "blob": "bf73d63a2f0dbc494539a5207ead7dc46242d5f0"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_parent_resumption.py::test_binding_rejects_input_before_callbacks[options0]",
+          "classname": "tests.tools.test_native_parent_resumption",
+          "name": "test_binding_rejects_input_before_callbacks[options0]",
+          "seconds": 3.633,
+          "properties": {
+            "setup_seconds": "1.630662",
+            "call_seconds": "2.001155"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/recorder.log",
+      "raw_log_sha256": "26ad51e1aa599632cebf182873c3a81271dfcbe48f4a935dbe25b8af7dc1e48c",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "92191a65e294851ced898d622badbeb6d162088dfdf59dac4da18029c0b11681"
+    },
+    {
+      "name": "ordinary",
+      "meaning": "One unchanged ordinary delegate representative.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 1.5,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+          "blob": "ea6cf8595659d61ddc89f1f6a6def581ae8914ca"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3b60823dc104908e90c7dd54e18715195df762a8d4eb4fd0f8d14ba8c4ab203e",
+          "blob": "3d6b8109f758ed9c0a5b04a4adf6c3c944f6883d"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_delegate.py::TestDelegateTask::test_no_parent_agent",
+          "classname": "tests.tools.test_delegate.TestDelegateTask",
+          "name": "test_no_parent_agent",
+          "seconds": 0.69,
+          "properties": {},
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/ordinary.log",
+      "raw_log_sha256": "a4bcc604039cc6042128527b03f242940d143318434151ca6474c8f96f00f018",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "38719a75b6d52a478bef984d290af4069a826af767a5240a221c44d0ae09b9f9"
+    },
+    {
+      "name": "main",
+      "meaning": "One unchanged public/module controlled-main representative.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 3.7,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+          "blob": "ea6cf8595659d61ddc89f1f6a6def581ae8914ca"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3b60823dc104908e90c7dd54e18715195df762a8d4eb4fd0f8d14ba8c4ab203e",
+          "blob": "3d6b8109f758ed9c0a5b04a4adf6c3c944f6883d"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[True]",
+          "classname": "tests.agent.test_native_controlled_conversation",
+          "name": "test_real_constructor_first_and_repeated_entrypoints[True]",
+          "seconds": 2.863,
+          "properties": {},
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/main.log",
+      "raw_log_sha256": "1e9d710892e12e83c671d977a500bc495ddf83af263096e9d50fb70a793f1d0f",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "673d375aae9b4ff876a4afbc11f4807d8ceb07972096a6cf0bc0d426978ca067"
+    },
+    {
+      "name": "default",
+      "meaning": "One unchanged no-opt-in leaf and terminal representative.",
+      "exit_code": 0,
+      "retries": 0,
+      "runner": "scripts/run_tests.sh",
+      "wall_seconds": 45.8,
+      "source": {
+        "agent/native_main_payload.py": {
+          "sha256": "3f3739d8a68384ad7fbe0fe4b18ee1b04ad5b86b8ef93cb547ff7d8bfe6f399a",
+          "blob": "ea6cf8595659d61ddc89f1f6a6def581ae8914ca"
+        },
+        "tests/tools/test_native_parent_resumption.py": {
+          "sha256": "3b60823dc104908e90c7dd54e18715195df762a8d4eb4fd0f8d14ba8c4ab203e",
+          "blob": "3d6b8109f758ed9c0a5b04a4adf6c3c944f6883d"
+        }
+      },
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path",
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": 44.814,
+          "properties": {
+            "setup_seconds": "1.670736",
+            "call_seconds": "43.142918"
+          },
+          "status": "passed",
+          "failure_message": null
+        }
+      ],
+      "raw_log_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/runs/default.log",
+      "raw_log_sha256": "790ce0ce818bfebec55d4cd1c0768fef3c05113ff8967b1ee8cddd47765c5a52",
+      "source_import_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+      "installed_native_distribution": false,
+      "xml_sha256": "f1353bcb376dc0888f42cc9bae661cba81e30c9a2b0114ce82e4ceefb307aa1b"
+    }
+  ],
+  "aggregate_claim": false,
+  "rule": "Keep distinct source and consumer scopes. The interrupted file establishes no qualified aggregate.",
+  "published_failure_logs": "Whitespace-trimmed evidence copies only. Original logs and hashes remain at the recorded external paths."
+}

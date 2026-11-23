@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "Focused verification complete; root acceptance pending.",
+  "native_source": {
+    "agent/native_main_payload.py": {
+      "sha256": "11be91a43294caacdb99361c6ebaf6440364503c3d5c1ef980f93e59a1f46cae",
+      "blob": "ad98b201b73590aa037647a0d2a55be41afceb6f"
+    },
+    "tests/tools/test_native_parent_resumption.py": {
+      "sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f",
+      "blob": "bf73d63a2f0dbc494539a5207ead7dc46242d5f0"
+    }
+  },
+  "native_api_sha256": "0ef4077739484c28c27f9ae2bce504b8a76645b2ce482c3cc777932e52f509a5",
+  "consumer_contract_sha256": "99349444abd9039aca58ade18bdbf0a50e52c77afea609a7f6ba5ad85762d826",
+  "dependency_receipt_sha256": "ba16562f4155d8ef93f2135233dd7c8a5f55419ee358f49f7d137b49e2d8f260",
+  "runtime_scope": [
+    "agent/native_main_payload.py"
+  ],
+  "test_scope": [
+    "tests/tools/test_native_parent_resumption.py"
+  ],
+  "native_base": "d2d58c118b101c5045b20f765ce19dcfc66839a2",
+  "pwa_publication": "1cc988158d7acb6d357dbce8fabb62d7009121e7",
+  "selected_proposal_sha256": "d8253ebc7bc86ea0943e66002e4fc8954b0d024a81f3a9008abe84941d7f8bd6",
+  "selected_source_map_sha256": "0a93fa3b58bc270d47ffd1199b3d806e6ff59f13bcd7353b3edf6c18d7d1adc3",
+  "limits": "Original native/shared bounds and all full P10/P06/private/egress/durable/cross-thread/source/financial/production gates remain unchanged.",
+  "source_commit": "f882033d6131d0c206ac0496ca4ec4d02d37e480",
+  "source_tree": "28e920a80e6fc2ad7d1151e4c1c61aa15852a308"
+}

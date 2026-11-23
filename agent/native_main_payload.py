@@ -48,6 +48,99 @@ class _DelegateFrames(weakref.WeakKeyDictionary):
 
 
 _delegate_frames = _DelegateFrames()
+_parent_resumptions = _DelegateFrames()
+
+
+class NativeParentResumption:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Parent tokens require operator admission")
+
+
+@dataclass(frozen=True, slots=True)
+class NativeParentResumptionBinding:
+    token: NativeParentResumption
+    agent: object
+    delegation_frame: object
+    delegation_binding: NativeDelegateBinding
+    parent_request: object
+    selection: NativeMainSelection
+    producer_policy: NativeResultPolicy
+    main_route: object
+    instruction: str
+    system_message: str | None
+    task_id: str
+    options: tuple
+    authorization_bytes: bytes
+    authorization_content: object
+    snapshots: tuple
+    anchors: tuple
+    thread: int
+
+
+@dataclass(frozen=True, slots=True)
+class NativeParentResumptionInvocation:
+    binding: NativeParentResumptionBinding
+    delegation: NativeDelegateInvocation
+    return_facts: object
+    returned_content: object
+    closed_child_proof: tuple
+    arguments: tuple
+    argument_anchors: tuple
+    raw_bytes: bytes
+    input_parents: tuple
+    input_content: object
+    turn_frame: _TurnFrame | None
+    preparation_contents: tuple
+    request: dict | None
+    request_bytes: bytes | None
+    request_content: object
+    envelope: object
+    observed_destination: object
+    response_bytes: bytes | None
+    native_invocation: NativeMainInvocation | None
+    native_completion: _NativeCompletion | None
+    result: dict | None
+    result_bytes: bytes | None
+    result_content: object
+
+
+def _resumption_callback(adapter, callback, *args):
+    owner = _parent_resumptions.get(adapter)
+    return callback(*args) if owner is None else owner.callback(callback, *args)
+
+
+def _capture_resumption_binding(function):
+    from functools import wraps
+    from inspect import signature
+    public_signature = signature(function)
+
+    @wraps(function)
+    def captured(*args, **kwargs):
+        adapter = args[0] if args else kwargs.get("self")
+        try:
+            _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
+            _require(all(type(name) is str for name in kwargs))
+            bound = public_signature.bind(*args, **kwargs).arguments
+            instruction = bound["instruction"]
+            _text(instruction)
+            _require(bool(instruction))
+            system = bound.get("system_message")
+            if system is not None:
+                _text(system)
+            options = (tuple((name, name in bound, bound.get(name))
+                             for name in public_signature.parameters), args, tuple(kwargs.items()))
+            owner = _ParentResumption(adapter, bound["agent"], options)
+            return function(*args, **kwargs)
+        except BaseException:
+            if type(adapter) is NativeMainPayloadAdapter and adapter in _adapters:
+                owner = _parent_resumptions.get(adapter)
+                adapter._invalidate()
+                if owner is not None and owner.control_exception is not None:
+                    raise owner.control_exception
+            raise
+    return captured
 
 
 class NativeDelegateInput:
@@ -939,6 +1032,9 @@ class _Transport:
         adapter._interrupt_operation()
         adapter._pending = (envelope, actual, None)
         before = adapter._send_count
+        owner = _parent_resumptions.get(adapter)
+        if owner is not None:
+            owner.sending(operation, envelope, actual, before)
         if operation.path == "fallback":
             _integer(adapter._fallback_send_count, _MAX_INT - 1, 0)
             adapter._fallback_send_count += 1
@@ -948,8 +1044,10 @@ class _Transport:
         else:
             _integer(adapter._send_count, _MAX_INT - 1, 0)
             adapter._send_count += 1
+        if owner is not None:
+            owner.partial_send = owner.partial_anchor = (*owner.partial_send[:4], adapter._send_count, None)
         try:
-            output = self.port.send(envelope)
+            output = _resumption_callback(adapter, self.port.send, envelope)
         except (ConnectionError, TimeoutError) as error:
             if (type(error) in (ConnectionError, TimeoutError) and operation.path == "main"
                     and adapter._fallback_binding is not None):
@@ -958,6 +1056,8 @@ class _Transport:
                 )
             raise
         adapter._pending = (envelope, actual, output)
+        if owner is not None:
+            owner.sent(envelope, actual, output, before, adapter._send_count)
         adapter._checkpoint()
         _require(type(output) is bytes and len(output) <= 65_536)
         _require(self.resolve() == actual)
@@ -1207,13 +1307,13 @@ class NativeMainPayloadAdapter:
         self._verify_fallback()
         if self._fallback_binding is not None:
             _require(_same_anchors(_nested_anchors(self._operator_configuration), self._fallback_catalog_anchor))
-        source = self._admission.current(self._handle)
+        source = _resumption_callback(self, self._admission.current, self._handle)
         self._identity()
         source_row = _binding(source)
-        selected = self._selection_port.current(self._handle)
+        selected = _resumption_callback(self, self._selection_port.current, self._handle)
         self._identity()
         selection_row = _selection(selected)
-        producer = self._result_port.current(self._producer_ref)
+        producer = _resumption_callback(self, self._result_port.current, self._producer_ref)
         producer_row = _producer(producer)
         self._identity()
         _require(producer_row[0] == self._producer_ref)
@@ -1343,7 +1443,11 @@ class NativeMainPayloadAdapter:
 
     @contextmanager
     def _turn_operation(self, agent):
+        owner = _parent_resumptions.get(self)
+        stage = None
         try:
+            if owner is not None and owner.active_call is not None:
+                stage = owner.enter_stage()
             _require(not self._busy)
             self._busy = True
             _require(self._turn_agent is agent)
@@ -1373,6 +1477,8 @@ class NativeMainPayloadAdapter:
             raise
         finally:
             self._busy = False
+            if stage is not None:
+                owner.exit_stage(stage)
 
     def admit_turn(
         self, agent: object, *, user_message: str,
@@ -1380,6 +1486,12 @@ class NativeMainPayloadAdapter:
         conversation_history: list[dict[str, str]] | None,
         task_id: str,
     ) -> NativeTurnInput:
+        owner = _parent_resumptions.get(self)
+        if owner is not None:
+            owner.access()
+            _require(owner.phase == "entered" and owner.record.input_content is None)
+            _require(_same_anchors((user_message, system_message, conversation_history, task_id),
+                                   owner.record.arguments))
         if self._fallback_frame is not None or self._fallback_terminal:
             self._deny()
         self._preparation_enabled = True
@@ -1410,7 +1522,11 @@ class NativeMainPayloadAdapter:
             self._turn_state, self._turn_options = state, options
             self._turn_facts = self._checkpoint()[:3]
             delegation = getattr(self, "_delegate_parent_frame", None)
-            if delegation is not None:
+            if owner is not None:
+                admitted = self._runtime.derive(self._handle, owner.record.input_parents, raw, path="main")
+                owner.retain(raw_bytes=raw, input_content=admitted)
+                owner.transition("entered", "admitted")
+            elif delegation is not None:
                 delegation.check_child_input(agent, arguments)
                 admitted = self._runtime.derive(self._handle, (delegation.record.child_seed,), raw, path="main")
             else:
@@ -1424,6 +1540,8 @@ class NativeMainPayloadAdapter:
             frame = _TurnFrame(token, arguments, raw, admitted, content, options, _input_anchors(arguments))
             self._turn_frames += (frame,)
             self._turn_pending = frame
+            if owner is not None:
+                owner.progress()
             if not self._system_prefix:
                 self._system_prefix = (system_message,)
             return token
@@ -1457,6 +1575,9 @@ class NativeMainPayloadAdapter:
             frame = replace(frame, output=output, output_anchors=_output_anchors(output), output_bytes=encoded)
             self._turn_frames = (*self._turn_frames[:-1], frame)
             self._turn_pending = frame
+            owner = _parent_resumptions.get(self)
+            if owner is not None:
+                owner.progress()
         prepared = self.seal_turn(agent, token, turn_context=output)
         _require(output.controlled_prepared is prepared)
         return output
@@ -1487,6 +1608,9 @@ class NativeMainPayloadAdapter:
             frame = replace(frame, prepared=prepared, output_content=content, request_bytes=_json(request))
             self._turn_frames = (*self._turn_frames[:-1], frame)
             self._turn_pending = frame
+            owner = _parent_resumptions.get(self)
+            if owner is not None:
+                owner.progress()
             return prepared
 
     def _turn_request(self, frame):
@@ -1520,6 +1644,10 @@ class NativeMainPayloadAdapter:
             frame = replace(frame, request_contents=(*frame.request_contents, content))
             self._turn_frames = (*self._turn_frames[:-1], frame)
             self._turn_pending = frame
+            owner = _parent_resumptions.get(self)
+            if owner is not None:
+                owner.progress()
+                owner.prepared_request = request
             return request
 
     @property
@@ -1561,7 +1689,13 @@ class NativeMainPayloadAdapter:
         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
 
     def _model_open(self):
-        _require(self not in _delegate_frames and not hasattr(self, "_delegate_frame"))
+        owner = _parent_resumptions.get(self)
+        if owner is None:
+            _require(self not in _delegate_frames and not hasattr(self, "_delegate_frame"))
+        else:
+            owner.access()
+            owner.check_stage()
+            owner.checkpoint()
         _require(self._fallback_frame is None and self._fallback_terminal is False)
 
     def bind_delegation(
@@ -1578,6 +1712,27 @@ class NativeMainPayloadAdapter:
                 child_main_route_ref, child_session_id, child_task_id)
         except BaseException:
             self._invalidate()
+            raise
+
+    @_capture_resumption_binding
+    def bind_parent_resumption(
+        self, agent: object, *, instruction: str,
+        system_message: str | None = None,
+    ) -> NativeParentResumption:
+        return _parent_resumptions[self].bind(instruction, system_message)
+
+    def resume_parent(
+        self, agent: object, authorization: NativeParentResumption,
+    ) -> dict:
+        _require(type(self) is NativeMainPayloadAdapter and self in _adapters)
+        owner = _parent_resumptions.get(self)
+        try:
+            _require(owner is not None)
+            return owner.resume(agent, authorization)
+        except BaseException:
+            self._invalidate()
+            if owner is not None and owner.control_exception is not None:
+                raise owner.control_exception
             raise
 
     def _verify_fallback(self):
@@ -2642,7 +2797,7 @@ class NativeMainPayloadAdapter:
     def _around(self, callback):
         try:
             self._checkpoint()
-            output = callback()
+            output = _resumption_callback(self, callback)
             self._checkpoint()
             return output
         except BaseException as error:
@@ -2664,7 +2819,12 @@ class NativeMainPayloadAdapter:
             self._busy = False
 
     def dispatch(self, agent: object, api_kwargs: dict) -> NativeMainResponse:
+        owner = _parent_resumptions.get(self)
+        stage = None
         try:
+            if owner is not None:
+                stage = owner.enter_stage()
+                _require(owner.phase == "admitted" and api_kwargs is owner.prepared_request)
             self._model_open()
             _require(not self._busy and self._aux_pending is None and len(self._records) < 8)
             self._busy = True
@@ -2735,6 +2895,8 @@ class NativeMainPayloadAdapter:
                 envelope, self._handle, self._request_bytes, output, _binding(record.source),
                 (response.choices, response.choices[0], response.choices[0].message, response.usage),
                 (record.source, record.selection, record.producer_policy, record.observed_destination)),)
+            if owner is not None:
+                owner.progress()
             if frame is not None:
                 self._turn_pending = None
                 self._turn_arguments = self._turn_raw = self._turn_state = self._turn_options = self._turn_facts = None
@@ -2757,6 +2919,8 @@ class NativeMainPayloadAdapter:
             self._fallback_expected = None
             self._fallback_expected_anchor = None
             self._busy = False
+            if stage is not None:
+                owner.exit_stage(stage)
 
 
 def _nested_anchors(value):
@@ -3478,6 +3642,10 @@ def _bind_constructed_main(agent, adapter: NativeMainPayloadAdapter) -> None:
 def _constructed_adapter(agent):
     try:
         binding = _namespace(agent).get("_native_controlled_binding")
+        owned = _owned_constructed_binding(agent)
+        owner = _parent_resumptions.get(owned.adapter) if owned is not None else None
+        if owner is not None:
+            owner.access()
         _verify_constructed(binding)
         _require(current_context(agent) is binding.adapter._bound_context)
         binding.adapter.validate_scope()
@@ -3561,6 +3729,10 @@ def _complete_controlled_turn(agent, *, turn_context: TurnContext,
         adapter._completions += (completed,)
         adapter._completion_anchors += ((completed, frame, invocation, parents, payload,
                                          content, result, completed.anchors),)
+        owner = _parent_resumptions.get(adapter)
+        if owner is not None:
+            owner.progress()
+            owner.transition("sent", "completed")
         adapter._interrupt_turn()
         return result
 
@@ -3579,6 +3751,334 @@ def _close_constructed_main(agent) -> bool:
     if binding is not None:
         binding.closed = True
     return True
+
+
+class _ParentResumption:
+    """Retain one operator authorization and its actual parent proof."""
+
+    def __init__(self, parent, agent, options):
+        _require(parent not in _parent_resumptions)
+        frame = _delegate_frames.get(parent)
+        _require(type(frame) is _DelegateFrame and frame.parent is parent and frame.agent is agent)
+        _require(not hasattr(frame, "parent_resumption"))
+        _require(threading.get_ident() == frame.thread == parent._thread)
+        _require(current_context() is parent._bound_context)
+        _require(current_context(agent) is parent._bound_context)
+        _require(parent._constructed is _owned_constructed_binding(agent))
+        _require(not frame.running and not frame.terminal and frame.record is None and frame.phase is None)
+        _require(not parent._busy and parent._pending is parent._operation is parent._checked_operation is None)
+        _require(parent._turn_pending is parent._aux_pending is None)
+        _require(not parent._turn_frames and not parent._records and not parent._completions)
+        _require(parent._aux_binding is parent._compression_binding is parent._fallback_binding is None)
+        self.parent, self.agent, self.frame = parent, agent, frame
+        self.options, self.option_anchors = options, _nested_anchors(options)
+        self.phase = self.phase_anchor = "bound"
+        self.binding = self.registered_binding = self.record = self.registered_record = None
+        self.depth = 0
+        self.active_call = self.call_frame = self.public_frame = None
+        self.active_anchor = self.stage = self.stage_anchor = None
+        self.stage_index = 0
+        self.control_exception = None
+        self.prepared_request = None
+        self.partial_send = None
+        self.partial_anchor = None
+        self.proof = self.parent_proof()
+        frame.parent_resumption = self
+        _parent_resumptions[parent] = self
+
+    def parent_proof(self):
+        p = self.parent
+        return p._turn_frames, p._records, p._record_anchors, p._completions, p._completion_anchors
+
+    def callback(self, callback, *args):
+        self.depth += 1
+        try:
+            output = callback(*args)
+            return output
+        except BaseException as error:
+            import asyncio
+            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                if self.control_exception is None:
+                    self.control_exception = error
+            raise
+        finally:
+            self.depth -= 1
+
+    def verify(self):
+        _require(_parent_resumptions.get(self.parent) is self)
+        _require(self.frame.parent_resumption is self and self.frame.parent is self.parent)
+        _require(self.phase is self.phase_anchor and self.phase != "denied")
+        _require(threading.get_ident() == self.frame.thread)
+        _require(_same_anchors(_nested_anchors(self.options), self.option_anchors))
+        _require(_same_anchors(self.parent_proof(), self.proof))
+        _require(all(type(rows) is tuple and len(rows) <= 1 for rows in self.proof))
+        _require(self.partial_send is self.partial_anchor)
+        if self.binding is not None:
+            b = self.binding
+            _require(b is self.registered_binding)
+            _require(_same_anchors(_row(b, NativeParentResumptionBinding), self.binding_anchor))
+            _require(b.snapshots is self.snapshots and b.anchors is self.snapshot_anchors)
+            _require(_same_anchors(b.snapshots, (self.frame.binding.snapshots, self.frame.initial,
+                self.parent._constructed, self.parent._constructed.methods, self.frame.catalog, self.methods)))
+            _require(b.agent is self.agent and b.delegation_frame is self.frame)
+            _require(b.delegation_binding is self.frame.binding and b.parent_request is self.parent._handle)
+            _require(self.parent._main_route is b.main_route and self.parent._route_ref is self.route_ref)
+            _require(self.parent._producer_ref is self.frame.producers[0])
+            _require(b.options is self.options and b.thread == self.frame.thread)
+            _require(self.frame.runtime._content(b.authorization_content).payload is b.authorization_bytes)
+            for port, name, method in self.methods:
+                _require(_same_method(getattr(port, name), method))
+        if self.record is not None:
+            r = self.record
+            _require(r is self.registered_record and r.binding is self.binding)
+            _require(_same_anchors(_row(r, NativeParentResumptionInvocation), self.record_anchor))
+            _require(_same_anchors(self.mutable_anchors(r), self.record_nested))
+            _require(_same_anchors(_nested_anchors(r.arguments), r.argument_anchors))
+            _require(r.delegation is self.frame.record and r.closed_child_proof is self.frame.closed_proof)
+            _require(r.return_facts is r.delegation.return_facts)
+            _require(r.returned_content is r.return_facts.returned_content)
+            _require(_same_anchors(r.input_parents, (r.returned_content, self.binding.authorization_content)))
+            _require(r.arguments[0].encode("utf-8") == self.binding.instruction.encode("utf-8")
+                     + b"\n" + r.delegation.aggregate_bytes)
+            _require(_NATIVE_SANITIZER(r.arguments[0]) == r.arguments[0])
+            if r.input_content is not None:
+                content = self.frame.runtime._content(r.input_content)
+                _require(content.payload is r.raw_bytes and _same_anchors(content.parents, r.input_parents))
+            if r.turn_frame is not None:
+                _require(_same_anchors(self.parent._turn_frames, (r.turn_frame,)))
+                _require(r.turn_frame.admitted is r.input_content)
+                _require(_same_anchors(r.turn_frame.arguments, r.arguments))
+            if r.native_completion is not None:
+                _require(r.native_completion.result is r.result)
+                _require(r.native_completion.payload is r.result_bytes)
+                _require(_native_result_bytes(r.result) == r.result_bytes)
+                _require(self.frame.runtime._content(r.result_content).payload is r.result_bytes)
+
+    def checkpoint(self):
+        self.frame.runtime._check_operator()
+        self.frame.checkpoint()
+        self.parent._checkpoint()
+        self.frame.runtime._check_operator()
+        self.verify()
+
+    def bind(self, instruction, system):
+        from agent import conversation_loop
+        self.checkpoint()
+        _require(self.binding is None and self.active_call is None and self.depth == 0)
+        _verify_constructed(self.parent._constructed)
+        originals = self.frame.binding.snapshots[0]
+        source, selected, producer = originals[0]
+        task = source.execution_ref
+        _identifier(task)
+        self.methods = tuple((port, name, _method(getattr(port, name))) for port, name in (
+            (self.parent, "bind_parent_resumption"), (self.parent, "resume_parent"),
+            (self.parent, "_dispatch_retained_operation"),
+            (sys.modules[__name__], "_constructed_adapter"),
+            (sys.modules[__name__], "_prepare_controlled_turn"),
+            (sys.modules[__name__], "dispatch_controlled_main"),
+            (sys.modules[__name__], "_resumption_callback"),
+            (self.frame.runtime, "_check_operator"), (self.frame.runtime, "_operator"),
+            (conversation_loop, "_try_controlled_text_turn")))
+        self.methods += tuple((self, name, _method(getattr(self, name))) for name in (
+            "callback", "verify", "checkpoint", "access", "_access", "enter_stage", "check_stage",
+            "exit_stage", "retain", "mutable_anchors", "transition", "progress", "access_progress",
+            "sending", "sent", "resume", "parent_proof"))
+        self.route_ref = self.parent._route_ref
+        self.stage_codes = tuple(_method(function)[-1].__code__ for function in (
+            conversation_loop._try_controlled_text_turn, self.parent.admit_turn,
+            self.parent._prepare_turn, self.parent.seal_turn, self.parent.prepared_request,
+            self.parent.dispatch, _complete_controlled_turn, conversation_loop._try_controlled_text_turn))
+        snapshots = (self.frame.binding.snapshots, self.frame.initial, self.parent._constructed,
+                     self.parent._constructed.methods, self.frame.catalog, self.methods)
+        self.snapshots, self.snapshot_anchors = snapshots, _nested_anchors(snapshots)
+        encoded = _json(dict(instruction=instruction, system_message=system, task_id=task,
+            parent=_binding(source), selection=_selection_value(selected), producer=_producer(producer),
+            route=_route_facts(self.parent._main_route)[:5],
+            options=[(name, present) for name, present, _ in self.options[0]]))
+        _require(len(encoded) <= _MAX_NATIVE_RESULT)
+        content = self.frame.runtime.admit(self.parent._handle, encoded)
+        self.checkpoint()
+        token = object.__new__(NativeParentResumption)
+        self.binding = NativeParentResumptionBinding(token, self.agent, self.frame, self.frame.binding,
+            self.parent._handle, selected, producer, self.parent._main_route, instruction, system, task,
+            self.options, encoded, content, snapshots, self.snapshot_anchors, self.frame.thread)
+        self.registered_binding = self.binding
+        self.binding_anchor = _row(self.binding, NativeParentResumptionBinding)
+        self.checkpoint()
+        return token
+
+    def access(self):
+        try:
+            self._access()
+        except BaseException:
+            self.frame.invalidate()
+            raise
+
+    def _access(self):
+        _require(self.depth == 0 and self.active_call is not None and self.call_frame is not None)
+        _require(self.active_call is self.active_anchor)
+        _require(self.phase in ("entered", "admitted", "sent", "completed"))
+        _require(threading.get_ident() == self.binding.thread)
+        # Only the original public call can own native model work.
+        code = _method(self.agent.run_conversation)[1].__code__
+        current = sys._getframe(1)
+        while current is not None and current.f_code is not code:
+            current = current.f_back
+        _require(current is not None and current.f_back is self.call_frame)
+        if self.public_frame is None:
+            self.public_frame = current
+        _require(current is self.public_frame)
+        arguments = self.record.arguments
+        _require(_same_anchors(tuple(current.f_locals[name] for name in (
+            "user_message", "system_message", "conversation_history", "task_id")), arguments))
+        self.verify()
+
+    def enter_stage(self):
+        self.access()
+        _require(self.stage is None and self.stage_index < len(self.stage_codes))
+        code = self.stage_codes[self.stage_index]
+        caller = sys._getframe(1)
+        while caller is not None and caller.f_code is not code:
+            caller = caller.f_back
+        _require(caller is not None)
+        self.stage = self.stage_anchor = (self.active_call, caller, object())
+        self.stage_index += 1
+        self.checkpoint()
+        return self.stage
+
+    def check_stage(self):
+        _require(self.stage is not None and self.stage is self.stage_anchor)
+        _require(self.stage[0] is self.active_call)
+        caller = sys._getframe(1)
+        while caller is not None and caller is not self.stage[1]:
+            caller = caller.f_back
+        _require(caller is self.stage[1])
+
+    def exit_stage(self, stage):
+        if self.phase != "denied":
+            self.access()
+            _require(self.stage is stage is self.stage_anchor)
+            self.checkpoint()
+        self.stage = self.stage_anchor = None
+
+    def retain(self, **changes):
+        self.record = replace(self.record, **changes)
+        self.registered_record = self.record
+        self.record_anchor = _row(self.record, NativeParentResumptionInvocation)
+        self.record_nested = self.mutable_anchors(self.record)
+
+    def mutable_anchors(self, record):
+        return _nested_anchors((record.turn_frame, record.request, record.result))[1:]
+
+    def transition(self, previous, phase):
+        self.checkpoint()
+        _require(self.phase == previous and self.active_call is not None and self.depth == 0)
+        self.phase = self.phase_anchor = phase
+        self.checkpoint()
+
+    def progress(self):
+        self.access_progress()
+        p, changes = self.parent, {}
+        if p._turn_frames:
+            f = p._turn_frames[0]
+            changes.update(turn_frame=f, preparation_contents=(
+                *((f.output_content,) if f.output_content is not None else ()), *f.request_contents))
+            _require(len(changes["preparation_contents"]) <= 8)
+        if p._records:
+            invocation = p._records[0]
+            changes.update(native_invocation=invocation, request_content=invocation.request_content,
+                request_bytes=invocation.request_bytes, envelope=invocation.envelope,
+                observed_destination=invocation.observed_destination, response_bytes=invocation.response_bytes)
+        if p._completions:
+            completed = p._completions[0]
+            changes.update(native_completion=completed, result=completed.result,
+                result_bytes=completed.payload, result_content=completed.content)
+        self.proof = self.parent_proof()
+        self.retain(**changes)
+        self.verify()
+
+    def access_progress(self):
+        # Native progress appends before the next read-only verification.
+        _require(self.depth == 0 and self.active_call is not None)
+        _require(threading.get_ident() == self.binding.thread and self.phase != "denied")
+        self.check_stage()
+
+    def sending(self, operation, envelope, actual, before):
+        self.access()
+        self.check_stage()
+        self.checkpoint()
+        _require(self.phase == "admitted" and self.partial_send is None and before == 0)
+        _require(operation is self.parent._operation and operation.path == "main")
+        _require(operation.handle is self.binding.parent_request)
+        _require(not self.frame.running and self.frame.phase == "released" and self.frame.terminal)
+        _require(self.parent._kwargs is self.prepared_request)
+        _require(self.parent._kwargs["messages"][-1]["content"].encode("utf-8")
+                 == self.record.arguments[0].encode("utf-8"))
+        self.partial_send = self.partial_anchor = (operation, envelope, actual, before, None, None)
+        self.retain(request=self.parent._kwargs, request_bytes=operation.payload,
+            request_content=operation.content, envelope=envelope, observed_destination=actual)
+
+    def sent(self, envelope, actual, output, before, after):
+        operation, original, destination, count, _, _ = self.partial_send
+        _require(envelope is original and actual is destination and before == count == 0 and after == 1)
+        self.partial_send = self.partial_anchor = (operation, envelope, actual, before, after, output)
+        self.access()
+        self.check_stage()
+        self.retain(response_bytes=output)
+        self.transition("admitted", "sent")
+
+    def resume(self, agent, authorization):
+        _require(self.depth == 0 and self.active_call is None and self.phase == "bound")
+        _require(type(authorization) is NativeParentResumption)
+        _require(self.binding is not None and authorization is self.binding.token and agent is self.agent)
+        _require(current_context() is self.parent._bound_context)
+        _require(current_context(agent) is self.parent._bound_context)
+        _require(not self.frame.running and self.frame.terminal and self.frame.phase == "released")
+        _require(not self.parent._busy and self.parent._operation is self.parent._pending is None)
+        _require(self.parent._checked_operation is self.parent._turn_pending is self.parent._aux_pending is None)
+        _require(not self.frame.runtime._busy)
+        _require(self.frame.child_adapter._constructed.closed)
+        self.checkpoint()
+        self.frame.check_return()
+        aggregate = self.frame.record.aggregate_bytes
+        _require(type(aggregate) is bytes)
+        text = aggregate.decode("utf-8", errors="strict")
+        _require(text.encode("utf-8") == aggregate)
+        user = self.binding.instruction + "\n" + text
+        _text(user)
+        _require(_NATIVE_SANITIZER(user) == user)
+        arguments = (user, self.binding.system_message, None, self.binding.task_id)
+        _, options = _native_state(agent, self.binding.system_message)
+        raw = _turn_bytes(arguments, options)
+        self.record = NativeParentResumptionInvocation(self.binding, self.frame.record,
+            self.frame.record.return_facts, self.frame.record.return_facts.returned_content,
+            self.frame.closed_proof, arguments, _nested_anchors(arguments), raw,
+            (self.frame.record.return_facts.returned_content, self.binding.authorization_content),
+            None, None, (), None, None, None, None, None, None, None, None, None, None, None)
+        self.retain()
+        self.active_call = object()
+        self.active_anchor = self.active_call
+        self.call_frame = sys._getframe()
+        try:
+            self.transition("bound", "entered")
+            result = agent.run_conversation(user_message=user, system_message=self.binding.system_message,
+                conversation_history=None, task_id=self.binding.task_id)
+            self.checkpoint()
+            _require(self.phase == "completed" and result is self.record.result)
+            _require(self.stage_index == len(self.stage_codes) and self.stage is None)
+            self.parent._verify_turns()
+            self.parent._verify_records()
+            self.parent._verify_completions()
+            _require(self.parent._operation is self.parent._checked_operation is self.parent._pending is None)
+            _require(self.parent._turn_pending is None and not self.parent._busy)
+            _require(not self.frame.runtime._busy)
+            self.transition("completed", "released")
+            self.active_call = None
+            self.checkpoint()
+            return result
+        finally:
+            self.active_call = self.call_frame = self.public_frame = None
+            self.active_anchor = self.stage = self.stage_anchor = None
 
 
 class _DelegateFrame:
@@ -3667,6 +4167,10 @@ class _DelegateFrame:
             self.verify()
             _require(_same_anchors(self.closed_proof, self.proof()))
             return
+        owner = _parent_resumptions.get(self.parent)
+        if owner is not None:
+            owner.phase = owner.phase_anchor = "denied"
+            owner.active_call = None
         self.invalid = self.terminal = True
         for adapter in (self.parent, self.child_adapter):
             if adapter is not None:
@@ -3694,7 +4198,15 @@ class _DelegateFrame:
         _require(_same_anchors(_nested_anchors(self.binding.snapshots), self.snapshot_anchor))
         _verify_constructed(self.parent._constructed)
         _require(self.parent._turn_agent is self.agent)
-        _require(not self.parent._turn_frames and not self.parent._records and not self.parent._completions)
+        owner = _parent_resumptions.get(self.parent)
+        if owner is None:
+            _require(not self.parent._turn_frames and not self.parent._records and not self.parent._completions)
+        else:
+            _require(type(owner) is _ParentResumption)
+            if owner.binding is not None:
+                for port, name, method in owner.methods:
+                    _require(_same_method(getattr(port, name), method))
+            owner.verify()
         _require(self.parent._aux_binding is self.parent._compression_binding is self.parent._fallback_binding is None)
         for port, name, method in (*self.methods, *self.extra_methods):
             _require(_same_method(getattr(port, name), method))
@@ -3750,7 +4262,7 @@ class _DelegateFrame:
 
     def call(self, callback, *args):
         try:
-            return callback(*args)
+            return _resumption_callback(self.parent, callback, *args)
         except BaseException as error:
             _remember_delegate_control(self, error)
             raise
@@ -3785,6 +4297,9 @@ class _DelegateFrame:
                 _integer(now, minimum=0)
                 _require(now < self.binding.delegate_route.expires_at)
                 _require(now < self.binding.child_main_route.expires_at)
+                owner = _parent_resumptions.get(self.parent)
+                if owner is not None and owner.binding is not None:
+                    _require(now < owner.binding.main_route.expires_at)
                 allowed = set(r.route_ref for r in self.parent._operator_routes)
                 inherited = set(p for row in self.initial for p in row[0][8])
                 inherited.update(p for row in self.initial for p in row[2][2])

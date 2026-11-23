@@ -1,0 +1,28 @@
+{
+  "distribution": "hermes-content-policy",
+  "version": "0.4.0",
+  "engine_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.27/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "metadata": "Metadata-Version: 2.5\nName: hermes-content-policy\nVersion: 0.4.0\nSummary: Operator-bound synthetic content and destination policy\nRequires-Python: <3.14,>=3.11\n",
+  "RECORD": "hermes_content_policy-0.4.0.dist-info/INSTALLER,sha256=5hhM4Q4mYTT9z6QB6PGpUAW81PGNFrYrdXMj4oM_6ak,2\nhermes_content_policy-0.4.0.dist-info/METADATA,sha256=cmTOTqZwfr8u0XYC7gN4DKgCAzeXT64-cY6OCPLAlYI,160\nhermes_content_policy-0.4.0.dist-info/RECORD,,\nhermes_content_policy-0.4.0.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0\nhermes_content_policy-0.4.0.dist-info/WHEEL,sha256=zOwg4jB6zX2kU910N-cMawjivD6tO8NEWvE12je1bVk,87\nhermes_content_policy-0.4.0.dist-info/direct_url.json,sha256=d6weNI3d1XWIe4hlIG3BzFcjPxZ3u6oUnOekLbz3oPc,170\nhermes_content_policy-0.4.0.dist-info/uv_cache.json,sha256=fPHEVbe_BL-aGWxvtHmdfNyUm3BgeHtLAzOzSWSi0EA,127\nhermes_content_policy/__init__.py,sha256=o58Q0Lk-Hrd9NhcDZ81YgL_t7ldJe27aVi_VWC_MeGU,40548\n",
+  "api": {
+    "admit": "(self, request_handle: 'object', payload: 'bytes') -> 'ContentHandle'",
+    "derive": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path') -> 'ContentHandle'",
+    "derive_for_selection": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path', parent_requests: 'tuple[object, ...]') -> 'ContentHandle'",
+    "dispatch": "(self, request_handle: 'object', content: 'ContentHandle', *, path: 'Path', route_ref: 'str') -> 'ContentHandle'",
+    "return_from_delegate": "(self, request_handle: 'object', envelope: 'DispatchEnvelope', accepted_content: 'ContentHandle', receiver_result: 'ContentHandle', *, receiver_request: 'object') -> 'DelegateReturnFacts'"
+  },
+  "installed_native_distribution": false,
+  "delivery": "uv pip install --offline --no-index --no-deps",
+  "native_dependencies": "uv sync --locked --offline --no-install-project --extra dev",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "smoke": "installed import/API/admission only; no native functional delivery claim",
+  "api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "artifact_receipt_sha256": "3b69021fc130a9de4abcbe8d55b79be1207ef77f97d755a56a0c165649b4ddc9",
+  "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.27",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+  "installation_count": 1,
+  "metadata_sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582",
+  "RECORD_sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee",
+  "python": "3.11.15"
+}

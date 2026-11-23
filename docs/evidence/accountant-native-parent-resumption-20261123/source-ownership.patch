@@ -1,0 +1,33 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -1048 +1048 @@
+-            owner.partial_send = (*owner.partial_send[:4], adapter._send_count, None)
++            owner.partial_send = owner.partial_anchor = (*owner.partial_send[:4], adapter._send_count, None)
+@@ -1726,0 +1727 @@
++        _require(type(self) is NativeMainPayloadAdapter and self in _adapters)
+@@ -3782,0 +3784 @@
++        self.partial_anchor = None
+@@ -3812,0 +3815 @@
++        _require(self.partial_send is self.partial_anchor)
+@@ -3821,0 +3825,2 @@
++            _require(self.parent._main_route is b.main_route and self.parent._route_ref is self.route_ref)
++            _require(self.parent._producer_ref is self.frame.producers[0])
+@@ -3873,0 +3879,5 @@
++        self.methods += tuple((self, name, _method(getattr(self, name))) for name in (
++            "callback", "verify", "checkpoint", "access", "_access", "enter_stage", "check_stage",
++            "exit_stage", "retain", "mutable_anchors", "transition", "progress", "access_progress",
++            "sending", "sent", "resume", "parent_proof"))
++        self.route_ref = self.parent._route_ref
+@@ -3990,0 +4001 @@
++        self.check_stage()
+@@ -4003 +4014 @@
+-        self.partial_send = (operation, envelope, actual, before, None, None)
++        self.partial_send = self.partial_anchor = (operation, envelope, actual, before, None, None)
+@@ -4010 +4021 @@
+-        self.partial_send = (operation, envelope, actual, before, after, output)
++        self.partial_send = self.partial_anchor = (operation, envelope, actual, before, after, output)
+@@ -4188,0 +4200,4 @@
++            _require(type(owner) is _ParentResumption)
++            if owner.binding is not None:
++                for port, name, method in owner.methods:
++                    _require(_same_method(getattr(port, name), method))
