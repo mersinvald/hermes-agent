@@ -36,5 +36,11 @@
     "No real providers, egress, private/model, durable restoration, sensitive cross-thread, source, financial, production, deployment, or activation qualification.",
     "Full P10/P06 and root acceptance remain open."
   ],
-  "root_test_exception": "msg_4a5394fffe06"
+  "root_test_exception": "msg_4a5394fffe06",
+  "whitespace": {
+    "source_and_changed_prose_pass": true,
+    "raw_log_trailing_whitespace_reports": 43,
+    "raw_logs_preserved": true,
+    "note": "The full evidence whitespace diagnostic reports original pytest output formatting. No raw log was normalized."
+  }
 }

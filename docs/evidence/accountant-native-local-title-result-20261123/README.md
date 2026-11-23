@@ -75,6 +75,9 @@ Their counts do not add to the final selection.
 No interrupted run occurred in this task.
 The historical 198 native cases and 300 shared cases were not rerun.
 
+Raw pytest logs retain their original trailing spaces.
+Source and changed prose pass whitespace checks.
+
 [The installed smoke](installed-smoke.json) verifies the exact 0.2.0 dependency, engine bytes, API/import, and one representative shared derivation.
 Native imports use this task worktree.
 This is not an installed native functional selection.
