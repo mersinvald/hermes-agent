@@ -1,0 +1,310 @@
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:7: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:8: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:15: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:62: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:66: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:67: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:168: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:169: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:242: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:243: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:293: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:316: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:357: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:372: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:382: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:749: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:780: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:788: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:827: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:828: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:843: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:844: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:873: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.patch:883: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-01.log:16: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-01.log:18: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-01.log:31: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-02.log:16: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-02.log:18: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-02.log:31: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-03.log:16: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-03.log:18: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-03.log:31: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-04.log:33: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-05.log:16: trailing whitespace.
++  ║ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:7: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:8: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:15: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:62: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:66: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:67: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:168: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:169: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:242: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:243: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:292: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:315: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:356: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:371: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:381: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:721: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:752: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:760: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:797: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:798: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:813: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:814: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:840: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-07.patch:850: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:7: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:8: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:15: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:62: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:66: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:67: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:168: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:169: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:242: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:243: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:293: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:316: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:357: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:372: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:382: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:739: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:770: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:778: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:817: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:818: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:833: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:834: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:860: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/feedback-08.patch:870: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:7: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:8: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:15: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:62: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:66: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:67: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:168: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:169: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:242: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:243: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:293: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:316: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:357: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:372: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:382: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:739: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:770: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:778: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:817: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:818: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:833: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:834: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:863: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-history.patch:873: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:7: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:8: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:15: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:62: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:66: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:67: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:168: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:169: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:242: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:243: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:293: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:316: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:357: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:372: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:382: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:739: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:770: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:778: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:817: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:818: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:833: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:834: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:863: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-native.patch:873: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:7: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:8: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:15: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:62: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:66: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:67: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:168: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:169: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:242: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:243: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:293: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:316: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:357: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:372: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:382: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:739: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:770: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:778: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:817: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:818: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:833: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:834: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:863: trailing whitespace.
++ 
+docs/evidence/accountant-native-controlled-fallback-20261123/final-representatives.patch:873: trailing whitespace.
++ 
