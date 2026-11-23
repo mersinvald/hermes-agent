@@ -1,0 +1,3894 @@
+{
+  "scopes": [
+    {
+      "name": "first",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py",
+        "-k",
+        "test_actual_constructed_caller_send_observation",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=c6f52b9625af66ea5e81056e1e25e964cf6d712324812891276a08d246128dac",
+        "-o",
+        "accountant_test_sha256=aa9ed13e0c49ff2925a5fef9cb6797fa6703d0906bd19f71c3b2ebb8115e409b",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "c6f52b9625af66ea5e81056e1e25e964cf6d712324812891276a08d246128dac",
+        "tests/tools/test_native_tool_call_probe.py": "aa9ed13e0c49ff2925a5fef9cb6797fa6703d0906bd19f71c3b2ebb8115e409b"
+      },
+      "wall_seconds": 12.653235906996997,
+      "exit_code": 1,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "failed",
+          "total_seconds": 2.052,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 1.84887916000298
+            },
+            {
+              "phase": "call",
+              "outcome": "failed",
+              "seconds": 0.20231086100102402
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "1.848879"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.202311"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first.json",
+          "bytes": 1074,
+          "sha256": "8cb0fede273e9092c716fd7779d4b7977e5e3c5be44fddd5deaa41246ed18fa7"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first.log",
+          "bytes": 15303,
+          "sha256": "adbe2df58ff28cbf4dc22bd38cd490e5e1bc1e41291122d9bae481853cc68c62"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first.xml",
+          "bytes": 9982,
+          "sha256": "f7c0ebf392cbdde56f5d04652f966710771aee29a8da3e26799b1c53df121f64"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first.cases.jsonl",
+          "bytes": 1016,
+          "sha256": "add81565538cbd345dab941a065cb5ff2ca43b9a3b8389d63bef24404ebaeb2d"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "first-anchors-corrected",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py",
+        "-k",
+        "test_actual_constructed_caller_send_observation",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first-anchors-corrected.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=2d6a3c4ef5627465e3087dfc6536922b4e96d6d9a0e5df9095a171582c609dd8",
+        "-o",
+        "accountant_test_sha256=aa9ed13e0c49ff2925a5fef9cb6797fa6703d0906bd19f71c3b2ebb8115e409b",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "2d6a3c4ef5627465e3087dfc6536922b4e96d6d9a0e5df9095a171582c609dd8",
+        "tests/tools/test_native_tool_call_probe.py": "aa9ed13e0c49ff2925a5fef9cb6797fa6703d0906bd19f71c3b2ebb8115e409b"
+      },
+      "wall_seconds": 14.233150947002287,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "passed",
+          "total_seconds": 12.896,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 1.5112594019956305
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.383980263999547
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "1.511259"
+            },
+            {
+              "property": "probe_proof",
+              "value": "{\"stages\": {\"A\": \"{\\\"expected_arguments_json\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"holder\\\":[\\\"owner\\\",\\\"execution\\\",\\\"lineage\\\",\\\"document_specialist\\\",7,9,\\\"selection\\\",3,[\\\"restricted_documents\\\"]],\\\"main_route_ref\\\":\\\"main_route\\\",\\\"producer_policy\\\":[\\\"invented_producer\\\",4,[\\\"restricted_documents\\\"]],\\\"system_message\\\":\\\"Request one leaf call.\\\",\\\"task_id\\\":\\\"execution\\\",\\\"user_message\\\":\\\"Count blue squares.\\\"}\", \"Q\": \"{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}\", \"W\": \"{\\\"api_mode\\\":\\\"chat_completions\\\",\\\"destination\\\":{\\\"endpoint_ref\\\":\\\"invented_endpoint\\\",\\\"model_ref\\\":\\\"invented_model\\\",\\\"provider_ref\\\":\\\"synthetic_native\\\",\\\"revision\\\":1,\\\"transport_ref\\\":\\\"invented_main\\\"},\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}}\", \"R\": \"{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}}\", \"O\": \"{\\\"api_calls\\\":1,\\\"call\\\":{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"},\\\"executed\\\":false,\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]},\\\"response\\\":{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}},\\\"status\\\":\\\"tool_call_observed\\\"}\"}, \"qualification_sends\": 8, \"probe_sends\": 1, \"retained_bytes\": 3265, \"content_slots\": 5, \"envelopes\": 1, \"result_identity\": true, \"original_constructor_anchors\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.38398"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first-anchors-corrected.json",
+          "bytes": 1092,
+          "sha256": "5db3f50649574920e36728b49fa7b96561bdc7c6dc9b3c6a8fe565431d5fba50"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first-anchors-corrected.log",
+          "bytes": 1039,
+          "sha256": "7f9452f0e4ce1649f23d81e3300898ad016f410e143cb88ca508d54bb92ed932"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first-anchors-corrected.xml",
+          "bytes": 7471,
+          "sha256": "695398ca214990f28af6c9d2870ecd63d5608296b9cf6934d1cd1aa90c48463b"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/first-anchors-corrected.cases.jsonl",
+          "bytes": 1017,
+          "sha256": "b47658702a6f95943345889f307bda54f73b31155a515a70227900f075fe572a"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "feedback",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py",
+        "-k",
+        "test_actual_constructed or (test_invalid_inputs and opaque) or (test_malformed_response and two-calls) or (test_original_token and copied) or (test_changed_original and method) or (test_callback and reenter) or test_retained_restrictions or test_genuine_bounded",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/feedback.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=d52776f1a7a59b2b34b67d928a597ef9ac6e2891711f69f515063a2f9d42aa25",
+        "-o",
+        "accountant_test_sha256=f4fe7ab2e06d06c9c97eac3a340aa4f4ed2c4d190fbad9dc3249af4b0e31a3d5",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "d52776f1a7a59b2b34b67d928a597ef9ac6e2891711f69f515063a2f9d42aa25",
+        "tests/tools/test_native_tool_call_probe.py": "f4fe7ab2e06d06c9c97eac3a340aa4f4ed2c4d190fbad9dc3249af4b0e31a3d5"
+      },
+      "wall_seconds": 60.37815621099435,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "passed",
+          "total_seconds": 14.518,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 1.4138525539965485
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 13.10318773000472
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005302560020936653
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "1.413853"
+            },
+            {
+              "property": "probe_proof",
+              "value": "{\"stages\": {\"A\": \"{\\\"expected_arguments_json\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"holder\\\":[\\\"owner\\\",\\\"execution\\\",\\\"lineage\\\",\\\"document_specialist\\\",7,9,\\\"selection\\\",3,[\\\"restricted_documents\\\"]],\\\"main_route_ref\\\":\\\"main_route\\\",\\\"producer_policy\\\":[\\\"invented_producer\\\",4,[\\\"restricted_documents\\\"]],\\\"system_message\\\":\\\"Request one leaf call.\\\",\\\"task_id\\\":\\\"execution\\\",\\\"user_message\\\":\\\"Count blue squares.\\\"}\", \"Q\": \"{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}\", \"W\": \"{\\\"api_mode\\\":\\\"chat_completions\\\",\\\"destination\\\":{\\\"endpoint_ref\\\":\\\"invented_endpoint\\\",\\\"model_ref\\\":\\\"invented_model\\\",\\\"provider_ref\\\":\\\"synthetic_native\\\",\\\"revision\\\":1,\\\"transport_ref\\\":\\\"invented_main\\\"},\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}}\", \"R\": \"{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}}\", \"O\": \"{\\\"api_calls\\\":1,\\\"call\\\":{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"},\\\"executed\\\":false,\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]},\\\"response\\\":{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}},\\\"status\\\":\\\"tool_call_observed\\\"}\"}, \"qualification_sends\": 8, \"probe_sends\": 1, \"retained_bytes\": 3265, \"content_slots\": 5, \"envelopes\": 1, \"result_identity\": true, \"original_constructor_anchors\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "13.103188"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.00053"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[opaque]",
+          "outcome": "passed",
+          "total_seconds": 0.206,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.015557514998363331
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.18995325899595628
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00042552499508019537
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.015558"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.189953"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000426"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[two-calls]",
+          "outcome": "passed",
+          "total_seconds": 11.233,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011613403003138956
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.22044098200422
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005041270051151514
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011613"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2223, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.220441"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000504"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_token_scope_thread_and_binding_identity[copied]",
+          "outcome": "passed",
+          "total_seconds": 1.572,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012684177003393415
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.5585387489991263
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00048154300020541996
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012684"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.558539"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000482"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[method]",
+          "outcome": "passed",
+          "total_seconds": 1.567,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011908920998394024
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.5545602240017615
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004672959985327907
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011909"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.55456"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000467"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_callback_has_no_owner_window[reenter]",
+          "outcome": "passed",
+          "total_seconds": 1.616,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011343347003275994
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.6042464790007216
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00046244699478847906
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011343"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.604246"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000462"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_retained_restrictions_survive_current_profile_removal_and_close",
+          "outcome": "passed",
+          "total_seconds": 13.188,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011589827998250257
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 13.175982068001758
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004364080014056526
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01159"
+            },
+            {
+              "property": "call_seconds",
+              "value": "13.175982"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000436"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_genuine_bounded_byte_capacity_failure",
+          "outcome": "passed",
+          "total_seconds": 15.156,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011780845001339912
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 15.143715016005444
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011781"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"sends\": 0, \"fill_admissions\": 7, \"retained_bytes\": 7340445, \"content_slots\": 10, \"failed_capacity\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "15.143715"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/feedback.json",
+          "bytes": 1290,
+          "sha256": "0a0d4ffb1103b4bc1235715517dd16aa6dd96ef9be5808b6e4862184d31981b9"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/feedback.log",
+          "bytes": 1041,
+          "sha256": "3c3af8a5e1279693bc795e34f74b8487989b9ac0010548b4da607c004ca2f521"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/feedback.xml",
+          "bytes": 10610,
+          "sha256": "cd7772118f4928276f703ca31600358df28daa2e1dfae35aa2a96911aa494092"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/feedback.cases.jsonl",
+          "bytes": 10847,
+          "sha256": "2e0960499b2e9d4d144e8e456139179bc01d3bec50c1d821805d3961676de2a6"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "focused",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/focused.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+        "-o",
+        "accountant_test_sha256=650b3818dd882b35d2419dde6933e8795978b15c834181269be6591836832360",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+        "tests/tools/test_native_tool_call_probe.py": "650b3818dd882b35d2419dde6933e8795978b15c834181269be6591836832360"
+      },
+      "wall_seconds": 456.03577315500297,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "passed",
+          "total_seconds": 12.518,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 1.4453372779971687
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.072328385998844
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005068120008218102
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "1.445337"
+            },
+            {
+              "property": "probe_proof",
+              "value": "{\"stages\": {\"A\": \"{\\\"expected_arguments_json\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"holder\\\":[\\\"owner\\\",\\\"execution\\\",\\\"lineage\\\",\\\"document_specialist\\\",7,9,\\\"selection\\\",3,[\\\"restricted_documents\\\"]],\\\"main_route_ref\\\":\\\"main_route\\\",\\\"producer_policy\\\":[\\\"invented_producer\\\",4,[\\\"restricted_documents\\\"]],\\\"system_message\\\":\\\"Request one leaf call.\\\",\\\"task_id\\\":\\\"execution\\\",\\\"user_message\\\":\\\"Count blue squares.\\\"}\", \"Q\": \"{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}\", \"W\": \"{\\\"api_mode\\\":\\\"chat_completions\\\",\\\"destination\\\":{\\\"endpoint_ref\\\":\\\"invented_endpoint\\\",\\\"model_ref\\\":\\\"invented_model\\\",\\\"provider_ref\\\":\\\"synthetic_native\\\",\\\"revision\\\":1,\\\"transport_ref\\\":\\\"invented_main\\\"},\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}}\", \"R\": \"{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}}\", \"O\": \"{\\\"api_calls\\\":1,\\\"call\\\":{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"},\\\"executed\\\":false,\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]},\\\"response\\\":{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}},\\\"status\\\":\\\"tool_call_observed\\\"}\"}, \"qualification_sends\": 8, \"probe_sends\": 1, \"retained_bytes\": 3265, \"content_slots\": 5, \"envelopes\": 1, \"result_identity\": true, \"original_constructor_anchors\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.072328"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000507"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[opaque]",
+          "outcome": "passed",
+          "total_seconds": 0.218,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01598881599784363
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.20193326499429531
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004224699951009825
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.015989"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.201933"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000422"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[subclass]",
+          "outcome": "passed",
+          "total_seconds": 0.212,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011609239001700189
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.2001745520028635
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005304970036377199
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011609"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.200175"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.00053"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[task]",
+          "outcome": "passed",
+          "total_seconds": 0.21,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011531739997735713
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.19808908500272082
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005016409995732829
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011532"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.198089"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000502"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[unknown]",
+          "outcome": "passed",
+          "total_seconds": 0.207,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011735200001567136
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.1946884439967107
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004850000041187741
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011735"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.194688"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000485"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[duplicate]",
+          "outcome": "passed",
+          "total_seconds": 0.208,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01165188100276282
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.19563038199703442
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004799089947482571
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011652"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.19563"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.00048"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[noncanonical]",
+          "outcome": "passed",
+          "total_seconds": 0.223,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011978205002378672
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.21040991799964104
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005596229966613464
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011978"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.21041"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.00056"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[empty]",
+          "outcome": "passed",
+          "total_seconds": 0.216,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.013219035005022306
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.20269507699413225
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00044540500675793737
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.013219"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.202695"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000445"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[context]",
+          "outcome": "passed",
+          "total_seconds": 0.221,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01226469600078417
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.20817605400225148
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004636090015992522
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012265"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.208176"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000464"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[role]",
+          "outcome": "passed",
+          "total_seconds": 0.214,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01278184699913254
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.20074783300515264
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004474079978535883
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012782"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.200748"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000447"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[surrogate]",
+          "outcome": "passed",
+          "total_seconds": 0.211,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011737335000361782
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.198929546000727
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.000437007998698391
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011737"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.19893"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000437"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_invalid_inputs_refuse_before_callbacks[utf8-bound]",
+          "outcome": "passed",
+          "total_seconds": 0.211,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012029974997858517
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.19842818500183057
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004306659975554794
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01203"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.198428"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000431"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[duplicate]",
+          "outcome": "passed",
+          "total_seconds": 9.534,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011236844999075402
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.52204725300544
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005137040061526932
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011237"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2072, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.522047"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000514"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[invalid-utf8]",
+          "outcome": "passed",
+          "total_seconds": 9.579,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01292385899432702
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.565935548002017
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005140950015629642
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012924"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 1617, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.565936"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000514"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[size]",
+          "outcome": "passed",
+          "total_seconds": 9.384,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011930455999390688
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.372042326001974
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004620260006049648
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01193"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 67153, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.372042"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000462"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[two-calls]",
+          "outcome": "passed",
+          "total_seconds": 9.365,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012070083001162857
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.352532918004727
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00046318800013978034
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01207"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2223, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.352533"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000463"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[two-choices]",
+          "outcome": "passed",
+          "total_seconds": 9.573,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011390890002076048
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.56088553799782
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0009270880036638118
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011391"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2325, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.560886"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000927"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[unknown]",
+          "outcome": "passed",
+          "total_seconds": 9.301,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.022685948002617806
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.277472189001855
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004688279950642027
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.022686"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2074, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.277472"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000469"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[model]",
+          "outcome": "passed",
+          "total_seconds": 9.378,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011711765997461043
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.366178818003391
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00048531100037507713
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011712"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2059, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.366179"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000485"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[stop]",
+          "outcome": "passed",
+          "total_seconds": 9.447,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012317749002249911
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.434166360995732
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004758629947900772
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012318"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2054, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.434166"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000476"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[content]",
+          "outcome": "passed",
+          "total_seconds": 9.438,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011750209996534977
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.425770073001331
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004928050038870424
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01175"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2071, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.42577"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000493"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[bool-scalar]",
+          "outcome": "passed",
+          "total_seconds": 9.404,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01222174500435358
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.391375273000449
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00045564299944089726
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012222"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2063, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.391375"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000456"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[usage]",
+          "outcome": "passed",
+          "total_seconds": 9.261,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011597448006796185
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.248999884999648
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004652319985325448
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011597"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2060, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.249"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000465"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[name]",
+          "outcome": "passed",
+          "total_seconds": 9.259,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012554462999105453
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.24561446900043
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004777959984494373
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012554"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2063, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.245614"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000478"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[call-id]",
+          "outcome": "passed",
+          "total_seconds": 9.467,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.010856916996999644
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.455987853994884
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005331419961294159
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.010857"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2051, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.455988"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000533"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_malformed_response_retains_shared_response_before_refusal[arguments]",
+          "outcome": "passed",
+          "total_seconds": 9.38,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011908043001312762
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.367467402997136
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.000598637001530733
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011908"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"response_retained\": true, \"sends\": 1, \"retained_bytes\": 2054, \"content_slots\": 4, \"envelopes\": 1, \"observation\": false}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.367467"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000599"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_argument_binding_and_ordinary_text_refusals",
+          "outcome": "passed",
+          "total_seconds": 9.531,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012020460002531763
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 9.518819370001438
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004631379997590557
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01202"
+            },
+            {
+              "property": "call_seconds",
+              "value": "9.518819"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000463"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_token_scope_thread_and_binding_identity[copied]",
+          "outcome": "passed",
+          "total_seconds": 1.33,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012191616995551158
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3170411760002025
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004890479976893403
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012192"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.317041"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000489"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_token_scope_thread_and_binding_identity[wrong-thread]",
+          "outcome": "passed",
+          "total_seconds": 1.307,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012344169001153205
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.2938656689948402
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004461659991648048
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012344"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.293866"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000446"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_token_scope_thread_and_binding_identity[missing-scope]",
+          "outcome": "passed",
+          "total_seconds": 1.302,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.0114279629997327
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.2905353349997313
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00043641700176522136
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011428"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.290535"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000436"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_token_scope_thread_and_binding_identity[equal-binding]",
+          "outcome": "passed",
+          "total_seconds": 1.305,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012018576002446935
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.2921539609960746
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004877340033999644
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012019"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.292154"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000488"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[selection]",
+          "outcome": "passed",
+          "total_seconds": 1.364,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011682800999551546
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3522521480044816
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.000524515999131836
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011683"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.352252"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000525"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[producer]",
+          "outcome": "passed",
+          "total_seconds": 1.304,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012224530000821687
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.2914136120016337
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004485710014705546
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012225"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.291414"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000449"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[clock]",
+          "outcome": "passed",
+          "total_seconds": 1.318,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011459613000624813
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3063956719997805
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00043333099893061444
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01146"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.306396"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000433"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[port]",
+          "outcome": "passed",
+          "total_seconds": 1.317,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01151756400213344
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3047973799984902
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.000456635003502015
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011518"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.304797"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000457"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[method]",
+          "outcome": "passed",
+          "total_seconds": 1.309,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011579643003642559
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.297296708005888
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00047305699990829453
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.01158"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.297297"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000473"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_callback_has_no_owner_window[reenter]",
+          "outcome": "passed",
+          "total_seconds": 1.336,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01185764699766878
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3234771699935663
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004538909997791052
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011858"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.323477"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000454"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_callback_has_no_owner_window[phase-relabel]",
+          "outcome": "passed",
+          "total_seconds": 1.295,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012247946004208643
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.2826511079983902
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004480989955482073
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012248"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.282651"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000448"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_callback_has_no_owner_window[generic-caller]",
+          "outcome": "passed",
+          "total_seconds": 1.336,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01152423799794633
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3235899080027593
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00045601400051964447
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011524"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.32359"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000456"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_retained_restrictions_survive_current_profile_removal_and_close",
+          "outcome": "passed",
+          "total_seconds": 11.257,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012046570001984946
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.244659275995218
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004288319978513755
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012047"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.244659"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000429"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[replay]",
+          "outcome": "passed",
+          "total_seconds": 11.045,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01168895299633732
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.032920650999586
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00048613199760438874
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011689"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.032921"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000486"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[conversation]",
+          "outcome": "passed",
+          "total_seconds": 11.148,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012694082004600205
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.135055298000225
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00046881900198059157
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012694"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.135055"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000469"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[executor]",
+          "outcome": "passed",
+          "total_seconds": 11.218,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011402043004636653
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.20598417599831
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004247050019330345
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011402"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.205984"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000425"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[bind]",
+          "outcome": "passed",
+          "total_seconds": 11.03,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011434555999585427
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.017862838998553
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004719749995274469
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011435"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.017863"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000472"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[ordinary-caller]",
+          "outcome": "passed",
+          "total_seconds": 11.066,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011458623004727997
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.054417357998318
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005299370022839867
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011459"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.054417"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.00053"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[delegation]",
+          "outcome": "passed",
+          "total_seconds": 10.979,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01303284100140445
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 10.96564100899559
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00047125400305958465
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.013033"
+            },
+            {
+              "property": "call_seconds",
+              "value": "10.965641"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000471"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[memory]",
+          "outcome": "passed",
+          "total_seconds": 11.028,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012752253998769447
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.014683081004478
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004656630044337362
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012752"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.014683"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000466"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[auxiliary]",
+          "outcome": "passed",
+          "total_seconds": 11.223,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012005019998468924
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.2104396049981
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004707420011982322
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012005"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.21044"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000471"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[fallback]",
+          "outcome": "passed",
+          "total_seconds": 11.513,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012640708999242634
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.49944470400078
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004655129960156046
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012641"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.499445"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000466"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_success_is_terminal_for_new_work[runtime-admit]",
+          "outcome": "passed",
+          "total_seconds": 11.534,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012138275997131132
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.521137431998795
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00047126400022534654
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012138"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.521137"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000471"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_genuine_bounded_byte_capacity_failure",
+          "outcome": "passed",
+          "total_seconds": 5.93,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012654466998355929
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 5.916909177998605
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005065110017312691
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012654"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"sends\": 0, \"fill_admissions\": 7, \"retained_bytes\": 7340445, \"content_slots\": 10, \"failed_capacity\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "5.916909"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000507"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_bind_requires_active_original_scope",
+          "outcome": "passed",
+          "total_seconds": 0.218,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.013019284997426439
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.20423201100493316
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004645100052584894
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.013019"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.204232"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000465"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_selected_expiry_cannot_use_other_live_coverage",
+          "outcome": "passed",
+          "total_seconds": 13.332,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012194684997666627
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 13.319743439999002
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005182230015634559
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012195"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"qualification_sends\": 9, \"probe_sends\": 1, \"response_retained\": true, \"observation_retained\": true, \"final_release\": false, \"retained_bytes\": 3265}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "13.319743"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000518"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_late_health_poison_keeps_original_observation[caller-return]",
+          "outcome": "passed",
+          "total_seconds": 10.955,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012106806003430393
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 10.942171248003433
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004635680015780963
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012107"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"boundary\": \"caller-return\", \"sends\": 1, \"observation_retained\": true, \"final_release\": false, \"retained_bytes\": 3265}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "10.942171"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000464"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_late_health_poison_keeps_original_observation[scope-exit]",
+          "outcome": "passed",
+          "total_seconds": 11.055,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.0119009609989007
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.042412971000886
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004733479945571162
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011901"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"boundary\": \"scope-exit\", \"sends\": 1, \"observation_retained\": true, \"final_release\": false, \"retained_bytes\": 3265}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.042413"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000473"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_late_health_poison_keeps_original_observation[release]",
+          "outcome": "passed",
+          "total_seconds": 11.098,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011618258999078535
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.086363960996096
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004640800034394488
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011618"
+            },
+            {
+              "property": "partial_proof",
+              "value": "{\"boundary\": \"release\", \"sends\": 1, \"observation_retained\": true, \"final_release\": false, \"retained_bytes\": 3265}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.086364"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000464"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_control_object_after_actual_response[InterruptedError]",
+          "outcome": "passed",
+          "total_seconds": 10.828,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.014019103997270577
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 10.813487258004898
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00045059400144964457
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.014019"
+            },
+            {
+              "property": "call_seconds",
+              "value": "10.813487"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000451"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_control_object_after_actual_response[CancelledError]",
+          "outcome": "passed",
+          "total_seconds": 10.877,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012044497998431325
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 10.864522067000507
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00047777599684195593
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012044"
+            },
+            {
+              "property": "call_seconds",
+              "value": "10.864522"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000478"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_control_object_after_actual_response[KeyboardInterrupt]",
+          "outcome": "passed",
+          "total_seconds": 10.772,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011533165998116601
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 10.759914470996591
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005326219979906455
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011533"
+            },
+            {
+              "property": "call_seconds",
+              "value": "10.759914"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000533"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_original_control_object_after_actual_response[SystemExit]",
+          "outcome": "passed",
+          "total_seconds": 10.84,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.014541205004206859
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 10.825434995997057
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004509350037551485
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.014541"
+            },
+            {
+              "property": "call_seconds",
+              "value": "10.825435"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000451"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_trusted_send_failure_keeps_attempt_and_envelope",
+          "outcome": "passed",
+          "total_seconds": 7.941,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011538476006535348
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 7.92921930400189
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004731379958684556
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011538"
+            },
+            {
+              "property": "call_seconds",
+              "value": "7.929219"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000473"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_source_and_consumer_memory_participants_refuse_probe",
+          "outcome": "passed",
+          "total_seconds": 11.39,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011399540002457798
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.37776365600439
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004707429980044253
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.0114"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.377764"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000471"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_token_and_records_grant_no_execution_authority",
+          "outcome": "passed",
+          "total_seconds": 11.106,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01167155199800618
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.093450136002502
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004678370023611933
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011672"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.09345"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000468"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_released_direct_host_participant_cannot_bind_probe",
+          "outcome": "passed",
+          "total_seconds": 33.274,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.01786599100159947
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 33.255564607999986
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.017866"
+            },
+            {
+              "property": "call_seconds",
+              "value": "33.255565"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/focused.json",
+          "bytes": 1011,
+          "sha256": "da0544ffac1ebd6056f442d008414f4bc01de20cd45c4a21c89e3493d9845871"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/focused.log",
+          "bytes": 1054,
+          "sha256": "a5d359cbdd57519ea7c27db7cb7e76a7b3e7a17d1b5037187cefbbd0f7198563"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/focused.xml",
+          "bytes": 36284,
+          "sha256": "5401e05042e96f56e70cef7f8d8c624d521596dd7879ac4cdb5cc45b3e60b636"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/focused.cases.jsonl",
+          "bytes": 89969,
+          "sha256": "41d94b1dd0c6f5890fbea09d17f50f05099d6ac6197fe263e413ba7e86c27c28"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "text-representative",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "test_real_constructor_first_and_repeated_entrypoints and False",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+        "-o",
+        "accountant_test_sha256=4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+        "tests/tools/test_native_tool_call_probe.py": "650b3818dd882b35d2419dde6933e8795978b15c834181269be6591836832360",
+        "tests/agent/test_native_controlled_conversation.py": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+      },
+      "wall_seconds": 3.769952670998464,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]",
+          "outcome": "passed",
+          "total_seconds": 2.704,
+          "phases": [],
+          "properties": []
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative.json",
+          "bytes": 1236,
+          "sha256": "d80328bda044a3a920a6911eca466dc68cf79c3e595aa82af985e76c6682d617"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative.log",
+          "bytes": 1056,
+          "sha256": "8c2abe026de445797aabc2a6786789b45044c27095865a046a5f5870c1ff69ef"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative.xml",
+          "bytes": 471,
+          "sha256": "a6b2567bfc23386897fae11a8624b1d02f3ab4e40d7ead814c8acfeb4e43dea7"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "text-representative-phase-recorded",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "test_real_constructor_first_and_repeated_entrypoints and False",
+        "-p",
+        "tests.tools.test_native_tool_call_probe",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative-phase-recorded.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+        "-o",
+        "accountant_test_sha256=4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+        "tests/tools/test_native_tool_call_probe.py": "650b3818dd882b35d2419dde6933e8795978b15c834181269be6591836832360",
+        "tests/agent/test_native_controlled_conversation.py": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+      },
+      "wall_seconds": 3.838302318996284,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_native_controlled_conversation.py::test_real_constructor_first_and_repeated_entrypoints[False]",
+          "outcome": "passed",
+          "total_seconds": 2.732,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.65779576299974
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 2.0732709789954242
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.657796"
+            },
+            {
+              "property": "call_seconds",
+              "value": "2.073271"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative-phase-recorded.json",
+          "bytes": 1308,
+          "sha256": "5f0d1240141550d4ffb3cea4668b5ba05378ba92dc08dc3de585edfca4953a21"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative-phase-recorded.log",
+          "bytes": 1056,
+          "sha256": "ca7d979287ff00e2e037e493de42bb22c2d18fc7d75e3dc885b94b699213bbd8"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative-phase-recorded.xml",
+          "bytes": 604,
+          "sha256": "1b26b4213911dddc57ab8249d0142b3c2beac5226aee45328e9d397e6350262c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/text-representative-phase-recorded.cases.jsonl",
+          "bytes": 1075,
+          "sha256": "35b58805990221e76b26600fa0d1936b7950b21c048909c20d82b6c1a7ab3d01"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "proof-access-final",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py",
+        "-k",
+        "test_read_only_proof or test_actual_constructed",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/proof-access-final.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=4409078b7a5c060590708564c909861c3af45c4a57de0fa6add04497e9b320dd",
+        "-o",
+        "accountant_test_sha256=3a18d5b2cc2b087f50ddb338ce0796e76c1a15fe94872957167f6e5d395656c4",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "4409078b7a5c060590708564c909861c3af45c4a57de0fa6add04497e9b320dd",
+        "tests/tools/test_native_tool_call_probe.py": "3a18d5b2cc2b087f50ddb338ce0796e76c1a15fe94872957167f6e5d395656c4"
+      },
+      "wall_seconds": 25.205078448998393,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "passed",
+          "total_seconds": 12.554,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 1.3984014029992977
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.154927621006209
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.00074601099913707
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "1.398401"
+            },
+            {
+              "property": "probe_proof",
+              "value": "{\"stages\": {\"A\": \"{\\\"expected_arguments_json\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"holder\\\":[\\\"owner\\\",\\\"execution\\\",\\\"lineage\\\",\\\"document_specialist\\\",7,9,\\\"selection\\\",3,[\\\"restricted_documents\\\"]],\\\"main_route_ref\\\":\\\"main_route\\\",\\\"producer_policy\\\":[\\\"invented_producer\\\",4,[\\\"restricted_documents\\\"]],\\\"system_message\\\":\\\"Request one leaf call.\\\",\\\"task_id\\\":\\\"execution\\\",\\\"user_message\\\":\\\"Count blue squares.\\\"}\", \"Q\": \"{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}\", \"W\": \"{\\\"api_mode\\\":\\\"chat_completions\\\",\\\"destination\\\":{\\\"endpoint_ref\\\":\\\"invented_endpoint\\\",\\\"model_ref\\\":\\\"invented_model\\\",\\\"provider_ref\\\":\\\"synthetic_native\\\",\\\"revision\\\":1,\\\"transport_ref\\\":\\\"invented_main\\\"},\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}}\", \"R\": \"{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}}\", \"O\": \"{\\\"api_calls\\\":1,\\\"call\\\":{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"},\\\"executed\\\":false,\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]},\\\"response\\\":{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}},\\\"status\\\":\\\"tool_call_observed\\\"}\"}, \"qualification_sends\": 8, \"probe_sends\": 1, \"retained_bytes\": 3265, \"content_slots\": 5, \"envelopes\": 1, \"result_identity\": true, \"original_constructor_anchors\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.154928"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000746"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_read_only_proof_returns_original_registered_record",
+          "outcome": "passed",
+          "total_seconds": 11.292,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.015828274001250975
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.275155520997941
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.015828"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.275156"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/proof-access-final.json",
+          "bytes": 1087,
+          "sha256": "014f1c1b117e90c271f939b2f549bddf4cf34b97c262274d298a529c61ed134b"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/proof-access-final.log",
+          "bytes": 1041,
+          "sha256": "1d3930d3f10afc2f6920324caf232d920311e6e6eb58c39befab2344c99f0640"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/proof-access-final.xml",
+          "bytes": 7861,
+          "sha256": "839c78884f452a9f0ace25d90289834012efaec63c20ce8bbf7ac38218d4898d"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/proof-access-final.cases.jsonl",
+          "bytes": 2408,
+          "sha256": "f6439d6af0a5d33e6d51693a09236569b1f2694642a7ee100de7d043481c1990"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    },
+    {
+      "name": "callable-proof-final",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py",
+        "-k",
+        "test_copied_callable or test_read_only_proof or test_actual_constructed or (test_changed_original and method)",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "590",
+        "-j",
+        "1",
+        "--",
+        "-q",
+        "--tb=long",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/callable-proof-final.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+        "-o",
+        "accountant_source_sha256=b7ccad81dda1051f03c7f0dab8d6535acfe33d2a2b284d157f17b33968d0162e",
+        "-o",
+        "accountant_test_sha256=606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28",
+        "--durations=0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "b7ccad81dda1051f03c7f0dab8d6535acfe33d2a2b284d157f17b33968d0162e",
+        "tests/tools/test_native_tool_call_probe.py": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+      },
+      "wall_seconds": 28.5975026399974,
+      "exit_code": 0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "passed",
+          "total_seconds": 12.667,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 1.491175541006669
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.175732096999127
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0005735800004913472
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "1.491176"
+            },
+            {
+              "property": "probe_proof",
+              "value": "{\"stages\": {\"A\": \"{\\\"expected_arguments_json\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"holder\\\":[\\\"owner\\\",\\\"execution\\\",\\\"lineage\\\",\\\"document_specialist\\\",7,9,\\\"selection\\\",3,[\\\"restricted_documents\\\"]],\\\"main_route_ref\\\":\\\"main_route\\\",\\\"producer_policy\\\":[\\\"invented_producer\\\",4,[\\\"restricted_documents\\\"]],\\\"system_message\\\":\\\"Request one leaf call.\\\",\\\"task_id\\\":\\\"execution\\\",\\\"user_message\\\":\\\"Count blue squares.\\\"}\", \"Q\": \"{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}\", \"W\": \"{\\\"api_mode\\\":\\\"chat_completions\\\",\\\"destination\\\":{\\\"endpoint_ref\\\":\\\"invented_endpoint\\\",\\\"model_ref\\\":\\\"invented_model\\\",\\\"provider_ref\\\":\\\"synthetic_native\\\",\\\"revision\\\":1,\\\"transport_ref\\\":\\\"invented_main\\\"},\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]}}\", \"R\": \"{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}}\", \"O\": \"{\\\"api_calls\\\":1,\\\"call\\\":{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"},\\\"executed\\\":false,\\\"request\\\":{\\\"messages\\\":[{\\\"content\\\":\\\"Request one leaf call.\\\",\\\"role\\\":\\\"system\\\"},{\\\"content\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"user\\\"}],\\\"model\\\":\\\"invented_model\\\",\\\"stream\\\":false,\\\"tool_choice\\\":{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\"},\\\"type\\\":\\\"function\\\"},\\\"tools\\\":[{\\\"function\\\":{\\\"name\\\":\\\"delegate_task\\\",\\\"parameters\\\":{\\\"additionalProperties\\\":false,\\\"properties\\\":{\\\"context\\\":{\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},\\\"goal\\\":{\\\"type\\\":\\\"string\\\"},\\\"role\\\":{\\\"enum\\\":[\\\"leaf\\\"],\\\"type\\\":\\\"string\\\"}},\\\"required\\\":[\\\"context\\\",\\\"goal\\\",\\\"role\\\"],\\\"type\\\":\\\"object\\\"}},\\\"type\\\":\\\"function\\\"}]},\\\"response\\\":{\\\"choices\\\":[{\\\"finish_reason\\\":\\\"tool_calls\\\",\\\"index\\\":0,\\\"message\\\":{\\\"content\\\":null,\\\"role\\\":\\\"assistant\\\",\\\"tool_calls\\\":[{\\\"function\\\":{\\\"arguments\\\":\\\"{\\\\\\\"context\\\\\\\":null,\\\\\\\"goal\\\\\\\":\\\\\\\"Count blue squares.\\\\\\\",\\\\\\\"role\\\\\\\":\\\\\\\"leaf\\\\\\\"}\\\",\\\"name\\\":\\\"delegate_task\\\"},\\\"id\\\":\\\"invented-call-1\\\",\\\"type\\\":\\\"function\\\"}]}}],\\\"created\\\":1,\\\"id\\\":\\\"invented-tool-call-response\\\",\\\"model\\\":\\\"invented_model\\\",\\\"object\\\":\\\"chat.completion\\\",\\\"usage\\\":{\\\"completion_tokens\\\":3,\\\"prompt_tokens\\\":5,\\\"total_tokens\\\":8}},\\\"status\\\":\\\"tool_call_observed\\\"}\"}, \"qualification_sends\": 8, \"probe_sends\": 1, \"retained_bytes\": 3265, \"content_slots\": 5, \"envelopes\": 1, \"result_identity\": true, \"original_constructor_anchors\": true}"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.175732"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000574"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_changed_original_facts_and_ports_refuse[method]",
+          "outcome": "passed",
+          "total_seconds": 1.381,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.016366327996365726
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.3638485850024153
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004780970048159361
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.016366"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.363849"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000478"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_read_only_proof_returns_original_registered_record",
+          "outcome": "passed",
+          "total_seconds": 11.523,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011852639996504877
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 11.510931465003523
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004622959968401119
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011853"
+            },
+            {
+              "property": "call_seconds",
+              "value": "11.510931"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.000462"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_copied_callable_grants_no_probe_window[caller]",
+          "outcome": "passed",
+          "total_seconds": 1.42,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.011474655002530199
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 1.4077162460016552
+            },
+            {
+              "phase": "teardown",
+              "outcome": "passed",
+              "seconds": 0.0004804299969691783
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.011475"
+            },
+            {
+              "property": "call_seconds",
+              "value": "1.407716"
+            },
+            {
+              "property": "teardown_seconds",
+              "value": "0.00048"
+            }
+          ]
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_copied_callable_grants_no_probe_window[adapter-before-bind]",
+          "outcome": "passed",
+          "total_seconds": 0.218,
+          "phases": [
+            {
+              "phase": "start",
+              "outcome": "pending",
+              "seconds": 0.0
+            },
+            {
+              "phase": "setup",
+              "outcome": "passed",
+              "seconds": 0.012894047002191655
+            },
+            {
+              "phase": "call",
+              "outcome": "passed",
+              "seconds": 0.204657974994916
+            }
+          ],
+          "properties": [
+            {
+              "property": "setup_seconds",
+              "value": "0.012894"
+            },
+            {
+              "property": "call_seconds",
+              "value": "0.204658"
+            }
+          ]
+        }
+      ],
+      "raw_artifacts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/callable-proof-final.json",
+          "bytes": 1149,
+          "sha256": "04cb943b5c4d4dfce071bf87a7295ab8f50944127581def0d39f11986bb6c1e6"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/callable-proof-final.log",
+          "bytes": 1041,
+          "sha256": "4d0140c22b51be9813d59fac3a371b4d3bf446e27ccfd9e7d2cb1c45ea5d8e74"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/callable-proof-final.xml",
+          "bytes": 9023,
+          "sha256": "ff3d734982a3434499d7e589c8eb72555e619256a7d9ad6b8fb345d76b0e1e3c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/callable-proof-final.cases.jsonl",
+          "bytes": 6610,
+          "sha256": "e994438bac81474205d6d034ca9160b4059a620d57cda60a28dcdcd87b75bff9"
+        }
+      ],
+      "scope": "This exact source selection only. Overlapping scopes are not a fresh aggregate."
+    }
+  ],
+  "policy": "Keep failed, intermediate, corrected, focused and final proof-access scopes separate.",
+  "text_phase_correction": "The first text representative has XML total duration only. The corrected scope records setup/call/teardown with the new test module as a pytest reporting plugin. It adds no distinct test ID.",
+  "historical_dependency_scope": "Prior dependency evidence supports byte-identical shared engine, API, wheel and RECORD delivery only. No cumulative or installed native functional selection occurred."
+}

@@ -1,0 +1,48 @@
+{
+  "stages": {
+    "A": {
+      "utf8": "{\"expected_arguments_json\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection\",3,[\"restricted_documents\"]],\"main_route_ref\":\"main_route\",\"producer_policy\":[\"invented_producer\",4,[\"restricted_documents\"]],\"system_message\":\"Request one leaf call.\",\"task_id\":\"execution\",\"user_message\":\"Count blue squares.\"}",
+      "bytes": 403,
+      "sha256": "b5b30bdc5277ad83c62b00d04cb300abf0de7e54807ce3a10aeee51818d86bb1"
+    },
+    "Q": {
+      "utf8": "{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]}",
+      "bytes": 506,
+      "sha256": "dd4b4f7190f35afb3ecf94d356b584d1986bbf272e30d78704f3c37bd81ddcd3"
+    },
+    "W": {
+      "utf8": "{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint\",\"model_ref\":\"invented_model\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_main\"},\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]}}",
+      "bytes": 707,
+      "sha256": "255132dd83270199f76cebdc74efe415d605cccf535da4bac251fd4a55fbc3e8"
+    },
+    "R": {
+      "utf8": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented-tool-call-response\",\"model\":\"invented_model\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}}",
+      "bytes": 444,
+      "sha256": "69a18236d0f43606281aa7fa43f9e2119e5914a53af9ca218fe5b10f07ccf4b4"
+    },
+    "O": {
+      "utf8": "{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented-tool-call-response\",\"model\":\"invented_model\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"}",
+      "bytes": 1205,
+      "sha256": "664572fde8eb642d0e307371e7c7e5b481818f7f40689286cfe5bc58f7db8a1a"
+    }
+  },
+  "ancestry": {
+    "A": [],
+    "Q": [
+      "A"
+    ],
+    "W": [
+      "A",
+      "Q"
+    ],
+    "R": [
+      "W"
+    ],
+    "O": [
+      "A",
+      "Q",
+      "W",
+      "R"
+    ]
+  }
+}

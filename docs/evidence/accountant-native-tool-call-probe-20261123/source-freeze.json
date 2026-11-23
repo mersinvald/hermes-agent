@@ -1,0 +1,151 @@
+{
+  "base": "cf6879d42c15576e4cbb68f9b19a270530528d46",
+  "paths": [
+    {
+      "path": "agent/native_main_payload.py",
+      "bytes": 343605,
+      "sha256": "b7ccad81dda1051f03c7f0dab8d6535acfe33d2a2b284d157f17b33968d0162e"
+    },
+    {
+      "path": "tests/tools/test_native_tool_call_probe.py",
+      "bytes": 27886,
+      "sha256": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+    },
+    {
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/native-api.json",
+      "bytes": 2778,
+      "sha256": "7854cecda074b6ba02921a367e07458aace393800ad22e81496a4647be754617"
+    },
+    {
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/consumer-contract.md",
+      "bytes": 6610,
+      "sha256": "891daa8a5900b1b16e830db9de2657818a5a097e836a92ad64c9d1d1b5666399"
+    },
+    {
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/vectors.json",
+      "bytes": 4735,
+      "sha256": "e0462529d76acf7a8a2bf76aec59b8cb806c5260a5b3fb18a87a9451bffed36a"
+    },
+    {
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/source-preservation.json",
+      "bytes": 12665,
+      "sha256": "e1f535fa78c4da675da5f787a5dde27c7685fd0f3f8e5dbc1899d4a3b5883344"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 34259,
+      "sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 724335,
+      "sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5"
+    },
+    {
+      "path": "agent/chat_completion_helpers.py",
+      "bytes": 275491,
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f"
+    },
+    {
+      "path": "agent/content_policy.py",
+      "bytes": 11094,
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    {
+      "path": "run_agent.py",
+      "bytes": 442455,
+      "sha256": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932"
+    },
+    {
+      "path": "agent/agent_init.py",
+      "bytes": 162327,
+      "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56"
+    },
+    {
+      "path": "agent/conversation_loop.py",
+      "bytes": 501328,
+      "sha256": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351"
+    },
+    {
+      "path": "agent/tool_executor.py",
+      "bytes": 134867,
+      "sha256": "857005ae0a3a316151f91d1410210ee032343e28a9fad4b67ce55dc3c3ae9b83"
+    },
+    {
+      "path": "tools/delegate_tool.py",
+      "bytes": 238976,
+      "sha256": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be"
+    },
+    {
+      "path": "scripts/run_tests.sh",
+      "bytes": 9010,
+      "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e"
+    },
+    {
+      "path": "scripts/run_tests_parallel.py",
+      "bytes": 52720,
+      "sha256": "d71999ea44ef18352ff0f0d08512fae2109ac748a654553b15aa02d72f368bd9"
+    },
+    {
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "bytes": 128596,
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+    },
+    {
+      "path": "tests/tools/test_native_controlled_delegation.py",
+      "bytes": 32595,
+      "sha256": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+    },
+    {
+      "path": "tests/tools/test_native_memory_prompt_consumer.py",
+      "bytes": 29984,
+      "sha256": "646d70f80e755eafab3510928488066fe3e65d984794ba2866584eecb1b7c24f"
+    }
+  ],
+  "preserved_base_paths": 11550,
+  "old_signatures": 265,
+  "old_annotated_shapes": 31,
+  "only_existing_runtime_path_changed": "agent/native_main_payload.py",
+  "old_tests_fixtures_runners_manifests_locks_hooks_and_settings_unchanged": true,
+  "package_lock_contents_read": false,
+  "source_preservation": "One authorized dispatcher return-annotation union exception. All parameters/defaults and every other old signature are unchanged.",
+  "focused_runtime_pin": "4028990d1998229be06bc35398c0c9a8fa14cf36f2e29639cb83435955bcff77",
+  "final_runtime_pin": "b7ccad81dda1051f03c7f0dab8d6535acfe33d2a2b284d157f17b33968d0162e",
+  "post_focused_change": "The new proof getter and original callable checks changed. All other runtime function definitions remain byte-identical. The final five-case selection verifies both changes and the complete positive.",
+  "limits": {
+    "native_main_auxiliary_slots": 8,
+    "native_stages": 8,
+    "native_bytes": 262144,
+    "response_bytes": 65536,
+    "messages": 32,
+    "text_characters": 16384,
+    "text_utf8_bytes": 16384,
+    "shared_parents": 32,
+    "shared_combined_slots": 128,
+    "shared_retained_bytes": 8388608,
+    "shared_payload_bytes": 1048576,
+    "shared_hops": 128
+  },
+  "separate_send_scopes": {
+    "fixed_probe_positive": {
+      "qualifications": 8,
+      "probe": 1
+    },
+    "selected_expiry": {
+      "qualifications": 9,
+      "probe": 1
+    },
+    "legacy_memory_terminal_representative": {
+      "qualifications": 16,
+      "capture": 0,
+      "consumer": 1,
+      "probe": 0
+    },
+    "legacy_direct_host_terminal_representative": {
+      "qualifications": 25,
+      "delegate": 1,
+      "child_main": 1,
+      "probe": 0
+    }
+  }
+}
