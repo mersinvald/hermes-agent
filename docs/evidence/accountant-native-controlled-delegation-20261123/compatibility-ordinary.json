@@ -1,0 +1,39 @@
+{
+  "name": "compatibility-ordinary",
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "-j",
+    "1",
+    "tests/tools/test_delegate.py",
+    "-k",
+    "test_no_parent_agent",
+    "--",
+    "--durations=0",
+    "--tb=short",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/compatibility-ordinary.xml"
+  ],
+  "source_sha256": {
+    "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+  },
+  "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+  "retries": 0,
+  "exit_code": 0,
+  "wall_seconds": 1.976,
+  "source_unchanged": true,
+  "cases": [
+    {
+      "classname": "tests.tools.test_delegate.TestDelegateTask",
+      "name": "test_no_parent_agent",
+      "seconds": "0.701",
+      "properties": {},
+      "status": "passed"
+    }
+  ]
+}

@@ -1722,6 +1722,7 @@ def _build_child_agent(
     # 'leaf' (default) cannot; 'orchestrator' retains the delegation
     # toolset subject to depth/kill-switch bounds applied below.
     role: str = "leaf",
+    *, _native_delegate_token=None,
 ):
     """
     Build a child AIAgent on the main thread (thread-safe construction).
@@ -1732,6 +1733,10 @@ def _build_child_agent(
     routing subagents to a different provider:model pair (e.g. cheap/fast
     model on OpenRouter while the parent runs on Nous Portal).
     """
+    from agent.native_main_payload import _controlled_delegate_builder
+    handled, controlled = _controlled_delegate_builder(locals())
+    if handled:
+        return controlled
     from agent.content_policy import guard_native_content
     guard_native_content("delegate", parent_agent)
     from run_agent import AIAgent
@@ -2614,6 +2619,10 @@ def _run_single_child(
     ``truncated`` is derived as ``exit_reason == "max_iterations"`` only, so the
     parent-visible truncation flag stays truthful for all of the above.
     """
+    from agent.native_main_payload import _controlled_delegate_runner
+    handled, controlled = _controlled_delegate_runner(locals())
+    if handled:
+        return controlled
     from agent.content_policy import guard_native_content
     guard_native_content("delegate", parent_agent)
     child_start = time.monotonic()
@@ -3836,6 +3845,10 @@ def _validate_batch_tasks(task_list: List[Dict[str, Any]]) -> Optional[str]:
     return None
 
 
+from agent.native_main_payload import _capture_delegate_call
+
+
+@_capture_delegate_call
 def delegate_task(
     goal: Optional[str] = None,
     context: Optional[str] = None,
@@ -3871,6 +3884,10 @@ def delegate_task(
 
     Returns JSON with results array, one entry per task.
     """
+    from agent.native_main_payload import _controlled_delegate_entry
+    handled, controlled = _controlled_delegate_entry(locals())
+    if handled:
+        return controlled
     from agent.content_policy import guard_native_content
     guard_native_content("delegate", parent_agent)
     if parent_agent is None:

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="5.402" timestamp="2026-11-23T12:05:52.061563+00:00"><testcase classname="tests.tools.test_native_controlled_delegation" name="test_raw_admission_control_keeps_original_exception" time="4.339"><properties><property name="setup_seconds" value="2.273413" /><property name="call_seconds" value="2.065311" /></properties><failure message="hermes_content_policy.PolicyError: callback_failed">tests/tools/test_native_controlled_delegation.py:549: in test_raw_admission_control_keeps_original_exception
+    world.call()
+tests/tools/test_native_controlled_delegation.py:186: in call
+    return delegate_task(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4103: in captured
+    frame.capture(args, kwargs, public_signature)
+agent/native_main_payload.py:3908: in capture
+    raw_content = self.stage(raw, ())
+                  ^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:3865: in stage
+    content = self.runtime.admit(handle, payload)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:575: in admit
+    binding = self._current(request_handle)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:484: in _current
+    self._now()
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:475: in _now
+    now = self._call(self._clock)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:455: in _call
+    raise PolicyError("callback_failed") from None
+E   hermes_content_policy.PolicyError: callback_failed</failure></testcase></testsuite></testsuites>

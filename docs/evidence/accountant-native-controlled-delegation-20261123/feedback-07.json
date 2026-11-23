@@ -1,0 +1,64 @@
+{
+  "name": "feedback-07",
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "-j",
+    "1",
+    "tests/tools/test_native_controlled_delegation.py",
+    "-k",
+    "(controls_preserve_exception_identity_and_partial_sends and delegate and interrupt) or (post_acceptance_original_anchors and mutated-leaf) or (post_acceptance_original_anchors and construction-slot)",
+    "--",
+    "--durations=0",
+    "--tb=short",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-07.xml"
+  ],
+  "source_sha256": {
+    "agent/native_main_payload.py": "62b26e4682d298f722a8894d8f8031e4000dccbe222f3f6ad532d2d5e8d1e8bb",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "2ff2f059f1da7568ef9eadff3133fd9f836fcd071255a4eead701a260f323fae"
+  },
+  "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+  "retries": 0,
+  "exit_code": 1,
+  "wall_seconds": 32.127,
+  "source_unchanged": true,
+  "cases": [
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_post_acceptance_original_anchors[mutated-leaf]",
+      "seconds": "11.857",
+      "properties": {
+        "setup_seconds": "1.596689",
+        "call_seconds": "10.25645",
+        "teardown_seconds": "0.00431"
+      },
+      "status": "failed"
+    },
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_post_acceptance_original_anchors[construction-slot]",
+      "seconds": "10.144",
+      "properties": {
+        "setup_seconds": "0.032939",
+        "call_seconds": "10.109189",
+        "teardown_seconds": "0.0014"
+      },
+      "status": "failed"
+    },
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-delegate]",
+      "seconds": "7.533",
+      "properties": {
+        "setup_seconds": "0.014557",
+        "call_seconds": "7.517317"
+      },
+      "status": "passed"
+    }
+  ]
+}

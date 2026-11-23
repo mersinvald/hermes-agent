@@ -1,0 +1,31 @@
+{
+  "prior_scope": "final-native.json",
+  "prior_runtime_sha256": "689ded8e77ddf8bd78c255c23db61c28f88abd1f4e50dc579622444aa18970f3",
+  "corrected_runtime_sha256": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+  "exact_inverse_matches_prior": true,
+  "only_runtime_change": "Restore the original observed callback control exception at the controlled argument-capture wrapper",
+  "trusted_original_observation": "Existing _around callback boundary retains the actual exception in frame.control_exception before shared normalization",
+  "policy_labels_used": false,
+  "callback_replay": false,
+  "shared_changes": false,
+  "revived_context": false,
+  "prior_test_prefix_bytes": 28589,
+  "prior_test_prefix_sha256": "1d5a0be8d2ca527bec1a17702da72ac79fda90f6c02fa846778e3d993be5c7aa",
+  "new_test": "test_raw_admission_control_keeps_original_exception",
+  "reused_scopes": [
+    "final-native.json",
+    "feedback-08.json"
+  ],
+  "fresh_corrected_aggregate": false,
+  "preconstruction_exact_inverse_matches": true,
+  "preconstruction_prior_runtime_sha256": "72499d1f104fe1bf7874cc2da063f4f12d8b1563a84ef1af79d2d6322a2a5b32",
+  "preconstruction_inverse_removes": [
+    "Child views cannot bind another parent delegation frame",
+    "Registered child auxiliary/compression/fallback bindings must remain absent"
+  ],
+  "preconstruction_IDs": [
+    "test_post_acceptance_original_anchors[mutated-leaf]",
+    "test_post_acceptance_original_anchors[construction-slot]"
+  ],
+  "preconstruction_scope": "Both cases refuse before child view construction; the two added child-view guards do not change their path"
+}

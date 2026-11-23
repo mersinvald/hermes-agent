@@ -1,0 +1,43 @@
+{
+  "native_base": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+  "native_base_tree": "b6da4e5a8158abe6502a7dd46f238a50dcf78248",
+  "native_base_paths": 11425,
+  "source_sha256": {
+    "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+  },
+  "source_git_blobs": {
+    "agent/native_main_payload.py": "73b738b2cc8e18307c0fce787e3027f784416015",
+    "tools/delegate_tool.py": "c92affcda74c29c4bba2474dfd9a781db5a64811",
+    "tests/tools/test_native_controlled_delegation.py": "5bdfba5ec19bb534713ac7473029dbcfb165cb6a"
+  },
+  "protected_source_sha256": {
+    "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+    "agent/content_policy.py": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+    "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+    "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+    "agent/agent_init.py": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+    "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+    "tests/agent/test_native_controlled_conversation.py": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+    "tests/tools/test_content_policy_delegation.py": "9f0b6e6c1a38f2650aba820f9ec355f78f5375047db21575f7b05f6ab37b831f"
+  },
+  "original_record_shapes_unchanged": true,
+  "ordinary_bodies": {
+    "delegate_task": "Original docstring and body preserved after the three early-branch statements",
+    "_build_child_agent": "Original docstring and body preserved after the three early-branch statements",
+    "_run_single_child": "Original docstring and body preserved after the three early-branch statements"
+  },
+  "unchanged_function_asts": [
+    "_build_child_preserving_parent_tools",
+    "_finalize_child_results",
+    "_apply_summary_budget",
+    "_resolve_delegation_credentials",
+    "_build_child_system_prompt",
+    "_normalize_role"
+  ],
+  "api_sha256": "c8abff06b7df3053aca2c68b3c6b97d879f8ce7160813befd85062165958c5da",
+  "consumer_sha256": "223479c05568469e0e3d3cc870b3ac8bf7a6f5661d27c54e42a8b24377eee3b5",
+  "correction_reuse": "correction-reuse.json",
+  "fresh_corrected_aggregate": false
+}

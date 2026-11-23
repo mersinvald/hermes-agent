@@ -1,0 +1,75 @@
+{
+  "name": "raw-control-green",
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "-j",
+    "1",
+    "tests/tools/test_native_controlled_delegation.py",
+    "-k",
+    "raw_admission_control_keeps_original_exception or (controls_preserve_exception_identity_and_partial_sends and (interrupt or cancel) and child) or (controls_preserve_exception_identity_and_partial_sends and interrupt and delegate)",
+    "--",
+    "--durations=0",
+    "--tb=short",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/raw-control-green.xml"
+  ],
+  "source_sha256": {
+    "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+  },
+  "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+  "retries": 0,
+  "exit_code": 0,
+  "wall_seconds": 49.072,
+  "source_unchanged": true,
+  "cases": [
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-delegate]",
+      "seconds": "8.718",
+      "properties": {
+        "setup_seconds": "1.629015",
+        "call_seconds": "7.08886",
+        "teardown_seconds": "0.000547"
+      },
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-child]",
+      "seconds": "18.387",
+      "properties": {
+        "setup_seconds": "0.021197",
+        "call_seconds": "18.364951",
+        "teardown_seconds": "0.000508"
+      },
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_controls_preserve_exception_identity_and_partial_sends[cancel-child]",
+      "seconds": "18.575",
+      "properties": {
+        "setup_seconds": "0.018852",
+        "call_seconds": "18.556044",
+        "teardown_seconds": "0.000533"
+      },
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_raw_admission_control_keeps_original_exception",
+      "seconds": "1.936",
+      "properties": {
+        "setup_seconds": "0.013711",
+        "call_seconds": "1.921636"
+      },
+      "status": "passed"
+    }
+  ]
+}

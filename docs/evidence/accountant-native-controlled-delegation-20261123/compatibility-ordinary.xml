@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.010" timestamp="2026-11-23T12:09:09.359709+00:00"><testcase classname="tests.tools.test_delegate.TestDelegateTask" name="test_no_parent_agent" time="0.701" /></testsuite></testsuites>

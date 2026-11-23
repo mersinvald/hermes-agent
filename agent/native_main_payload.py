@@ -35,6 +35,71 @@ _MAX_INT = (1 << 53) - 1
 _MAX_NATIVE_RESULT = 262_144
 _adapters = weakref.WeakSet()
 _constructed_bindings = weakref.WeakSet()
+class _DelegateFrames(weakref.WeakKeyDictionary):
+    def __setitem__(self, key, value):
+        super().__setitem__(key, weakref.ref(value))
+
+    def __getitem__(self, key):
+        return super().__getitem__(key)()
+
+    def get(self, key, default=None):
+        reference = super().get(key)
+        return reference() if reference is not None else default
+
+
+_delegate_frames = _DelegateFrames()
+
+
+class NativeDelegateInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Delegate tokens require retained input")
+
+
+@dataclass(frozen=True, slots=True)
+class NativeDelegateBinding:
+    parent_request: object
+    receiver_request: object
+    child_request: object
+    receiver_selection: NativeSelectionPort
+    child_selection: NativeSelectionPort
+    receiver_producer_ref: str
+    child_producer_ref: str
+    delegate_route: object
+    child_main_route: object
+    child_session_id: str
+    child_task_id: str
+    snapshots: tuple
+    anchors: tuple
+
+
+@dataclass(frozen=True, slots=True)
+class NativeDelegateInvocation:
+    token: NativeDelegateInput
+    binding: NativeDelegateBinding
+    arguments: tuple
+    argument_anchors: tuple
+    raw_bytes: bytes
+    raw_content: object
+    leaf_bytes: bytes
+    leaf_content: object
+    request_content: object
+    envelope: object
+    ack_bytes: bytes | None
+    ack_content: object
+    accepted_content: object
+    child_seed: object
+    child: object
+    child_adapter: object
+    child_input: object
+    child_request: object
+    child_invocation: object
+    child_completion: object
+    entry_bytes: bytes | None
+    aggregate_bytes: bytes | None
+    receiver_result: object
+    return_facts: object
 
 
 class NativeTurnInput:
@@ -829,6 +894,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        frame = _delegate_frames.get(adapter)
+        if frame is not None:
+            return frame.current(handle)
         _require(handle is adapter._handle or (adapter._aux_binding is not None
                  and handle is adapter._aux_binding.handle) or (adapter._compression_binding is not None
                  and handle is adapter._compression_binding.auxiliary.handle) or (adapter._fallback_binding is not None
@@ -847,6 +915,9 @@ class _Transport:
 
     def send(self, envelope):
         adapter = self.adapter
+        frame = _delegate_frames.get(adapter)
+        if frame is not None and frame.running:
+            return frame.send(self, envelope)
         operation = adapter._operation
         _require(type(operation) is _PendingOperation and adapter._pending is None)
         _require(adapter._busy and operation is adapter._checked_operation)
@@ -902,7 +973,11 @@ class NativeMainPayloadAdapter:
         result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str,
         profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...],
         transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int],
+        _delegation_frame: object = None,
     ) -> None:
+        if _delegation_frame is not None:
+            _require(type(_delegation_frame) is _DelegateFrame)
+            _delegation_frame.open_view(self, context)
         _require(type(context) is NativeContentContext)
         _require(current_context(SimpleNamespace(_native_content_policy_context=context)) is context)
         _require(not context._controlled_main_bound and not context._denied)
@@ -1003,11 +1078,14 @@ class NativeMainPayloadAdapter:
             self._main_route = selected[0]
             self._busy = True
             self._checkpoint()
-            self._runtime = policy.ContentPolicyRuntime(
-                admission=_Admission(self), profiles=profiles, routes=routes,
-                transports=tuple(wrappers), clock=lambda: self._around(clock),
-                policy_revision=self._source.policy_revision,
-            )
+            if _delegation_frame is not None:
+                self._runtime = _delegation_frame.runtime
+            else:
+                self._runtime = policy.ContentPolicyRuntime(
+                    admission=_Admission(self), profiles=profiles, routes=routes,
+                    transports=tuple(wrappers), clock=lambda: self._around(clock),
+                    policy_revision=self._source.policy_revision,
+                )
             self._captured_runtime = self._runtime
         except Exception:
             self._deny()
@@ -1040,6 +1118,9 @@ class NativeMainPayloadAdapter:
 
     def _invalidate(self):
         self._invalid = True
+        frame = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
+        if frame is not None:
+            frame.invalidate()
         frame = self._aux_pending
         if type(frame) in (_AuxiliaryFrame, _CompressionFrame) and type(frame.record) is NativeAuxiliaryInvocation:
             self._accept_aux_record(frame.record)
@@ -1049,6 +1130,11 @@ class NativeMainPayloadAdapter:
             self._bound_context._denied = True
 
     def _identity(self):
+        frame = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
+        delegate_scope = False
+        if frame is not None:
+            frame.verify()
+            delegate_scope = self is frame.parent and frame.child_scope()
         _require(threading.get_ident() == self._thread)
         if self._compression_binding is not None and self._turn_agent is not None:
             interrupted = _namespace(self._turn_agent).get("_interrupt_requested", False)
@@ -1102,9 +1188,9 @@ class NativeMainPayloadAdapter:
                   self._result_port, self._clock)
         _require(all(a is b for a, b in zip(actual, self._captured)))
         _require(self._admission is self._captured[0] and self._handle is self._captured[1])
-        if self._agent is not None:
+        if self._agent is not None and not delegate_scope:
             _require(current_context(self._agent) is context)
-        if self._turn_agent is not None:
+        if self._turn_agent is not None and not delegate_scope:
             _require(current_context(self._turn_agent) is context)
         for port, name, method in self._methods:
             _require(_same_method(getattr(port, name), method))
@@ -1135,7 +1221,12 @@ class NativeMainPayloadAdapter:
         _require(selection_row[3][1] == "synthetic_native")
         _destination(self._main_route.destination)
         _require(selected.destination == self._main_route.destination)
-        _require(set(producer_row[2]) <= set(source_row[8]) or bool(self._records))
+        retained_delegate_profiles = ()
+        delegation = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
+        if delegation is not None:
+            delegation.verify()
+            retained_delegate_profiles = delegation.initial[0 if self is delegation.parent else 2][0][8]
+        _require(set(producer_row[2]) <= set((*source_row[8], *retained_delegate_profiles)) or bool(self._records))
         if self._holder is not None:
             _require(source_row[:8] == self._holder)
             _require(selection_row == self._initial_selection)
@@ -1318,7 +1409,12 @@ class NativeMainPayloadAdapter:
             self._turn_arguments, self._turn_raw = arguments, raw
             self._turn_state, self._turn_options = state, options
             self._turn_facts = self._checkpoint()[:3]
-            admitted = self._runtime.admit(self._handle, raw)
+            delegation = getattr(self, "_delegate_parent_frame", None)
+            if delegation is not None:
+                delegation.check_child_input(agent, arguments)
+                admitted = self._runtime.derive(self._handle, (delegation.record.child_seed,), raw, path="main")
+            else:
+                admitted = self._runtime.admit(self._handle, raw)
             parents = (admitted, *(r.result_content for r in self._records),
                        *(row.content for row in self._completions))
             content = (self._derive(self._handle, parents, raw, path="main")
@@ -1465,7 +1561,24 @@ class NativeMainPayloadAdapter:
         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
 
     def _model_open(self):
+        _require(self not in _delegate_frames and not hasattr(self, "_delegate_frame"))
         _require(self._fallback_frame is None and self._fallback_terminal is False)
+
+    def bind_delegation(
+        self, agent: object, *, receiver_request: object,
+        receiver_selection: NativeSelectionPort, receiver_producer_ref: str,
+        child_request: object, child_selection: NativeSelectionPort,
+        child_producer_ref: str, delegate_route_ref: str,
+        child_main_route_ref: str, child_session_id: str, child_task_id: str,
+    ) -> None:
+        try:
+            _require(self not in _delegate_frames)
+            _DelegateFrame(self, agent, receiver_request, receiver_selection, receiver_producer_ref,
+                child_request, child_selection, child_producer_ref, delegate_route_ref,
+                child_main_route_ref, child_session_id, child_task_id)
+        except BaseException:
+            self._invalidate()
+            raise
 
     def _verify_fallback(self):
         _integer(self._fallback_send_count, 1, 0)
@@ -2527,10 +2640,14 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
-        self._checkpoint()
-        output = callback()
-        self._checkpoint()
-        return output
+        try:
+            self._checkpoint()
+            output = callback()
+            self._checkpoint()
+            return output
+        except BaseException as error:
+            _remember_delegate_control(_delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None), error)
+            raise
 
     def validate_scope(self) -> None:
         try:
@@ -2652,6 +2769,7 @@ def _nested_anchors(value):
                _CompressionBinding, _AuxiliaryBinding, _CompressionPreparation,
                _FallbackBinding, _FailedSendObservation, NativeFailedMainAttempt,
                _FallbackFrame, NativeFallbackInvocation, _TurnFrame, _PendingOperation,
+               NativeDelegateBinding, NativeDelegateInvocation,
                policy.ProfilePolicy, policy.DispatchFailureFacts)
     def visit(item):
         result.append(item)
@@ -3450,8 +3568,722 @@ def _complete_controlled_turn(agent, *, turn_context: TurnContext,
 def _close_constructed_main(agent) -> bool:
     if not _controlled_attempt(agent):
         return False
+    owned = _owned_constructed_binding(agent)
+    frame = getattr(owned.adapter, "_delegate_parent_frame", None) if owned is not None else None
+    if (frame is not None and owned.closed and not frame.invalid
+            and frame.phase in ("returned", "released") and frame.child is agent):
+        frame.verify()
+        return True
     _invalidate_constructed_attempt(agent)
     binding = _owned_constructed_binding(agent)
     if binding is not None:
         binding.closed = True
     return True
+
+
+class _DelegateFrame:
+    """Own one authenticated, synchronous delegation on the binding thread."""
+
+    def __init__(self, parent, agent, receiver, receiver_selection, receiver_producer,
+                 child_request, child_selection, child_producer, delegate_route,
+                 child_route, session, task):
+        _require(parent._constructed is _owned_constructed_binding(agent))
+        _verify_constructed(parent._constructed)
+        _require(not hasattr(parent, "_delegate_frame"))
+        _require(not hasattr(parent, "_delegate_parent_frame"))
+        parent.validate_scope()
+        _require(parent._turn_agent is agent and not parent._busy)
+        _require(not parent._turn_frames and not parent._records and not parent._completions)
+        _require(parent._turn_pending is parent._aux_pending is None)
+        _require(parent._aux_binding is parent._compression_binding is parent._fallback_binding is None)
+        for value in (receiver_producer, child_producer, delegate_route, child_route, session, task):
+            _identifier(value)
+        self.parent, self.agent, self.runtime = parent, agent, parent._runtime
+        self.thread = threading.get_ident()
+        self.running = self.invalid = self.checking = self.terminal = False
+        self.phase = self.phase_anchor = self.record = self.record_anchor = None
+        self.child_adapter = self.child_context = self.child = None
+        self.slot = self.slot_anchor = None
+        self.delegate_sends = 0
+        self.partial_sends = ()
+        self.partial_anchors = ()
+        self.control_exception = None
+        self.inputs = self.outputs = ()
+        self.methods = parent._methods
+        self.catalog = parent._operator_configuration
+        self.catalog_anchor = _nested_anchors(self.catalog)
+        dr = tuple(r for r in parent._operator_routes if r.route_ref == delegate_route)
+        mr = tuple(r for r in parent._operator_routes if r.route_ref == child_route)
+        _require(len(dr) == len(mr) == 1 and dr[0].path == "delegate" and mr[0].path == "main")
+        self.receiver_port = parent._operator_transports[dr[0].destination.transport_ref]
+        self.capabilities = (parent._handle, receiver, child_request)
+        self.selections = (parent._selection_port, receiver_selection, child_selection)
+        self.producers = (parent._producer_ref, receiver_producer, child_producer)
+        self.extra_methods = tuple((port, "current", _method(port.current)) for port in self.selections)
+        self.extra_methods += tuple((self.runtime, name, _method(getattr(self.runtime, name))) for name in (
+            "admit", "derive", "dispatch", "accept", "derive_for_selection", "return_from_delegate", "_content"))
+        from tools import delegate_tool
+        from run_agent import AIAgent
+        self.extra_methods += tuple((port, name, _method(getattr(port, name))) for port, name in (
+            (AIAgent, "__init__"), (NativeMainPayloadAdapter, "__init__"),
+            (delegate_tool, "delegate_task"), (delegate_tool, "_build_child_agent"),
+            (delegate_tool, "_run_single_child"), (delegate_tool, "_build_child_system_prompt"),
+            (delegate_tool, "_normalize_role")))
+        self.extra_methods += tuple((parent, name, _method(getattr(parent, name))) for name in (
+            "_identity", "_snapshot", "_checkpoint", "_around", "_model_open", "validate_scope",
+            "_verify_records", "_verify_turns", "_verify_completions", "bind_delegation"))
+        facts, originals = self.facts()
+        p, r, m = (row[0] for row in facts)
+        _require(p[0] == r[0] and p[2] == r[2] and p[4:6] == r[4:6])
+        _require(p[1] != r[1] and p[3] != r[3] and r[:6] == m[:6])
+        _require(task == m[1])
+        for index, route in ((1, dr[0]), (2, mr[0])):
+            holder, selected, producer = facts[index]
+            _require((route.consumer_ref, route.selection_id, route.selection_version)
+                     == (holder[3], holder[6], holder[7]))
+            if index == 2:
+                _require(selected[3] == _destination(route.destination))
+            _require(set(producer[2]) <= set(holder[8]))
+        port_binding = parent._admission.current(self.receiver_port)
+        _require(_binding(port_binding) == r)
+        self.initial = facts
+        self.binding = NativeDelegateBinding(parent._handle, receiver, child_request,
+            receiver_selection, child_selection, receiver_producer, child_producer,
+            dr[0], mr[0], session, task,
+            (originals, port_binding, self.catalog, self.methods, self.extra_methods),
+            _nested_anchors((originals, port_binding, self.catalog, self.methods, self.extra_methods)))
+        self.binding_anchor = _row(self.binding, NativeDelegateBinding)
+        self.snapshot_anchor = _nested_anchors(self.binding.snapshots)
+        self.capability_anchor = self.capabilities
+        self.selection_anchor = self.selections
+        self.initial_anchor = _nested_anchors(self.initial)
+        parent._delegate_frame = self
+        _delegate_frames[parent] = self
+        self.checkpoint()
+
+    def invalidate(self):
+        if (self.slot == "close" and self.phase == "returned" and not self.invalid
+                and current_context() is None):
+            self.verify()
+            _require(_same_anchors(self.closed_proof, self.proof()))
+            return
+        self.invalid = self.terminal = True
+        for adapter in (self.parent, self.child_adapter):
+            if adapter is not None:
+                adapter._invalid = True
+                adapter._bound_context._denied = True
+
+    def child_scope(self):
+        return (self.running and self.phase in ("accepted", "constructed", "completed", "returned")
+                and current_context() in (None, self.child_context))
+
+    def verify(self):
+        _require(_delegate_frames.get(self.parent) is self and not self.invalid)
+        _require(self.parent._delegate_frame is self)
+        _require(self.capabilities is self.capability_anchor and self.selections is self.selection_anchor)
+        _require(_same_anchors(_nested_anchors(self.initial), self.initial_anchor))
+        _require(threading.get_ident() == self.thread)
+        _require(self.phase is self.phase_anchor and self.slot is self.slot_anchor)
+        _require(self.parent._runtime is self.runtime is self.parent._captured_runtime)
+        _require(self.parent._operator_configuration is self.catalog)
+        _require(type(self.partial_sends) is tuple and len(self.partial_sends) <= 2)
+        _require(_same_anchors(_nested_anchors(self.partial_sends)[1:], self.partial_anchors))
+        _integer(self.delegate_sends, 1, 0)
+        _require(_same_anchors(_nested_anchors(self.catalog), self.catalog_anchor))
+        _require(_same_anchors(_row(self.binding, NativeDelegateBinding), self.binding_anchor))
+        _require(_same_anchors(_nested_anchors(self.binding.snapshots), self.snapshot_anchor))
+        _verify_constructed(self.parent._constructed)
+        _require(self.parent._turn_agent is self.agent)
+        _require(not self.parent._turn_frames and not self.parent._records and not self.parent._completions)
+        _require(self.parent._aux_binding is self.parent._compression_binding is self.parent._fallback_binding is None)
+        for port, name, method in (*self.methods, *self.extra_methods):
+            _require(_same_method(getattr(port, name), method))
+        if self.record is not None:
+            _require(self.record is self.registered_record)
+            _require(_same_anchors(_row(self.record, NativeDelegateInvocation), self.record_anchor))
+            _require(_same_anchors(_nested_anchors(_row(self.record, NativeDelegateInvocation)[2:])[1:], self.record_nested))
+            _require(self.record.binding is self.binding and self.record.token is self.token)
+            _require(self.record.arguments is self.arguments)
+            _require(_same_anchors(_nested_anchors(self.arguments), self.record.argument_anchors))
+            _require(self.encode_arguments(self.arguments) == self.record.raw_bytes)
+            if self.leaf is not None:
+                _require(_json(self.leaf) == self.record.leaf_bytes)
+            if hasattr(self, "plan_anchor"):
+                _require(_same_anchors(_nested_anchors((self.prompt, self.constructor_options))[1:], self.plan_anchor))
+                _text(self.prompt)
+                _require(_json(dict(raw=json.loads(self.record.raw_bytes), leaf=self.leaf,
+                    system_prompt=self.prompt, constructor=self.constructor_options,
+                    entry=dict(user_message=self.leaf["goal"], system_message=self.prompt,
+                               task_id=self.binding.child_task_id))) == self.plan)
+                if self.record.request_content is not None:
+                    _require(self.runtime._content(self.record.request_content).payload is self.plan)
+            if self.child_adapter is not None:
+                adapter = self.child_adapter
+                _require(adapter._delegate_parent_frame is self)
+                _require(adapter._aux_binding is adapter._compression_binding is adapter._fallback_binding is None)
+                _require(adapter._context is self.child_context)
+                if hasattr(adapter, "_runtime"):
+                    _require(adapter._runtime is self.runtime)
+                if self.child is not None:
+                    _require(self.record.child is self.child)
+                    binding = adapter._constructed
+                    if binding.closed:
+                        _require(self.phase in ("returned", "released"))
+                        _require(_same_anchors(self.closed_proof, self.proof()))
+                        _require(adapter._invalid and adapter._bound_context._denied)
+                        _require(_constructed_state(_namespace(self.child)) == binding.state)
+                        for name, original in binding.anchors:
+                            if name not in ("_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason",
+                                            "_interrupt_thread_signal_pending"):
+                                _require(_namespace(self.child).get(name) is original)
+                        interrupted = _namespace(self.child).get("_interrupt_requested")
+                        _require(type(interrupted) is bool)
+                        if interrupted:
+                            error = InterruptedError("Agent interrupted during delegation")
+                            _remember_delegate_control(self, error)
+                            raise error
+                        adapter._verify_turns()
+                        adapter._verify_records()
+                        adapter._verify_completions()
+                    else:
+                        _verify_constructed(binding)
+
+    def call(self, callback, *args):
+        try:
+            return callback(*args)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+
+    def facts(self):
+        values, originals = [], []
+        for handle, selection, producer_ref in zip(self.capabilities, self.selections, self.producers):
+            source = self.call(self.parent._admission.current, handle)
+            selected = self.call(selection.current, handle)
+            producer = self.call(self.parent._result_port.current, producer_ref)
+            row = _binding(source), _selection(selected), _producer(producer)
+            _require(row[1][:2] == row[0][6:8] and row[1][3][1] == "synthetic_native")
+            _require(row[2][0] == producer_ref)
+            values.append(row)
+            originals.append((source, selected, producer))
+        return tuple(values), tuple(originals)
+
+    def checkpoint(self):
+        self.verify()
+        _require(not self.checking)
+        self.checking = True
+        try:
+            for _ in range(2):
+                facts, _ = self.facts()
+                for actual, original in zip(facts, self.initial):
+                    _require(actual[0][:8] == original[0][:8] and actual[1:] == original[1:])
+                    _require(set(actual[0][8]) <= set(original[0][8]))
+                port = _binding(self.call(self.parent._admission.current, self.receiver_port))
+                _require(port[:8] == self.initial[1][0][:8])
+                _require(set(port[8]) <= set(self.initial[1][0][8]))
+                now = self.call(self.parent._clock)
+                _integer(now, minimum=0)
+                allowed = set(r.route_ref for r in self.parent._operator_routes)
+                inherited = set(p for row in self.initial for p in row[0][8])
+                inherited.update(p for row in self.initial for p in row[2][2])
+                for profile in self.parent._operator_profiles:
+                    if profile.profile_ref in inherited:
+                        allowed.intersection_update(profile.allowed_routes)
+                _require(self.binding.delegate_route.route_ref in allowed)
+                _require(self.binding.child_main_route.route_ref in allowed)
+                for row in facts:
+                    for path in shared_policy().PATHS:
+                        _require(any(r.route_ref in allowed and r.path == path
+                            and (r.consumer_ref, r.selection_id, r.selection_version)
+                            == (row[0][3], row[0][6], row[0][7]) and now < r.expires_at
+                            for r in self.parent._operator_routes))
+                for route in self.parent._operator_routes:
+                    _route_facts(route)
+                    actual = self.call(self.parent._operator_transports[route.destination.transport_ref].resolve)
+                    _require(_destination(actual) == _destination(route.destination))
+                interrupted = _namespace(self.agent).get("_interrupt_requested")
+                _require(type(interrupted) is bool)
+                if interrupted:
+                    raise InterruptedError("Agent interrupted during delegation")
+                if self.child is not None and not self.child_adapter._constructed.closed:
+                    interrupted = _namespace(self.child).get("_interrupt_requested")
+                    _require(type(interrupted) is bool)
+                    if interrupted:
+                        raise InterruptedError("Agent interrupted during delegation")
+                self.verify()
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+        finally:
+            self.checking = False
+
+    def current(self, handle):
+        self.verify()
+        valid = next((h for h in self.capabilities if handle is h), None)
+        if valid is not self.binding.parent_request:
+            _require(self.running and self.record is not None and self.record.token is self.token)
+            _require(self.phase in ("captured", "dispatched", "accepted", "constructed", "completed", "returned"))
+        if valid is None:
+            wrapper = next((w for w in self.parent._transport_wrappers.values() if handle is w), None)
+            _require(wrapper is not None)
+            valid = wrapper.port
+            _require(valid is self.receiver_port)
+        self.call(self.parent._checkpoint)
+        try:
+            result = self.parent._admission.current(valid)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+        self.call(self.parent._checkpoint)
+        _binding(result)
+        return result
+
+    def retain(self, **changes):
+        self.verify()
+        self.record = replace(self.record, **changes)
+        self.registered_record = self.record
+        self.record_anchor = _row(self.record, NativeDelegateInvocation)
+        self.record_nested = _nested_anchors(self.record_anchor[2:])[1:]
+
+    def set_slot(self, slot):
+        self.verify()
+        _require(self.record is not None and self.record.token is self.token)
+        self.slot = self.slot_anchor = slot
+
+    def transition(self, token, previous, phase):
+        self.checkpoint()
+        _require(token is self.token and self.record.token is token and self.phase == previous)
+        self.phase = self.phase_anchor = phase
+        self.checkpoint()
+
+    def stage(self, payload, parents, *, output=False, handle=None, parent_requests=None):
+        _require(type(payload) is bytes and len(payload) <= _MAX_NATIVE_RESULT)
+        stages = self.outputs if output else self.inputs
+        _require(len(stages) < 8)
+        handle = self.binding.parent_request if handle is None else handle
+        if not parents:
+            content = self.runtime.admit(handle, payload)
+        elif parent_requests is None:
+            content = self.runtime.derive(handle, parents, payload, path="delegate")
+        else:
+            content = self.runtime.derive_for_selection(handle, parents, payload,
+                path="tool_result" if output else "main", parent_requests=parent_requests)
+        if output:
+            self.outputs += ((payload, content),)
+        else:
+            self.inputs += ((payload, content),)
+        return content
+
+    def encode_arguments(self, arguments):
+        rows, positional, keywords = arguments
+        def value(name, item):
+            return {"parent_request": list(self.initial[0][0][:8])} if name == "parent_agent" else item
+        return _json(dict(arguments=[(n, p, value(n, v)) for n, p, v in rows],
+            positional=[value(rows[i][0], v) for i, v in enumerate(positional)],
+            keywords=[(n, value(n, v)) for n, v in keywords]))
+
+    def capture(self, args, kwargs, signature):
+        self.checkpoint()
+        _require(not self.running and not self.terminal and self.record is None)
+        self.running = self.terminal = True
+        _require(all(type(k) is str for k in kwargs))
+        bound = signature.bind(*args, **kwargs)
+        values = bound.arguments
+        _require(values.get("parent_agent") is self.agent)
+        _require(values.get("credentials_cfg") is None)
+        for name in ("tasks", "max_iterations", "output_schema", "subagent_id", "message"):
+            _require(values.get(name) is None)
+        goal, context = values.get("goal"), values.get("context")
+        _text(goal)
+        _require(bool(goal.strip()))
+        if context is not None:
+            _text(context)
+        for name, cls, expected in (("role", str, "leaf"), ("background", bool, False), ("action", str, "spawn")):
+            item = values.get(name)
+            _require(item is None or (type(item) is cls and item == expected))
+        self.arguments = (tuple((name, name in values, values.get(name)) for name in signature.parameters),
+                          args, tuple(kwargs.items()))
+        self.leaf = None
+        raw = self.encode_arguments(self.arguments)
+        raw_content = self.stage(raw, ())
+        self.token = object.__new__(NativeDelegateInput)
+        self.record = NativeDelegateInvocation(token=self.token, binding=self.binding,
+            arguments=self.arguments, argument_anchors=_nested_anchors(self.arguments),
+            raw_bytes=raw, raw_content=raw_content, leaf_bytes=b"", leaf_content=None,
+            request_content=None, envelope=None, ack_bytes=None, ack_content=None,
+            accepted_content=None, child_seed=None, child=None, child_adapter=None,
+            child_input=None, child_request=None, child_invocation=None, child_completion=None,
+            entry_bytes=None, aggregate_bytes=None, receiver_result=None, return_facts=None)
+        self.registered_record = self.record
+        self.record_anchor = _row(self.record, NativeDelegateInvocation)
+        self.record_nested = _nested_anchors(self.record_anchor[2:])[1:]
+        self.phase = self.phase_anchor = "captured"
+        self.slot = self.slot_anchor = "entry"
+        return self.token
+
+    def send(self, wrapper, envelope):
+        self.checkpoint()
+        adapter = self.parent if self.phase == "captured" else self.child_adapter
+        _require(adapter is not None and self.slot in ("dispatch", "runner"))
+        operation = adapter._operation
+        _require(type(operation) is _PendingOperation and operation is adapter._checked_operation)
+        _require(adapter._busy and adapter._pending is None)
+        _require(type(envelope) is shared_policy().DispatchEnvelope)
+        _require(envelope.payload is operation.payload and envelope.path == operation.path)
+        _require(_binding(envelope.source) == _binding(operation.source))
+        _require(_destination(envelope.destination) == _destination(operation.selected.destination))
+        _require(self.parent._transport_wrappers[envelope.destination.transport_ref] is wrapper)
+        recipient = self.initial[1][0][3] if adapter is self.parent else self.initial[2][0][3]
+        _require(type(envelope.recipient_ref) is str and envelope.recipient_ref == recipient)
+        _require(wrapper.resolve() == envelope.destination)
+        adapter._pending = (envelope, envelope.destination, None)
+        if adapter is self.parent:
+            _require(self.delegate_sends == 0 and operation.path == "delegate")
+            self.delegate_sends += 1
+            self.retain(envelope=envelope)
+        else:
+            _require(adapter is self.child_adapter and adapter._send_count == 0 and operation.path == "main")
+            adapter._send_count += 1
+            self.retain(child_input=adapter._turn_pending, child_request=adapter._kwargs)
+        self.partial_sends += ((adapter, envelope, operation),)
+        self.partial_anchors = _nested_anchors(self.partial_sends)[1:]
+        try:
+            output = wrapper.port.send(envelope)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+        adapter._pending = (envelope, envelope.destination, output)
+        if adapter is self.parent:
+            self.retain(ack_bytes=output)
+            _require(type(output) is bytes and output == b'{"accepted":true}')
+        else:
+            _require(type(output) is bytes and len(output) <= 65_536)
+        self.checkpoint()
+        return output
+
+    def dispatch_request(self):
+        self.checkpoint()
+        parent, binding = self.parent, self.binding
+        _require(self.phase == "captured" and self.slot == "entry")
+        operation = _PendingOperation(binding.parent_request, parent._source,
+            NativeMainSelection(binding.delegate_route.selection_id, binding.delegate_route.selection_version,
+                "chat_completions", binding.delegate_route.destination), parent._producer_policy,
+            "delegate", binding.delegate_route.route_ref,
+            self.runtime._content(self.record.request_content).payload, self.record.request_content, False)
+        self.set_slot("dispatch")
+        parent._operation = parent._checked_operation = operation
+        parent._busy = True
+        try:
+            ack = self.runtime.dispatch(binding.parent_request, operation.content,
+                path="delegate", route_ref=binding.delegate_route.route_ref)
+            self.retain(ack_content=ack)
+            _require(self.runtime._content(ack).payload == b'{"accepted":true}')
+        finally:
+            parent._busy = False
+            parent._operation = parent._checked_operation = parent._pending = None
+            self.set_slot(None)
+        self.transition(self.token, "captured", "dispatched")
+        accepted = self.runtime.accept(binding.receiver_request, self.record.envelope)
+        self.retain(accepted_content=accepted)
+        seed = self.stage(self.record.leaf_bytes, (accepted,), handle=binding.child_request,
+            parent_requests=(binding.receiver_request,))
+        self.retain(child_seed=seed)
+        self.transition(self.token, "dispatched", "accepted")
+
+    def open_view(self, adapter, context):
+        self.checkpoint()
+        _require(self.slot == "view" and self.phase == "accepted" and self.child_adapter is None)
+        _require(current_context() is None and context is self.child_context)
+        _require(context.admission is self.parent._admission and context.request_handle is self.binding.child_request)
+        self.child_adapter = adapter
+        adapter._delegate_parent_frame = self
+
+    def check_child_input(self, agent, arguments):
+        self.checkpoint()
+        _require(self.phase == "constructed" and self.slot == "runner" and agent is self.child)
+        _require(not self.child_adapter._turn_frames)
+        _require(arguments[0] is self.leaf["goal"] and arguments[1] is self.prompt)
+        _require(arguments[2] is None and arguments[3] is self.binding.child_task_id)
+
+    def proof(self):
+        adapter = self.child_adapter
+        return (adapter._turn_frames, adapter._records, adapter._record_anchors,
+                adapter._completions, adapter._completion_anchors,
+                self.record, self.record_anchor, adapter._constructed.state,
+                adapter._constructed.anchors)
+
+    def retain_completion(self, result):
+        self.checkpoint()
+        _require(self.phase == "constructed" and self.slot == "runner")
+        adapter = self.child_adapter
+        _require(len(adapter._turn_frames) == len(adapter._records) == len(adapter._completions) == 1)
+        completion = adapter._completions[0]
+        _require(completion.result is result)
+        adapter._verify_completions()
+        self.retain(child_input=adapter._turn_frames[0],
+            child_invocation=adapter._records[0], child_completion=completion)
+
+    def complete(self, result, duration):
+        self.checkpoint()
+        _require(self.record.child_completion.result is result)
+        completion = self.record.child_completion
+        _require(result["completed"] is True and result["failed"] is result["interrupted"] is result["partial"] is False)
+        _require(type(result["api_calls"]) is int and result["api_calls"] == 1)
+        _text(result["final_response"])
+        _require(bool(result["final_response"].strip()))
+        _require(type(duration) is float and math.isfinite(duration) and 0 <= duration <= 600)
+        entry = dict(task_index=0, status="completed", summary=result["final_response"], api_calls=1,
+            duration_seconds=duration, model=result["model"], exit_reason="completed", truncated=False,
+            tokens=dict(input=result["input_tokens"], output=result["output_tokens"]), tool_trace=[])
+        payload = json.dumps(entry, ensure_ascii=False).encode("utf-8")
+        self.retain(entry_bytes=payload)
+        self.stage(payload, (self.record.accepted_content, completion.content), output=True,
+            handle=self.binding.receiver_request,
+            parent_requests=(self.binding.receiver_request, self.binding.child_request))
+        self.transition(self.token, "constructed", "completed")
+        return entry
+
+    def finish(self, entry):
+        self.checkpoint()
+        _require(self.phase == "completed")
+        _require(self.delegate_sends == self.child_adapter._send_count == 1 and len(self.partial_sends) == 2)
+        _require(json.dumps(entry, ensure_ascii=False).encode("utf-8") == self.record.entry_bytes)
+        aggregate = json.dumps(dict(results=[entry], total_duration_seconds=entry["duration_seconds"]), ensure_ascii=False)
+        payload = aggregate.encode("utf-8")
+        self.retain(aggregate_bytes=payload)
+        content = self.stage(payload, (self.record.accepted_content, self.record.child_completion.content,
+            self.outputs[-1][1]), output=True, handle=self.binding.receiver_request,
+            parent_requests=(self.binding.receiver_request, self.binding.child_request, self.binding.receiver_request))
+        self.retain(receiver_result=content)
+        facts = self.runtime.return_from_delegate(self.binding.parent_request, self.record.envelope,
+            self.record.accepted_content, content, receiver_request=self.binding.receiver_request)
+        self.retain(return_facts=facts)
+        self.check_return()
+        self.transition(self.token, "completed", "returned")
+        return aggregate
+
+    def check_return(self):
+        record, facts = self.record, self.record.return_facts
+        _require(type(facts) is shared_policy().DelegateReturnFacts)
+        _require(facts.envelope is record.envelope and facts.accepted_content is record.accepted_content)
+        _require(facts.receiver_result is record.receiver_result)
+        returned = self.runtime._content(facts.returned_content)
+        _require(returned.payload is self.runtime._content(record.receiver_result).payload)
+        _require(returned.payload == record.aggregate_bytes and returned.path == "tool_result")
+        _require(_same_anchors(returned.parents,
+            (record.request_content, record.accepted_content, record.receiver_result)))
+        _require(_binding(facts.sender)[:8] == self.initial[0][0][:8])
+        _require(_binding(facts.receiver)[:8] == self.initial[1][0][:8])
+
+
+def _delegate_owner(agent):
+    binding = _owned_constructed_binding(agent)
+    return _delegate_frames.get(binding.adapter) if binding is not None else None
+
+
+def _remember_delegate_control(frame, error):
+    import asyncio
+    if frame is not None and isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+        if frame.control_exception is None:
+            frame.control_exception = error
+
+
+def _capture_delegate_call(function):
+    from functools import wraps
+    from inspect import signature
+    public_signature = signature(function)
+
+    @wraps(function)
+    def captured(*args, **kwargs):
+        agent = args[10] if len(args) > 10 else kwargs.get("parent_agent")
+        frame = _delegate_owner(agent)
+        if frame is None:
+            return function(*args, **kwargs)
+        try:
+            frame.capture(args, kwargs, public_signature)
+            return function(*args, **kwargs)
+        except BaseException:
+            frame.invalidate()
+            if frame.control_exception is not None:
+                raise frame.control_exception
+            raise
+        finally:
+            frame.running = False
+    return captured
+
+
+def _delegate_boundary(function):
+    from functools import wraps
+
+    @wraps(function)
+    def checked(arguments):
+        frame = _delegate_owner(arguments["parent_agent"])
+        try:
+            return function(arguments)
+        except BaseException:
+            if frame is not None:
+                frame.invalidate()
+            raise
+    return checked
+
+
+def _controlled_delegate_entry(arguments):
+    frame = _delegate_owner(arguments["parent_agent"])
+    if frame is None:
+        return False, None
+    from contextlib import ExitStack
+    from agent.content_policy import content_policy_scope
+    from tools import delegate_tool
+    try:
+        frame.checkpoint()
+        _require(frame.running and frame.phase == "captured" and frame.slot == "entry")
+        for name, _, original in frame.record.arguments[0]:
+            _require(arguments[name] is original)
+        goal, context, role = arguments["goal"], arguments["context"], arguments["role"]
+        top_role = delegate_tool._normalize_role(role)
+        single_task = {"goal": goal, "context": context, "role": top_role}
+        effective_role = delegate_tool._normalize_role(single_task.get("role") or top_role)
+        _child_context = single_task.get("context")
+        leaf = dict(goal=single_task["goal"], context=_child_context, role=effective_role)
+        frame.retain(leaf_bytes=_json(leaf))
+        frame.leaf = leaf
+        content = frame.stage(frame.record.leaf_bytes, (frame.record.raw_content,))
+        frame.retain(leaf_content=content)
+        frame.scopes = ExitStack()
+        try:
+            frame.set_slot("builder")
+            child = delegate_tool._build_child_agent(0, goal, context, None, None,
+                sys.maxsize, 1, frame.agent, role="leaf", _native_delegate_token=frame.token)
+            frame.set_slot("runner")
+            entry = delegate_tool._run_single_child(0, goal, child, frame.agent,
+                _native_delegate_token=frame.token)
+            aggregate = frame.finish(entry)
+            frame.closed_proof = frame.proof()
+            frame.set_slot(None)
+        except BaseException:
+            frame.invalidate()
+            raise
+        finally:
+            active_error = sys.exc_info()
+            if active_error[0] is not None:
+                try:
+                    frame.scopes.__exit__(*active_error)
+                except BaseException:
+                    pass
+            else:
+                frame.scopes.close()
+        frame.checkpoint()
+        frame.check_return()
+        _require(aggregate.encode("utf-8") == frame.record.aggregate_bytes)
+        frame.transition(frame.token, "returned", "released")
+        return True, aggregate
+    except BaseException as error:
+        frame.invalidate()
+        if frame.control_exception is not None:
+            raise frame.control_exception
+        if isinstance(error, Exception) and not isinstance(error, (InterruptedError, NativeContentPolicyDenied)):
+            raise NativeContentPolicyDenied("controlled_native_delegation_denied") from None
+        raise
+
+
+@_delegate_boundary
+def _controlled_delegate_builder(arguments):
+    frame = _delegate_owner(arguments["parent_agent"])
+    token = arguments.get("_native_delegate_token")
+    if frame is None:
+        _require(token is None)
+        return False, None
+    from run_agent import AIAgent
+    from agent.content_policy import content_policy_scope
+    from tools.delegate_tool import _build_child_system_prompt
+    frame.checkpoint()
+    _require(frame.running and frame.phase == "captured" and frame.slot == "builder")
+    _require(token is frame.token)
+    for name in ("task_index", "max_iterations", "task_count"):
+        _require(type(arguments[name]) is int)
+    _require(arguments["task_index"] == 0 and arguments["task_count"] == 1)
+    _require(arguments["max_iterations"] == sys.maxsize)
+    _require(arguments["goal"] is frame.leaf["goal"] and arguments["context"] is frame.leaf["context"])
+    _require(type(arguments["role"]) is str and arguments["role"] == "leaf")
+    for name in ("toolsets", "model", "override_provider", "override_base_url", "override_api_key",
+                 "override_api_mode", "override_request_overrides", "override_max_tokens",
+                 "override_acp_command", "override_acp_args"):
+        _require(arguments[name] is None)
+    frame.prompt = _build_child_system_prompt(frame.leaf["goal"], frame.leaf["context"], workspace_path=None, role="leaf")
+    _text(frame.prompt)
+    b = frame.binding
+    frame.constructor_options = dict(provider="synthetic_native", api_mode="chat_completions",
+        model=frame.initial[2][1][3][2], session_id=b.child_session_id, enabled_toolsets=[],
+        quiet_mode=True, skip_memory=True, skip_context_files=True, skip_background_review=True)
+    plan = _json(dict(raw=json.loads(frame.record.raw_bytes), leaf=frame.leaf,
+        system_prompt=frame.prompt, constructor=frame.constructor_options,
+        entry=dict(user_message=frame.leaf["goal"], system_message=frame.prompt, task_id=b.child_task_id)))
+    frame.plan = plan
+    frame.plan_anchor = _nested_anchors((frame.prompt, frame.constructor_options))[1:]
+    content = frame.stage(plan, (frame.record.raw_content, frame.record.leaf_content))
+    frame.retain(request_content=content)
+    frame.set_slot("entry")
+    frame.dispatch_request()
+    frame.checkpoint()
+    frame.scopes.enter_context(content_policy_scope(None))
+    frame.scopes.callback(_close_delegate_child, frame)
+    context = NativeContentContext(frame.parent._admission, b.child_request)
+    frame.child_context = context
+    frame.set_slot("view")
+    routes, profiles, transports, _ = frame.catalog
+    adapter = NativeMainPayloadAdapter(context, selection=b.child_selection,
+        result_policy=frame.parent._result_port, producer_ref=b.child_producer_ref,
+        main_route_ref=b.child_main_route.route_ref, profiles=profiles, routes=routes,
+        transports=transports, clock=frame.parent._clock, _delegation_frame=frame)
+    _require(adapter is frame.child_adapter and adapter._runtime is frame.runtime)
+    frame.retain(child_adapter=adapter)
+    frame.scopes.enter_context(content_policy_scope(context))
+    frame.set_slot("constructor")
+    child = AIAgent(controlled_main=adapter, **frame.constructor_options)
+    frame.retain(child=child)
+    frame.child = child
+    frame.transition(frame.token, "accepted", "constructed")
+    return True, child
+
+
+@_delegate_boundary
+def _controlled_delegate_runner(arguments):
+    frame = _delegate_owner(arguments["parent_agent"])
+    options = arguments["_kwargs"]
+    token = options.get("_native_delegate_token")
+    if frame is None:
+        _require(token is None)
+        return False, None
+    frame.checkpoint()
+    _require(frame.running and frame.phase == "constructed" and frame.slot == "runner")
+    _require(token is frame.token and len(options) == 1)
+    _require(type(arguments["task_index"]) is int and arguments["task_index"] == 0)
+    _require(arguments["goal"] is frame.leaf["goal"] and arguments["child"] is frame.child)
+    _require(all(arguments[name] is None for name in ("owner_session_id", "owner_transport", "owner_session_record")))
+    start = frame.parent._clock()
+    _integer(start, minimum=0)
+    result = frame.child.run_conversation(user_message=frame.leaf["goal"], system_message=frame.prompt,
+        task_id=frame.binding.child_task_id)
+    frame.retain_completion(result)
+    end = frame.parent._clock()
+    _integer(end, minimum=0)
+    entry = frame.complete(result, float(end - start))
+    return True, entry
+
+
+def _close_delegate_child(frame):
+    if frame.child is None:
+        return
+    if frame.invalid:
+        try:
+            frame.child.close()
+        except BaseException:
+            pass
+        return
+    frame.checkpoint()
+    _require(frame.phase == "returned" and current_context() is None)
+    _require(_same_anchors(frame.closed_proof, frame.proof()))
+    frame.set_slot("close")
+    frame.child.close()
+    frame.set_slot(None)
+    frame.checkpoint()

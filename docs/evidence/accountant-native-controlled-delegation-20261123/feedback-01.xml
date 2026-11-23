@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="3.217" timestamp="2026-11-23T11:32:58.590803+00:00"><testcase classname="tests.tools.test_native_controlled_delegation" name="test_blue_squares_actual_native_path" time="1.975"><failure message="hermes_content_policy.PolicyError: qualification_scope">tests/tools/test_native_controlled_delegation.py:162: in test_blue_squares_actual_native_path
+    world = ThreeHolders().bind()
+            ^^^^^^^^^^^^^^^^^^^^^
+tests/tools/test_native_controlled_delegation.py:123: in bind
+    runtime = ContentPolicyRuntime(admission=self.admission, profiles=self.profiles,
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:380: in __init__
+    self._operator_snapshot = self._operator()
+                              ^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:405: in _operator
+    routes = tuple(_route(r) for r in self._routes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:405: in &lt;genexpr&gt;
+    routes = tuple(_route(r) for r in self._routes)
+                   ^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:208: in _route
+    _require(row[7].startswith("synthetic_"), "qualification_scope")
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:143: in _require
+    raise PolicyError(code)
+E   hermes_content_policy.PolicyError: qualification_scope</failure></testcase></testsuite></testsuites>

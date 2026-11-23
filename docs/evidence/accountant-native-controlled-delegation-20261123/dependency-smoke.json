@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "scope": "isolated installed exact-wheel API/import and one ordinary admission",
+  "version": "0.4.0",
+  "signatures": {
+    "accept": "(self, request_handle: 'object', envelope: 'DispatchEnvelope') -> 'ContentHandle'",
+    "derive_for_selection": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path', parent_requests: 'tuple[object, ...]') -> 'ContentHandle'",
+    "return_from_delegate": "(self, request_handle: 'object', envelope: 'DispatchEnvelope', accepted_content: 'ContentHandle', receiver_result: 'ContentHandle', *, receiver_request: 'object') -> 'DelegateReturnFacts'"
+  },
+  "native_functional_selection": false
+}

@@ -1,0 +1,5 @@
+{
+  "agent/native_main_payload.py": "a8cc93c23b0407e466f183d30b3a61448354e13411ccaa01f79d22f7b61f6b5f",
+  "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+  "tests/tools/test_native_controlled_delegation.py": "308f2d4c0fc011357aea58aeba0cbc259175a6ec8709554437ee2d6787f29fac"
+}
