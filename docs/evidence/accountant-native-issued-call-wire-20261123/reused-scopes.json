@@ -1,0 +1,490 @@
+{
+  "source_commit": "2f8fb48bcb6ff8f24dbb00296fb555ba4f23369a",
+  "original_bundle": "docs/evidence/accountant-native-issued-call-format-20261123/",
+  "validation_file_sha256": "8b58ed2cd0bc85e3c6036bffa79fd56a246b733c2144977974e14689cd2fb3ff",
+  "scopes": [
+    {
+      "name": "positive-07",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_format.py",
+        "-k",
+        "test_actual_formatter_retains_original_mapping_and_graph",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/positive-07.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+        "-o",
+        "accountant_test_sha256=ac65e3c75a7f1a4c836814ce43b5d9e778b452ddb8b10c026e923c4ef51f5e7a"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+        "tests/tools/test_native_issued_call_format.py": "ac65e3c75a7f1a4c836814ce43b5d9e778b452ddb8b10c026e923c4ef51f5e7a"
+      },
+      "seconds": 247.49449239799287,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/positive-07.cases.jsonl",
+          "bytes": 1052,
+          "sha256": "1fce376b48f4a909f03e410adac8d1e8ced109729af8e20c27a2b8bba91fe093"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/positive-07.failures.construction.jsonl",
+          "bytes": 163,
+          "sha256": "8f5f1c3a466977eef3e8ea033feb4b3b2356d77d4baf5ae03ec0838c7164e17b"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/positive-07.json",
+          "bytes": 1115,
+          "sha256": "d7d7d61c2f9c910f61bfe62f6b5d7283d5d9e6269612463789c167d588d8ba06"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/positive-07.log",
+          "bytes": 1067,
+          "sha256": "9858dc58b5fd19bceea04140a478e237521bd60bb782f023a1c1b36b9f488d4e"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/positive-07.xml",
+          "bytes": 93248,
+          "sha256": "1efbe56d2156645a4c8e5157a4b0be1e4d0505f6d475efead814bae3fbb8e9e3"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/positive-07/native_main_payload.py",
+          "bytes": 447363,
+          "sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/positive-07/test_native_issued_call_format.py",
+          "bytes": 21087,
+          "sha256": "ac65e3c75a7f1a4c836814ce43b5d9e778b452ddb8b10c026e923c4ef51f5e7a"
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_actual_formatter_retains_original_mapping_and_graph",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "ac65e3c75a7f1a4c836814ce43b5d9e778b452ddb8b10c026e923c4ef51f5e7a"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_actual_formatter_retains_original_mapping_and_graph",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.5477666989900172,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "ac65e3c75a7f1a4c836814ce43b5d9e778b452ddb8b10c026e923c4ef51f5e7a"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_actual_formatter_retains_original_mapping_and_graph",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 244.5720820179995,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "ac65e3c75a7f1a4c836814ce43b5d9e778b452ddb8b10c026e923c4ef51f5e7a"
+        }
+      ],
+      "interruption": null,
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_actual_formatter_retains_original_mapping_and_graph",
+          "seconds": 246.121,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.547767",
+            "source_seconds": "168.55712240700086",
+            "call_seconds": "244.572082"
+          }
+        }
+      ],
+      "claim": "This exact scope only. No new cumulative current claim."
+    },
+    {
+      "name": "formatter-refusals-01",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_format.py",
+        "-k",
+        "test_copied_source_result_refuses_before_admission or test_initial_formatter_profiles_cover_retained_source_call or test_control_callback_keeps_raw_formatter_output or test_late_selected_expiry_keeps_actual_message_and_charges or test_ordinary_text_contract_refuses_formatted_tool_rows",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/formatter-refusals-01.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+        "-o",
+        "accountant_test_sha256=02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+        "tests/tools/test_native_issued_call_format.py": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+      },
+      "seconds": 536.3609818429977,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/formatter-refusals-01.cases.jsonl",
+          "bytes": 6682,
+          "sha256": "f2f74e4dc12571210de1d1d4171a4e5485fd9a805e65cca83aa3fa03b3d7763c"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/formatter-refusals-01.failures.construction.jsonl",
+          "bytes": 790,
+          "sha256": "1e3442f009d915df7d994482667d88a00c2b6c633b2259860a93e68aacf16356"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/formatter-refusals-01.json",
+          "bytes": 1388,
+          "sha256": "d4b03fd59b6f52708dc796b17b098a0e6833f3c05de1c63eaf6cee39bd4f4803"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/formatter-refusals-01.log",
+          "bytes": 1065,
+          "sha256": "de87e4b06c716cba2de0db341e033ba5c62124313929ea70546968c8015dc8b3"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/formatter-refusals-01.xml",
+          "bytes": 277721,
+          "sha256": "bfe4b5fe7b5aca89d87917c670dc1fc5b8f4f1129d666091a7a0003448dc5a69"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/formatter-refusals-01/native_main_payload.py",
+          "bytes": 447363,
+          "sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/formatter-refusals-01/test_native_issued_call_format.py",
+          "bytes": 16748,
+          "sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        }
+      ],
+      "incremental_phases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_copied_source_result_refuses_before_admission",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_copied_source_result_refuses_before_admission",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 1.4794290819991147,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_copied_source_result_refuses_before_admission",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 108.83788042000378,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_copied_source_result_refuses_before_admission",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0005537230026675388,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_initial_formatter_profiles_cover_retained_source_call",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_initial_formatter_profiles_cover_retained_source_call",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.017044972992152907,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_initial_formatter_profiles_cover_retained_source_call",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 108.55960069200955,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_initial_formatter_profiles_cover_retained_source_call",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004961030062986538,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_control_callback_keeps_raw_formatter_output",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_control_callback_keeps_raw_formatter_output",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.014881301001878455,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_control_callback_keeps_raw_formatter_output",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 157.84307718700438,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_control_callback_keeps_raw_formatter_output",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004768049984704703,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_late_selected_expiry_keeps_actual_message_and_charges",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_late_selected_expiry_keeps_actual_message_and_charges",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.012065686998539604,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_late_selected_expiry_keeps_actual_message_and_charges",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 158.23820566599898,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_late_selected_expiry_keeps_actual_message_and_charges",
+          "outcome": "passed",
+          "phase": "teardown",
+          "seconds": 0.0004909020062768832,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_ordinary_text_contract_refuses_formatted_tool_rows",
+          "outcome": "pending",
+          "phase": "start",
+          "seconds": 0.0,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_ordinary_text_contract_refuses_formatted_tool_rows",
+          "outcome": "passed",
+          "phase": "setup",
+          "seconds": 0.011762805996113457,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_ordinary_text_contract_refuses_formatted_tool_rows",
+          "outcome": "passed",
+          "phase": "call",
+          "seconds": 0.00017643799947109073,
+          "source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+          "test_sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        }
+      ],
+      "interruption": null,
+      "xml_cases": [
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_copied_source_result_refuses_before_admission",
+          "seconds": 110.318,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "1.479429",
+            "call_seconds": "108.83788",
+            "teardown_seconds": "0.000554"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_initial_formatter_profiles_cover_retained_source_call",
+          "seconds": 108.577,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.017045",
+            "call_seconds": "108.559601",
+            "teardown_seconds": "0.000496"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_control_callback_keeps_raw_formatter_output",
+          "seconds": 157.858,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.014881",
+            "call_seconds": "157.843077",
+            "teardown_seconds": "0.000477"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_late_selected_expiry_keeps_actual_message_and_charges",
+          "seconds": 158.251,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.012066",
+            "call_seconds": "158.238206",
+            "teardown_seconds": "0.000491"
+          }
+        },
+        {
+          "nodeid": "tests/tools/test_native_issued_call_format.py::test_ordinary_text_contract_refuses_formatted_tool_rows",
+          "seconds": 0.012,
+          "outcome": "passed",
+          "properties": {
+            "setup_seconds": "0.011763",
+            "call_seconds": "0.000176"
+          }
+        }
+      ],
+      "claim": "This exact scope only. No new cumulative current claim."
+    },
+    {
+      "name": "compatibility-01",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_main_payload.py",
+        "-k",
+        "test_complete_native_payload_and_result_release",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "700",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/compatibility-01.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+        "-o",
+        "accountant_test_sha256=02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+        "tests/tools/test_native_issued_call_format.py": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb",
+        "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+      },
+      "seconds": 1.2861393939965637,
+      "exit_code": 0,
+      "retries": 0,
+      "raw_receipts": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/compatibility-01.json",
+          "bytes": 1250,
+          "sha256": "4fe6e259b148e8d4b2db79217c899d41fdf318d83f882594c80f58fa7c48e79a"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/compatibility-01.log",
+          "bytes": 1035,
+          "sha256": "48267e2682459be2c47f2359519eca0fdd403b9500e51a47dceabc9353de78ca"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/compatibility-01.xml",
+          "bytes": 438,
+          "sha256": "8b0eb86df8cafd3c338c1424d769407fdf40fb0635d03ebfa58e300865656190"
+        }
+      ],
+      "frozen_sources": [
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/compatibility-01/native_main_payload.py",
+          "bytes": 447363,
+          "sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/compatibility-01/test_native_issued_call_format.py",
+          "bytes": 16748,
+          "sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb"
+        },
+        {
+          "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.37/receipts/scopes/compatibility-01/test_native_main_payload.py",
+          "bytes": 66496,
+          "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+        }
+      ],
+      "incremental_phases": [],
+      "interruption": null,
+      "xml_cases": [
+        {
+          "nodeid": "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+          "seconds": 0.349,
+          "outcome": "passed",
+          "properties": {}
+        }
+      ],
+      "phase_timing_limit": "The retained direct XML has testcase total only. Separate setup/call timings are unavailable. No missing phase is zero.",
+      "claim": "This exact scope only. No new cumulative current claim."
+    }
+  ],
+  "historical_failures_and_interruptions_preserved_in_original_bundle": true,
+  "historical_files_rerun": false,
+  "fresh_current_aggregate_claim": false,
+  "reuse_scope": "These exact historical scopes support unchanged source and formatter behavior only."
+}

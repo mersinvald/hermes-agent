@@ -1,0 +1,23 @@
+{
+  "scope": "wire-positive-01",
+  "runner_seconds": 547.9951619589992,
+  "file_seconds": 540.11,
+  "exit_code": 1,
+  "retries": 0,
+  "setup_seconds": 1.7640075469971634,
+  "call_complete": false,
+  "source_phase_seconds": null,
+  "formatter_phase_seconds": null,
+  "wire_phase_seconds": null,
+  "source_sha256": "5427ca14eef65d89e273a8e8fd57078b4b1f950864457b57f1930b9456ec8762",
+  "test_sha256": "21f99972650d323ae3cfb9ffc6d90fe48f76cc154cb74cef6df4b9f349d353d0",
+  "second_history_started": false,
+  "remaining_budget_seconds": 0,
+  "static_likely_cost": "The original new wire validator re-expanded the complete F namespace, including retained source snapshots and their flattened anchors, before and after every callback.",
+  "correction": "The F namespace now uses a shallow ordered identity check. Explicit nested source, graph, method, mapping, record and current-authority checks remain.",
+  "phase_receipts": "The new test fixture flushes each record_property value immediately to an external JSONL file.",
+  "corrected_source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+  "corrected_test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1",
+  "actual_Wf_unknown": true,
+  "complete_current_claim": false
+}

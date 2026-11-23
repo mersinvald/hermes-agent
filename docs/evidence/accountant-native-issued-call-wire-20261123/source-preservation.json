@@ -1,0 +1,22 @@
+{
+  "base": "2f8fb48bcb6ff8f24dbb00296fb555ba4f23369a",
+  "base_tree": "826b98dedd4ac7f86fe4c97a00ca447b63fadb78",
+  "base_paths": 11599,
+  "unchanged_other_tracked_paths": 11598,
+  "source_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+  "direct_functions": 336,
+  "nested_functions": 7,
+  "old_classes": 62,
+  "changed_old_definitions": [
+    "NativeMainPayloadAdapter._around",
+    "_Admission.current",
+    "_Transport.resolve"
+  ],
+  "exact_registered_branch_only": true,
+  "all_old_signatures_defaults_annotations_shapes_exact": true,
+  "all_other_old_definition_spans_exact": true,
+  "other_tracked_paths_modes_exact": true,
+  "old_tests_fixtures_constructors_guards_helpers_dependencies_locks_evidence_exact": true,
+  "external_forward_inverse": true,
+  "source_patch_sha256": "f2eeb49ab7f7ee1a7a21c06bf383a029ad5d4d2964b0eddd4ad90cbbbde22948"
+}

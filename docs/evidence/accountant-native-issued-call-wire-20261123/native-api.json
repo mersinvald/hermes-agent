@@ -1,0 +1,45 @@
+{
+  "retain_issued_call_wire": {
+    "signature": "self, result: NativeIssuedCallFormatResult",
+    "returns": "NativeIssuedCallWireResult",
+    "decorators": []
+  },
+  "issued_call_wire_results": {
+    "signature": "self",
+    "returns": "tuple[NativeIssuedCallWireResult, ...]",
+    "decorators": [
+      "property"
+    ]
+  },
+  "NativeIssuedCallWireResult": {
+    "fields": [
+      {
+        "name": "source_result",
+        "annotation": "NativeIssuedCallFormatResult"
+      },
+      {
+        "name": "model",
+        "annotation": "str"
+      },
+      {
+        "name": "messages",
+        "annotation": "list[dict[str, object]]"
+      },
+      {
+        "name": "message_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "message_content",
+        "annotation": "object"
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple"
+      }
+    ],
+    "decorators": [
+      "dataclass(frozen=True, slots=True)"
+    ]
+  }
+}

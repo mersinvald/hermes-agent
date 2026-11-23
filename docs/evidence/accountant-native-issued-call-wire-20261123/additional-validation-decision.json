@@ -1,0 +1,109 @@
+{
+  "issue": "hpwa-p10.39",
+  "task": "task_4bcc91936d2e",
+  "dispatch": "ctx_4112c315bb99",
+  "decision": "allow one additional finite focused validation tranche",
+  "source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+  "test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1",
+  "original_failed_scope": {
+    "name": "wire-positive-01",
+    "subprocess_seconds": 540.11,
+    "supervisor_seconds": 547.9951619589992,
+    "retries": 0,
+    "setup_passed_seconds": 1.7640075469971634,
+    "call_source_formatter_wire_completion_unknown": true,
+    "Wf_unknown": true,
+    "passing_claim": false
+  },
+  "static_review": {
+    "changed_new_definitions": [
+      "_validate_issued_wire_terminal",
+      "_IssuedCallWire.__init__"
+    ],
+    "removed_new_helper": "_issued_wire_snapshot",
+    "old_definition_changes": [
+      "_Admission.current",
+      "_Transport.resolve",
+      "NativeMainPayloadAdapter._around"
+    ],
+    "all_original_signatures_and_old_body_suffixes_exact": true,
+    "preserved_explicit_checks": [
+      "exact ordered F namespace identity",
+      "original F result and binding anchors",
+      "original partial mapping and full bytes",
+      "catalog/options/initial nested anchors",
+      "original method and code identities",
+      "formatter helper and wall-clock identities",
+      "all retained source nested snapshots",
+      "all original graph snapshots",
+      "issued-call registration and invocation",
+      "complete child result and closed proof",
+      "shared acceptance/return association",
+      "constructed-agent state and control",
+      "Bf/If/Mf content and parent relations",
+      "original model identity",
+      "genuine current authority and selected grant checks"
+    ],
+    "cost_explanation": "Duplicate recursive namespace expansion is a plausible static cost source. No phase measurement establishes its share of the timeout.",
+    "test_receipts": "Immediate external property and real clock-boundary receipts preserve partial progress without changing runtime authority.",
+    "application_execution": false
+  },
+  "additional_total_seconds": 540,
+  "first_corrected_success_cap_seconds": 300,
+  "selection": [
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_actual_wire_projection[success]",
+      "genuine_history": true
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_actual_wire_projection[selected_expiry]",
+      "genuine_history": true
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_conversion_preserves_scalar_bytes[scalars]",
+      "genuine_history": false
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_conversion_preserves_scalar_bytes[character_limit]",
+      "genuine_history": false
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_wire_shape_refuses_non_scalar_or_oversize_strings[surrogate]",
+      "genuine_history": false
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_wire_shape_refuses_non_scalar_or_oversize_strings[characters]",
+      "genuine_history": false
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_wire_shape_refuses_non_scalar_or_oversize_strings[utf8]",
+      "genuine_history": false
+    },
+    {
+      "nodeid": "tests/tools/test_native_issued_call_wire.py::test_strict_serialization_refuses_nonfinite_and_surrogate",
+      "genuine_history": false
+    },
+    {
+      "nodeid": "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+      "genuine_history": false
+    }
+  ],
+  "expiry_condition": "Start only after a genuine corrected success and only if a conservative measured estimate plus direct checks fits the remaining tranche.",
+  "budget_conditions": [
+    "Count every run and supervisor overhead in the additional total.",
+    "Use an outer total supervisor deadline rather than relying solely on the file timeout.",
+    "No retries, positive repeat, historical suite, installed native suite or profiler.",
+    "If the first case fails or times out, preserve its incremental receipts and stop the tranche.",
+    "If the remaining expiry estimate does not fit, report the measured phases instead of launching an over-budget history.",
+    "Keep the original timeout and corrected scope separate. No aggregate passing claim."
+  ],
+  "final_source_acceptance": false,
+  "budget-handoff.json": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/receipts/budget-handoff.json",
+    "sha256": "4901b71aeaa782e615babf1ce94c6f1b0d569486830df733ee003d3c5e4595e0"
+  },
+  "budget-stop.json": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/receipts/budget-stop.json",
+    "sha256": "c099a00d761fceff914b2444758c79caacd14f20d79d2bb51343ac486900ff66"
+  }
+}
