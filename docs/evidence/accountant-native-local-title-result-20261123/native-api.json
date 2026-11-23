@@ -1,0 +1,349 @@
+{
+  "methods": {
+    "__init__": {
+      "arguments": "self, context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int]",
+      "returns": "None"
+    },
+    "invocations": {
+      "arguments": "self",
+      "returns": "tuple[NativeMainInvocation, ...]"
+    },
+    "send_count": {
+      "arguments": "self",
+      "returns": "int"
+    },
+    "admit_turn": {
+      "arguments": "self, agent: object, *, user_message: str, system_message: str | None, conversation_history: list[dict[str, str]] | None, task_id: str",
+      "returns": "NativeTurnInput"
+    },
+    "seal_turn": {
+      "arguments": "self, agent: object, turn: NativeTurnInput, *, turn_context: TurnContext",
+      "returns": "NativePreparedTurn"
+    },
+    "prepared_request": {
+      "arguments": "self, agent: object, prepared: NativePreparedTurn",
+      "returns": "dict"
+    },
+    "auxiliary_invocations": {
+      "arguments": "self",
+      "returns": "tuple[NativeAuxiliaryInvocation, ...]"
+    },
+    "auxiliary_send_count": {
+      "arguments": "self",
+      "returns": "int"
+    },
+    "auxiliary_local_results": {
+      "arguments": "self",
+      "returns": "tuple[NativeAuxiliaryLocalResult, ...]"
+    },
+    "bind_auxiliary": {
+      "arguments": "self, agent: object, *, path: str, task: str, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str, language: str",
+      "returns": "None"
+    },
+    "auxiliary_input": {
+      "arguments": "self, agent: object, *, source: dict, field: str",
+      "returns": "NativeAuxiliaryInput"
+    },
+    "_transform_auxiliary": {
+      "arguments": "self, token, *, response=None",
+      "returns": null
+    },
+    "seal_auxiliary": {
+      "arguments": "self, agent: object, source: NativeAuxiliaryInput, *, stages: tuple[bytes, ...], request: dict",
+      "returns": "NativeAuxiliaryRequest"
+    },
+    "dispatch_auxiliary": {
+      "arguments": "self, request: NativeAuxiliaryRequest, *, arguments: dict",
+      "returns": "NativeMainResponse"
+    },
+    "complete_auxiliary": {
+      "arguments": "self, request: NativeAuxiliaryRequest, *, response: NativeMainResponse, stages: tuple[bytes, ...], output: dict",
+      "returns": "dict"
+    },
+    "complete_auxiliary_local": {
+      "arguments": "self, agent: object, source: NativeAuxiliaryInput, *, stages: tuple[bytes, ...], output: dict",
+      "returns": "dict"
+    },
+    "validate_scope": {
+      "arguments": "self",
+      "returns": "None"
+    },
+    "dispatch": {
+      "arguments": "self, agent: object, api_kwargs: dict",
+      "returns": "NativeMainResponse"
+    }
+  },
+  "records": {
+    "NativeAuxiliaryLocalResult": [
+      {
+        "name": "source_completion",
+        "annotation": "object"
+      },
+      {
+        "name": "source_frame",
+        "annotation": "object"
+      },
+      {
+        "name": "source_invocation",
+        "annotation": "NativeMainInvocation"
+      },
+      {
+        "name": "source_handle",
+        "annotation": "object"
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object"
+      },
+      {
+        "name": "source",
+        "annotation": "ExecutionBinding"
+      },
+      {
+        "name": "target",
+        "annotation": "ExecutionBinding"
+      },
+      {
+        "name": "path",
+        "annotation": "str"
+      },
+      {
+        "name": "task",
+        "annotation": "str"
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      },
+      {
+        "name": "language",
+        "annotation": "str"
+      },
+      {
+        "name": "operation_index",
+        "annotation": "int"
+      },
+      {
+        "name": "outcome",
+        "annotation": "str"
+      },
+      {
+        "name": "reason",
+        "annotation": "str"
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple"
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple"
+      },
+      {
+        "name": "source_content",
+        "annotation": "ContentHandle"
+      },
+      {
+        "name": "input_stages",
+        "annotation": "tuple[bytes, ...]"
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple[ContentHandle, ...]"
+      },
+      {
+        "name": "output_stages",
+        "annotation": "tuple[bytes, ...]"
+      },
+      {
+        "name": "output_contents",
+        "annotation": "tuple[ContentHandle, ...]"
+      },
+      {
+        "name": "output_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "output",
+        "annotation": "dict"
+      },
+      {
+        "name": "output_content",
+        "annotation": "ContentHandle"
+      }
+    ],
+    "NativeAuxiliaryInvocation": [
+      {
+        "name": "source_completion",
+        "annotation": "object"
+      },
+      {
+        "name": "source_frame",
+        "annotation": "object"
+      },
+      {
+        "name": "source_invocation",
+        "annotation": "NativeMainInvocation"
+      },
+      {
+        "name": "source_handle",
+        "annotation": "object"
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object"
+      },
+      {
+        "name": "source",
+        "annotation": "object"
+      },
+      {
+        "name": "target",
+        "annotation": "object"
+      },
+      {
+        "name": "path",
+        "annotation": "str"
+      },
+      {
+        "name": "task",
+        "annotation": "str"
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple"
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple"
+      },
+      {
+        "name": "input_stages",
+        "annotation": "tuple"
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "request_content",
+        "annotation": "object"
+      },
+      {
+        "name": "envelope",
+        "annotation": "object"
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "object"
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes | None"
+      },
+      {
+        "name": "result_content",
+        "annotation": "object"
+      },
+      {
+        "name": "native_response",
+        "annotation": "NativeMainResponse | None"
+      },
+      {
+        "name": "output_stages",
+        "annotation": "tuple"
+      },
+      {
+        "name": "output_contents",
+        "annotation": "tuple"
+      },
+      {
+        "name": "output_bytes",
+        "annotation": "bytes | None"
+      },
+      {
+        "name": "output",
+        "annotation": "dict | None"
+      },
+      {
+        "name": "output_content",
+        "annotation": "object"
+      }
+    ],
+    "NativeMainInvocation": [
+      {
+        "name": "request_handle",
+        "annotation": "object"
+      },
+      {
+        "name": "source",
+        "annotation": "ExecutionBinding"
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "request_content",
+        "annotation": "ContentHandle"
+      },
+      {
+        "name": "envelope",
+        "annotation": "DispatchEnvelope"
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "Destination"
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "result_content",
+        "annotation": "ContentHandle"
+      },
+      {
+        "name": "native_response",
+        "annotation": "NativeMainResponse"
+      }
+    ]
+  },
+  "local_result_frozen": true,
+  "local_result_slotted": true,
+  "local_outcome": "local_no_send",
+  "local_reason": "empty_title_snippet",
+  "local_output_bytes": "{\"title\":null}"
+}

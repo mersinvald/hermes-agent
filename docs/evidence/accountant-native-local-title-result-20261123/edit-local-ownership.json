@@ -1,0 +1,16 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_controlled_conversation.py",
+    "-k",
+    "(local_title_completion_requires and (unprepared or copied_stages or mutated_output)) or (local_title_current_facts and source_epoch) or local_title_mixed_capacity or (local_title_actual_empty_sources and IMPORTANT)",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "--",
+    "--durations=5"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 103.753
+}

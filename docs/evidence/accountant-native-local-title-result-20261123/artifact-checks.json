@@ -1,0 +1,33 @@
+{
+  "selected_record_field_names_match": true,
+  "record_fields": [
+    "source_completion",
+    "source_frame",
+    "source_invocation",
+    "source_handle",
+    "request_handle",
+    "source",
+    "target",
+    "path",
+    "task",
+    "selection",
+    "producer_policy",
+    "language",
+    "operation_index",
+    "outcome",
+    "reason",
+    "source_bytes",
+    "parents",
+    "parent_requests",
+    "source_content",
+    "input_stages",
+    "stage_contents",
+    "output_stages",
+    "output_contents",
+    "output_bytes",
+    "output",
+    "output_content"
+  ],
+  "api_sha256": "eefc24ed98b1b1d5dbf959c5119910450ddc3c22d5e4137075e85f765243aaee",
+  "initial_diagnostic": "A manual count assertion expected 28 fields and failed. The selected design and implementation both have 26 fields; direct ordered field comparison passes."
+}

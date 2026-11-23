@@ -1,0 +1,28 @@
+{
+  "input_receipt_sha256": "2c9cc55249a90fc41f944c4fe07b07360107226c96d171f30a4d0dabcac4691f",
+  "design_sha256": "70f0699773c424ed29fe279158360809e55daf3c78984019209e50e391863641",
+  "native_base": "4d47543f91aaf94d4abc3bac2c04a47a411a1be2",
+  "PWA_publication": "08bde9978829cbf0ab1f7c7c5efd0d65de981ed7",
+  "records": [
+    {
+      "name": "hpwa-p10.15.final-review.json",
+      "sha256": "47c6eeaf1e0ceb3a85c65144f6ae63128c211df987e7062eceb3754978b57709"
+    },
+    {
+      "name": "hpwa-p10.15.publication-receipt.json",
+      "sha256": "ac045921ef69ef6a9a3580ae5e573e6a084e2cc481463b0329fda0bbd022e7c2"
+    },
+    {
+      "name": "hpwa-p10.14.final-review.json",
+      "sha256": "3e24b700d32dec57eca9c8b13561264ef75a92e1766a4a38ed087b57008133a3"
+    },
+    {
+      "name": "hpwa-p10.14.publication-receipt.json",
+      "sha256": "956dce499b5d3f2fb47780115bdadfc3f767851ee8e0ccc51911bb25e58e0640"
+    },
+    {
+      "name": "hpwa-p10.13.native-handoff.json",
+      "sha256": "150db9af3f785e661ea3d1b7ac5e45a0ecc605e4ff7ccf43fa5c9abd4fce8803"
+    }
+  ]
+}

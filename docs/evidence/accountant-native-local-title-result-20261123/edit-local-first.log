@@ -1,0 +1,224 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~49 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    49/~49 | ✓0 | ✗2] ✗ tests/agent/test_native_controlled_conversation.py (2✗, 11.8s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ >           assert titles.generate_title(text, controlled_aux=token) is None
+  ║                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:1307: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ agent/title_generator.py:489: in generate_title
+  ║     adapter = _controlled_title_entry(user_message, controlled_aux,
+  ║ agent/native_main_payload.py:1805: in _controlled_title_entry
+  ║     _require(type(user_message) is str and user_message is frame.text)
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ condition = False
+  ║ 
+  ║     def _require(condition):
+  ║         if not condition:
+  ║ >           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+  ║ E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+  ║ 
+  ║ agent/native_main_payload.py:400: NativeContentPolicyDenied
+  ║ ============================= slowest 5 durations ==============================
+  ║ 5.71s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+  ║ 3.88s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+  ║ 0.64s setup    tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+  ║ 0.01s setup    tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+  ║ 
+  ║ (1 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+  ║ ====================== 2 failed, 172 deselected in 11.30s ======================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k local_title_actual_empty_sources and final_response --durations=5
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 2 failed (100% complete) in 11.8s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 11.8s  (runner wall: 11.8s, parallelism: 16x)
+  P50: 11.79s  P90: 11.79s  P95: 11.79s  P99: 11.79s  Max: 11.79s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     11.79s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.16
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 174 items / 172 deselected / 2 selected
+
+tests/agent/test_native_controlled_conversation.py FF                    [100%]
+
+=================================== FAILURES ===================================
+_ test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-] _
+
+excluded = <function excluded.<locals>.forbidden at 0x7fc8c20d2de0>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7fc8c1c37f60>, call=<function caller_boundary.<l...{'content': '', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7fc8c320f060>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc8c35a7e10>
+field = 'final_response', text = ''
+
+    @pytest.mark.parametrize("field,text", [
+        ("final_response", ""), ("user_message", ""), ("final_response", " \t\n"),
+        ("user_message", "<system-reminder></system-reminder>"),
+    ])
+    def test_local_title_actual_empty_sources_have_genuine_complete_proof(
+            excluded, caller_boundary, monkeypatch, field, text):
+        from dataclasses import FrozenInstanceError
+        from agent import title_generator as titles, skill_commands
+        from hermes_content_policy import ContentHandle
+        derived = observe_title_derivations(monkeypatch)
+        block_title_edges(monkeypatch, excluded)
+        calls = []
+        describe, wrappers = skill_commands.describe_skill_invocation, titles.strip_control_wrappers
+        def described(value):
+            calls.append(("summary", value))
+            return describe(value)
+        def wrapped(value):
+            calls.append(("wrappers", value))
+            return wrappers(value)
+        monkeypatch.setattr(skill_commands, "describe_skill_invocation", described)
+        monkeypatch.setattr(titles, "strip_control_wrappers", wrapped)
+        world = auxiliary_world()
+        world.ports["main"].output = reply(text)
+        first = turn(world, text)
+        main, = world.adapter.invocations
+        with content_policy_scope(world.context):
+            bind_title(world)
+            token = world.adapter.auxiliary_input(world.agent, source=first, field=field)
+            assert titles.generate_title(text, controlled_aux=token) is None
+        record, = world.adapter.auxiliary_local_results
+        frame = world.adapter._aux_frames[0][0]
+        assert type(record) is native_main_payload.NativeAuxiliaryLocalResult
+        assert not hasattr(record, "__dict__")
+        with pytest.raises(FrozenInstanceError):
+            record.reason = "changed"
+        with pytest.raises(AttributeError):
+            world.adapter.auxiliary_local_results = ()
+        assert frame.preparation.kind == record.outcome == "local_no_send"
+        assert frame.preparation.stages is record.input_stages
+        assert frame.preparation.value is record.output and record.output == {"title": None}
+        assert record.operation_index == 1 and record.reason == "empty_title_snippet"
+        assert record.language == "English" and record.path == "title" and record.task == "title_generation"
+        assert record.selection is world.title_selection and record.producer_policy is world.title_policy
+        assert record.source is world.binding and record.target is world.title_binding
+        assert record.source_completion is world.adapter._completions[0]
+        assert record.source_frame is world.adapter._turn_frames[0] and record.source_invocation is main
+        assert record.source_handle is world.request and record.request_handle is world.title_request
+        assert record.source_bytes == canonical(text) and frame.text is text
+        expected = (text, dict(step="summary", mode="original" if text else "empty_input", value=text),
+            dict(step="wrappers", applied=bool(text), value=""), "",
+            dict(step="snippet_decision", max_chars=1000, has_text=False))
+        assert record.input_stages == tuple(canonical(value) for value in expected)
+        assert calls == ([("summary", text), ("wrappers", text)] if text else [])
+        previous = []
+        for payload, content in zip(record.input_stages, record.stage_contents):
+            proof = next(row for row in derived if row[-1] is content)
+            assert proof[0] is world.title_request and proof[2] is payload and proof[3] == "title"
+            assert proof[1] == (record.source_content, *previous)
+            assert all(capability is world.title_request for capability in proof[4])
+            previous.append(content)
+        decision, = record.output_contents
+        decision_proof = next(row for row in derived if row[-1] is decision)
+        assert decision_proof[1] == (record.source_content, *record.stage_contents)
+        assert decision_proof[2] is record.output_stages[0]
+        final = next(row for row in derived if row[-1] is record.output_content)
+        assert final[0] is world.title_request and final[1] == (record.source_content, *record.stage_contents, decision)
+        assert final[2] is record.output_bytes and record.output_bytes == b'{"title":null}'
+        assert type(record.output_content) is ContentHandle
+        source_proof = next(row for row in derived if row[-1] is record.source_content)
+        assert source_proof[1] is record.parents and source_proof[4] is record.parent_requests
+        assert all(capability is world.request for capability in record.parent_requests)
+        assert not any(hasattr(record, name) for name in (
+            "request", "request_bytes", "envelope", "observed_destination", "response_bytes", "result_content", "native_response"))
+        assert frame.request is frame.sealed is frame.record is None
+        assert world.adapter.invocations == (main,) and world.adapter.invocations[0] is main
+        assert world.adapter.send_count == 1 and world.agent.model == "invented_model"
+>       assert first["total_tokens"] == world.agent.total_tokens == 5
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'AIAgent' object has no attribute 'total_tokens'
+
+tests/agent/test_native_controlled_conversation.py:1355: AttributeError
+_ test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n] _
+
+excluded = <function excluded.<locals>.forbidden at 0x7fc8c1d20a40>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7fc8c1d20cc0>, call=<function caller_boundary.<l...tent': ' \t\n', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7fc8c320f060>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc8c2673b90>
+field = 'final_response', text = ' \t\n'
+
+    @pytest.mark.parametrize("field,text", [
+        ("final_response", ""), ("user_message", ""), ("final_response", " \t\n"),
+        ("user_message", "<system-reminder></system-reminder>"),
+    ])
+    def test_local_title_actual_empty_sources_have_genuine_complete_proof(
+            excluded, caller_boundary, monkeypatch, field, text):
+        from dataclasses import FrozenInstanceError
+        from agent import title_generator as titles, skill_commands
+        from hermes_content_policy import ContentHandle
+        derived = observe_title_derivations(monkeypatch)
+        block_title_edges(monkeypatch, excluded)
+        calls = []
+        describe, wrappers = skill_commands.describe_skill_invocation, titles.strip_control_wrappers
+        def described(value):
+            calls.append(("summary", value))
+            return describe(value)
+        def wrapped(value):
+            calls.append(("wrappers", value))
+            return wrappers(value)
+        monkeypatch.setattr(skill_commands, "describe_skill_invocation", described)
+        monkeypatch.setattr(titles, "strip_control_wrappers", wrapped)
+        world = auxiliary_world()
+        world.ports["main"].output = reply(text)
+        first = turn(world, text)
+        main, = world.adapter.invocations
+        with content_policy_scope(world.context):
+            bind_title(world)
+            token = world.adapter.auxiliary_input(world.agent, source=first, field=field)
+>           assert titles.generate_title(text, controlled_aux=token) is None
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_controlled_conversation.py:1307: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+agent/title_generator.py:489: in generate_title
+    adapter = _controlled_title_entry(user_message, controlled_aux,
+agent/native_main_payload.py:1805: in _controlled_title_entry
+    _require(type(user_message) is str and user_message is frame.text)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+
+    def _require(condition):
+        if not condition:
+>           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+
+agent/native_main_payload.py:400: NativeContentPolicyDenied
+============================= slowest 5 durations ==============================
+5.71s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+3.88s call     tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+0.64s setup    tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+0.01s setup    tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+
+(1 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response-]
+FAILED tests/agent/test_native_controlled_conversation.py::test_local_title_actual_empty_sources_have_genuine_complete_proof[final_response- \t\n]
+====================== 2 failed, 172 deselected in 11.30s ======================
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_native_controlled_conversation.py  (2 tests failed)

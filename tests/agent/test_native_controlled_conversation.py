@@ -986,13 +986,31 @@ def test_retained_title_semantic_none_has_complete_output_proof(excluded, caller
     assert len(record.output_stages) == 4 and world.adapter.auxiliary_send_count == 1
 
 
-def test_retained_title_empty_snippet_refuses_without_fabricated_result(excluded, caller_boundary):
+def test_retained_title_empty_snippet_completes_local_without_send(excluded, caller_boundary):
     world = auxiliary_world()
     first = turn(world, "   ")
-    with pytest.raises(NativeContentPolicyDenied):
-        with content_policy_scope(world.context):
-            bind_title(world)
-            title_from(world, first)
+    invocation, = world.adapter.invocations
+    with content_policy_scope(world.context):
+        bind_title(world)
+        title = title_from(world, first)
+    record, = world.adapter.auxiliary_local_results
+    assert title is None and record.output["title"] is title
+    assert record.output == {"title": None} and record.output_bytes == b'{"title":null}'
+    assert record.source_completion.result is first and record.source_invocation is invocation
+    assert record.source_handle is world.request and record.request_handle is world.title_request
+    assert record.source_bytes == canonical("   ") == record.input_stages[0]
+    assert tuple(map(json.loads, record.input_stages)) == (
+        "   ", dict(step="summary", mode="original", value="   "),
+        dict(step="wrappers", applied=True, value=""), "",
+        dict(step="snippet_decision", max_chars=1000, has_text=False))
+    assert record.output_stages == (canonical(dict(outcome="local_no_send", reason="empty_title_snippet")),)
+    assert len(record.stage_contents) == 5 and len(record.output_contents) == 1
+    assert record.output_content is not record.source_content
+    assert record.source_content is world.adapter._aux_frames[0][0].source_content
+    assert all(capability is world.request for capability in record.parent_requests)
+    assert any(parent is invocation.result_content for parent in record.parents)
+    assert world.adapter.send_count == 1 and world.adapter.invocations == (invocation,)
+    assert first["total_tokens"] == sum(r.native_response.usage.total_tokens for r in world.adapter.invocations) == 5
     assert world.adapter.auxiliary_send_count == 0 and not world.adapter.auxiliary_invocations
 
 
@@ -1223,3 +1241,469 @@ def test_retained_title_published_records_never_change_during_completion(exclude
         assert len(world.adapter.auxiliary_invocations) == 2
         assert world.adapter.auxiliary_invocations[1].native_response is response
         assert world.adapter.auxiliary_invocations[1].output is output
+
+
+def block_title_edges(monkeypatch, excluded, *, local=True):
+    from agent import title_generator as titles, auxiliary_client as auxiliary
+    for name in ("_get_cached_client", "_acquire_sync_aux_semaphore", "_call_llm_impl",
+                 "_resolve_task_provider_model", "_relay_auxiliary_metadata"):
+        monkeypatch.setattr(auxiliary, name, excluded)
+    monkeypatch.setattr(auxiliary.uuid, "uuid4", excluded)
+    monkeypatch.setattr(auxiliary, "time", SimpleNamespace(monotonic=excluded))
+    for name in ("_auto_title_enabled", "_title_language", "derive_title", "apply_instant_title",
+                 "auto_title_session", "_auto_title_session", "maybe_auto_title", "_persist_session_title"):
+        monkeypatch.setattr(titles, name, excluded)
+    monkeypatch.setattr(titles, "threading", SimpleNamespace(Thread=excluded))
+    if local:
+        from agent.content_policy import current_context
+        dispatch = ContentPolicyRuntime.dispatch
+        def no_auxiliary_send(runtime, handle, content, *, path, route_ref):
+            context = current_context()
+            adapter = None if context is None else context._controlled_main_payload
+            if adapter is not None and adapter._aux_pending is not None:
+                excluded()
+            return dispatch(runtime, handle, content, path=path, route_ref=route_ref)
+        monkeypatch.setattr(ContentPolicyRuntime, "dispatch", no_auxiliary_send)
+        for name in ("call_llm", "_title_prompt", "_title_output_stages", "_extract_title_text",
+                     "_clean_title", "_title_word_decision"):
+            monkeypatch.setattr(titles, name, excluded)
+
+
+def observe_title_derivations(monkeypatch):
+    derived = []
+    derive = ContentPolicyRuntime.derive
+    bridge = ContentPolicyRuntime.derive_for_selection
+    def observed(runtime, handle, parents, payload, *, path):
+        content = derive(runtime, handle, parents, payload, path=path)
+        derived.append((handle, parents, payload, path, (handle,) * len(parents), content))
+        return content
+    def crossed(runtime, handle, parents, payload, *, path, parent_requests):
+        content = bridge(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+        derived.append((handle, parents, payload, path, parent_requests, content))
+        return content
+    monkeypatch.setattr(ContentPolicyRuntime, "derive", observed)
+    monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", crossed)
+    return derived
+
+
+@pytest.mark.parametrize("field,text", [
+    ("final_response", ""), ("user_message", ""), ("final_response", " \t\n"),
+    ("user_message", "<system-reminder></system-reminder>"),
+    ("user_message", '[IMPORTANT: The user has invoked the "" skill. The full skill content is loaded below.]'
+        '\nInvented skill body.\nThe user has provided the following instruction alongside the skill invocation: '
+        '<system-reminder></system-reminder>'),
+])
+def test_local_title_actual_empty_sources_have_genuine_complete_proof(
+        excluded, caller_boundary, monkeypatch, field, text):
+    from dataclasses import FrozenInstanceError
+    from agent import title_generator as titles, skill_commands
+    from hermes_content_policy import ContentHandle
+    derived = observe_title_derivations(monkeypatch)
+    block_title_edges(monkeypatch, excluded)
+    calls = []
+    describe, wrappers = skill_commands.describe_skill_invocation, titles.strip_control_wrappers
+    def described(value):
+        calls.append(("summary", value))
+        return describe(value)
+    def wrapped(value):
+        calls.append(("wrappers", value))
+        return wrappers(value)
+    monkeypatch.setattr(skill_commands, "describe_skill_invocation", described)
+    monkeypatch.setattr(titles, "strip_control_wrappers", wrapped)
+    world = auxiliary_world()
+    world.ports["main"].output = reply(text)
+    first = turn(world, text)
+    main, = world.adapter.invocations
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field=field)
+        selected_text = text if field == "user_message" else first["final_response"]
+        assert titles.generate_title(selected_text, controlled_aux=token) is None
+    record, = world.adapter.auxiliary_local_results
+    frame = world.adapter._aux_frames[0][0]
+    assert type(record) is native_main_payload.NativeAuxiliaryLocalResult
+    assert not hasattr(record, "__dict__")
+    with pytest.raises(FrozenInstanceError):
+        record.reason = "changed"
+    with pytest.raises(AttributeError):
+        world.adapter.auxiliary_local_results = ()
+    assert frame.preparation.kind == record.outcome == "local_no_send"
+    assert frame.preparation.stages is record.input_stages
+    assert frame.preparation.value is record.output and record.output == {"title": None}
+    assert record.operation_index == 1 and record.reason == "empty_title_snippet"
+    assert record.language == "English" and record.path == "title" and record.task == "title_generation"
+    assert record.selection is world.title_selection and record.producer_policy is world.title_policy
+    assert record.source is world.binding and record.target is world.title_binding
+    assert record.source_completion is world.adapter._completions[0]
+    assert record.source_frame is world.adapter._turn_frames[0] and record.source_invocation is main
+    assert record.source_handle is world.request and record.request_handle is world.title_request
+    assert record.source_bytes == canonical(text) and frame.text is selected_text
+    described_source = text.startswith('[IMPORTANT: The user has invoked the ""')
+    summary = "<system-reminder></system-reminder>" if described_source else text
+    mode = "described" if described_source else "original" if text else "empty_input"
+    expected = (text, dict(step="summary", mode=mode, value=summary),
+        dict(step="wrappers", applied=bool(text), value=""), "",
+        dict(step="snippet_decision", max_chars=1000, has_text=False))
+    assert record.input_stages == tuple(canonical(value) for value in expected)
+    assert calls == ([("summary", text), ("wrappers", summary)] if text else [])
+    previous = []
+    for payload, content in zip(record.input_stages, record.stage_contents):
+        proof = next(row for row in derived if row[-1] is content)
+        assert proof[0] is world.title_request and proof[2] is payload and proof[3] == "title"
+        assert proof[1] == (record.source_content, *previous)
+        assert all(capability is world.title_request for capability in proof[4])
+        previous.append(content)
+    decision, = record.output_contents
+    decision_proof = next(row for row in derived if row[-1] is decision)
+    assert decision_proof[1] == (record.source_content, *record.stage_contents)
+    assert decision_proof[2] is record.output_stages[0]
+    final = next(row for row in derived if row[-1] is record.output_content)
+    assert final[0] is world.title_request and final[1] == (record.source_content, *record.stage_contents, decision)
+    assert final[2] is record.output_bytes and record.output_bytes == b'{"title":null}'
+    assert type(record.output_content) is ContentHandle
+    source_proof = next(row for row in derived if row[-1] is record.source_content)
+    assert source_proof[1] is record.parents and source_proof[4] is record.parent_requests
+    assert all(capability is world.request for capability in record.parent_requests)
+    assert not any(hasattr(record, name) for name in (
+        "request", "request_bytes", "envelope", "observed_destination", "response_bytes", "result_content", "native_response"))
+    assert frame.request is frame.sealed is frame.record is None
+    assert world.adapter.invocations == (main,) and world.adapter.invocations[0] is main
+    assert world.adapter.send_count == 1 and world.agent.model == "invented_model"
+    assert first["total_tokens"] == sum(r.native_response.usage.total_tokens for r in world.adapter.invocations) == 5
+    assert world.adapter.auxiliary_send_count == 0 and world.adapter.auxiliary_invocations == ()
+    assert all(not port.sent for path, port in world.ports.items() if path != "main")
+    assert not world.sdk_calls and world.adapter._aux_pending is None
+    world.agent.close()
+    world.agent.close()
+    assert world.adapter.auxiliary_local_results[0] is record
+
+
+def test_local_title_then_main_then_sent_title_keeps_ordered_original_parents(
+        excluded, caller_boundary, monkeypatch):
+    derived = observe_title_derivations(monkeypatch)
+    block_title_edges(monkeypatch, excluded, local=False)
+    world = auxiliary_world()
+    first = turn(world, "<system-reminder></system-reminder>")
+    with content_policy_scope(world.context):
+        bind_title(world)
+        assert title_from(world, first) is None
+    local, = world.adapter.auxiliary_local_results
+    world.binding = replace(world.binding, profiles=())
+    world.title_binding = replace(world.title_binding, profiles=())
+    second = turn(world, "<system-reminder>Keep receipts</system-reminder>", first["messages"])
+    with content_policy_scope(world.context):
+        assert title_from(world, second) == "Invented document review"
+    sent, = world.adapter.auxiliary_invocations
+    assert world.adapter.auxiliary_local_results[0] is local
+    assert len(world.adapter.invocations) == world.adapter.send_count == 2
+    assert world.adapter.auxiliary_send_count == 1
+    assert first["total_tokens"] == 5 and second["total_tokens"] == sum(r.native_response.usage.total_tokens for r in world.adapter.invocations) == 10
+    assert world.agent.model == "invented_model"
+    assert json.loads(sent.input_stages[2]) == json.loads(sent.input_stages[3]) == "Keep receipts"
+    assert len(sent.input_stages) == 7 and len(sent.output_stages) == 4
+    main_returns = [row for row in derived if row[0] is world.request and any(p is local.output_content for p in row[1])]
+    assert main_returns
+    for row in main_returns:
+        assert row[1][-1] is local.output_content and row[4][-1] is world.title_request
+    assert sent.parents[-1] is local.output_content and sent.parent_requests[-1] is world.title_request
+    assert all(e.profiles == ("restricted_documents",) for e in (*world.ports["main"].sent, *world.title_ports["title"].sent))
+    with content_policy_scope(world.context):
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+        from agent.title_generator import generate_title
+        assert generate_title(local.source_frame.arguments[0], controlled_aux=token) is None
+    later = world.adapter.auxiliary_local_results[-1]
+    assert later.operation_index == 3
+    assert later.parents[-2:] == (local.output_content, sent.output_content)
+    proof = next(row for row in derived if row[-1] is later.output_content)
+    assert proof[1][-2:] == (local.output_content, sent.output_content)
+    assert all(capability is world.title_request for capability in proof[4])
+    assert world.adapter.auxiliary_local_results[0] is local and world.adapter.auxiliary_invocations[0] is sent
+    assert tuple(world.adapter._completed_auxiliary_outputs()) == (
+        (local.output_content, world.title_request), (sent.output_content, world.title_request),
+        (later.output_content, world.title_request))
+    world.agent.close()
+    assert world.adapter.auxiliary_local_results[0] is local
+
+
+@pytest.mark.parametrize("change", ["source_epoch", "target_epoch", "selection", "producer", "language",
+    "destination", "context", "method", "nested_source", "expiry", "main_selection", "route"])
+def test_local_title_current_facts_change_during_actual_summary_refuses(
+        excluded, caller_boundary, monkeypatch, change):
+    from agent import title_generator as titles, skill_commands
+    block_title_edges(monkeypatch, excluded)
+    world = auxiliary_world()
+    world.ports["main"].output = reply(" \t\n")
+    first = turn(world)
+    original = skill_commands.describe_skill_invocation
+    calls = []
+    def changed(text):
+        calls.append(text)
+        result = original(text)
+        if change == "source_epoch":
+            world.binding = replace(world.binding, auth_epoch=8)
+        elif change == "target_epoch":
+            world.title_binding = replace(world.title_binding, auth_epoch=8)
+        elif change == "selection":
+            world.title_selection = replace(world.title_selection, selection_version=6)
+        elif change == "producer":
+            world.title_policy = replace(world.title_policy, revision=3)
+        elif change == "language":
+            object.__setattr__(world.adapter._aux_binding, "language", "Changed")
+        elif change == "destination":
+            port = world.title_ports["title"]
+            port.destination = replace(port.destination, endpoint_ref="changed")
+        elif change == "context":
+            world.agent._native_content_policy_context = object()
+        elif change == "method":
+            monkeypatch.setattr(world.adapter, "complete_auxiliary_local", excluded)
+        elif change == "nested_source":
+            first["messages"][0]["content"] = "Changed"
+        elif change == "expiry":
+            world.now = 100
+        elif change == "main_selection":
+            world.selection = replace(world.selection, selection_version=4)
+        else:
+            object.__setattr__(world.adapter._aux_binding.route, "qualification_ref", "changed")
+        return result
+    monkeypatch.setattr(skill_commands, "describe_skill_invocation", changed)
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="final_response")
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            titles.generate_title(first["final_response"], controlled_aux=token)
+    assert len(calls) == 1
+    assert world.adapter.auxiliary_local_results == world.adapter.auxiliary_invocations == ()
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
+    assert world.context._denied and world.adapter._aux_pending is None
+
+
+@pytest.mark.parametrize("side", ["source", "target"])
+def test_local_title_profile_removal_still_checks_all_captured_routes(
+        excluded, caller_boundary, monkeypatch, side):
+    block_title_edges(monkeypatch, excluded)
+    world = auxiliary_world()
+    first = turn(world, "   ")
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+        preparation = world.adapter._prepare_auxiliary_title(token)
+    world.binding = replace(world.binding, profiles=())
+    world.title_binding = replace(world.title_binding, profiles=())
+    port = world.ports["memory"] if side == "source" else world.title_ports["memory"]
+    port.destination = replace(port.destination, endpoint_ref="unapproved")
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            world.adapter.complete_auxiliary_local(world.agent, token,
+                stages=preparation.stages, output=preparation.value)
+    assert preparation.kind == "local_no_send"
+    assert not world.adapter.auxiliary_local_results and not world.adapter.auxiliary_invocations
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("kind", ["unprepared", "copied_token", "copied_stages", "copied_output",
+    "mutated_output", "mutated_preparation", "mutated_stage", "replay", "published_output"])
+def test_local_title_completion_requires_owned_complete_preparation(
+        excluded, caller_boundary, monkeypatch, kind):
+    block_title_edges(monkeypatch, excluded)
+    world = auxiliary_world()
+    first = turn(world, "   ")
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+        if kind == "unprepared":
+            stages, output = (canonical("   "),), {"title": None}
+        else:
+            preparation = world.adapter._prepare_auxiliary_title(token)
+            stages, output = preparation.stages, preparation.value
+    if kind == "copied_token":
+        token = object.__new__(type(token))
+    elif kind == "copied_stages":
+        stages = tuple(list(stages))
+    elif kind == "copied_output":
+        output = dict(output)
+    elif kind == "mutated_output":
+        output["title"] = "Changed"
+    elif kind == "mutated_preparation":
+        object.__setattr__(preparation, "kind", "dispatch")
+    elif kind == "mutated_stage":
+        object.__setattr__(preparation, "stages", (canonical("caller claim"), *stages[1:]))
+    elif kind in ("replay", "published_output"):
+        with content_policy_scope(world.context):
+            assert world.adapter.complete_auxiliary_local(world.agent, token, stages=stages, output=output) is output
+        published, = world.adapter.auxiliary_local_results
+        if kind == "published_output":
+            published.output["title"] = "Changed"
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            if kind == "published_output":
+                turn(world, "Invented B", first["messages"])
+            else:
+                world.adapter.complete_auxiliary_local(world.agent, token, stages=stages, output=output)
+    expected = int(kind in ("replay", "published_output"))
+    assert len(world.adapter.auxiliary_local_results) == expected
+    if expected:
+        assert world.adapter.auxiliary_local_results[0] is published
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
+    assert not world.adapter.auxiliary_invocations and world.adapter._aux_pending is None
+    assert world.context._denied
+
+
+@pytest.mark.parametrize("kind", ["after_preparation", "derive", "post_publication", "post_publication_policy", "invalid_boolean"])
+def test_local_title_cancellation_releases_no_output_and_keeps_proven_records(
+        excluded, caller_boundary, monkeypatch, kind):
+    from agent import title_generator as titles
+    block_title_edges(monkeypatch, excluded)
+    original = ContentPolicyRuntime.derive
+    world = auxiliary_world()
+    first = turn(world, "   ")
+    if kind == "derive":
+        def cancel(runtime, handle, parents, payload, *, path):
+            content = original(runtime, handle, parents, payload, path=path)
+            if payload == b'{"title":null}':
+                world.agent.interrupt()
+            return content
+        monkeypatch.setattr(ContentPolicyRuntime, "derive", cancel)
+    else:
+        def cancel():
+            frame = world.adapter._aux_pending
+            ready = frame is not None and (frame.local_result is not None if kind.startswith("post_publication")
+                                           else frame.preparation is not None)
+            if ready:
+                if kind == "post_publication_policy":
+                    world.title_binding = replace(world.title_binding, auth_epoch=8)
+                elif kind == "invalid_boolean":
+                    world.agent._interrupt_requested = 1
+                else:
+                    world.agent.interrupt()
+        world.admission_hook = cancel
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+    before = len(world.adapter._runtime._contents)
+    error = NativeContentPolicyDenied if kind in ("invalid_boolean", "post_publication_policy") else InterruptedError
+    with pytest.raises(error):
+        with content_policy_scope(world.context):
+            titles.generate_title("   ", controlled_aux=token)
+    assert len(world.adapter.auxiliary_local_results) == int(kind.startswith("post_publication"))
+    assert len(world.adapter._runtime._contents) >= before
+    if kind == "derive" or kind.startswith("post_publication"):
+        assert len(world.adapter._runtime._contents) > before
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
+    assert not world.adapter.auxiliary_invocations and world.adapter._aux_pending is None
+    assert world.context._denied
+    if kind.startswith("post_publication"):
+        published, = world.adapter.auxiliary_local_results
+        world.agent.close()
+        world.agent.close()
+        assert world.adapter.auxiliary_local_results[0] is published
+
+
+@pytest.mark.parametrize("kind", ["reentry", "process", "close", "thread"])
+def test_local_title_lifecycle_refuses_before_excluded_callbacks(
+        excluded, caller_boundary, monkeypatch, kind):
+    import contextvars
+    from agent import title_generator as titles, skill_commands
+    block_title_edges(monkeypatch, excluded)
+    world = auxiliary_world()
+    first = turn(world, "   ")
+    original = skill_commands.describe_skill_invocation
+    stop = KeyboardInterrupt()
+    def during_summary(text):
+        if kind == "process":
+            raise stop
+        if kind == "reentry":
+            with pytest.raises(NativeContentPolicyDenied):
+                world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+        return original(text)
+    monkeypatch.setattr(skill_commands, "describe_skill_invocation", during_summary)
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+    if kind == "thread":
+        with content_policy_scope(world.context):
+            copied = contextvars.copy_context()
+        failures = []
+        def attempt():
+            try:
+                copied.run(titles.generate_title, "   ", controlled_aux=token)
+            except NativeContentPolicyDenied as error:
+                failures.append(error)
+        worker = threading.Thread(target=attempt)
+        worker.start()
+        worker.join(timeout=10)
+        assert not worker.is_alive() and len(failures) == 1
+    else:
+        if kind == "close":
+            world.agent.close()
+            world.agent.close()
+        with pytest.raises(KeyboardInterrupt if kind == "process" else NativeContentPolicyDenied) as caught:
+            with content_policy_scope(world.context):
+                titles.generate_title("   ", controlled_aux=token)
+        if kind == "process":
+            assert caught.value is stop
+    assert world.context._denied and world.adapter._aux_pending is None
+    assert not world.adapter.auxiliary_local_results and not world.adapter.auxiliary_invocations
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
+
+
+def test_local_title_mixed_capacity_retains_original_order_and_shared_budget(
+        excluded, caller_boundary, monkeypatch):
+    from agent import title_generator as titles
+    block_title_edges(monkeypatch, excluded, local=False)
+    world = auxiliary_world()
+    first = turn(world, "   ")
+    with content_policy_scope(world.context):
+        bind_title(world)
+    accepted = []
+    for index in range(9):
+        field = "user_message" if index % 2 == 0 else "final_response"
+        try:
+            with content_policy_scope(world.context):
+                token = world.adapter.auxiliary_input(world.agent, source=first, field=field)
+                text = "   " if field == "user_message" else first["final_response"]
+                titles.generate_title(text, controlled_aux=token)
+        except NativeContentPolicyDenied:
+            break
+        frame = world.adapter._aux_frames[-1][0]
+        record = frame.local_result if frame.local_result is not None else frame.record
+        assert all(record.parents[-len(accepted)+i] is previous.output_content for i, previous in enumerate(accepted))
+        accepted.append(record)
+    else:
+        pytest.fail("Shared auxiliary capacity did not refuse")
+    assert 1 < len(accepted) <= len(world.adapter._aux_frames) <= 8
+    completed = tuple(world.adapter._completed_auxiliary_outputs())
+    assert all(content is record.output_content and capability is world.title_request
+               for (content, capability), record in zip(completed, accepted))
+    assert len(completed) == len(accepted)
+    assert len(world.adapter._runtime._contents) + len(world.adapter._runtime._envelopes) <= 128
+    assert world.adapter.send_count == 1
+    assert world.adapter.auxiliary_send_count == len(world.title_ports["title"].sent)
+    assert world.context._denied and world.adapter._aux_pending is None
+    assert all(any(original is record for original in (*world.adapter.auxiliary_local_results,
+                   *world.adapter.auxiliary_invocations)) for record in accepted)
+
+
+def test_local_title_changed_resolved_destination_during_derivation_retains_no_invented_result(
+        excluded, caller_boundary, monkeypatch):
+    from agent import title_generator as titles
+    block_title_edges(monkeypatch, excluded)
+    world = auxiliary_world()
+    first = turn(world, "   ")
+    with content_policy_scope(world.context):
+        bind_title(world)
+        token = world.adapter.auxiliary_input(world.agent, source=first, field="user_message")
+    runtime = world.adapter._runtime
+    before = len(runtime._contents)
+    port = world.title_ports["compression"]
+    def changed():
+        if len(runtime._contents) > before:
+            port.destination = replace(port.destination, endpoint_ref="changed")
+    port.resolve_hook = changed
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            titles.generate_title("   ", controlled_aux=token)
+    assert len(runtime._contents) > before
+    assert not world.adapter.auxiliary_local_results and not world.adapter.auxiliary_invocations
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
+    assert world.context._denied and world.adapter._aux_pending is None
