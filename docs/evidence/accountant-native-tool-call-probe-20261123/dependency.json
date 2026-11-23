@@ -1,0 +1,67 @@
+{
+  "version": "0.4.0",
+  "engine_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "record_sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee",
+  "record_files": [
+    "hermes_content_policy-0.4.0.dist-info/INSTALLER",
+    "hermes_content_policy-0.4.0.dist-info/METADATA",
+    "hermes_content_policy-0.4.0.dist-info/REQUESTED",
+    "hermes_content_policy-0.4.0.dist-info/WHEEL",
+    "hermes_content_policy-0.4.0.dist-info/direct_url.json",
+    "hermes_content_policy-0.4.0.dist-info/uv_cache.json",
+    "hermes_content_policy/__init__.py"
+  ],
+  "signatures": {
+    "admit": "(self, request_handle: 'object', payload: 'bytes') -> 'ContentHandle'",
+    "derive": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path') -> 'ContentHandle'",
+    "derive_for_selection": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path', parent_requests: 'tuple[object, ...]') -> 'ContentHandle'",
+    "dispatch": "(self, request_handle: 'object', content: 'ContentHandle', *, path: 'Path', route_ref: 'str') -> 'ContentHandle'"
+  },
+  "admission": true,
+  "install_count": 1,
+  "native_distribution_claim": false,
+  "scope": "One shared delivery import/API/admission/RECORD smoke only.",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "install_command": [
+    "uv",
+    "pip",
+    "install",
+    "--python",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/venv/bin/python",
+    "--offline",
+    "--no-index",
+    "--no-deps",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl"
+  ],
+  "native_dependencies_command": [
+    "uv",
+    "sync",
+    "--locked",
+    "--offline",
+    "--no-install-project",
+    "--extra",
+    "dev"
+  ],
+  "native_dependencies_environment": {
+    "UV_PROJECT_ENVIRONMENT": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/venv"
+  },
+  "sync_exit_code": 0,
+  "install_exit_code": 0,
+  "shared_source_edit": false,
+  "wheel_build": false,
+  "index_lookup": false,
+  "native_dependency_inputs": {
+    "pyproject.toml": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+    "uv.lock": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5"
+  },
+  "historical_dependency_evidence": {
+    "path": "docs/evidence/accountant-native-memory-prompt-consumer-20261123/dependency.json",
+    "sha256": "ac60a15a61d385d8106a6654a051c17da410b2bf0d5f00cc99fa68a9e5f00e49",
+    "scope": "Historical exact shared engine/API/wheel/RECORD delivery evidence only. No old native functional scope is a current run."
+  },
+  "native_manifest_gate": "Open",
+  "smoke_count": 1
+}

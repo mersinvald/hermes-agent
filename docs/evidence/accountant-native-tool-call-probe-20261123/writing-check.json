@@ -1,0 +1,165 @@
+{
+  "linter": {
+    "path": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+    "bytes": 6007,
+    "sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53"
+  },
+  "checks": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/snapshots/native_main_payload.base.py",
+      "bytes": 304102,
+      "sha256": "bd7f071bd66ea170c996fcd5da1b5e2200cd6bc38c44726fae877261422708a4",
+      "result": {
+        "words": 124,
+        "sentences": 13,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 11,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    {
+      "path": "agent/native_main_payload.py",
+      "bytes": 343605,
+      "sha256": "b7ccad81dda1051f03c7f0dab8d6535acfe33d2a2b284d157f17b33968d0162e",
+      "result": {
+        "words": 169,
+        "sentences": 18,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 11,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    {
+      "path": "tests/tools/test_native_tool_call_probe.py",
+      "bytes": 27886,
+      "sha256": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28",
+      "result": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    {
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/README.md",
+      "bytes": 2793,
+      "sha256": "ca96e16b9b511d46ce6b2e0d8b15500f3c558b7ef3901e77a0a63bc25a82b455",
+      "result": {
+        "words": 325,
+        "sentences": 36,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    },
+    {
+      "path": "docs/evidence/accountant-native-tool-call-probe-20261123/consumer-contract.md",
+      "bytes": 6610,
+      "sha256": "891daa8a5900b1b16e830db9de2657818a5a097e836a92ad64c9d1d1b5666399",
+      "result": {
+        "words": 795,
+        "sentences": 84,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 19,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    }
+  ],
+  "initial_findings": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/writing-initial.json",
+    "bytes": 1578,
+    "sha256": "2aad6896e2f3d8999dd71b7ff112d676f62fa694afb2d61b9124dea9d8edeb74"
+  },
+  "help_invocation_failure": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/writing-help-failure.json",
+    "bytes": 278,
+    "sha256": "d449339bd1d62ac04829104e41c33b94ac94bd2376000b82f9c5e5f3335c6350"
+  },
+  "limit": "Mechanical English prose checks only. No formal STE certification."
+}

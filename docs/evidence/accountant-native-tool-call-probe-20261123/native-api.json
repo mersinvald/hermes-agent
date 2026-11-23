@@ -1,0 +1,151 @@
+{
+  "methods": {
+    "bind_tool_call_probe": {
+      "parameters": "self, agent: object, *, system_message: str, user_message: str, task_id: str, expected_arguments_json: str",
+      "returns": "NativeToolCallProbeInput"
+    },
+    "run_tool_call_probe": {
+      "parameters": "self, agent: object, authorization: NativeToolCallProbeInput",
+      "returns": "NativeToolCallObservation"
+    }
+  },
+  "records": {
+    "NativeToolCallProbeBinding": [
+      [
+        "token",
+        "NativeToolCallProbeInput"
+      ],
+      [
+        "agent",
+        "object"
+      ],
+      [
+        "request_handle",
+        "object"
+      ],
+      [
+        "selection",
+        "NativeMainSelection"
+      ],
+      [
+        "producer_policy",
+        "NativeResultPolicy"
+      ],
+      [
+        "main_route",
+        "object"
+      ],
+      [
+        "system_message",
+        "str"
+      ],
+      [
+        "user_message",
+        "str"
+      ],
+      [
+        "task_id",
+        "str"
+      ],
+      [
+        "expected_arguments_json",
+        "str"
+      ],
+      [
+        "authorization_bytes",
+        "bytes"
+      ],
+      [
+        "authorization_content",
+        "object"
+      ],
+      [
+        "anchors",
+        "tuple"
+      ],
+      [
+        "thread",
+        "int"
+      ]
+    ],
+    "NativeToolCallObservation": [
+      [
+        "binding",
+        "NativeToolCallProbeBinding"
+      ],
+      [
+        "request_bytes",
+        "bytes"
+      ],
+      [
+        "request_content",
+        "object"
+      ],
+      [
+        "wire_bytes",
+        "bytes"
+      ],
+      [
+        "wire_content",
+        "object"
+      ],
+      [
+        "envelope",
+        "object"
+      ],
+      [
+        "observed_destination",
+        "object"
+      ],
+      [
+        "response_bytes",
+        "bytes"
+      ],
+      [
+        "response_content",
+        "object"
+      ],
+      [
+        "call_id",
+        "str"
+      ],
+      [
+        "function_name",
+        "str"
+      ],
+      [
+        "arguments_json",
+        "str"
+      ],
+      [
+        "observation_bytes",
+        "bytes"
+      ],
+      [
+        "observation_content",
+        "object"
+      ]
+    ]
+  },
+  "signature_exception": [
+    {
+      "name": "dispatch_controlled_main",
+      "old": "tuple[bool, NativeMainResponse | None]",
+      "new": "tuple[bool, NativeMainResponse | NativeToolCallObservation | None]",
+      "parameters_defaults_unchanged": true
+    }
+  ],
+  "token": {
+    "name": "NativeToolCallProbeInput",
+    "slots": [],
+    "public_fields": [],
+    "direct_construction": false
+  },
+  "property": {
+    "name": "tool_call_observations",
+    "returns": "tuple[NativeToolCallObservation, ...]",
+    "maximum_records": 1,
+    "read_only": true,
+    "original_registered_records": true
+  }
+}

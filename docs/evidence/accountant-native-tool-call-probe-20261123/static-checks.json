@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/venv/bin/ruff",
+        "check",
+        "agent/native_main_payload.py",
+        "tests/tools/test_native_tool_call_probe.py",
+        "--cache-dir",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/ruff"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    }
+  ],
+  "patch_roundtrip": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/patch-roundtrip-callable-final.json",
+    "bytes": 776,
+    "sha256": "15ec7060fe8d01aa4b4a30f7a3c3f125515ec10f05e6432bd5fefb37ec380fcf"
+  },
+  "earlier_patch_roundtrip": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts/patch-roundtrip.json",
+    "bytes": 776,
+    "sha256": "24bf26a165ad4d250165876cf20870246a73d7fe58d23dea298784076af139e3"
+  },
+  "source_preservation_final": true,
+  "all_five_complete_vectors": true,
+  "new_prose_findings": 0,
+  "new_em_dashes": 0
+}

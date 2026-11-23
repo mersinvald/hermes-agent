@@ -1,0 +1,19 @@
+{
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33",
+  "HOME": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/home",
+  "original_HOME_read": false,
+  "PYTHONPATH_workaround": false,
+  "runner_changed": false,
+  "isolation_before_first_check": true,
+  "retries": 0,
+  "bytecode": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/bytecode",
+  "pytest": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/pytest",
+  "lint": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/ruff",
+  "durations": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/test_durations.json",
+  "test_state": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/tmp",
+  "raw_receipts": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/receipts",
+  "wrapper_sha256": "19c7bf118123c5b91d7c4bd507d2bd3f10c6a68fbfb2d52747c0ee6ec77e7617",
+  "driver_sha256": "4bcf25d72388d4e2407887082de97ba9503b2b682c11d663fde6398f779b53cd",
+  "wrapper": "#!/bin/sh\nexec /home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/venv/bin/python -X pycache_prefix=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/cache/bytecode /home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33/python-driver.py \"$@\"\n",
+  "driver": "import os\nimport sys\nimport runpy\nimport importlib.util\n\nROOT = '/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33'\nos.environ['PYTHONPYCACHEPREFIX'] = ROOT + '/cache/bytecode'\nos.environ['TMPDIR'] = ROOT + '/tmp'\nos.environ['RUFF_CACHE_DIR'] = ROOT + '/cache/ruff'\nargs = sys.argv[1:]\nif args and args[0].endswith('/scripts/run_tests_parallel.py'):\n    spec = importlib.util.spec_from_file_location('task_native_runner', args[0])\n    module = importlib.util.module_from_spec(spec)\n    sys.modules[spec.name] = module\n    spec.loader.exec_module(module)\n    module._DURATIONS_FILE = ROOT + '/cache/test_durations.json'\n    sys.argv = args\n    raise SystemExit(module.main())\nos.execv(sys.executable, [sys.executable, '-X', 'pycache_prefix=' + ROOT + '/cache/bytecode', *args])\n"
+}

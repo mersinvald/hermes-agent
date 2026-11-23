@@ -1,0 +1,834 @@
+diff --git a/agent/native_main_payload.py b/agent/native_main_payload.py
+index d17660ed1d..48b2bff395 100644
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -56,6 +56,7 @@ _delegate_frames = _DelegateFrames()
+ _parent_resumptions = _DelegateFrames()
+ _memory_snapshots = _DelegateFrames()
+ _memory_prompt_frames = _DelegateFrames()
++_tool_call_probes = _DelegateFrames()
+ 
+ 
+ @dataclass(frozen=True, slots=True)
+@@ -137,6 +138,8 @@ def _capture_memory_binding(function):
+         adapter = args[0] if args else kwargs.get("self")
+         try:
+             _memory_require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters, "adapter_invalid")
++            if adapter in _tool_call_probes:
++                adapter._deny()
+             _memory_require(all(type(name) is str for name in kwargs), "options_invalid")
+             bound = public_signature.bind(*args, **kwargs).arguments
+             target = bound.get("target", "memory")
+@@ -212,6 +215,9 @@ class NativeParentResumptionInvocation:
+ 
+ 
+ def _resumption_callback(adapter, callback, *args):
++    probe = _tool_call_probes.get(adapter)
++    if probe is not None:
++        return probe.callback(callback, *args)
+     prompt = _memory_prompt_frames.get(adapter)
+     owner = (prompt if prompt is not None and prompt.active_call is not None else
+              _memory_snapshots.get(adapter) or _parent_resumptions.get(adapter))
+@@ -228,6 +234,8 @@ def _capture_resumption_binding(function):
+         adapter = args[0] if args else kwargs.get("self")
+         try:
+             _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
++            if adapter in _tool_call_probes:
++                adapter._deny()
+             _require(all(type(name) is str for name in kwargs))
+             bound = public_signature.bind(*args, **kwargs).arguments
+             instruction = bound["instruction"]
+@@ -1101,6 +1109,9 @@ class _Admission:
+ 
+     def current(self, handle):
+         adapter = self.adapter
++        probe = _tool_call_probes.get(adapter)
++        if probe is not None:
++            return probe.current(handle)
+         memory = _memory_prompt_frames.get(adapter)
+         if memory is not None and memory.owns_window():
+             return memory.current(handle)
+@@ -1128,6 +1139,9 @@ class _Transport:
+ 
+     def send(self, envelope):
+         adapter = self.adapter
++        probe = _tool_call_probes.get(adapter)
++        if probe is not None:
++            return probe.send(self, envelope)
+         memory = _memory_prompt_frames.get(adapter)
+         if memory is not None and memory.owns_window():
+             return memory.send(self, envelope)
+@@ -1327,6 +1341,44 @@ class NativeMainPayloadAdapter:
+         finally:
+             self._busy = False
+ 
++    def bind_tool_call_probe(
++        self, agent: object, *, system_message: str, user_message: str,
++        task_id: str, expected_arguments_json: str,
++    ) -> NativeToolCallProbeInput:
++        try:
++            _probe_require(type(self) is NativeMainPayloadAdapter and self in _adapters, "adapter_invalid")
++            owner = _ToolCallProbe(self, agent,
++                (system_message, user_message, task_id, expected_arguments_json), sys._getframe())
++            return owner.bind()
++        except BaseException as error:
++            _probe_failure(self, error)
++
++    def run_tool_call_probe(
++        self, agent: object, authorization: NativeToolCallProbeInput,
++    ) -> NativeToolCallObservation:
++        try:
++            owner = _tool_call_probes.get(self)
++            _probe_require(owner is not None, "binding_missing")
++            _probe_require(current_context() is self._bound_context, "scope_invalid")
++            owner.access()
++            return owner.run(agent, authorization, sys._getframe())
++        except BaseException as error:
++            _probe_failure(self, error)
++
++    @property
++    def tool_call_observations(self) -> tuple[NativeToolCallObservation, ...]:
++        owner = _tool_call_probes.get(self)
++        if owner is None:
++            return ()
++        anchors = owner.record_anchors
++        _probe_require(type(anchors) is tuple and len(anchors) <= 1, "records_changed")
++        records = []
++        for record, values in anchors:
++            _probe_require(_same_anchors(_row(record, NativeToolCallObservation), values)
++                           and record.binding is owner.registered_binding, "record_changed")
++            records.append(record)
++        return tuple(records)
++
+     @property
+     def invocations(self) -> tuple[NativeMainInvocation, ...]:
+         return self._records
+@@ -1353,6 +1405,9 @@ class NativeMainPayloadAdapter:
+ 
+     def _invalidate(self):
+         self._invalid = True
++        probe = _tool_call_probes.get(self)
++        if probe is not None:
++            probe.phase = probe.phase_anchor = "denied"
+         prompt = _memory_prompt_frames.get(self)
+         if prompt is not None:
+             prompt.invalidate()
+@@ -1605,6 +1660,8 @@ class NativeMainPayloadAdapter:
+ 
+     @contextmanager
+     def _turn_operation(self, agent):
++        if self in _tool_call_probes:
++            self._deny()
+         owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
+         stage = None
+         try:
+@@ -1868,6 +1925,8 @@ class NativeMainPayloadAdapter:
+         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
+ 
+     def _model_open(self):
++        if self in _tool_call_probes:
++            self._deny()
+         _memory_require(self not in _memory_snapshots, "model_work_denied")
+         owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
+         if owner is None:
+@@ -1886,6 +1945,8 @@ class NativeMainPayloadAdapter:
+         child_main_route_ref: str, child_session_id: str, child_task_id: str,
+     ) -> None:
+         try:
++            if self in _tool_call_probes:
++                self._deny()
+             _memory_require(self not in _memory_snapshots, "new_binding_denied")
+             _require(self not in _delegate_frames)
+             _DelegateFrame(self, agent, receiver_request, receiver_selection, receiver_producer_ref,
+@@ -2613,6 +2674,9 @@ class NativeMainPayloadAdapter:
+         if self._fallback_binding is not None and type(result) is shared_policy().FailedDispatch:
+             return result
+         self._dispatch_result = result
++        probe = _tool_call_probes.get(self)
++        if probe is not None:
++            return probe.observe_operation(operation, result)
+         self._checkpoint()
+         _require(self._pending is not None)
+         envelope, actual, output = self._pending
+@@ -2983,6 +3047,9 @@ class NativeMainPayloadAdapter:
+             return stages, output
+ 
+     def _checkpoint(self):
++        probe = _tool_call_probes.get(self)
++        if probe is not None:
++            return probe.checkpoint()
+         first = self._snapshot()
+         second = self._snapshot()
+         _require(first == second)
+@@ -3008,6 +3075,10 @@ class NativeMainPayloadAdapter:
+ 
+     def validate_scope(self) -> None:
+         try:
++            probe = _tool_call_probes.get(self)
++            if probe is not None:
++                probe.scope_access()
++                return
+             prompt = _memory_prompt_frames.get(self)
+             if prompt is not None and self is prompt.adapter:
+                 prompt.access()
+@@ -3531,10 +3602,17 @@ def _prepare_controlled_turn(agent, token, arguments, exclusions):
+         raise
+ 
+ 
+-def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, NativeMainResponse | None]:
++def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, NativeMainResponse | NativeToolCallObservation | None]:
+     context = current_context(agent)
+     if context is not None and context._controlled_main_bound:
+-        return True, _attached(context).dispatch(agent, api_kwargs)
++        adapter = _attached(context)
++        probe = _tool_call_probes.get(adapter)
++        if probe is not None:
++            try:
++                return True, probe.dispatch(agent, api_kwargs, sys._getframe())
++            except BaseException as error:
++                _probe_failure(adapter, error)
++        return True, adapter.dispatch(agent, api_kwargs)
+     provider = getattr(agent, "provider", None)
+     if type(provider) is str and provider == "synthetic_native":
+         if context is not None:
+@@ -3871,6 +3949,9 @@ def _bind_constructed_main(agent, adapter: NativeMainPayloadAdapter) -> None:
+ 
+ def _constructed_adapter(agent):
+     try:
++        probe_binding = _owned_constructed_binding(agent)
++        if probe_binding is not None and probe_binding.adapter in _tool_call_probes:
++            probe_binding.adapter._deny()
+         binding = _namespace(agent).get("_native_controlled_binding")
+         owned = _owned_constructed_binding(agent)
+         if owned is not None:
+@@ -3974,6 +4055,12 @@ def _close_constructed_main(agent) -> bool:
+     if not _controlled_attempt(agent):
+         return False
+     owned = _owned_constructed_binding(agent)
++    probe = _tool_call_probes.get(owned.adapter) if owned is not None else None
++    if probe is not None and probe.phase == "released":
++        try:
++            return probe.close()
++        except BaseException as error:
++            _probe_failure(owned.adapter, error)
+     memory = _memory_snapshots.get(owned.adapter) if owned is not None else None
+     if memory is not None and memory.phase == "released":
+         try:
+@@ -6006,3 +6093,617 @@ def _close_delegate_child(frame):
+     frame.child.close()
+     frame.set_slot(None)
+     frame.checkpoint()
++
++
++class NativeToolCallProbeInput:
++    __slots__ = ()
++
++    def __new__(cls):
++        raise TypeError("Probe tokens require operator admission")
++
++
++@dataclass(frozen=True, slots=True)
++class NativeToolCallProbeBinding:
++    token: NativeToolCallProbeInput
++    agent: object
++    request_handle: object
++    selection: NativeMainSelection
++    producer_policy: NativeResultPolicy
++    main_route: object
++    system_message: str
++    user_message: str
++    task_id: str
++    expected_arguments_json: str
++    authorization_bytes: bytes
++    authorization_content: object
++    anchors: tuple
++    thread: int
++
++
++@dataclass(frozen=True, slots=True)
++class NativeToolCallObservation:
++    binding: NativeToolCallProbeBinding
++    request_bytes: bytes
++    request_content: object
++    wire_bytes: bytes
++    wire_content: object
++    envelope: object
++    observed_destination: object
++    response_bytes: bytes
++    response_content: object
++    call_id: str
++    function_name: str
++    arguments_json: str
++    observation_bytes: bytes
++    observation_content: object
++
++
++def _probe_require(condition, reason):
++    if not condition:
++        raise NativeContentPolicyDenied("controlled_native_tool_probe_" + reason)
++
++
++def _probe_failure(adapter, error):
++    owner = _tool_call_probes.get(adapter)
++    adapter._invalidate()
++    if owner is not None and owner.control_exception is not None:
++        raise owner.control_exception
++    if not isinstance(error, Exception) or isinstance(error, InterruptedError):
++        raise error
++    if type(error) is NativeContentPolicyDenied:
++        raise error
++    if type(error) is shared_policy().PolicyError and error.args == ("capacity_exhausted",):
++        raise NativeContentPolicyDenied("controlled_native_tool_probe_capacity_denied") from None
++    raise NativeContentPolicyDenied("controlled_native_tool_probe_authority_denied") from None
++
++
++def _tool_probe_arguments(value):
++    _text(value)
++    decoded = _decode_response_payload(value.encode("utf-8"))
++    _keys(decoded, ("context", "goal", "role"))
++    _require(decoded["context"] is None)
++    _require(type(decoded["role"]) is str and decoded["role"] == "leaf")
++    _text(decoded["goal"])
++    _require(bool(decoded["goal"]))
++    return decoded
++
++
++def _tool_probe_schema():
++    return {"type": "function", "function": {"name": "delegate_task", "parameters": {
++        "type": "object", "additionalProperties": False,
++        "properties": {"context": {"type": ["string", "null"]}, "goal": {"type": "string"},
++                       "role": {"type": "string", "enum": ["leaf"]}},
++        "required": ["context", "goal", "role"]}}}
++
++
++def _tool_probe_request(value):
++    _keys(value, ("model", "messages", "stream", "tools", "tool_choice"))
++    _identifier(value["model"])
++    _require(value["stream"] is False)
++    messages = value["messages"]
++    _require(type(messages) is list and len(messages) == 2)
++    for row, role in zip(messages, ("system", "user")):
++        _keys(row, ("role", "content"))
++        _require(type(row["role"]) is str and row["role"] == role)
++        _text(row["content"])
++    # Exact scalar types also apply inside the fixed schema.
++    _require(_safe_json(value["tools"]) == _json([_tool_probe_schema()]))
++    _require(_safe_json(value["tool_choice"]) == _json({"type": "function", "function": {"name": "delegate_task"}}))
++    _require(len(_json(value)) <= _MAX_NATIVE_RESULT)
++
++
++def _tool_probe_response(payload, model, expected_arguments_json):
++    value = _decode_response_payload(payload)
++    _keys(value, ("id", "object", "created", "model", "choices", "usage"))
++    _identifier(value["id"])
++    _identifier(value["model"])
++    _require(value["model"] == model)
++    _require(type(value["object"]) is str and value["object"] == "chat.completion")
++    _integer(value["created"], minimum=0)
++    choices = value["choices"]
++    _require(type(choices) is list and len(choices) == 1)
++    choice = choices[0]
++    _keys(choice, ("index", "message", "finish_reason"))
++    _integer(choice["index"], 0, 0)
++    _require(type(choice["finish_reason"]) is str and choice["finish_reason"] == "tool_calls")
++    message = choice["message"]
++    _keys(message, ("role", "content", "tool_calls"))
++    _require(type(message["role"]) is str and message["role"] == "assistant" and message["content"] is None)
++    calls = message["tool_calls"]
++    _require(type(calls) is list and len(calls) == 1)
++    call = calls[0]
++    _keys(call, ("id", "type", "function"))
++    _identifier(call["id"])
++    _require(type(call["type"]) is str and call["type"] == "function")
++    function = call["function"]
++    _keys(function, ("name", "arguments"))
++    _require(type(function["name"]) is str and function["name"] == "delegate_task")
++    _tool_probe_arguments(function["arguments"])
++    _require(function["arguments"] == expected_arguments_json)
++    usage = value["usage"]
++    _keys(usage, ("prompt_tokens", "completion_tokens", "total_tokens"))
++    for number in usage.values():
++        _integer(number, 1_000_000, 0)
++    _require(usage["prompt_tokens"] + usage["completion_tokens"] == usage["total_tokens"])
++    return value
++
++
++class _ToolCallProbe:
++    """Own one synthetic protocol observation without execution authority."""
++
++    def __init__(self, parent, agent, inputs, public):
++        from run_agent import AIAgent
++        _probe_require(parent not in _tool_call_probes and not hasattr(parent, "_tool_probe_owner"), "attempt_spent")
++        self.parent, self.agent, self.inputs = parent, agent, inputs
++        self.public_bind, self.bind_frame = public, None
++        self.run_frame = self.public_run = self.dispatch_frame = None
++        self.active_call = self.call_anchor = self.stage_frame = self.stage_anchor = None
++        self.depth = self.stage_index = 0
++        self.phase = self.phase_anchor = "bound"
++        self.attempted = self.closed = False
++        self.binding = self.registered_binding = self.binding_anchor = None
++        self.records = self.record_anchors = ()
++        self.request = self.request_anchors = self.operation = None
++        self.request_bytes = self.request_content = self.wire_bytes = self.wire_content = None
++        self.envelope = self.observed_destination = self.response_bytes = self.response_content = None
++        self.observation_bytes = self.observation_content = None
++        self.partial_send = None
++        self.control_exception = None
++        self.runtime, self.thread = parent._runtime, parent._thread
++        self.constructed = parent._constructed
++        self.catalog = parent._operator_configuration
++        self.catalog_anchors = _nested_anchors(self.catalog)
++        self.original_profiles = parent._original_profiles
++        self.source, self.selection, self.producer = parent._source, parent._selected, parent._producer_policy
++        self.initial = _binding(self.source), _selection(self.selection), _producer(self.producer)
++        self.original_anchors = _nested_anchors((self.source, self.selection, self.producer))[1:]
++        self.native_facts = tuple((name, getattr(parent, name)) for name in (
++            "_context", "_bound_context", "_handle", "_admission", "_selection_port", "_result_port", "_clock",
++            "_main_route", "_route_ref", "_producer_ref", "_holder", "_original_profiles", "_constructed"))
++        self.proof = tuple(getattr(parent, name) for name in (
++            "_turn_frames", "_records", "_record_anchors", "_completions", "_completion_anchors",
++            "_aux_frames", "_aux_records", "_aux_local_results", "_failed_main_attempts", "_fallback_records"))
++        # Register the original attempt before any operator callback.
++        parent._tool_probe_owner = self
++        _tool_call_probes[parent] = self
++        _probe_require(type(agent) is AIAgent and self.constructed is _owned_constructed_binding(agent)
++                       and self.constructed is not None and parent._turn_agent is agent, "agent_invalid")
++        _probe_require(not parent._busy and not parent._invalid and not parent._bound_context._denied, "owner_denied")
++        _probe_require(all(not value for value in self.proof) and parent._send_count == 0, "owner_used")
++        _probe_code_current()
++        self.methods = self.capture_methods()
++        self.methods_anchor = self.methods
++        self.runtime_facts = tuple((name, getattr(self.runtime, name)) for name in (
++            "_admission", "_clock", "_profiles", "_routes", "_transports", "_operator_snapshot", "_ports", "_route_rows"))
++        self.runtime_ports = tuple(self.runtime._ports.items())
++        self.runtime_routes = _nested_anchors(self.runtime._route_rows)
++        for value in inputs:
++            _text(value)
++        _identifier(inputs[2])
++        _tool_probe_arguments(inputs[3])
++        _probe_require(inputs[2] == self.initial[0][1], "task_invalid")
++        self.input_anchors = tuple(inputs)
++        self.verify()
++
++    def capture_methods(self):
++        from agent import chat_completion_helpers as caller
++        self.caller = caller.interruptible_api_call
++        self.caller_functions = (caller.interruptible_api_call, caller._controlled_main_api_call,
++                                 caller._dispatch_nonstreaming_api_request, dispatch_controlled_main)
++        entries = [
++            (self.runtime, name) for name in ("_check_operator", "_operator", "_content", "admit", "derive", "dispatch")]
++        entries += [(self.runtime._admission, "current")]
++        entries += [(self.parent, name) for name in (
++            "bind_tool_call_probe", "run_tool_call_probe", "_checkpoint", "_identity", "validate_scope",
++            "_around", "_model_open", "_turn_operation", "_invalidate", "_dispatch_retained_operation")]
++        entries += [(caller, name) for name in ("interruptible_api_call", "_controlled_main_api_call",
++                                               "_dispatch_nonstreaming_api_request")]
++        entries += [(sys.modules[__name__], name) for name in (
++            "dispatch_controlled_main", "_tool_probe_request", "_tool_probe_response", "_tool_probe_arguments",
++            "_tool_probe_schema", "_probe_failure", "_resumption_callback", "_close_constructed_main")]
++        entries += [(wrapper, name) for wrapper in self.parent._transport_wrappers.values() for name in ("send", "resolve")]
++        entries += [(self, name) for name in (
++            "verify", "checkpoint", "access", "scope_access", "callback", "bind", "run", "dispatch", "send",
++            "observe_operation", "window", "caller_access", "content", "close", "current")]
++        return tuple((obj, name, _method(getattr(obj, name))) for obj, name in entries)
++
++    def access(self):
++        _probe_require(self.depth == 0 and threading.get_ident() == self.thread, "reentry_or_thread")
++        p = self.parent
++        active = current_context()
++        _probe_require((active is p._bound_context or (self.phase == "released" and self.run_frame is None
++                       and active is None)) and current_context(self.agent) is p._bound_context, "scope_invalid")
++        if self.bind_frame is not None:
++            frame, public = self.bind_frame, self.public_bind
++            _probe_require(frame.f_code is _ToolCallProbe.bind.__code__ and frame.f_back is public
++                           and public.f_code is NativeMainPayloadAdapter.bind_tool_call_probe.__code__, "bind_frame_invalid")
++            _probe_require(public.f_locals.get("agent") is self.agent and public.f_locals.get("self") is p
++                           and _same_anchors(tuple(public.f_locals.get(name) for name in (
++                               "system_message", "user_message", "task_id", "expected_arguments_json")), self.input_anchors),
++                           "bind_input_changed")
++        elif self.run_frame is not None:
++            frame, public = self.run_frame, self.public_run
++            _probe_require(self.active_call is self.call_anchor and self.active_call is not None, "call_invalid")
++            _probe_require(frame.f_code is _ToolCallProbe.run.__code__ and frame.f_back is public
++                           and public.f_code is NativeMainPayloadAdapter.run_tool_call_probe.__code__, "run_frame_invalid")
++            _probe_require(public.f_locals.get("agent") is self.agent and public.f_locals.get("self") is p
++                           and public.f_locals.get("authorization") is self.binding.token
++                           and frame.f_locals.get("authorization") is self.binding.token, "token_invalid")
++        else:
++            _probe_require(self.phase in ("bound", "released"), "window_missing")
++            return
++        _probe_require(frame.f_locals.get("self") is self, "owner_changed")
++        current = sys._getframe()
++        while current is not None and current is not frame:
++            current = current.f_back
++        _probe_require(current is frame, "frame_missing")
++        if self.stage_frame is not None:
++            _probe_require(self.stage_frame is self.stage_anchor, "stage_changed")
++            current = sys._getframe()
++            while current is not None and current is not self.stage_frame:
++                current = current.f_back
++            _probe_require(current is self.stage_frame, "stage_missing")
++
++    def verify(self):
++        _probe_code_current()
++        p = self.parent
++        _probe_require(_tool_call_probes.get(p) is self and p._tool_probe_owner is self, "owner_changed")
++        _probe_require(self.phase is self.phase_anchor and self.phase in (
++            "bound", "entered", "sent", "observed", "released"), "owner_denied")
++        self.access()
++        _probe_require(not p._invalid and not p._bound_context._denied, "owner_denied")
++        _probe_require(p._runtime is self.runtime is p._captured_runtime, "runtime_changed")
++        _probe_require(all(getattr(p, name) is value for name, value in self.native_facts), "native_facts_changed")
++        _probe_require(p._operator_configuration is self.catalog
++                       and _same_anchors(_nested_anchors(self.catalog), self.catalog_anchors), "catalog_changed")
++        _probe_require(_same_anchors(_nested_anchors((self.source, self.selection, self.producer))[1:],
++                                    self.original_anchors), "original_facts_changed")
++        _probe_require(_same_anchors(tuple(getattr(p, name) for name in (
++            "_turn_frames", "_records", "_record_anchors", "_completions", "_completion_anchors",
++            "_aux_frames", "_aux_records", "_aux_local_results", "_failed_main_attempts", "_fallback_records")),
++            self.proof), "ordinary_records_changed")
++        _probe_require(p not in _memory_snapshots and p not in _memory_prompt_frames and p not in _delegate_frames
++                       and p not in _parent_resumptions and not hasattr(p, "_delegate_parent_frame")
++                       and not hasattr(p, "_delegate_frame"), "participant_unavailable")
++        _probe_require(p._aux_binding is p._compression_binding is p._compression_owner is p._fallback_binding
++                       is p._fallback_frame is p._aux_pending is p._turn_pending is None
++                       and not p._fallback_terminal, "participant_unavailable")
++        _probe_require(p._operation is p._checked_operation is self.operation, "operation_changed")
++        _probe_require(type(p._send_count) is int and p._send_count == (0 if self.partial_send is None else 1)
++                       and p._aux_send_count == p._fallback_send_count == 0 and p._send_count <= 8, "send_count_changed")
++        _probe_require(self.caller is _probe_caller_module.interruptible_api_call
++                       and _same_anchors(self.caller_functions, (
++                           _probe_caller_module.interruptible_api_call, _probe_caller_module._controlled_main_api_call,
++                           _probe_caller_module._dispatch_nonstreaming_api_request, dispatch_controlled_main)), "caller_changed")
++        for name in ("bind_tool_call_probe", "run_tool_call_probe", "_dispatch_retained_operation",
++                     "_checkpoint", "_identity", "validate_scope", "_around", "_model_open", "_turn_operation", "_invalidate"):
++            _probe_require(_same_method(getattr(p, name), (p, getattr(NativeMainPayloadAdapter, name))), "adapter_method_changed")
++        _probe_require(self.methods is self.methods_anchor, "methods_changed")
++        _probe_require(all(getattr(self.runtime, name) is value for name, value in self.runtime_facts)
++                       and _same_anchors(_nested_anchors(self.runtime._route_rows), self.runtime_routes)
++                       and len(self.runtime._ports) == len(self.runtime_ports)
++                       and all(self.runtime._ports.get(name) is port for name, port in self.runtime_ports), "runtime_ports_changed")
++        for obj, name, method in self.methods:
++            _probe_require(_same_method(getattr(obj, name, None), method), "method_changed")
++        if not self.closed:
++            p._identity()
++        else:
++            b, namespace = self.constructed, _namespace(self.agent)
++            _probe_require(b.closed is True and self.phase == "released"
++                           and namespace.get("_native_controlled_binding") is b, "agent_changed")
++            _probe_require(set(namespace) == {name for name, _ in b.anchors}
++                           and _constructed_state(namespace) == b.state, "agent_changed")
++            dynamic = {"_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason", "_interrupt_thread_signal_pending"}
++            _probe_require(all(namespace[name] is original for name, original in b.anchors if name not in dynamic), "agent_changed")
++            for obj, name, method in b.methods:
++                _probe_require(_same_method(getattr(obj, name), method), "method_changed")
++        namespace = _namespace(self.agent)
++        interrupted = namespace.get("_interrupt_requested")
++        _probe_require(type(interrupted) is bool, "control_invalid")
++        if interrupted:
++            raise InterruptedError("Agent interrupted during API call")
++        if self.binding is not None:
++            _probe_require(self.binding is self.registered_binding
++                           and _same_anchors(_row(self.binding, NativeToolCallProbeBinding), self.binding_anchor), "binding_changed")
++            self.content(self.binding.authorization_content, self.binding.authorization_bytes, ())
++        if self.request is not None:
++            _tool_probe_request(self.request)
++            _probe_require(_same_anchors(_nested_anchors(self.request), self.request_anchors)
++                           and _json(self.request) == self.request_bytes, "request_changed")
++        for handle, payload, parents in (
++            (self.request_content, self.request_bytes, (self.binding.authorization_content,) if self.binding else ()),
++            (self.wire_content, self.wire_bytes, (self.binding.authorization_content, self.request_content) if self.binding else ()),
++            (self.response_content, self.response_bytes, (self.wire_content,)),
++            (self.observation_content, self.observation_bytes,
++             (self.binding.authorization_content, self.request_content, self.wire_content, self.response_content) if self.binding else ()),
++        ):
++            if handle is not None:
++                self.content(handle, payload, parents)
++        _probe_require(type(self.records) is tuple and len(self.records) <= 1 and len(self.records) == len(self.record_anchors),
++                       "records_changed")
++        for record, anchor in zip(self.records, self.record_anchors):
++            _probe_require(record is anchor[0]
++                           and _same_anchors(_row(record, NativeToolCallObservation), anchor[1]), "record_changed")
++        if self.operation is not None:
++            _probe_require(_same_anchors(_row(self.operation, _PendingOperation), self.operation_anchor), "operation_changed")
++        if self.envelope is not None:
++            _probe_require(_same_anchors(_nested_anchors(self.envelope), self.envelope_anchor), "envelope_changed")
++
++    def callback(self, callback, *args):
++        self.verify()
++        self.runtime._check_operator()
++        self.depth += 1
++        try:
++            result = callback(*args)
++            if (self.partial_send is not None and len(args) == 1 and args[0] is self.envelope
++                    and _same_method(callback, _method(self.parent._operator_transports[
++                        self.selection.destination.transport_ref].send))):
++                self.response_bytes = result
++                self.partial_send = (*self.partial_send[:5], result)
++                self.parent._pending = (self.envelope, self.observed_destination, result)
++            return result
++        except BaseException as error:
++            import asyncio
++            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
++                if self.control_exception is None:
++                    self.control_exception = error
++            raise
++        finally:
++            self.depth -= 1
++            if self.control_exception is None:
++                self.runtime._check_operator()
++                self.verify()
++
++    def checkpoint(self):
++        self.verify()
++        self.runtime._check_operator()
++        p = self.parent
++        first = None
++        for _ in range(2):
++            source = self.callback(p._admission.current, p._handle)
++            selected = self.callback(p._selection_port.current, p._handle)
++            producer = self.callback(p._result_port.current, p._producer_ref)
++            facts = _binding(source), _selection(selected), _producer(producer)
++            _probe_require(facts[0][:8] == self.initial[0][:8]
++                           and set(facts[0][8]) <= set(self.original_profiles), "holder_changed")
++            _probe_require(selected is self.selection and facts[1] == self.initial[1], "selection_changed")
++            _probe_require(producer is self.producer and facts[2] == self.initial[2]
++                           and set(facts[2][2]) <= set(self.original_profiles), "producer_changed")
++            _probe_require(first is None or facts == first, "facts_unstable")
++            first = facts
++            now = self.callback(p._clock)
++            _integer(now, minimum=0)
++            _probe_require(now < p._main_route.expires_at, "selection_expired")
++            allowed = {r.route_ref for r in p._operator_routes}
++            for profile in p._operator_profiles:
++                if profile.profile_ref in self.original_profiles:
++                    allowed.intersection_update(profile.allowed_routes)
++            for path in shared_policy().PATHS:
++                _probe_require(any(r.path == path and r.route_ref in allowed
++                    and (r.consumer_ref, r.selection_id, r.selection_version) == (facts[0][3], facts[0][6], facts[0][7])
++                    and now < r.expires_at for r in p._operator_routes), "coverage_missing")
++            for route in p._operator_routes:
++                actual = self.callback(p._operator_transports[route.destination.transport_ref].resolve)
++                _probe_require(actual is route.destination, "destination_changed")
++            self.runtime._check_operator()
++        return (*first, self.wire_bytes)
++
++    def content(self, handle, payload, parents):
++        record = self.runtime._content(handle)
++        _probe_require(type(handle) is shared_policy().ContentHandle and record.payload is payload
++                       and _same_anchors(record.parents, parents), "content_changed")
++        _probe_require(set((*self.original_profiles, *self.initial[2][2])) <= set(record.profiles), "restrictions_missing")
++
++    @contextmanager
++    def window(self):
++        self.access()
++        _probe_require(self.stage_frame is None and self.stage_index < 8, "window_invalid")
++        self.stage_index += 1
++        self.stage_frame = self.stage_anchor = sys._getframe().f_back.f_back
++        try:
++            self.checkpoint()
++            yield
++            self.checkpoint()
++        finally:
++            self.stage_frame = self.stage_anchor = None
++
++    def current(self, handle):
++        try:
++            self.access()
++            _probe_require(handle is self.parent._handle and (self.bind_frame is not None or self.run_frame is not None),
++                           "admission_window_missing")
++            return self.callback(self.parent._admission.current, handle)
++        except BaseException as error:
++            _probe_failure(self.parent, error)
++
++    def scope_access(self):
++        self.access()
++        self.checkpoint()
++
++    def bind(self):
++        self.bind_frame = sys._getframe()
++        try:
++            with self.window():
++                p = self.parent
++                authorization_bytes = _json(dict(holder=self.initial[0], producer_policy=self.initial[2],
++                    main_route_ref=p._route_ref, system_message=self.inputs[0], user_message=self.inputs[1],
++                    task_id=self.inputs[2], expected_arguments_json=self.inputs[3]))
++                _require(len(authorization_bytes) <= _MAX_NATIVE_RESULT)
++                self.authorization_bytes = authorization_bytes
++                self.authorization_content = self.runtime.admit(p._handle, authorization_bytes)
++                self.checkpoint()
++                token = object.__new__(NativeToolCallProbeInput)
++                anchors = (self.constructed, self.source, self.catalog, self.methods, self.input_anchors,
++                           self.original_anchors, self.native_facts, self.runtime)
++                self.binding = NativeToolCallProbeBinding(token, self.agent, p._handle, self.selection,
++                    self.producer, p._main_route, *self.inputs, authorization_bytes, self.authorization_content,
++                    anchors, self.thread)
++                self.registered_binding = self.binding
++                self.binding_anchor = _row(self.binding, NativeToolCallProbeBinding)
++            return token
++        finally:
++            self.bind_frame = self.public_bind = None
++
++    def caller_access(self, public):
++        self.access()
++        frames = []
++        frame = public
++        for function in reversed(self.caller_functions):
++            _probe_require(frame is not None and frame.f_code is function.__code__
++                           and frame.f_globals is function.__globals__, "caller_invalid")
++            _probe_require(frame.f_locals.get("agent") is self.agent
++                           and frame.f_locals.get("api_kwargs") is self.request, "caller_input_changed")
++            frames.append(frame)
++            frame = frame.f_back
++        _probe_require(frame is self.run_frame, "caller_invalid")
++        return tuple(frames)
++
++    def dispatch(self, agent, api_kwargs, public):
++        self.caller_frames = self.caller_access(public)
++        _probe_require(agent is self.agent and api_kwargs is self.request and self.phase == "entered"
++                       and self.stage_index == 5 and self.operation is None, "dispatch_invalid")
++        p = self.parent
++        _probe_require(not p._busy and p._pending is None and p._send_count < 8, "capacity_denied")
++        self.dispatch_frame = sys._getframe()
++        p._busy = True
++        try:
++            self.operation = _PendingOperation(p._handle, self.source, self.selection, self.producer,
++                "main", p._route_ref, self.wire_bytes, self.wire_content, False)
++            self.operation_anchor = _row(self.operation, _PendingOperation)
++            p._operation = p._checked_operation = self.operation
++            self.checkpoint()
++            result = p._dispatch_retained_operation(self.operation)
++            _probe_require(len(self.records) == 1 and result is self.records[0], "response_changed")
++            return result
++        finally:
++            p._operation = p._checked_operation = self.operation = None
++            p._busy = False
++            self.dispatch_frame = None
++
++    def send(self, wrapper, envelope):
++        self.access()
++        p, operation = self.parent, self.operation
++        _probe_require(self.dispatch_frame is not None and operation is p._operation is p._checked_operation
++                       and type(operation) is _PendingOperation and p._busy and p._pending is None
++                       and self.partial_send is None, "send_invalid")
++        self.checkpoint()
++        _probe_require(type(envelope) is shared_policy().DispatchEnvelope and envelope.path == "main"
++                       and envelope.payload is self.wire_bytes and _binding(envelope.source)[:8] == self.initial[0][:8]
++                       and set(envelope.source.profiles) <= set(self.original_profiles)
++                       and set(self.original_profiles) <= set(envelope.profiles)
++                       and envelope.destination == self.selection.destination
++                       and envelope.recipient_ref == self.source.consumer_ref
++                       and wrapper is p._transport_wrappers[self.selection.destination.transport_ref], "envelope_invalid")
++        actual = wrapper.resolve()
++        _probe_require(actual is self.selection.destination, "destination_changed")
++        self.envelope, self.observed_destination = envelope, actual
++        self.envelope_anchor = _nested_anchors(envelope)
++        self.partial_send = (operation, envelope, actual, 0, 1, None)
++        p._pending = (envelope, actual, None)
++        p._send_count += 1
++        output = self.callback(wrapper.port.send, envelope)
++        # Retain the actual return before any protocol parsing or later checkpoint.
++        self.response_bytes = output
++        self.partial_send = (operation, envelope, actual, 0, 1, output)
++        p._pending = (envelope, actual, output)
++        self.phase = self.phase_anchor = "sent"
++        self.checkpoint()
++        _probe_require(type(output) is bytes, "response_type_invalid")
++        _probe_require(wrapper.resolve() is actual, "destination_changed")
++        return output
++
++    def observe_operation(self, operation, result):
++        _probe_require(operation is self.operation and self.partial_send is not None, "operation_changed")
++        self.response_content = result
++        self.checkpoint()
++        value = _tool_probe_response(self.response_bytes, self.selection.destination.model_ref, self.inputs[3])
++        call = value["choices"][0]["message"]["tool_calls"][0]
++        observation = _json(dict(api_calls=self.parent._send_count, call=call, executed=False,
++                                 request=self.request, response=value, status="tool_call_observed"))
++        _require(len(observation) <= _MAX_NATIVE_RESULT)
++        self.observation_bytes = observation
++        self.observation_content = self.runtime.derive(self.parent._handle,
++            (self.binding.authorization_content, self.request_content, self.wire_content, result), observation, path="main")
++        record = NativeToolCallObservation(self.binding, self.request_bytes, self.request_content,
++            self.wire_bytes, self.wire_content, self.envelope, self.observed_destination,
++            self.response_bytes, result, call["id"], call["function"]["name"], call["function"]["arguments"],
++            observation, self.observation_content)
++        self.records = (record,)
++        self.record_anchors = ((record, _row(record, NativeToolCallObservation)),)
++        self.parent._dispatch_response = record
++        self.phase = self.phase_anchor = "observed"
++        self.checkpoint()
++        return record
++
++    def run(self, agent, authorization, public):
++        _probe_require(self.phase == "bound" and not self.attempted and self.run_frame is None
++                       and self.depth == 0 and agent is self.agent and self.binding is not None
++                       and type(authorization) is NativeToolCallProbeInput
++                       and authorization is self.binding.token, "attempt_invalid")
++        self.attempted = True
++        self.run_frame, self.public_run = sys._getframe(), public
++        self.active_call = self.call_anchor = object()
++        self.phase = self.phase_anchor = "entered"
++        from agent.content_policy import content_policy_scope
++        try:
++            with content_policy_scope(self.parent._bound_context):
++                with self.window():
++                    self.checkpoint()
++                with self.window():
++                    request = dict(model=self.selection.destination.model_ref,
++                        messages=[dict(role="system", content=self.inputs[0]), dict(role="user", content=self.inputs[1])],
++                        stream=False, tools=[_tool_probe_schema()],
++                        tool_choice={"type": "function", "function": {"name": "delegate_task"}})
++                    _tool_probe_request(request)
++                    self.request_bytes = _json(request)
++                    self.request, self.request_anchors = request, _nested_anchors(request)
++                    self.request_content = self.runtime.derive(self.parent._handle,
++                        (self.binding.authorization_content,), self.request_bytes, path="main")
++                with self.window():
++                    self.wire_bytes = _json(dict(api_mode="chat_completions",
++                        destination=_destination_value(self.selection.destination), request=request))
++                    _require(len(self.wire_bytes) <= _MAX_NATIVE_RESULT)
++                    self.wire_content = self.runtime.derive(self.parent._handle,
++                        (self.binding.authorization_content, self.request_content), self.wire_bytes, path="main")
++                with self.window():
++                    result = self.caller(agent, request)
++                with self.window():
++                    _probe_require(len(self.records) == 1 and result is self.records[0], "response_changed")
++                with self.window():
++                    self.caller_result = result
++            # The inner scope validates its exit before final release.
++            with self.window():
++                _probe_require(result is self.caller_result is self.records[0], "response_changed")
++                self.phase = self.phase_anchor = "released"
++            return result
++        finally:
++            self.run_frame = self.public_run = self.active_call = self.call_anchor = None
++            self.parent._pending = None
++
++    def close(self):
++        _probe_require(self.phase == "released" and self.depth == 0 and self.run_frame is None, "close_invalid")
++        self.checkpoint()
++        self.closed = True
++        self.constructed.closed = True
++        self.checkpoint()
++        return True
++
++
++def _probe_code_current():
++    for obj, name, function, code in _TOOL_PROBE_CODE:
++        _probe_require(getattr(obj, name, None) is function and function.__code__ is code, "original_code_changed")
++
++
++from agent import chat_completion_helpers as _probe_caller_module
++
++_TOOL_PROBE_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__)
++    for obj, names in (
++        (_probe_caller_module, ("interruptible_api_call", "_controlled_main_api_call", "_dispatch_nonstreaming_api_request")),
++        (sys.modules[__name__], ("dispatch_controlled_main", "_tool_probe_request", "_tool_probe_response",
++            "_tool_probe_arguments", "_tool_probe_schema", "_probe_code_current")),
++        (NativeMainPayloadAdapter, ("bind_tool_call_probe", "run_tool_call_probe", "_dispatch_retained_operation",
++            "_checkpoint", "_identity", "validate_scope", "_around", "_model_open", "_turn_operation", "_invalidate")),
++        (_ToolCallProbe, ("__init__", "capture_methods", "verify", "checkpoint", "access", "scope_access", "callback",
++            "bind", "run", "dispatch", "send", "observe_operation", "window", "caller_access", "content", "close", "current")),
++        (_Transport, ("resolve", "send")), (_Admission, ("current",)),
++    ) for name in names)
