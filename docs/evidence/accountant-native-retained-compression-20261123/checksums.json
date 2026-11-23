@@ -1,5 +1,5 @@
 {
-  "README.md": "a2854f4b47edc85273f58e323033f1a14b81a75cfd584803d4608fadea904fbe",
+  "README.md": "0d5fadc5eb2aa2d50cdaa9faa95e6c870df5558ade8f2814d957b47dfc2305cd",
   "consumer-contract.md": "659a9bd002eee89b1026f9a977b8a94f65ecb3c6d929d4a2520bc2ed367f84d6",
   "consumer-format.json": "4211ef14ed2237c497aaf2468394aa62919d9164e3f807cfa4f745bcc5d7d40f",
   "correction-focused.log": "a96d2f74b0943a83ff910c63f5f5d129b8153d8e348539aa0f09da60ba987646",
@@ -27,6 +27,8 @@
   "frozen-source.json": "a00e88380d252064cc3b7a68f995eaad40e8605d14f075cec40aeebbf792158e",
   "input-verification.json": "1ddb72fb8e7119002ad3bb331304aa9c38d2be5d2e8137e3a9fec96604c16449",
   "intermediate-scopes.json": "01077ba75784b19e1bea5d6cc4170f2baeb6147c6fd0f4de3639fcc8ec55da35",
+  "metric-ste-after.txt": "431070482fc4c5c865140b5dcb2e7021e23a2a5ac2dc5b09d8016ca1b12b8a57",
+  "metric-ste-before.txt": "be2e689b5138819c1edae864b0ef6eddcdc3144941150616760dab9ce041c147",
   "native-api-initial.json": "b74d3a4f463d339473835a6c3a2b264af98bf1b739a309909eafcbfac4e86be8",
   "native-api-publication-correction.json": "30bb77dd5a5fdcf3b9d5934b1222baaed835ee2be45844df0da8c2393ff83443",
   "native-api.json": "9b7a29f22d4f58f2af49bfa5edf3b0eeb2f493d119a56cbdadadffb3f2d1ea0d",
@@ -52,7 +54,10 @@
   "ste-consumer-final.txt": "a429da0210249980f20828402de23849b3f450003e0029efa954407e66692a8e",
   "ste-consumer.txt": "7c6b7b6b2b5fe0300c9b0c011589dcab18b363ec3edfdadc494272085022fe96",
   "ste-evidence.txt": "1c6368a7285bc8c6ac92e4c647bb5506ab0475c393c533447342e82c746128cd",
-  "template-preservation.json": "409342bc80feb5f391d1c4bd760a81f3a66cfe4e10dc5e8ab2f8bd1f5b03ebcd",
+  "template-metric-compare.py": "2a4ee9f4cd06bf3b368bf37b856295fb5682b1fed26c9acffba5c659a01acbab",
+  "template-metric-correction.json": "cb4a485904d83b3029c2e267c9248774035bf1c68db4c7401a205c2c11d1884e",
+  "template-metric-verification.json": "0a603b692e7feac627afd3b07cf2804b595f6e59c26bb2f264b0fca78fcbb961",
+  "template-preservation.json": "9924f60933340214ad0469a61901a70912ca622fd6c6d8f4da119ad7e6b46a6c",
   "verification.json": "9ef2d318e4514ca9c4a51f31cead76479a891cc7d96dcf5fa55572a020e147e9",
   "verify-source.py": "b757f1d70561a00ed0d5dc1086ddc1b3372b2c0a21518655965d76aef94459cf"
 }

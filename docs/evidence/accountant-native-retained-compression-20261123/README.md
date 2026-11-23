@@ -81,6 +81,19 @@ The [API record](native-api.json) preserves every old adapter signature and reco
 The old test files remain exact byte prefixes of their additive replacements.
 The [template comparison](template-preservation.json) verifies exact original prompt expressions and unchanged actual helpers.
 
+The prompt method preserves 21 complete `Assign` operations and one complete `AugAssign` operation.
+Its five new assignments read retained facts and the retained date.
+The earlier value 24 counts selected value expressions across `_summary_source()` and `_summary_prompt()`.
+The [metric receipt](template-metric-correction.json) preserves the earlier report and defines both counts.
+
+Reproduce the source-only comparison from the repository root:
+
+```sh
+python3 -I -S -B docs/evidence/accountant-native-retained-compression-20261123/template-metric-compare.py
+```
+
+This clarification changes no runtime or validation scope.
+
 Ruff reports no findings. Its unchanged `run_agent.py` directive warning remains in the raw stderr file.
 Existing Python STE scores do not increase. New evidence prose has zero findings and no em dashes.
 The [STE comparison](ste-comparison.json) uses the same global linter and mode before and after the change.
