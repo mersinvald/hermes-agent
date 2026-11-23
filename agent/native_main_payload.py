@@ -29,6 +29,11 @@ from agent.content_policy import (
     NativeContentContext, NativeContentPolicyDenied, current_context, shared_policy,
 )
 from agent.message_sanitization import _sanitize_surrogates as _NATIVE_SANITIZER
+from tools.memory_tool import MemoryStore as _BUILTIN_MEMORY_STORE
+
+_MEMORY_GETTER = _BUILTIN_MEMORY_STORE.format_for_system_prompt
+_MEMORY_GETTER_CODE = _MEMORY_GETTER.__code__
+_MEMORY_CLASS_ANCHORS = tuple(value for pair in vars(_BUILTIN_MEMORY_STORE).items() for value in pair)
 
 _ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", re.ASCII)
 _MAX_INT = (1 << 53) - 1
@@ -49,6 +54,105 @@ class _DelegateFrames(weakref.WeakKeyDictionary):
 
 _delegate_frames = _DelegateFrames()
 _parent_resumptions = _DelegateFrames()
+_memory_snapshots = _DelegateFrames()
+
+
+@dataclass(frozen=True, slots=True)
+class NativeMemorySource:
+    store: object
+    target: str
+    owner_ref: str
+    profile_ref: str
+    source_version: int
+    producer_policy: NativeResultPolicy
+
+
+class NativeMemorySnapshotInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Memory tokens require operator admission")
+
+
+@dataclass(frozen=True, slots=True)
+class NativeMemorySnapshotBinding:
+    token: NativeMemorySnapshotInput
+    agent: object
+    request_handle: object
+    store: object
+    target: str
+    producer_policy: NativeResultPolicy
+    selection: NativeMainSelection
+    source_bytes: bytes
+    source_content: object
+    request_bytes: bytes
+    request_content: object
+    options: tuple
+    snapshots: tuple
+    anchors: tuple
+    thread: int
+
+
+@dataclass(frozen=True, slots=True)
+class NativeMemorySnapshotResult:
+    binding: NativeMemorySnapshotBinding
+    block: str | None
+    result_bytes: bytes
+    result_content: object
+    parents: tuple
+
+
+def _memory_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_memory_" + reason)
+
+
+def _memory_failure(adapter, error):
+    owner = _memory_snapshots.get(adapter)
+    adapter._invalidate()
+    if owner is not None and owner.control_exception is not None:
+        raise owner.control_exception
+    if not isinstance(error, Exception):
+        raise error
+    if isinstance(error, InterruptedError):
+        raise error
+    if (type(error) is NativeContentPolicyDenied and len(error.args) == 1
+            and type(error.args[0]) is str and error.args[0].startswith("controlled_native_memory_")):
+        raise error
+    if type(error) is shared_policy().PolicyError and error.args == ("capacity_exhausted",):
+        raise NativeContentPolicyDenied("controlled_native_memory_capacity_denied") from None
+    if type(error) is shared_policy().PolicyError and error.args == ("runtime_stale",):
+        raise NativeContentPolicyDenied("controlled_native_memory_runtime_unhealthy") from None
+    raise NativeContentPolicyDenied("controlled_native_memory_authority_denied") from None
+
+
+def _capture_memory_binding(function):
+    from functools import wraps
+    from inspect import signature
+    public_signature = signature(function)
+
+    @wraps(function)
+    def captured(*args, **kwargs):
+        adapter = args[0] if args else kwargs.get("self")
+        try:
+            _memory_require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters, "adapter_invalid")
+            _memory_require(all(type(name) is str for name in kwargs), "options_invalid")
+            bound = public_signature.bind(*args, **kwargs).arguments
+            target = bound.get("target", "memory")
+            _memory_require(type(target) is str and target == "memory", "target_invalid")
+            producer = bound["producer_ref"]
+            _memory_require(type(producer) is str and bool(producer), "producer_invalid")
+            _identifier(producer)
+            _memory_require(type(bound["store"]) is _BUILTIN_MEMORY_STORE, "store_invalid")
+            options = (tuple((name, name in bound, bound.get(name))
+                             for name in public_signature.parameters), args, tuple(kwargs.items()))
+            _MemorySnapshot(adapter, bound["agent"], bound["store"], producer, target, options)
+            return function(*args, **kwargs)
+        except BaseException as error:
+            if type(adapter) is NativeMainPayloadAdapter and adapter in _adapters:
+                _memory_failure(adapter, error)
+            raise
+    return captured
 
 
 class NativeParentResumption:
@@ -107,7 +211,7 @@ class NativeParentResumptionInvocation:
 
 
 def _resumption_callback(adapter, callback, *args):
-    owner = _parent_resumptions.get(adapter)
+    owner = _memory_snapshots.get(adapter) or _parent_resumptions.get(adapter)
     return callback(*args) if owner is None else owner.callback(callback, *args)
 
 
@@ -682,6 +786,8 @@ class NativeSelectionPort(Protocol):
 class NativeResultPolicyPort(Protocol):
     def current(self, producer_ref: str) -> NativeResultPolicy: ...
 
+    def memory_source(self, request_handle: object, producer_ref: str) -> NativeMemorySource: ...
+
 
 def _require(condition):
     if not condition:
@@ -1218,6 +1324,11 @@ class NativeMainPayloadAdapter:
 
     def _invalidate(self):
         self._invalid = True
+        memory = _memory_snapshots.get(self)
+        if memory is not None:
+            memory.phase = memory.phase_anchor = "denied"
+            memory.active_call = memory.call_frame = memory.public_frame = None
+            memory.active_anchor = memory.getter_frame = None
         frame = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
         if frame is not None:
             frame.invalidate()
@@ -1230,6 +1341,9 @@ class NativeMainPayloadAdapter:
             self._bound_context._denied = True
 
     def _identity(self):
+        memory = _memory_snapshots.get(self)
+        if memory is not None:
+            memory.verify()
         frame = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
         delegate_scope = False
         if frame is not None:
@@ -1241,7 +1355,7 @@ class NativeMainPayloadAdapter:
             _require(type(interrupted) is bool)
             if interrupted is True:
                 raise InterruptedError("Agent interrupted during API call")
-        if self._constructed is not None:
+        if self._constructed is not None and not (memory is not None and memory.closed):
             _verify_constructed(self._constructed)
         context = self._context
         _require(context is self._bound_context)
@@ -1322,6 +1436,9 @@ class NativeMainPayloadAdapter:
         _destination(self._main_route.destination)
         _require(selected.destination == self._main_route.destination)
         retained_delegate_profiles = ()
+        memory = _memory_snapshots.get(self)
+        if memory is not None:
+            retained_delegate_profiles = memory.original_profiles
         delegation = _delegate_frames.get(self) or getattr(self, "_delegate_parent_frame", None)
         if delegation is not None:
             delegation.verify()
@@ -1446,6 +1563,7 @@ class NativeMainPayloadAdapter:
         owner = _parent_resumptions.get(self)
         stage = None
         try:
+            _memory_require(self not in _memory_snapshots, "model_work_denied")
             if owner is not None and owner.active_call is not None:
                 stage = owner.enter_stage()
             _require(not self._busy)
@@ -1689,6 +1807,7 @@ class NativeMainPayloadAdapter:
         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
 
     def _model_open(self):
+        _memory_require(self not in _memory_snapshots, "model_work_denied")
         owner = _parent_resumptions.get(self)
         if owner is None:
             _require(self not in _delegate_frames and not hasattr(self, "_delegate_frame"))
@@ -1706,6 +1825,7 @@ class NativeMainPayloadAdapter:
         child_main_route_ref: str, child_session_id: str, child_task_id: str,
     ) -> None:
         try:
+            _memory_require(self not in _memory_snapshots, "new_binding_denied")
             _require(self not in _delegate_frames)
             _DelegateFrame(self, agent, receiver_request, receiver_selection, receiver_producer_ref,
                 child_request, child_selection, child_producer_ref, delegate_route_ref,
@@ -1734,6 +1854,24 @@ class NativeMainPayloadAdapter:
             if owner is not None and owner.control_exception is not None:
                 raise owner.control_exception
             raise
+
+    @_capture_memory_binding
+    def bind_memory_snapshot(
+        self, agent: object, *, store: object,
+        producer_ref: str, target: str = "memory",
+    ) -> NativeMemorySnapshotInput:
+        return _memory_snapshots[self].bind()
+
+    def read_memory_snapshot(
+        self, agent: object, source: NativeMemorySnapshotInput,
+    ) -> NativeMemorySnapshotResult:
+        _memory_require(type(self) is NativeMainPayloadAdapter and self in _adapters, "adapter_invalid")
+        try:
+            owner = _memory_snapshots.get(self)
+            _memory_require(owner is not None, "binding_missing")
+            return owner.read(agent, source, sys._getframe())
+        except BaseException as error:
+            _memory_failure(self, error)
 
     def _verify_fallback(self):
         _integer(self._fallback_send_count, 1, 0)
@@ -2806,12 +2944,19 @@ class NativeMainPayloadAdapter:
 
     def validate_scope(self) -> None:
         try:
+            memory = _memory_snapshots.get(self)
+            if memory is not None:
+                memory.scope_access()
             _require(not self._busy)
             self._busy = True
             self._checkpoint()
-        except Exception:
-            self._deny()
-        except BaseException:
+            if memory is not None:
+                memory.checkpoint()
+        except BaseException as error:
+            if _memory_snapshots.get(self) is not None:
+                _memory_failure(self, error)
+            if isinstance(error, Exception):
+                self._deny()
             if self._preparation_enabled:
                 self._invalidate()
             raise
@@ -3643,6 +3788,8 @@ def _constructed_adapter(agent):
     try:
         binding = _namespace(agent).get("_native_controlled_binding")
         owned = _owned_constructed_binding(agent)
+        if owned is not None:
+            _memory_require(owned.adapter not in _memory_snapshots, "model_work_denied")
         owner = _parent_resumptions.get(owned.adapter) if owned is not None else None
         if owner is not None:
             owner.access()
@@ -3741,6 +3888,17 @@ def _close_constructed_main(agent) -> bool:
     if not _controlled_attempt(agent):
         return False
     owned = _owned_constructed_binding(agent)
+    memory = _memory_snapshots.get(owned.adapter) if owned is not None else None
+    if memory is not None and memory.phase == "released":
+        try:
+            memory.scope_access()
+            memory.checkpoint()
+            memory.closed = True
+            owned.closed = True
+            memory.checkpoint()
+            return True
+        except BaseException as error:
+            _memory_failure(owned.adapter, error)
     frame = getattr(owned.adapter, "_delegate_parent_frame", None) if owned is not None else None
     if (frame is not None and owned.closed and not frame.invalid
             and frame.phase in ("returned", "released") and frame.child is agent):
@@ -3751,6 +3909,396 @@ def _close_constructed_main(agent) -> bool:
     if binding is not None:
         binding.closed = True
     return True
+
+
+class _MemorySnapshot:
+    """Own one authenticated read of the original frozen memory block."""
+
+    def __init__(self, parent, agent, store, producer_ref, target, options):
+        from run_agent import AIAgent
+        _memory_require(type(agent) is AIAgent, "agent_invalid")
+        _memory_require(parent not in _memory_snapshots and not hasattr(parent, "_memory_snapshot_owner"),
+                        "new_binding_denied")
+        _memory_require(parent not in _delegate_frames and parent not in _parent_resumptions
+                        and not hasattr(parent, "_delegate_parent_frame")
+                        and not hasattr(parent, "_delegate_frame"), "parent_unavailable")
+        _memory_require(parent._constructed is _owned_constructed_binding(agent)
+                        and parent._constructed is not None and parent._turn_agent is agent, "agent_invalid")
+        _memory_require(threading.get_ident() == parent._thread, "thread_invalid")
+        _memory_require(current_context() is parent._bound_context
+                        and current_context(agent) is parent._bound_context, "scope_invalid")
+        _memory_require(not parent._busy and not parent._invalid and not parent._bound_context._denied,
+                        "parent_unavailable")
+        _memory_require(not parent._turn_frames and not parent._records and not parent._completions
+                        and not parent._aux_frames and not parent._aux_records
+                        and not parent._aux_local_results and not parent._fallback_records
+                        and not parent._failed_main_attempts, "parent_unavailable")
+        _memory_require(parent._pending is parent._operation is parent._checked_operation
+                        is parent._turn_pending is parent._aux_pending is None, "parent_unavailable")
+        _memory_require(parent._aux_binding is parent._compression_binding is parent._compression_owner
+                        is parent._fallback_binding is parent._fallback_frame is None
+                        and not parent._fallback_terminal, "parent_unavailable")
+        _verify_constructed(parent._constructed)
+        self.parent, self.agent, self.store = parent, agent, store
+        self.producer_ref, self.target, self.options = producer_ref, target, options
+        self.option_anchors = _nested_anchors(options)
+        self.runtime, self.thread = parent._runtime, parent._thread
+        self.original_profiles = parent._original_profiles
+        self.phase = self.phase_anchor = "bound"
+        self.depth = 0
+        self.closed = self.checking = False
+        self.active_call = self.active_anchor = self.call_frame = self.public_frame = None
+        self.getter_frame = self.getter_method = None
+        self.getter_entered = self.getter_returned = False
+        self.getter_block = self.result_bytes = self.result_content = None
+        self.source_content = self.request_content = None
+        self.source = self.binding = self.registered_binding = self.record = self.registered_record = None
+        self.control_exception = None
+        self.constructed = parent._constructed
+        self.catalog = parent._operator_configuration
+        self.catalog_anchor = _nested_anchors(self.catalog)
+        self.native_facts = tuple((name, getattr(parent, name)) for name in (
+            "_handle", "_admission", "_selection_port", "_result_port", "_clock",
+            "_main_route", "_route_ref", "_producer_ref", "_original_profiles", "_holder"))
+        self.initial_source, self.selection, self.main_producer = parent._source, parent._selected, parent._producer_policy
+        self.initial_facts = (_binding(self.initial_source), _selection(self.selection), _producer(self.main_producer))
+        self.initial_anchor = _nested_anchors((self.initial_source, self.selection, self.main_producer))[1:]
+        self.proof = (parent._turn_frames, parent._records, parent._completions,
+                      parent._aux_frames, parent._aux_records, parent._aux_local_results,
+                      parent._failed_main_attempts, parent._fallback_records)
+        self.methods = tuple((port, name, _method(getattr(port, name))) for port, name in (
+            (self.runtime, "_check_operator"), (self.runtime, "_operator"),
+            (self.runtime, "admit"), (self.runtime, "derive"), (self.runtime, "_content"),
+            (self.runtime._admission, "current"),
+            (parent._result_port, "current"),
+            (parent, "bind_memory_snapshot"), (parent, "read_memory_snapshot"),
+            (parent, "_identity"), (parent, "_snapshot"), (parent, "_checkpoint"),
+            (parent, "_around"), (parent, "_model_open"), (parent, "validate_scope"),
+            (parent, "_invalidate"), (parent, "_turn_operation"),
+            (sys.modules[__name__], "_resumption_callback"),
+            (sys.modules[__name__], "_constructed_adapter"),
+            (sys.modules[__name__], "_close_constructed_main")))
+        self.methods += tuple((self, name, _method(getattr(self, name))) for name in (
+            "verify", "health", "callback", "checkpoint", "source_facts", "store_facts",
+            "bind", "read", "scope_access", "access", "content"))
+        parent._memory_snapshot_owner = self
+        _memory_snapshots[parent] = self
+
+    def health(self):
+        _memory_require(self.parent._runtime is self.runtime is self.parent._captured_runtime, "runtime_changed")
+        for port, name, method in self.methods:
+            reason = "source_lookup_changed" if name == "memory_source" else "method_changed"
+            _memory_require(_same_method(getattr(port, name, None), method), reason)
+        self.runtime._check_operator()
+
+    def callback(self, callback, *args):
+        _memory_require(self.depth == 0, "reentry_denied")
+        self.health()
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            import asyncio
+            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                if self.control_exception is None:
+                    self.control_exception = error
+            raise
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                self.health()
+                self.verify()
+
+    def store_facts(self):
+        from tools import memory_tool
+        _memory_require(memory_tool.MemoryStore is _BUILTIN_MEMORY_STORE
+                        and type(self.store) is _BUILTIN_MEMORY_STORE, "store_changed")
+        _memory_require(_same_anchors(tuple(value for pair in vars(_BUILTIN_MEMORY_STORE).items() for value in pair),
+                                     _MEMORY_CLASS_ANCHORS), "store_class_changed")
+        _memory_require(_BUILTIN_MEMORY_STORE.format_for_system_prompt is _MEMORY_GETTER
+                        and _MEMORY_GETTER.__code__ is _MEMORY_GETTER_CODE
+                        and _same_method(self.store.format_for_system_prompt, (self.store, _MEMORY_GETTER)),
+                        "getter_changed")
+        namespace = object.__getattribute__(self.store, "__dict__")
+        snapshot = namespace.get("_system_prompt_snapshot")
+        _memory_require(type(snapshot) is dict and len(snapshot) == 2, "snapshot_invalid")
+        _memory_require(all(type(key) is str for key in snapshot)
+                        and set(snapshot) == {"memory", "user"}, "snapshot_invalid")
+        _memory_require(all(type(value) is str for value in snapshot.values()), "snapshot_invalid")
+        block = snapshot[self.target]
+        _memory_require(not any(0xD800 <= ord(char) <= 0xDFFF for char in block), "snapshot_invalid")
+        flags = namespace.get("memory_enabled"), namespace.get("user_profile_enabled")
+        _memory_require(flags[0] is True and type(flags[1]) is bool, "flags_invalid")
+        limits = namespace.get("memory_char_limit"), namespace.get("user_char_limit")
+        _memory_require(all(type(value) is int and 1 <= value <= _MAX_INT for value in limits), "limits_invalid")
+        return namespace, snapshot, tuple(snapshot.items()), flags, limits
+
+    def source_facts(self):
+        port = self.parent._result_port
+        policy = self.callback(port.current, self.producer_ref)
+        _memory_require(type(policy) is NativeResultPolicy, "producer_type_invalid")
+        row = _producer(policy)
+        _memory_require(row[0] == self.producer_ref, "producer_changed")
+        _memory_require(set(row[2]) <= set(self.original_profiles), "producer_restrictions_invalid")
+        source = self.callback(port.memory_source, self.parent._handle, self.producer_ref)
+        _memory_require(type(source) is NativeMemorySource, "source_type_invalid")
+        values = _row(source, NativeMemorySource)
+        _memory_require(source.store is self.store and source.target is self.target, "source_association_changed")
+        _memory_require(type(source.target) is str and source.target == "memory", "target_invalid")
+        _identifier(source.owner_ref)
+        _identifier(source.profile_ref)
+        _memory_require(source.owner_ref == self.initial_facts[0][0], "source_owner_invalid")
+        _memory_require(type(source.source_version) is int and 1 <= source.source_version <= _MAX_INT,
+                        "source_version_invalid")
+        _memory_require(source.producer_policy is policy, "producer_identity_changed")
+        if self.source is not None:
+            _memory_require(source is self.source and _same_anchors(values, self.source_anchor), "source_changed")
+            _memory_require(policy is self.producer and row == self.producer_facts, "producer_changed")
+        return source, policy, row
+
+    def verify(self):
+        p = self.parent
+        _memory_require(_memory_snapshots.get(p) is self and p._memory_snapshot_owner is self, "owner_changed")
+        _memory_require(self.phase is self.phase_anchor and self.phase in
+                        ("bound", "entered", "completed", "released"), "owner_denied")
+        _memory_require(self.binding is self.registered_binding and self.record is self.registered_record,
+                        "binding_changed")
+        if self.phase == "bound":
+            _memory_require(self.record is None and not self.getter_entered and not self.getter_returned
+                            and self.result_bytes is self.result_content is None, "capture_repeated")
+        elif self.phase in ("completed", "released"):
+            _memory_require(self.record is not None and self.getter_returned
+                            and self.result_content is not None, "result_changed")
+        if self.phase in ("entered", "completed"):
+            _memory_require(self.active_call is not None, "call_invalid")
+        _memory_require(threading.get_ident() == self.thread == p._thread, "thread_invalid")
+        _memory_require(self.depth == 0, "reentry_denied")
+        _memory_require(not p._invalid and not p._bound_context._denied, "owner_denied")
+        _memory_require(_same_anchors(_nested_anchors(self.options), self.option_anchors), "options_changed")
+        _memory_require(p._operator_configuration is self.catalog
+                        and _same_anchors(_nested_anchors(self.catalog), self.catalog_anchor), "catalog_changed")
+        _memory_require(all(getattr(p, name) is value for name, value in self.native_facts), "holder_changed")
+        _memory_require(_same_anchors(_nested_anchors((self.initial_source, self.selection, self.main_producer))[1:],
+                                     self.initial_anchor), "holder_changed")
+        _memory_require(_same_anchors((p._turn_frames, p._records, p._completions,
+                        p._aux_frames, p._aux_records, p._aux_local_results,
+                        p._failed_main_attempts, p._fallback_records), self.proof), "parent_changed")
+        _memory_require(p._constructed is self.constructed and p._turn_agent is self.agent
+                        and _owned_constructed_binding(self.agent) is self.constructed, "agent_changed")
+        _memory_require(p._aux_binding is p._compression_binding is p._compression_owner
+                        is p._fallback_binding is p._fallback_frame is None
+                        and not p._fallback_terminal and p not in _delegate_frames
+                        and p not in _parent_resumptions, "parent_changed")
+        _memory_require(p._pending is p._operation is p._checked_operation
+                        is p._turn_pending is p._aux_pending is None, "parent_changed")
+        namespace = _namespace(self.agent)
+        _memory_require(namespace.get("_memory_store") is None
+                        and namespace.get("_memory_manager") is None, "agent_memory_changed")
+        if self.closed:
+            b = self.constructed
+            _memory_require(self.phase == "released" and b.closed is True, "parent_changed")
+            _memory_require(namespace.get("_native_controlled_binding") is b
+                            and namespace.get("_native_content_policy_context") is p._bound_context, "agent_changed")
+            _memory_require(set(namespace) == {name for name, _ in b.anchors}
+                            and _constructed_state(namespace) == b.state, "agent_changed")
+            dynamic = {"_interrupt_requested", "_interrupt_message", "_tool_interrupt_reason",
+                       "_interrupt_thread_signal_pending"}
+            _memory_require(all(namespace[name] is original for name, original in b.anchors if name not in dynamic),
+                            "agent_changed")
+            for port, name, method in b.methods:
+                _memory_require(_same_method(getattr(port, name), method), "method_changed")
+        else:
+            _verify_constructed(self.constructed)
+        interrupted = namespace.get("_interrupt_requested")
+        _memory_require(type(interrupted) is bool and type(namespace.get("_interrupt_thread_signal_pending")) is bool
+                        and namespace.get("_interrupt_message") is None
+                        and (namespace.get("_tool_interrupt_reason") is None
+                             or namespace.get("_tool_interrupt_reason") == "user interrupt"), "control_invalid")
+        if interrupted:
+            raise InterruptedError("Agent interrupted during memory snapshot")
+        if self.active_call is not None:
+            self.access()
+        if self.source is not None:
+            _memory_require(_same_anchors(_row(self.source, NativeMemorySource), self.source_anchor), "source_changed")
+            _memory_require(_producer(self.producer) == self.producer_facts, "producer_changed")
+            actual = self.store_facts()
+            _memory_require(actual[0] is self.store_snapshot[0] and actual[1] is self.store_snapshot[1]
+                            and _same_anchors(_nested_anchors(actual[0]), self.store_anchor), "snapshot_changed")
+        if self.binding is not None:
+            b = self.binding
+            _memory_require(b is self.registered_binding
+                            and _same_anchors(_row(b, NativeMemorySnapshotBinding), self.binding_anchor), "binding_changed")
+            _memory_require(_same_anchors(_nested_anchors(b.snapshots), b.anchors), "binding_changed")
+            self.content(b.source_content, b.source_bytes, ())
+            self.content(b.request_content, b.request_bytes, ())
+        if self.record is not None:
+            r = self.record
+            _memory_require(r is self.registered_record
+                            and _same_anchors(_row(r, NativeMemorySnapshotResult), self.record_anchor), "result_changed")
+            _memory_require(r.binding is self.binding and r.block is self.getter_block
+                            and r.result_bytes is self.result_bytes and r.result_content is self.result_content,
+                            "result_changed")
+            _memory_require(_same_anchors(r.parents, (self.binding.request_content, self.binding.source_content)),
+                            "result_changed")
+            _memory_require(r.result_bytes == _json(dict(target=self.target, block=r.block)), "result_changed")
+            self.content(r.result_content, r.result_bytes, r.parents)
+
+    def content(self, handle, payload, parents):
+        record = self.runtime._content(handle)
+        _memory_require(record.payload is payload and _same_anchors(record.parents, parents), "content_changed")
+        _memory_require(set((*self.original_profiles, *self.producer_facts[2])) <= set(record.profiles),
+                        "retained_restrictions_missing")
+
+    def checkpoint(self):
+        _memory_require(not self.checking, "reentry_denied")
+        self.checking = True
+        try:
+            self.health()
+            self.parent._checkpoint()
+            for _ in range(2):
+                source = self.callback(self.parent._admission.current, self.parent._handle)
+                selected = self.callback(self.parent._selection_port.current, self.parent._handle)
+                main_producer = self.callback(self.parent._result_port.current, self.parent._producer_ref)
+                facts = _binding(source), _selection(selected), _producer(main_producer)
+                _memory_require(facts[0][:8] == self.initial_facts[0][:8]
+                                and set(facts[0][8]) <= set(self.original_profiles), "holder_changed")
+                _memory_require(selected is self.selection and facts[1] == self.initial_facts[1], "selection_changed")
+                _memory_require(main_producer is self.main_producer and facts[2] == self.initial_facts[2], "producer_changed")
+                if self.source is not None:
+                    self.source_facts()
+                now = self.callback(self.parent._clock)
+                _integer(now, minimum=0)
+                _memory_require(now < self.parent._main_route.expires_at, "selection_expired")
+                allowed = {r.route_ref for r in self.parent._operator_routes}
+                for profile in self.parent._operator_profiles:
+                    if profile.profile_ref in self.original_profiles:
+                        allowed.intersection_update(profile.allowed_routes)
+                for path in shared_policy().PATHS:
+                    _memory_require(any(r.path == path and r.route_ref in allowed
+                        and (r.consumer_ref, r.selection_id, r.selection_version)
+                            == (facts[0][3], facts[0][6], facts[0][7]) and now < r.expires_at
+                        for r in self.parent._operator_routes), "coverage_missing")
+                for route in self.parent._operator_routes:
+                    actual = self.callback(self.parent._operator_transports[route.destination.transport_ref].resolve)
+                    _memory_require(actual is route.destination
+                                    and _destination(actual) == _destination(route.destination), "destination_changed")
+                self.health()
+                self.verify()
+        finally:
+            self.checking = False
+
+    def bind(self):
+        p = self.parent
+        try:
+            _memory_require(self.depth == 0 and self.binding is None, "binding_invalid")
+            lookup = getattr(p._result_port, "memory_source", None)
+            _memory_require(callable(lookup), "source_lookup_missing")
+            self.methods += ((p._result_port, "memory_source", _method(lookup)),)
+            p._busy = True
+            self.store_snapshot = self.store_facts()
+            self.store_anchor = _nested_anchors(self.store_snapshot[0])
+            self.checkpoint()
+            source, producer, facts = self.source_facts()
+            self.source, self.producer, self.producer_facts = source, producer, facts
+            self.source_anchor = _row(source, NativeMemorySource)
+            self.checkpoint()
+            source_bytes = _json(dict(block=self.store_snapshot[1][self.target], target=self.target,
+                flags=dict(memory_enabled=self.store_snapshot[3][0], user_profile_enabled=self.store_snapshot[3][1]),
+                limits=dict(memory_char_limit=self.store_snapshot[4][0], user_char_limit=self.store_snapshot[4][1]),
+                source=dict(owner_ref=source.owner_ref, profile_ref=source.profile_ref, source_version=source.source_version),
+                producer=facts, holder=self.initial_facts[0], selection=_selection_value(self.selection),
+                main_producer=self.initial_facts[2], options=[(name, present) for name, present, _ in self.options[0]]))
+            request_bytes = _json(dict(target=self.target))
+            _memory_require(len(source_bytes) <= _MAX_NATIVE_RESULT, "source_size_invalid")
+            self.source_bytes, self.request_bytes = source_bytes, request_bytes
+            self.source_content = self.runtime.admit(p._handle, source_bytes)
+            self.health()
+            self.content(self.source_content, source_bytes, ())
+            self.checkpoint()
+            self.request_content = self.runtime.admit(p._handle, request_bytes)
+            self.health()
+            self.content(self.request_content, request_bytes, ())
+            self.checkpoint()
+            snapshots = (self.source, self.source_anchor, self.initial_source, self.selection, self.main_producer,
+                         self.producer, self.producer_facts, self.store_snapshot, self.constructed,
+                         self.constructed.methods, self.catalog, self.methods)
+            token = object.__new__(NativeMemorySnapshotInput)
+            self.binding = NativeMemorySnapshotBinding(token, self.agent, p._handle, self.store, self.target,
+                producer, self.selection, source_bytes, self.source_content, request_bytes, self.request_content,
+                self.options, snapshots, _nested_anchors(snapshots), self.thread)
+            self.registered_binding = self.binding
+            self.binding_anchor = _row(self.binding, NativeMemorySnapshotBinding)
+            self.checkpoint()
+            return token
+        finally:
+            p._busy = False
+
+    def access(self):
+        _memory_require(self.depth == 0 and threading.get_ident() == self.thread, "reentry_denied")
+        _memory_require(self.active_call is self.active_anchor and self.active_call is not None, "call_invalid")
+        frame, public = self.call_frame, self.public_frame
+        _memory_require(frame is not None and frame.f_code is type(self).read.__code__
+                        and public is frame.f_back and public.f_code is NativeMainPayloadAdapter.read_memory_snapshot.__code__,
+                        "call_invalid")
+        _memory_require(frame.f_locals.get("self") is self and frame.f_locals.get("agent") is self.agent
+                        and frame.f_locals.get("token") is self.binding.token
+                        and public.f_locals.get("self") is self.parent
+                        and public.f_locals.get("agent") is self.agent
+                        and public.f_locals.get("source") is self.binding.token, "call_invalid")
+        current = sys._getframe()
+        while current is not None and current is not frame:
+            current = current.f_back
+        _memory_require(current is frame, "call_invalid")
+
+    def scope_access(self):
+        _memory_require(self.depth == 0 and self.active_call is None and not self.checking, "reentry_denied")
+        self.verify()
+
+    def read(self, agent, token, public_frame):
+        _memory_require(self.depth == 0 and self.active_call is None, "reentry_denied")
+        _memory_require(self.phase == "bound" and self.binding is not None and self.record is None
+                        and not self.getter_entered and not self.getter_returned, "capture_repeated")
+        _memory_require(agent is self.agent and type(token) is NativeMemorySnapshotInput
+                        and token is self.binding.token, "token_invalid")
+        _memory_require(threading.get_ident() == self.thread, "thread_invalid")
+        _memory_require(current_context() is self.parent._bound_context
+                        and current_context(agent) is self.parent._bound_context, "scope_invalid")
+        self.active_call = self.active_anchor = object()
+        self.call_frame, self.public_frame = sys._getframe(), public_frame
+        self.phase = self.phase_anchor = "entered"
+        self.parent._busy = True
+        try:
+            self.checkpoint()
+            self.access()
+            self.getter_method = self.store.format_for_system_prompt
+            self.getter_frame = self.call_frame
+            self.health()
+            self.getter_entered = True
+            block = self.getter_method(self.target)
+            self.getter_block, self.getter_returned = block, True
+            _memory_require(block is None or type(block) is str, "getter_result_invalid")
+            self.result_bytes = _json(dict(block=block, target=self.target))
+            _memory_require(len(self.result_bytes) <= _MAX_NATIVE_RESULT, "result_size_invalid")
+            _memory_require(block is (self.store_snapshot[1][self.target] or None), "getter_result_changed")
+            self.health()
+            self.checkpoint()
+            parents = (self.binding.request_content, self.binding.source_content)
+            self.result_content = self.runtime.derive(self.parent._handle, parents, self.result_bytes, path="memory")
+            self.health()
+            self.record = NativeMemorySnapshotResult(self.binding, block, self.result_bytes, self.result_content, parents)
+            self.registered_record = self.record
+            self.record_anchor = _row(self.record, NativeMemorySnapshotResult)
+            self.phase = self.phase_anchor = "completed"
+            self.checkpoint()
+            self.phase = self.phase_anchor = "released"
+            self.checkpoint()
+            return self.record
+        except BaseException as error:
+            _memory_failure(self.parent, error)
+        finally:
+            self.parent._busy = False
+            self.active_call = self.active_anchor = self.call_frame = self.public_frame = None
+            self.getter_frame = None
 
 
 class _ParentResumption:

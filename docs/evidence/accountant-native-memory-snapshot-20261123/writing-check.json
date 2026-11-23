@@ -1,0 +1,125 @@
+{
+  "baseline": {
+    "em_dash(slop-marker)": 0,
+    "longest_sentence_words": 11,
+    "mode": "python-prose-v1",
+    "sample_banned": [],
+    "sample_marketing": [],
+    "sentences": 11,
+    "total": 0,
+    "total_per100w": 0.0,
+    "violations": {
+      "banned_word": 0,
+      "contraction": 0,
+      "ing_main_verb": 0,
+      "long_paragraph(>6s)": 0,
+      "long_sentence(>20w)": 0,
+      "marketing_adjective": 0,
+      "modal_hedge": 0,
+      "nominalization": 0,
+      "passive_voice": 0,
+      "phrasal_verb": 0,
+      "semicolon": 0
+    },
+    "words": 104
+  },
+  "files": {
+    "agent/native_main_payload.py": {
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 11,
+      "mode": "python-prose-v1",
+      "sample_banned": [],
+      "sample_marketing": [],
+      "sentences": 12,
+      "total": 0,
+      "total_per100w": 0.0,
+      "violations": {
+        "banned_word": 0,
+        "contraction": 0,
+        "ing_main_verb": 0,
+        "long_paragraph(>6s)": 0,
+        "long_sentence(>20w)": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "nominalization": 0,
+        "passive_voice": 0,
+        "phrasal_verb": 0,
+        "semicolon": 0
+      },
+      "words": 114
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/README.md": {
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 20,
+      "sample_banned": [],
+      "sample_marketing": [],
+      "sentences": 92,
+      "total": 0,
+      "total_per100w": 0.0,
+      "violations": {
+        "banned_word": 0,
+        "contraction": 0,
+        "ing_main_verb": 0,
+        "long_paragraph(>6s)": 0,
+        "long_sentence(>20w)": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "nominalization": 0,
+        "passive_voice": 0,
+        "phrasal_verb": 0,
+        "semicolon": 0
+      },
+      "words": 898
+    },
+    "docs/evidence/accountant-native-memory-snapshot-20261123/consumer-contract.md": {
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 20,
+      "mode": "prose-v1",
+      "sample_banned": [],
+      "sample_marketing": [],
+      "sentences": 69,
+      "total": 0,
+      "total_per100w": 0.0,
+      "violations": {
+        "banned_word": 0,
+        "contraction": 0,
+        "ing_main_verb": 0,
+        "long_paragraph(>6s)": 0,
+        "long_sentence(>20w)": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "nominalization": 0,
+        "passive_voice": 0,
+        "phrasal_verb": 0,
+        "semicolon": 0
+      },
+      "words": 743
+    },
+    "tests/tools/test_native_memory_snapshot.py": {
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 9,
+      "mode": "python-prose-v1",
+      "sample_banned": [],
+      "sample_marketing": [],
+      "sentences": 1,
+      "total": 0,
+      "total_per100w": 0.0,
+      "violations": {
+        "banned_word": 0,
+        "contraction": 0,
+        "ing_main_verb": 0,
+        "long_paragraph(>6s)": 0,
+        "long_sentence(>20w)": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "nominalization": 0,
+        "passive_voice": 0,
+        "phrasal_verb": 0,
+        "semicolon": 0
+      },
+      "words": 9
+    }
+  },
+  "limit": "Mechanical STE lint for English prose only. It does not certify technical correctness.",
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53"
+}

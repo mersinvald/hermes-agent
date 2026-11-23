@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "records": {
+    "NativeMemorySource": [
+      {
+        "name": "store",
+        "annotation": "object"
+      },
+      {
+        "name": "target",
+        "annotation": "str"
+      },
+      {
+        "name": "owner_ref",
+        "annotation": "str"
+      },
+      {
+        "name": "profile_ref",
+        "annotation": "str"
+      },
+      {
+        "name": "source_version",
+        "annotation": "int"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      }
+    ],
+    "NativeMemorySnapshotBinding": [
+      {
+        "name": "token",
+        "annotation": "NativeMemorySnapshotInput"
+      },
+      {
+        "name": "agent",
+        "annotation": "object"
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object"
+      },
+      {
+        "name": "store",
+        "annotation": "object"
+      },
+      {
+        "name": "target",
+        "annotation": "str"
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy"
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection"
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "source_content",
+        "annotation": "object"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "request_content",
+        "annotation": "object"
+      },
+      {
+        "name": "options",
+        "annotation": "tuple"
+      },
+      {
+        "name": "snapshots",
+        "annotation": "tuple"
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple"
+      },
+      {
+        "name": "thread",
+        "annotation": "int"
+      }
+    ],
+    "NativeMemorySnapshotResult": [
+      {
+        "name": "binding",
+        "annotation": "NativeMemorySnapshotBinding"
+      },
+      {
+        "name": "block",
+        "annotation": "str | None"
+      },
+      {
+        "name": "result_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "result_content",
+        "annotation": "object"
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple"
+      }
+    ]
+  },
+  "opaque_input": {
+    "name": "NativeMemorySnapshotInput",
+    "public_fields": []
+  },
+  "methods": {
+    "NativeResultPolicyPort.memory_source": {
+      "arguments": "self, request_handle: object, producer_ref: str",
+      "returns": "NativeMemorySource"
+    },
+    "NativeMainPayloadAdapter.bind_memory_snapshot": {
+      "arguments": "self, agent: object, *, store: object, producer_ref: str, target: str='memory'",
+      "returns": "NativeMemorySnapshotInput"
+    },
+    "NativeMainPayloadAdapter.read_memory_snapshot": {
+      "arguments": "self, agent: object, source: NativeMemorySnapshotInput",
+      "returns": "NativeMemorySnapshotResult"
+    }
+  },
+  "optional_lookup": "Only bind_memory_snapshot accesses memory_source. Ordinary hosts need only current.",
+  "phases": [
+    "bound",
+    "entered",
+    "completed",
+    "released",
+    "denied"
+  ]
+}

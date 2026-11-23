@@ -1,0 +1,24 @@
+{
+  "HOME_reassigned": false,
+  "PYTHONPATH_workaround": false,
+  "bytecode_cache": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/cache/bytecode",
+  "driver": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/python-driver.py",
+  "driver_sha256": "1af2a58f702572e60bdc2bf4484205d308f3b34bbb977fce7951875915a97ebf",
+  "duration_cache": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/cache/test_durations.json",
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29",
+  "interpreter_wrapper": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/python",
+  "isolation_before_first_check": true,
+  "lint_cache": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/cache/ruff",
+  "original_ignored_HOME_read": false,
+  "pytest_cache": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/cache/pytest",
+  "raw_receipts": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.29/receipts",
+  "retained_setup_errors": [
+    "The initial input summary used the wrong root_receipts key. The corrected summary verified all 53 tracked pins and four protected receipts before source edits.",
+    "The STE linter has no --help option. Its source documented the supported file arguments. No product or test failure followed.",
+    "The first checksum command used the repository cwd for a bundle-relative manifest. The corrected command uses the evidence directory. No source or functional result changed."
+  ],
+  "snapshots": "Each scope retains external exact source/test snapshots, command, XML, log, and hashes.",
+  "source_runner_changed": false,
+  "test_state": "The unchanged runner and existing conftest create isolated temporary homes outside the checkout.",
+  "wrapper_sha256": "9aaa4f64955277eabb11973ec8d22de881bf5d70abb6982babcd4bc6ee8bb3a4"
+}
