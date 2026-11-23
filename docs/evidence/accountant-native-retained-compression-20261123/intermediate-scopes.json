@@ -1,0 +1,123 @@
+{
+  "scopes": [
+    {
+      "log": "feedback-01.log",
+      "files": 1,
+      "passed": 0,
+      "failed": 1,
+      "runner_wall_seconds": 4.8,
+      "file_retries": 0,
+      "sha256": "390e81c40e615319560a489575e72c1387d7a8c36cfe162ffab7bfb45ad47bd9",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-02.log",
+      "files": 1,
+      "passed": 0,
+      "failed": 1,
+      "runner_wall_seconds": 19.1,
+      "file_retries": 0,
+      "sha256": "ba721197c1af6d628ca8205b290ead555b619ffb9cef62db311bd6fad12ee130",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-03.log",
+      "files": 1,
+      "passed": 3,
+      "failed": 0,
+      "runner_wall_seconds": 287.1,
+      "file_retries": 0,
+      "sha256": "54c5234759793178a20e624f1531c04b3b0fffb06f19915f0ea2ccc4632467c2",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-04.log",
+      "files": 3,
+      "passed": 9,
+      "failed": 15,
+      "runner_wall_seconds": 179.4,
+      "file_retries": 0,
+      "sha256": "cf519d768fe6d8a466570ef87e7eb5118651c4de3a2178a8ee83438ad787ec04",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-05.log",
+      "files": 1,
+      "passed": 0,
+      "failed": 5,
+      "runner_wall_seconds": 15.5,
+      "file_retries": 0,
+      "sha256": "5de323bb56e0ff37172341262b0e1d8d82687097b3a7ecd852365b0976ec1f54",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-06.log",
+      "files": 1,
+      "passed": 5,
+      "failed": 0,
+      "runner_wall_seconds": 64.3,
+      "file_retries": 0,
+      "sha256": "6407b232baadab8f48be7a4933b56c8774227b307842d2a52f3654ddc1d38f69",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-07.log",
+      "files": 1,
+      "passed": 4,
+      "failed": 0,
+      "runner_wall_seconds": 38.8,
+      "file_retries": 0,
+      "sha256": "5ca338cd7a93440fed350f042c8d4728fdc75d9090f96a96e371a1763e09fbc0",
+      "scope": "Historical evolving implementation scope, not current-source coverage"
+    },
+    {
+      "log": "feedback-08.log",
+      "files": 1,
+      "passed": 26,
+      "failed": 0,
+      "runner_wall_seconds": 330.1,
+      "file_retries": 0,
+      "sha256": "039471c5503d872c2dc08d84664d2b737ca4f53876d62c7e1c8226dd049607b2",
+      "scope": "Initial frozen source in frozen-source.json. Separate capacity/refusal selection."
+    }
+  ],
+  "combined_fresh_suite_claim": false,
+  "notes": [
+    "Feedback-01 rejected an overlong known constructor option key in the generic wire-key validator.",
+    "Feedback-02 found the actual helper omits recovery text without a session binding.",
+    "Feedback-04 caught denial inside a scope and exposed shared cancellation normalization.",
+    "Feedback-05 found local continuation constants needed capture from their actual source module.",
+    "The source/API verifier first matched a property getter against its setter signature.",
+    "The first template comparison counted a new local facts assignment as a changed prompt.",
+    "The STE CLI has no --help option. The same linter implementation was inspected and used.",
+    "The first offline environment command selected a dependency group. The corrected command selected the locked dev extra.",
+    "Earlier native/shared suites were not repeated. The dependency smoke is a separate API/import/representative scope."
+  ],
+  "later_scopes": [
+    {
+      "log": "final-focused.log",
+      "receipt": "final-run.json",
+      "passed": 98,
+      "failed": 2,
+      "runner_wall_seconds": 663.4,
+      "sha256": "97c73a0ba93615e4b8f5146205bd69409576a86a1e89995e6dbfad78efc78f17"
+    },
+    {
+      "log": "correction-focused.log",
+      "receipt": "correction-run.json",
+      "passed": 4,
+      "failed": 1,
+      "runner_wall_seconds": 306.3,
+      "sha256": "a96d2f74b0943a83ff910c63f5f5d129b8153d8e348539aa0f09da60ba987646"
+    },
+    {
+      "log": "source-bound-focused.log",
+      "receipt": "source-bound-run.json",
+      "passed": 1,
+      "failed": 0,
+      "runner_wall_seconds": 17.9,
+      "sha256": "4cf33108516a35bdef2c42913c7209e24b33caf92a1e51c4326c950e9d4d392c"
+    }
+  ],
+  "current_runtime": "Publication correction runtime and final fixture runtime are byte-identical. Four correction passes and one final fixture pass remain separate scopes."
+}

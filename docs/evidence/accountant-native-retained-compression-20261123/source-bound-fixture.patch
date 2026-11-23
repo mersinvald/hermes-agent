@@ -1,0 +1,25 @@
+--- a/tests/agent/test_native_controlled_conversation.py
++++ b/tests/agent/test_native_controlled_conversation.py
+@@ -2330,18 +2330,16 @@
+ def test_compression_complete_source_cannot_bypass_request_text_bound(compression_excluded, caller_boundary):
+     world = compression_world()
+     world.ports["main"].output = reply("B" * 16000)
+-    result = None
+-    for _ in range(4):
+-        result = turn(world, "B" * 16000, None if result is None else result["messages"])
++    result = turn(world, "B" * 16000)
+     with content_policy_scope(world.context):
+         bind_compression(world)
+         compressor = construct_compressor(world)
+         token = world.adapter.compression_input(world.agent, source=result)
+         frame = world.adapter._aux_pending
+         assert frame.source_bytes == canonical(result["messages"])
+-        assert len(frame.source_bytes) > 120000
+-    compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token), 4)
+-    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 4
++        assert len(frame.source_bytes) > 16384
++    compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token))
++    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 1
+ 
+ 
+ @pytest.mark.parametrize("operation", ["compress", "micro", "defrag", "prune", "session", "micro_summary", "unowned_summary"])

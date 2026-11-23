@@ -26,7 +26,10 @@ import sqlite3
 import re
 import time
 import uuid
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
+
+if TYPE_CHECKING:
+    from agent.native_main_payload import NativeAuxiliaryInput, NativeMainPayloadAdapter
 
 from agent.auxiliary_client import (
     AuxiliaryExplicitCancellation,
@@ -2621,6 +2624,8 @@ class ContextCompressor(ContextEngine):
 
     def bind_session_state(self, session_db: Any = None, session_id: str = "") -> None:
         """Bind the current session row so durable cooldowns can round-trip."""
+        from agent.native_main_payload import _refuse_compression_owner
+        _refuse_compression_owner(self)
         self._session_db = session_db
         self._session_id = session_id or ""
         self._summary_failure_cooldown_until = 0.0
@@ -3379,7 +3384,24 @@ class ContextCompressor(ContextEngine):
         proactive_prune_min_reclaim_tokens: int = 4096,
         min_tail_user_messages: int = 1,
         tail_mode: str = "lean",
+        *, native_main_adapter: "NativeMainPayloadAdapter | None" = None,
     ):
+        from agent.native_main_payload import _controlled_compression_constructor
+        options = dict(
+            model=model, threshold_percent=threshold_percent,
+            protect_first_n=protect_first_n, protect_last_n=protect_last_n,
+            summary_target_ratio=summary_target_ratio, quiet_mode=quiet_mode,
+            summary_model_override=summary_model_override, base_url=base_url,
+            api_key=api_key, config_context_length=config_context_length,
+            provider=provider, api_mode=api_mode,
+            abort_on_summary_failure=abort_on_summary_failure, max_tokens=max_tokens,
+            model_thresholds=model_thresholds, threshold_tokens_cap=threshold_tokens_cap,
+            proactive_prune_tokens=proactive_prune_tokens, proactive_prune_min_result_chars=proactive_prune_min_result_chars,
+            proactive_prune_min_reclaim_tokens=proactive_prune_min_reclaim_tokens, min_tail_user_messages=min_tail_user_messages,
+            tail_mode=tail_mode,
+        )
+        if _controlled_compression_constructor(self, native_main_adapter, options=options):
+            return
         self.model = model
         self.base_url = base_url
         self.api_key = api_key
@@ -4337,6 +4359,8 @@ class ContextCompressor(ContextEngine):
         Returns ``(messages, 0)`` — the input object — when disabled, below
         the trigger, or when the reclaim gate rejects the commit.
         """
+        from agent.native_main_payload import _refuse_compression_owner
+        _refuse_compression_owner(self)
         if self.proactive_prune_tokens <= 0:
             return messages, 0
         if current_tokens is not None and current_tokens < self.proactive_prune_tokens:
@@ -4420,9 +4444,16 @@ class ContextCompressor(ContextEngine):
         capped at ``_SUMMARY_TOKENS_CEILING``) so large-context models get
         richer summaries instead of being hard-capped at 8K tokens.
         """
+        return self._summary_budget_facts(turns_to_summarize)["summary_budget"]
+
+    def _summary_budget_facts(self, turns_to_summarize):
+        """Retain the estimate and resolved scalars used by the summary budget."""
         content_tokens = estimate_messages_tokens_rough(turns_to_summarize)
-        budget = int(content_tokens * _SUMMARY_RATIO)
-        return max(_MIN_SUMMARY_TOKENS, min(budget, self.max_summary_tokens))
+        candidate = int(content_tokens * _SUMMARY_RATIO)
+        maximum = self.max_summary_tokens
+        budget = max(_MIN_SUMMARY_TOKENS, min(candidate, maximum))
+        return dict(content_tokens=content_tokens, ratio=_SUMMARY_RATIO,
+                    context_length=self._resolved_context_length, maximum=maximum, summary_budget=budget)
 
     # Truncation limits for the summarizer input.  These bound how much of
     # each message the summary model sees — the budget is the *summary*
@@ -4915,53 +4946,16 @@ Summary generation was unavailable, so this is a best-effort deterministic fallb
         self.summary_model = ""  # empty = use main model
         self._clear_compression_failure_cooldown()  # no cooldown — retry immediately
 
-    def _generate_summary(
-        self,
-        turns_to_summarize: List[Dict[str, Any]],
-        focus_topic: Optional[str] = None,
-        memory_context: str = "",
-    ) -> Optional[str]:
-        """Generate a structured summary of conversation turns.
-
-        Uses a structured template (Goal, Progress, Decisions, Resolved/Pending
-        Questions, Files, Remaining Work) with explicit preamble telling the
-        summarizer not to answer questions.  When a previous summary exists,
-        generates an iterative update instead of summarizing from scratch.
-
-        Args:
-            focus_topic: Optional focus string for guided compression.  When
-                provided, the summariser prioritises preserving information
-                related to this topic and is more aggressive about compressing
-                everything else.  Inspired by Claude Code's ``/compact``.
-
-        Returns None if all attempts fail — the caller should drop
-        the middle turns without a summary rather than inject a useless
-        placeholder.
-        """
-        from agent.content_policy import guard_native_content
-        guard_native_content("compression", self)
-        prompt_started_at = time.monotonic()
-        if self._compression_cancelled():
-            raise AuxiliaryExplicitCancellation()
-        now = prompt_started_at
-        if now < self._summary_failure_cooldown_until:
-            logger.debug(
-                "Skipping context summary during cooldown (%.0fs remaining)",
-                self._summary_failure_cooldown_until - now,
-            )
-            return None
-
-        # Strict-redact prompt inputs that bypass _serialize_for_summary:
-        # a manual `/compress <focus>` string, and a previous summary that
-        # may predate compaction redaction (resumed from a persisted
-        # handoff message written before this boundary existed).
-        if focus_topic:
-            focus_topic = _redact_compaction_text(focus_topic)
-        if self._previous_summary:
-            self._previous_summary = _redact_compaction_text(self._previous_summary)
-
-        summary_budget = self._compute_summary_budget(turns_to_summarize)
+    def _summary_source(self, turns_to_summarize, memory_context, *, retained=False):
+        """Prepare the actual summary inputs and retain each transformation."""
+        if retained:
+            budget = self._summary_budget_facts(turns_to_summarize)
+            summary_budget = budget["summary_budget"]
+        else:
+            budget = None
+            summary_budget = self._compute_summary_budget(turns_to_summarize)
         content_to_summarize = self._serialize_for_summary(turns_to_summarize)
+        serialized = content_to_summarize
         # P2 ghost-skill defense (#32106): [SKILL_PRUNED: ...] markers entering
         # the summarizer are prompt INPUT only — LLMs routinely paraphrase them
         # into vague prose ("some skills were loaded"), which erases the reload
@@ -5010,19 +5004,19 @@ Summary generation was unavailable, so this is a best-effort deterministic fallb
         if has_user_turn is None:
             has_user_turn = self._transcript_has_real_user_turn(turns_to_summarize)
 
-        # Current date for temporal anchoring (see ## Temporal Anchoring below).
-        # Date-only granularity matches system_prompt.py:337 (PR #20451) and the
-        # user's configured timezone via hermes_time.now(). The compaction summary
-        # is a mid-conversation message that is NOT part of the cached prefix, so a
-        # date here never affects prompt-cache stability. Resolved defensively —
-        # a clock failure must never block compaction.
-        try:
-            from hermes_time import now as _hermes_now
+        return dict(summary_budget=summary_budget, budget=budget, serialized=serialized,
+                    markers=tuple(_pruned_skill_names), sampled=content_to_summarize,
+                    sanitized_memory=_sanitized_memory_context,
+                    serialized_memory=_serialized_memory_context,
+                    memory_section=_memory_section, has_user_turn=has_user_turn)
 
-            _today_str = _hermes_now().strftime("%Y-%m-%d")
-        except Exception:  # pragma: no cover - clock resolution is best-effort
-            _today_str = ""
-
+    def _summary_prompt(self, facts, focus_topic, summary_date):
+        """Build the existing first or iterative summary prompt."""
+        summary_budget = facts["summary_budget"]
+        content_to_summarize = facts["sampled"]
+        _memory_section = facts["memory_section"]
+        has_user_turn = facts["has_user_turn"]
+        _today_str = summary_date
         # Preamble shared by both first-compaction and iterative-update prompts.
         # Keep the wording deliberately plain: Azure/OpenAI-compatible content
         # filters have flagged stronger "injection" / "do not respond" framing.
@@ -5251,6 +5245,153 @@ Use this exact structure:
 FOCUS TOPIC: "{focus_topic}"
 This compaction should PRIORITISE preserving all information related to the focus topic above. For content related to "{focus_topic}", include full detail — exact values, file paths, command outputs, error messages, and decisions. For content NOT related to the focus topic, summarise more aggressively (brief one-liners or omit if truly irrelevant). The focus topic sections should receive roughly 60-70% of the summary token budget. Even for the focus topic, NEVER preserve API keys, tokens, passwords, or credentials — use [REDACTED]."""
 
+        return prompt
+
+    def _summary_response_content(self, response):
+        """Extract complete content and reject empty or truncated summaries."""
+        # ``_validate_llm_response`` only guarantees ``choices[0].message``
+        # exists, not that it's an object with ``.content``. Some
+        # OpenAI-compatible proxies / local backends return a dict- or
+        # str-shaped message; coerce defensively instead of crashing.
+        if isinstance(response, dict):
+            choices = response.get("choices") or [{}]
+            message = choices[0].get("message") if isinstance(choices[0], dict) else getattr(choices[0], "message", None)
+        else:
+            message = response.choices[0].message
+        if isinstance(message, dict):
+            content = message.get("content")
+        else:
+            content = getattr(message, "content", message)
+        # Handle cases where content is not a string (e.g., dict from llama.cpp)
+        if not isinstance(content, str):
+            content = str(content) if content else ""
+        # Some OpenAI-compatible proxies (e.g. cmkey.cn, one-api channels)
+        # return a well-formed HTTP 200 with an empty or whitespace-only
+        # ``content`` instead of an error or empty ``choices``. That payload
+        # passes ``_validate_llm_response`` (a ``message`` exists), so it
+        # reaches here and would otherwise be stored as a prefix-only
+        # summary with no body — silently wiping the compacted turns and
+        # making the model forget the in-progress task (#11978, #11914).
+        # Treat empty content as a failure so it routes through the same
+        # main-model fallback + cooldown machinery as a transport error,
+        # rather than replacing real context with an empty summary.
+        if not content.strip():
+            raise RuntimeError(
+                "Context compression LLM returned empty content "
+                f"(provider={self.provider or 'auto'} "
+                f"model={self.summary_model or self.model})"
+            )
+        # A finish_reason of "length" means the summarizer hit its output
+        # token cap mid-generation: the text present is PARTIAL. Persisting
+        # a partial summary as the compaction checkpoint silently truncates
+        # the conversation's memory — the cut-off text replaces the real
+        # middle turns AND is fed back into every subsequent iterative
+        # update prompt, compounding the loss across compactions. Treat it
+        # as a failure so it routes through the same main-model fallback +
+        # abort machinery as other degraded responses instead of becoming
+        # a checkpoint. (Ported from earendil-works/pi#7048.)
+        finish_reason = _response_finish_reason(response)
+        if finish_reason == "length":
+            raise RuntimeError(
+                "Context compression summary was truncated "
+                f"({_TRUNCATED_SUMMARY_MARKER}): generation hit the output "
+                "token cap and the summary is incomplete "
+                f"(provider={self.provider or 'auto'} "
+                f"model={self.summary_model or self.model})"
+            )
+        return content, finish_reason
+
+    def _summary_output(self, content, turns_to_summarize, pruned_skill_names, has_user_turn):
+        """Apply the existing summary output transformations in order."""
+        from agent.agent_runtime_helpers import strip_think_blocks
+        stripped = strip_think_blocks(None, content).strip()
+        chosen = stripped if stripped else content
+        redacted = _redact_compaction_text(chosen.strip())
+        restored = _reinject_pruned_skill_markers(redacted, pruned_skill_names)
+        grounded = self._ground_historical_task_snapshot(restored, turns_to_summarize)
+        summary = self._augment_summary_lean(grounded, turns_to_summarize)
+        self._validate_summary_user_provenance(summary, has_user_turn)
+        return summary, dict(stripped=stripped, chosen=chosen, redacted=redacted), dict(
+            restored=restored, grounded=grounded, augmented=summary, has_user_turn=has_user_turn)
+
+    def _generate_summary(
+        self,
+        turns_to_summarize: List[Dict[str, Any]],
+        focus_topic: Optional[str] = None,
+        memory_context: str = "",
+        *, controlled_aux: "NativeAuxiliaryInput | None" = None,
+    ) -> Optional[str]:
+        """Generate a structured summary of conversation turns.
+
+        Uses a structured template (Goal, Progress, Decisions, Resolved/Pending
+        Questions, Files, Remaining Work) with explicit preamble telling the
+        summarizer not to answer questions.  When a previous summary exists,
+        generates an iterative update instead of summarizing from scratch.
+
+        Args:
+            focus_topic: Optional focus string for guided compression.  When
+                provided, the summariser prioritises preserving information
+                related to this topic and is more aggressive about compressing
+                everything else.  Inspired by Claude Code's ``/compact``.
+
+        Returns None if all attempts fail — the caller should drop
+        the middle turns without a summary rather than inject a useless
+        placeholder.
+        """
+        from agent.native_main_payload import _controlled_compression_entry
+        adapter = _controlled_compression_entry(
+            self, turns_to_summarize, controlled_aux,
+            focus_topic=focus_topic, memory_context=memory_context)
+        if adapter is not None:
+            proof = adapter._prepare_compression(controlled_aux)
+            request = adapter.seal_auxiliary(
+                adapter._turn_agent, controlled_aux, stages=proof.stages, request=proof.value["request"])
+            response = call_llm(**proof.value["arguments"], controlled_aux=request)
+            stages, output = adapter._compression_output_stages(request, response)
+            completed = adapter.complete_auxiliary(request, response=response, stages=stages, output=output)
+            with adapter._turn_operation(adapter._turn_agent):
+                return completed["summary"]
+        from agent.content_policy import guard_native_content
+        guard_native_content("compression", self)
+        prompt_started_at = time.monotonic()
+        if self._compression_cancelled():
+            raise AuxiliaryExplicitCancellation()
+        now = prompt_started_at
+        if now < self._summary_failure_cooldown_until:
+            logger.debug(
+                "Skipping context summary during cooldown (%.0fs remaining)",
+                self._summary_failure_cooldown_until - now,
+            )
+            return None
+
+        # Strict-redact prompt inputs that bypass _serialize_for_summary:
+        # a manual `/compress <focus>` string, and a previous summary that
+        # may predate compaction redaction (resumed from a persisted
+        # handoff message written before this boundary existed).
+        if focus_topic:
+            focus_topic = _redact_compaction_text(focus_topic)
+        if self._previous_summary:
+            self._previous_summary = _redact_compaction_text(self._previous_summary)
+
+        facts = self._summary_source(turns_to_summarize, memory_context)
+        _pruned_skill_names = facts["markers"]
+        has_user_turn = facts["has_user_turn"]
+
+        # Current date for temporal anchoring (see ## Temporal Anchoring below).
+        # Date-only granularity matches system_prompt.py:337 (PR #20451) and the
+        # user's configured timezone via hermes_time.now(). The compaction summary
+        # is a mid-conversation message that is NOT part of the cached prefix, so a
+        # date here never affects prompt-cache stability. Resolved defensively —
+        # a clock failure must never block compaction.
+        try:
+            from hermes_time import now as _hermes_now
+
+            _today_str = _hermes_now().strftime("%Y-%m-%d")
+        except Exception:  # pragma: no cover - clock resolution is best-effort
+            _today_str = ""
+
+        prompt = self._summary_prompt(facts, focus_topic, _today_str)
+
         try:
             call_kwargs = {
                 "task": "compression",
@@ -5323,74 +5464,9 @@ This compaction should PRIORITISE preserving all information related to the focu
                 )
             if self._compression_cancelled():
                 raise AuxiliaryExplicitCancellation()
-            # ``_validate_llm_response`` only guarantees ``choices[0].message``
-            # exists, not that it's an object with ``.content``. Some
-            # OpenAI-compatible proxies / local backends return a dict- or
-            # str-shaped message; coerce defensively instead of crashing.
-            if isinstance(response, dict):
-                choices = response.get("choices") or [{}]
-                message = choices[0].get("message") if isinstance(choices[0], dict) else getattr(choices[0], "message", None)
-            else:
-                message = response.choices[0].message
-            if isinstance(message, dict):
-                content = message.get("content")
-            else:
-                content = getattr(message, "content", message)
-            # Handle cases where content is not a string (e.g., dict from llama.cpp)
-            if not isinstance(content, str):
-                content = str(content) if content else ""
-            # Some OpenAI-compatible proxies (e.g. cmkey.cn, one-api channels)
-            # return a well-formed HTTP 200 with an empty or whitespace-only
-            # ``content`` instead of an error or empty ``choices``. That payload
-            # passes ``_validate_llm_response`` (a ``message`` exists), so it
-            # reaches here and would otherwise be stored as a prefix-only
-            # summary with no body — silently wiping the compacted turns and
-            # making the model forget the in-progress task (#11978, #11914).
-            # Treat empty content as a failure so it routes through the same
-            # main-model fallback + cooldown machinery as a transport error,
-            # rather than replacing real context with an empty summary.
-            if not content.strip():
-                raise RuntimeError(
-                    "Context compression LLM returned empty content "
-                    f"(provider={self.provider or 'auto'} "
-                    f"model={self.summary_model or self.model})"
-                )
-            # A finish_reason of "length" means the summarizer hit its output
-            # token cap mid-generation: the text present is PARTIAL. Persisting
-            # a partial summary as the compaction checkpoint silently truncates
-            # the conversation's memory — the cut-off text replaces the real
-            # middle turns AND is fed back into every subsequent iterative
-            # update prompt, compounding the loss across compactions. Treat it
-            # as a failure so it routes through the same main-model fallback +
-            # abort machinery as other degraded responses instead of becoming
-            # a checkpoint. (Ported from earendil-works/pi#7048.)
-            if _response_finish_reason(response) == "length":
-                raise RuntimeError(
-                    "Context compression summary was truncated "
-                    f"({_TRUNCATED_SUMMARY_MARKER}): generation hit the output "
-                    "token cap and the summary is incomplete "
-                    f"(provider={self.provider or 'auto'} "
-                    f"model={self.summary_model or self.model})"
-                )
-            # Strip reasoning blocks the summarizer model may have emitted
-            # (<think>...</think> etc. from thinking models like MiniMax,
-            # DeepSeek, QwQ). Without this the trace is stored in
-            # _previous_summary, injected into the conversation, AND fed back
-            # into every subsequent iterative-update prompt — compounding
-            # token bloat across compactions. Mirrors title_generator.py.
-            from agent.agent_runtime_helpers import strip_think_blocks
-            stripped = strip_think_blocks(None, content).strip()
-            if stripped:
-                content = stripped
-            # Redact the summary output as well — the summarizer LLM may
-            # ignore prompt instructions and echo back secrets verbatim.
-            summary = _redact_compaction_text(content.strip())
-            # P2 ghost-skill defense (#32106): deterministically restore any
-            # [SKILL_PRUNED: ...] marker the summarizer paraphrased away.
-            summary = _reinject_pruned_skill_markers(summary, _pruned_skill_names)
-            summary = self._ground_historical_task_snapshot(summary, turns_to_summarize)
-            summary = self._augment_summary_lean(summary, turns_to_summarize)
-            self._validate_summary_user_provenance(summary, has_user_turn)
+            content, _finish_reason = self._summary_response_content(response)
+            summary, _, _ = self._summary_output(
+                content, turns_to_summarize, _pruned_skill_names, has_user_turn)
             # Store for iterative updates on next compaction
             self._previous_summary = summary
             self._clear_compression_failure_cooldown()
@@ -7150,6 +7226,8 @@ This compaction should PRIORITISE preserving all information related to the focu
 
         Returns True when a pass actually rewrote the summary.
         """
+        from agent.native_main_payload import _refuse_compression_owner
+        _refuse_compression_owner(self)
         old_summary = self._micro_compact_rolling_summary
         if not old_summary.strip():
             return False
@@ -7212,6 +7290,8 @@ This compaction should PRIORITISE preserving all information related to the focu
         ``archive_and_compact`` on the session DB to soft-archive old rows
         and insert the compacted set atomically.
         """
+        from agent.native_main_payload import _refuse_compression_owner
+        _refuse_compression_owner(self)
         if not self._micro_compact_enabled:
             return messages
 

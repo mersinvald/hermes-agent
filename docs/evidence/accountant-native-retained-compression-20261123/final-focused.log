@@ -1,0 +1,198 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 5 test files (~243 tests) under ['tests/agent/test_native_controlled_conversation.py', 'tests/agent/test_content_policy_auxiliary.py', 'tests/agent/test_context_compressor.py', 'tests/agent/test_compress_focus.py', 'tests/agent/test_compressor_truncated_summary_guard.py']; running with -j 5
+[  0.8% |     2/~243 | ✓2 | ✗0] ✓ tests/agent/test_compress_focus.py (2✓, 0.5s)
+[  4.9% |    12/~243 | ✓8 | ✗0] ✓ tests/agent/test_compressor_truncated_summary_guard.py (6✓, 2.1s)
+[ 63.4% |   154/~243 | ✓27 | ✗ 0] ✓ tests/agent/test_context_compressor.py (19✓, 2.7s)
+[ 68.7% |   167/~243 | ✓36 | ✗ 0] ✓ tests/agent/test_content_policy_auxiliary.py (9✓, 3.0s)
+[100.0% |   243/~243 | ✓ 98 | ✗  2] ✗ tests/agent/test_native_controlled_conversation.py (62✓ 2✗, 663.4s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║     token = adapter.admit_turn(
+  ║ agent/native_main_payload.py:1114: in admit_turn
+  ║     _require(conversation_history is None or conversation_history == [])
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ condition = False
+  ║ 
+  ║     def _require(condition):
+  ║         if not condition:
+  ║ >           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+  ║ E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+  ║ 
+  ║ agent/native_main_payload.py:435: NativeContentPolicyDenied
+  ║ ============================= slowest 12 durations =============================
+  ║ 173.90s call     tests/agent/test_native_controlled_conversation.py::test_compression_ordered_interleaving_and_return_to_main_title
+  ║ 64.10s call     tests/agent/test_native_controlled_conversation.py::test_compression_interleave_without_title_binding
+  ║ 25.05s call     tests/agent/test_native_controlled_conversation.py::test_compression_reductions_keep_original_source_and_skill_markers
+  ║ 16.05s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[before_publication]
+  ║ 15.97s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[post_publication]
+  ║ 15.95s call     tests/agent/test_native_controlled_conversation.py::test_compression_lifecycle_refuses[replay]
+  ║ 15.85s call     tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+  ║ 13.61s call     tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[response]
+  ║ 13.50s call     tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[output]
+  ║ 13.46s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[after_raw]
+  ║ 12.74s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+  ║ 12.63s call     tests/agent/test_native_controlled_conversation.py::test_compression_lifecycle_refuses[reentry]
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[before_publication]
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_source_cannot_bypass_request_text_bound
+  ║ =========== 2 failed, 62 passed, 230 deselected in 663.03s (0:11:03) ===========
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k (test_compression_ and not (shared_mixed_capacity or binding_exact_facts or constructor_exact_options or invalid_output)) or history_compression_host_refuses or summary_shared_helpers or default_compressor_keeps_optional or real_constructor_first_and_repeated_entrypoints or retained_title_empty_snippet_completes_local_without_send or retained_title_semantic_none_has_complete_output_proof or TestGenerateSummaryNoneContent or TestNonStringContent or TestSummaryFallbackToMainModel or TestSummaryTargetRatio or TestSummaryPromptBounding or TestSummaryPrefixNormalization or focus_topic_injected_into_summary_prompt or no_focus_topic_no_injection or TestResponseFinishReason or length_stop_is_rejected_and_aborts or length_stop_falls_back_to_main_model_once or stop_finish_reason_still_succeeds --durations=12
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 5 files, 98 tests passed, 2 failed (100% complete) in 663.4s (5 workers) ===
+  Durations cached to test_durations.json (5 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   5
+  Total subprocess CPU-wall: 671.8s  (runner wall: 663.4s, parallelism: 5x)
+  P50: 2.75s  P90: 663.40s  P95: 663.40s  P99: 663.40s  Max: 663.40s
+  <1s: 1 files (20%)  <2s: 1 files (20%)
+  Top 10 slowest:
+    663.40s  tests/agent/test_native_controlled_conversation.py
+      3.00s  tests/agent/test_content_policy_auxiliary.py
+      2.75s  tests/agent/test_context_compressor.py
+      2.07s  tests/agent/test_compressor_truncated_summary_guard.py
+      0.54s  tests/agent/test_compress_focus.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 294 items / 230 deselected / 64 selected
+
+tests/agent/test_native_controlled_conversation.py ..................... [ 32%]
+.............F...............F.............                              [100%]
+
+=================================== FAILURES ===================================
+____ test_compression_cancellation_retains_honest_proof[before_publication] ____
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7c83d3dd2e80>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7c83d3dd27a0>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7c83d46677e0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7c83d3956650>
+when = 'before_publication'
+
+    @pytest.mark.parametrize("when", ["before_source", "after_preparation", "during_send", "after_raw", "before_publication", "post_publication", "invalid_boolean"])
+    def test_compression_cancellation_retains_honest_proof(compression_excluded, caller_boundary, monkeypatch, when):
+        world = compression_world()
+        result = turn(world, "Keep the blue folder.")
+        published = []
+        if when == "during_send":
+            world.compression_ports["compression"].hook = lambda envelope: world.agent.interrupt()
+        def cancel():
+            frame = world.adapter._aux_pending
+            if type(frame) is not native_main_payload._CompressionFrame:
+                return
+            ready = ((frame.preparation is not None) if when in ("after_preparation", "invalid_boolean") else
+                     (frame.record is not None and frame.record.native_response is not None) if when == "after_raw" else
+                     (frame.record is not None and frame.record.output is not None) if when == "post_publication" else False)
+            if ready:
+                if when == "post_publication":
+                    published.append(frame.record)
+                world.agent._interrupt_requested = 1 if when == "invalid_boolean" else True
+        world.admission_hook = cancel
+        if when == "before_publication":
+            original = ContentPolicyRuntime.derive
+            def cancel_final(runtime, handle, parents, payload, *, path):
+                content = original(runtime, handle, parents, payload, path=path)
+                if path == "compression" and set(json.loads(payload)) == {"summary"}:
+                    world.agent._interrupt_requested = True
+                return content
+            monkeypatch.setattr(ContentPolicyRuntime, "derive", cancel_final)
+        with content_policy_scope(world.context):
+            bind_compression(world)
+            compressor = construct_compressor(world)
+            state = dict(vars(compressor))
+            token = None if when == "before_source" else world.adapter.compression_input(world.agent, source=result)
+        error = NativeContentPolicyDenied if when == "invalid_boolean" else InterruptedError
+        with pytest.raises(error) as caught:
+            with content_policy_scope(world.context):
+                if when == "before_source":
+                    world.agent._interrupt_requested = True
+                    world.adapter.compression_input(world.agent, source=result)
+                else:
+                    compressor._generate_summary(result["messages"], controlled_aux=token)
+        if error is InterruptedError:
+            assert type(caught.value) is InterruptedError and str(caught.value) == "Agent interrupted during API call"
+        count = int(when in ("during_send", "after_raw", "before_publication", "post_publication"))
+        assert world.adapter.auxiliary_send_count == count
+        assert len(world.compression_ports["compression"].sent) == count
+        assert len(world.adapter.auxiliary_invocations) == count
+        assert world.adapter.send_count == 1 and world.context._denied and world.adapter._aux_pending is None
+        assert vars(compressor) == state
+        if count:
+            record, = world.adapter.auxiliary_invocations
+            assert record.envelope is world.compression_ports["compression"].sent[0]
+            assert record.response_bytes is world.compression_ports["compression"].output
+>           assert (record.output is not None) is (when == "post_publication")
+E           assert ({'summary': "[CONTEXT COMPACTION — REFERENCE ONLY] Earlier turns were compacted into the summary below. This is a hand... the compacted region, quoted verbatim. These are the user's actual words and override any paraphrase of them above.)"} is not None) is ('before_publication' == 'post_publication'
+E            +  where {'summary': "[CONTEXT COMPACTION — REFERENCE ONLY] Earlier turns were compacted into the summary below. This is a hand... the compacted region, quoted verbatim. These are the user's actual words and override any paraphrase of them above.)"} = NativeAuxiliaryInvocation(source_completion=_NativeCompletion(frame=_TurnFrame(token=<agent.native_main_payload.Native...erride any paraphrase of them above.)"}, output_content=<hermes_content_policy.ContentHandle object at 0x7c83d3bb05c0>).output
+E             
+E             - post_publication
+E             ? ^ ^^
+E             + before_publication
+E             ? ^^^ ^^)
+
+tests/agent/test_native_controlled_conversation.py:2167: AssertionError
+______ test_compression_complete_source_cannot_bypass_request_text_bound _______
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7c83d3c5e5c0>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7c83d3c5e3e0>, call=<function caller_boundary.<locals>.call at 0x7c83d3c5c2c0>, dispatches=[], selector=<function should_use_direct_api_call at 0x7c83d46677e0>)
+
+    def test_compression_complete_source_cannot_bypass_request_text_bound(compression_excluded, caller_boundary):
+        world = compression_world()
+        history = [dict(role="user" if i % 2 == 0 else "assistant", content="B" * 6000) for i in range(20)]
+>       result = turn(world, "Keep the blue folder.", history)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/agent/test_native_controlled_conversation.py:2333: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/agent/test_native_controlled_conversation.py:73: in turn
+    return world.agent.run_conversation(text, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+run_agent.py:8717: in run_conversation
+    controlled, result = _try_controlled_text_turn(
+agent/conversation_loop.py:1923: in _try_controlled_text_turn
+    token = adapter.admit_turn(
+agent/native_main_payload.py:1114: in admit_turn
+    _require(conversation_history is None or conversation_history == [])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+
+    def _require(condition):
+        if not condition:
+>           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+
+agent/native_main_payload.py:435: NativeContentPolicyDenied
+============================= slowest 12 durations =============================
+173.90s call     tests/agent/test_native_controlled_conversation.py::test_compression_ordered_interleaving_and_return_to_main_title
+64.10s call     tests/agent/test_native_controlled_conversation.py::test_compression_interleave_without_title_binding
+25.05s call     tests/agent/test_native_controlled_conversation.py::test_compression_reductions_keep_original_source_and_skill_markers
+16.05s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[before_publication]
+15.97s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[post_publication]
+15.95s call     tests/agent/test_native_controlled_conversation.py::test_compression_lifecycle_refuses[replay]
+15.85s call     tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+13.61s call     tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[response]
+13.50s call     tests/agent/test_native_controlled_conversation.py::test_compression_mutated_proof_refuses[output]
+13.46s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[after_raw]
+12.74s call     tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[during_send]
+12.63s call     tests/agent/test_native_controlled_conversation.py::test_compression_lifecycle_refuses[reentry]
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_cancellation_retains_honest_proof[before_publication]
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_source_cannot_bypass_request_text_bound
+=========== 2 failed, 62 passed, 230 deselected in 663.03s (0:11:03) ===========
+
+=== 1 file with test failures (2 tests failed) ===
+  tests/agent/test_native_controlled_conversation.py  (2 tests failed)

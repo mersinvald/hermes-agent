@@ -1707,3 +1707,724 @@ def test_local_title_changed_resolved_destination_during_derivation_retains_no_i
     assert not world.adapter.auxiliary_local_results and not world.adapter.auxiliary_invocations
     assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 0
     assert world.context._denied and world.adapter._aux_pending is None
+
+
+class CompressionWorld(AuxiliaryWorld):
+    def __init__(self, *, same_model=False):
+        from hermes_content_policy import PATHS, ProfilePolicy
+        from agent.native_main_payload import NativeMainSelection, NativeResultPolicy
+        from tests.agent.test_native_main_payload import ControlledPort
+        super().__init__()
+        self.compression_request = object()
+        self.compression_binding = replace(self.binding, selection_id="compression_selection", selection_version=6)
+        self.compression_policy = NativeResultPolicy("compression_producer", 3, self.policy.profiles)
+        self.compression_ports = {}
+        routes = []
+        for row in self.routes[:len(PATHS)]:
+            destination = replace(row.destination, transport_ref=f"compression_transport_{row.path}",
+                                  model_ref="invented_model" if same_model else "invented_compression_model")
+            port = self.compression_ports[row.path] = ControlledPort(destination)
+            self.ports[f"compression_capability_{row.path}"] = port
+            self.receiver_bindings[id(port)] = (port, replace(self.compression_binding,
+                execution_ref=f"compression_receiver_{row.path}"))
+            value = json.loads(reply("<think>scratch</think>## Goal\nKeep the blue folder."))
+            value["model"] = destination.model_ref
+            port.output = canonical(value)
+            routes.append(replace(row, route_ref=f"compression_{row.path}", destination=destination,
+                selection_id="compression_selection", selection_version=6))
+        self.routes += tuple(routes)
+        self.profiles = (ProfilePolicy("restricted_documents", tuple(r.route_ref for r in self.routes), PATHS),)
+        self.compression_selection = NativeMainSelection("compression_selection", 6, "chat_completions",
+                                                        self.compression_ports["compression"].destination)
+        self.compression_selection_port = SimpleNamespace(current=self.compression_selected)
+        self.compression_qualifications = ()
+
+    def current(self, handle):
+        if handle is self.compression_request:
+            if self.admission_hook:
+                self.admission_hook()
+            return self.compression_binding
+        return super().current(handle)
+
+    def produced(self, producer):
+        if producer == "compression_producer":
+            if self.producer_hook:
+                self.producer_hook()
+            return self.compression_policy
+        return super().produced(producer)
+
+    def compression_selected(self, handle):
+        assert handle is self.compression_request
+        return self.compression_selection
+
+    def qualify(self):
+        from hermes_content_policy import PATHS
+        super().qualify()
+        runtime = ContentPolicyRuntime(admission=self.admission, profiles=self.profiles,
+            routes=self.routes, transports=tuple((p.destination.transport_ref, p) for p in self.ports.values()),
+            clock=lambda: self.now, policy_revision=9)
+        records = []
+        for path in PATHS:
+            source = runtime.admit(self.compression_request, b"Invented independent compression qualification")
+            result = runtime.dispatch(self.compression_request, source, path=path, route_ref=f"compression_{path}")
+            records.append((path, source, result, self.compression_ports[path].sent[0]))
+            self.compression_ports[path].sent = []
+        self.compression_qualifications = tuple(records)
+
+
+@pytest.fixture
+def compression_excluded(excluded, monkeypatch):
+    from agent import context_compressor as compression, auxiliary_client as auxiliary
+    import hermes_time
+    for module, names in (
+        (compression, ("get_model_context_length", "resolve_model_threshold", "_pinned_summary_call_kwargs", "aux_interrupt_protection")),
+        (compression.ContextCompressor, ("_compression_cancelled", "_record_aux_compression_call",
+            "_fallback_to_main_for_compression", "_clear_compression_failure_cooldown",
+            "_build_static_fallback_summary", "_record_compression_failure_cooldown",
+            "_load_fallback_compression_streak", "_load_ineffective_compression_count",
+            "_sync_micro_compact_to_db")),
+        (auxiliary, ("_get_cached_client", "_acquire_sync_aux_semaphore", "_call_llm_impl",
+            "_resolve_task_provider_model", "_relay_auxiliary_metadata")),
+        (hermes_time, ("now", "get_timezone")),
+    ):
+        for name in names:
+            monkeypatch.setattr(module, name, excluded)
+    monkeypatch.setattr(compression, "time", SimpleNamespace(monotonic=excluded))
+    return excluded
+
+
+def compression_world():
+    world = construct(CompressionWorld().bind())
+    world.ports["main"].output = reply("The blue folder stays.")
+    return world
+
+
+def bind_compression(world, **changes):
+    options = dict(request_handle=world.compression_request, selection=world.compression_selection_port,
+                   producer_ref="compression_producer", route_ref="compression_compression",
+                   context_length=65536, summary_date="2026-11-23")
+    options.update(changes)
+    world.adapter.bind_compression(world.agent, **options)
+
+
+def construct_compressor(world, **changes):
+    from agent.context_compressor import ContextCompressor
+    options = dict(model=world.agent.model, provider="synthetic_native", api_mode="chat_completions",
+        summary_model_override=world.compression_selection.destination.model_ref, config_context_length=65536,
+        quiet_mode=True, tail_mode="lean", native_main_adapter=world.adapter)
+    options.update(changes)
+    return ContextCompressor(**options)
+
+
+def compression_refuses(world, callback, sends=1):
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            callback()
+    assert world.context._denied and world.adapter._aux_pending is None
+    assert world.adapter.send_count == sends
+    assert world.adapter.auxiliary_send_count == len(world.compression_ports["compression"].sent)
+    assert not world.sdk_calls
+
+
+def summarize(world, compressor, result):
+    token = world.adapter.compression_input(world.agent, source=result)
+    return compressor._generate_summary(result["messages"], controlled_aux=token)
+
+
+def test_compression_complete_retained_first_summary(compression_excluded, caller_boundary, monkeypatch):
+    from agent import context_compressor as compression
+    derived = []
+    derive = ContentPolicyRuntime.derive_for_selection
+    def observed(runtime, handle, parents, payload, *, path, parent_requests):
+        result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+        derived.append((handle, parents, payload, path, parent_requests, result))
+        return result
+    monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+    world = compression_world()
+    first = turn(world, "Keep the blue folder.")
+    prefix = world.agent._cached_system_prompt
+    original = canonical(first)
+    main_record, = world.adapter.invocations
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        state = dict(vars(compressor))
+        summary = summarize(world, compressor, first)
+    record, = world.adapter.auxiliary_invocations
+    frame = world.adapter._aux_frames[0][0]
+    assert type(frame) is native_main_payload._CompressionFrame
+    assert type(compressor) is compression.ContextCompressor
+    assert record.source_completion.result is first and frame.messages is first["messages"]
+    assert record.source_frame is world.adapter._turn_frames[0]
+    assert record.source_invocation is main_record and record.source_handle is world.request
+    assert record.request_handle is world.compression_request
+    assert record.path == record.task == "compression"
+    assert record.source_bytes == canonical(first["messages"])
+    assert len(record.input_stages) == 7 and len(record.output_stages) == 4
+    facts = [json.loads(stage) for stage in record.input_stages]
+    assert facts[0]["constructor"] == world.adapter._compression_options
+    assert facts[0]["previous_summary"] is facts[0]["focus_topic"] is None
+    assert facts[0]["source_field"] == "messages" and facts[0]["memory_context"] == ""
+    assert facts[1] == dict(content_tokens=compression.estimate_messages_tokens_rough(first["messages"]),
+        ratio=0.2, context_length=65536, maximum=3276, summary_budget=2000)
+    assert facts[2] == dict(serialized=compressor._serialize_for_summary(first["messages"]), pruned_skill_names=[])
+    assert facts[3] == dict(sampled=facts[2]["serialized"], lean=True, sampling=False,
+        original_length=len(facts[2]["serialized"]), slice_count=8, aggregate_cap=160000)
+    assert facts[4] == dict(sanitized_memory="", serialized_memory='""', memory_section="",
+                           has_user_turn=True, summary_date="2026-11-23")
+    assert "current date is 2026-11-23" in facts[5]["prompt"]
+    assert "Keep the blue folder." in facts[5]["prompt"]
+    assert compression._LEAN_SESSION_LOG_HEADING in facts[5]["prompt"]
+    wire = dict(model="invented_compression_model", messages=[dict(role="user", content=facts[5]["prompt"])], stream=False)
+    request = json.loads(record.request_bytes)
+    assert request["request"] == facts[6]["request"] == wire
+    assert facts[6]["arguments"] == frame.preparation.value["arguments"]
+    assert frame.request is frame.preparation.value["request"]
+    assert frame.request["messages"] is frame.preparation.value["arguments"]["messages"]
+    assert frame.request["messages"][0]["content"] == facts[5]["prompt"]
+    assert frame.preparation.value["arguments"]["temperature"] is frame.preparation.value["arguments"]["max_tokens"] is None
+    assert "temperature" not in wire and "max_tokens" not in wire
+    assert record.response_bytes is world.compression_ports["compression"].output
+    assert record.envelope is world.compression_ports["compression"].sent[0]
+    assert record.result_content is not None and record.native_response is frame.record.native_response
+    output = [json.loads(stage) for stage in record.output_stages]
+    assert output[0] == dict(content="<think>scratch</think>## Goal\nKeep the blue folder.",
+                            finish_reason="stop", nonempty=True, length_stop=False)
+    assert output[1] == dict(stripped="## Goal\nKeep the blue folder.",
+                            chosen="## Goal\nKeep the blue folder.", redacted="## Goal\nKeep the blue folder.")
+    assert output[2]["restored"] == output[1]["redacted"]
+    assert "User asked (deterministic" in output[2]["grounded"]
+    assert compression._LEAN_USER_MESSAGES_HEADING in output[2]["augmented"]
+    assert output[2]["augmented"] == compressor._augment_summary_lean(output[2]["grounded"], first["messages"])
+    assert compression._build_recovery_footer("", len(first["messages"])) == ""
+    assert output[3] == dict(prefixed=summary, output={"summary": summary})
+    assert record.output["summary"] is summary and record.output_bytes == canonical(record.output)
+    assert "scratch" not in summary and summary.startswith(compression.SUMMARY_PREFIX)
+    bridge = next(row for row in derived if row[-1] is frame.source_content)
+    assert bridge[0] is world.compression_request and bridge[1] is frame.parents
+    assert all(a is b for a, b in zip(bridge[4], frame.parent_requests))
+    assert all(handle is world.request for handle in frame.parent_requests)
+    assert world.adapter.send_count == 1 and world.adapter.auxiliary_send_count == 1
+    assert world.adapter.invocations == (main_record,) and world.adapter.auxiliary_local_results == ()
+    assert first["total_tokens"] == 5 and canonical(first) == original
+    assert vars(compressor) == state and compressor._previous_summary is None and compressor.compression_count == 0
+    assert world.agent._cached_system_prompt is prefix and len(world.compression_qualifications) == 8
+
+
+def test_compression_ordered_interleaving_and_return_to_main_title(compression_excluded, caller_boundary, monkeypatch):
+    from agent.title_generator import generate_title
+    derived = []
+    derive = ContentPolicyRuntime.derive_for_selection
+    def observed(runtime, handle, parents, payload, *, path, parent_requests):
+        result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+        derived.append((handle, parents, payload, path, parent_requests, result))
+        return result
+    monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+    world = compression_world()
+    world.ports["main"].output = reply("")
+    first = turn(world, "Keep the blue folder.")
+    first_bytes = canonical(first)
+    prefix = world.agent._cached_system_prompt
+    with content_policy_scope(world.context):
+        bind_title(world)
+        title_binding = world.adapter._aux_binding
+        title_anchor = world.adapter._aux_binding_anchor
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        state = dict(vars(compressor))
+        local_token = world.adapter.auxiliary_input(world.agent, source=first, field="final_response")
+        assert generate_title(first["final_response"], controlled_aux=local_token) is None
+        local, = world.adapter.auxiliary_local_results
+        first_summary = summarize(world, compressor, first)
+    compressed_a, = world.adapter.auxiliary_invocations
+    world.binding = replace(world.binding, profiles=())
+    world.title_binding = replace(world.title_binding, profiles=())
+    world.compression_binding = replace(world.compression_binding, profiles=())
+    world.ports["main"].output = reply("The blue folder stays.")
+    second = turn(world, "Keep it blue.", first["messages"])
+    with content_policy_scope(world.context):
+        title = title_from(world, second)
+        summary = summarize(world, compressor, second)
+    compressed_a_again, sent_title, compressed_b = world.adapter.auxiliary_invocations
+    assert compressed_a_again is compressed_a
+    assert compressed_a.output["summary"] is first_summary and compressed_b.output["summary"] is summary
+    assert sent_title.output["title"] is title
+    outputs = (local, compressed_a, sent_title, compressed_b)
+    completed = tuple(world.adapter._completed_auxiliary_outputs())
+    assert len(completed) == 4
+    for (content, capability), record in zip(completed, outputs):
+        assert content is record.output_content and capability is record.request_handle
+    assert [frame.__class__ for frame, _ in world.adapter._aux_frames] == [
+        native_main_payload._AuxiliaryFrame, native_main_payload._CompressionFrame,
+        native_main_payload._AuxiliaryFrame, native_main_payload._CompressionFrame]
+    for index, (frame, _) in enumerate(world.adapter._aux_frames):
+        previous = outputs[:index]
+        if previous:
+            assert all(a is b.output_content for a, b in zip(frame.parents[-len(previous):], previous))
+            assert all(a is b.request_handle for a, b in zip(frame.parent_requests[-len(previous):], previous))
+    second_proofs = [row for row in derived if row[0] is world.request and row[3] == "main"]
+    assert second_proofs
+    for row in second_proofs:
+        assert row[1][-2] is local.output_content and row[1][-1] is compressed_a.output_content
+        assert row[4][-2] is world.title_request and row[4][-1] is world.compression_request
+    title_source = world.adapter._aux_frames[2][0].source_content
+    title_proof = next(row for row in derived if row[-1] is title_source)
+    assert title_proof[4][-2] is world.title_request and title_proof[4][-1] is world.compression_request
+    assert world.adapter._aux_binding is title_binding and world.adapter._aux_binding_anchor is title_anchor
+    assert world.adapter.invocations[0] is local.source_invocation
+    assert world.adapter.invocations[1] is compressed_b.source_invocation
+    assert canonical(first) == first_bytes and world.agent._cached_system_prompt is prefix
+    assert first["total_tokens"] == 5 and second["total_tokens"] == 10
+    assert world.adapter.send_count == 2 and world.adapter.auxiliary_send_count == 3
+    assert vars(compressor) == state and compressor.compression_count == 0
+    assert all(envelope.profiles == ("restricted_documents",) for envelope in (
+        *world.ports["main"].sent, *world.title_ports["title"].sent,
+        *world.compression_ports["compression"].sent))
+    retained = world.adapter.auxiliary_invocations
+    world.agent.close()
+    world.agent.close()
+    assert world.adapter.auxiliary_invocations is retained
+
+
+def test_compression_interleave_without_title_binding(compression_excluded, caller_boundary):
+    world = compression_world()
+    first = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        summarize(world, compressor, first)
+    old = world.adapter.auxiliary_invocations[0]
+    second = turn(world, "Keep the folder.", first["messages"])
+    with content_policy_scope(world.context):
+        summarize(world, compressor, second)
+    frame = world.adapter._aux_frames[1][0]
+    assert frame.parents[-1] is old.output_content and frame.parent_requests[-1] is world.compression_request
+    assert world.adapter._aux_binding is None and world.adapter.send_count == 2
+    assert world.adapter.auxiliary_send_count == 2 and second["total_tokens"] == 10
+
+
+@pytest.mark.parametrize("change", [
+    {"context_length": True}, {"context_length": 0}, {"context_length": Hostile()},
+    {"summary_date": "2026-02-30"}, {"summary_date": "20261123"}, {"summary_date": Hostile()},
+    {"producer_ref": "title_producer"}, {"route_ref": "title_compression"},
+])
+def test_compression_binding_exact_facts_refuse(compression_excluded, caller_boundary, change):
+    world = compression_world()
+    with content_policy_scope(world.context):
+        bind_title(world)
+    compression_refuses(world, lambda: bind_compression(world, **change), 0)
+    assert world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("change", [
+    {"provider": Hostile()}, {"model": Hostile()}, {"api_mode": Hostile()},
+    {"config_context_length": True}, {"config_context_length": 4096},
+    {"quiet_mode": 1}, {"quiet_mode": False}, {"tail_mode": "legacy"},
+    {"threshold_percent": 1}, {"summary_target_ratio": 0.3}, {"model_thresholds": {}},
+    {"base_url": "invented"}, {"api_key": "invented"}, {"max_tokens": 100},
+])
+def test_compression_constructor_exact_options_refuse(compression_excluded, caller_boundary, change):
+    world = compression_world()
+    with content_policy_scope(world.context):
+        bind_compression(world)
+    compression_refuses(world, lambda: construct_compressor(world, **change), 0)
+    assert world.adapter._compression_owner is None and world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("change", ["copy_completion", "copy_messages", "equal_row", "foreign", "digest", "wrong_type"])
+def test_compression_source_requires_original_completion(compression_excluded, caller_boundary, monkeypatch, change):
+    from agent.context_compressor import ContextCompressor
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    monkeypatch.setattr(ContextCompressor, "_serialize_for_summary", compression_excluded)
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+    if change == "copy_completion":
+        result = dict(result)
+    elif change == "copy_messages":
+        result["messages"] = list(result["messages"])
+    elif change == "equal_row":
+        result["messages"][0] = dict(result["messages"][0])
+    elif change == "foreign":
+        foreign = compression_world()
+        result = turn(foreign, "Keep the blue folder.")
+    elif change == "digest":
+        result = {"digest": canonical(result).hex()}
+    else:
+        result = Hostile()
+    compression_refuses(world, lambda: world.adapter.compression_input(world.agent, source=result), 1)
+    assert world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("change", ["main_epoch", "compression_version", "producer_revision", "resolver", "expiry", "remove_binding"])
+def test_compression_current_independent_facts_refuse(compression_excluded, caller_boundary, change):
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+    if change == "main_epoch":
+        world.binding = replace(world.binding, auth_epoch=8)
+    elif change == "compression_version":
+        world.compression_selection = replace(world.compression_selection, selection_version=7)
+    elif change == "producer_revision":
+        world.compression_policy = replace(world.compression_policy, revision=4)
+    elif change == "resolver":
+        world.compression_ports["memory"].destination = replace(world.compression_ports["memory"].destination, revision=2)
+    elif change == "expiry":
+        world.now = 100
+    else:
+        world.adapter._compression_binding = None
+    compression_refuses(world, lambda: summarize(world, compressor, result), 1)
+    assert world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("kind", ["missing", "copied", "title", "wrong_turns", "focus", "memory", "owner_mutated", "owner_copied", "callback_added", "rebound"])
+def test_compression_owned_tokens_and_constructor_refuse(compression_excluded, caller_boundary, kind):
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        if kind == "title":
+            bind_title(world)
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        if kind == "title":
+            token = world.adapter.auxiliary_input(world.agent, source=result, field="user_message")
+        else:
+            token = world.adapter.compression_input(world.agent, source=result)
+    if kind == "rebound":
+        compression_refuses(world, lambda: construct_compressor(world), 1)
+        return
+    if kind == "copied":
+        token = object.__new__(native_main_payload.NativeAuxiliaryInput)
+    elif kind == "missing":
+        token = None
+    elif kind == "owner_mutated":
+        compressor._previous_summary = "Invented stale summary"
+    elif kind == "owner_copied":
+        compressor = copy.copy(compressor)
+    elif kind == "callback_added":
+        compressor._compression_cancelled_check = compression_excluded
+    turns = list(result["messages"]) if kind == "wrong_turns" else result["messages"]
+    options = {"focus_topic": "blue"} if kind == "focus" else {"memory_context": "invented"} if kind == "memory" else {}
+    compression_refuses(world, lambda: compressor._generate_summary(turns, controlled_aux=token, **options), 1)
+    assert world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("when", ["before_source", "after_preparation", "during_send", "after_raw", "before_publication", "post_publication", "invalid_boolean"])
+def test_compression_cancellation_retains_honest_proof(compression_excluded, caller_boundary, monkeypatch, when):
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    published = []
+    if when == "during_send":
+        world.compression_ports["compression"].hook = lambda envelope: world.agent.interrupt()
+    def cancel():
+        frame = world.adapter._aux_pending
+        if type(frame) is not native_main_payload._CompressionFrame:
+            return
+        ready = ((frame.preparation is not None) if when in ("after_preparation", "invalid_boolean") else
+                 (frame.record is not None and frame.record.native_response is not None) if when == "after_raw" else
+                 (frame.record is not None and frame.record.output is not None) if when == "post_publication" else False)
+        if ready:
+            if when == "post_publication":
+                published.append(frame.record)
+            world.agent._interrupt_requested = 1 if when == "invalid_boolean" else True
+    world.admission_hook = cancel
+    if when == "before_publication":
+        original = ContentPolicyRuntime.derive
+        def cancel_final(runtime, handle, parents, payload, *, path):
+            content = original(runtime, handle, parents, payload, path=path)
+            if path == "compression" and set(json.loads(payload)) == {"summary"}:
+                world.agent._interrupt_requested = True
+            return content
+        monkeypatch.setattr(ContentPolicyRuntime, "derive", cancel_final)
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        state = dict(vars(compressor))
+        token = None if when == "before_source" else world.adapter.compression_input(world.agent, source=result)
+    error = NativeContentPolicyDenied if when == "invalid_boolean" else InterruptedError
+    with pytest.raises(error) as caught:
+        with content_policy_scope(world.context):
+            if when == "before_source":
+                world.agent._interrupt_requested = True
+                world.adapter.compression_input(world.agent, source=result)
+            else:
+                compressor._generate_summary(result["messages"], controlled_aux=token)
+    if error is InterruptedError:
+        assert type(caught.value) is InterruptedError and str(caught.value) == "Agent interrupted during API call"
+    count = int(when in ("during_send", "after_raw", "before_publication", "post_publication"))
+    assert world.adapter.auxiliary_send_count == count
+    assert len(world.compression_ports["compression"].sent) == count
+    assert len(world.adapter.auxiliary_invocations) == count
+    assert world.adapter.send_count == 1 and world.context._denied and world.adapter._aux_pending is None
+    assert vars(compressor) == state
+    if count:
+        record, = world.adapter.auxiliary_invocations
+        assert record.envelope is world.compression_ports["compression"].sent[0]
+        assert record.response_bytes is world.compression_ports["compression"].output
+        assert (record.output is not None) is (when == "post_publication")
+        if when == "post_publication":
+            assert published and record is published[0] and record.output_content is not None
+        world.agent.close()
+        world.agent.close()
+        assert world.adapter.auxiliary_invocations[0] is record
+
+
+@pytest.mark.parametrize("kind", ["reentry", "wrong_thread", "close", "pending", "replay"])
+def test_compression_lifecycle_refuses(compression_excluded, caller_boundary, kind):
+    import contextvars
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        token = world.adapter.compression_input(world.agent, source=result)
+    if kind == "pending":
+        compression_refuses(world, lambda: turn(world, "Invented overlap", result["messages"]), 1)
+    elif kind == "close":
+        def closed():
+            world.agent.close()
+            world.agent.close()
+            compressor._generate_summary(result["messages"], controlled_aux=token)
+        compression_refuses(world, closed)
+    elif kind == "wrong_thread":
+        errors = []
+        with pytest.raises(NativeContentPolicyDenied):
+            with content_policy_scope(world.context):
+                context = contextvars.copy_context()
+                def wrong_thread():
+                    try:
+                        compressor._generate_summary(result["messages"], controlled_aux=token)
+                    except BaseException as error:
+                        errors.append(error)
+                thread = threading.Thread(target=lambda: context.run(wrong_thread))
+                thread.start()
+                thread.join(timeout=5)
+                assert not thread.is_alive() and len(errors) == 1
+                assert type(errors[0]) is NativeContentPolicyDenied
+    elif kind == "reentry":
+        def reenter(envelope):
+            with pytest.raises(NativeContentPolicyDenied):
+                compressor._generate_summary(result["messages"], controlled_aux=token)
+        world.compression_ports["compression"].hook = reenter
+        compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token))
+    else:
+        with content_policy_scope(world.context):
+            summary = compressor._generate_summary(result["messages"], controlled_aux=token)
+        record, = world.adapter.auxiliary_invocations
+        assert record.output["summary"] is summary
+        compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token))
+        assert world.adapter.auxiliary_invocations[0] is record
+    expected = int(kind in ("reentry", "replay"))
+    assert world.adapter.auxiliary_send_count == expected and world.adapter.send_count == 1
+    assert world.context._denied and world.adapter._aux_pending is None
+
+
+@pytest.mark.parametrize("kind", ["process", "explicit_cancel", "system_exit"])
+def test_compression_base_exception_identity_propagates(compression_excluded, caller_boundary, kind):
+    from agent.auxiliary_client import AuxiliaryExplicitCancellation
+    failure = (KeyboardInterrupt() if kind == "process" else SystemExit(3) if kind == "system_exit"
+               else AuxiliaryExplicitCancellation())
+    assert issubclass(AuxiliaryExplicitCancellation, BaseException)
+    assert not issubclass(AuxiliaryExplicitCancellation, Exception)
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        token = world.adapter.compression_input(world.agent, source=result)
+    def stop():
+        raise failure
+    with pytest.raises(type(failure)) as caught:
+        with content_policy_scope(world.context):
+            world.admission_hook = stop
+            compressor._generate_summary(result["messages"], controlled_aux=token)
+    assert caught.value is failure and world.context._denied
+    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 1
+
+
+@pytest.mark.parametrize("kind", ["empty", "truncated", "raw_bound"])
+def test_compression_invalid_output_denies_without_fallback(compression_excluded, caller_boundary, kind):
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    value = json.loads(world.compression_ports["compression"].output)
+    value["choices"][0]["message"]["content"] = " " if kind == "empty" else "A" * 65536 if kind == "raw_bound" else "Partial summary"
+    if kind == "truncated":
+        value["choices"][0]["finish_reason"] = "length"
+    world.compression_ports["compression"].output = canonical(value)
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        state = dict(vars(compressor))
+    compression_refuses(world, lambda: summarize(world, compressor, result))
+    record, = world.adapter.auxiliary_invocations
+    assert record.output is record.output_content is None
+    assert world.adapter.auxiliary_send_count == 1 and world.adapter.send_count == 1
+    if kind == "raw_bound":
+        assert record.response_bytes is None
+    else:
+        assert record.response_bytes is world.compression_ports["compression"].output
+        assert record.native_response is not None and record.result_content is not None
+    assert vars(compressor) == state
+
+
+@pytest.mark.parametrize("kind", ["request", "stage", "helper", "output", "response"])
+def test_compression_mutated_proof_refuses(compression_excluded, caller_boundary, monkeypatch, kind):
+    from agent import context_compressor as compression, auxiliary_client
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        token = world.adapter.compression_input(world.agent, source=result)
+        if kind != "helper":
+            proof = world.adapter._prepare_compression(token)
+            if kind != "stage":
+                sealed = world.adapter.seal_auxiliary(world.agent, token, stages=proof.stages, request=proof.value["request"])
+                if kind in ("response", "output"):
+                    response = auxiliary_client.call_llm(**proof.value["arguments"], controlled_aux=sealed)
+                    stages, output = world.adapter._compression_output_stages(sealed, response)
+    with pytest.raises(NativeContentPolicyDenied):
+        with content_policy_scope(world.context):
+            if kind == "helper":
+                monkeypatch.setattr(compression.ContextCompressor, "_summary_prompt", compression_excluded)
+                compressor._generate_summary(result["messages"], controlled_aux=token)
+            elif kind == "stage":
+                object.__setattr__(proof, "stages", tuple(bytes(bytearray(stage)) for stage in proof.stages))
+                world.adapter.seal_auxiliary(world.agent, token, stages=proof.stages, request=proof.value["request"])
+            elif kind == "request":
+                proof.value["request"]["messages"][0] = dict(proof.value["request"]["messages"][0])
+                auxiliary_client.call_llm(**proof.value["arguments"], controlled_aux=sealed)
+            else:
+                if kind == "response":
+                    response = replace(response, choices=tuple(response.choices))
+                else:
+                    output["summary"] = output["summary"].encode().decode()
+                world.adapter.complete_auxiliary(sealed, response=response, stages=stages, output=output)
+    assert world.adapter.auxiliary_send_count == int(kind in ("output", "response"))
+    assert world.adapter.send_count == 1 and world.context._denied
+
+
+def test_compression_shared_mixed_capacity_and_prompt_bounds(compression_excluded, caller_boundary):
+    from agent.title_generator import generate_title
+    world = compression_world()
+    world.ports["main"].output = reply("")
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_title(world)
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        summarize(world, compressor, result)
+        for _ in range(7):
+            token = world.adapter.auxiliary_input(world.agent, source=result, field="final_response")
+            assert generate_title(result["final_response"], controlled_aux=token) is None
+        assert len(world.adapter._aux_frames) == 8 and len(world.adapter.auxiliary_local_results) == 7
+        retained = len(world.adapter._runtime._contents)
+    compression_refuses(world, lambda: world.adapter.compression_input(world.agent, source=result))
+    assert len(world.adapter._runtime._contents) == retained
+    assert world.adapter.auxiliary_send_count == 1 and world.adapter.send_count == 1
+
+
+def test_compression_complete_source_cannot_bypass_request_text_bound(compression_excluded, caller_boundary):
+    world = compression_world()
+    world.ports["main"].output = reply("B" * 16000)
+    result = turn(world, "B" * 16000)
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        token = world.adapter.compression_input(world.agent, source=result)
+        frame = world.adapter._aux_pending
+        assert frame.source_bytes == canonical(result["messages"])
+        assert len(frame.source_bytes) > 16384
+    compression_refuses(world, lambda: compressor._generate_summary(result["messages"], controlled_aux=token))
+    assert world.adapter.auxiliary_send_count == 0 and world.adapter.send_count == 1
+
+
+@pytest.mark.parametrize("operation", ["compress", "micro", "defrag", "prune", "session", "micro_summary", "unowned_summary"])
+def test_compression_proposal_siblings_refuse_after_profile_removal(compression_excluded, caller_boundary, operation):
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+    world.binding = replace(world.binding, profiles=())
+    world.compression_binding = replace(world.compression_binding, profiles=())
+    state = dict(vars(compressor))
+    storage = SimpleNamespace(get_session=compression_excluded, execute=compression_excluded)
+    callbacks = {
+        "compress": lambda: compressor.compress(result["messages"]),
+        "micro": lambda: compressor._micro_compact(result["messages"]),
+        "defrag": lambda: compressor._defrag_rolling_summary(result["messages"]),
+        "prune": lambda: compressor.prune_tool_results_only(result["messages"]),
+        "session": lambda: compressor.bind_session_state(storage, "invented_session"),
+        "micro_summary": lambda: compressor._micro_summarize_one("Invented exchange"),
+        "unowned_summary": lambda: compressor._generate_summary(result["messages"]),
+    }
+    compression_refuses(world, callbacks[operation])
+    assert vars(compressor) == state and world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("consumer", ["main", "title"])
+def test_compression_binding_is_checked_during_another_consumer(compression_excluded, caller_boundary, consumer):
+    world = compression_world()
+    result = turn(world, "Keep the blue folder.")
+    with content_policy_scope(world.context):
+        bind_title(world)
+        bind_compression(world)
+        construct_compressor(world)
+    world.compression_policy = replace(world.compression_policy, revision=4)
+    callback = (lambda: turn(world, "Invented later turn", result["messages"])) if consumer == "main" else (
+        lambda: title_from(world, result))
+    compression_refuses(world, callback)
+    assert world.adapter.auxiliary_send_count == 0
+
+
+@pytest.mark.parametrize("consumer", ["title", "local"])
+def test_compression_frame_stays_independent_with_equal_main_model(compression_excluded, caller_boundary, consumer):
+    from agent.title_generator import generate_title
+    world = construct(CompressionWorld(same_model=True).bind())
+    result = turn(world, "Keep the blue folder.")
+    assert world.selection.destination.model_ref == world.compression_selection.destination.model_ref
+    with content_policy_scope(world.context):
+        bind_title(world)
+        bind_compression(world)
+        construct_compressor(world)
+        token = world.adapter.compression_input(world.agent, source=result)
+    world.binding = replace(world.binding, profiles=())
+    world.title_binding = replace(world.title_binding, profiles=())
+    world.compression_binding = replace(world.compression_binding, profiles=())
+    callback = (lambda: generate_title(result["final_response"], controlled_aux=token)) if consumer == "title" else (
+        lambda: world.adapter.complete_auxiliary_local(world.agent, token, stages=(b"{}",), output={"title": None}))
+    compression_refuses(world, callback)
+    assert world.adapter.auxiliary_send_count == 0
+
+
+def test_compression_original_catalog_entry_is_required(compression_excluded, caller_boundary):
+    from hermes_content_policy import PATHS, ProfilePolicy
+    world = CompressionWorld()
+    world.routes = tuple(row for row in world.routes if row.route_ref != "compression_compression")
+    world.profiles = (ProfilePolicy("restricted_documents", tuple(row.route_ref for row in world.routes), PATHS),)
+    construct(world.bind(qualify=False))
+    compression_refuses(world, lambda: bind_compression(world), 0)
+    assert world.adapter._compression_owner is None and world.adapter.auxiliary_send_count == 0
+
+
+def test_compression_reductions_keep_original_source_and_skill_markers(compression_excluded, caller_boundary):
+    from agent import context_compressor as compression
+    marker = compression._skill_pruned_marker("invented_skill")
+    user = "Keep the blue folder.\n" + "A" * 7000 + marker + "Z" * 3000
+    world = compression_world()
+    result = turn(world, user)
+    with content_policy_scope(world.context):
+        bind_compression(world)
+        compressor = construct_compressor(world)
+        summary = summarize(world, compressor, result)
+    record, = world.adapter.auxiliary_invocations
+    serialized = json.loads(record.input_stages[2])
+    assert serialized["pruned_skill_names"] == ["invented_skill"]
+    assert marker not in serialized["serialized"] and "truncated" in serialized["serialized"]
+    assert canonical(user) in record.source_bytes
+    assert marker in summary and record.envelope.profiles == ("restricted_documents",)
+    assert record.output["summary"] is summary and world.adapter.auxiliary_send_count == 1

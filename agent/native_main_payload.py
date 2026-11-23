@@ -375,6 +375,41 @@ class _AuxiliaryFrame:
 
 
 @dataclass(frozen=True, slots=True)
+class _CompressionBinding:
+    auxiliary: _AuxiliaryBinding
+    context_length: int
+    summary_date: str
+
+
+@dataclass(frozen=True, slots=True)
+class _CompressionPreparation:
+    stages: tuple[bytes, ...]
+    value: dict
+    has_user_turn: bool
+    pruned_skill_names: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class _CompressionFrame:
+    token: NativeAuxiliaryInput
+    completion: object
+    messages: list
+    source_bytes: bytes
+    parents: tuple
+    parent_requests: tuple
+    source_content: ContentHandle
+    stages: tuple = ()
+    stage_contents: tuple = ()
+    request: dict | None = None
+    request_bytes: bytes | None = None
+    request_anchors: tuple = ()
+    sealed: NativeAuxiliaryRequest | None = None
+    record: NativeAuxiliaryInvocation | None = None
+    preparation: _CompressionPreparation | None = None
+    preparation_anchors: tuple = ()
+
+
+@dataclass(frozen=True, slots=True)
 class _PendingOperation:
     handle: object
     source: object
@@ -494,6 +529,16 @@ def _json(value):
 
 
 def _response_shape(value, model):
+    _response_shape_base(value, model)
+    _require(value["choices"][0]["finish_reason"] == "stop")
+
+
+def _compression_response_shape(value, model):
+    _response_shape_base(value, model)
+    _require(value["choices"][0]["finish_reason"] in ("stop", "length"))
+
+
+def _response_shape_base(value, model):
     _keys(value, ("id", "object", "created", "model", "choices", "usage"))
     _identifier(value["id"])
     _identifier(value["model"])
@@ -504,7 +549,7 @@ def _response_shape(value, model):
     choice = choices[0]
     _keys(choice, ("index", "message", "finish_reason"))
     _integer(choice["index"], 0, 0)
-    _require(type(choice["finish_reason"]) is str and choice["finish_reason"] == "stop")
+    _require(type(choice["finish_reason"]) is str)
     message = choice["message"]
     _keys(message, ("role", "content"))
     _require(type(message["role"]) is str and message["role"] == "assistant")
@@ -526,6 +571,18 @@ def _pairs(pairs):
 
 
 def _decode_response(payload, model):
+    value = _decode_response_payload(payload)
+    _response_shape(value, model)
+    return value
+
+
+def _decode_compression_response(payload, model):
+    value = _decode_response_payload(payload)
+    _compression_response_shape(value, model)
+    return value
+
+
+def _decode_response_payload(payload):
     _require(type(payload) is bytes and len(payload) <= 65_536)
     text = payload.decode("utf-8", errors="strict")
     quoted = escaped = False
@@ -560,7 +617,6 @@ def _decode_response(payload, model):
             nodes += len(node)
         elif type(node) is list:
             pending.extend(node)
-    _response_shape(value, model)
     _require(_json(value) == payload)
     return value
 
@@ -569,12 +625,24 @@ def _response(value):
     choice = value["choices"][0]
     return NativeMainResponse(
         value["id"], value["object"], value["created"], value["model"],
-        (NativeMainChoice(0, NativeMainMessage(**choice["message"]), "stop"),),
+        (NativeMainChoice(0, NativeMainMessage(**choice["message"]), choice["finish_reason"]),),
         NativeMainUsage(**value["usage"]),
     )
 
 
 def _response_bytes(response, model):
+    value = _response_value(response)
+    _response_shape(value, model)
+    return _json(value)
+
+
+def _compression_response_bytes(response, model):
+    value = _response_value(response)
+    _compression_response_shape(value, model)
+    return _json(value)
+
+
+def _response_value(response):
     values = _row(response, NativeMainResponse)
     _require(type(values[4]) is tuple and len(values[4]) == 1)
     choice = _row(values[4][0], NativeMainChoice)
@@ -585,8 +653,7 @@ def _response_bytes(response, model):
     value["choices"] = [{"index": choice[0], "finish_reason": choice[2],
                          "message": {"role": message[0], "content": message[1]}}]
     value["usage"] = dict(zip(("prompt_tokens", "completion_tokens", "total_tokens"), usage))
-    _response_shape(value, model)
-    return _json(value)
+    return value
 
 
 def _method(callback):
@@ -607,7 +674,8 @@ class _Admission:
     def current(self, handle):
         adapter = self.adapter
         _require(handle is adapter._handle or (adapter._aux_binding is not None
-                 and handle is adapter._aux_binding.handle))
+                 and handle is adapter._aux_binding.handle) or (adapter._compression_binding is not None
+                 and handle is adapter._compression_binding.auxiliary.handle))
         return adapter._around(lambda: adapter._admission.current(handle))
 
 
@@ -678,6 +746,8 @@ class NativeMainPayloadAdapter:
         self._thread = threading.get_ident()
         self._busy = self._invalid = False
         self._aux_binding = None
+        self._compression_binding = None
+        self._compression_owner = None
         self._aux_pending = None
         self._aux_frames = ()
         self._aux_records = ()
@@ -779,7 +849,7 @@ class NativeMainPayloadAdapter:
     def _invalidate(self):
         self._invalid = True
         frame = self._aux_pending
-        if type(frame) is _AuxiliaryFrame and type(frame.record) is NativeAuxiliaryInvocation:
+        if type(frame) in (_AuxiliaryFrame, _CompressionFrame) and type(frame.record) is NativeAuxiliaryInvocation:
             self._accept_aux_record(frame.record)
         self._turn_pending = self._aux_pending = None
         self._operation = self._checked_operation = None
@@ -787,6 +857,12 @@ class NativeMainPayloadAdapter:
             self._bound_context._denied = True
 
     def _identity(self):
+        _require(threading.get_ident() == self._thread)
+        if self._compression_binding is not None and self._turn_agent is not None:
+            interrupted = _namespace(self._turn_agent).get("_interrupt_requested", False)
+            _require(type(interrupted) is bool)
+            if interrupted is True:
+                raise InterruptedError("Agent interrupted during API call")
         if self._constructed is not None:
             _verify_constructed(self._constructed)
         context = self._context
@@ -805,11 +881,29 @@ class NativeMainPayloadAdapter:
                 _require(self._operator_transports.get(name) is port)
                 _require(self._transport_wrappers.get(wrapped_name) is wrapper)
                 _require(wrapper.adapter is self and wrapper.port is port)
-        if self._aux_binding is not None:
+        if self._aux_binding is not None or hasattr(self, "_bound_aux_binding"):
+            _require(hasattr(self, "_bound_aux_binding"))
             _require(self._aux_binding is self._bound_aux_binding)
             values, anchors = self._aux_binding_anchor
             _require(all(a is b for a, b in zip(_row(self._aux_binding, _AuxiliaryBinding), values)))
             _require(_same_anchors(_nested_anchors(values)[1:], anchors))
+        if self._compression_binding is not None or hasattr(self, "_bound_compression_binding"):
+            _require(hasattr(self, "_bound_compression_binding"))
+            _require(type(self._compression_binding) is _CompressionBinding)
+            _require(self._compression_binding is self._bound_compression_binding)
+            _require(_same_anchors(_nested_anchors(self._compression_binding), self._compression_binding_anchor))
+            _require(_same_anchors(_compression_constants(), self._compression_constants))
+        if self._compression_owner is not None or hasattr(self, "_compression_owner_anchor"):
+            _require(hasattr(self, "_compression_owner_anchor"))
+            _require(_same_anchors(_nested_anchors(self._compression_options), self._compression_options_anchor))
+            owner, namespace, payload, anchors = self._compression_owner_anchor
+            _require(self._compression_owner is owner and vars(owner) is namespace)
+            _require(namespace.get("_native_main_adapter") is self)
+            _require(all(type(key) is str for key in namespace))
+            state = {key: value for key, value in namespace.items() if key != "_native_main_adapter"}
+            _require(all(type(value) in (str, int, float, bool, type(None)) for value in state.values()))
+            _require(_json(state) == payload)
+            _require(_same_anchors(_nested_anchors(namespace), anchors))
         _require(context._controlled_main_bound is True and context._controlled_main_payload is self)
         _require(threading.get_ident() == self._thread)
         actual = (context.admission, context.request_handle, self._selection_port,
@@ -862,6 +956,8 @@ class NativeMainPayloadAdapter:
         self._source, self._selected, self._producer_policy = source, selected, producer
         if self._aux_binding is not None:
             self._aux_snapshot(source_row)
+        if self._compression_binding is not None:
+            self._compression_snapshot(source_row)
         if self._turn_agent is not None:
             model = self._turn_agent.model
             _require(type(model) is str and model == selected.destination.model_ref)
@@ -975,6 +1071,11 @@ class NativeMainPayloadAdapter:
             self._invalidate()
             raise
         except Exception:
+            if self._compression_binding is not None and self._turn_agent is not None:
+                interrupted = _namespace(self._turn_agent).get("_interrupt_requested", False)
+                self._invalidate()
+                if type(interrupted) is bool and interrupted is True:
+                    raise InterruptedError("Agent interrupted during API call") from None
             self._deny()
         except BaseException:
             self._invalidate()
@@ -1133,7 +1234,8 @@ class NativeMainPayloadAdapter:
 
     def _completed_auxiliary_outputs(self):
         for frame, _ in self._aux_frames:
-            record = frame.local_result if frame.local_result is not None else frame.record
+            record = (frame.local_result if type(frame) is _AuxiliaryFrame
+                      and frame.local_result is not None else frame.record)
             if record is not None and record.output_content is not None:
                 yield record.output_content, record.request_handle
 
@@ -1181,19 +1283,20 @@ class NativeMainPayloadAdapter:
         now = self._clock()
         _integer(now, _MAX_INT, 0)
         self._identity()
-        for route in self._operator_routes:
-            _require(type(route) is shared_policy().RouteBinding)
-            _integer(route.expires_at)
-            _require(now < route.expires_at)
-            port = self._operator_transports[route.destination.transport_ref]
-            method = next(method for original, method in self._operator_resolvers if port is original)
-            self._callback_scope()
-            _require(_same_method(port.resolve, method))
-            actual = port.resolve()
-            self._callback_scope()
-            _require(_same_method(port.resolve, method))
-            _destination(actual)
-            _require(actual == route.destination)
+        if self._compression_binding is None:
+            for route in self._operator_routes:
+                _require(type(route) is shared_policy().RouteBinding)
+                _integer(route.expires_at)
+                _require(now < route.expires_at)
+                port = self._operator_transports[route.destination.transport_ref]
+                method = next(method for original, method in self._operator_resolvers if port is original)
+                self._callback_scope()
+                _require(_same_method(port.resolve, method))
+                actual = port.resolve()
+                self._callback_scope()
+                _require(_same_method(port.resolve, method))
+                _destination(actual)
+                _require(actual == route.destination)
         self._identity()
         self._aux_current = target, selected, producer
 
@@ -1208,8 +1311,10 @@ class NativeMainPayloadAdapter:
             _require(all(a is b for a, b in zip(actual, anchor[1])))
             _require(_same_anchors(_nested_anchors(actual)[1:], anchor[2]))
             if record.native_response is not None:
-                _require(_response_bytes(record.native_response, record.selection.destination.model_ref)
-                         == record.response_bytes)
+                compression = any(type(frame) is _CompressionFrame and frame.record is record
+                                  for frame, _ in self._aux_frames)
+                verify = _compression_response_bytes if compression else _response_bytes
+                _require(verify(record.native_response, record.selection.destination.model_ref) == record.response_bytes)
             if record.output is not None:
                 _require(_json(record.output) == record.output_bytes)
         _require(type(self._aux_local_results) is tuple and len(self._aux_local_results) <= 8)
@@ -1222,29 +1327,40 @@ class NativeMainPayloadAdapter:
             _require(_json(record.output) == record.output_bytes)
         _require(type(self._aux_frames) is tuple and len(self._aux_frames) <= 8)
         for frame, anchor in self._aux_frames:
-            _require(type(frame) is _AuxiliaryFrame)
-            actual = _row(frame, _AuxiliaryFrame)
+            _require(type(frame) in (_AuxiliaryFrame, _CompressionFrame))
+            actual = _row(frame, type(frame))
             _require(all(a is b for a, b in zip(actual, anchor[0])))
             _require(_same_anchors(_nested_anchors(actual)[1:], anchor[1]))
             _require(any(frame.completion is row for row in self._completions))
-            selected = (frame.completion.frame.arguments[0] if frame.field == "user_message"
-                        else frame.completion.result["final_response"])
-            _require(frame.text is selected and _json(selected) == frame.source_bytes)
-            if frame.preparation is not None:
-                preparation = frame.preparation
-                _require(type(preparation) is _AuxiliaryTitlePreparation)
-                _require(preparation.kind in ("dispatch", "local_no_send"))
-                _require(_same_anchors(_nested_anchors(preparation), frame.preparation_anchors))
-                _stage_tuple(preparation.stages)
-            if frame.local_result is not None:
-                _require(frame.record is None and frame.sealed is None and frame.request is None)
-                _require(any(frame.local_result is record for record in self._aux_local_results))
+            if type(frame) is _CompressionFrame:
+                _require(frame.messages is frame.completion.result["messages"])
+                _require(_json(frame.messages) == frame.source_bytes)
+                if frame.preparation is not None:
+                    preparation = frame.preparation
+                    _require(type(preparation) is _CompressionPreparation)
+                    _require(_same_anchors(_nested_anchors(preparation), frame.preparation_anchors))
+                    _require(len(preparation.stages) == 7)
+                    _stage_tuple(preparation.stages)
+            else:
+                selected = (frame.completion.frame.arguments[0] if frame.field == "user_message"
+                            else frame.completion.result["final_response"])
+                _require(frame.text is selected and _json(selected) == frame.source_bytes)
+                if frame.preparation is not None:
+                    preparation = frame.preparation
+                    _require(type(preparation) is _AuxiliaryTitlePreparation)
+                    _require(preparation.kind in ("dispatch", "local_no_send"))
+                    _require(_same_anchors(_nested_anchors(preparation), frame.preparation_anchors))
+                    _stage_tuple(preparation.stages)
+                if frame.local_result is not None:
+                    _require(frame.record is None and frame.sealed is None and frame.request is None)
+                    _require(any(frame.local_result is record for record in self._aux_local_results))
             if frame.record is not None and frame.record.native_response is not None:
-                _require(_response_bytes(frame.record.native_response,
+                verify = _compression_response_bytes if type(frame) is _CompressionFrame else _response_bytes
+                _require(verify(frame.record.native_response,
                     frame.record.selection.destination.model_ref) == frame.record.response_bytes)
 
     def _retain_aux_frame(self, frame):
-        values = _row(frame, _AuxiliaryFrame)
+        values = _row(frame, type(frame))
         entry = (frame, (values, _nested_anchors(values)[1:]))
         if self._aux_pending is None:
             self._aux_frames += (entry,)
@@ -1268,7 +1384,7 @@ class NativeMainPayloadAdapter:
             self._accept_aux_record(record)
         if self._aux_pending is None:
             updated = replace(frame, record=record)
-            values = _row(updated, _AuxiliaryFrame)
+            values = _row(updated, type(updated))
             self._aux_frames = (*self._aux_frames[:-1],
                                 (updated, (values, _nested_anchors(values)[1:])))
         else:
@@ -1289,6 +1405,10 @@ class NativeMainPayloadAdapter:
             _require(type(language) is str and len(language) <= 128)
             _require(not any(0xD800 <= ord(c) <= 0xDFFF for c in language))
             _require(request_handle is not self._handle)
+            if self._compression_binding is not None:
+                other = self._compression_binding.auxiliary
+                _require(request_handle is not other.handle and selection is not other.port)
+                _require(producer_ref != other.producer_ref)
             _require(callable(getattr(self._runtime, "derive_for_selection", None)))
             from agent import title_generator as titles, auxiliary_client as auxiliary
             from agent import skill_commands, agent_runtime_helpers
@@ -1311,7 +1431,10 @@ class NativeMainPayloadAdapter:
                 (auxiliary.call_llm, "__wrapped__"),
                 *((sys.modules[__name__], name) for name in (
                     "_try_controlled_auxiliary_call", "_controlled_title_entry", "_auxiliary_attempt",
-                    "_auxiliary_owner", "_call_arguments_bytes", "_stage_tuple")),
+                    "_auxiliary_owner", "_call_arguments_bytes", "_stage_tuple", "_response_bytes", "_decode_response", "_response", "_response_shape",
+                    "_compression_call_arguments_bytes", "_native_result_anchors", "_native_result_bytes",
+                    "_response_shape_base", "_decode_response_payload", "_decode_compression_response",
+                    "_compression_response_shape", "_compression_response_bytes", "_response_value")),
             ))
             self._title_constants = titles._controlled_title_constants()
             target = self._around(lambda: self._admission.current(request_handle))
@@ -1323,6 +1446,8 @@ class NativeMainPayloadAdapter:
             _require(target_row[:6] == self._holder[:6])
             _require(target_row[6:8] != self._holder[6:8])
             _require(selection_row[:2] == target_row[6:8])
+            if self._compression_binding is not None:
+                _require(selection_row[0] != self._compression_binding.auxiliary.selected[0])
             _require(selection_row[3][1] == "synthetic_native")
             _require(producer_row[0] == producer_ref and producer_row[2] == self._initial_producer[2])
             _require(set(producer_row[2]) <= set(target_row[8]))
@@ -1371,12 +1496,15 @@ class NativeMainPayloadAdapter:
 
     def _checked_aux_frame(self, token, *, sealed=False):
         frame = self._aux_pending
-        _require(self._aux_binding is not None and frame is not None and self._turn_pending is None)
+        _require(type(frame) in (_AuxiliaryFrame, _CompressionFrame) and self._turn_pending is None)
+        binding, _, _ = self._aux_frame_binding(frame)
+        _require(binding is not None)
         expected = frame.sealed if sealed else frame.token
         cls = NativeAuxiliaryRequest if sealed else NativeAuxiliaryInput
         _require(type(token) is cls and token is expected)
-        from agent import title_generator as titles
-        _require(titles._controlled_title_constants() == self._title_constants)
+        if type(frame) is _AuxiliaryFrame:
+            from agent import title_generator as titles
+            _require(titles._controlled_title_constants() == self._title_constants)
         self._interrupt_turn()
         return frame
 
@@ -1384,6 +1512,7 @@ class NativeMainPayloadAdapter:
         from agent import title_generator as titles
         with self._turn_operation(self._turn_agent):
             frame = self._checked_aux_frame(token)
+            _require(type(frame) is _AuxiliaryFrame)
             _require(frame.sealed is None and frame.preparation is None)
             kind, stages, value = titles._title_preparation_stages(
                 frame.text, self._aux_binding.language, self._aux_current[1], self._interrupt_turn)
@@ -1406,6 +1535,7 @@ class NativeMainPayloadAdapter:
                 return preparation.stages, preparation.value
         with self._turn_operation(self._turn_agent):
             frame = self._checked_aux_frame(token, sealed=response is not None)
+            _require(type(frame) is _AuxiliaryFrame)
             _require(frame.record is not None and response is frame.record.native_response)
             stages, output = titles._title_output_stages(response, self._interrupt_turn)
             self._aux_output = (output, stages, output["title"])
@@ -1417,19 +1547,24 @@ class NativeMainPayloadAdapter:
             frame = self._checked_aux_frame(source)
             _require(frame.sealed is None)
             proof = frame.preparation
-            _require(type(proof) is _AuxiliaryTitlePreparation and proof.kind == "dispatch")
-            _require(proof.stages is stages and proof.value is request)
+            binding, path, task = self._aux_frame_binding(frame)
+            if type(frame) is _CompressionFrame:
+                _require(type(proof) is _CompressionPreparation)
+            else:
+                _require(type(proof) is _AuxiliaryTitlePreparation and proof.kind == "dispatch")
+            original_request = proof.value["request"] if type(frame) is _CompressionFrame else proof.value
+            _require(proof.stages is stages and original_request is request)
             _require(_same_anchors(_nested_anchors(proof), frame.preparation_anchors))
             _stage_tuple(stages)
             contents = []
             for stage in stages:
                 self._interrupt_turn()
-                contents.append(self._runtime.derive(self._aux_binding.handle,
-                    (frame.source_content, *contents), stage, path="title"))
-            payload = _json(dict(path="title", task="title_generation",
-                selection=list(self._aux_binding.selected[:3]),
+                contents.append(self._runtime.derive(binding.handle,
+                    (frame.source_content, *contents), stage, path=path))
+            payload = _json(dict(path=path, task=task,
+                selection=list(binding.selected[:3]),
                 destination=dict(zip(("transport_ref", "provider_ref", "model_ref", "endpoint_ref", "revision"),
-                                     self._aux_binding.selected[3])), request=request))
+                                     binding.selected[3])), request=request))
             _require(len(payload) <= 262_144)
             token = object.__new__(NativeAuxiliaryRequest)
             self._retain_aux_frame(replace(frame, stages=stages, stage_contents=tuple(contents),
@@ -1448,7 +1583,8 @@ class NativeMainPayloadAdapter:
         self._checkpoint()
         _require(self._pending is not None)
         envelope, actual, output = self._pending
-        value = _decode_response(output, operation.selected.destination.model_ref)
+        decoder = _decode_compression_response if type(self._aux_pending) is _CompressionFrame else _decode_response
+        value = decoder(output, operation.selected.destination.model_ref)
         response = _response(value)
         self._dispatch_response = response
         self._checkpoint()
@@ -1461,13 +1597,24 @@ class NativeMainPayloadAdapter:
             _keys(arguments, (*_AUX_CALL_DEFAULTS, "controlled_aux"))
             _require(arguments.pop("controlled_aux") is request)
             _require(_same_anchors(_nested_anchors(frame.request), frame.request_anchors))
-            _require(all(arguments[name] is frame.request[name] for name in _AUX_CALL_DEFAULTS))
-            _require(_call_arguments_bytes(arguments) == _call_arguments_bytes(frame.request))
-            content = self._runtime.derive(self._aux_binding.handle,
-                (frame.source_content, *frame.stage_contents), frame.request_bytes, path="title")
-            source, selected, producer = self._aux_current
-            operation = _PendingOperation(self._aux_binding.handle, source, selected, producer,
-                "title", self._aux_binding.route.route_ref, frame.request_bytes, content, True)
+            original_arguments = (frame.preparation.value["arguments"] if type(frame) is _CompressionFrame
+                                  else frame.request)
+            _require(all(arguments[name] is original_arguments[name] for name in _AUX_CALL_DEFAULTS))
+            binding, path, task = self._aux_frame_binding(frame)
+            normalizer = (_compression_call_arguments_bytes if type(frame) is _CompressionFrame
+                          else _call_arguments_bytes)
+            _require(normalizer(arguments) == normalizer(original_arguments))
+            if type(frame) is _CompressionFrame:
+                _require(frame.request is frame.preparation.value["request"])
+                _require(frame.request["messages"] is original_arguments["messages"])
+                _require(_json(_compression_wire(arguments)) == _json(frame.request))
+                _require(_json(frame.preparation.value) == frame.stages[-1])
+            content = self._runtime.derive(binding.handle,
+                (frame.source_content, *frame.stage_contents), frame.request_bytes, path=path)
+            source, selected, producer = (self._compression_current if type(frame) is _CompressionFrame
+                                          else self._aux_current)
+            operation = _PendingOperation(binding.handle, source, selected, producer,
+                path, binding.route.route_ref, frame.request_bytes, content, True)
             self._operation = self._checked_operation = operation
             result = response = None
             try:
@@ -1476,8 +1623,8 @@ class NativeMainPayloadAdapter:
                 if self._pending is not None:
                     envelope, actual, output = self._pending
                     record = NativeAuxiliaryInvocation(frame.completion, frame.completion.frame,
-                        frame.completion.invocation, self._handle, self._aux_binding.handle,
-                        self._source, source, "title", "title_generation", selected, producer,
+                        frame.completion.invocation, self._handle, binding.handle,
+                        self._source, source, path, task, selected, producer,
                         frame.source_bytes, frame.parents, frame.parent_requests, frame.stages,
                         frame.stage_contents, frame.request_bytes, content, envelope, actual,
                         output if type(output) is bytes and len(output) <= 65_536 else None,
@@ -1496,24 +1643,33 @@ class NativeMainPayloadAdapter:
             _require(record is not None and response is record.native_response)
             _require(record.output is None)
             _stage_tuple(stages)
-            expected, expected_output = titles._title_output_stages(response, self._interrupt_turn)
+            binding, path, task = self._aux_frame_binding(frame)
+            if type(frame) is _CompressionFrame:
+                expected, expected_output = self._compression_response_transform(frame, response)
+                key = "summary"
+                _keys(output, (key,))
+                _require(type(output[key]) is str and len(output[key]) > 0)
+            else:
+                expected, expected_output = titles._title_output_stages(response, self._interrupt_turn)
+                key = "title"
+                _keys(output, (key,))
+                _require(type(output[key]) in (str, type(None)))
             _require(stages == expected)
-            _keys(output, ("title",))
-            _require(type(output["title"]) in (str, type(None)))
             _require(_json(output) == _json(expected_output))
             _require(output is self._aux_output[0] and stages is self._aux_output[1])
-            _require(output["title"] is self._aux_output[2])
+            _require(output[key] is self._aux_output[2])
             contents = []
             for stage in stages:
                 self._interrupt_turn()
-                contents.append(self._runtime.derive(self._aux_binding.handle,
+                contents.append(self._runtime.derive(binding.handle,
                     (frame.source_content, record.request_content, record.result_content, *contents),
-                    stage, path="title"))
+                    stage, path=path))
             payload = _json(output)
             _require(len(payload) <= 262_144)
-            parents = (frame.source_content, record.request_content, record.result_content,
-                       *contents, *(content for content, _ in self._completed_auxiliary_outputs()))
-            content = self._runtime.derive(self._aux_binding.handle, parents, payload, path="title")
+            parents = (frame.source_content, record.request_content, record.result_content, *contents)
+            content = self._derive_auxiliary_output(binding, parents, payload, path)
+            if type(frame) is _CompressionFrame:
+                self._interrupt_turn()
             self._retain_aux_record(replace(record, output_stages=stages, output_contents=tuple(contents),
                 output_bytes=payload, output=output, output_content=content))
             self._interrupt_turn()
@@ -1530,6 +1686,7 @@ class NativeMainPayloadAdapter:
     ) -> dict:
         with self._turn_operation(agent):
             frame = self._checked_aux_frame(source)
+            _require(type(frame) is _AuxiliaryFrame)
             _require(frame.sealed is None and frame.record is None and frame.local_result is None)
             proof = frame.preparation
             _require(type(proof) is _AuxiliaryTitlePreparation and proof.kind == "local_no_send")
@@ -1549,10 +1706,9 @@ class NativeMainPayloadAdapter:
             self._interrupt_turn()
             decision = self._runtime.derive(self._aux_binding.handle,
                 (frame.source_content, *contents), output_stages[0], path="title")
-            parents = (frame.source_content, *contents, decision,
-                       *(content for content, _ in self._completed_auxiliary_outputs()))
+            parents = (frame.source_content, *contents, decision)
             self._interrupt_turn()
-            content = self._runtime.derive(self._aux_binding.handle, parents, payload, path="title")
+            content = self._derive_auxiliary_output(self._aux_binding, parents, payload, "title")
             self._interrupt_turn()
             target, selected, producer = self._aux_current
             record = NativeAuxiliaryLocalResult(frame.completion, frame.completion.frame,
@@ -1568,6 +1724,228 @@ class NativeMainPayloadAdapter:
             self._interrupt_turn()
             self._aux_pending = None
             return output
+
+    def _aux_frame_binding(self, frame):
+        if type(frame) is _AuxiliaryFrame:
+            _require(self._aux_binding is not None)
+            return self._aux_binding, "title", "title_generation"
+        _require(type(frame) is _CompressionFrame and self._compression_binding is not None)
+        return self._compression_binding.auxiliary, "compression", "compression"
+
+    def _derive_auxiliary_output(self, binding, parents, payload, path):
+        completed = tuple(self._completed_auxiliary_outputs())
+        if not completed:
+            return self._runtime.derive(binding.handle, parents, payload, path=path)
+        return self._runtime.derive_for_selection(
+            binding.handle, (*parents, *(content for content, _ in completed)), payload, path=path,
+            parent_requests=(*(binding.handle for _ in parents), *(handle for _, handle in completed)))
+
+    def _compression_snapshot(self, main):
+        binding = self._compression_binding.auxiliary
+        target = self._admission.current(binding.handle)
+        self._identity()
+        target_row = _binding(target)
+        selected = binding.port.current(binding.handle)
+        self._identity()
+        selection_row = _selection(selected)
+        producer = self._result_port.current(binding.producer_ref)
+        producer_row = _producer(producer)
+        self._identity()
+        _require(target_row[:6] == main[:6] and target_row[:8] == binding.source[:8])
+        _require(selection_row == binding.selected and selection_row[:2] == target_row[6:8])
+        _require(producer_row == binding.producer and producer_row[2] == self._initial_producer[2])
+        _require(set(producer_row[2]) <= set(binding.original_profiles))
+        _require(set(producer_row[2]) <= set(self._original_profiles))
+        _require(selected.destination == binding.route.destination)
+        now = self._clock()
+        _integer(now, _MAX_INT, 0)
+        self._identity()
+        for route in self._operator_routes:
+            _require(type(route) is shared_policy().RouteBinding)
+            _integer(route.expires_at)
+            _require(now < route.expires_at)
+            port = self._operator_transports[route.destination.transport_ref]
+            method = next(method for original, method in self._operator_resolvers if port is original)
+            self._callback_scope()
+            _require(_same_method(port.resolve, method))
+            actual = port.resolve()
+            self._callback_scope()
+            _require(_same_method(port.resolve, method))
+            _destination(actual)
+            _require(actual == route.destination)
+        self._identity()
+        self._compression_current = target, selected, producer
+
+    def bind_compression(
+        self, agent: object, *, request_handle: object,
+        selection: NativeSelectionPort, producer_ref: str, route_ref: str,
+        context_length: int, summary_date: str,
+    ) -> None:
+        with self._turn_operation(agent):
+            _require(self._constructed is not None and self._compression_binding is None)
+            _require(self._turn_pending is None and self._aux_pending is None)
+            _integer(context_length)
+            _require(type(summary_date) is str and len(summary_date) == 10)
+            _require(re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", summary_date) is not None)
+            from datetime import date
+            _require(date.fromisoformat(summary_date).isoformat() == summary_date)
+            _identifier(producer_ref)
+            _identifier(route_ref)
+            _require(request_handle is not self._handle and selection is not self._selection_port)
+            _require(producer_ref != self._producer_ref)
+            if self._aux_binding is not None:
+                other = self._aux_binding
+                _require(request_handle is not other.handle and selection is not other.port)
+                _require(producer_ref != other.producer_ref)
+            from agent import context_compressor as compression, auxiliary_client as auxiliary
+            from agent import agent_runtime_helpers
+            methods = (
+                (selection, "current"),
+                *((self._runtime, name) for name in ("derive_for_selection", "derive", "dispatch")),
+                *((self, name) for name in (
+                    "bind_compression", "compression_input", "seal_auxiliary", "dispatch_auxiliary",
+                    "complete_auxiliary", "_prepare_compression", "_compression_output_stages",
+                    "_compression_response_transform", "_compression_snapshot", "_aux_frame_binding",
+                    "_derive_auxiliary_output", "_checked_aux_frame", "_completed_auxiliary_outputs",
+                    "_dispatch_retained_operation", "_verify_auxiliary", "_retain_aux_frame",
+                    "_retain_aux_record", "_accept_aux_record", "_callback_scope", "_interrupt_turn",
+                    "_interrupt_operation", "_snapshot", "_checkpoint", "_identity", "_turn_operation", "_around")),
+                *((compression, name) for name in _COMPRESSION_FUNCTIONS),
+                (agent_runtime_helpers, "strip_think_blocks"),
+                (auxiliary, "call_llm"), (auxiliary.call_llm, "__wrapped__"),
+                *((sys.modules[__name__], name) for name in (
+                    "_controlled_compression_constructor", "_controlled_compression_entry",
+                    "_compression_constants", "_compression_wire", "_compression_call_arguments_bytes",
+                    "_try_controlled_auxiliary_call", "_auxiliary_attempt", "_auxiliary_owner",
+                    "_stage_tuple")),
+            )
+            self._methods += tuple((port, name, _method(getattr(port, name))) for port, name in methods)
+            target = self._around(lambda: self._admission.current(request_handle))
+            target_row = _binding(target)
+            selected = self._around(lambda: selection.current(request_handle))
+            selection_row = _selection(selected)
+            producer = self._around(lambda: self._result_port.current(producer_ref))
+            producer_row = _producer(producer)
+            _require(target_row[:6] == self._holder[:6])
+            _require(target_row[6] != self._holder[6] and selection_row[:2] == target_row[6:8])
+            if self._aux_binding is not None:
+                _require(selection_row[0] != self._aux_binding.selected[0])
+            _require(selection_row[3][1] == "synthetic_native")
+            _require(producer_row[0] == producer_ref and producer_row[2] == self._initial_producer[2])
+            _require(set(producer_row[2]) <= set(target_row[8]))
+            routes = tuple(r for r in self._operator_routes if r.route_ref == route_ref)
+            _require(len(routes) == 1)
+            route = routes[0]
+            _require(route.path == "compression" and route.selection_id == selected.selection_id)
+            _require(route.selection_version == selected.selection_version)
+            _require(route.consumer_ref == target.consumer_ref and route.destination == selected.destination)
+            binding = _AuxiliaryBinding(request_handle, selection, producer_ref, route, "",
+                target_row, selection_row, producer_row, target_row[8])
+            self._compression_binding = _CompressionBinding(binding, context_length, summary_date)
+            self._bound_compression_binding = self._compression_binding
+            self._compression_binding_anchor = _nested_anchors(self._compression_binding)
+            self._compression_constants = _compression_constants()
+            self._interrupt_turn()
+
+    def compression_input(self, agent: object, *, source: dict) -> NativeAuxiliaryInput:
+        with self._turn_operation(agent):
+            _require(self._compression_binding is not None and self._compression_owner is not None)
+            _require(self._turn_pending is None and self._aux_pending is None and len(self._aux_frames) < 8)
+            _require(type(source) is dict)
+            completion = next((row for row in self._completions if row.result is source), None)
+            _require(completion is not None)
+            frame, invocation = completion.frame, completion.invocation
+            _require(source["completed"] is True)
+            for key in ("interrupted", "failed", "partial", "response_transformed", "response_previewed"):
+                _require(source[key] is False)
+            _require(source["pre_transform_response"] is None)
+            messages = source["messages"]
+            _history(messages)
+            payload = _json(messages)
+            _require(len(payload) <= 262_144)
+            completed = tuple(self._completed_auxiliary_outputs())
+            parents = (frame.admitted, frame.input_content, frame.output_content,
+                       *frame.request_contents, invocation.request_content, invocation.result_content,
+                       completion.content, *(row.content for row in self._completions if row is not completion),
+                       *(content for content, _ in completed))
+            count = len(parents) - len(completed)
+            parent_requests = (*(self._handle for _ in range(count)), *(handle for _, handle in completed))
+            binding = self._compression_binding.auxiliary
+            self._interrupt_turn()
+            content = self._runtime.derive_for_selection(binding.handle, parents, payload,
+                path="compression", parent_requests=parent_requests)
+            self._interrupt_turn()
+            token = object.__new__(NativeAuxiliaryInput)
+            self._retain_aux_frame(_CompressionFrame(token, completion, messages, payload,
+                                                    parents, parent_requests, content))
+            self._interrupt_turn()
+            return token
+
+    def _prepare_compression(self, token: NativeAuxiliaryInput) -> _CompressionPreparation:
+        with self._turn_operation(self._turn_agent):
+            frame = self._checked_aux_frame(token)
+            _require(type(frame) is _CompressionFrame and frame.preparation is None and frame.sealed is None)
+            owner = self._compression_owner
+            self._interrupt_turn()
+            facts = owner._summary_source(frame.messages, "", retained=True)
+            self._interrupt_turn()
+            prompt = owner._summary_prompt(facts, None, self._compression_binding.summary_date)
+            self._interrupt_turn()
+            arguments = dict(_AUX_CALL_DEFAULTS, task="compression", provider=owner.provider,
+                model=owner.summary_model, api_mode=owner.api_mode, stream=False,
+                strict_destination=True, messages=[dict(role="user", content=prompt)])
+            _compression_call_arguments_bytes(arguments)
+            value = dict(arguments=arguments, request=_compression_wire(arguments))
+            stages = (
+                _json(dict(constructor=self._compression_options, source_field="messages",
+                           previous_summary=None, focus_topic=None, memory_context="")),
+                _json(facts["budget"]),
+                _json(dict(serialized=facts["serialized"], pruned_skill_names=facts["markers"])),
+                _json(dict(sampled=facts["sampled"], lean=True,
+                           sampling=len(facts["serialized"]) > owner._SUMMARY_INPUT_MAX_CHARS,
+                           original_length=len(facts["serialized"]), slice_count=owner._SAMPLED_INPUT_SLICES,
+                           aggregate_cap=owner._SUMMARY_INPUT_MAX_CHARS)),
+                _json(dict(sanitized_memory=facts["sanitized_memory"],
+                           serialized_memory=facts["serialized_memory"], memory_section=facts["memory_section"],
+                           has_user_turn=facts["has_user_turn"], summary_date=self._compression_binding.summary_date)),
+                _json(dict(prompt=prompt)),
+                _json(value),
+            )
+            _stage_tuple(stages)
+            proof = _CompressionPreparation(stages, value, facts["has_user_turn"], tuple(facts["markers"]))
+            self._interrupt_turn()
+            self._retain_aux_frame(replace(frame, preparation=proof, preparation_anchors=_nested_anchors(proof)))
+            self._interrupt_turn()
+            return proof
+
+    def _compression_response_transform(self, frame, response):
+        _require(type(frame) is _CompressionFrame and response is frame.record.native_response)
+        _require(_compression_response_bytes(response, frame.record.selection.destination.model_ref) == frame.record.response_bytes)
+        owner, proof = self._compression_owner, frame.preparation
+        self._interrupt_turn()
+        content, finish_reason = owner._summary_response_content(response)
+        self._interrupt_turn()
+        summary, strip_facts, output_facts = owner._summary_output(
+            content, frame.messages, proof.pruned_skill_names, proof.has_user_turn)
+        self._interrupt_turn()
+        prefixed = owner._with_summary_prefix(summary)
+        self._interrupt_turn()
+        output = dict(summary=prefixed)
+        stages = (_json(dict(content=content, finish_reason=finish_reason, nonempty=True, length_stop=False)),
+                  _json(strip_facts), _json(output_facts), _json(dict(prefixed=prefixed, output=output)))
+        _stage_tuple(stages)
+        return stages, output
+
+    def _compression_output_stages(
+        self, request: NativeAuxiliaryRequest, response: NativeMainResponse,
+    ) -> tuple[tuple[bytes, ...], dict]:
+        with self._turn_operation(self._turn_agent):
+            frame = self._checked_aux_frame(request, sealed=True)
+            _require(type(frame) is _CompressionFrame and frame.record is not None)
+            stages, output = self._compression_response_transform(frame, response)
+            self._aux_output = output, stages, output["summary"]
+            self._interrupt_turn()
+            return stages, output
 
     def _checkpoint(self):
         first = self._snapshot()
@@ -1690,7 +2068,8 @@ def _nested_anchors(value):
     records = (NativeMainResponse, NativeMainChoice, NativeMainMessage, NativeMainUsage,
                NativeMainSelection, NativeResultPolicy, policy.ExecutionBinding,
                policy.Destination, policy.DispatchEnvelope, policy.RouteBinding,
-               NativeAuxiliaryInvocation, NativeAuxiliaryLocalResult, _AuxiliaryTitlePreparation)
+               NativeAuxiliaryInvocation, NativeAuxiliaryLocalResult, _AuxiliaryTitlePreparation,
+               _CompressionBinding, _AuxiliaryBinding, _CompressionPreparation)
     def visit(item):
         result.append(item)
         if type(item) is dict:
@@ -1744,6 +2123,205 @@ def _call_arguments_bytes(arguments):
     _require(_safe_json(arguments["extra_body"]) == _json({"response_format": _TITLE_RESPONSE_FORMAT}))
     return _json(arguments)
 
+
+
+def _compression_wire(arguments):
+    request = dict(model=arguments["model"], messages=arguments["messages"], stream=False)
+    _request(request)
+    return request
+
+
+def _compression_call_arguments_bytes(arguments: dict) -> bytes:
+    _keys(arguments, tuple(_AUX_CALL_DEFAULTS))
+    for name, expected in (("task", "compression"), ("provider", "synthetic_native"),
+                           ("api_mode", "chat_completions")):
+        _require(type(arguments[name]) is str and arguments[name] == expected)
+    _identifier(arguments["model"])
+    _require(arguments["stream"] is False and arguments["strict_destination"] is True)
+    for name in _AUX_CALL_DEFAULTS:
+        if name not in ("task", "provider", "model", "api_mode", "messages", "stream", "strict_destination"):
+            _require(arguments[name] is None)
+    _compression_wire(arguments)
+    return _json(arguments)
+
+
+_COMPRESSION_HELPERS = (
+    "__init__", "_generate_summary", "_compute_summary_budget", "_summary_source", "_summary_prompt", "_summary_budget_facts",
+    "_summary_response_content", "_summary_output", "_serialize_for_summary", "_sample_summary_input",
+    "_bound_summary_input", "_augment_summary_lean", "_ground_historical_task_snapshot",
+    "_latest_user_task_snapshot", "_transcript_has_real_user_turn", "_is_synthetic_compression_user_turn",
+    "_has_compressed_summary_metadata", "_is_context_summary_content", "classify_summary_content",
+    "_starts_with_summary_prefix", "_strip_summary_prefix", "_with_summary_prefix",
+    "_validate_summary_user_provenance", "_resolve_context_length", "context_length", "max_summary_tokens",
+)
+_COMPRESSION_FUNCTIONS = (
+    "_build_anchor_index", "_build_recovery_footer", "_build_verbatim_user_section",
+    "_collect_ghosted_skill_names", "_content_text_for_contains", "_extract_pruned_skill_names",
+    "_image_part_label", "_redact_compaction_text", "_reinject_pruned_skill_markers",
+    "_response_finish_reason", "_skill_pruned_marker", "_skill_view_call_sites", "_synthetic_user_row",
+    "sanitize_memory_context", "estimate_messages_tokens_rough", "redact_sensitive_text", "call_llm",
+)
+
+
+_COMPRESSION_CONSTANT_NAMES = (
+    'COMPRESSED_SUMMARY_METADATA_KEY',
+    'COMPRESSION_CONTINUATION_USER_CONTENT',
+    'HISTORICAL_TASK_HEADING',
+    'LEGACY_SUMMARY_PREFIX',
+    'MAX_ITERATIONS_SUMMARY_REQUEST',
+    'SKILL_PRUNED_MARKER_PREFIX',
+    'SUMMARY_PREFIX',
+    'TODO_INJECTION_HEADER',
+    '_ACTIVE_TASK_MAX_CHARS',
+    '_ANCHOR_NOISE',
+    '_ANCHOR_PATTERNS',
+    '_BACKGROUND_PROCESS_NOTIFICATION_PREFIX',
+    '_HISTORICAL_SUMMARY_PREFIXES',
+    '_HISTORICAL_TASK_SECTION_RE',
+    '_LEAN_ANCHOR_BUDGET_CHARS',
+    '_LEAN_ANCHOR_HEADING',
+    '_LEAN_RECOVERY_HEADING',
+    '_LEAN_SESSION_LOG_BUDGET_TOKENS',
+    '_LEAN_SESSION_LOG_HEADING',
+    '_LEAN_USER_MESSAGES_BUDGET_CHARS',
+    '_LEAN_USER_MESSAGES_HEADING',
+    '_LEAN_USER_MESSAGE_MAX_CHARS',
+    '_LEGACY_COMPRESSION_CONTINUATION_USER_CONTENT',
+    '_MAX_PRUNED_SKILL_MARKERS',
+    '_MEDIA_DIRECTIVE_RE',
+    '_MERGED_SUMMARY_DELIMITER',
+    '_MIN_SUMMARY_TOKENS',
+    '_NO_USER_TASK_SENTINEL',
+    '_PRUNED_SKILLS_SECTION_HEADING',
+    '_SKILL_PRUNED_MARKER_RE',
+    '_SKILL_VIEW_PRUNE_MIN_CHARS',
+    '_SUMMARY_END_MARKER',
+    '_SUMMARY_RATIO',
+    '_SUMMARY_TOKENS_CEILING',
+    '_TRUNCATED_SUMMARY_MARKER',
+)
+
+
+_COMPRESSION_LOOP_CONSTANTS = ('_CODEX_ACK_CONTINUATION_NUDGE', '_CODEX_INCOMPLETE_NUDGE', '_DROPPED_TOOLCALL_NUDGE_CONTENT', '_EMPTY_TOOL_RESPONSE_NUDGE', '_LENGTH_CONTINUATION_DROPPED_TOOLS_PREFIX', '_LENGTH_CONTINUATION_NETWORK_STUB', '_LENGTH_CONTINUATION_OUTPUT_LIMIT')
+
+
+def _compression_constants():
+    from agent import context_compressor as compression, conversation_loop
+    values = (*(vars(compression)[name] for name in _COMPRESSION_CONSTANT_NAMES),
+              *(vars(conversation_loop)[name] for name in _COMPRESSION_LOOP_CONSTANTS))
+    cls = vars(compression.ContextCompressor)
+    descriptors = tuple(cls[name] for name in _COMPRESSION_HELPERS)
+    constants = tuple(value for name, value in sorted(cls.items()) if name.isupper())
+    anchors = (*_nested_anchors(values)[1:], *_nested_anchors(descriptors)[1:],
+               *_nested_anchors(constants)[1:])
+    members = []
+    for value in anchors:
+        if type(value) in (set, frozenset):
+            _require(all(type(member) is str for member in value))
+            members.extend(sorted(value))
+    return (compression.ContextCompressor, *anchors, *members,
+            *_nested_anchors(_COMPRESSION_DEFAULTS), *_nested_anchors(_AUX_CALL_DEFAULTS),
+            _COMPRESSION_HELPERS, _COMPRESSION_FUNCTIONS, _COMPRESSION_CONSTANT_NAMES, _COMPRESSION_LOOP_CONSTANTS)
+
+
+_COMPRESSION_DEFAULTS = dict(threshold_percent=0.50, protect_first_n=3, protect_last_n=20,
+    summary_target_ratio=0.20, quiet_mode=True, base_url="", api_key="",
+    abort_on_summary_failure=False, max_tokens=None, model_thresholds=None,
+    threshold_tokens_cap=None, proactive_prune_tokens=0, proactive_prune_min_result_chars=8000,
+    proactive_prune_min_reclaim_tokens=4096, min_tail_user_messages=1, tail_mode="lean")
+
+
+def _controlled_compression_constructor(
+    compressor: object, adapter: NativeMainPayloadAdapter | None, *, options: dict,
+) -> bool:
+    _require(type(options) is dict and all(type(key) is str for key in options))
+    if adapter is None and not _auxiliary_attempt(provider=options.get("provider")):
+        return False
+    context = current_context()
+    try:
+        _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
+        _require(context is adapter._bound_context)
+        with adapter._turn_operation(adapter._turn_agent):
+            from agent.context_compressor import ContextCompressor
+            _require(type(compressor) is ContextCompressor and vars(compressor) == {})
+            _require(adapter._compression_binding is not None and adapter._compression_owner is None)
+            _require(all(type(key) is str for key in options))
+            _require(set(options) == {*_COMPRESSION_DEFAULTS, "model", "provider", "api_mode",
+                                     "summary_model_override", "config_context_length"})
+            for name, expected in _COMPRESSION_DEFAULTS.items():
+                actual = options[name]
+                _require(type(actual) is type(expected))
+                _require(actual == expected)
+            for name in ("model", "provider", "api_mode", "summary_model_override"):
+                _identifier(options[name])
+            _integer(options["config_context_length"])
+            binding = adapter._compression_binding
+            _require(options["provider"] == "synthetic_native" and options["api_mode"] == "chat_completions")
+            _require(options["model"] == adapter._initial_selection[3][2])
+            _require(options["summary_model_override"] == binding.auxiliary.selected[3][2])
+            _require(options["config_context_length"] == binding.context_length)
+            state = dict(options)
+            state.pop("summary_model_override")
+            state.pop("config_context_length")
+            state.update(summary_model=options["summary_model_override"],
+                _config_context_length=binding.context_length, _resolved_context_length=binding.context_length,
+                _max_summary_tokens=None,
+                _previous_summary=None, _summary_has_user_turn=None, _session_db=None, _session_id="",
+                compression_count=0, _micro_compact_enabled=False, _micro_compact_cursor=0,
+                _micro_compact_rolling_summary="", _micro_compact_passes=0,
+                _micro_compact_consecutive_failures=0, _micro_compact_tokens_saved_total=0,
+                _summary_failure_cooldown_until=0.0, _last_summary_error=None,
+                _last_compression_telemetry=None, _active_compression_telemetry=None,
+                _compression_telemetry_seed=None)
+            _require(all(type(value) in (str, int, float, bool, type(None)) for value in state.values()))
+            adapter._interrupt_turn()
+            vars(compressor).update(state, _native_main_adapter=adapter)
+            state["_max_summary_tokens"] = compressor.max_summary_tokens
+            adapter._compression_owner = compressor
+            adapter._compression_options = dict(options)
+            adapter._compression_options_anchor = _nested_anchors(adapter._compression_options)
+            adapter._compression_owner_anchor = (compressor, vars(compressor), _json(state),
+                                                   _nested_anchors(vars(compressor)))
+            adapter._interrupt_turn()
+            return True
+    except BaseException:
+        if type(adapter) is NativeMainPayloadAdapter:
+            adapter._invalidate()
+        if type(context) is NativeContentContext:
+            context.invalidate()
+        raise
+
+
+def _controlled_compression_entry(
+    compressor: object, turns: list, token: NativeAuxiliaryInput | None, *,
+    focus_topic: str | None, memory_context: str,
+) -> NativeMainPayloadAdapter | None:
+    namespace = object.__getattribute__(compressor, "__dict__")
+    owned = any(adapter._compression_owner is compressor for adapter in _adapters)
+    if not owned and namespace.get("_native_main_adapter") is None and not _auxiliary_attempt(
+            token=token, provider=namespace.get("provider")):
+        return None
+    adapter = _auxiliary_owner(token, NativeAuxiliaryInput)
+    with adapter._turn_operation(adapter._turn_agent):
+        _require(adapter._compression_owner is compressor)
+        frame = adapter._checked_aux_frame(token)
+        _require(type(frame) is _CompressionFrame and frame.preparation is None and frame.sealed is None)
+        _require(type(turns) is list and turns is frame.messages)
+        _require(focus_topic is None and type(memory_context) is str and memory_context == "")
+        _require(_json(turns) == frame.source_bytes)
+        return adapter
+
+
+def _refuse_compression_owner(compressor):
+    namespace = object.__getattribute__(compressor, "__dict__")
+    adapter = namespace.get("_native_main_adapter")
+    owners = tuple(a for a in _adapters if a._compression_owner is compressor)
+    if adapter is not None or owners or _auxiliary_attempt(provider=namespace.get("provider")):
+        for owner in owners:
+            owner._invalidate()
+        from agent.content_policy import guard_native_content
+        guard_native_content("compression", compressor)
+        raise NativeContentPolicyDenied("controlled_native_operation_unsupported")
 
 def _safe_json(value):
     def check(item, depth=0):
@@ -1801,6 +2379,7 @@ def _controlled_title_entry(user_message, token, options):
     adapter = _auxiliary_owner(token, NativeAuxiliaryInput)
     with adapter._turn_operation(adapter._turn_agent):
         frame = adapter._checked_aux_frame(token)
+        _require(type(frame) is _AuxiliaryFrame)
         _require(all(value is None for value in options))
         _require(type(user_message) is str and user_message is frame.text)
         _require(_json(user_message) == frame.source_bytes)
@@ -2204,8 +2783,7 @@ class _NativeCompletion:
 
 
 def _native_result_anchors(result):
-    return (result, *result.values(), *result["messages"],
-            *(value for row in result["messages"] for value in row.values()))
+    return _nested_anchors(result)
 
 
 def _native_result_bytes(result):

@@ -1,0 +1,86 @@
+{
+  "python_version": "3.12.3",
+  "base": "a951a7156c6da9beadd0dff6f0eed85554afd116",
+  "source_candidate": "1910b9bfb9eb7ef2144de9be96fcbe80060bcac2",
+  "source_path": "agent/context_compressor.py",
+  "base_source_sha256": "fd6e396b6e3545c3989ec9475ae4afd79a358d63c35c516242f2f259d1e7120b",
+  "candidate_source_sha256": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968",
+  "original_Assign_operations_preserved": 21,
+  "original_AugAssign_operations_preserved": 1,
+  "new_fact_alias_assignments": 5,
+  "new_fact_alias_names": [
+    "summary_budget",
+    "content_to_summarize",
+    "_memory_section",
+    "has_user_turn",
+    "_today_str"
+  ],
+  "all_non_alias_prompt_operations_identical": true,
+  "counting_definition": {
+    "original_method": "ContextCompressor._generate_summary",
+    "current_method": "ContextCompressor._summary_prompt",
+    "traversal": "ast.walk on each complete FunctionDef",
+    "counter_key": "ast.dump(node, include_attributes=False)",
+    "preserved": "Sum of the Counter intersection for each node type separately",
+    "aliases": "Current Assign Counter minus original Assign Counter"
+  },
+  "legacy_selected_value_expressions_preserved": 24,
+  "legacy_counting_definition": {
+    "original_methods": [
+      "_generate_summary"
+    ],
+    "current_methods": [
+      "_summary_source",
+      "_summary_prompt"
+    ],
+    "assign_targets": [
+      "_constraints_instructions",
+      "_goal_instructions",
+      "_historical_task_instructions",
+      "_language_and_provenance_rule",
+      "_memory_section",
+      "_pending_asks_instructions",
+      "_resolved_questions_instructions",
+      "_serialized_memory_context",
+      "_session_log_section",
+      "_summarizer_preamble",
+      "_template_sections",
+      "_temporal_anchoring_rule",
+      "prompt"
+    ],
+    "assign_key": "ast.dump(node.value, include_attributes=False)",
+    "assign_exclusion": "Exclude a value that is a Subscript of the Name facts",
+    "augassign_target": "prompt",
+    "augassign_key": "ast.dump(node.value, include_attributes=False)",
+    "equality": "The original and current value-expression Counters must be equal",
+    "current_breakdown": {
+      "source_Assign_values": 3,
+      "prompt_Assign_values": 20,
+      "prompt_AugAssign_values": 1
+    },
+    "omitted_prompt_Assign_target": "_bounded_previous_summary"
+  },
+  "unchanged_actual_helpers": [
+    "_serialize_for_summary",
+    "_sample_summary_input",
+    "_ground_historical_task_snapshot",
+    "_augment_summary_lean",
+    "_with_summary_prefix",
+    "_bound_summary_input",
+    "_validate_summary_user_provenance",
+    "_transcript_has_real_user_turn",
+    "_is_synthetic_compression_user_turn"
+  ],
+  "helper_ast_sha256": {
+    "_serialize_for_summary": "16c4b4daf0247dbbdcf2052239bffbd6fce79e2fecc7efe7be0a1c72d1e1c2d3",
+    "_sample_summary_input": "e09c40688bad760341cd0d06b275051bca3bc6319ad969ec9414210e2c161b7a",
+    "_ground_historical_task_snapshot": "7257f46d6cfdf5bdfeabf4e5c417ae813797115105e381b06a85e53b38f5fc46",
+    "_augment_summary_lean": "d0d730c4d4f48da79e1647c51464801e804ab8fa78f340158ece7920ccf74050",
+    "_with_summary_prefix": "14448fc9f690d4dd16ac861e09b2b88535fc909bf1d99352305615803c79aea3",
+    "_bound_summary_input": "ccef5ad42a19a83fbd0fe301c2f443cd7412c58b8a3cbcd765208773ee68b999",
+    "_validate_summary_user_provenance": "e0019dc5355e43bba8c17fb71549553a3e628381643632a09fbae1be44e401b3",
+    "_transcript_has_real_user_turn": "cdc9f44cbe61cc13c34def7254a3a9cdae098b4bea143c0c2c66abe82b314c3e",
+    "_is_synthetic_compression_user_turn": "86a04571f33a01c7468e3e14969c157de3eea06a0280b42e4e367c7330e3ab2e"
+  },
+  "scope": "Source/AST comparison only. Runtime compatibility checks remain separate."
+}

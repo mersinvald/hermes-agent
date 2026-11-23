@@ -1,0 +1,54 @@
+{
+  "kind": "evidence_only_metric_clarification",
+  "task_id": "task_8856821bb43b",
+  "dispatch_id": "ctx_eef6f26bc4f7",
+  "terminal_id": "term_1481e17d-412f-4b9d-8075-b3d91d014029",
+  "previous_task_id": "task_fc4cee44140c",
+  "previous_task_remains_succeeded": true,
+  "review_candidate": "1910b9bfb9eb7ef2144de9be96fcbe80060bcac2",
+  "root_review_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.18.review-pending-metric.json",
+  "root_review_receipt_sha256": "800421caf9fd0e38d8ac5f932d0142e8449db50c9c9e8951244ca40c725b92fb",
+  "root_source_review_complete_no_product_defect": true,
+  "previous_artifact_sha256": "409342bc80feb5f391d1c4bd760a81f3a66cfe4e10dc5e8ab2f8bd1f5b03ebcd",
+  "previous_manifest_sha256": "d9d22114b92f1f175918acb11379b37fa89d9a1ab42aa5b6ca53aefb374f2f69",
+  "previous_artifact": {
+    "prompt_assignments_preserved": 24,
+    "unchanged_actual_helpers": [
+      "_serialize_for_summary",
+      "_sample_summary_input",
+      "_ground_historical_task_snapshot",
+      "_augment_summary_lean",
+      "_with_summary_prefix",
+      "_bound_summary_input",
+      "_validate_summary_user_provenance",
+      "_transcript_has_real_user_turn",
+      "_is_synthetic_compression_user_turn"
+    ],
+    "scope": "AST comparison of original prompt transformations. Runtime compatibility checks remain separate."
+  },
+  "clarification": "The earlier 24 counts selected value expressions across two methods. It is not a count of full Assign nodes in the prompt method.",
+  "explicit_counts": {
+    "original_Assign_operations_preserved": 21,
+    "original_AugAssign_operations_preserved": 1,
+    "new_fact_alias_assignments": 5,
+    "new_fact_alias_names": [
+      "summary_budget",
+      "content_to_summarize",
+      "_memory_section",
+      "has_user_turn",
+      "_today_str"
+    ],
+    "legacy_selected_value_expressions_preserved": 24
+  },
+  "reproduce": [
+    "python3",
+    "-I",
+    "-S",
+    "-B",
+    "docs/evidence/accountant-native-retained-compression-20261123/template-metric-compare.py"
+  ],
+  "comparison_script_sha256": "2a4ee9f4cd06bf3b368bf37b856295fb5682b1fed26c9acffba5c659a01acbab",
+  "functional_execution": false,
+  "scope": "Evidence only. Runtime, tests, API, consumer contract, dependencies, limits, and historical validation scopes remain unchanged.",
+  "python_version": "3.12.3"
+}

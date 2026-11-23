@@ -1,0 +1,149 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~57 tests) under ['tests/agent/test_native_controlled_conversation.py']; running with -j 16
+[100.0% |    57/~57 | ✓0 | ✗1] ✗ tests/agent/test_native_controlled_conversation.py (1✗, 19.1s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_conversation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║         assert "Keep the blue folder." in facts[5]["prompt"]
+  ║         assert compression._LEAN_SESSION_LOG_HEADING in facts[5]["prompt"]
+  ║         wire = dict(model="invented_compression_model", messages=[dict(role="user", content=facts[5]["prompt"])], stream=False)
+  ║         request = json.loads(record.request_bytes)
+  ║         assert request["request"] == facts[6]["request"] == wire
+  ║         assert facts[6]["arguments"] == frame.request
+  ║         assert frame.request is frame.preparation.value
+  ║         assert frame.request["messages"][0]["content"] is json.loads(record.input_stages[5])["prompt"] or (
+  ║             frame.request["messages"][0]["content"] == facts[5]["prompt"])
+  ║         assert frame.request["temperature"] is frame.request["max_tokens"] is None
+  ║         assert "temperature" not in wire and "max_tokens" not in wire
+  ║         assert record.response_bytes is world.compression_ports["compression"].output
+  ║         assert record.envelope is world.compression_ports["compression"].sent[0]
+  ║         assert record.result_content is not None and record.native_response is frame.record.native_response
+  ║         output = [json.loads(stage) for stage in record.output_stages]
+  ║         assert output[0] == dict(content="<think>scratch</think>## Goal\nKeep the blue folder.",
+  ║                                 finish_reason="stop", nonempty=True, length_stop=False)
+  ║         assert output[1] == dict(stripped="## Goal\nKeep the blue folder.",
+  ║                                 chosen="## Goal\nKeep the blue folder.", redacted="## Goal\nKeep the blue folder.")
+  ║         assert output[2]["restored"] == output[1]["redacted"]
+  ║         assert "User asked (deterministic" in output[2]["grounded"]
+  ║         assert compression._LEAN_USER_MESSAGES_HEADING in output[2]["augmented"]
+  ║ >       assert compression._LEAN_RECOVERY_HEADING in output[2]["augmented"]
+  ║ E       assert '## Context Recovery' in "## Historical Task Snapshot\nUser asked (deterministic, from compacted turns): 'Keep the blue folder.'\nHistorical on...m the compacted region, quoted verbatim. These are the user's actual words and override any paraphrase of them above.)"
+  ║ E        +  where '## Context Recovery' = <module 'agent.context_compressor' from '/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18/agent/context_compressor.py'>._LEAN_RECOVERY_HEADING
+  ║ 
+  ║ tests/agent/test_native_controlled_conversation.py:1888: AssertionError
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+  ║ ====================== 1 failed, 209 deselected in 18.75s ======================
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_conversation.py -k compression_complete_retained_first_summary
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 19.1s (16 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 19.1s  (runner wall: 19.1s, parallelism: 16x)
+  P50: 19.09s  P90: 19.09s  P95: 19.09s  P99: 19.09s  Max: 19.09s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     19.09s  tests/agent/test_native_controlled_conversation.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_conversation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 210 items / 209 deselected / 1 selected
+
+tests/agent/test_native_controlled_conversation.py F                     [100%]
+
+=================================== FAILURES ===================================
+_______________ test_compression_complete_retained_first_summary _______________
+
+compression_excluded = <function excluded.<locals>.forbidden at 0x7d5d00ddef20>
+caller_boundary = namespace(configure=<function caller_boundary.<locals>.configure at 0x7d5d00597ba0>, call=<function caller_boundary.<l... blue folder.', 'role': 'user'}], 'stream': False})], selector=<function should_use_direct_api_call at 0x7d5d0115dda0>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d5d01029190>
+
+    def test_compression_complete_retained_first_summary(compression_excluded, caller_boundary, monkeypatch):
+        from agent import context_compressor as compression
+        derived = []
+        derive = ContentPolicyRuntime.derive_for_selection
+        def observed(runtime, handle, parents, payload, *, path, parent_requests):
+            result = derive(runtime, handle, parents, payload, path=path, parent_requests=parent_requests)
+            derived.append((handle, parents, payload, path, parent_requests, result))
+            return result
+        monkeypatch.setattr(ContentPolicyRuntime, "derive_for_selection", observed)
+        world = compression_world()
+        first = turn(world, "Keep the blue folder.")
+        prefix = world.agent._cached_system_prompt
+        original = canonical(first)
+        main_record, = world.adapter.invocations
+        with content_policy_scope(world.context):
+            bind_compression(world)
+            compressor = construct_compressor(world)
+            state = dict(vars(compressor))
+            summary = summarize(world, compressor, first)
+        record, = world.adapter.auxiliary_invocations
+        frame = world.adapter._aux_frames[0][0]
+        assert type(frame) is native_main_payload._CompressionFrame
+        assert type(compressor) is compression.ContextCompressor
+        assert record.source_completion.result is first and frame.messages is first["messages"]
+        assert record.source_frame is world.adapter._turn_frames[0]
+        assert record.source_invocation is main_record and record.source_handle is world.request
+        assert record.request_handle is world.compression_request
+        assert record.path == record.task == "compression"
+        assert record.source_bytes == canonical(first["messages"])
+        assert len(record.input_stages) == 7 and len(record.output_stages) == 4
+        facts = [json.loads(stage) for stage in record.input_stages]
+        assert facts[0]["constructor"] == world.adapter._compression_options
+        assert facts[0]["previous_summary"] is facts[0]["focus_topic"] is None
+        assert facts[0]["source_field"] == "messages" and facts[0]["memory_context"] == ""
+        assert facts[1] == dict(content_tokens=compression.estimate_messages_tokens_rough(first["messages"]),
+            ratio=0.2, context_length=65536, maximum=3276, summary_budget=2000)
+        assert facts[2] == dict(serialized=compressor._serialize_for_summary(first["messages"]), pruned_skill_names=[])
+        assert facts[3] == dict(sampled=facts[2]["serialized"], lean=True, sampling=False,
+            original_length=len(facts[2]["serialized"]), slice_count=8, aggregate_cap=160000)
+        assert facts[4] == dict(sanitized_memory="", serialized_memory='""', memory_section="",
+                               has_user_turn=True, summary_date="2026-11-23")
+        assert "current date is 2026-11-23" in facts[5]["prompt"]
+        assert "Keep the blue folder." in facts[5]["prompt"]
+        assert compression._LEAN_SESSION_LOG_HEADING in facts[5]["prompt"]
+        wire = dict(model="invented_compression_model", messages=[dict(role="user", content=facts[5]["prompt"])], stream=False)
+        request = json.loads(record.request_bytes)
+        assert request["request"] == facts[6]["request"] == wire
+        assert facts[6]["arguments"] == frame.request
+        assert frame.request is frame.preparation.value
+        assert frame.request["messages"][0]["content"] is json.loads(record.input_stages[5])["prompt"] or (
+            frame.request["messages"][0]["content"] == facts[5]["prompt"])
+        assert frame.request["temperature"] is frame.request["max_tokens"] is None
+        assert "temperature" not in wire and "max_tokens" not in wire
+        assert record.response_bytes is world.compression_ports["compression"].output
+        assert record.envelope is world.compression_ports["compression"].sent[0]
+        assert record.result_content is not None and record.native_response is frame.record.native_response
+        output = [json.loads(stage) for stage in record.output_stages]
+        assert output[0] == dict(content="<think>scratch</think>## Goal\nKeep the blue folder.",
+                                finish_reason="stop", nonempty=True, length_stop=False)
+        assert output[1] == dict(stripped="## Goal\nKeep the blue folder.",
+                                chosen="## Goal\nKeep the blue folder.", redacted="## Goal\nKeep the blue folder.")
+        assert output[2]["restored"] == output[1]["redacted"]
+        assert "User asked (deterministic" in output[2]["grounded"]
+        assert compression._LEAN_USER_MESSAGES_HEADING in output[2]["augmented"]
+>       assert compression._LEAN_RECOVERY_HEADING in output[2]["augmented"]
+E       assert '## Context Recovery' in "## Historical Task Snapshot\nUser asked (deterministic, from compacted turns): 'Keep the blue folder.'\nHistorical on...m the compacted region, quoted verbatim. These are the user's actual words and override any paraphrase of them above.)"
+E        +  where '## Context Recovery' = <module 'agent.context_compressor' from '/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.18/agent/context_compressor.py'>._LEAN_RECOVERY_HEADING
+
+tests/agent/test_native_controlled_conversation.py:1888: AssertionError
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_conversation.py::test_compression_complete_retained_first_summary
+====================== 1 failed, 209 deselected in 18.75s ======================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/agent/test_native_controlled_conversation.py  (1 test failed)

@@ -8081,6 +8081,8 @@ class AIAgent:
         # Per-attempt signal consumed by turn-start preflight. A stalled
         # compression must not be mistaken for a structural no-op and followed
         # by the oversized provider request it was meant to prevent.
+        from agent.content_policy import guard_native_content
+        guard_native_content("compression", self)
         self._last_compression_timed_out = False
 
         from agent.conversation_compression import (

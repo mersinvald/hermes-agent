@@ -1,0 +1,32 @@
+{
+  "native_base": "a951a7156c6da9beadd0dff6f0eed85554afd116",
+  "PWA_publication": "1662bb918ace1513c29c5130f8ea40921d1d7245",
+  "design_source": "12d2d7df20a3b8077e5b536d2cea6fdb476d5230",
+  "design_sha256": "7b7e52e862be363c3107b14a75f452aa936c358bf41d884fc9a0fb84cbcb1582",
+  "source_map_sha256": "8ad366b466af8cc4f0833c62dc695245309d48c50bf2028b98a4981314434acb",
+  "root_input_receipt_sha256": "adfe145a2b581820dbe817b8c142a530db033b1135debbd8ed40cc0b09db5244",
+  "spec_sha256": "7948bee01c85064ca42919493cc00f3d49bbd2062708d3fbe1f958434091933c",
+  "protected_receipts": [
+    {
+      "name": "hpwa-p10.17.final-review.json",
+      "sha256": "ac650d151a99a2d38f6a946414ebb4e1bf9e70ff9e44db256ccdc011aef8d530"
+    },
+    {
+      "name": "hpwa-p10.17.publication-receipt.json",
+      "sha256": "81d98903ad4315a8808133ecd249f5808c569823c623ab79697be232542ba3f2"
+    },
+    {
+      "name": "hpwa-p10.16.final-review.json",
+      "sha256": "152d3da929fccdc00e69ce1fba36619bebd5481da40da590a7899f8392d95e8c"
+    },
+    {
+      "name": "hpwa-p10.16.publication-receipt.json",
+      "sha256": "d5bf1b273ca85d5de48d99f970c01f23fc85a1cd5a6154130ffa0faf52f5f2dc"
+    },
+    {
+      "name": "hpwa-p10.13.native-handoff.json",
+      "sha256": "150db9af3f785e661ea3d1b7ac5e45a0ecc605e4ff7ccf43fa5c9abd4fce8803"
+    }
+  ],
+  "canonical_beads": "Read-only sandbox show of hpwa-p10.18. No mutation or sync."
+}

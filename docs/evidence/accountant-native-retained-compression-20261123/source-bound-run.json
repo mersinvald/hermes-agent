@@ -1,0 +1,31 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "180",
+    "-j",
+    "1",
+    "tests/agent/test_native_controlled_conversation.py",
+    "-k",
+    "compression_complete_source_cannot_bypass_request_text_bound",
+    "--",
+    "--durations=3"
+  ],
+  "started_utc": "2026-11-23T06:53:36.191759+00:00",
+  "wall_seconds": 18.212,
+  "exit_code": 0,
+  "source_sha256": {
+    "agent/native_main_payload.py": "5d83125e42a69651a2824eb7796a409b1d168ba3b5effe246f71fffd2842df25",
+    "agent/context_compressor.py": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968",
+    "run_agent.py": "19bdd3f891b9b850f7c85fbda10a48027245192b4888f5dba9e6dbc553370687",
+    "agent/conversation_compression.py": "fbbc0c6f606897d42c496f53b76c5cec5925d0f274c1c538ddf099b1abeaf86b",
+    "tests/agent/test_native_controlled_conversation.py": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+    "tests/agent/test_content_policy_auxiliary.py": "3f5d5f2ad09c59366654c37b95cdedc0ea3561621d8ab95eafacc1cc5b43af2a",
+    "tests/agent/test_context_compressor.py": "7d3bb1c83b18d35d079dd65dfbaeb953415d28ca940cddf3ff69b35ded190028"
+  },
+  "source_hashes_unchanged": true,
+  "file_retries": 0,
+  "scope": "One corrected source-bound fixture. The runtime is byte-identical to the four passing publication correction cases."
+}
