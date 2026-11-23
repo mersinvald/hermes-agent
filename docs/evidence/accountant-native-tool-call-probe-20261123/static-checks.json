@@ -37,5 +37,20 @@
   "source_preservation_final": true,
   "all_five_complete_vectors": true,
   "new_prose_findings": 0,
-  "new_em_dashes": 0
+  "new_em_dashes": 0,
+  "format_correction": {
+    "report": "format-correction.md",
+    "original_candidate": "f43f58cd91d598d3e10a7c45cc7d82e255261310",
+    "original_checks_scope": "The original git diff --check covered uncommitted tracked changes only. The then-untracked patch artifact was outside that scope.",
+    "original_patch_roundtrip_scope": "The original patch_roundtrip and earlier_patch_roundtrip fields retain their original context-format receipts.",
+    "current_patch_roundtrip": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33-format-correction/receipts/zero-context-roundtrip.json",
+      "bytes": 2183,
+      "sha256": "51b83dfa2475bc8d25725b6d5d01bc7b22d7a0616abe77f8dc39b71521970564"
+    },
+    "patch_format": "Zero context. Forward/inverse application requires --unidiff-zero.",
+    "whole_task_whitespace_scope": "Full accepted-base-to-staged-index and accepted-base-to-correction-commit diffs. The external correction-publication receipt records exact commands and results.",
+    "publication_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.33-format-correction/receipts/correction-publication.json",
+    "functional_execution": false
+  }
 }

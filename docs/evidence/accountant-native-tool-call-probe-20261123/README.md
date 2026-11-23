@@ -37,6 +37,9 @@ These overlapping selections do not form a fresh aggregate success.
 [Runner isolation](runner-isolation.json) records external environment, state, caches, and receipt paths.
 This evidence claims no installed native distribution or installed native functional selection.
 
+[The format correction](format-correction.md) records the zero-context source patch and full-task whitespace scope.
+It preserves all original functional evidence and source identities.
+
 Root owns acceptance, merge, Beads closure, and canonical reconciliation.
 Full P10/P06 and private/real-provider/egress/durable/cross-thread/source/financial/production/native-manifest/index gates remain open.
 The online Mac collector stays outside scope.

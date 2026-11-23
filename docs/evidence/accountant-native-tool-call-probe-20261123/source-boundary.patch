@@ -2,66 +2,27 @@ diff --git a/agent/native_main_payload.py b/agent/native_main_payload.py
 index d17660ed1d..48b2bff395 100644
 --- a/agent/native_main_payload.py
 +++ b/agent/native_main_payload.py
-@@ -56,6 +56,7 @@ _delegate_frames = _DelegateFrames()
- _parent_resumptions = _DelegateFrames()
- _memory_snapshots = _DelegateFrames()
- _memory_prompt_frames = _DelegateFrames()
+@@ -58,0 +59 @@ _memory_prompt_frames = _DelegateFrames()
 +_tool_call_probes = _DelegateFrames()
- 
- 
- @dataclass(frozen=True, slots=True)
-@@ -137,6 +138,8 @@ def _capture_memory_binding(function):
-         adapter = args[0] if args else kwargs.get("self")
-         try:
-             _memory_require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters, "adapter_invalid")
+@@ -139,0 +141,2 @@ def _capture_memory_binding(function):
 +            if adapter in _tool_call_probes:
 +                adapter._deny()
-             _memory_require(all(type(name) is str for name in kwargs), "options_invalid")
-             bound = public_signature.bind(*args, **kwargs).arguments
-             target = bound.get("target", "memory")
-@@ -212,6 +215,9 @@ class NativeParentResumptionInvocation:
- 
- 
- def _resumption_callback(adapter, callback, *args):
+@@ -214,0 +218,3 @@ def _resumption_callback(adapter, callback, *args):
 +    probe = _tool_call_probes.get(adapter)
 +    if probe is not None:
 +        return probe.callback(callback, *args)
-     prompt = _memory_prompt_frames.get(adapter)
-     owner = (prompt if prompt is not None and prompt.active_call is not None else
-              _memory_snapshots.get(adapter) or _parent_resumptions.get(adapter))
-@@ -228,6 +234,8 @@ def _capture_resumption_binding(function):
-         adapter = args[0] if args else kwargs.get("self")
-         try:
-             _require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters)
+@@ -230,0 +237,2 @@ def _capture_resumption_binding(function):
 +            if adapter in _tool_call_probes:
 +                adapter._deny()
-             _require(all(type(name) is str for name in kwargs))
-             bound = public_signature.bind(*args, **kwargs).arguments
-             instruction = bound["instruction"]
-@@ -1101,6 +1109,9 @@ class _Admission:
- 
-     def current(self, handle):
-         adapter = self.adapter
+@@ -1103,0 +1112,3 @@ class _Admission:
 +        probe = _tool_call_probes.get(adapter)
 +        if probe is not None:
 +            return probe.current(handle)
-         memory = _memory_prompt_frames.get(adapter)
-         if memory is not None and memory.owns_window():
-             return memory.current(handle)
-@@ -1128,6 +1139,9 @@ class _Transport:
- 
-     def send(self, envelope):
-         adapter = self.adapter
+@@ -1130,0 +1142,3 @@ class _Transport:
 +        probe = _tool_call_probes.get(adapter)
 +        if probe is not None:
 +            return probe.send(self, envelope)
-         memory = _memory_prompt_frames.get(adapter)
-         if memory is not None and memory.owns_window():
-             return memory.send(self, envelope)
-@@ -1327,6 +1341,44 @@ class NativeMainPayloadAdapter:
-         finally:
-             self._busy = False
- 
+@@ -1329,0 +1344,38 @@ class NativeMainPayloadAdapter:
 +    def bind_tool_call_probe(
 +        self, agent: object, *, system_message: str, user_message: str,
 +        task_id: str, expected_arguments_json: str,
@@ -100,85 +61,36 @@ index d17660ed1d..48b2bff395 100644
 +            records.append(record)
 +        return tuple(records)
 +
-     @property
-     def invocations(self) -> tuple[NativeMainInvocation, ...]:
-         return self._records
-@@ -1353,6 +1405,9 @@ class NativeMainPayloadAdapter:
- 
-     def _invalidate(self):
-         self._invalid = True
+@@ -1355,0 +1408,3 @@ class NativeMainPayloadAdapter:
 +        probe = _tool_call_probes.get(self)
 +        if probe is not None:
 +            probe.phase = probe.phase_anchor = "denied"
-         prompt = _memory_prompt_frames.get(self)
-         if prompt is not None:
-             prompt.invalidate()
-@@ -1605,6 +1660,8 @@ class NativeMainPayloadAdapter:
- 
-     @contextmanager
-     def _turn_operation(self, agent):
+@@ -1607,0 +1663,2 @@ class NativeMainPayloadAdapter:
 +        if self in _tool_call_probes:
 +            self._deny()
-         owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
-         stage = None
-         try:
-@@ -1868,6 +1925,8 @@ class NativeMainPayloadAdapter:
-         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
- 
-     def _model_open(self):
+@@ -1870,0 +1928,2 @@ class NativeMainPayloadAdapter:
 +        if self in _tool_call_probes:
 +            self._deny()
-         _memory_require(self not in _memory_snapshots, "model_work_denied")
-         owner = _memory_prompt_frames.get(self) or _parent_resumptions.get(self)
-         if owner is None:
-@@ -1886,6 +1945,8 @@ class NativeMainPayloadAdapter:
-         child_main_route_ref: str, child_session_id: str, child_task_id: str,
-     ) -> None:
-         try:
+@@ -1888,0 +1948,2 @@ class NativeMainPayloadAdapter:
 +            if self in _tool_call_probes:
 +                self._deny()
-             _memory_require(self not in _memory_snapshots, "new_binding_denied")
-             _require(self not in _delegate_frames)
-             _DelegateFrame(self, agent, receiver_request, receiver_selection, receiver_producer_ref,
-@@ -2613,6 +2674,9 @@ class NativeMainPayloadAdapter:
-         if self._fallback_binding is not None and type(result) is shared_policy().FailedDispatch:
-             return result
-         self._dispatch_result = result
+@@ -2615,0 +2677,3 @@ class NativeMainPayloadAdapter:
 +        probe = _tool_call_probes.get(self)
 +        if probe is not None:
 +            return probe.observe_operation(operation, result)
-         self._checkpoint()
-         _require(self._pending is not None)
-         envelope, actual, output = self._pending
-@@ -2983,6 +3047,9 @@ class NativeMainPayloadAdapter:
-             return stages, output
- 
-     def _checkpoint(self):
+@@ -2985,0 +3050,3 @@ class NativeMainPayloadAdapter:
 +        probe = _tool_call_probes.get(self)
 +        if probe is not None:
 +            return probe.checkpoint()
-         first = self._snapshot()
-         second = self._snapshot()
-         _require(first == second)
-@@ -3008,6 +3075,10 @@ class NativeMainPayloadAdapter:
- 
-     def validate_scope(self) -> None:
-         try:
+@@ -3010,0 +3078,4 @@ class NativeMainPayloadAdapter:
 +            probe = _tool_call_probes.get(self)
 +            if probe is not None:
 +                probe.scope_access()
 +                return
-             prompt = _memory_prompt_frames.get(self)
-             if prompt is not None and self is prompt.adapter:
-                 prompt.access()
-@@ -3531,10 +3602,17 @@ def _prepare_controlled_turn(agent, token, arguments, exclusions):
-         raise
- 
- 
+@@ -3534 +3605 @@ def _prepare_controlled_turn(agent, token, arguments, exclusions):
 -def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, NativeMainResponse | None]:
 +def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, NativeMainResponse | NativeToolCallObservation | None]:
-     context = current_context(agent)
-     if context is not None and context._controlled_main_bound:
+@@ -3537 +3608,8 @@ def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, Nat
 -        return True, _attached(context).dispatch(agent, api_kwargs)
 +        adapter = _attached(context)
 +        probe = _tool_call_probes.get(adapter)
@@ -188,36 +100,18 @@ index d17660ed1d..48b2bff395 100644
 +            except BaseException as error:
 +                _probe_failure(adapter, error)
 +        return True, adapter.dispatch(agent, api_kwargs)
-     provider = getattr(agent, "provider", None)
-     if type(provider) is str and provider == "synthetic_native":
-         if context is not None:
-@@ -3871,6 +3949,9 @@ def _bind_constructed_main(agent, adapter: NativeMainPayloadAdapter) -> None:
- 
- def _constructed_adapter(agent):
-     try:
+@@ -3873,0 +3952,3 @@ def _constructed_adapter(agent):
 +        probe_binding = _owned_constructed_binding(agent)
 +        if probe_binding is not None and probe_binding.adapter in _tool_call_probes:
 +            probe_binding.adapter._deny()
-         binding = _namespace(agent).get("_native_controlled_binding")
-         owned = _owned_constructed_binding(agent)
-         if owned is not None:
-@@ -3974,6 +4055,12 @@ def _close_constructed_main(agent) -> bool:
-     if not _controlled_attempt(agent):
-         return False
-     owned = _owned_constructed_binding(agent)
+@@ -3976,0 +4058,6 @@ def _close_constructed_main(agent) -> bool:
 +    probe = _tool_call_probes.get(owned.adapter) if owned is not None else None
 +    if probe is not None and probe.phase == "released":
 +        try:
 +            return probe.close()
 +        except BaseException as error:
 +            _probe_failure(owned.adapter, error)
-     memory = _memory_snapshots.get(owned.adapter) if owned is not None else None
-     if memory is not None and memory.phase == "released":
-         try:
-@@ -6006,3 +6093,617 @@ def _close_delegate_child(frame):
-     frame.child.close()
-     frame.set_slot(None)
-     frame.checkpoint()
+@@ -6008,0 +6096,614 @@ def _close_delegate_child(frame):
 +
 +
 +class NativeToolCallProbeInput:
