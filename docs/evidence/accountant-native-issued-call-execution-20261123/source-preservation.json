@@ -1,0 +1,4285 @@
+{
+  "base": "693b1bcc1919cfad4419b90a1a1eaae7a3471956",
+  "old_signatures": 286,
+  "old_shapes": 33,
+  "signature_exceptions": [
+    "NativeMainPayloadAdapter.__init__"
+  ],
+  "changed_definitions": [
+    "_resumption_callback",
+    "_Admission.current",
+    "_Transport.resolve",
+    "_Transport.send",
+    "NativeMainPayloadAdapter.__init__",
+    "NativeMainPayloadAdapter._identity",
+    "NativeMainPayloadAdapter._around",
+    "NativeMainPayloadAdapter.validate_scope",
+    "_DelegateFrame.call",
+    "_DelegateFrame.checkpoint",
+    "_DelegateFrame.current",
+    "_DelegateFrame.capture",
+    "_DelegateFrame.send",
+    "_controlled_delegate_runner",
+    "_ToolCallProbe.access"
+  ],
+  "unchanged_text_validators": [
+    "_history",
+    "_request",
+    "_response_shape_base",
+    "_response_shape",
+    "_decode_response"
+  ],
+  "preserved_base_paths": 11567,
+  "old_modes_unchanged": true,
+  "AIAgent_constructor_body_unchanged": true,
+  "runner_clarification": "msg_4290e1a6a859",
+  "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+  "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e",
+  "old_signature_inventory": {
+    "_DelegateFrames.__setitem__": {
+      "arguments": "self, key, value",
+      "returns": null
+    },
+    "_DelegateFrames.__getitem__": {
+      "arguments": "self, key",
+      "returns": null
+    },
+    "_DelegateFrames.get": {
+      "arguments": "self, key, default=None",
+      "returns": null
+    },
+    "NativeMemorySnapshotInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "_memory_require": {
+      "arguments": "condition, reason",
+      "returns": null
+    },
+    "_memory_failure": {
+      "arguments": "adapter, error",
+      "returns": null
+    },
+    "_capture_memory_binding": {
+      "arguments": "function",
+      "returns": null
+    },
+    "NativeParentResumption.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "_resumption_callback": {
+      "arguments": "adapter, callback, *args",
+      "returns": null
+    },
+    "_capture_resumption_binding": {
+      "arguments": "function",
+      "returns": null
+    },
+    "NativeDelegateInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "NativeTurnInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "NativeAuxiliaryInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "NativeAuxiliaryRequest.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "NativePreparedTurn.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "NativeFallbackInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "_history": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_turn_shape": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "_turn_bytes": {
+      "arguments": "arguments, options",
+      "returns": null
+    },
+    "_native_state": {
+      "arguments": "agent, system",
+      "returns": null
+    },
+    "_output_bytes": {
+      "arguments": "output",
+      "returns": null
+    },
+    "_output_anchors": {
+      "arguments": "output",
+      "returns": null
+    },
+    "_input_anchors": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "NativeSelectionPort.current": {
+      "arguments": "self, request_handle: object",
+      "returns": "NativeMainSelection"
+    },
+    "NativeResultPolicyPort.current": {
+      "arguments": "self, producer_ref: str",
+      "returns": "NativeResultPolicy"
+    },
+    "NativeResultPolicyPort.memory_source": {
+      "arguments": "self, request_handle: object, producer_ref: str",
+      "returns": "NativeMemorySource"
+    },
+    "_require": {
+      "arguments": "condition",
+      "returns": null
+    },
+    "_identifier": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_integer": {
+      "arguments": "value, maximum=_MAX_INT, minimum=1",
+      "returns": null
+    },
+    "_profiles": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_row": {
+      "arguments": "value, cls",
+      "returns": null
+    },
+    "_binding": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_destination": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_selection": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_producer": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_keys": {
+      "arguments": "value, required, optional=()",
+      "returns": null
+    },
+    "_text": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_request": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_json": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_response_shape": {
+      "arguments": "value, model",
+      "returns": null
+    },
+    "_compression_response_shape": {
+      "arguments": "value, model",
+      "returns": null
+    },
+    "_response_shape_base": {
+      "arguments": "value, model",
+      "returns": null
+    },
+    "_pairs": {
+      "arguments": "pairs",
+      "returns": null
+    },
+    "_decode_response": {
+      "arguments": "payload, model",
+      "returns": null
+    },
+    "_decode_compression_response": {
+      "arguments": "payload, model",
+      "returns": null
+    },
+    "_decode_response_payload": {
+      "arguments": "payload",
+      "returns": null
+    },
+    "_response": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_response_bytes": {
+      "arguments": "response, model",
+      "returns": null
+    },
+    "_compression_response_bytes": {
+      "arguments": "response, model",
+      "returns": null
+    },
+    "_response_value": {
+      "arguments": "response",
+      "returns": null
+    },
+    "_method": {
+      "arguments": "callback",
+      "returns": null
+    },
+    "_same_method": {
+      "arguments": "current, captured",
+      "returns": null
+    },
+    "_route_facts": {
+      "arguments": "route",
+      "returns": null
+    },
+    "_destination_value": {
+      "arguments": "destination",
+      "returns": null
+    },
+    "_selection_value": {
+      "arguments": "selection",
+      "returns": null
+    },
+    "_fallback_failed_bytes": {
+      "arguments": "failed",
+      "returns": null
+    },
+    "_fallback_result_bytes": {
+      "arguments": "result",
+      "returns": null
+    },
+    "_Admission.__init__": {
+      "arguments": "self, adapter",
+      "returns": null
+    },
+    "_Admission.current": {
+      "arguments": "self, handle",
+      "returns": null
+    },
+    "_Transport.__init__": {
+      "arguments": "self, adapter, port, *, main",
+      "returns": null
+    },
+    "_Transport.resolve": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_Transport.send": {
+      "arguments": "self, envelope",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.__init__": {
+      "arguments": "self, context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int], _delegation_frame: object=None, _memory_prompt_frame: object=None",
+      "returns": "None"
+    },
+    "NativeMainPayloadAdapter.bind_tool_call_probe": {
+      "arguments": "self, agent: object, *, system_message: str, user_message: str, task_id: str, expected_arguments_json: str",
+      "returns": "NativeToolCallProbeInput"
+    },
+    "NativeMainPayloadAdapter.run_tool_call_probe": {
+      "arguments": "self, agent: object, authorization: NativeToolCallProbeInput",
+      "returns": "NativeToolCallObservation"
+    },
+    "NativeMainPayloadAdapter.tool_call_observations": {
+      "arguments": "self",
+      "returns": "tuple[NativeToolCallObservation, ...]"
+    },
+    "NativeMainPayloadAdapter.invocations": {
+      "arguments": "self",
+      "returns": "tuple[NativeMainInvocation, ...]"
+    },
+    "NativeMainPayloadAdapter.send_count": {
+      "arguments": "self",
+      "returns": "int"
+    },
+    "NativeMainPayloadAdapter.failed_main_attempts": {
+      "arguments": "self",
+      "returns": "tuple[NativeFailedMainAttempt, ...]"
+    },
+    "NativeMainPayloadAdapter.fallback_invocations": {
+      "arguments": "self",
+      "returns": "tuple[NativeFallbackInvocation, ...]"
+    },
+    "NativeMainPayloadAdapter.fallback_send_count": {
+      "arguments": "self",
+      "returns": "int"
+    },
+    "NativeMainPayloadAdapter._deny": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._invalidate": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._identity": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._snapshot": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._verify_records": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._verify_turns": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._verify_completions": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._interrupt_operation": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._interrupt_turn": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._turn_operation": {
+      "arguments": "self, agent",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.admit_turn": {
+      "arguments": "self, agent: object, *, user_message: str, system_message: str | None, conversation_history: list[dict[str, str]] | None, task_id: str",
+      "returns": "NativeTurnInput"
+    },
+    "NativeMainPayloadAdapter._prepare_turn": {
+      "arguments": "self, agent, token, arguments, exclusions",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.seal_turn": {
+      "arguments": "self, agent: object, turn: NativeTurnInput, *, turn_context: TurnContext",
+      "returns": "NativePreparedTurn"
+    },
+    "NativeMainPayloadAdapter._turn_request": {
+      "arguments": "self, frame",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.prepared_request": {
+      "arguments": "self, agent: object, prepared: NativePreparedTurn",
+      "returns": "dict"
+    },
+    "NativeMainPayloadAdapter.auxiliary_invocations": {
+      "arguments": "self",
+      "returns": "tuple[NativeAuxiliaryInvocation, ...]"
+    },
+    "NativeMainPayloadAdapter.auxiliary_send_count": {
+      "arguments": "self",
+      "returns": "int"
+    },
+    "NativeMainPayloadAdapter.auxiliary_local_results": {
+      "arguments": "self",
+      "returns": "tuple[NativeAuxiliaryLocalResult, ...]"
+    },
+    "NativeMainPayloadAdapter._completed_auxiliary_outputs": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._derive": {
+      "arguments": "self, handle, parents, payload, *, path",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._callback_scope": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._model_open": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.bind_delegation": {
+      "arguments": "self, agent: object, *, receiver_request: object, receiver_selection: NativeSelectionPort, receiver_producer_ref: str, child_request: object, child_selection: NativeSelectionPort, child_producer_ref: str, delegate_route_ref: str, child_main_route_ref: str, child_session_id: str, child_task_id: str",
+      "returns": "None"
+    },
+    "NativeMainPayloadAdapter.bind_parent_resumption": {
+      "arguments": "self, agent: object, *, instruction: str, system_message: str | None=None",
+      "returns": "NativeParentResumption"
+    },
+    "NativeMainPayloadAdapter.resume_parent": {
+      "arguments": "self, agent: object, authorization: NativeParentResumption",
+      "returns": "dict"
+    },
+    "NativeMainPayloadAdapter.bind_memory_snapshot": {
+      "arguments": "self, agent: object, *, store: object, producer_ref: str, target: str='memory'",
+      "returns": "NativeMemorySnapshotInput"
+    },
+    "NativeMainPayloadAdapter.read_memory_snapshot": {
+      "arguments": "self, agent: object, source: NativeMemorySnapshotInput",
+      "returns": "NativeMemorySnapshotResult"
+    },
+    "NativeMainPayloadAdapter._verify_fallback": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._retain_fallback_frame": {
+      "arguments": "self, frame",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._retain_fallback_invocation": {
+      "arguments": "self, record",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._fallback_snapshot": {
+      "arguments": "self, main",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.bind_fallback": {
+      "arguments": "self, agent: object, *, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str",
+      "returns": "None"
+    },
+    "NativeMainPayloadAdapter._begin_fallback": {
+      "arguments": "self, agent: object, *, failure: FailedDispatch",
+      "returns": "NativeFallbackInput"
+    },
+    "NativeMainPayloadAdapter._fallback_derive": {
+      "arguments": "self, payload, additional",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._activate_fallback": {
+      "arguments": "self, agent: object, token: NativeFallbackInput",
+      "returns": "bool"
+    },
+    "NativeMainPayloadAdapter._dispatch_fallback": {
+      "arguments": "self, agent: object, token: NativeFallbackInput",
+      "returns": "NativeMainResponse"
+    },
+    "NativeMainPayloadAdapter._complete_fallback_turn": {
+      "arguments": "self, agent: object, *, turn_context: TurnContext, response: NativeMainResponse",
+      "returns": "dict"
+    },
+    "NativeMainPayloadAdapter._aux_snapshot": {
+      "arguments": "self, main",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._verify_auxiliary": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._retain_aux_frame": {
+      "arguments": "self, frame",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._accept_aux_record": {
+      "arguments": "self, record",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._retain_aux_record": {
+      "arguments": "self, record, frame=None",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.bind_auxiliary": {
+      "arguments": "self, agent: object, *, path: str, task: str, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str, language: str",
+      "returns": "None"
+    },
+    "NativeMainPayloadAdapter.auxiliary_input": {
+      "arguments": "self, agent: object, *, source: dict, field: str",
+      "returns": "NativeAuxiliaryInput"
+    },
+    "NativeMainPayloadAdapter._checked_aux_frame": {
+      "arguments": "self, token, *, sealed=False",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._prepare_auxiliary_title": {
+      "arguments": "self, token",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._transform_auxiliary": {
+      "arguments": "self, token, *, response=None",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.seal_auxiliary": {
+      "arguments": "self, agent: object, source: NativeAuxiliaryInput, *, stages: tuple[bytes, ...], request: dict",
+      "returns": "NativeAuxiliaryRequest"
+    },
+    "NativeMainPayloadAdapter._dispatch_retained_operation": {
+      "arguments": "self, operation",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.dispatch_auxiliary": {
+      "arguments": "self, request: NativeAuxiliaryRequest, *, arguments: dict",
+      "returns": "NativeMainResponse"
+    },
+    "NativeMainPayloadAdapter.complete_auxiliary": {
+      "arguments": "self, request: NativeAuxiliaryRequest, *, response: NativeMainResponse, stages: tuple[bytes, ...], output: dict",
+      "returns": "dict"
+    },
+    "NativeMainPayloadAdapter.complete_auxiliary_local": {
+      "arguments": "self, agent: object, source: NativeAuxiliaryInput, *, stages: tuple[bytes, ...], output: dict",
+      "returns": "dict"
+    },
+    "NativeMainPayloadAdapter._aux_frame_binding": {
+      "arguments": "self, frame",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._derive_auxiliary_output": {
+      "arguments": "self, binding, parents, payload, path",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._compression_snapshot": {
+      "arguments": "self, main",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.bind_compression": {
+      "arguments": "self, agent: object, *, request_handle: object, selection: NativeSelectionPort, producer_ref: str, route_ref: str, context_length: int, summary_date: str",
+      "returns": "None"
+    },
+    "NativeMainPayloadAdapter.compression_input": {
+      "arguments": "self, agent: object, *, source: dict",
+      "returns": "NativeAuxiliaryInput"
+    },
+    "NativeMainPayloadAdapter._prepare_compression": {
+      "arguments": "self, token: NativeAuxiliaryInput",
+      "returns": "_CompressionPreparation"
+    },
+    "NativeMainPayloadAdapter._compression_response_transform": {
+      "arguments": "self, frame, response",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._compression_output_stages": {
+      "arguments": "self, request: NativeAuxiliaryRequest, response: NativeMainResponse",
+      "returns": "tuple[tuple[bytes, ...], dict]"
+    },
+    "NativeMainPayloadAdapter._checkpoint": {
+      "arguments": "self",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter._around": {
+      "arguments": "self, callback",
+      "returns": null
+    },
+    "NativeMainPayloadAdapter.validate_scope": {
+      "arguments": "self",
+      "returns": "None"
+    },
+    "NativeMainPayloadAdapter.dispatch": {
+      "arguments": "self, agent: object, api_kwargs: dict",
+      "returns": "NativeMainResponse"
+    },
+    "_nested_anchors": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_same_anchors": {
+      "arguments": "actual, original",
+      "returns": null
+    },
+    "_stage_tuple": {
+      "arguments": "stages",
+      "returns": null
+    },
+    "_call_arguments_bytes": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "_compression_wire": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "_compression_call_arguments_bytes": {
+      "arguments": "arguments: dict",
+      "returns": "bytes"
+    },
+    "_compression_constants": {
+      "arguments": "",
+      "returns": null
+    },
+    "_controlled_compression_constructor": {
+      "arguments": "compressor: object, adapter: NativeMainPayloadAdapter | None, *, options: dict",
+      "returns": "bool"
+    },
+    "_controlled_compression_entry": {
+      "arguments": "compressor: object, turns: list, token: NativeAuxiliaryInput | None, *, focus_topic: str | None, memory_context: str",
+      "returns": "NativeMainPayloadAdapter | None"
+    },
+    "_refuse_compression_owner": {
+      "arguments": "compressor",
+      "returns": null
+    },
+    "_safe_json": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_auxiliary_attempt": {
+      "arguments": "*, token=None, provider=None",
+      "returns": null
+    },
+    "_auxiliary_owner": {
+      "arguments": "token, cls",
+      "returns": null
+    },
+    "_controlled_title_entry": {
+      "arguments": "user_message, token, options",
+      "returns": null
+    },
+    "_try_controlled_auxiliary_call": {
+      "arguments": "*, arguments",
+      "returns": null
+    },
+    "bind_controlled_main": {
+      "arguments": "context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int]",
+      "returns": "NativeMainPayloadAdapter"
+    },
+    "_attached": {
+      "arguments": "context",
+      "returns": null
+    },
+    "validate_controlled_scope": {
+      "arguments": "context: NativeContentContext",
+      "returns": "None"
+    },
+    "invalidate_controlled_context": {
+      "arguments": "context: NativeContentContext",
+      "returns": "None"
+    },
+    "_prepare_controlled_turn": {
+      "arguments": "agent, token, arguments, exclusions",
+      "returns": null
+    },
+    "dispatch_controlled_main": {
+      "arguments": "agent: object, api_kwargs: dict",
+      "returns": "tuple[bool, NativeMainResponse | NativeToolCallObservation | None]"
+    },
+    "_controlled_fallback_activation": {
+      "arguments": "agent, reason, token",
+      "returns": null
+    },
+    "_namespace": {
+      "arguments": "agent",
+      "returns": null
+    },
+    "_owned_constructed_binding": {
+      "arguments": "agent",
+      "returns": null
+    },
+    "_controlled_attempt": {
+      "arguments": "agent, adapter=None, provider=None",
+      "returns": null
+    },
+    "_invalidate_constructed_attempt": {
+      "arguments": "agent, adapter=None",
+      "returns": null
+    },
+    "_validate_constructor_options": {
+      "arguments": "agent, adapter, supplied",
+      "returns": null
+    },
+    "_initialize_controlled_main": {
+      "arguments": "agent, options",
+      "returns": null
+    },
+    "_constructed_state": {
+      "arguments": "namespace",
+      "returns": null
+    },
+    "_verify_constructed": {
+      "arguments": "binding",
+      "returns": null
+    },
+    "_bind_constructed_main": {
+      "arguments": "agent, adapter: NativeMainPayloadAdapter",
+      "returns": "None"
+    },
+    "_constructed_adapter": {
+      "arguments": "agent",
+      "returns": null
+    },
+    "_native_result_anchors": {
+      "arguments": "result",
+      "returns": null
+    },
+    "_native_result_bytes": {
+      "arguments": "result",
+      "returns": null
+    },
+    "_complete_controlled_turn": {
+      "arguments": "agent, *, turn_context: TurnContext, response: NativeMainResponse",
+      "returns": "dict"
+    },
+    "_close_constructed_main": {
+      "arguments": "agent",
+      "returns": "bool"
+    },
+    "_MemorySnapshot.__init__": {
+      "arguments": "self, parent, agent, store, producer_ref, target, options",
+      "returns": null
+    },
+    "_MemorySnapshot.health": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.callback": {
+      "arguments": "self, callback, *args",
+      "returns": null
+    },
+    "_MemorySnapshot.store_facts": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.source_facts": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.verify": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.content": {
+      "arguments": "self, handle, payload, parents",
+      "returns": null
+    },
+    "_MemorySnapshot.checkpoint": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.bind": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.scope_access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemorySnapshot.read": {
+      "arguments": "self, agent, token, public_frame",
+      "returns": null
+    },
+    "NativeMemoryPromptInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "_memory_prompt_owner": {
+      "arguments": "agent",
+      "returns": null
+    },
+    "_memory_prompt_access": {
+      "arguments": "agent, kind, system=None",
+      "returns": null
+    },
+    "_MemoryPrompt.__init__": {
+      "arguments": "self, source_owner, source, context, selection, result_policy, producer, route, system, session, entry",
+      "returns": null
+    },
+    "_MemoryPrompt.invalidate": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.owns_window": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.source_probe_active": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.source_probe": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.callback": {
+      "arguments": "self, callback, *args",
+      "returns": null
+    },
+    "_MemoryPrompt.verify": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.checkpoint": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.current": {
+      "arguments": "self, handle",
+      "returns": null
+    },
+    "_MemoryPrompt.around": {
+      "arguments": "self, callback",
+      "returns": null
+    },
+    "_MemoryPrompt.resolve": {
+      "arguments": "self, wrapper",
+      "returns": null
+    },
+    "_MemoryPrompt.send": {
+      "arguments": "self, wrapper, envelope",
+      "returns": null
+    },
+    "_MemoryPrompt.open_view": {
+      "arguments": "self, adapter, context",
+      "returns": null
+    },
+    "_MemoryPrompt.check_input": {
+      "arguments": "self, agent, user, system, history, task",
+      "returns": null
+    },
+    "_MemoryPrompt.enter_stage": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.check_stage": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.exit_stage": {
+      "arguments": "self, stage",
+      "returns": null
+    },
+    "_MemoryPrompt.transition": {
+      "arguments": "self, previous, phase",
+      "returns": null
+    },
+    "_MemoryPrompt.progress": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_MemoryPrompt.cache_state": {
+      "arguments": "self, namespace",
+      "returns": null
+    },
+    "_MemoryPrompt.prompt_access": {
+      "arguments": "self, agent, kind, system",
+      "returns": null
+    },
+    "_MemoryPrompt.build_prompt": {
+      "arguments": "self, agent, system",
+      "returns": null
+    },
+    "bind_memory_prompt_consumer": {
+      "arguments": "source_adapter: NativeMainPayloadAdapter, source: NativeMemorySnapshotResult, *, consumer_context: NativeContentContext, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, system_message: str, session_id: str",
+      "returns": "NativeMemoryPromptInput"
+    },
+    "run_memory_prompt_consumer": {
+      "arguments": "token: NativeMemoryPromptInput, *, user_message: str, task_id: str",
+      "returns": "dict"
+    },
+    "_ParentResumption.__init__": {
+      "arguments": "self, parent, agent, options",
+      "returns": null
+    },
+    "_ParentResumption.parent_proof": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.callback": {
+      "arguments": "self, callback, *args",
+      "returns": null
+    },
+    "_ParentResumption.verify": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.checkpoint": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.bind": {
+      "arguments": "self, instruction, system",
+      "returns": null
+    },
+    "_ParentResumption.access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption._access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.enter_stage": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.check_stage": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.exit_stage": {
+      "arguments": "self, stage",
+      "returns": null
+    },
+    "_ParentResumption.retain": {
+      "arguments": "self, **changes",
+      "returns": null
+    },
+    "_ParentResumption.mutable_anchors": {
+      "arguments": "self, record",
+      "returns": null
+    },
+    "_ParentResumption.transition": {
+      "arguments": "self, previous, phase",
+      "returns": null
+    },
+    "_ParentResumption.progress": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.access_progress": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ParentResumption.sending": {
+      "arguments": "self, operation, envelope, actual, before",
+      "returns": null
+    },
+    "_ParentResumption.sent": {
+      "arguments": "self, envelope, actual, output, before, after",
+      "returns": null
+    },
+    "_ParentResumption.resume": {
+      "arguments": "self, agent, authorization",
+      "returns": null
+    },
+    "_DelegateFrame.__init__": {
+      "arguments": "self, parent, agent, receiver, receiver_selection, receiver_producer, child_request, child_selection, child_producer, delegate_route, child_route, session, task",
+      "returns": null
+    },
+    "_DelegateFrame.invalidate": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.child_scope": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.verify": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.call": {
+      "arguments": "self, callback, *args",
+      "returns": null
+    },
+    "_DelegateFrame.facts": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.checkpoint": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.current": {
+      "arguments": "self, handle",
+      "returns": null
+    },
+    "_DelegateFrame.retain": {
+      "arguments": "self, **changes",
+      "returns": null
+    },
+    "_DelegateFrame.set_slot": {
+      "arguments": "self, slot",
+      "returns": null
+    },
+    "_DelegateFrame.transition": {
+      "arguments": "self, token, previous, phase",
+      "returns": null
+    },
+    "_DelegateFrame.stage": {
+      "arguments": "self, payload, parents, *, output=False, handle=None, parent_requests=None",
+      "returns": null
+    },
+    "_DelegateFrame.encode_arguments": {
+      "arguments": "self, arguments",
+      "returns": null
+    },
+    "_DelegateFrame.capture": {
+      "arguments": "self, args, kwargs, signature",
+      "returns": null
+    },
+    "_DelegateFrame.send": {
+      "arguments": "self, wrapper, envelope",
+      "returns": null
+    },
+    "_DelegateFrame.dispatch_request": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.open_view": {
+      "arguments": "self, adapter, context",
+      "returns": null
+    },
+    "_DelegateFrame.check_child_input": {
+      "arguments": "self, agent, arguments",
+      "returns": null
+    },
+    "_DelegateFrame.proof": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_DelegateFrame.retain_completion": {
+      "arguments": "self, result",
+      "returns": null
+    },
+    "_DelegateFrame.complete": {
+      "arguments": "self, result, duration",
+      "returns": null
+    },
+    "_DelegateFrame.finish": {
+      "arguments": "self, entry",
+      "returns": null
+    },
+    "_DelegateFrame.check_return": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_delegate_owner": {
+      "arguments": "agent",
+      "returns": null
+    },
+    "_remember_delegate_control": {
+      "arguments": "frame, error",
+      "returns": null
+    },
+    "_capture_delegate_call": {
+      "arguments": "function",
+      "returns": null
+    },
+    "_delegate_boundary": {
+      "arguments": "function",
+      "returns": null
+    },
+    "_controlled_delegate_entry": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "_controlled_delegate_builder": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "_controlled_delegate_runner": {
+      "arguments": "arguments",
+      "returns": null
+    },
+    "_close_delegate_child": {
+      "arguments": "frame",
+      "returns": null
+    },
+    "NativeToolCallProbeInput.__new__": {
+      "arguments": "cls",
+      "returns": null
+    },
+    "_probe_require": {
+      "arguments": "condition, reason",
+      "returns": null
+    },
+    "_probe_failure": {
+      "arguments": "adapter, error",
+      "returns": null
+    },
+    "_tool_probe_arguments": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_tool_probe_schema": {
+      "arguments": "",
+      "returns": null
+    },
+    "_tool_probe_request": {
+      "arguments": "value",
+      "returns": null
+    },
+    "_tool_probe_response": {
+      "arguments": "payload, model, expected_arguments_json",
+      "returns": null
+    },
+    "_ToolCallProbe.__init__": {
+      "arguments": "self, parent, agent, inputs, public",
+      "returns": null
+    },
+    "_ToolCallProbe.capture_methods": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.verify": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.callback": {
+      "arguments": "self, callback, *args",
+      "returns": null
+    },
+    "_ToolCallProbe.checkpoint": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.content": {
+      "arguments": "self, handle, payload, parents",
+      "returns": null
+    },
+    "_ToolCallProbe.window": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.current": {
+      "arguments": "self, handle",
+      "returns": null
+    },
+    "_ToolCallProbe.scope_access": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.bind": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_ToolCallProbe.caller_access": {
+      "arguments": "self, public",
+      "returns": null
+    },
+    "_ToolCallProbe.dispatch": {
+      "arguments": "self, agent, api_kwargs, public",
+      "returns": null
+    },
+    "_ToolCallProbe.send": {
+      "arguments": "self, wrapper, envelope",
+      "returns": null
+    },
+    "_ToolCallProbe.observe_operation": {
+      "arguments": "self, operation, result",
+      "returns": null
+    },
+    "_ToolCallProbe.run": {
+      "arguments": "self, agent, authorization, public",
+      "returns": null
+    },
+    "_ToolCallProbe.close": {
+      "arguments": "self",
+      "returns": null
+    },
+    "_probe_code_current": {
+      "arguments": "",
+      "returns": null
+    }
+  },
+  "old_annotated_shapes": {
+    "NativeMemorySource": [
+      {
+        "name": "store",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "target",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "owner_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "profile_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "source_version",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      }
+    ],
+    "NativeMemorySnapshotBinding": [
+      {
+        "name": "token",
+        "annotation": "NativeMemorySnapshotInput",
+        "value": null
+      },
+      {
+        "name": "agent",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "store",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "target",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "source_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "options",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "snapshots",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "thread",
+        "annotation": "int",
+        "value": null
+      }
+    ],
+    "NativeMemorySnapshotResult": [
+      {
+        "name": "binding",
+        "annotation": "NativeMemorySnapshotBinding",
+        "value": null
+      },
+      {
+        "name": "block",
+        "annotation": "str | None",
+        "value": null
+      },
+      {
+        "name": "result_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "result_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      }
+    ],
+    "NativeParentResumptionBinding": [
+      {
+        "name": "token",
+        "annotation": "NativeParentResumption",
+        "value": null
+      },
+      {
+        "name": "agent",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "delegation_frame",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "delegation_binding",
+        "annotation": "NativeDelegateBinding",
+        "value": null
+      },
+      {
+        "name": "parent_request",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "main_route",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "instruction",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "system_message",
+        "annotation": "str | None",
+        "value": null
+      },
+      {
+        "name": "task_id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "options",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "authorization_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "authorization_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "snapshots",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "thread",
+        "annotation": "int",
+        "value": null
+      }
+    ],
+    "NativeParentResumptionInvocation": [
+      {
+        "name": "binding",
+        "annotation": "NativeParentResumptionBinding",
+        "value": null
+      },
+      {
+        "name": "delegation",
+        "annotation": "NativeDelegateInvocation",
+        "value": null
+      },
+      {
+        "name": "return_facts",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "returned_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "closed_child_proof",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "arguments",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "argument_anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "raw_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "input_parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "input_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "turn_frame",
+        "annotation": "_TurnFrame | None",
+        "value": null
+      },
+      {
+        "name": "preparation_contents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "request",
+        "annotation": "dict | None",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "native_invocation",
+        "annotation": "NativeMainInvocation | None",
+        "value": null
+      },
+      {
+        "name": "native_completion",
+        "annotation": "_NativeCompletion | None",
+        "value": null
+      },
+      {
+        "name": "result",
+        "annotation": "dict | None",
+        "value": null
+      },
+      {
+        "name": "result_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "result_content",
+        "annotation": "object",
+        "value": null
+      }
+    ],
+    "NativeDelegateBinding": [
+      {
+        "name": "parent_request",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "receiver_request",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_request",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "receiver_selection",
+        "annotation": "NativeSelectionPort",
+        "value": null
+      },
+      {
+        "name": "child_selection",
+        "annotation": "NativeSelectionPort",
+        "value": null
+      },
+      {
+        "name": "receiver_producer_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "child_producer_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "delegate_route",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_main_route",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_session_id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "child_task_id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "snapshots",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple",
+        "value": null
+      }
+    ],
+    "NativeDelegateInvocation": [
+      {
+        "name": "token",
+        "annotation": "NativeDelegateInput",
+        "value": null
+      },
+      {
+        "name": "binding",
+        "annotation": "NativeDelegateBinding",
+        "value": null
+      },
+      {
+        "name": "arguments",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "argument_anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "raw_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "raw_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "leaf_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "leaf_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "ack_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "ack_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "accepted_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_seed",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_adapter",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_input",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_request",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_invocation",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "child_completion",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "entry_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "aggregate_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "receiver_result",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "return_facts",
+        "annotation": "object",
+        "value": null
+      }
+    ],
+    "_FallbackBinding": [
+      {
+        "name": "handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "port",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "producer_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "route",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "holder",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "selected",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "producer",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "original_profiles",
+        "annotation": "tuple",
+        "value": null
+      }
+    ],
+    "_FailedSendObservation": [
+      {
+        "name": "operation",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "exception_type",
+        "annotation": "type",
+        "value": null
+      },
+      {
+        "name": "send_count_before",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "send_count_after",
+        "annotation": "int",
+        "value": null
+      }
+    ],
+    "NativeFailedMainAttempt": [
+      {
+        "name": "turn_frame",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "request",
+        "annotation": "dict",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "send_observation",
+        "annotation": "_FailedSendObservation",
+        "value": null
+      },
+      {
+        "name": "shared_failure",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "failure_facts",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "failure_content",
+        "annotation": "object",
+        "value": null
+      }
+    ],
+    "_FallbackFrame": [
+      {
+        "name": "token",
+        "annotation": "NativeFallbackInput",
+        "value": null
+      },
+      {
+        "name": "failed_main",
+        "annotation": "NativeFailedMainAttempt",
+        "value": null
+      },
+      {
+        "name": "binding",
+        "annotation": "_FallbackBinding",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "source_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "input_stages",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "request",
+        "annotation": "dict | None",
+        "value": "None"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "request_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "activated",
+        "annotation": "bool",
+        "value": "False"
+      },
+      {
+        "name": "invocation",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "result",
+        "annotation": "dict | None",
+        "value": "None"
+      },
+      {
+        "name": "result_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "result_content",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "result_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      }
+    ],
+    "NativeFallbackInvocation": [
+      {
+        "name": "failed_main",
+        "annotation": "NativeFailedMainAttempt",
+        "value": null
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "input_stages",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "request",
+        "annotation": "dict",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "result_content",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "native_response",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "output_stages",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "output_contents",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "output",
+        "annotation": "dict | None",
+        "value": "None"
+      },
+      {
+        "name": "output_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "output_content",
+        "annotation": "object",
+        "value": "None"
+      }
+    ],
+    "_TurnFrame": [
+      {
+        "name": "token",
+        "annotation": "NativeTurnInput",
+        "value": null
+      },
+      {
+        "name": "arguments",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "raw_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "admitted",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "input_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "options",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "input_anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "output",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "output_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "output_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "output_content",
+        "annotation": "object",
+        "value": "None"
+      },
+      {
+        "name": "prepared",
+        "annotation": "NativePreparedTurn | None",
+        "value": "None"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "request_contents",
+        "annotation": "tuple",
+        "value": "()"
+      }
+    ],
+    "NativeMainSelection": [
+      {
+        "name": "selection_id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "selection_version",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "api_mode",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "destination",
+        "annotation": "Destination",
+        "value": null
+      }
+    ],
+    "NativeResultPolicy": [
+      {
+        "name": "producer_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "revision",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "profiles",
+        "annotation": "tuple[str, ...]",
+        "value": null
+      }
+    ],
+    "NativeMainMessage": [
+      {
+        "name": "role",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "content",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "tool_calls",
+        "annotation": "None",
+        "value": "None"
+      }
+    ],
+    "NativeMainChoice": [
+      {
+        "name": "index",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "message",
+        "annotation": "NativeMainMessage",
+        "value": null
+      },
+      {
+        "name": "finish_reason",
+        "annotation": "str",
+        "value": null
+      }
+    ],
+    "NativeMainUsage": [
+      {
+        "name": "prompt_tokens",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "completion_tokens",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "total_tokens",
+        "annotation": "int",
+        "value": null
+      }
+    ],
+    "NativeMainResponse": [
+      {
+        "name": "id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "object",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "created",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "model",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "choices",
+        "annotation": "tuple[NativeMainChoice, ...]",
+        "value": null
+      },
+      {
+        "name": "usage",
+        "annotation": "NativeMainUsage",
+        "value": null
+      }
+    ],
+    "NativeMainInvocation": [
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "ExecutionBinding",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "ContentHandle",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "DispatchEnvelope",
+        "value": null
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "Destination",
+        "value": null
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "result_content",
+        "annotation": "ContentHandle",
+        "value": null
+      },
+      {
+        "name": "native_response",
+        "annotation": "NativeMainResponse",
+        "value": null
+      }
+    ],
+    "NativeAuxiliaryInvocation": [
+      {
+        "name": "source_completion",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source_frame",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source_invocation",
+        "annotation": "NativeMainInvocation",
+        "value": null
+      },
+      {
+        "name": "source_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "target",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "path",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "task",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "input_stages",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes | None",
+        "value": null
+      },
+      {
+        "name": "result_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "native_response",
+        "annotation": "NativeMainResponse | None",
+        "value": null
+      },
+      {
+        "name": "output_stages",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "output_contents",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "output_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "output",
+        "annotation": "dict | None",
+        "value": "None"
+      },
+      {
+        "name": "output_content",
+        "annotation": "object",
+        "value": "None"
+      }
+    ],
+    "NativeAuxiliaryLocalResult": [
+      {
+        "name": "source_completion",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source_frame",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source_invocation",
+        "annotation": "NativeMainInvocation",
+        "value": null
+      },
+      {
+        "name": "source_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "ExecutionBinding",
+        "value": null
+      },
+      {
+        "name": "target",
+        "annotation": "ExecutionBinding",
+        "value": null
+      },
+      {
+        "name": "path",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "task",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "language",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "operation_index",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "outcome",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "reason",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "source_content",
+        "annotation": "ContentHandle",
+        "value": null
+      },
+      {
+        "name": "input_stages",
+        "annotation": "tuple[bytes, ...]",
+        "value": null
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple[ContentHandle, ...]",
+        "value": null
+      },
+      {
+        "name": "output_stages",
+        "annotation": "tuple[bytes, ...]",
+        "value": null
+      },
+      {
+        "name": "output_contents",
+        "annotation": "tuple[ContentHandle, ...]",
+        "value": null
+      },
+      {
+        "name": "output_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "output",
+        "annotation": "dict",
+        "value": null
+      },
+      {
+        "name": "output_content",
+        "annotation": "ContentHandle",
+        "value": null
+      }
+    ],
+    "_AuxiliaryTitlePreparation": [
+      {
+        "name": "kind",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "stages",
+        "annotation": "tuple[bytes, ...]",
+        "value": null
+      },
+      {
+        "name": "value",
+        "annotation": "dict",
+        "value": null
+      }
+    ],
+    "_AuxiliaryBinding": [
+      {
+        "name": "handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "port",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "producer_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "route",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "language",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "selected",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "producer",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "original_profiles",
+        "annotation": "tuple",
+        "value": null
+      }
+    ],
+    "_AuxiliaryFrame": [
+      {
+        "name": "token",
+        "annotation": "NativeAuxiliaryInput",
+        "value": null
+      },
+      {
+        "name": "completion",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "field",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "text",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "source_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "stages",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "request",
+        "annotation": "dict | None",
+        "value": "None"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "request_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "sealed",
+        "annotation": "NativeAuxiliaryRequest | None",
+        "value": "None"
+      },
+      {
+        "name": "record",
+        "annotation": "NativeAuxiliaryInvocation | None",
+        "value": "None"
+      },
+      {
+        "name": "preparation",
+        "annotation": "_AuxiliaryTitlePreparation | None",
+        "value": "None"
+      },
+      {
+        "name": "preparation_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "local_result",
+        "annotation": "NativeAuxiliaryLocalResult | None",
+        "value": "None"
+      }
+    ],
+    "_CompressionBinding": [
+      {
+        "name": "auxiliary",
+        "annotation": "_AuxiliaryBinding",
+        "value": null
+      },
+      {
+        "name": "context_length",
+        "annotation": "int",
+        "value": null
+      },
+      {
+        "name": "summary_date",
+        "annotation": "str",
+        "value": null
+      }
+    ],
+    "_CompressionPreparation": [
+      {
+        "name": "stages",
+        "annotation": "tuple[bytes, ...]",
+        "value": null
+      },
+      {
+        "name": "value",
+        "annotation": "dict",
+        "value": null
+      },
+      {
+        "name": "has_user_turn",
+        "annotation": "bool",
+        "value": null
+      },
+      {
+        "name": "pruned_skill_names",
+        "annotation": "tuple[str, ...]",
+        "value": null
+      }
+    ],
+    "_CompressionFrame": [
+      {
+        "name": "token",
+        "annotation": "NativeAuxiliaryInput",
+        "value": null
+      },
+      {
+        "name": "completion",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "messages",
+        "annotation": "list",
+        "value": null
+      },
+      {
+        "name": "source_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "parent_requests",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "source_content",
+        "annotation": "ContentHandle",
+        "value": null
+      },
+      {
+        "name": "stages",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "stage_contents",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "request",
+        "annotation": "dict | None",
+        "value": "None"
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes | None",
+        "value": "None"
+      },
+      {
+        "name": "request_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      },
+      {
+        "name": "sealed",
+        "annotation": "NativeAuxiliaryRequest | None",
+        "value": "None"
+      },
+      {
+        "name": "record",
+        "annotation": "NativeAuxiliaryInvocation | None",
+        "value": "None"
+      },
+      {
+        "name": "preparation",
+        "annotation": "_CompressionPreparation | None",
+        "value": "None"
+      },
+      {
+        "name": "preparation_anchors",
+        "annotation": "tuple",
+        "value": "()"
+      }
+    ],
+    "_PendingOperation": [
+      {
+        "name": "handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "source",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "selected",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "producer",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "path",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "route_ref",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "payload",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "auxiliary",
+        "annotation": "bool",
+        "value": null
+      }
+    ],
+    "_ConstructedMain": [
+      {
+        "name": "agent",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "adapter",
+        "annotation": "NativeMainPayloadAdapter",
+        "value": null
+      },
+      {
+        "name": "state",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "methods",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "closed",
+        "annotation": "bool",
+        "value": "False"
+      }
+    ],
+    "_NativeCompletion": [
+      {
+        "name": "frame",
+        "annotation": "_TurnFrame",
+        "value": null
+      },
+      {
+        "name": "invocation",
+        "annotation": "NativeMainInvocation",
+        "value": null
+      },
+      {
+        "name": "parents",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "payload",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "result",
+        "annotation": "dict",
+        "value": null
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple",
+        "value": null
+      }
+    ],
+    "NativeToolCallProbeBinding": [
+      {
+        "name": "token",
+        "annotation": "NativeToolCallProbeInput",
+        "value": null
+      },
+      {
+        "name": "agent",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "request_handle",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "selection",
+        "annotation": "NativeMainSelection",
+        "value": null
+      },
+      {
+        "name": "producer_policy",
+        "annotation": "NativeResultPolicy",
+        "value": null
+      },
+      {
+        "name": "main_route",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "system_message",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "user_message",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "task_id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "expected_arguments_json",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "authorization_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "authorization_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple",
+        "value": null
+      },
+      {
+        "name": "thread",
+        "annotation": "int",
+        "value": null
+      }
+    ],
+    "NativeToolCallObservation": [
+      {
+        "name": "binding",
+        "annotation": "NativeToolCallProbeBinding",
+        "value": null
+      },
+      {
+        "name": "request_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "request_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "wire_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "wire_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "envelope",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "observed_destination",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "response_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "response_content",
+        "annotation": "object",
+        "value": null
+      },
+      {
+        "name": "call_id",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "function_name",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "arguments_json",
+        "annotation": "str",
+        "value": null
+      },
+      {
+        "name": "observation_bytes",
+        "annotation": "bytes",
+        "value": null
+      },
+      {
+        "name": "observation_content",
+        "annotation": "object",
+        "value": null
+      }
+    ]
+  },
+  "definition_hashes": {
+    "_DelegateFrames.__setitem__": {
+      "before": "3b43dd3484c61ee92ee2956d0302bed5be451ecab9c6b94b5cf4ed4fef79ea06",
+      "after": "3b43dd3484c61ee92ee2956d0302bed5be451ecab9c6b94b5cf4ed4fef79ea06"
+    },
+    "_DelegateFrames.__getitem__": {
+      "before": "00fecb20912bbe7d51eb51532f4e771b50cadcd86841ee4fb3341810c69012a6",
+      "after": "00fecb20912bbe7d51eb51532f4e771b50cadcd86841ee4fb3341810c69012a6"
+    },
+    "_DelegateFrames.get": {
+      "before": "eaa4505b6bca291a8256bbd4841bf37fcda218970a5a6f806b0b71e9b064665b",
+      "after": "eaa4505b6bca291a8256bbd4841bf37fcda218970a5a6f806b0b71e9b064665b"
+    },
+    "NativeMemorySnapshotInput.__new__": {
+      "before": "6edc12bd6b139f7dfe81f7c707d05f0bc9a906918b48099ba4a68a9b1f3366a3",
+      "after": "6edc12bd6b139f7dfe81f7c707d05f0bc9a906918b48099ba4a68a9b1f3366a3"
+    },
+    "_memory_require": {
+      "before": "64fee1a53a12b136976619a28832d59f4a772ab10172fdaeedde221a9447d088",
+      "after": "64fee1a53a12b136976619a28832d59f4a772ab10172fdaeedde221a9447d088"
+    },
+    "_memory_failure": {
+      "before": "cb6ddfebabdaeeb3b116f5bcc8361d99eaedfef773f28c02baa3dc75ce6e9581",
+      "after": "cb6ddfebabdaeeb3b116f5bcc8361d99eaedfef773f28c02baa3dc75ce6e9581"
+    },
+    "_capture_memory_binding": {
+      "before": "56b4e739557250f382de67b383191dcfbb6fc36d398740c4d97008830e4a6df3",
+      "after": "56b4e739557250f382de67b383191dcfbb6fc36d398740c4d97008830e4a6df3"
+    },
+    "NativeParentResumption.__new__": {
+      "before": "d7f124b2bf633dec15a31d5da38e9360ea1c0fe4dacab3c143abee152a00ee5d",
+      "after": "d7f124b2bf633dec15a31d5da38e9360ea1c0fe4dacab3c143abee152a00ee5d"
+    },
+    "_resumption_callback": {
+      "before": "e1611416a5dbdc5b230dc00ce1180ab9352b469b052e87e7908bd70483e5f772",
+      "after": "fd9d9ed789da4d27b50168380b8876984e63ba3f686be392d5af7d1a026b995e"
+    },
+    "_capture_resumption_binding": {
+      "before": "9bfe0755fdb030851df7cae056f932b1c2d3a1d972894f89eeb05c973f7be6b7",
+      "after": "9bfe0755fdb030851df7cae056f932b1c2d3a1d972894f89eeb05c973f7be6b7"
+    },
+    "NativeDelegateInput.__new__": {
+      "before": "e27a59ed02ca23e2b4a53f0c3d6e1293a4ffb72fe573bd89086a42034135ab10",
+      "after": "e27a59ed02ca23e2b4a53f0c3d6e1293a4ffb72fe573bd89086a42034135ab10"
+    },
+    "NativeTurnInput.__new__": {
+      "before": "3a35ea89675bc6345677aa46e5a2cb6fbe5479ff70ef3a6f7887f0411d1683f9",
+      "after": "3a35ea89675bc6345677aa46e5a2cb6fbe5479ff70ef3a6f7887f0411d1683f9"
+    },
+    "NativeAuxiliaryInput.__new__": {
+      "before": "76b5d17e5415a0b04d97a9826d2aacd21949c32fdff6331af3e39b9f52b6c5da",
+      "after": "76b5d17e5415a0b04d97a9826d2aacd21949c32fdff6331af3e39b9f52b6c5da"
+    },
+    "NativeAuxiliaryRequest.__new__": {
+      "before": "101422d8d93b6130a266325ef90cca6bef1238b9fb68d57666273b3ea142f886",
+      "after": "101422d8d93b6130a266325ef90cca6bef1238b9fb68d57666273b3ea142f886"
+    },
+    "NativePreparedTurn.__new__": {
+      "before": "7549d3514c2654a23d856aded542eec85fd1d6333acd474356acb6af8050c44c",
+      "after": "7549d3514c2654a23d856aded542eec85fd1d6333acd474356acb6af8050c44c"
+    },
+    "NativeFallbackInput.__new__": {
+      "before": "45c8c99cdc9d20b57a378c2073c487f02d9db8480d0ec40b29b9877eb68484f5",
+      "after": "45c8c99cdc9d20b57a378c2073c487f02d9db8480d0ec40b29b9877eb68484f5"
+    },
+    "_history": {
+      "before": "837cf19e109ae69300ac611c5b97c0bd796b1439f3ed8024f1488d2d40dba3e4",
+      "after": "837cf19e109ae69300ac611c5b97c0bd796b1439f3ed8024f1488d2d40dba3e4"
+    },
+    "_turn_shape": {
+      "before": "27ce742e0ee0bf780763a1628fc15b7ecd73a9e61c269593bd57209fc7a255cd",
+      "after": "27ce742e0ee0bf780763a1628fc15b7ecd73a9e61c269593bd57209fc7a255cd"
+    },
+    "_turn_bytes": {
+      "before": "2912786b621a2b223f704b654ba4a05ebd1f4dcdadb4852cea0d0c1a7a16cdfa",
+      "after": "2912786b621a2b223f704b654ba4a05ebd1f4dcdadb4852cea0d0c1a7a16cdfa"
+    },
+    "_native_state": {
+      "before": "7f2a1ab2b8e9ad659b76ed0549c760b2ad5d97968ee5e37e018bbb33456e23ac",
+      "after": "7f2a1ab2b8e9ad659b76ed0549c760b2ad5d97968ee5e37e018bbb33456e23ac"
+    },
+    "_output_bytes": {
+      "before": "23bd25b8a88b20e04e735cceadd9d6551f1a22b79d52ce551192afecbfd77465",
+      "after": "23bd25b8a88b20e04e735cceadd9d6551f1a22b79d52ce551192afecbfd77465"
+    },
+    "_output_anchors": {
+      "before": "7ef0c38ebcc6c1229dfb7f8b448c831fbfd6715d21ad0fa6aa3a75969ecb48f4",
+      "after": "7ef0c38ebcc6c1229dfb7f8b448c831fbfd6715d21ad0fa6aa3a75969ecb48f4"
+    },
+    "_input_anchors": {
+      "before": "9ced5753fe3e028c87fc61fd3a408bfc033a7d2b75000f295b3efa3bb340ad39",
+      "after": "9ced5753fe3e028c87fc61fd3a408bfc033a7d2b75000f295b3efa3bb340ad39"
+    },
+    "NativeSelectionPort.current": {
+      "before": "e84809e050b1580c2791b4e3e29aca19dd110e4b6d1d9ed115d01039a5310711",
+      "after": "e84809e050b1580c2791b4e3e29aca19dd110e4b6d1d9ed115d01039a5310711"
+    },
+    "NativeResultPolicyPort.current": {
+      "before": "febcd2f32450e36c899d8cd7f7cc3318447aa7c467facedab3130542218a3a29",
+      "after": "febcd2f32450e36c899d8cd7f7cc3318447aa7c467facedab3130542218a3a29"
+    },
+    "NativeResultPolicyPort.memory_source": {
+      "before": "ae06494cd364ed9ff8fdff2f091957d122e350551dc8d0a14099aa371e8f852d",
+      "after": "ae06494cd364ed9ff8fdff2f091957d122e350551dc8d0a14099aa371e8f852d"
+    },
+    "_require": {
+      "before": "7888317781980299f67033897e17a9e2582ef800a8e598d4a0a5a6c8c674cd53",
+      "after": "7888317781980299f67033897e17a9e2582ef800a8e598d4a0a5a6c8c674cd53"
+    },
+    "_identifier": {
+      "before": "5adf9b7ffd6cad9cd3eadfb547980c0ef0665053da561361ce07a2b529ad483c",
+      "after": "5adf9b7ffd6cad9cd3eadfb547980c0ef0665053da561361ce07a2b529ad483c"
+    },
+    "_integer": {
+      "before": "603108ae2eab79904d3cc2a49445abab69b10d46040dc35969d4241c5e9eeebf",
+      "after": "603108ae2eab79904d3cc2a49445abab69b10d46040dc35969d4241c5e9eeebf"
+    },
+    "_profiles": {
+      "before": "43dd22e3812f1274b00791c9ed3aac584a17583709e65a019d41997ea10a93e4",
+      "after": "43dd22e3812f1274b00791c9ed3aac584a17583709e65a019d41997ea10a93e4"
+    },
+    "_row": {
+      "before": "c6e9061a8f1400ef7b9d2a8ca20cfd8fc4bdc3d326d6d94adec4e01970b0cd8c",
+      "after": "c6e9061a8f1400ef7b9d2a8ca20cfd8fc4bdc3d326d6d94adec4e01970b0cd8c"
+    },
+    "_binding": {
+      "before": "f5b7fa234a534112f1e89cccacc3b0593a87540beea81a4d8a21ee257111a074",
+      "after": "f5b7fa234a534112f1e89cccacc3b0593a87540beea81a4d8a21ee257111a074"
+    },
+    "_destination": {
+      "before": "a75e0ec849fd0f3fb8417e8598ef147430ecb5e6c795e918b25ba88d8c942c50",
+      "after": "a75e0ec849fd0f3fb8417e8598ef147430ecb5e6c795e918b25ba88d8c942c50"
+    },
+    "_selection": {
+      "before": "1b8033b260ec05e77e9ddb2ac0885c666329b884d38188a6548ddee52b532fbd",
+      "after": "1b8033b260ec05e77e9ddb2ac0885c666329b884d38188a6548ddee52b532fbd"
+    },
+    "_producer": {
+      "before": "0f54cb19b2fc56c98ebf0ac9e3042faf0bd0ff51be22f4a3d57be50bac2fc82a",
+      "after": "0f54cb19b2fc56c98ebf0ac9e3042faf0bd0ff51be22f4a3d57be50bac2fc82a"
+    },
+    "_keys": {
+      "before": "b83e597061c85ff804fe099d9d1ad1c38c442712dd658f2d7df401dcadc0acff",
+      "after": "b83e597061c85ff804fe099d9d1ad1c38c442712dd658f2d7df401dcadc0acff"
+    },
+    "_text": {
+      "before": "ff1cac5a34f2bd36621879f289a48fc3b1429714d6c966878e0e36b8eafbe1fe",
+      "after": "ff1cac5a34f2bd36621879f289a48fc3b1429714d6c966878e0e36b8eafbe1fe"
+    },
+    "_request": {
+      "before": "deed3666788ab5cf4e2940128953f2ac0c85f37b99874d47bfef3fb06da16a8b",
+      "after": "deed3666788ab5cf4e2940128953f2ac0c85f37b99874d47bfef3fb06da16a8b"
+    },
+    "_json": {
+      "before": "687b10d02fd50c664d08c78aebf7a7f43f4b54cb85a0f9d85acbe046ea8aeb33",
+      "after": "687b10d02fd50c664d08c78aebf7a7f43f4b54cb85a0f9d85acbe046ea8aeb33"
+    },
+    "_response_shape": {
+      "before": "2c78c3865ff3cbb35148bb7db649bfbe2a9e5c8a0e66e6350f53dd8a44685064",
+      "after": "2c78c3865ff3cbb35148bb7db649bfbe2a9e5c8a0e66e6350f53dd8a44685064"
+    },
+    "_compression_response_shape": {
+      "before": "53ba7e7800c5e4aaf1ef30ed8336925bc5260a029220ede2e462300fda614554",
+      "after": "53ba7e7800c5e4aaf1ef30ed8336925bc5260a029220ede2e462300fda614554"
+    },
+    "_response_shape_base": {
+      "before": "3c834feaa4e4aa2b2855471916731bd8a8b04d0fd162a89f70e6c589689283f9",
+      "after": "3c834feaa4e4aa2b2855471916731bd8a8b04d0fd162a89f70e6c589689283f9"
+    },
+    "_pairs": {
+      "before": "464b83cc9e32e6e310c3dc6929e37b5ad7b9a8c8a4a3ac6876894a738eac2fda",
+      "after": "464b83cc9e32e6e310c3dc6929e37b5ad7b9a8c8a4a3ac6876894a738eac2fda"
+    },
+    "_decode_response": {
+      "before": "4dafebf107ffded5fe281ef50f35df3e8c660589bc9a4e27dae83031f58ac40e",
+      "after": "4dafebf107ffded5fe281ef50f35df3e8c660589bc9a4e27dae83031f58ac40e"
+    },
+    "_decode_compression_response": {
+      "before": "0b1d0d1a31c4a9f715998a5dfaabce611139b5d496b0b88b6591e4ff1549746e",
+      "after": "0b1d0d1a31c4a9f715998a5dfaabce611139b5d496b0b88b6591e4ff1549746e"
+    },
+    "_decode_response_payload": {
+      "before": "7c53369975d5a6a5f5495cc339a2aa256d7a9bdc672ca39712022ad3a8db7d3e",
+      "after": "7c53369975d5a6a5f5495cc339a2aa256d7a9bdc672ca39712022ad3a8db7d3e"
+    },
+    "_response": {
+      "before": "1f6d7d426d3705d3a412a2ced175160f8be3dc2bbfb1dddff7037d9214c51166",
+      "after": "1f6d7d426d3705d3a412a2ced175160f8be3dc2bbfb1dddff7037d9214c51166"
+    },
+    "_response_bytes": {
+      "before": "ee548d66f9c3f1552eb5f3e2bca2b56230eb5d03222f84a5b19ddccf43c431ea",
+      "after": "ee548d66f9c3f1552eb5f3e2bca2b56230eb5d03222f84a5b19ddccf43c431ea"
+    },
+    "_compression_response_bytes": {
+      "before": "ed6c192a6a98aea2c278c08a8e19961104d5ba01e79f851d63bf7f34c46de99b",
+      "after": "ed6c192a6a98aea2c278c08a8e19961104d5ba01e79f851d63bf7f34c46de99b"
+    },
+    "_response_value": {
+      "before": "368e1bd3e470d8b498a141ab912f510a7cb66c14cd1a564ab3947fe8d8da6275",
+      "after": "368e1bd3e470d8b498a141ab912f510a7cb66c14cd1a564ab3947fe8d8da6275"
+    },
+    "_method": {
+      "before": "a3d085ed4added53995c8dcf4021df896e42eb51053f9e33a87f5522a6ecb0dd",
+      "after": "a3d085ed4added53995c8dcf4021df896e42eb51053f9e33a87f5522a6ecb0dd"
+    },
+    "_same_method": {
+      "before": "113d2290a15fc219836f5ad01aa205695ce6990e5437c859ef9c29f06851a1fb",
+      "after": "113d2290a15fc219836f5ad01aa205695ce6990e5437c859ef9c29f06851a1fb"
+    },
+    "_route_facts": {
+      "before": "d3af55d1033496d3bdbe5f38b80cff88632cba3eb29b6074ee987f6cc916089f",
+      "after": "d3af55d1033496d3bdbe5f38b80cff88632cba3eb29b6074ee987f6cc916089f"
+    },
+    "_destination_value": {
+      "before": "ee98a9a12136f8e39f1238a7752557ba29ce2800414238aa5dd98d9d9abd9c88",
+      "after": "ee98a9a12136f8e39f1238a7752557ba29ce2800414238aa5dd98d9d9abd9c88"
+    },
+    "_selection_value": {
+      "before": "9330570431eb55a774d44a33898ec091a7c594e9605cf71ce2bcd3e619ea1a1b",
+      "after": "9330570431eb55a774d44a33898ec091a7c594e9605cf71ce2bcd3e619ea1a1b"
+    },
+    "_fallback_failed_bytes": {
+      "before": "4ff8ce5fc1bfcf94b87d2c59bca6ac4a6b1470a850e81c4314633d8827c98eda",
+      "after": "4ff8ce5fc1bfcf94b87d2c59bca6ac4a6b1470a850e81c4314633d8827c98eda"
+    },
+    "_fallback_result_bytes": {
+      "before": "0f1031191ae6d515f373a11eb417783302cecc21170f8a6cc734743a2494f799",
+      "after": "0f1031191ae6d515f373a11eb417783302cecc21170f8a6cc734743a2494f799"
+    },
+    "_Admission.__init__": {
+      "before": "471499bb325ba6ec15db984e48ca52c45833523b07b168b510cce52a6b63ebc9",
+      "after": "471499bb325ba6ec15db984e48ca52c45833523b07b168b510cce52a6b63ebc9"
+    },
+    "_Admission.current": {
+      "before": "cb86b0527e528c30878179af039d2f0a67d353472564180e78372edb3d395bd8",
+      "after": "d341c7708f820973105a93348e12e3550459d8ebc36017858184839da781445d"
+    },
+    "_Transport.__init__": {
+      "before": "42bb4013a89fb09478a5ad709d49110009c72046bc8a7b476ba69ed669576352",
+      "after": "42bb4013a89fb09478a5ad709d49110009c72046bc8a7b476ba69ed669576352"
+    },
+    "_Transport.resolve": {
+      "before": "5c4d1e59068c9056b0a7ae459f813c92c6ed728996a6a907f61f0a76b14c5141",
+      "after": "1a6357e10f1bd872b09985aefd2562e0e48c41cb69601f3158a3a8e365835f74"
+    },
+    "_Transport.send": {
+      "before": "99c1902ec7f27c36908d14d2d848526702370e99fdbcb996301d34a8522b1789",
+      "after": "3a1530508b0ad18479b85b73b9ff04d14fd379b99961970501d389d6f7b625d5"
+    },
+    "NativeMainPayloadAdapter.__init__": {
+      "before": "f210e03877c10989530d46b61b1100a151cc7b09cde276d166e1ef013f00d183",
+      "after": "7136f0d80db987094ccb19738722917e86451740214d080ad908edfa612771d2"
+    },
+    "NativeMainPayloadAdapter.bind_tool_call_probe": {
+      "before": "02d3ffa89f49c828c90debd3c854dccfda5807427f1dace915dd594b491bbede",
+      "after": "02d3ffa89f49c828c90debd3c854dccfda5807427f1dace915dd594b491bbede"
+    },
+    "NativeMainPayloadAdapter.run_tool_call_probe": {
+      "before": "4cbed7dfb9cac1c1acc160a26a08bc54bf11cd0c9bc707a60df66d8757e914d2",
+      "after": "4cbed7dfb9cac1c1acc160a26a08bc54bf11cd0c9bc707a60df66d8757e914d2"
+    },
+    "NativeMainPayloadAdapter.tool_call_observations": {
+      "before": "926861f4b052e8260f24512907f31714b87d7e36457192a7a82c37d428b36b92",
+      "after": "926861f4b052e8260f24512907f31714b87d7e36457192a7a82c37d428b36b92"
+    },
+    "NativeMainPayloadAdapter.invocations": {
+      "before": "932af7e09078e2452c0442d9ec4f2c504319e675e943488cd0c2e210c7527dc9",
+      "after": "932af7e09078e2452c0442d9ec4f2c504319e675e943488cd0c2e210c7527dc9"
+    },
+    "NativeMainPayloadAdapter.send_count": {
+      "before": "a47ccfa5d5ead0cf4ae660ad9973ee386f8fc2bc502135ab6c1f3f8e97b0e66f",
+      "after": "a47ccfa5d5ead0cf4ae660ad9973ee386f8fc2bc502135ab6c1f3f8e97b0e66f"
+    },
+    "NativeMainPayloadAdapter.failed_main_attempts": {
+      "before": "8b9bea02254f98f1c27693ea5006f0bd952a89d6dceb0a20aded92e41c91fb71",
+      "after": "8b9bea02254f98f1c27693ea5006f0bd952a89d6dceb0a20aded92e41c91fb71"
+    },
+    "NativeMainPayloadAdapter.fallback_invocations": {
+      "before": "05e8d56bbba836d4e41f80d2824985df75c10daa688ebb4ef2cc93cfb17627f7",
+      "after": "05e8d56bbba836d4e41f80d2824985df75c10daa688ebb4ef2cc93cfb17627f7"
+    },
+    "NativeMainPayloadAdapter.fallback_send_count": {
+      "before": "a64144161fee414ad662ee1fd86d64274038389a94daea7c4bed81c4aa2f40ff",
+      "after": "a64144161fee414ad662ee1fd86d64274038389a94daea7c4bed81c4aa2f40ff"
+    },
+    "NativeMainPayloadAdapter._deny": {
+      "before": "89c1ba63aaee4374572380b6c7b586db02a1bd7f10633dcca2624863d17d6dcb",
+      "after": "89c1ba63aaee4374572380b6c7b586db02a1bd7f10633dcca2624863d17d6dcb"
+    },
+    "NativeMainPayloadAdapter._invalidate": {
+      "before": "804714693acd13a02d7d4fe6682546c3fdaa3a533a65caa45091f18700cc579f",
+      "after": "804714693acd13a02d7d4fe6682546c3fdaa3a533a65caa45091f18700cc579f"
+    },
+    "NativeMainPayloadAdapter._identity": {
+      "before": "4395bb870cd8f0203b9c200cd8beb4576748a1c6e81cce7151fcd486810e806a",
+      "after": "032048dcd68dea1e4860903f3d7f40c8c60e14be3498655072a7a80a428b3cf2"
+    },
+    "NativeMainPayloadAdapter._snapshot": {
+      "before": "6fa05851a8954d241354663f169da7ee10af7c7f1fdc0786320fbd434b5255d6",
+      "after": "6fa05851a8954d241354663f169da7ee10af7c7f1fdc0786320fbd434b5255d6"
+    },
+    "NativeMainPayloadAdapter._verify_records": {
+      "before": "0cd2dfabf71fdcf43a3e758d0bd87c717def97c30cc0e7e2815c61b3a566de20",
+      "after": "0cd2dfabf71fdcf43a3e758d0bd87c717def97c30cc0e7e2815c61b3a566de20"
+    },
+    "NativeMainPayloadAdapter._verify_turns": {
+      "before": "cf3522547bd487365ec01450e5062b5c0f35f99d07af59388b96f3824f300e99",
+      "after": "cf3522547bd487365ec01450e5062b5c0f35f99d07af59388b96f3824f300e99"
+    },
+    "NativeMainPayloadAdapter._verify_completions": {
+      "before": "ec77a6fd319b20d61cceb6952b3fc65aec9da2b8113f80ee1b1cf54dbd4518e6",
+      "after": "ec77a6fd319b20d61cceb6952b3fc65aec9da2b8113f80ee1b1cf54dbd4518e6"
+    },
+    "NativeMainPayloadAdapter._interrupt_operation": {
+      "before": "22290fca8f82163da7732d17c76cf5aa919197881c864e2099e089b91908d51b",
+      "after": "22290fca8f82163da7732d17c76cf5aa919197881c864e2099e089b91908d51b"
+    },
+    "NativeMainPayloadAdapter._interrupt_turn": {
+      "before": "2753ed7b8b319e947dc3b9343c5a33289374a797d52b11ed436645eceb91e06b",
+      "after": "2753ed7b8b319e947dc3b9343c5a33289374a797d52b11ed436645eceb91e06b"
+    },
+    "NativeMainPayloadAdapter._turn_operation": {
+      "before": "0d8b645a2d80b3f8dc6d23c8114fe9b37a7cba4e3804aa131db2367815660696",
+      "after": "0d8b645a2d80b3f8dc6d23c8114fe9b37a7cba4e3804aa131db2367815660696"
+    },
+    "NativeMainPayloadAdapter.admit_turn": {
+      "before": "8a836780f993a1c09f8dcd826643cb93fffc487829eed01365ff49b820f8b06b",
+      "after": "8a836780f993a1c09f8dcd826643cb93fffc487829eed01365ff49b820f8b06b"
+    },
+    "NativeMainPayloadAdapter._prepare_turn": {
+      "before": "6f306081bccb8a136c81e910d4f72d21f612b094aeece363b3db1d1436736f10",
+      "after": "6f306081bccb8a136c81e910d4f72d21f612b094aeece363b3db1d1436736f10"
+    },
+    "NativeMainPayloadAdapter.seal_turn": {
+      "before": "e994ac99d41cf3f9fb35b3ab3cd1c578f7e5ee993db883074b984fbaff50fff9",
+      "after": "e994ac99d41cf3f9fb35b3ab3cd1c578f7e5ee993db883074b984fbaff50fff9"
+    },
+    "NativeMainPayloadAdapter._turn_request": {
+      "before": "4b51c9e2d04aba4a0331f2bd8a233a910d0df9f6b461c4948b48e6cecdd17b54",
+      "after": "4b51c9e2d04aba4a0331f2bd8a233a910d0df9f6b461c4948b48e6cecdd17b54"
+    },
+    "NativeMainPayloadAdapter.prepared_request": {
+      "before": "29242e16abd199d429f47cb3d511373caa7d43adb35fe6122eb55298103f36a6",
+      "after": "29242e16abd199d429f47cb3d511373caa7d43adb35fe6122eb55298103f36a6"
+    },
+    "NativeMainPayloadAdapter.auxiliary_invocations": {
+      "before": "779bbc8f0eaad3d679dc0aec8cd947ad6a96f8d36fca435fa4947f0d694c5cce",
+      "after": "779bbc8f0eaad3d679dc0aec8cd947ad6a96f8d36fca435fa4947f0d694c5cce"
+    },
+    "NativeMainPayloadAdapter.auxiliary_send_count": {
+      "before": "ab432be16f05282b9eddfbd692ca8476018816640bd986416f023a794f0bf744",
+      "after": "ab432be16f05282b9eddfbd692ca8476018816640bd986416f023a794f0bf744"
+    },
+    "NativeMainPayloadAdapter.auxiliary_local_results": {
+      "before": "5b8572be5532166a2147f7cea8a6e066927d5f29fea91d530d65e92875b3dd6b",
+      "after": "5b8572be5532166a2147f7cea8a6e066927d5f29fea91d530d65e92875b3dd6b"
+    },
+    "NativeMainPayloadAdapter._completed_auxiliary_outputs": {
+      "before": "c3eb0cad6a5b0ffd503e41fe38660d5f202fb4f3f2d27b670380fa4cd319a178",
+      "after": "c3eb0cad6a5b0ffd503e41fe38660d5f202fb4f3f2d27b670380fa4cd319a178"
+    },
+    "NativeMainPayloadAdapter._derive": {
+      "before": "293ffbbb6eee07b32ba772d9d29b2d3fb9c1899fc907cc227d53017f31b45593",
+      "after": "293ffbbb6eee07b32ba772d9d29b2d3fb9c1899fc907cc227d53017f31b45593"
+    },
+    "NativeMainPayloadAdapter._callback_scope": {
+      "before": "a0908c1e6069b22d3415da4419af0936ad9edcabc8830c71e6d98e7411a6c0d2",
+      "after": "a0908c1e6069b22d3415da4419af0936ad9edcabc8830c71e6d98e7411a6c0d2"
+    },
+    "NativeMainPayloadAdapter._model_open": {
+      "before": "4c8f5716cbae895081eb6bd9540e6a072bc043fa3ca9e97a8900381d3eb6d57f",
+      "after": "4c8f5716cbae895081eb6bd9540e6a072bc043fa3ca9e97a8900381d3eb6d57f"
+    },
+    "NativeMainPayloadAdapter.bind_delegation": {
+      "before": "871cf51b1f5a8e2af273c34a82241863de4d2bf737d1370982c422626ae7e6cf",
+      "after": "871cf51b1f5a8e2af273c34a82241863de4d2bf737d1370982c422626ae7e6cf"
+    },
+    "NativeMainPayloadAdapter.bind_parent_resumption": {
+      "before": "ee57212f247e3a880274c5fef4abfce848fc190174e76ff60e226501adecd8b2",
+      "after": "ee57212f247e3a880274c5fef4abfce848fc190174e76ff60e226501adecd8b2"
+    },
+    "NativeMainPayloadAdapter.resume_parent": {
+      "before": "21b81054c9341a3aabb7a5072fae048bc8df7ba62c382cfef76e846d163c535d",
+      "after": "21b81054c9341a3aabb7a5072fae048bc8df7ba62c382cfef76e846d163c535d"
+    },
+    "NativeMainPayloadAdapter.bind_memory_snapshot": {
+      "before": "79cf6a1c3fa6d6b2a5902950a2c4128cc616ab4c5e244cf79bd29939b00787cc",
+      "after": "79cf6a1c3fa6d6b2a5902950a2c4128cc616ab4c5e244cf79bd29939b00787cc"
+    },
+    "NativeMainPayloadAdapter.read_memory_snapshot": {
+      "before": "b2649dd79dff98fb15153258584d5867eb36e361875520dd27f84df0c338f58c",
+      "after": "b2649dd79dff98fb15153258584d5867eb36e361875520dd27f84df0c338f58c"
+    },
+    "NativeMainPayloadAdapter._verify_fallback": {
+      "before": "f62e16e3b48066c32cc33afe7d7064208f4653ea94a515de7c438a10aa1c7ccf",
+      "after": "f62e16e3b48066c32cc33afe7d7064208f4653ea94a515de7c438a10aa1c7ccf"
+    },
+    "NativeMainPayloadAdapter._retain_fallback_frame": {
+      "before": "ffb225f82acbf25716aecaf8a0938b89770f646a300f4aaa2ed3e643553aa981",
+      "after": "ffb225f82acbf25716aecaf8a0938b89770f646a300f4aaa2ed3e643553aa981"
+    },
+    "NativeMainPayloadAdapter._retain_fallback_invocation": {
+      "before": "f3cbf41c0c918bc4afd8bae9b27b3987b691f71cb50b8957e2dc27afaf37aef0",
+      "after": "f3cbf41c0c918bc4afd8bae9b27b3987b691f71cb50b8957e2dc27afaf37aef0"
+    },
+    "NativeMainPayloadAdapter._fallback_snapshot": {
+      "before": "df09904bc60b077adfaae6f32406785f507d35535ed88222ed6d4e7dee558b82",
+      "after": "df09904bc60b077adfaae6f32406785f507d35535ed88222ed6d4e7dee558b82"
+    },
+    "NativeMainPayloadAdapter.bind_fallback": {
+      "before": "a569d9aa44811adf62f729f5c6385db0ff043607c0f49ecd82f0defeb1300b7e",
+      "after": "a569d9aa44811adf62f729f5c6385db0ff043607c0f49ecd82f0defeb1300b7e"
+    },
+    "NativeMainPayloadAdapter._begin_fallback": {
+      "before": "1a2aef001267d7ebd44392c094c0fab80d88e23510361f17960c56158cc0dcc1",
+      "after": "1a2aef001267d7ebd44392c094c0fab80d88e23510361f17960c56158cc0dcc1"
+    },
+    "NativeMainPayloadAdapter._fallback_derive": {
+      "before": "b3a2e5bb49f2cc83e489414536d06559a0b2cb973c25e24e3128754d4d43661d",
+      "after": "b3a2e5bb49f2cc83e489414536d06559a0b2cb973c25e24e3128754d4d43661d"
+    },
+    "NativeMainPayloadAdapter._activate_fallback": {
+      "before": "63f947a75d12301aca612f2b5389df223eb77b2b01233565368b77135cf43af3",
+      "after": "63f947a75d12301aca612f2b5389df223eb77b2b01233565368b77135cf43af3"
+    },
+    "NativeMainPayloadAdapter._dispatch_fallback": {
+      "before": "09f7221560c83b249a9f74e18c78a4eb031335d357e411bfb8198dc5458b975c",
+      "after": "09f7221560c83b249a9f74e18c78a4eb031335d357e411bfb8198dc5458b975c"
+    },
+    "NativeMainPayloadAdapter._complete_fallback_turn": {
+      "before": "e0ac2cc70d295e1731b846d4fadfa41778c8e52fee7bb01ab5b5adb91ed7d0e8",
+      "after": "e0ac2cc70d295e1731b846d4fadfa41778c8e52fee7bb01ab5b5adb91ed7d0e8"
+    },
+    "NativeMainPayloadAdapter._aux_snapshot": {
+      "before": "2cf27e7c271288f2a6e3485f9b01527aed343bbed96ed246baae36c3704bdd52",
+      "after": "2cf27e7c271288f2a6e3485f9b01527aed343bbed96ed246baae36c3704bdd52"
+    },
+    "NativeMainPayloadAdapter._verify_auxiliary": {
+      "before": "b5994ff18b58df8f13aedea66753fdac0069686ef76a061cf18ad453d9718d4a",
+      "after": "b5994ff18b58df8f13aedea66753fdac0069686ef76a061cf18ad453d9718d4a"
+    },
+    "NativeMainPayloadAdapter._retain_aux_frame": {
+      "before": "6a9b128708b8dacd00194b45f80bffcedcc5fafa9829c4b2d6af5d94ac7b1dd7",
+      "after": "6a9b128708b8dacd00194b45f80bffcedcc5fafa9829c4b2d6af5d94ac7b1dd7"
+    },
+    "NativeMainPayloadAdapter._accept_aux_record": {
+      "before": "43365ef63d2efcd3dbb96d95a696dbf90b4b050db82af2fc2a66da3b4e056e4e",
+      "after": "43365ef63d2efcd3dbb96d95a696dbf90b4b050db82af2fc2a66da3b4e056e4e"
+    },
+    "NativeMainPayloadAdapter._retain_aux_record": {
+      "before": "36323b331548c3bb539ed05af6ba7002dfb162e06deac88e52e509c470f174f3",
+      "after": "36323b331548c3bb539ed05af6ba7002dfb162e06deac88e52e509c470f174f3"
+    },
+    "NativeMainPayloadAdapter.bind_auxiliary": {
+      "before": "cce44f73cba89cd8ec8664d6373bc070e92598302271e507a304b242f6023f4b",
+      "after": "cce44f73cba89cd8ec8664d6373bc070e92598302271e507a304b242f6023f4b"
+    },
+    "NativeMainPayloadAdapter.auxiliary_input": {
+      "before": "28e70ab43629f13c3591a07929aa5d049b2719d52293ada81c8b1d3a0fa40330",
+      "after": "28e70ab43629f13c3591a07929aa5d049b2719d52293ada81c8b1d3a0fa40330"
+    },
+    "NativeMainPayloadAdapter._checked_aux_frame": {
+      "before": "d07bf95c62dc1cbac456534e793983b034e32e52628e8668beab7f07988deef2",
+      "after": "d07bf95c62dc1cbac456534e793983b034e32e52628e8668beab7f07988deef2"
+    },
+    "NativeMainPayloadAdapter._prepare_auxiliary_title": {
+      "before": "d06627ce8b1f487d2ad9d8d6afc0497866cfa3a35f0478e22a82d8dba4224fed",
+      "after": "d06627ce8b1f487d2ad9d8d6afc0497866cfa3a35f0478e22a82d8dba4224fed"
+    },
+    "NativeMainPayloadAdapter._transform_auxiliary": {
+      "before": "fa241f4aba7858469783423f345dbc77725c577f69554a0f78301271427c1277",
+      "after": "fa241f4aba7858469783423f345dbc77725c577f69554a0f78301271427c1277"
+    },
+    "NativeMainPayloadAdapter.seal_auxiliary": {
+      "before": "e9bb22a648aeb0da2e7035e6aa36303cc111da24af837d110ed0326ef7fe6642",
+      "after": "e9bb22a648aeb0da2e7035e6aa36303cc111da24af837d110ed0326ef7fe6642"
+    },
+    "NativeMainPayloadAdapter._dispatch_retained_operation": {
+      "before": "5c793055b0dd487d9b84f81382cede42c1eb1b976f3d880acff89e0cdbe5fd5e",
+      "after": "5c793055b0dd487d9b84f81382cede42c1eb1b976f3d880acff89e0cdbe5fd5e"
+    },
+    "NativeMainPayloadAdapter.dispatch_auxiliary": {
+      "before": "a3e0d7d3112af4df1f6489ca1534a6233d9ce06f78e34c7f3a0e9d1d40b5f388",
+      "after": "a3e0d7d3112af4df1f6489ca1534a6233d9ce06f78e34c7f3a0e9d1d40b5f388"
+    },
+    "NativeMainPayloadAdapter.complete_auxiliary": {
+      "before": "5b272af2ae57b89aa83b7841d87415120a73e08d33290bf88bf1a4eddd864dd3",
+      "after": "5b272af2ae57b89aa83b7841d87415120a73e08d33290bf88bf1a4eddd864dd3"
+    },
+    "NativeMainPayloadAdapter.complete_auxiliary_local": {
+      "before": "e4857545348e035138c7357b7f3efdda23bf5e45b281e7ae71506f7ec2482271",
+      "after": "e4857545348e035138c7357b7f3efdda23bf5e45b281e7ae71506f7ec2482271"
+    },
+    "NativeMainPayloadAdapter._aux_frame_binding": {
+      "before": "9fb5003cd3393e6d145dcb2acd02a91e3601e0f8edc1d83faeb355de170d62b9",
+      "after": "9fb5003cd3393e6d145dcb2acd02a91e3601e0f8edc1d83faeb355de170d62b9"
+    },
+    "NativeMainPayloadAdapter._derive_auxiliary_output": {
+      "before": "b3e69cf956fd3d3afdb41f8151581213ddec91c2514b88efb18b52bbbe36b0c3",
+      "after": "b3e69cf956fd3d3afdb41f8151581213ddec91c2514b88efb18b52bbbe36b0c3"
+    },
+    "NativeMainPayloadAdapter._compression_snapshot": {
+      "before": "39d46abd1295baa10b5189163e1df49afb3c389f30997ecad6cc8c26513c452f",
+      "after": "39d46abd1295baa10b5189163e1df49afb3c389f30997ecad6cc8c26513c452f"
+    },
+    "NativeMainPayloadAdapter.bind_compression": {
+      "before": "c5e234b34ef9d976d23afc9bbc14ea1977ffdb9e1424fe9ded40883d1851e1e5",
+      "after": "c5e234b34ef9d976d23afc9bbc14ea1977ffdb9e1424fe9ded40883d1851e1e5"
+    },
+    "NativeMainPayloadAdapter.compression_input": {
+      "before": "4d38729a7b2e5a4231ce04d490c816991b14f45b04d98714e97c8b402a035394",
+      "after": "4d38729a7b2e5a4231ce04d490c816991b14f45b04d98714e97c8b402a035394"
+    },
+    "NativeMainPayloadAdapter._prepare_compression": {
+      "before": "de422665e2992ac12df1b4e4daded00704650bc4456629e864d8c9cadf44e06c",
+      "after": "de422665e2992ac12df1b4e4daded00704650bc4456629e864d8c9cadf44e06c"
+    },
+    "NativeMainPayloadAdapter._compression_response_transform": {
+      "before": "b265f8c37ea2ac381c92d9f1ead9a46f2032496fffb4b61df7015b0e814b465b",
+      "after": "b265f8c37ea2ac381c92d9f1ead9a46f2032496fffb4b61df7015b0e814b465b"
+    },
+    "NativeMainPayloadAdapter._compression_output_stages": {
+      "before": "6c27069d175a90ecb0fef534ed358ae709709f1fe980b4623b68beb45d6fba3c",
+      "after": "6c27069d175a90ecb0fef534ed358ae709709f1fe980b4623b68beb45d6fba3c"
+    },
+    "NativeMainPayloadAdapter._checkpoint": {
+      "before": "981cca90d57fa951116fa58bcdec26f3f4ff69239b448a4f3b58b6886a287f56",
+      "after": "981cca90d57fa951116fa58bcdec26f3f4ff69239b448a4f3b58b6886a287f56"
+    },
+    "NativeMainPayloadAdapter._around": {
+      "before": "6ccdc695ab36eb347ef5a7133f30e2ed1fac11d692d2546e38fdbe082f4cdb71",
+      "after": "e87a6fdfdeee5953bc6c4c84e4ec3ae0d52a104a5d18a877b8af5759fcfafc39"
+    },
+    "NativeMainPayloadAdapter.validate_scope": {
+      "before": "e84a27cc80eee8c87e6c0bf6e3ba109152c5b88fa81c42750915dbdf4def1dbe",
+      "after": "906c8e88d3ff5475ae3a66b48393e8cc2204198cd57bed4207092487acaf6d95"
+    },
+    "NativeMainPayloadAdapter.dispatch": {
+      "before": "9d690f7d20e98f516b5ef68b4b1aab1d7770b8b6c70bb4a6208fd1e57fe5bafe",
+      "after": "9d690f7d20e98f516b5ef68b4b1aab1d7770b8b6c70bb4a6208fd1e57fe5bafe"
+    },
+    "_nested_anchors": {
+      "before": "bdfefcc543599e85de87bd1449d85062362d3903c3618854f89f35633a8a1447",
+      "after": "bdfefcc543599e85de87bd1449d85062362d3903c3618854f89f35633a8a1447"
+    },
+    "_same_anchors": {
+      "before": "70da285e47a4447967774ea1908a22b63b4d2494e45fe99830afeeb683f60539",
+      "after": "70da285e47a4447967774ea1908a22b63b4d2494e45fe99830afeeb683f60539"
+    },
+    "_stage_tuple": {
+      "before": "fa20b963d375932919eb29c14cb67c4d8f4eb800983b29b505a805a35976423d",
+      "after": "fa20b963d375932919eb29c14cb67c4d8f4eb800983b29b505a805a35976423d"
+    },
+    "_call_arguments_bytes": {
+      "before": "093574158784a78101912677e7f0d621b9b88c28c80d3d9717ea2bed4a020104",
+      "after": "093574158784a78101912677e7f0d621b9b88c28c80d3d9717ea2bed4a020104"
+    },
+    "_compression_wire": {
+      "before": "d811fdfa31fb7f29ac17523dfc655242205176cfbc4ad5a2ebe452c7d89d84a8",
+      "after": "d811fdfa31fb7f29ac17523dfc655242205176cfbc4ad5a2ebe452c7d89d84a8"
+    },
+    "_compression_call_arguments_bytes": {
+      "before": "3b4d3c831a0211dda651d1e990fffbbce7a4dbdf6de0ee68aa664fdc579561f2",
+      "after": "3b4d3c831a0211dda651d1e990fffbbce7a4dbdf6de0ee68aa664fdc579561f2"
+    },
+    "_compression_constants": {
+      "before": "23a4f6a805b3f017f05b2753a445634aa5c4367e0c9ab8e9158f240fcf97ad38",
+      "after": "23a4f6a805b3f017f05b2753a445634aa5c4367e0c9ab8e9158f240fcf97ad38"
+    },
+    "_controlled_compression_constructor": {
+      "before": "5afffc58b0b47b7bf1654a4380a8fd2430278ffe3e60cb37e4902fd8f33416a8",
+      "after": "5afffc58b0b47b7bf1654a4380a8fd2430278ffe3e60cb37e4902fd8f33416a8"
+    },
+    "_controlled_compression_entry": {
+      "before": "b9cf1adc3a0624cba1ad1db560c51e330aa93500483c24700fe8940167d7c32e",
+      "after": "b9cf1adc3a0624cba1ad1db560c51e330aa93500483c24700fe8940167d7c32e"
+    },
+    "_refuse_compression_owner": {
+      "before": "0dc2c74118775c3befc79d37bfe0de6fc9c6ca5a9e258489f993f7257f295f25",
+      "after": "0dc2c74118775c3befc79d37bfe0de6fc9c6ca5a9e258489f993f7257f295f25"
+    },
+    "_safe_json": {
+      "before": "99cc79d37883d7483706158edef5444703fcbab964279d1a0fdf39c32e627252",
+      "after": "99cc79d37883d7483706158edef5444703fcbab964279d1a0fdf39c32e627252"
+    },
+    "_auxiliary_attempt": {
+      "before": "0e796ff3c73e70a0c4352b67daa78956962d0ab664ea569f8c00924add380332",
+      "after": "0e796ff3c73e70a0c4352b67daa78956962d0ab664ea569f8c00924add380332"
+    },
+    "_auxiliary_owner": {
+      "before": "73d210eaaa6f9e0677122a36adf9fb937ff8d9fb96488c50ad71528415453124",
+      "after": "73d210eaaa6f9e0677122a36adf9fb937ff8d9fb96488c50ad71528415453124"
+    },
+    "_controlled_title_entry": {
+      "before": "556c2c9a022f2ab32a35d91cd0530daee6d07d155fcd6874ca6f9fff91d8a91b",
+      "after": "556c2c9a022f2ab32a35d91cd0530daee6d07d155fcd6874ca6f9fff91d8a91b"
+    },
+    "_try_controlled_auxiliary_call": {
+      "before": "a6d78c4a8f8dd95786a5d582c149f9ca2fe8f1a53b928712c0fab661fe693ebe",
+      "after": "a6d78c4a8f8dd95786a5d582c149f9ca2fe8f1a53b928712c0fab661fe693ebe"
+    },
+    "bind_controlled_main": {
+      "before": "f7b92772f265166ebc1160d8cb603f60f776d798a77887e26f696f0023d2feaa",
+      "after": "f7b92772f265166ebc1160d8cb603f60f776d798a77887e26f696f0023d2feaa"
+    },
+    "_attached": {
+      "before": "02b06340f53497ccd9fa228c9fee5346844dd244d18e357cdf65eb8742d9c7cc",
+      "after": "02b06340f53497ccd9fa228c9fee5346844dd244d18e357cdf65eb8742d9c7cc"
+    },
+    "validate_controlled_scope": {
+      "before": "d61df3efbb57e8925f9037da81dbf4171be515277dc64d4037355e4aea1abb8d",
+      "after": "d61df3efbb57e8925f9037da81dbf4171be515277dc64d4037355e4aea1abb8d"
+    },
+    "invalidate_controlled_context": {
+      "before": "b7b68cb2efa8b6227e4d7103dc126ca1cdf8bf97d0024518ff6076263ccf8341",
+      "after": "b7b68cb2efa8b6227e4d7103dc126ca1cdf8bf97d0024518ff6076263ccf8341"
+    },
+    "_prepare_controlled_turn": {
+      "before": "44d0e0b3cfdba45789324e37e363bdf3b27c7038b15219f4d61b69ed2b60f94e",
+      "after": "44d0e0b3cfdba45789324e37e363bdf3b27c7038b15219f4d61b69ed2b60f94e"
+    },
+    "dispatch_controlled_main": {
+      "before": "cb392cacd2c8ef2c08e9b210a01387d799fd01f09b53aed6fcb17194b2731e50",
+      "after": "cb392cacd2c8ef2c08e9b210a01387d799fd01f09b53aed6fcb17194b2731e50"
+    },
+    "_controlled_fallback_activation": {
+      "before": "256a4ad68c34aeff96596211b947f6b6c98a4bb3ad15c8104c948adc4f89883b",
+      "after": "256a4ad68c34aeff96596211b947f6b6c98a4bb3ad15c8104c948adc4f89883b"
+    },
+    "_namespace": {
+      "before": "076eb6113ed1ef3631653da94f46d2d1cbcf02b8e505552580f72f349cf86723",
+      "after": "076eb6113ed1ef3631653da94f46d2d1cbcf02b8e505552580f72f349cf86723"
+    },
+    "_owned_constructed_binding": {
+      "before": "c466454325e62c3eb8fc771d98f636a940a1e29b77bbe7e61fb0050db863215d",
+      "after": "c466454325e62c3eb8fc771d98f636a940a1e29b77bbe7e61fb0050db863215d"
+    },
+    "_controlled_attempt": {
+      "before": "75e858860a1f7c0239c1ffbe6e1360fab8cdfc5dca58a7e415fc73e4d655eb07",
+      "after": "75e858860a1f7c0239c1ffbe6e1360fab8cdfc5dca58a7e415fc73e4d655eb07"
+    },
+    "_invalidate_constructed_attempt": {
+      "before": "31ddfba78941971eea36e7af01c990288f1ea10ac488e8b1519b4592a14bb820",
+      "after": "31ddfba78941971eea36e7af01c990288f1ea10ac488e8b1519b4592a14bb820"
+    },
+    "_validate_constructor_options": {
+      "before": "f4612790255717668fc52f4ad35fe475e41ddf5a6d15abdf73017d92321824ba",
+      "after": "f4612790255717668fc52f4ad35fe475e41ddf5a6d15abdf73017d92321824ba"
+    },
+    "_initialize_controlled_main": {
+      "before": "425e278cb9c943c3a1ed18e8922625ae345f26aeda9edb53df9c641ace45b055",
+      "after": "425e278cb9c943c3a1ed18e8922625ae345f26aeda9edb53df9c641ace45b055"
+    },
+    "_constructed_state": {
+      "before": "4b53389ef47efdbf15424fbe7a51c205aea040f18f20fcaaa1e35259713d47a9",
+      "after": "4b53389ef47efdbf15424fbe7a51c205aea040f18f20fcaaa1e35259713d47a9"
+    },
+    "_verify_constructed": {
+      "before": "a7d42253edd5b4a33d9e68986f7e9e9d7c5c1e5d566816230fa8e5fd20d7ab4a",
+      "after": "a7d42253edd5b4a33d9e68986f7e9e9d7c5c1e5d566816230fa8e5fd20d7ab4a"
+    },
+    "_bind_constructed_main": {
+      "before": "c03f101a351e8bf684b307d777334fd36570dd62f58ea0bf8818ede7ad324304",
+      "after": "c03f101a351e8bf684b307d777334fd36570dd62f58ea0bf8818ede7ad324304"
+    },
+    "_constructed_adapter": {
+      "before": "a9f430d3a578c7aef5666f011c7232f2c4f90be17b4178034fafbe2c5b09d746",
+      "after": "a9f430d3a578c7aef5666f011c7232f2c4f90be17b4178034fafbe2c5b09d746"
+    },
+    "_native_result_anchors": {
+      "before": "076826c700c03ab1ac7348f3a0041d6bba854175673cf4df5a5df4c46ec8ea5b",
+      "after": "076826c700c03ab1ac7348f3a0041d6bba854175673cf4df5a5df4c46ec8ea5b"
+    },
+    "_native_result_bytes": {
+      "before": "7f749ccb495d8f364f2350f6fb0048b0581217afa027899e74aca2a8fb8228f6",
+      "after": "7f749ccb495d8f364f2350f6fb0048b0581217afa027899e74aca2a8fb8228f6"
+    },
+    "_complete_controlled_turn": {
+      "before": "a3ac440d869aa2c2b8a7c3b1522c4ce86faa284848413635fa69170e255bcac9",
+      "after": "a3ac440d869aa2c2b8a7c3b1522c4ce86faa284848413635fa69170e255bcac9"
+    },
+    "_close_constructed_main": {
+      "before": "1238dda92923e125f01c31393b9850a4cb8b8d4872c9d09349b872159e8629dc",
+      "after": "1238dda92923e125f01c31393b9850a4cb8b8d4872c9d09349b872159e8629dc"
+    },
+    "_MemorySnapshot.__init__": {
+      "before": "54e72f5ae92c4ec2f39a56114325c1a6b8fe3476285faa92ac13ab3af850ffc0",
+      "after": "54e72f5ae92c4ec2f39a56114325c1a6b8fe3476285faa92ac13ab3af850ffc0"
+    },
+    "_MemorySnapshot.health": {
+      "before": "e6c54b94ae15d0b5f90012b3678979c508a05bcd30b0916e830ad4fccca2530f",
+      "after": "e6c54b94ae15d0b5f90012b3678979c508a05bcd30b0916e830ad4fccca2530f"
+    },
+    "_MemorySnapshot.callback": {
+      "before": "e1615d526ea9cf3413c6deeb256643cbe46eb48d0f61fa8656cd3e76099cf2ba",
+      "after": "e1615d526ea9cf3413c6deeb256643cbe46eb48d0f61fa8656cd3e76099cf2ba"
+    },
+    "_MemorySnapshot.store_facts": {
+      "before": "6d3e150f72ebc7265eeea5cabb1561e2c09e207d0da6f868179e83fb8d5c025f",
+      "after": "6d3e150f72ebc7265eeea5cabb1561e2c09e207d0da6f868179e83fb8d5c025f"
+    },
+    "_MemorySnapshot.source_facts": {
+      "before": "4cf43ea3bd1b3ca52a6fac4212a09affec5652feb4e11cf077661256cda4b0a3",
+      "after": "4cf43ea3bd1b3ca52a6fac4212a09affec5652feb4e11cf077661256cda4b0a3"
+    },
+    "_MemorySnapshot.verify": {
+      "before": "f8817e660a5b5a28d42013168e990cbe1d588e891068e3c5df9c61ac578daf44",
+      "after": "f8817e660a5b5a28d42013168e990cbe1d588e891068e3c5df9c61ac578daf44"
+    },
+    "_MemorySnapshot.content": {
+      "before": "7b21b6c78667bc58b8e49da3b0696e78345d54e3c268a0bd76f0b5be26f5ca95",
+      "after": "7b21b6c78667bc58b8e49da3b0696e78345d54e3c268a0bd76f0b5be26f5ca95"
+    },
+    "_MemorySnapshot.checkpoint": {
+      "before": "94fb372d0e5629bc87a7be87a1530eb14f930c49344e006fef4661efac84c14e",
+      "after": "94fb372d0e5629bc87a7be87a1530eb14f930c49344e006fef4661efac84c14e"
+    },
+    "_MemorySnapshot.bind": {
+      "before": "e42acd1eb3f22835fe445f5ce7c2c85360cd91b1ab8a5962a7f9a8c731d40bb7",
+      "after": "e42acd1eb3f22835fe445f5ce7c2c85360cd91b1ab8a5962a7f9a8c731d40bb7"
+    },
+    "_MemorySnapshot.access": {
+      "before": "8f45eca55a6f1bc5e63f01d2c2c361278cae6e18018a2173cb87b9670d0a36cb",
+      "after": "8f45eca55a6f1bc5e63f01d2c2c361278cae6e18018a2173cb87b9670d0a36cb"
+    },
+    "_MemorySnapshot.scope_access": {
+      "before": "59a65203d2d147fe39517160528d7c6cfa8fe1c8aa7fc61f68914e7804dd2d51",
+      "after": "59a65203d2d147fe39517160528d7c6cfa8fe1c8aa7fc61f68914e7804dd2d51"
+    },
+    "_MemorySnapshot.read": {
+      "before": "1ea8c71694cb1713d6c716bcdcd30042d81eb4162c28f35be9a9b450909ada1f",
+      "after": "1ea8c71694cb1713d6c716bcdcd30042d81eb4162c28f35be9a9b450909ada1f"
+    },
+    "NativeMemoryPromptInput.__new__": {
+      "before": "346f13b0de9cf2acfe09e8e452fc8211707ae5043369f2b6f9e003f5eb95ad84",
+      "after": "346f13b0de9cf2acfe09e8e452fc8211707ae5043369f2b6f9e003f5eb95ad84"
+    },
+    "_memory_prompt_owner": {
+      "before": "6ff6054b962922fb0443ca27befb0b69d5c1864dd0bd613c8cb634446b1311c1",
+      "after": "6ff6054b962922fb0443ca27befb0b69d5c1864dd0bd613c8cb634446b1311c1"
+    },
+    "_memory_prompt_access": {
+      "before": "d3f017d5a9e1f237ebe2bb3705eebf5afc8deef6d4e83c974be715a01ef088cf",
+      "after": "d3f017d5a9e1f237ebe2bb3705eebf5afc8deef6d4e83c974be715a01ef088cf"
+    },
+    "_MemoryPrompt.__init__": {
+      "before": "455bec6904d8aa31c12b842485a7dc245cda89f6f63d5d84c80ff356d5f6cba7",
+      "after": "455bec6904d8aa31c12b842485a7dc245cda89f6f63d5d84c80ff356d5f6cba7"
+    },
+    "_MemoryPrompt.invalidate": {
+      "before": "ac4915bb831d567c8c66aa5a9f43cad58c268c64641b71b3a257bc7c6db745d0",
+      "after": "ac4915bb831d567c8c66aa5a9f43cad58c268c64641b71b3a257bc7c6db745d0"
+    },
+    "_MemoryPrompt.owns_window": {
+      "before": "23270095c651c25b9316b5009a4ddb4cf339c9f90456181356a491f3f2b2647a",
+      "after": "23270095c651c25b9316b5009a4ddb4cf339c9f90456181356a491f3f2b2647a"
+    },
+    "_MemoryPrompt.access": {
+      "before": "f74aa34e16bdf01f7258c38622edd2794694594fadf1f22fb603287da97e7a21",
+      "after": "f74aa34e16bdf01f7258c38622edd2794694594fadf1f22fb603287da97e7a21"
+    },
+    "_MemoryPrompt.source_probe_active": {
+      "before": "ae263e76249d484505585cbdaa2873809397c10a06b4d8066eb64fc6f814cadc",
+      "after": "ae263e76249d484505585cbdaa2873809397c10a06b4d8066eb64fc6f814cadc"
+    },
+    "_MemoryPrompt.source_probe": {
+      "before": "b51eb02dfb74f2c2be42ebc60b49a707b33b587b77d476eb6564e240e9933a32",
+      "after": "b51eb02dfb74f2c2be42ebc60b49a707b33b587b77d476eb6564e240e9933a32"
+    },
+    "_MemoryPrompt.callback": {
+      "before": "ae89cda8ba1bd014ad30db7d0ecd7564e3defc6e44d1470b789beb2506155289",
+      "after": "ae89cda8ba1bd014ad30db7d0ecd7564e3defc6e44d1470b789beb2506155289"
+    },
+    "_MemoryPrompt.verify": {
+      "before": "49de0907bb3bebc424646b24db681db417adfe9216b18333c242b84e90902ee0",
+      "after": "49de0907bb3bebc424646b24db681db417adfe9216b18333c242b84e90902ee0"
+    },
+    "_MemoryPrompt.checkpoint": {
+      "before": "c56f19f862554a778f72f515ce5a61c7ad93879ee4ea9dfa1eff8883ce1aa9cd",
+      "after": "c56f19f862554a778f72f515ce5a61c7ad93879ee4ea9dfa1eff8883ce1aa9cd"
+    },
+    "_MemoryPrompt.current": {
+      "before": "36623ea627dd5a3d7d6d87390df979ef85d315c6855a77623d7b70e70b51eb78",
+      "after": "36623ea627dd5a3d7d6d87390df979ef85d315c6855a77623d7b70e70b51eb78"
+    },
+    "_MemoryPrompt.around": {
+      "before": "402a1bdd6548c58a63ec4ae85f9f231cd87ce0adcbfb9dd2aa889d1dd60d25a6",
+      "after": "402a1bdd6548c58a63ec4ae85f9f231cd87ce0adcbfb9dd2aa889d1dd60d25a6"
+    },
+    "_MemoryPrompt.resolve": {
+      "before": "b6dda3f81d034d89be5e48d71a53e53f185670e18fcdfbca14b71b4b75880540",
+      "after": "b6dda3f81d034d89be5e48d71a53e53f185670e18fcdfbca14b71b4b75880540"
+    },
+    "_MemoryPrompt.send": {
+      "before": "cf819e6104a8b3407cb7dbe570315bcfc16d1bd49fcd487f34df3606d55d972b",
+      "after": "cf819e6104a8b3407cb7dbe570315bcfc16d1bd49fcd487f34df3606d55d972b"
+    },
+    "_MemoryPrompt.open_view": {
+      "before": "08503ca16ed1c6948cf816fcbf85304d217d1159b51c54941d06a4f40b1b9aec",
+      "after": "08503ca16ed1c6948cf816fcbf85304d217d1159b51c54941d06a4f40b1b9aec"
+    },
+    "_MemoryPrompt.check_input": {
+      "before": "a9ce079da8100f6640f06c82be279fd5da2306acadddc541ef70930268d101ca",
+      "after": "a9ce079da8100f6640f06c82be279fd5da2306acadddc541ef70930268d101ca"
+    },
+    "_MemoryPrompt.enter_stage": {
+      "before": "a84505c498dce20429978d58a1cc08ce30345e757b177bb873c3a962047807d9",
+      "after": "a84505c498dce20429978d58a1cc08ce30345e757b177bb873c3a962047807d9"
+    },
+    "_MemoryPrompt.check_stage": {
+      "before": "3950f541e297944c4cdec64eb5353200bf9578adf1d0db32ae82b04e53d8eddc",
+      "after": "3950f541e297944c4cdec64eb5353200bf9578adf1d0db32ae82b04e53d8eddc"
+    },
+    "_MemoryPrompt.exit_stage": {
+      "before": "2ea478b1b21684c1ad1fce2268a4fc3c93667ba7ca2ba179199063d150c038c5",
+      "after": "2ea478b1b21684c1ad1fce2268a4fc3c93667ba7ca2ba179199063d150c038c5"
+    },
+    "_MemoryPrompt.transition": {
+      "before": "5358555eea0b3396ad21fac0441275b64d08838b560576dea34854ab5f0a59ba",
+      "after": "5358555eea0b3396ad21fac0441275b64d08838b560576dea34854ab5f0a59ba"
+    },
+    "_MemoryPrompt.progress": {
+      "before": "54138684c9a93fe8494bc6bdb7df444da6c1f7df776e2cdd70cc9061210e48af",
+      "after": "54138684c9a93fe8494bc6bdb7df444da6c1f7df776e2cdd70cc9061210e48af"
+    },
+    "_MemoryPrompt.cache_state": {
+      "before": "0d87f073fe60a4d543a7b2e20f99e39f42408b07e0c5a27a137cda8536c7744c",
+      "after": "0d87f073fe60a4d543a7b2e20f99e39f42408b07e0c5a27a137cda8536c7744c"
+    },
+    "_MemoryPrompt.prompt_access": {
+      "before": "05fc155c182e3c3e91da27c88388b12d00507fdb137ef0b70b14a19feefe02fd",
+      "after": "05fc155c182e3c3e91da27c88388b12d00507fdb137ef0b70b14a19feefe02fd"
+    },
+    "_MemoryPrompt.build_prompt": {
+      "before": "fb1f16f7fdeb43857ccef14962abb30ae418d6206a16148b354ac37321cc5ab5",
+      "after": "fb1f16f7fdeb43857ccef14962abb30ae418d6206a16148b354ac37321cc5ab5"
+    },
+    "bind_memory_prompt_consumer": {
+      "before": "5b54078fc790ffce261abd60dc3a34dab94810bf252fd087aee1d78080300eb4",
+      "after": "5b54078fc790ffce261abd60dc3a34dab94810bf252fd087aee1d78080300eb4"
+    },
+    "run_memory_prompt_consumer": {
+      "before": "1b7367c84c7f6019667ae2e8ac570f16e6759b92e21cd65f4f1f616a91174fa4",
+      "after": "1b7367c84c7f6019667ae2e8ac570f16e6759b92e21cd65f4f1f616a91174fa4"
+    },
+    "_ParentResumption.__init__": {
+      "before": "cfd7d31121df75ec79252a6b2ce41f688518225a164a324986e232d56a88ab19",
+      "after": "cfd7d31121df75ec79252a6b2ce41f688518225a164a324986e232d56a88ab19"
+    },
+    "_ParentResumption.parent_proof": {
+      "before": "32b08235ce6656a7e402b5cee6ca43cb055d0162f0aa7ef088376f437db89f2f",
+      "after": "32b08235ce6656a7e402b5cee6ca43cb055d0162f0aa7ef088376f437db89f2f"
+    },
+    "_ParentResumption.callback": {
+      "before": "00541dac59b9b11836f50096e425e4bcf8ffbb3be7c6f7004e5ad79a11c5fe66",
+      "after": "00541dac59b9b11836f50096e425e4bcf8ffbb3be7c6f7004e5ad79a11c5fe66"
+    },
+    "_ParentResumption.verify": {
+      "before": "60540d951ad9c331d30fed0da06f1dca1ca4201e7b62d3614fd3ddeb2eb58f9c",
+      "after": "60540d951ad9c331d30fed0da06f1dca1ca4201e7b62d3614fd3ddeb2eb58f9c"
+    },
+    "_ParentResumption.checkpoint": {
+      "before": "7a79a2d8aee16d189d844e49bb918173ff7951e6c310b5b5022780cedf4c3a7f",
+      "after": "7a79a2d8aee16d189d844e49bb918173ff7951e6c310b5b5022780cedf4c3a7f"
+    },
+    "_ParentResumption.bind": {
+      "before": "c5cbafe2f02d131c1c67c1632b7c7c75de053a2d0dd0b9a77e23e31a25b92597",
+      "after": "c5cbafe2f02d131c1c67c1632b7c7c75de053a2d0dd0b9a77e23e31a25b92597"
+    },
+    "_ParentResumption.access": {
+      "before": "3e7a640f3263051dd4e63299bee07d3eab247e4b032348d22fa28c48df5f5e12",
+      "after": "3e7a640f3263051dd4e63299bee07d3eab247e4b032348d22fa28c48df5f5e12"
+    },
+    "_ParentResumption._access": {
+      "before": "79906ac330b869381ba594640332bb9617aaa0ab59ba8fdbfcde27026ec7b23d",
+      "after": "79906ac330b869381ba594640332bb9617aaa0ab59ba8fdbfcde27026ec7b23d"
+    },
+    "_ParentResumption.enter_stage": {
+      "before": "2ccc8c544e5f6773998176c9e53343178a07e362921abef306aaf0c2309b4db8",
+      "after": "2ccc8c544e5f6773998176c9e53343178a07e362921abef306aaf0c2309b4db8"
+    },
+    "_ParentResumption.check_stage": {
+      "before": "d66718a87ed610fee81b2b4b875de89a237c37e2aa57414832c537b5fe7748c5",
+      "after": "d66718a87ed610fee81b2b4b875de89a237c37e2aa57414832c537b5fe7748c5"
+    },
+    "_ParentResumption.exit_stage": {
+      "before": "d3f6a41ab792175740827bc8ec462179c1f25724338d7bed28ad63a90599dae1",
+      "after": "d3f6a41ab792175740827bc8ec462179c1f25724338d7bed28ad63a90599dae1"
+    },
+    "_ParentResumption.retain": {
+      "before": "b42313bc7d9c25219f6c289cef0ecf419e0e6bd6527309b9deaf40bfda23bb68",
+      "after": "b42313bc7d9c25219f6c289cef0ecf419e0e6bd6527309b9deaf40bfda23bb68"
+    },
+    "_ParentResumption.mutable_anchors": {
+      "before": "1922c34efc7910412dd24522974c8dbb9236e39cbf1e1f020d0aa91f81165973",
+      "after": "1922c34efc7910412dd24522974c8dbb9236e39cbf1e1f020d0aa91f81165973"
+    },
+    "_ParentResumption.transition": {
+      "before": "36996da56bc58851f8c2dcecc1d506124808d843836efab2220ef30176f43ef3",
+      "after": "36996da56bc58851f8c2dcecc1d506124808d843836efab2220ef30176f43ef3"
+    },
+    "_ParentResumption.progress": {
+      "before": "fd9ca6bfb198e44495ec1bcd06bac95826e8b755f7559d78b992330f94e78ed7",
+      "after": "fd9ca6bfb198e44495ec1bcd06bac95826e8b755f7559d78b992330f94e78ed7"
+    },
+    "_ParentResumption.access_progress": {
+      "before": "19051c094f2589d73679355e7caec178eae3bc31553030ae2899d5d929e9b058",
+      "after": "19051c094f2589d73679355e7caec178eae3bc31553030ae2899d5d929e9b058"
+    },
+    "_ParentResumption.sending": {
+      "before": "6355a04e72276761dedbf9a23e10cb5f1aa6f9bd64ea2edc5c193d09bfd6d045",
+      "after": "6355a04e72276761dedbf9a23e10cb5f1aa6f9bd64ea2edc5c193d09bfd6d045"
+    },
+    "_ParentResumption.sent": {
+      "before": "1f025cc8176f70a0107ab0eb6d9e4ac80be6fd6e5a382127d4bf96e907a269a8",
+      "after": "1f025cc8176f70a0107ab0eb6d9e4ac80be6fd6e5a382127d4bf96e907a269a8"
+    },
+    "_ParentResumption.resume": {
+      "before": "a628e56ba5bf33b65b3dff590e7f46a443c46895f7c481d9d628f33e6c4b6d0a",
+      "after": "a628e56ba5bf33b65b3dff590e7f46a443c46895f7c481d9d628f33e6c4b6d0a"
+    },
+    "_DelegateFrame.__init__": {
+      "before": "d12db408d8da5efc0c88d0653dbefa4a95de39cc2b8524086e6036ca60bacd9c",
+      "after": "d12db408d8da5efc0c88d0653dbefa4a95de39cc2b8524086e6036ca60bacd9c"
+    },
+    "_DelegateFrame.invalidate": {
+      "before": "7bdbf6ade0d91baa3b7ef63ba65a8fbb6699c0e73d2fd9feef6e626c4080d7ca",
+      "after": "7bdbf6ade0d91baa3b7ef63ba65a8fbb6699c0e73d2fd9feef6e626c4080d7ca"
+    },
+    "_DelegateFrame.child_scope": {
+      "before": "0178404f63d8030a047d85c49474a8ccf0ec1ca863c315ee651ee3c26a9e5f95",
+      "after": "0178404f63d8030a047d85c49474a8ccf0ec1ca863c315ee651ee3c26a9e5f95"
+    },
+    "_DelegateFrame.verify": {
+      "before": "26af213cc5acddaeb06335c16ad8020ab57d547b6438156c26650519a454c73f",
+      "after": "26af213cc5acddaeb06335c16ad8020ab57d547b6438156c26650519a454c73f"
+    },
+    "_DelegateFrame.call": {
+      "before": "f0998ee5600d06e5272b70da30db5803f2442f414335ce1ce7e9f7649ea93c6d",
+      "after": "68c6a7922a4287309f4c6e641750ba033b3c48fadc99cc3c5b7dd66e842fb99b"
+    },
+    "_DelegateFrame.facts": {
+      "before": "8d9aa73457b9261f1b1e5a7da95ce5a821662e275d61aa3a59aea115c4db4b9f",
+      "after": "8d9aa73457b9261f1b1e5a7da95ce5a821662e275d61aa3a59aea115c4db4b9f"
+    },
+    "_DelegateFrame.checkpoint": {
+      "before": "15d56ddeff6a8ca5c1e2074cbb2e7d1f34afd6b6f7302cce90b89bb9220f11c7",
+      "after": "ac393e747e2edaf32f1a1375e0b1987b0e098373674709b5613240b5998a5021"
+    },
+    "_DelegateFrame.current": {
+      "before": "05c695209a059d197ac0a4ece8751c29a9fbda1f5f82ac1002b3d419eeda753c",
+      "after": "62cf620074f66b31f09d4ebeb7289488e44cdb46d15619f411c2cda9bbdeca61"
+    },
+    "_DelegateFrame.retain": {
+      "before": "d8336e5cf73a97aa29225539e1ccab4c0c208d3d1b544b8b0e52168f9b42fc54",
+      "after": "d8336e5cf73a97aa29225539e1ccab4c0c208d3d1b544b8b0e52168f9b42fc54"
+    },
+    "_DelegateFrame.set_slot": {
+      "before": "108001fc6182082d758fd71e4371ba3b899ce01b9d2459bd8747b5fa1860e207",
+      "after": "108001fc6182082d758fd71e4371ba3b899ce01b9d2459bd8747b5fa1860e207"
+    },
+    "_DelegateFrame.transition": {
+      "before": "9ebe7cbf54a0cb5c78bd3c7951f954124232a1a87972dbb39a5d2a085f20ce2c",
+      "after": "9ebe7cbf54a0cb5c78bd3c7951f954124232a1a87972dbb39a5d2a085f20ce2c"
+    },
+    "_DelegateFrame.stage": {
+      "before": "ea5dd83b6632a6f7fce5152d88e670fae35f2bfdca020a6f9212b2325770083c",
+      "after": "ea5dd83b6632a6f7fce5152d88e670fae35f2bfdca020a6f9212b2325770083c"
+    },
+    "_DelegateFrame.encode_arguments": {
+      "before": "6391ee7ecfe290c9279704d05f72ddc89948ca98b466abd6b6dc66affe16a2e4",
+      "after": "6391ee7ecfe290c9279704d05f72ddc89948ca98b466abd6b6dc66affe16a2e4"
+    },
+    "_DelegateFrame.capture": {
+      "before": "16bdbacff69807983a2194540ab9bcd19b5e0280dbbb4010280115bfbb1057ae",
+      "after": "b4e3d8f2d4131bd1ba4f11ff2148671462254e8b8f224f0b2bb237a20e76c3f1"
+    },
+    "_DelegateFrame.send": {
+      "before": "19e5a3141667418b2c6954ecb018fe1ced73687adf1451447d60ae0873a0853b",
+      "after": "0608494f750ebdef1425858fcd412d199ef1cbc7de9ec8b8aa29b76a58d09436"
+    },
+    "_DelegateFrame.dispatch_request": {
+      "before": "0448f7899d17020542b66f1fee6c22b75b10983623a15493498c4d49f90d4345",
+      "after": "0448f7899d17020542b66f1fee6c22b75b10983623a15493498c4d49f90d4345"
+    },
+    "_DelegateFrame.open_view": {
+      "before": "85403e77e22fedc7a273f2f6d1102ddd8904a6aba92930cac19a698ed2b1980e",
+      "after": "85403e77e22fedc7a273f2f6d1102ddd8904a6aba92930cac19a698ed2b1980e"
+    },
+    "_DelegateFrame.check_child_input": {
+      "before": "0d13a432ebffc47d5c9719a5d5c621e0988b6d7eb5edd91010bf169b00c319c2",
+      "after": "0d13a432ebffc47d5c9719a5d5c621e0988b6d7eb5edd91010bf169b00c319c2"
+    },
+    "_DelegateFrame.proof": {
+      "before": "6a58dbc4bf8307a25030660d19b59234f8156383b7bb6e70765cbad689421f09",
+      "after": "6a58dbc4bf8307a25030660d19b59234f8156383b7bb6e70765cbad689421f09"
+    },
+    "_DelegateFrame.retain_completion": {
+      "before": "a0c5da49eaf5a5aded1d4815da33897630f398a29d6ce41d744817ddc931d711",
+      "after": "a0c5da49eaf5a5aded1d4815da33897630f398a29d6ce41d744817ddc931d711"
+    },
+    "_DelegateFrame.complete": {
+      "before": "c2c5cb960dc228744415077e69b028bd54d656d8e8500f9eb6914488478a0f16",
+      "after": "c2c5cb960dc228744415077e69b028bd54d656d8e8500f9eb6914488478a0f16"
+    },
+    "_DelegateFrame.finish": {
+      "before": "c1e010ed3961918c1a4dd55aed27db6ce7368ae1b689b796c29b982118076e78",
+      "after": "c1e010ed3961918c1a4dd55aed27db6ce7368ae1b689b796c29b982118076e78"
+    },
+    "_DelegateFrame.check_return": {
+      "before": "75a660a88f497c614a1cdbfbd2d9b8ef3f86d9a85d90d2a4526b79e58b73f04f",
+      "after": "75a660a88f497c614a1cdbfbd2d9b8ef3f86d9a85d90d2a4526b79e58b73f04f"
+    },
+    "_delegate_owner": {
+      "before": "beff1fc25aeb2ed4ce290687d728e27c9d7217d4fe853dd1489f0594ed073b31",
+      "after": "beff1fc25aeb2ed4ce290687d728e27c9d7217d4fe853dd1489f0594ed073b31"
+    },
+    "_remember_delegate_control": {
+      "before": "bcfa2a14151b1424979addfc3a02b0d15c679d2247543ba959365a91f49ebc06",
+      "after": "bcfa2a14151b1424979addfc3a02b0d15c679d2247543ba959365a91f49ebc06"
+    },
+    "_capture_delegate_call": {
+      "before": "965b261492395706e1aa362b946c0d812153b605d82a5758424bf123b3554f80",
+      "after": "965b261492395706e1aa362b946c0d812153b605d82a5758424bf123b3554f80"
+    },
+    "_delegate_boundary": {
+      "before": "3e7e4ca2780b08c18b37105800c2bbc1dc17a1a33b12a0c7c8d0a688f4b94366",
+      "after": "3e7e4ca2780b08c18b37105800c2bbc1dc17a1a33b12a0c7c8d0a688f4b94366"
+    },
+    "_controlled_delegate_entry": {
+      "before": "a35fd6a6e1e5afcc2c08bee721dba2bb46047ffccd44980e4da50eccc7860877",
+      "after": "a35fd6a6e1e5afcc2c08bee721dba2bb46047ffccd44980e4da50eccc7860877"
+    },
+    "_controlled_delegate_builder": {
+      "before": "fa35fd09ee042c9ccf3c287ccdc7d8d80f60f1832a112f2e10c1579259e9091e",
+      "after": "fa35fd09ee042c9ccf3c287ccdc7d8d80f60f1832a112f2e10c1579259e9091e"
+    },
+    "_controlled_delegate_runner": {
+      "before": "605f3b6f1c0525c2e030fc5441bf9a783209ebead8226d5533e0c4ccb3c2dda1",
+      "after": "9e25e2f5e592280c3a1f9dd5191862bd64bb64c09ee7f6961e604c9d407909ab"
+    },
+    "_close_delegate_child": {
+      "before": "f546d89a917e36c589b9edbe8cd65c66707358aba87d1299710dfd46d7f94b60",
+      "after": "f546d89a917e36c589b9edbe8cd65c66707358aba87d1299710dfd46d7f94b60"
+    },
+    "NativeToolCallProbeInput.__new__": {
+      "before": "761e17e36f134aa6d36be1e850d646a9201424e3f9f5a4540f8ef9698c7fa94a",
+      "after": "761e17e36f134aa6d36be1e850d646a9201424e3f9f5a4540f8ef9698c7fa94a"
+    },
+    "_probe_require": {
+      "before": "931dec3eb9218e400fee02ef96799664d17947ba890745c620716bf23af7b70e",
+      "after": "931dec3eb9218e400fee02ef96799664d17947ba890745c620716bf23af7b70e"
+    },
+    "_probe_failure": {
+      "before": "0b90c1cd5fe5e1b1b7474086d5f1d3abb93fdf4fe44f1783efba095572af74a2",
+      "after": "0b90c1cd5fe5e1b1b7474086d5f1d3abb93fdf4fe44f1783efba095572af74a2"
+    },
+    "_tool_probe_arguments": {
+      "before": "385e638cef4b2185c04ac9bff782cb8beef986a8b4ca3e7268206ea89f07ac57",
+      "after": "385e638cef4b2185c04ac9bff782cb8beef986a8b4ca3e7268206ea89f07ac57"
+    },
+    "_tool_probe_schema": {
+      "before": "969131074b7d37fdc3151b6f83b2bd530a1038b464bc2e262dd6fb875f0df1d0",
+      "after": "969131074b7d37fdc3151b6f83b2bd530a1038b464bc2e262dd6fb875f0df1d0"
+    },
+    "_tool_probe_request": {
+      "before": "74399bf1fc756c8bdbefd6d568a1ca069c67a106f917c1a186b871dab9c485f2",
+      "after": "74399bf1fc756c8bdbefd6d568a1ca069c67a106f917c1a186b871dab9c485f2"
+    },
+    "_tool_probe_response": {
+      "before": "81c59a68f75f2f34146fe27bf51b0636feb07f6370356791c6776b86e5b00376",
+      "after": "81c59a68f75f2f34146fe27bf51b0636feb07f6370356791c6776b86e5b00376"
+    },
+    "_ToolCallProbe.__init__": {
+      "before": "b1c527fdbeed9c5902f90f4886fd2e134e0cc1415a7638407cd9253601ac6c8c",
+      "after": "b1c527fdbeed9c5902f90f4886fd2e134e0cc1415a7638407cd9253601ac6c8c"
+    },
+    "_ToolCallProbe.capture_methods": {
+      "before": "8b0a356db04dab17fdcb5947987be69e62a1d773f13c5d3b8bdaf93d9ab29901",
+      "after": "8b0a356db04dab17fdcb5947987be69e62a1d773f13c5d3b8bdaf93d9ab29901"
+    },
+    "_ToolCallProbe.access": {
+      "before": "8cdc83e009151fc778dd653c28a39a177cb744bd850f37bf4bb2bed256a03b8c",
+      "after": "5b44fe9a440eeca89ea73cbfc28c93acc204782a01aa121d2a0e239b3fba9b4b"
+    },
+    "_ToolCallProbe.verify": {
+      "before": "1c198cae6b9c1b8e6fbfc949f972d82be5c1a89b3b53f24130ccf76d3631544d",
+      "after": "1c198cae6b9c1b8e6fbfc949f972d82be5c1a89b3b53f24130ccf76d3631544d"
+    },
+    "_ToolCallProbe.callback": {
+      "before": "c3a2cbb84e2623018d4a8d75539908e6c4ce056a0cba08735e36f365cb646ff4",
+      "after": "c3a2cbb84e2623018d4a8d75539908e6c4ce056a0cba08735e36f365cb646ff4"
+    },
+    "_ToolCallProbe.checkpoint": {
+      "before": "7ba427445474f86334815a4fad5a9c435e91e06e16cb2942e511a3f2c2ff7f3f",
+      "after": "7ba427445474f86334815a4fad5a9c435e91e06e16cb2942e511a3f2c2ff7f3f"
+    },
+    "_ToolCallProbe.content": {
+      "before": "3a5256f34b9238eba8075f6321fa4a2ea8d62101450e6d0fa7af333f5a2a4911",
+      "after": "3a5256f34b9238eba8075f6321fa4a2ea8d62101450e6d0fa7af333f5a2a4911"
+    },
+    "_ToolCallProbe.window": {
+      "before": "bc807ab6a6a0d0f4b41fc97e3c487b1dafe691eee5093ef4699f6666350fd264",
+      "after": "bc807ab6a6a0d0f4b41fc97e3c487b1dafe691eee5093ef4699f6666350fd264"
+    },
+    "_ToolCallProbe.current": {
+      "before": "693ff1461095d159cc88b97d86cefa392db8b15a000ee54993b8638e3064fb92",
+      "after": "693ff1461095d159cc88b97d86cefa392db8b15a000ee54993b8638e3064fb92"
+    },
+    "_ToolCallProbe.scope_access": {
+      "before": "97b8e3cfe9ccfcada1e7260c5a1f99b2fe346e235a31f2b23c8885f5a5410f17",
+      "after": "97b8e3cfe9ccfcada1e7260c5a1f99b2fe346e235a31f2b23c8885f5a5410f17"
+    },
+    "_ToolCallProbe.bind": {
+      "before": "8a36a1e1b934261321298842df56a02ae699549077a5fa27086f8fd64ad6f02e",
+      "after": "8a36a1e1b934261321298842df56a02ae699549077a5fa27086f8fd64ad6f02e"
+    },
+    "_ToolCallProbe.caller_access": {
+      "before": "6e1dbc086ab5472b20396bcbb33a923fea66144b03194730d5185675b5cd3141",
+      "after": "6e1dbc086ab5472b20396bcbb33a923fea66144b03194730d5185675b5cd3141"
+    },
+    "_ToolCallProbe.dispatch": {
+      "before": "d6b5c9e2c530f222701711520facb76c3ff99dc3ec91f61157dd52fcf917a32d",
+      "after": "d6b5c9e2c530f222701711520facb76c3ff99dc3ec91f61157dd52fcf917a32d"
+    },
+    "_ToolCallProbe.send": {
+      "before": "188c3af65003a836276413d076baf838e3cb5f3b612088998068fbfa9df6daa5",
+      "after": "188c3af65003a836276413d076baf838e3cb5f3b612088998068fbfa9df6daa5"
+    },
+    "_ToolCallProbe.observe_operation": {
+      "before": "fba3d0222e378d612adc1fc475bdc5d6e49deebb8c354004af29c61eb2687f3b",
+      "after": "fba3d0222e378d612adc1fc475bdc5d6e49deebb8c354004af29c61eb2687f3b"
+    },
+    "_ToolCallProbe.run": {
+      "before": "fb98b89e7df61b87c9ad68360328eec93c9af859df0148d52a2cafa627fd8f89",
+      "after": "fb98b89e7df61b87c9ad68360328eec93c9af859df0148d52a2cafa627fd8f89"
+    },
+    "_ToolCallProbe.close": {
+      "before": "e45421d2603d89df9dcf561fc8ddde72b30da52b7ccd0960c7f766959ee1fc81",
+      "after": "e45421d2603d89df9dcf561fc8ddde72b30da52b7ccd0960c7f766959ee1fc81"
+    },
+    "_probe_code_current": {
+      "before": "a4499cc30fb7c887c3342d9d1d4aa772832e746398ac5369634dc24a257e3e2c",
+      "after": "a4499cc30fb7c887c3342d9d1d4aa772832e746398ac5369634dc24a257e3e2c"
+    }
+  },
+  "static_helper_corrections": [
+    "The first helper assertion used ambiguous conditional precedence.",
+    "The next helper compared raw checkout line endings with Git blobs. The corrected check uses original index/tree blob identities and normal worktree status."
+  ],
+  "unchanged_source_inputs": {
+    "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+    "agent/agent_init.py": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "agent/tool_dispatch_helpers.py": "a24099f33a8fc8a140c6abbf21f9f6c9966506fdf87b941283ded9605552b27a",
+    "pyproject.toml": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+    "uv.lock": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5"
+  }
+}

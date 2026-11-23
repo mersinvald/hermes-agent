@@ -1,0 +1,64 @@
+{
+  "source_patch": {
+    "bytes": 52413,
+    "sha256": "3074c3ab6da4a4cbfd9b09ab89ae8b3d0b31b19b94db5066f2ebaaad260c77cf",
+    "context_lines": 0,
+    "forward_matches": true,
+    "inverse_matches": true,
+    "commands": [
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "--check",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.35/docs/evidence/accountant-native-issued-call-execution-20261123/source-boundary.patch"
+      ],
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.35/docs/evidence/accountant-native-issued-call-execution-20261123/source-boundary.patch"
+      ],
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "--reverse",
+        "--check",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.35/docs/evidence/accountant-native-issued-call-execution-20261123/source-boundary.patch"
+      ],
+      [
+        "git",
+        "apply",
+        "--unidiff-zero",
+        "--reverse",
+        "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.35/docs/evidence/accountant-native-issued-call-execution-20261123/source-boundary.patch"
+      ]
+    ]
+  },
+  "AST": true,
+  "old_signatures": 286,
+  "old_shapes": 33,
+  "unchanged_base_paths": 11567,
+  "native_shared_bounds_unchanged": true,
+  "no_source_file_inspections_in_new_unit_tests": true,
+  "whole_task_whitespace": {
+    "commands": [
+      [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      [
+        "git",
+        "diff",
+        "--cached",
+        "--check",
+        "693b1bcc1919cfad4419b90a1a1eaae7a3471956"
+      ]
+    ],
+    "passed": true,
+    "scope": "All staged source, test, and evidence paths, including the new patch artifact."
+  }
+}

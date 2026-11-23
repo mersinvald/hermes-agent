@@ -1,0 +1,1128 @@
+{
+  "scope": "final-callback-proof",
+  "source_sha256": "ec1bbb71686b44d8820b1a5f9970363362e0dec831a9846ec4347607e14a5867",
+  "test_sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e",
+  "proof": {
+    "child_sends": 1,
+    "content_slots": 23,
+    "delegate_sends": 1,
+    "envelopes": 3,
+    "execution_main_sends": 0,
+    "native_stages": {
+      "child_results": 1,
+      "child_turns": 1,
+      "delegate_inputs": 4,
+      "delegate_outputs": 2
+    },
+    "qualification_sends": 18,
+    "retained_bytes": 22967,
+    "source_sends": 1,
+    "stages": [
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 400,
+        "parents": [],
+        "path": null,
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 508,
+        "parents": [
+          1
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 710,
+        "parents": [
+          1,
+          2
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 436,
+        "parents": [
+          3
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 1199,
+        "parents": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 1266,
+        "parents": [],
+        "path": null,
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "bytes": 2498,
+        "parents": [
+          5,
+          6
+        ],
+        "path": "delegate",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          []
+        ],
+        "bytes": 621,
+        "parents": [
+          7
+        ],
+        "path": "delegate",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          []
+        ],
+        "bytes": 59,
+        "parents": [
+          8
+        ],
+        "path": "delegate",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          []
+        ],
+        "bytes": 2738,
+        "parents": [
+          8,
+          9
+        ],
+        "path": "delegate",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          []
+        ],
+        "bytes": 17,
+        "parents": [
+          10
+        ],
+        "path": "delegate",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 2738,
+        "parents": [
+          10
+        ],
+        "path": "delegate",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 59,
+        "parents": [
+          12
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 1143,
+        "parents": [
+          13
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 2240,
+        "parents": [
+          14,
+          14
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 971,
+        "parents": [
+          14,
+          14,
+          15
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 1173,
+        "parents": [
+          14,
+          14,
+          15
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 273,
+        "parents": [
+          17
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 778,
+        "parents": [
+          14,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "path": "main",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 247,
+        "parents": [
+          12,
+          19
+        ],
+        "path": "tool_result",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          []
+        ],
+        "bytes": 293,
+        "parents": [
+          12,
+          19,
+          20
+        ],
+        "path": "tool_result",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          []
+        ],
+        "bytes": 293,
+        "parents": [
+          10,
+          12,
+          21
+        ],
+        "path": "tool_result",
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      {
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          []
+        ],
+        "bytes": 2307,
+        "parents": [
+          7,
+          22
+        ],
+        "path": "tool_result",
+        "profiles": [
+          "restricted_documents"
+        ]
+      }
+    ],
+    "windows": {
+      "execution": 8,
+      "source": 8
+    }
+  },
+  "vectors": [
+    {
+      "stage": "A",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 400,
+      "parents": [],
+      "path": null,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"expected_arguments_json\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_0_main\",\"producer_policy\":[\"producer_0\",4,[\"restricted_documents\"]],\"system_message\":\"Request one leaf call.\",\"task_id\":\"execution\",\"user_message\":\"Count blue squares.\"}",
+      "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604"
+    },
+    {
+      "stage": "Q",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 508,
+      "parents": [
+        1
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]}",
+      "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b"
+    },
+    {
+      "stage": "W",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 710,
+      "parents": [
+        1,
+        2
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint_0\",\"model_ref\":\"invented_model_0\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_0\"},\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]}}",
+      "sha256": "b4c2d3511f11f49ad31ff563d53fa79ffe67aee08aba1e5907101d0274851b7b"
+    },
+    {
+      "stage": "R",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 436,
+      "parents": [
+        3
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}}",
+      "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11"
+    },
+    {
+      "stage": "O",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 1199,
+      "parents": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"}",
+      "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864"
+    },
+    {
+      "stage": "B",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 1266,
+      "parents": [],
+      "path": null,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"child\":{\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"main_route_ref\":\"route_3_main\",\"producer_policy\":[\"producer_3\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_3\",\"synthetic_native\",\"invented_model_3\",\"invented_endpoint_3\",1]],\"session_id\":\"invented_child_session\",\"task_id\":\"child_execution\"},\"execution\":{\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_1_main\",\"producer_policy\":[\"producer_1\",4,[\"restricted_documents\"]],\"selection\":[\"selection_0\",3,\"chat_completions\",[\"invented_1\",\"synthetic_native\",\"invented_model_1\",\"invented_endpoint_1\",1]]},\"receiver\":{\"delegate_route_ref\":\"route_2_delegate\",\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"producer_policy\":[\"producer_2\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_2\",\"synthetic_native\",\"invented_model_2\",\"invented_endpoint_2\",1]]}}",
+      "sha256": "913e0d11a0b6f57e0b3ccb15cd3fec72a05231f4e2a8ca7728378700782cae43"
+    },
+    {
+      "stage": "I",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "bytes": 2498,
+      "parents": [
+        5,
+        6
+      ],
+      "path": "delegate",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"authorization\":{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"child\":{\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"main_route_ref\":\"route_3_main\",\"producer_policy\":[\"producer_3\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_3\",\"synthetic_native\",\"invented_model_3\",\"invented_endpoint_3\",1]],\"session_id\":\"invented_child_session\",\"task_id\":\"child_execution\"},\"execution\":{\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_1_main\",\"producer_policy\":[\"producer_1\",4,[\"restricted_documents\"]],\"selection\":[\"selection_0\",3,\"chat_completions\",[\"invented_1\",\"synthetic_native\",\"invented_model_1\",\"invented_endpoint_1\",1]]},\"receiver\":{\"delegate_route_ref\":\"route_2_delegate\",\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"producer_policy\":[\"producer_2\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_2\",\"synthetic_native\",\"invented_model_2\",\"invented_endpoint_2\",1]]}},\"observation\":{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"}}",
+      "sha256": "a61006cd1d5d45fce490468424c5a171b3f02db018a09f7fe7fe4e368f3e4e96"
+    },
+    {
+      "stage": "D",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        []
+      ],
+      "bytes": 621,
+      "parents": [
+        7
+      ],
+      "path": "delegate",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]}",
+      "sha256": "2f509d0937eea37bc6116cbcdaba235a0fae12cefb61c4ed45fae0ccedb66a74"
+    },
+    {
+      "stage": "L",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        []
+      ],
+      "bytes": 59,
+      "parents": [
+        8
+      ],
+      "path": "delegate",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"}",
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5"
+    },
+    {
+      "stage": "V",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        []
+      ],
+      "bytes": 2738,
+      "parents": [
+        8,
+        9
+      ],
+      "path": "delegate",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"constructor\":{\"api_mode\":\"chat_completions\",\"enabled_toolsets\":[],\"model\":\"invented_model_3\",\"provider\":\"synthetic_native\",\"quiet_mode\":true,\"session_id\":\"invented_child_session\",\"skip_background_review\":true,\"skip_context_files\":true,\"skip_memory\":true},\"entry\":{\"system_message\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"task_id\":\"child_execution\",\"user_message\":\"Count blue squares.\"},\"leaf\":{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"},\"raw\":{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]},\"system_prompt\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\"}",
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8"
+    },
+    {
+      "stage": "H",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        []
+      ],
+      "bytes": 17,
+      "parents": [
+        10
+      ],
+      "path": "delegate",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"accepted\":true}",
+      "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878"
+    },
+    {
+      "stage": "C",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 2738,
+      "parents": [
+        10
+      ],
+      "path": "delegate",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"constructor\":{\"api_mode\":\"chat_completions\",\"enabled_toolsets\":[],\"model\":\"invented_model_3\",\"provider\":\"synthetic_native\",\"quiet_mode\":true,\"session_id\":\"invented_child_session\",\"skip_background_review\":true,\"skip_context_files\":true,\"skip_memory\":true},\"entry\":{\"system_message\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"task_id\":\"child_execution\",\"user_message\":\"Count blue squares.\"},\"leaf\":{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"},\"raw\":{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]},\"system_prompt\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\"}",
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8"
+    },
+    {
+      "stage": "S",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 59,
+      "parents": [
+        12
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"}",
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5"
+    },
+    {
+      "stage": "child_input",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 1143,
+      "parents": [
+        13
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"conversation_history\":null,\"options\":{\"max_tokens\":{\"present\":true,\"value\":null},\"model\":{\"present\":true,\"value\":\"invented_model_3\"},\"stream\":{\"present\":false,\"value\":false},\"temperature\":{\"present\":false,\"value\":null}},\"system_message\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"task_id\":\"child_execution\",\"user_message\":\"Count blue squares.\"}",
+      "sha256": "d1052ae84e5ec29c2696aaa570e63a27e702c9d1d4f2a99b42be0f49c3ceea23"
+    },
+    {
+      "stage": "child_preparation",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 2240,
+      "parents": [
+        14,
+        14
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"request\":{\"messages\":[{\"content\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_3\",\"stream\":false},\"turn_context\":{\"active_system_prompt\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"conversation_history\":null,\"current_turn_user_idx\":0,\"effective_task_id\":\"child_execution\",\"ext_prefetch_cache\":\"\",\"messages\":[{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"original_user_message\":\"Count blue squares.\",\"plugin_user_context\":\"\",\"preflight_compression_blocked\":false,\"should_review_memory\":false,\"turn_id\":\"native-turn-1\",\"user_message\":\"Count blue squares.\"}}",
+      "sha256": "3c9be6aa88ce69bec7e07c9d547f0ba4a5fe7d8b9bb01c46f2418c32c2d146ab"
+    },
+    {
+      "stage": "child_sealed_request",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 971,
+      "parents": [
+        14,
+        14,
+        15
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"messages\":[{\"content\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_3\",\"stream\":false}",
+      "sha256": "7473ffd55f6fd0df0a1cf08057543af82f808441f1dd7deee0e81604b9c538dd"
+    },
+    {
+      "stage": "child_wire",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 1173,
+      "parents": [
+        14,
+        14,
+        15
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint_3\",\"model_ref\":\"invented_model_3\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_3\"},\"request\":{\"messages\":[{\"content\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_3\",\"stream\":false}}",
+      "sha256": "0091f4298c0ecf90c02e35ec1a3d1853f26d3228dafee30065f0537099081578"
+    },
+    {
+      "stage": "child_response",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 273,
+      "parents": [
+        17
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"Three blue squares.\",\"role\":\"assistant\"}}],\"created\":12,\"id\":\"invented_child_reply\",\"model\":\"invented_model_3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":2,\"prompt_tokens\":3,\"total_tokens\":5}}",
+      "sha256": "3afd0d646ef808434d46fee4a34194d1430ad3bb4d6af087cbd22149534d5773"
+    },
+    {
+      "stage": "child_native_result",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 778,
+      "parents": [
+        14,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"api_calls\":1,\"base_url\":\"\",\"cache_read_tokens\":0,\"cache_write_tokens\":0,\"completed\":true,\"completion_tokens\":2,\"cost_source\":null,\"cost_status\":\"unknown\",\"estimated_cost_usd\":null,\"failed\":false,\"final_response\":\"Three blue squares.\",\"input_tokens\":3,\"interrupted\":false,\"last_prompt_tokens\":3,\"last_reasoning\":null,\"messages\":[{\"content\":\"Count blue squares.\",\"role\":\"user\"},{\"content\":\"Three blue squares.\",\"role\":\"assistant\"}],\"model\":\"invented_model_3\",\"output_tokens\":2,\"partial\":false,\"pre_transform_response\":null,\"prompt_tokens\":3,\"provider\":\"synthetic_native\",\"reasoning_tokens\":0,\"response_previewed\":false,\"response_transformed\":false,\"service_tier\":null,\"session_id\":\"invented_child_session\",\"total_tokens\":5,\"turn_exit_reason\":\"text_response(finish_reason=stop)\"}",
+      "sha256": "0f206048e4cea88c818267959615fe450c66cb0af91a8b125bea23e1550254ff"
+    },
+    {
+      "stage": "T",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 247,
+      "parents": [
+        12,
+        19
+      ],
+      "path": "tool_result",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}",
+      "sha256": "da7594cff5f3c08b279d7cd92423526e436bf50568293aa965a12a5f49cdab1b"
+    },
+    {
+      "stage": "U",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        []
+      ],
+      "bytes": 293,
+      "parents": [
+        12,
+        19,
+        20
+      ],
+      "path": "tool_result",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"results\": [{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}], \"total_duration_seconds\": 0.0}",
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf"
+    },
+    {
+      "stage": "F_returned",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        []
+      ],
+      "bytes": 293,
+      "parents": [
+        10,
+        12,
+        21
+      ],
+      "path": "tool_result",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"results\": [{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}], \"total_duration_seconds\": 0.0}",
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf"
+    },
+    {
+      "stage": "Z",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        []
+      ],
+      "bytes": 2307,
+      "parents": [
+        7,
+        22
+      ],
+      "path": "tool_result",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "utf8": "{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"execution_arguments\":{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]},\"observation\":{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"},\"result\":{\"results\":[{\"api_calls\":1,\"duration_seconds\":0.0,\"exit_reason\":\"completed\",\"model\":\"invented_model_3\",\"status\":\"completed\",\"summary\":\"Three blue squares.\",\"task_index\":0,\"tokens\":{\"input\":3,\"output\":2},\"tool_trace\":[],\"truncated\":false}],\"total_duration_seconds\":0.0}}",
+      "sha256": "03fedd37120ee72541fb1a663d8d2fd175ad1a1af016fc3284e9ef9d90dff28c"
+    }
+  ]
+}
