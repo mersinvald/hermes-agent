@@ -1,0 +1,23 @@
+{
+  "source_sha256": {
+    "agent/native_main_payload.py": "83b0d35970ba95e9c9f3feda20712307f37d4ae50998eadcb6fa65ce38b50012",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+  },
+  "native_API_sha256": "c8abff06b7df3053aca2c68b3c6b97d879f8ce7160813befd85062165958c5da",
+  "consumer_sha256": "223479c05568469e0e3d3cc870b3ac8bf7a6f5661d27c54e42a8b24377eee3b5",
+  "original_dependency_receipt_sha256": "11dab3fd53223771fd4dd51bc5b88a33021ed1d65081bf25f9494c6047994bcc",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "API_and_consumer_shapes_unchanged": true,
+  "dependency_delivery_repeated": false,
+  "installed_functional_smoke_repeated": false,
+  "reused_original_scope_files": [
+    "../final-native.json",
+    "../feedback-08.json",
+    "../raw-control-red.json",
+    "../raw-control-green.json"
+  ],
+  "prior_task": "task_7a64fd3c0ce4",
+  "followup_task": "task_c2891e7bac62"
+}

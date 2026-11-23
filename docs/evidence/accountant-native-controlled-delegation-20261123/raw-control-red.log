@@ -1,0 +1,105 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~14 tests) under ['tests/tools/test_native_controlled_delegation.py']; running with -j 1
+[100.0% |    14/~14 | ✓0 | ✗1] ✗ tests/tools/test_native_controlled_delegation.py (1✗, 6.2s)
+
+  ╔╍ Failed: tests/tools/test_native_controlled_delegation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║     return delegate_task(**kwargs)
+  ║            ^^^^^^^^^^^^^^^^^^^^^^^
+  ║ agent/native_main_payload.py:4103: in captured
+  ║     frame.capture(args, kwargs, public_signature)
+  ║ agent/native_main_payload.py:3908: in capture
+  ║     raw_content = self.stage(raw, ())
+  ║                   ^^^^^^^^^^^^^^^^^^^
+  ║ agent/native_main_payload.py:3865: in stage
+  ║     content = self.runtime.admit(handle, payload)
+  ║               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:575: in admit
+  ║     binding = self._current(request_handle)
+  ║               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:484: in _current
+  ║     self._now()
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:475: in _now
+  ║     now = self._call(self._clock)
+  ║           ^^^^^^^^^^^^^^^^^^^^^^^
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:455: in _call
+  ║     raise PolicyError("callback_failed") from None
+  ║ E   hermes_content_policy.PolicyError: callback_failed
+  ║ - generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/raw-control-red.xml -
+  ║ ============================== slowest durations ===============================
+  ║ 2.27s setup    tests/tools/test_native_controlled_delegation.py::test_raw_admission_control_keeps_original_exception
+  ║ 2.07s call     tests/tools/test_native_controlled_delegation.py::test_raw_admission_control_keeps_original_exception
+  ║ 
+  ║ (1 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/tools/test_native_controlled_delegation.py::test_raw_admission_control_keeps_original_exception
+  ║ ======================= 1 failed, 55 deselected in 5.40s =======================
+  ║
+  ║  Repro: python -m pytest tests/tools/test_native_controlled_delegation.py -k raw_admission_control_keeps_original_exception --durations=0 --tb=short --junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/raw-control-red.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 6.2s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 6.2s  (runner wall: 6.2s, parallelism: 1x)
+  P50: 6.20s  P90: 6.20s  P95: 6.20s  P99: 6.20s  Max: 6.20s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      6.20s  tests/tools/test_native_controlled_delegation.py
+
+=== Failure output ===
+
+--- tests/tools/test_native_controlled_delegation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 56 items / 55 deselected / 1 selected
+
+tests/tools/test_native_controlled_delegation.py F                       [100%]
+
+=================================== FAILURES ===================================
+_____________ test_raw_admission_control_keeps_original_exception ______________
+tests/tools/test_native_controlled_delegation.py:549: in test_raw_admission_control_keeps_original_exception
+    world.call()
+tests/tools/test_native_controlled_delegation.py:186: in call
+    return delegate_task(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4103: in captured
+    frame.capture(args, kwargs, public_signature)
+agent/native_main_payload.py:3908: in capture
+    raw_content = self.stage(raw, ())
+                  ^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:3865: in stage
+    content = self.runtime.admit(handle, payload)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:575: in admit
+    binding = self._current(request_handle)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:484: in _current
+    self._now()
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:475: in _now
+    now = self._call(self._clock)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:455: in _call
+    raise PolicyError("callback_failed") from None
+E   hermes_content_policy.PolicyError: callback_failed
+- generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/raw-control-red.xml -
+============================== slowest durations ===============================
+2.27s setup    tests/tools/test_native_controlled_delegation.py::test_raw_admission_control_keeps_original_exception
+2.07s call     tests/tools/test_native_controlled_delegation.py::test_raw_admission_control_keeps_original_exception
+
+(1 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/tools/test_native_controlled_delegation.py::test_raw_admission_control_keeps_original_exception
+======================= 1 failed, 55 deselected in 5.40s =======================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/tools/test_native_controlled_delegation.py  (1 test failed)

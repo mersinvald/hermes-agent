@@ -1,0 +1,11 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -4104,6 +4104,8 @@
+             return function(*args, **kwargs)
+         except BaseException:
+             frame.invalidate()
++            if frame.control_exception is not None:
++                raise frame.control_exception
+             raise
+         finally:
+             frame.running = False

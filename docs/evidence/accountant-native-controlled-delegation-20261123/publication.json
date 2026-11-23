@@ -1,0 +1,26 @@
+{
+  "scope": "Exact first source publication; final evidence head/tree also recorded in PR and worker handoff",
+  "source_commit": "559bd19d0ce0324d888c62498944a6ca8063c2d0",
+  "source_tree": "006587c9c1784097eeb6c343185d9f82a8fb782e",
+  "published_source_head": "559bd19d0ce0324d888c62498944a6ca8063c2d0",
+  "repository": "mersinvald/hermes-agent",
+  "base": "mkl",
+  "branch": "mersinvald/hpwa-p10.25",
+  "draft_PR": "https://github.com/mersinvald/hermes-agent/pull/11",
+  "draft": true,
+  "normal_hooks": true,
+  "standard_non_force_push": true,
+  "branch_retained": true,
+  "saved_configuration_changes": false,
+  "upstream_changes": false,
+  "credential_provisioning": false,
+  "authentication": "Existing gh credential helper, process scope only",
+  "head_check_snapshot": {
+    "check_runs": 0,
+    "statuses": 0,
+    "CI_claim": false
+  },
+  "source_freeze_sha256": "5acba8aa767195de6056eae80c0f8ebe0add5e18197291804a4efe2945fa7637",
+  "native_API_sha256": "c8abff06b7df3053aca2c68b3c6b97d879f8ce7160813befd85062165958c5da",
+  "consumer_sha256": "223479c05568469e0e3d3cc870b3ac8bf7a6f5661d27c54e42a8b24377eee3b5"
+}

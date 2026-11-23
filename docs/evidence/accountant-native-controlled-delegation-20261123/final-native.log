@@ -1,0 +1,17 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~13 tests) under ['tests/tools/test_native_controlled_delegation.py']; running with -j 1
+[100.0% |    13/~13 | ✓53 | ✗ 0] ✓ tests/tools/test_native_controlled_delegation.py (53✓, 420.5s)
+
+=== Summary: 1 files, 53 tests passed, 0 failed (100% complete) in 420.5s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 420.5s  (runner wall: 420.5s, parallelism: 1x)
+  P50: 420.52s  P90: 420.52s  P95: 420.52s  P99: 420.52s  Max: 420.52s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+    420.52s  tests/tools/test_native_controlled_delegation.py

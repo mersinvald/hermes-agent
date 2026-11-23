@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="39.956" timestamp="2026-11-23T11:48:37.403246+00:00"><testcase classname="tests.tools.test_native_controlled_delegation" name="test_blue_squares_actual_native_path" time="39.517"><properties><property name="setup_seconds" value="1.533327" /><property name="call_seconds" value="37.982604" /></properties></testcase></testsuite></testsuites>

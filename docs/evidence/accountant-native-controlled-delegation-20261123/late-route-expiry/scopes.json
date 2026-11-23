@@ -1,0 +1,149 @@
+{
+  "red": {
+    "name": "late-issued-expiry-red",
+    "command": [
+      "scripts/run_tests.sh",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "120",
+      "-j",
+      "1",
+      "tests/tools/test_native_controlled_delegation.py",
+      "-k",
+      "test_closed_child_issued_delegate_expiry_forbids_release",
+      "--",
+      "--durations=0",
+      "--tb=short",
+      "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/late-route-expiry/late-issued-expiry-red.xml"
+    ],
+    "source_sha256": {
+      "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+      "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+      "tests/tools/test_native_controlled_delegation.py": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+    },
+    "source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+    "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home/late-route-expiry",
+    "retries": 0,
+    "exit_code": 1,
+    "wall_seconds": 36.26,
+    "source_unchanged": true,
+    "cases": [
+      {
+        "name": "test_closed_child_issued_delegate_expiry_forbids_release",
+        "classname": "tests.tools.test_native_controlled_delegation",
+        "seconds": "34.702",
+        "properties": {
+          "setup_seconds": "1.619669",
+          "actual_delegate_sends": "1",
+          "actual_main_sends": "1",
+          "shared_return_sends": "0",
+          "qualification_sends": "25",
+          "child_closed": "True",
+          "genuine_completion": "True",
+          "shared_return_completed": "True",
+          "sealed_proof_preserved": "True",
+          "coverage_unexpired": "True",
+          "aggregate_released": "True",
+          "phase": "released",
+          "clock": "20",
+          "issued_expiry": "20",
+          "call_seconds": "33.081348"
+        },
+        "status": "failed"
+      }
+    ]
+  },
+  "green": {
+    "name": "late-issued-expiry-green",
+    "command": [
+      "scripts/run_tests.sh",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "180",
+      "-j",
+      "1",
+      "tests/tools/test_native_controlled_delegation.py",
+      "-k",
+      "closed_child_issued_delegate_expiry_forbids_release or blue_squares_actual_native_path or closed_child_cancellation_still_forbids_release or raw_admission_control_keeps_original_exception",
+      "--",
+      "--durations=0",
+      "--tb=short",
+      "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/late-route-expiry/late-issued-expiry-green.xml"
+    ],
+    "source_sha256": {
+      "agent/native_main_payload.py": "83b0d35970ba95e9c9f3feda20712307f37d4ae50998eadcb6fa65ce38b50012",
+      "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+      "tests/tools/test_native_controlled_delegation.py": "9d5c0058108becc4cb2587ea987a59833f340edfc3378fb67d0f4d7590c01a7c"
+    },
+    "source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+    "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home/late-route-expiry",
+    "retries": 0,
+    "exit_code": 0,
+    "wall_seconds": 113.353,
+    "source_unchanged": true,
+    "cases": [
+      {
+        "name": "test_blue_squares_actual_native_path",
+        "classname": "tests.tools.test_native_controlled_delegation",
+        "seconds": "41.630",
+        "properties": {
+          "setup_seconds": "1.50149",
+          "call_seconds": "40.128137",
+          "teardown_seconds": "0.000565"
+        },
+        "status": "passed"
+      },
+      {
+        "name": "test_closed_child_cancellation_still_forbids_release",
+        "classname": "tests.tools.test_native_controlled_delegation",
+        "seconds": "34.120",
+        "properties": {
+          "setup_seconds": "0.016956",
+          "call_seconds": "34.102861",
+          "teardown_seconds": "0.000533"
+        },
+        "status": "passed"
+      },
+      {
+        "name": "test_raw_admission_control_keeps_original_exception",
+        "classname": "tests.tools.test_native_controlled_delegation",
+        "seconds": "1.902",
+        "properties": {
+          "setup_seconds": "0.012357",
+          "call_seconds": "1.888653",
+          "teardown_seconds": "0.000514"
+        },
+        "status": "passed"
+      },
+      {
+        "name": "test_closed_child_issued_delegate_expiry_forbids_release",
+        "classname": "tests.tools.test_native_controlled_delegation",
+        "seconds": "34.333",
+        "properties": {
+          "setup_seconds": "0.012516",
+          "actual_delegate_sends": "1",
+          "actual_main_sends": "1",
+          "shared_return_sends": "0",
+          "qualification_sends": "25",
+          "child_closed": "True",
+          "genuine_completion": "True",
+          "shared_return_completed": "True",
+          "sealed_proof_preserved": "True",
+          "coverage_unexpired": "True",
+          "aggregate_released": "False",
+          "phase": "returned",
+          "clock": "20",
+          "issued_expiry": "20",
+          "call_seconds": "34.319206"
+        },
+        "status": "passed"
+      }
+    ]
+  },
+  "retries": 0,
+  "prior_53_case_restart": false,
+  "prior_raw_interruption_correction_preserved": true,
+  "fresh_aggregate_scope": "Four selected cases only"
+}

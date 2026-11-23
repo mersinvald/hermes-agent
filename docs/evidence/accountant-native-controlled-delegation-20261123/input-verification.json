@@ -1,0 +1,196 @@
+{
+  "receipt_sha256": "1a8e5db7a43fe65843ca96cfcad11b4dfb02150825494b9fa55d8a7287e29a24",
+  "tracked_objects": [
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "sha256": "8ab2cc1e3dc287f637bc2c1c63cc673a4c6c3fc38b43713853eff08201112149"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "sha256": "9cf518ccfed81bcbd1ee2ab88e00579f0a4dac5cac3c59a0fbeb96fcc016ebe3"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-contracts-20261123/next-component-design.md",
+      "sha256": "f3ff540fa558169be3ad2f36e89ba0f8370b2e38a90c9ecacabdcf8beddbbd02"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-contracts-20261123/source-map.md",
+      "sha256": "7b7523c5a153fed73dae624710df1f9d37605b58626fb34ccf2574ea85706e0d"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-contracts-20261123/source-pins.json",
+      "sha256": "d08ba408d25f95239613ebb7431c4ce80cf48c3a56ec98bdf4da8a4244d64b01"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-contracts-20261123/verification.json",
+      "sha256": "44d24abc48a4bf70a0cad24d400e5c57508e9df5634e5be5c20338d7111bafac"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-contracts-20261123/README.md",
+      "sha256": "b3f0c47545ba13cea5515672e524b4a873d43727af32950de2b62070d342ee5c"
+    },
+    {
+      "repository": "PWA",
+      "commit": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+      "path": "docs/mesh/evidence/accountant-shared-delegate-return-contracts-20261123/SHA256SUMS",
+      "sha256": "0778d7e73dfe40f3750161a3a74bef3aa1a159d7a5550838023e84bdafbcfd21"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "agent/native_main_payload.py",
+      "sha256": "bcb2bff0a6f4fc33b426078783a39aa892707ec6205a275e0b4c29920b6fc47b"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "agent/content_policy.py",
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "tools/delegate_tool.py",
+      "sha256": "7b5f36594948bb19f05d883c75b8d5c79a1f306fd4fcc80e657ac853df6c093d"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "plugins/platforms/a2a/tools.py",
+      "sha256": "17c19b7b6f7f9f07d79e215da6a505a1a60c04eee5c53e5f5db127933b85cffb"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "agent/chat_completion_helpers.py",
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "agent/conversation_loop.py",
+      "sha256": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "run_agent.py",
+      "sha256": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/native-api.json",
+      "sha256": "07cc88df9776e220c38f8289d983eea72bea2acdf48cbbe04ecbcf477b3a46d7"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/consumer-contract.md",
+      "sha256": "f14fd1113de097354becf239f12be7556b14b45ba6e1222b463964ad9bb0d6b5"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/dependency-receipt.json",
+      "sha256": "dc50592a9168b5cc62b4990152a9a27bffca8872cada8344e20afc2670f32c91"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/dependency-smoke.json",
+      "sha256": "6ab88a90ddca1edd94cb89d7ea1b33b3e70328bab84a3940c9e5eda4afc68ec3"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/input-verification.json",
+      "sha256": "379ef9deb1e757d71fa6b49aa3dc89d696f47e9aad6e659398334381044a2f32"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/frozen-source.json",
+      "sha256": "498a27478582657701e5757e18612df5a048083f716b012e366151afaca359d8"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/frozen-source.before-chronology.json",
+      "sha256": "8d936ba99bddaab4013f8c7ef3e3feb362554d8853f3cf143090eb8844a132fc"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/scopes.json",
+      "sha256": "349bac42dd5d706f5e8f4b5405b0ecdccdf11b524b91be9a2e6993ece11b80a7"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "AGENTS.md",
+      "sha256": "93a12ef7f78a533b3f2b49b1c435eff1a41e18458074a1e231647e189e29250f"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "agent/agent_init.py",
+      "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "agent/delegation_context.py",
+      "sha256": "d185d1746efa5516a2697dc7e58b1e049300239300475766e91decbfc0c2f754"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "tools/daemon_pool.py",
+      "sha256": "148a18c801a28f4fb5a96eb20399052245599413a349d7df2fd0b4643ae910dc"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "tests/agent/test_native_main_payload.py",
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+    },
+    {
+      "repository": "native",
+      "commit": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+      "path": "tests/tools/test_content_policy_delegation.py",
+      "sha256": "9f0b6e6c1a38f2650aba820f9ec355f78f5375047db21575f7b05f6ab37b831f"
+    }
+  ],
+  "protected_inputs_verified": 8,
+  "native_base": "9133d28a8a4fdb48ed5dcb08b9846612d0a370ef",
+  "native_tree": "b6da4e5a8158abe6502a7dd46f238a50dcf78248",
+  "pwa_publication": "3de0849aa0a26c404173ae1c4aa9f481473de016",
+  "pwa_candidate": "20ac87f80253301719a36a35526a763f3aae28ed",
+  "original_P10": {
+    "path": "docs/mesh/accountant-implementation-plan.md",
+    "bytes": 1270,
+    "sha256": "f58c9c48c68986a3956668c11d83d918593a81fdf2ed1cd402e7d45ed6182c33",
+    "verified": true
+  }
+}

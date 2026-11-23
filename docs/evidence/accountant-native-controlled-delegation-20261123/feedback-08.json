@@ -1,0 +1,53 @@
+{
+  "name": "feedback-08",
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "-j",
+    "1",
+    "tests/tools/test_native_controlled_delegation.py",
+    "-k",
+    "(post_acceptance_original_anchors and (mutated-leaf or construction-slot))",
+    "--",
+    "--durations=0",
+    "--tb=short",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-08.xml"
+  ],
+  "source_sha256": {
+    "agent/native_main_payload.py": "72499d1f104fe1bf7874cc2da063f4f12d8b1563a84ef1af79d2d6322a2a5b32",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "1d5a0be8d2ca527bec1a17702da72ac79fda90f6c02fa846778e3d993be5c7aa"
+  },
+  "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+  "retries": 0,
+  "exit_code": 0,
+  "wall_seconds": 23.109,
+  "source_unchanged": true,
+  "cases": [
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_post_acceptance_original_anchors[mutated-leaf]",
+      "seconds": "11.532",
+      "properties": {
+        "setup_seconds": "1.593758",
+        "call_seconds": "9.937596",
+        "teardown_seconds": "0.000537"
+      },
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_native_controlled_delegation",
+      "name": "test_post_acceptance_original_anchors[construction-slot]",
+      "seconds": "10.077",
+      "properties": {
+        "setup_seconds": "0.023623",
+        "call_seconds": "10.052272"
+      },
+      "status": "passed"
+    }
+  ]
+}

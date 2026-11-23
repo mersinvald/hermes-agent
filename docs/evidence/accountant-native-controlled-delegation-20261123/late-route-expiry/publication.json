@@ -1,0 +1,29 @@
+{
+  "scope": "Published follow-up source before the final evidence receipt commit",
+  "source_commit": "5b250b30186d6533ee95ffcff13fa56aeba2ca39",
+  "source_tree": "e483af1c75e1a3594ae97bffcf8ab37a4d763f2f",
+  "PR": {
+    "baseRefName": "mkl",
+    "headRefName": "mersinvald/hpwa-p10.25",
+    "headRefOid": "5b250b30186d6533ee95ffcff13fa56aeba2ca39",
+    "isDraft": true,
+    "number": 11,
+    "url": "https://github.com/mersinvald/hermes-agent/pull/11"
+  },
+  "check_runs": 0,
+  "statuses": 0,
+  "CI_claim": false,
+  "normal_hooks": true,
+  "standard_non_force_push": true,
+  "branch_retained": true,
+  "source_freeze_sha256": "73c373221b52de270fe4322ba8a37f46694e338419dbbb8887f3c83a13c7a4c9",
+  "inverse_comparison_sha256": "890ce60d0dac54a0c986e51f5770f8a1a1c761955579ddf188bc5863822f0694",
+  "red": "late-issued-expiry-red.json",
+  "green": "late-issued-expiry-green.json",
+  "old_task_untouched": true,
+  "canonical_Beads_unchanged": true,
+  "merge_performed": false,
+  "pre_existing_untracked_preserved": [
+    ".task-home/"
+  ]
+}

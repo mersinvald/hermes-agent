@@ -1,0 +1,1322 @@
+{
+  "scope": "One direct host-authenticated synchronous native leaf only",
+  "signatures": {
+    "NativeMainPayloadAdapter.bind_delegation": "(self, agent: object, *, receiver_request: object, receiver_selection: NativeSelectionPort, receiver_producer_ref: str, child_request: object, child_selection: NativeSelectionPort, child_producer_ref: str, delegate_route_ref: str, child_main_route_ref: str, child_session_id: str, child_task_id: str) -> None",
+    "NativeMainPayloadAdapter.__init__": "(self, context: NativeContentContext, *, selection: NativeSelectionPort, result_policy: NativeResultPolicyPort, producer_ref: str, main_route_ref: str, profiles: tuple[ProfilePolicy, ...], routes: tuple[RouteBinding, ...], transports: tuple[tuple[str, TransportPort], ...], clock: Callable[[], int], _delegation_frame: object=None) -> None",
+    "delegate_task": "(goal: Optional[str]=None, context: Optional[str]=None, tasks: Optional[List[Dict[str, Any]]]=None, max_iterations: Optional[int]=None, role: Optional[str]=None, background: Optional[bool]=None, output_schema: Optional[Dict[str, Any]]=None, action: Optional[str]=None, subagent_id: Optional[str]=None, message: Optional[str]=None, parent_agent=None, credentials_cfg: Optional[Dict[str, Any]]=None) -> str"
+  },
+  "records": {
+    "NativeDelegateBinding": {
+      "frozen": true,
+      "slots": true,
+      "fields": [
+        {
+          "name": "parent_request",
+          "annotation": "object"
+        },
+        {
+          "name": "receiver_request",
+          "annotation": "object"
+        },
+        {
+          "name": "child_request",
+          "annotation": "object"
+        },
+        {
+          "name": "receiver_selection",
+          "annotation": "NativeSelectionPort"
+        },
+        {
+          "name": "child_selection",
+          "annotation": "NativeSelectionPort"
+        },
+        {
+          "name": "receiver_producer_ref",
+          "annotation": "str"
+        },
+        {
+          "name": "child_producer_ref",
+          "annotation": "str"
+        },
+        {
+          "name": "delegate_route",
+          "annotation": "object"
+        },
+        {
+          "name": "child_main_route",
+          "annotation": "object"
+        },
+        {
+          "name": "child_session_id",
+          "annotation": "str"
+        },
+        {
+          "name": "child_task_id",
+          "annotation": "str"
+        },
+        {
+          "name": "snapshots",
+          "annotation": "tuple"
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple"
+        }
+      ],
+      "meanings": {
+        "parent_request": "Original authenticated P capability",
+        "receiver_request": "Original authenticated R capability",
+        "child_request": "Original authenticated M capability",
+        "receiver_selection": "Original R selection port",
+        "child_selection": "Original M selection port",
+        "receiver_producer_ref": "Original R producer-policy key",
+        "child_producer_ref": "Original M producer-policy key",
+        "delegate_route": "Original issued receiver route",
+        "child_main_route": "Original selected M main route",
+        "child_session_id": "Original fixed child session",
+        "child_task_id": "Original M execution identifier",
+        "snapshots": "Ordered original P/R/M binding-selection-producer triples, receiver-port binding, catalog, parent methods, and extra methods",
+        "anchors": "Complete original nested snapshot identities"
+      }
+    },
+    "NativeDelegateInvocation": {
+      "frozen": true,
+      "slots": true,
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeDelegateInput"
+        },
+        {
+          "name": "binding",
+          "annotation": "NativeDelegateBinding"
+        },
+        {
+          "name": "arguments",
+          "annotation": "tuple"
+        },
+        {
+          "name": "argument_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "raw_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "raw_content",
+          "annotation": "object"
+        },
+        {
+          "name": "leaf_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "leaf_content",
+          "annotation": "object"
+        },
+        {
+          "name": "request_content",
+          "annotation": "object"
+        },
+        {
+          "name": "envelope",
+          "annotation": "object"
+        },
+        {
+          "name": "ack_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "ack_content",
+          "annotation": "object"
+        },
+        {
+          "name": "accepted_content",
+          "annotation": "object"
+        },
+        {
+          "name": "child_seed",
+          "annotation": "object"
+        },
+        {
+          "name": "child",
+          "annotation": "object"
+        },
+        {
+          "name": "child_adapter",
+          "annotation": "object"
+        },
+        {
+          "name": "child_input",
+          "annotation": "object"
+        },
+        {
+          "name": "child_request",
+          "annotation": "object"
+        },
+        {
+          "name": "child_invocation",
+          "annotation": "object"
+        },
+        {
+          "name": "child_completion",
+          "annotation": "object"
+        },
+        {
+          "name": "entry_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "aggregate_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "receiver_result",
+          "annotation": "object"
+        },
+        {
+          "name": "return_facts",
+          "annotation": "object"
+        }
+      ],
+      "meanings": {
+        "token": "Opaque token issued after raw P input admission",
+        "binding": "Exact registered NativeDelegateBinding",
+        "arguments": "Twelve ordered name/present/value rows, original positional tuple, and ordered keyword pairs",
+        "argument_anchors": "Original nested argument identities including the actual parent",
+        "raw_bytes": "Complete canonical original argument bytes with authenticated parent binding reference",
+        "raw_content": "Genuine retained P raw-input handle",
+        "leaf_bytes": "Complete canonical normalized goal/context/leaf bytes",
+        "leaf_content": "Genuine P derivation of the normalized leaf",
+        "request_content": "Genuine P request containing raw arguments, leaf, complete prompt, and planned constructor/entry facts",
+        "envelope": "Original registered issued delegate envelope",
+        "ack_bytes": "Exact original acceptance acknowledgement bytes",
+        "ack_content": "Sender-held dispatch acknowledgement handle only",
+        "accepted_content": "Genuine R acceptance of the original issued envelope",
+        "child_seed": "Public R-to-M selection derivation of the accepted input",
+        "child": "Actual constructed AIAgent child",
+        "child_adapter": "Actual child view of the original runtime",
+        "child_input": "Original retained native _TurnFrame",
+        "child_request": "Original actual native API request dictionary retained before send",
+        "child_invocation": "Original complete NativeMainInvocation",
+        "child_completion": "Original complete _NativeCompletion and every original result field",
+        "entry_bytes": "Exact bounded native entry UTF-8 bytes",
+        "aggregate_bytes": "Exact native aggregate UTF-8 bytes",
+        "receiver_result": "Strict descendant R result of acceptance, genuine child completion, and entry",
+        "return_facts": "Original public DelegateReturnFacts with ordered request/acceptance/result parents"
+      }
+    }
+  },
+  "opaque_token": {
+    "name": "NativeDelegateInput",
+    "slots": [],
+    "issuance": "Only after genuine retained raw P input admission",
+    "copies_grant_authority": false
+  },
+  "original_records": {
+    "_FallbackBinding": {
+      "fields": [
+        {
+          "name": "handle",
+          "annotation": "object"
+        },
+        {
+          "name": "port",
+          "annotation": "object"
+        },
+        {
+          "name": "producer_ref",
+          "annotation": "str"
+        },
+        {
+          "name": "route",
+          "annotation": "object"
+        },
+        {
+          "name": "holder",
+          "annotation": "tuple"
+        },
+        {
+          "name": "selected",
+          "annotation": "tuple"
+        },
+        {
+          "name": "producer",
+          "annotation": "tuple"
+        },
+        {
+          "name": "original_profiles",
+          "annotation": "tuple"
+        }
+      ],
+      "unchanged": true
+    },
+    "_FailedSendObservation": {
+      "fields": [
+        {
+          "name": "operation",
+          "annotation": "object"
+        },
+        {
+          "name": "envelope",
+          "annotation": "object"
+        },
+        {
+          "name": "observed_destination",
+          "annotation": "object"
+        },
+        {
+          "name": "exception_type",
+          "annotation": "type"
+        },
+        {
+          "name": "send_count_before",
+          "annotation": "int"
+        },
+        {
+          "name": "send_count_after",
+          "annotation": "int"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeFailedMainAttempt": {
+      "fields": [
+        {
+          "name": "turn_frame",
+          "annotation": "object"
+        },
+        {
+          "name": "request_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "source",
+          "annotation": "object"
+        },
+        {
+          "name": "selection",
+          "annotation": "object"
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "object"
+        },
+        {
+          "name": "source_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "request",
+          "annotation": "dict"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "request_content",
+          "annotation": "object"
+        },
+        {
+          "name": "send_observation",
+          "annotation": "_FailedSendObservation"
+        },
+        {
+          "name": "shared_failure",
+          "annotation": "object"
+        },
+        {
+          "name": "failure_facts",
+          "annotation": "object"
+        },
+        {
+          "name": "failure_content",
+          "annotation": "object"
+        }
+      ],
+      "unchanged": true
+    },
+    "_FallbackFrame": {
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeFallbackInput"
+        },
+        {
+          "name": "failed_main",
+          "annotation": "NativeFailedMainAttempt"
+        },
+        {
+          "name": "binding",
+          "annotation": "_FallbackBinding"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "source_content",
+          "annotation": "object"
+        },
+        {
+          "name": "input_stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "stage_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "request",
+          "annotation": "dict | None"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "request_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "activated",
+          "annotation": "bool"
+        },
+        {
+          "name": "invocation",
+          "annotation": "object"
+        },
+        {
+          "name": "result",
+          "annotation": "dict | None"
+        },
+        {
+          "name": "result_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "result_content",
+          "annotation": "object"
+        },
+        {
+          "name": "result_anchors",
+          "annotation": "tuple"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeFallbackInvocation": {
+      "fields": [
+        {
+          "name": "failed_main",
+          "annotation": "NativeFailedMainAttempt"
+        },
+        {
+          "name": "request_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "source",
+          "annotation": "object"
+        },
+        {
+          "name": "selection",
+          "annotation": "object"
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "object"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "input_stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "stage_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "request",
+          "annotation": "dict"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "request_content",
+          "annotation": "object"
+        },
+        {
+          "name": "envelope",
+          "annotation": "object"
+        },
+        {
+          "name": "observed_destination",
+          "annotation": "object"
+        },
+        {
+          "name": "response_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "result_content",
+          "annotation": "object"
+        },
+        {
+          "name": "native_response",
+          "annotation": "object"
+        },
+        {
+          "name": "output_stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "output_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "output",
+          "annotation": "dict | None"
+        },
+        {
+          "name": "output_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "output_content",
+          "annotation": "object"
+        }
+      ],
+      "unchanged": true
+    },
+    "_TurnFrame": {
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeTurnInput"
+        },
+        {
+          "name": "arguments",
+          "annotation": "tuple"
+        },
+        {
+          "name": "raw_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "admitted",
+          "annotation": "object"
+        },
+        {
+          "name": "input_content",
+          "annotation": "object"
+        },
+        {
+          "name": "options",
+          "annotation": "bytes"
+        },
+        {
+          "name": "input_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "output",
+          "annotation": "object"
+        },
+        {
+          "name": "output_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "output_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "output_content",
+          "annotation": "object"
+        },
+        {
+          "name": "prepared",
+          "annotation": "NativePreparedTurn | None"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "request_contents",
+          "annotation": "tuple"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeMainSelection": {
+      "fields": [
+        {
+          "name": "selection_id",
+          "annotation": "str"
+        },
+        {
+          "name": "selection_version",
+          "annotation": "int"
+        },
+        {
+          "name": "api_mode",
+          "annotation": "str"
+        },
+        {
+          "name": "destination",
+          "annotation": "Destination"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeResultPolicy": {
+      "fields": [
+        {
+          "name": "producer_ref",
+          "annotation": "str"
+        },
+        {
+          "name": "revision",
+          "annotation": "int"
+        },
+        {
+          "name": "profiles",
+          "annotation": "tuple[str, ...]"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeMainMessage": {
+      "fields": [
+        {
+          "name": "role",
+          "annotation": "str"
+        },
+        {
+          "name": "content",
+          "annotation": "str"
+        },
+        {
+          "name": "tool_calls",
+          "annotation": "None"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeMainChoice": {
+      "fields": [
+        {
+          "name": "index",
+          "annotation": "int"
+        },
+        {
+          "name": "message",
+          "annotation": "NativeMainMessage"
+        },
+        {
+          "name": "finish_reason",
+          "annotation": "str"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeMainUsage": {
+      "fields": [
+        {
+          "name": "prompt_tokens",
+          "annotation": "int"
+        },
+        {
+          "name": "completion_tokens",
+          "annotation": "int"
+        },
+        {
+          "name": "total_tokens",
+          "annotation": "int"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeMainResponse": {
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "str"
+        },
+        {
+          "name": "object",
+          "annotation": "str"
+        },
+        {
+          "name": "created",
+          "annotation": "int"
+        },
+        {
+          "name": "model",
+          "annotation": "str"
+        },
+        {
+          "name": "choices",
+          "annotation": "tuple[NativeMainChoice, ...]"
+        },
+        {
+          "name": "usage",
+          "annotation": "NativeMainUsage"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeMainInvocation": {
+      "fields": [
+        {
+          "name": "request_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "source",
+          "annotation": "ExecutionBinding"
+        },
+        {
+          "name": "selection",
+          "annotation": "NativeMainSelection"
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "NativeResultPolicy"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "request_content",
+          "annotation": "ContentHandle"
+        },
+        {
+          "name": "envelope",
+          "annotation": "DispatchEnvelope"
+        },
+        {
+          "name": "observed_destination",
+          "annotation": "Destination"
+        },
+        {
+          "name": "response_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "result_content",
+          "annotation": "ContentHandle"
+        },
+        {
+          "name": "native_response",
+          "annotation": "NativeMainResponse"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeAuxiliaryInvocation": {
+      "fields": [
+        {
+          "name": "source_completion",
+          "annotation": "object"
+        },
+        {
+          "name": "source_frame",
+          "annotation": "object"
+        },
+        {
+          "name": "source_invocation",
+          "annotation": "NativeMainInvocation"
+        },
+        {
+          "name": "source_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "request_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "source",
+          "annotation": "object"
+        },
+        {
+          "name": "target",
+          "annotation": "object"
+        },
+        {
+          "name": "path",
+          "annotation": "str"
+        },
+        {
+          "name": "task",
+          "annotation": "str"
+        },
+        {
+          "name": "selection",
+          "annotation": "NativeMainSelection"
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "NativeResultPolicy"
+        },
+        {
+          "name": "source_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "input_stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "stage_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "request_content",
+          "annotation": "object"
+        },
+        {
+          "name": "envelope",
+          "annotation": "object"
+        },
+        {
+          "name": "observed_destination",
+          "annotation": "object"
+        },
+        {
+          "name": "response_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "result_content",
+          "annotation": "object"
+        },
+        {
+          "name": "native_response",
+          "annotation": "NativeMainResponse | None"
+        },
+        {
+          "name": "output_stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "output_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "output_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "output",
+          "annotation": "dict | None"
+        },
+        {
+          "name": "output_content",
+          "annotation": "object"
+        }
+      ],
+      "unchanged": true
+    },
+    "NativeAuxiliaryLocalResult": {
+      "fields": [
+        {
+          "name": "source_completion",
+          "annotation": "object"
+        },
+        {
+          "name": "source_frame",
+          "annotation": "object"
+        },
+        {
+          "name": "source_invocation",
+          "annotation": "NativeMainInvocation"
+        },
+        {
+          "name": "source_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "request_handle",
+          "annotation": "object"
+        },
+        {
+          "name": "source",
+          "annotation": "ExecutionBinding"
+        },
+        {
+          "name": "target",
+          "annotation": "ExecutionBinding"
+        },
+        {
+          "name": "path",
+          "annotation": "str"
+        },
+        {
+          "name": "task",
+          "annotation": "str"
+        },
+        {
+          "name": "selection",
+          "annotation": "NativeMainSelection"
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "NativeResultPolicy"
+        },
+        {
+          "name": "language",
+          "annotation": "str"
+        },
+        {
+          "name": "operation_index",
+          "annotation": "int"
+        },
+        {
+          "name": "outcome",
+          "annotation": "str"
+        },
+        {
+          "name": "reason",
+          "annotation": "str"
+        },
+        {
+          "name": "source_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "source_content",
+          "annotation": "ContentHandle"
+        },
+        {
+          "name": "input_stages",
+          "annotation": "tuple[bytes, ...]"
+        },
+        {
+          "name": "stage_contents",
+          "annotation": "tuple[ContentHandle, ...]"
+        },
+        {
+          "name": "output_stages",
+          "annotation": "tuple[bytes, ...]"
+        },
+        {
+          "name": "output_contents",
+          "annotation": "tuple[ContentHandle, ...]"
+        },
+        {
+          "name": "output_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "output",
+          "annotation": "dict"
+        },
+        {
+          "name": "output_content",
+          "annotation": "ContentHandle"
+        }
+      ],
+      "unchanged": true
+    },
+    "_AuxiliaryTitlePreparation": {
+      "fields": [
+        {
+          "name": "kind",
+          "annotation": "str"
+        },
+        {
+          "name": "stages",
+          "annotation": "tuple[bytes, ...]"
+        },
+        {
+          "name": "value",
+          "annotation": "dict"
+        }
+      ],
+      "unchanged": true
+    },
+    "_AuxiliaryBinding": {
+      "fields": [
+        {
+          "name": "handle",
+          "annotation": "object"
+        },
+        {
+          "name": "port",
+          "annotation": "object"
+        },
+        {
+          "name": "producer_ref",
+          "annotation": "str"
+        },
+        {
+          "name": "route",
+          "annotation": "object"
+        },
+        {
+          "name": "language",
+          "annotation": "str"
+        },
+        {
+          "name": "source",
+          "annotation": "tuple"
+        },
+        {
+          "name": "selected",
+          "annotation": "tuple"
+        },
+        {
+          "name": "producer",
+          "annotation": "tuple"
+        },
+        {
+          "name": "original_profiles",
+          "annotation": "tuple"
+        }
+      ],
+      "unchanged": true
+    },
+    "_AuxiliaryFrame": {
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeAuxiliaryInput"
+        },
+        {
+          "name": "completion",
+          "annotation": "object"
+        },
+        {
+          "name": "field",
+          "annotation": "str"
+        },
+        {
+          "name": "text",
+          "annotation": "str"
+        },
+        {
+          "name": "source_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "source_content",
+          "annotation": "object"
+        },
+        {
+          "name": "stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "stage_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "request",
+          "annotation": "dict | None"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "request_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "sealed",
+          "annotation": "NativeAuxiliaryRequest | None"
+        },
+        {
+          "name": "record",
+          "annotation": "NativeAuxiliaryInvocation | None"
+        },
+        {
+          "name": "preparation",
+          "annotation": "_AuxiliaryTitlePreparation | None"
+        },
+        {
+          "name": "preparation_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "local_result",
+          "annotation": "NativeAuxiliaryLocalResult | None"
+        }
+      ],
+      "unchanged": true
+    },
+    "_CompressionBinding": {
+      "fields": [
+        {
+          "name": "auxiliary",
+          "annotation": "_AuxiliaryBinding"
+        },
+        {
+          "name": "context_length",
+          "annotation": "int"
+        },
+        {
+          "name": "summary_date",
+          "annotation": "str"
+        }
+      ],
+      "unchanged": true
+    },
+    "_CompressionPreparation": {
+      "fields": [
+        {
+          "name": "stages",
+          "annotation": "tuple[bytes, ...]"
+        },
+        {
+          "name": "value",
+          "annotation": "dict"
+        },
+        {
+          "name": "has_user_turn",
+          "annotation": "bool"
+        },
+        {
+          "name": "pruned_skill_names",
+          "annotation": "tuple[str, ...]"
+        }
+      ],
+      "unchanged": true
+    },
+    "_CompressionFrame": {
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeAuxiliaryInput"
+        },
+        {
+          "name": "completion",
+          "annotation": "object"
+        },
+        {
+          "name": "messages",
+          "annotation": "list"
+        },
+        {
+          "name": "source_bytes",
+          "annotation": "bytes"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "parent_requests",
+          "annotation": "tuple"
+        },
+        {
+          "name": "source_content",
+          "annotation": "ContentHandle"
+        },
+        {
+          "name": "stages",
+          "annotation": "tuple"
+        },
+        {
+          "name": "stage_contents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "request",
+          "annotation": "dict | None"
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes | None"
+        },
+        {
+          "name": "request_anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "sealed",
+          "annotation": "NativeAuxiliaryRequest | None"
+        },
+        {
+          "name": "record",
+          "annotation": "NativeAuxiliaryInvocation | None"
+        },
+        {
+          "name": "preparation",
+          "annotation": "_CompressionPreparation | None"
+        },
+        {
+          "name": "preparation_anchors",
+          "annotation": "tuple"
+        }
+      ],
+      "unchanged": true
+    },
+    "_PendingOperation": {
+      "fields": [
+        {
+          "name": "handle",
+          "annotation": "object"
+        },
+        {
+          "name": "source",
+          "annotation": "object"
+        },
+        {
+          "name": "selected",
+          "annotation": "NativeMainSelection"
+        },
+        {
+          "name": "producer",
+          "annotation": "NativeResultPolicy"
+        },
+        {
+          "name": "path",
+          "annotation": "str"
+        },
+        {
+          "name": "route_ref",
+          "annotation": "str"
+        },
+        {
+          "name": "payload",
+          "annotation": "bytes"
+        },
+        {
+          "name": "content",
+          "annotation": "object"
+        },
+        {
+          "name": "auxiliary",
+          "annotation": "bool"
+        }
+      ],
+      "unchanged": true
+    },
+    "_ConstructedMain": {
+      "fields": [
+        {
+          "name": "agent",
+          "annotation": "object"
+        },
+        {
+          "name": "adapter",
+          "annotation": "NativeMainPayloadAdapter"
+        },
+        {
+          "name": "state",
+          "annotation": "bytes"
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple"
+        },
+        {
+          "name": "methods",
+          "annotation": "tuple"
+        },
+        {
+          "name": "closed",
+          "annotation": "bool"
+        }
+      ],
+      "unchanged": true
+    },
+    "_NativeCompletion": {
+      "fields": [
+        {
+          "name": "frame",
+          "annotation": "_TurnFrame"
+        },
+        {
+          "name": "invocation",
+          "annotation": "NativeMainInvocation"
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple"
+        },
+        {
+          "name": "payload",
+          "annotation": "bytes"
+        },
+        {
+          "name": "content",
+          "annotation": "object"
+        },
+        {
+          "name": "result",
+          "annotation": "dict"
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple"
+        }
+      ],
+      "unchanged": true
+    }
+  },
+  "original_native_record_anchors": [
+    "_ConstructedMain.state/anchors/methods",
+    "_TurnFrame.arguments/input_anchors/output_anchors",
+    "NativeMainInvocation record/response/handles/envelope/source/selection/producer/destination",
+    "_NativeCompletion original frame/invocation/parents/payload/content/result/anchors"
+  ],
+  "shared_api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d"
+}

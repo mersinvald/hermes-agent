@@ -1,0 +1,1242 @@
+{
+  "corrected_source_sha256": {
+    "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+  },
+  "fresh_corrected_new_consumer_scope": "raw-control-green.json",
+  "fresh_corrected_compatibility_scopes": [
+    "compatibility-ordinary.json",
+    "compatibility-main.json",
+    "compatibility-refusal.json"
+  ],
+  "reused_prior_53_case_scope": "final-native.json",
+  "reused_preconstruction_scope": "feedback-08.json",
+  "exact_inverse_receipt": "correction-reuse.json",
+  "fresh_corrected_aggregate": false,
+  "retries": 0,
+  "scopes": [
+    {
+      "name": "feedback-01",
+      "exit_code": 1,
+      "wall_seconds": 4.0,
+      "wall_scope": "Runner or pytest retained output; original direct command had no separate wall timer",
+      "source_sha256": {
+        "agent/native_main_payload.py": "0f44424c3dbe31d98f8c667012a208f2421479b6c71377f5a2984c8b8a24c012",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "f2af830306fd698fa73e16f25902682a99440309cc1ba2c440bfe6aae4765b13"
+      },
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "test_blue_squares_actual_native_path",
+        "--",
+        "--durations=10",
+        "--tb=short",
+        "--junitxml=docs/evidence/accountant-native-controlled-delegation-20261123/feedback-01.xml"
+      ],
+      "isolated_home": "Task-owned .task-home",
+      "retries": 0,
+      "cases": [
+        {
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": "1.975",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "name": "feedback-02",
+      "exit_code": 1,
+      "wall_seconds": 36.73,
+      "wall_scope": "Runner or pytest retained output; original direct command had no separate wall timer",
+      "source_sha256": {
+        "agent/native_main_payload.py": "63a0bd9594dc99df7239f93e96c3a24bda48126741627c5f74046ae08055ad30",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "d6f642296eb81affb731f36f884c3f815da5a997e3172439308a04375f8f32da"
+      },
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "test_blue_squares_actual_native_path",
+        "--",
+        "--durations=10",
+        "--tb=long",
+        "--junitxml=docs/evidence/accountant-native-controlled-delegation-20261123/feedback-02.xml"
+      ],
+      "isolated_home": "Task-owned .task-home",
+      "retries": 0,
+      "cases": [
+        {
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": "35.907",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "name": "feedback-03",
+      "exit_code": 0,
+      "wall_seconds": 24.64,
+      "wall_scope": "Runner or pytest retained output; original direct command had no separate wall timer",
+      "source_sha256": {
+        "agent/native_main_payload.py": "564152f98f380bf1bfcc3fa2759ef01c956efdd4772e249b0e6a32c434c1cd09",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "d6f642296eb81affb731f36f884c3f815da5a997e3172439308a04375f8f32da"
+      },
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "test_blue_squares_actual_native_path",
+        "--",
+        "--durations=10",
+        "--tb=short",
+        "--junitxml=docs/evidence/accountant-native-controlled-delegation-20261123/feedback-03.xml"
+      ],
+      "isolated_home": "Task-owned .task-home",
+      "retries": 0,
+      "cases": [
+        {
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": "23.437",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "feedback-04",
+      "exit_code": 1,
+      "wall_seconds": 120.03,
+      "wall_scope": "Runner or pytest retained output; original direct command had no separate wall timer",
+      "source_sha256": {
+        "agent/native_main_payload.py": "a8cc93c23b0407e466f183d30b3a61448354e13411ccaa01f79d22f7b61f6b5f",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "308f2d4c0fc011357aea58aeba0cbc259175a6ec8709554437ee2d6787f29fac"
+      },
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "blue_squares_actual_native_path or modes_and_exact_types_refuse_without_effects",
+        "--",
+        "--durations=10",
+        "--tb=short",
+        "--junitxml=docs/evidence/accountant-native-controlled-delegation-20261123/feedback-04.xml"
+      ],
+      "isolated_home": "Task-owned .task-home",
+      "retries": 0,
+      "timeout": true,
+      "aggregate_pass": false,
+      "completed_marks": 7,
+      "completed_ordered_case_scope": [
+        "test_blue_squares_actual_native_path",
+        "test_modes_and_exact_types_refuse_without_effects[empty-list]",
+        "test_modes_and_exact_types_refuse_without_effects[string-tasks]",
+        "test_modes_and_exact_types_refuse_without_effects[batch]",
+        "test_modes_and_exact_types_refuse_without_effects[empty-goal]",
+        "test_modes_and_exact_types_refuse_without_effects[blank-goal]",
+        "test_modes_and_exact_types_refuse_without_effects[goal-subclass]"
+      ],
+      "completion_scope_basis": "Seven ordered completion marks in the retained timeout output; no per-case duration or aggregate JUnit report"
+    },
+    {
+      "name": "feedback-05",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "blue_squares_actual_native_path or (modes_and_exact_types_refuse_without_effects and credentials)",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-05.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "f3e94e06f8c191fde5dee47cf1db90c4167d36c55bebdef09fcb5efe3fd257e4",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "ad8ad7ee41da26a871d7d91c28642c218a38a1cffb1706e1308352deab227e6a"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 44.1,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": "40.420",
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[credentials]",
+          "seconds": "2.075",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "feedback-06",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "blue_squares_actual_native_path",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-06.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "0de6b23e892517539af9adae22b6dcdd6bbf59717c4f45a40b6adbcb97633b47",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "2627831461743da9573caf3aead51cab4f028df503df56bd616020d254b79e51"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 41.04,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": "39.517",
+          "properties": {
+            "setup_seconds": "1.533327",
+            "call_seconds": "37.982604"
+          },
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "feedback-07",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "(controls_preserve_exception_identity_and_partial_sends and delegate and interrupt) or (post_acceptance_original_anchors and mutated-leaf) or (post_acceptance_original_anchors and construction-slot)",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-07.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "62b26e4682d298f722a8894d8f8031e4000dccbe222f3f6ad532d2d5e8d1e8bb",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "2ff2f059f1da7568ef9eadff3133fd9f836fcd071255a4eead701a260f323fae"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 1,
+      "wall_seconds": 32.127,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[mutated-leaf]",
+          "seconds": "11.857",
+          "properties": {
+            "setup_seconds": "1.596689",
+            "call_seconds": "10.25645",
+            "teardown_seconds": "0.00431"
+          },
+          "status": "failed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[construction-slot]",
+          "seconds": "10.144",
+          "properties": {
+            "setup_seconds": "0.032939",
+            "call_seconds": "10.109189",
+            "teardown_seconds": "0.0014"
+          },
+          "status": "failed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-delegate]",
+          "seconds": "7.533",
+          "properties": {
+            "setup_seconds": "0.014557",
+            "call_seconds": "7.517317"
+          },
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "feedback-08",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "(post_acceptance_original_anchors and (mutated-leaf or construction-slot))",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-08.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "72499d1f104fe1bf7874cc2da063f4f12d8b1563a84ef1af79d2d6322a2a5b32",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "1d5a0be8d2ca527bec1a17702da72ac79fda90f6c02fa846778e3d993be5c7aa"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 23.109,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[mutated-leaf]",
+          "seconds": "11.532",
+          "properties": {
+            "setup_seconds": "1.593758",
+            "call_seconds": "9.937596",
+            "teardown_seconds": "0.000537"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[construction-slot]",
+          "seconds": "10.077",
+          "properties": {
+            "setup_seconds": "0.023623",
+            "call_seconds": "10.052272"
+          },
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "final-native",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "not (post_acceptance_original_anchors and (mutated-leaf or construction-slot))",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/final-native.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "689ded8e77ddf8bd78c255c23db61c28f88abd1f4e50dc579622444aa18970f3",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "1d5a0be8d2ca527bec1a17702da72ac79fda90f6c02fa846778e3d993be5c7aa"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 420.911,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_blue_squares_actual_native_path",
+          "seconds": "42.545",
+          "properties": {
+            "setup_seconds": "1.704339",
+            "call_seconds": "40.836398",
+            "teardown_seconds": "0.003976"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[empty-list]",
+          "seconds": "1.987",
+          "properties": {
+            "setup_seconds": "0.022789",
+            "call_seconds": "1.96338",
+            "teardown_seconds": "0.000516"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[string-tasks]",
+          "seconds": "1.888",
+          "properties": {
+            "setup_seconds": "0.016742",
+            "call_seconds": "1.870287",
+            "teardown_seconds": "0.000529"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[batch]",
+          "seconds": "1.929",
+          "properties": {
+            "setup_seconds": "0.022578",
+            "call_seconds": "1.906212",
+            "teardown_seconds": "0.000508"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[empty-goal]",
+          "seconds": "1.954",
+          "properties": {
+            "setup_seconds": "0.020115",
+            "call_seconds": "1.933595",
+            "teardown_seconds": "0.0007"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[blank-goal]",
+          "seconds": "1.926",
+          "properties": {
+            "setup_seconds": "0.015526",
+            "call_seconds": "1.910359",
+            "teardown_seconds": "0.000471"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[goal-subclass]",
+          "seconds": "1.897",
+          "properties": {
+            "setup_seconds": "0.01342",
+            "call_seconds": "1.882868",
+            "teardown_seconds": "0.00049"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[goal-object]",
+          "seconds": "1.995",
+          "properties": {
+            "setup_seconds": "0.020046",
+            "call_seconds": "1.974793",
+            "teardown_seconds": "0.000601"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[context-object]",
+          "seconds": "1.971",
+          "properties": {
+            "setup_seconds": "0.014086",
+            "call_seconds": "1.956664",
+            "teardown_seconds": "0.000471"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[context-subclass]",
+          "seconds": "1.857",
+          "properties": {
+            "setup_seconds": "0.015873",
+            "call_seconds": "1.840997",
+            "teardown_seconds": "0.000592"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[orchestrator]",
+          "seconds": "1.871",
+          "properties": {
+            "setup_seconds": "0.016121",
+            "call_seconds": "1.854683",
+            "teardown_seconds": "0.000478"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[role-space]",
+          "seconds": "1.962",
+          "properties": {
+            "setup_seconds": "0.024524",
+            "call_seconds": "1.936532",
+            "teardown_seconds": "0.000509"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[role-object]",
+          "seconds": "1.893",
+          "properties": {
+            "setup_seconds": "0.014853",
+            "call_seconds": "1.877871",
+            "teardown_seconds": "0.000466"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[background]",
+          "seconds": "2.023",
+          "properties": {
+            "setup_seconds": "0.014973",
+            "call_seconds": "2.008005",
+            "teardown_seconds": "0.000471"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[background-int]",
+          "seconds": "1.921",
+          "properties": {
+            "setup_seconds": "0.01337",
+            "call_seconds": "1.906883",
+            "teardown_seconds": "0.000579"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[background-object]",
+          "seconds": "2.017",
+          "properties": {
+            "setup_seconds": "0.022786",
+            "call_seconds": "1.993665",
+            "teardown_seconds": "0.000551"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[control]",
+          "seconds": "2.013",
+          "properties": {
+            "setup_seconds": "0.024909",
+            "call_seconds": "1.987105",
+            "teardown_seconds": "0.000534"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[action-space]",
+          "seconds": "1.986",
+          "properties": {
+            "setup_seconds": "0.018841",
+            "call_seconds": "1.96675",
+            "teardown_seconds": "0.000728"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[action-object]",
+          "seconds": "2.073",
+          "properties": {
+            "setup_seconds": "0.019456",
+            "call_seconds": "2.053287",
+            "teardown_seconds": "0.000674"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[iterations]",
+          "seconds": "1.998",
+          "properties": {
+            "setup_seconds": "0.0172",
+            "call_seconds": "1.980253",
+            "teardown_seconds": "0.000493"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[schema]",
+          "seconds": "1.941",
+          "properties": {
+            "setup_seconds": "0.013318",
+            "call_seconds": "1.926768",
+            "teardown_seconds": "0.000485"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[subagent]",
+          "seconds": "2.093",
+          "properties": {
+            "setup_seconds": "0.022658",
+            "call_seconds": "2.069635",
+            "teardown_seconds": "0.000528"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[message]",
+          "seconds": "1.931",
+          "properties": {
+            "setup_seconds": "0.013978",
+            "call_seconds": "1.91653",
+            "teardown_seconds": "0.0005"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[credentials]",
+          "seconds": "1.956",
+          "properties": {
+            "setup_seconds": "0.01342",
+            "call_seconds": "1.941575",
+            "teardown_seconds": "0.000568"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[unknown]",
+          "seconds": "1.941",
+          "properties": {
+            "setup_seconds": "0.016922",
+            "call_seconds": "1.923274",
+            "teardown_seconds": "0.000478"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_modes_and_exact_types_refuse_without_effects[text-bound]",
+          "seconds": "1.935",
+          "properties": {
+            "setup_seconds": "0.014343",
+            "call_seconds": "1.9204",
+            "teardown_seconds": "0.000501"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_positional_and_explicit_none_capture",
+          "seconds": "36.452",
+          "properties": {
+            "setup_seconds": "0.014592",
+            "call_seconds": "36.437079",
+            "teardown_seconds": "0.000512"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[receiver-epoch]",
+          "seconds": "2.336",
+          "properties": {
+            "setup_seconds": "0.014623",
+            "call_seconds": "2.320684",
+            "teardown_seconds": "0.000556"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[child-version]",
+          "seconds": "2.039",
+          "properties": {
+            "setup_seconds": "0.014336",
+            "call_seconds": "2.024057",
+            "teardown_seconds": "0.000533"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[receiver-producer]",
+          "seconds": "2.050",
+          "properties": {
+            "setup_seconds": "0.019073",
+            "call_seconds": "2.030166",
+            "teardown_seconds": "0.000464"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[destination]",
+          "seconds": "1.965",
+          "properties": {
+            "setup_seconds": "0.021058",
+            "call_seconds": "1.943635",
+            "teardown_seconds": "0.000505"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[expiry]",
+          "seconds": "2.019",
+          "properties": {
+            "setup_seconds": "0.017322",
+            "call_seconds": "2.001476",
+            "teardown_seconds": "0.000548"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[catalog]",
+          "seconds": "1.924",
+          "properties": {
+            "setup_seconds": "0.015081",
+            "call_seconds": "1.908551",
+            "teardown_seconds": "0.000574"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_original_holder_and_catalog_freshness[method]",
+          "seconds": "2.014",
+          "properties": {
+            "setup_seconds": "0.015434",
+            "call_seconds": "1.998136",
+            "teardown_seconds": "0.000643"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[retained-profile]",
+          "seconds": "10.415",
+          "properties": {
+            "setup_seconds": "0.021204",
+            "call_seconds": "10.393715",
+            "teardown_seconds": "0.000508"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[copied-record]",
+          "seconds": "10.750",
+          "properties": {
+            "setup_seconds": "0.01579",
+            "call_seconds": "10.733243",
+            "teardown_seconds": "0.000583"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_post_acceptance_original_anchors[copied-token]",
+          "seconds": "10.340",
+          "properties": {
+            "setup_seconds": "0.016722",
+            "call_seconds": "10.322335",
+            "teardown_seconds": "0.000654"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-delegate]",
+          "seconds": "10.747",
+          "properties": {
+            "setup_seconds": "0.016431",
+            "call_seconds": "10.729539",
+            "teardown_seconds": "0.001038"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-child]",
+          "seconds": "21.888",
+          "properties": {
+            "setup_seconds": "0.029748",
+            "call_seconds": "21.857916",
+            "teardown_seconds": "0.000561"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[cancel-delegate]",
+          "seconds": "7.575",
+          "properties": {
+            "setup_seconds": "0.016563",
+            "call_seconds": "7.558289",
+            "teardown_seconds": "0.000504"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[cancel-child]",
+          "seconds": "19.675",
+          "properties": {
+            "setup_seconds": "0.019095",
+            "call_seconds": "19.653395",
+            "teardown_seconds": "0.0024"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[keyboard-delegate]",
+          "seconds": "7.845",
+          "properties": {
+            "setup_seconds": "0.014559",
+            "call_seconds": "7.83",
+            "teardown_seconds": "0.000481"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[keyboard-child]",
+          "seconds": "19.342",
+          "properties": {
+            "setup_seconds": "0.014474",
+            "call_seconds": "19.326697",
+            "teardown_seconds": "0.000545"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[exit-delegate]",
+          "seconds": "7.557",
+          "properties": {
+            "setup_seconds": "0.01544",
+            "call_seconds": "7.540504",
+            "teardown_seconds": "0.000677"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[exit-child]",
+          "seconds": "19.255",
+          "properties": {
+            "setup_seconds": "0.022954",
+            "call_seconds": "19.231154",
+            "teardown_seconds": "0.000515"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_callback_reentry_and_wrong_thread_refuse[reentry]",
+          "seconds": "7.344",
+          "properties": {
+            "setup_seconds": "0.022224",
+            "call_seconds": "7.32156",
+            "teardown_seconds": "0.00051"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_callback_reentry_and_wrong_thread_refuse[wrong-thread]",
+          "seconds": "2.056",
+          "properties": {
+            "setup_seconds": "0.031413",
+            "call_seconds": "2.024426",
+            "teardown_seconds": "0.000653"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_shared_retention_capacity_has_no_rollback",
+          "seconds": "7.474",
+          "properties": {
+            "setup_seconds": "0.020683",
+            "call_seconds": "7.453288",
+            "teardown_seconds": "0.000521"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_completed_proof_survives_late_destination_denial",
+          "seconds": "21.712",
+          "properties": {
+            "setup_seconds": "0.017586",
+            "call_seconds": "21.693759",
+            "teardown_seconds": "0.000567"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_unrelated_equal_text_result_is_not_a_return",
+          "seconds": "30.346",
+          "properties": {
+            "setup_seconds": "0.019814",
+            "call_seconds": "30.325365",
+            "teardown_seconds": "0.000594"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_unregistered_parent_and_direct_native_seams_refuse",
+          "seconds": "5.782",
+          "properties": {
+            "setup_seconds": "0.015173",
+            "call_seconds": "5.759754",
+            "teardown_seconds": "0.007149"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_empty_completed_child_text_cannot_release",
+          "seconds": "21.689",
+          "properties": {
+            "setup_seconds": "0.021009",
+            "call_seconds": "21.666771",
+            "teardown_seconds": "0.000766"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_closed_child_cancellation_still_forbids_release",
+          "seconds": "35.063",
+          "properties": {
+            "setup_seconds": "0.015781",
+            "call_seconds": "35.03807"
+          },
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "raw-control-red",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "raw_admission_control_keeps_original_exception",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/raw-control-red.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "689ded8e77ddf8bd78c255c23db61c28f88abd1f4e50dc579622444aa18970f3",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 1,
+      "wall_seconds": 6.763,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_raw_admission_control_keeps_original_exception",
+          "seconds": "4.339",
+          "properties": {
+            "setup_seconds": "2.273413",
+            "call_seconds": "2.065311"
+          },
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "name": "raw-control-green",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_native_controlled_delegation.py",
+        "-k",
+        "raw_admission_control_keeps_original_exception or (controls_preserve_exception_identity_and_partial_sends and (interrupt or cancel) and child) or (controls_preserve_exception_identity_and_partial_sends and interrupt and delegate)",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/raw-control-green.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 49.072,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-delegate]",
+          "seconds": "8.718",
+          "properties": {
+            "setup_seconds": "1.629015",
+            "call_seconds": "7.08886",
+            "teardown_seconds": "0.000547"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[interrupt-child]",
+          "seconds": "18.387",
+          "properties": {
+            "setup_seconds": "0.021197",
+            "call_seconds": "18.364951",
+            "teardown_seconds": "0.000508"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_controls_preserve_exception_identity_and_partial_sends[cancel-child]",
+          "seconds": "18.575",
+          "properties": {
+            "setup_seconds": "0.018852",
+            "call_seconds": "18.556044",
+            "teardown_seconds": "0.000533"
+          },
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_native_controlled_delegation",
+          "name": "test_raw_admission_control_keeps_original_exception",
+          "seconds": "1.936",
+          "properties": {
+            "setup_seconds": "0.013711",
+            "call_seconds": "1.921636"
+          },
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "compatibility-ordinary",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_delegate.py",
+        "-k",
+        "test_no_parent_agent",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/compatibility-ordinary.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 1.976,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_delegate.TestDelegateTask",
+          "name": "test_no_parent_agent",
+          "seconds": "0.701",
+          "properties": {},
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "compatibility-main",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "test_real_constructor_first_and_repeated_entrypoints and True",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/compatibility-main.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 3.943,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.agent.test_native_controlled_conversation",
+          "name": "test_real_constructor_first_and_repeated_entrypoints[True]",
+          "seconds": "2.751",
+          "properties": {},
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "compatibility-refusal",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "-j",
+        "1",
+        "tests/tools/test_content_policy_delegation.py",
+        "-k",
+        "test_sensitive_delegation_denies_before_child_construction_or_result_processing",
+        "--",
+        "--durations=0",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/compatibility-refusal.xml"
+      ],
+      "source_sha256": {
+        "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+        "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+        "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+      },
+      "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+      "retries": 0,
+      "exit_code": 0,
+      "wall_seconds": 2.398,
+      "source_unchanged": true,
+      "cases": [
+        {
+          "classname": "tests.tools.test_content_policy_delegation",
+          "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[spawn]",
+          "seconds": "0.720",
+          "properties": {},
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_content_policy_delegation",
+          "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[construct]",
+          "seconds": "0.014",
+          "properties": {},
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_content_policy_delegation",
+          "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[run]",
+          "seconds": "0.017",
+          "properties": {},
+          "status": "passed"
+        },
+        {
+          "classname": "tests.tools.test_content_policy_delegation",
+          "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[finalize]",
+          "seconds": "0.015",
+          "properties": {},
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}

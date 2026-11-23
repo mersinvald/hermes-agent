@@ -1,0 +1,60 @@
+{
+  "name": "compatibility-refusal",
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "120",
+    "-j",
+    "1",
+    "tests/tools/test_content_policy_delegation.py",
+    "-k",
+    "test_sensitive_delegation_denies_before_child_construction_or_result_processing",
+    "--",
+    "--durations=0",
+    "--tb=short",
+    "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/compatibility-refusal.xml"
+  ],
+  "source_sha256": {
+    "agent/native_main_payload.py": "3e9244d38a11bc086dc17bd59f2038b6bae4a60fb60363bcc9eba1c0e579233c",
+    "tools/delegate_tool.py": "e2b3d53e3c2374c11d010ce9d8971ca02187656280fbeca594b37d22cee8b2be",
+    "tests/tools/test_native_controlled_delegation.py": "273171c5d4ec579d801dcb017cf341b4150dbec7d1392dfa70d7b2cf2bf67422"
+  },
+  "native_source_scope": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25",
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.task-home",
+  "retries": 0,
+  "exit_code": 0,
+  "wall_seconds": 2.398,
+  "source_unchanged": true,
+  "cases": [
+    {
+      "classname": "tests.tools.test_content_policy_delegation",
+      "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[spawn]",
+      "seconds": "0.720",
+      "properties": {},
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_content_policy_delegation",
+      "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[construct]",
+      "seconds": "0.014",
+      "properties": {},
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_content_policy_delegation",
+      "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[run]",
+      "seconds": "0.017",
+      "properties": {},
+      "status": "passed"
+    },
+    {
+      "classname": "tests.tools.test_content_policy_delegation",
+      "name": "test_sensitive_delegation_denies_before_child_construction_or_result_processing[finalize]",
+      "seconds": "0.015",
+      "properties": {},
+      "status": "passed"
+    }
+  ]
+}

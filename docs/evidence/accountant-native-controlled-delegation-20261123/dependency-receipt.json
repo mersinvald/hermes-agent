@@ -1,0 +1,32 @@
+{
+  "distribution": "hermes-content-policy",
+  "version": "0.4.0",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "engine_path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "artifact_receipt_sha256": "3b69021fc130a9de4abcbe8d55b79be1207ef77f97d755a56a0c165649b4ddc9",
+  "wheel_RECORD": "hermes_content_policy/__init__.py,sha256=o58Q0Lk-Hrd9NhcDZ81YgL_t7ldJe27aVi_VWC_MeGU,40548\nhermes_content_policy-0.4.0.dist-info/METADATA,sha256=cmTOTqZwfr8u0XYC7gN4DKgCAzeXT64-cY6OCPLAlYI,160\nhermes_content_policy-0.4.0.dist-info/WHEEL,sha256=zOwg4jB6zX2kU910N-cMawjivD6tO8NEWvE12je1bVk,87\nhermes_content_policy-0.4.0.dist-info/RECORD,,\n",
+  "installed_RECORD_sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee",
+  "delivery": [
+    "uv",
+    "pip",
+    "install",
+    "--offline",
+    "--no-index",
+    "--no-deps",
+    "--python",
+    ".venv/bin/python",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl"
+  ],
+  "native_dependencies": [
+    "uv",
+    "sync",
+    "--locked",
+    "--offline",
+    "--no-install-project",
+    "--extra",
+    "dev"
+  ],
+  "installed_native_distribution": false
+}

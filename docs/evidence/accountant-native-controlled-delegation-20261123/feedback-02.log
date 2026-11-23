@@ -1,0 +1,368 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~1 tests) under ['tests/tools/test_native_controlled_delegation.py']; running with -j 1
+[100.0% |     1/~1 | ✓0 | ✗1] ✗ tests/tools/test_native_controlled_delegation.py (1✗, 37.4s)
+
+  ╔╍ Failed: tests/tools/test_native_controlled_delegation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║             if self.leaf is not None:
+  ║                 _require(_json(self.leaf) == self.record.leaf_bytes)
+  ║             if self.child_adapter is not None:
+  ║                 adapter = self.child_adapter
+  ║                 _require(adapter._delegate_parent_frame is self)
+  ║                 _require(adapter._context is self.child_context)
+  ║                 _require(adapter._runtime is self.runtime) if hasattr(adapter, "_runtime") else None
+  ║                 if self.child is not None:
+  ║ >                   _require(self.record.child is self.child)
+  ║ 
+  ║ agent/native_main_payload.py:3659: 
+  ║ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+  ║ 
+  ║ condition = False
+  ║ 
+  ║     def _require(condition):
+  ║         if not condition:
+  ║ >           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+  ║ E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+  ║ 
+  ║ agent/native_main_payload.py:583: NativeContentPolicyDenied
+  ║ - generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-02.xml -
+  ║ ============================= slowest 10 durations =============================
+  ║ 34.45s call     tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+  ║ 1.46s setup    tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+  ║ 
+  ║ (1 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+  ║ ============================== 1 failed in 36.73s ==============================
+  ║
+  ║  Repro: python -m pytest tests/tools/test_native_controlled_delegation.py -k test_blue_squares_actual_native_path --durations=10 --tb=long --junitxml=docs/evidence/accountant-native-controlled-delegation-20261123/feedback-02.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 37.4s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 37.4s  (runner wall: 37.4s, parallelism: 1x)
+  P50: 37.41s  P90: 37.41s  P95: 37.41s  P99: 37.41s  Max: 37.41s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+     37.41s  tests/tools/test_native_controlled_delegation.py
+
+=== Failure output ===
+
+--- tests/tools/test_native_controlled_delegation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1 item
+
+tests/tools/test_native_controlled_delegation.py F                       [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_blue_squares_actual_native_path _____________________
+
+excluded = <function excluded.<locals>.forbidden at 0x79cbc63471a0>
+
+    def test_blue_squares_actual_native_path(excluded):
+        from agent.native_main_payload import _delegate_frames
+        world = ThreeHolders().bind()
+>       result = world.call()
+                 ^^^^^^^^^^^^
+
+tests/tools/test_native_controlled_delegation.py:163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.tools.test_native_controlled_delegation.ThreeHolders object at 0x79cbc5aad110>
+changes = {}
+
+    def call(self, **changes):
+        from tools.delegate_tool import delegate_task
+        kwargs = dict(goal="Count blue squares", context="two blue squares", parent_agent=self.parent)
+        kwargs.update(changes)
+        with content_policy_scope(self.context):
+>           return delegate_task(**kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/tools/test_native_controlled_delegation.py:157: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ()
+kwargs = {'goal': 'Count blue squares', 'context': 'two blue squares', 'parent_agent': <run_agent.AIAgent object at 0x79cbc5a39d90>}
+
+    @wraps(function)
+    def captured(*args, **kwargs):
+        agent = args[10] if len(args) > 10 else kwargs.get("parent_agent")
+        frame = _delegate_owner(agent)
+        if frame is None:
+            return function(*args, **kwargs)
+        try:
+            frame.capture(args, kwargs, public_signature)
+>           return function(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+agent/native_main_payload.py:3974: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+goal = 'Count blue squares', context = 'two blue squares', tasks = None
+max_iterations = None, role = None, background = None, output_schema = None
+action = None, subagent_id = None, message = None
+parent_agent = <run_agent.AIAgent object at 0x79cbc5a39d90>
+credentials_cfg = None
+
+    @_capture_delegate_call
+    def delegate_task(
+        goal: Optional[str] = None,
+        context: Optional[str] = None,
+        tasks: Optional[List[Dict[str, Any]]] = None,
+        max_iterations: Optional[int] = None,
+        role: Optional[str] = None,
+        background: Optional[bool] = None,
+        output_schema: Optional[Dict[str, Any]] = None,
+        action: Optional[str] = None,
+        subagent_id: Optional[str] = None,
+        message: Optional[str] = None,
+        parent_agent=None,
+        credentials_cfg: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        """
+        Spawn one or more child agents to handle delegated tasks, or control
+        already-running ones.
+    
+        Spawn modes (action='spawn' or omitted):
+          - Single: provide goal (+ optional context and role)
+          - Batch:  provide tasks array [{goal, context, role}, ...]
+    
+        Control modes (synchronous, never backgrounded):
+          - action='list'  -> live children of this conversation's spawn tree
+          - action='steer' -> queue course-correction text into a running child
+                              (subagent_id + message)
+          - action='stop'  -> interrupt a running child early (subagent_id)
+    
+        The 'role' parameter controls whether a child can further delegate:
+        'leaf' (default) cannot; 'orchestrator' retains the delegation
+        toolset and can spawn its own workers, bounded by
+        delegation.max_spawn_depth.  Per-task role beats the top-level one.
+    
+        Returns JSON with results array, one entry per task.
+        """
+        from agent.native_main_payload import _controlled_delegate_entry
+>       handled, controlled = _controlled_delegate_entry(locals())
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tools/delegate_tool.py:3888: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+arguments = {'goal': 'Count blue squares', 'context': 'two blue squares', 'tasks': None, 'max_iterations': None, ...}
+
+    def _controlled_delegate_entry(arguments):
+        frame = _delegate_owner(arguments["parent_agent"])
+        if frame is None:
+            return False, None
+        from contextlib import ExitStack
+        from agent.content_policy import content_policy_scope
+        from tools import delegate_tool
+        try:
+            frame.checkpoint()
+            _require(frame.running and frame.phase == "captured" and frame.slot == "entry")
+            for name, _, original in frame.record.arguments[0]:
+                _require(arguments[name] is original)
+            goal, context, role = arguments["goal"], arguments["context"], arguments["role"]
+            top_role = delegate_tool._normalize_role(role)
+            single_task = {"goal": goal, "context": context, "role": top_role}
+            effective_role = delegate_tool._normalize_role(single_task.get("role") or top_role)
+            _child_context = single_task.get("context")
+            leaf = dict(goal=single_task["goal"], context=_child_context, role=effective_role)
+            frame.retain(leaf_bytes=_json(leaf))
+            frame.leaf = leaf
+            content = frame.stage(frame.record.leaf_bytes, (frame.record.raw_content,))
+            frame.retain(leaf_content=content)
+            frame.scopes = ExitStack()
+            try:
+                frame.slot = "builder"
+>               child = delegate_tool._build_child_agent(0, goal, context, None, None,
+                    sys.maxsize, 1, frame.agent, role="leaf", _native_delegate_token=frame.token)
+
+agent/native_main_payload.py:4008: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+task_index = 0, goal = 'Count blue squares', context = 'two blue squares'
+toolsets = None, model = None, max_iterations = 9223372036854775807
+task_count = 1, parent_agent = <run_agent.AIAgent object at 0x79cbc5a39d90>
+override_provider = None, override_base_url = None, override_api_key = None
+override_api_mode = None, override_request_overrides = None
+override_max_tokens = None, override_acp_command = None
+override_acp_args = None, role = 'leaf'
+_native_delegate_token = <agent.native_main_payload.NativeDelegateInput object at 0x79cbc5ac18c0>
+
+    def _build_child_agent(
+        task_index: int,
+        goal: str,
+        context: Optional[str],
+        toolsets: Optional[List[str]],
+        model: Optional[str],
+        max_iterations: int,
+        task_count: int,
+        parent_agent,
+        # Credential overrides from delegation config (provider:model resolution)
+        override_provider: Optional[str] = None,
+        override_base_url: Optional[str] = None,
+        override_api_key: Optional[str] = None,
+        override_api_mode: Optional[str] = None,
+        override_request_overrides: Optional[Dict[str, Any]] = None,
+        override_max_tokens: Optional[int] = None,
+        # ACP transport overrides from trusted delegation config.
+        override_acp_command: Optional[str] = None,
+        override_acp_args: Optional[List[str]] = None,
+        # Per-call role controlling whether the child can further delegate.
+        # 'leaf' (default) cannot; 'orchestrator' retains the delegation
+        # toolset subject to depth/kill-switch bounds applied below.
+        role: str = "leaf",
+        *, _native_delegate_token=None,
+    ):
+        """
+        Build a child AIAgent on the main thread (thread-safe construction).
+        Returns the constructed child agent without running it.
+    
+        When override_* params are set (from delegation config), the child uses
+        those credentials instead of inheriting from the parent.  This enables
+        routing subagents to a different provider:model pair (e.g. cheap/fast
+        model on OpenRouter while the parent runs on Nous Portal).
+        """
+        from agent.native_main_payload import _controlled_delegate_builder
+>       handled, controlled = _controlled_delegate_builder(locals())
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tools/delegate_tool.py:1737: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+arguments = {'task_index': 0, 'goal': 'Count blue squares', 'context': 'two blue squares', 'toolsets': None, ...}
+
+    def _controlled_delegate_builder(arguments):
+        frame = _delegate_owner(arguments["parent_agent"])
+        token = arguments.get("_native_delegate_token")
+        if frame is None:
+            _require(token is None)
+            return False, None
+        from run_agent import AIAgent
+        from agent.content_policy import content_policy_scope
+        from tools.delegate_tool import _build_child_system_prompt
+        frame.checkpoint()
+        _require(frame.running and frame.phase == "captured" and frame.slot == "builder")
+        _require(token is frame.token)
+        for name in ("task_index", "max_iterations", "task_count"):
+            _require(type(arguments[name]) is int)
+        _require(arguments["task_index"] == 0 and arguments["task_count"] == 1)
+        _require(arguments["max_iterations"] == sys.maxsize)
+        _require(arguments["goal"] is frame.leaf["goal"] and arguments["context"] is frame.leaf["context"])
+        _require(type(arguments["role"]) is str and arguments["role"] == "leaf")
+        for name in ("toolsets", "model", "override_provider", "override_base_url", "override_api_key",
+                     "override_api_mode", "override_request_overrides", "override_max_tokens",
+                     "override_acp_command", "override_acp_args"):
+            _require(arguments[name] is None)
+        frame.prompt = _build_child_system_prompt(frame.leaf["goal"], frame.leaf["context"], workspace_path=None, role="leaf")
+        _text(frame.prompt)
+        b = frame.binding
+        frame.constructor_options = dict(provider="synthetic_native", api_mode="chat_completions",
+            model=frame.initial[2][1][3][2], session_id=b.child_session_id, enabled_toolsets=[],
+            quiet_mode=True, skip_memory=True, skip_context_files=True, skip_background_review=True)
+        plan = _json(dict(raw=json.loads(frame.record.raw_bytes), leaf=frame.leaf,
+            system_prompt=frame.prompt, constructor=frame.constructor_options,
+            entry=dict(user_message=frame.leaf["goal"], system_message=frame.prompt, task_id=b.child_task_id)))
+        frame.plan = plan
+        frame.plan_anchor = _nested_anchors((frame.prompt, frame.constructor_options))
+        content = frame.stage(plan, (frame.record.raw_content, frame.record.leaf_content))
+        frame.retain(request_content=content)
+        frame.slot = "entry"
+        frame.dispatch_request()
+        frame.checkpoint()
+        frame.scopes.enter_context(content_policy_scope(None))
+        frame.scopes.callback(_close_delegate_child, frame)
+        context = NativeContentContext(frame.parent._admission, b.child_request)
+        frame.child_context = context
+        frame.slot = "view"
+        routes, profiles, transports, _ = frame.catalog
+        adapter = NativeMainPayloadAdapter(context, selection=b.child_selection,
+            result_policy=frame.parent._result_port, producer_ref=b.child_producer_ref,
+            main_route_ref=b.child_main_route.route_ref, profiles=profiles, routes=routes,
+            transports=transports, clock=frame.parent._clock, _delegation_frame=frame)
+        _require(adapter is frame.child_adapter and adapter._runtime is frame.runtime)
+        frame.retain(child_adapter=adapter)
+        frame.scopes.enter_context(content_policy_scope(context))
+        frame.slot = "constructor"
+        child = AIAgent(controlled_main=adapter, **frame.constructor_options)
+        frame.child = child
+>       frame.retain(child=child)
+
+agent/native_main_payload.py:4091: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload._DelegateFrame object at 0x79cbc5973e50>
+changes = {'child': <run_agent.AIAgent object at 0x79cbc5831410>}
+
+    def retain(self, **changes):
+>       self.verify()
+
+agent/native_main_payload.py:3741: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <agent.native_main_payload._DelegateFrame object at 0x79cbc5973e50>
+
+    def verify(self):
+        _require(_delegate_frames.get(self.parent) is self and not self.invalid)
+        _require(threading.get_ident() == self.thread)
+        _require(self.parent._runtime is self.runtime is self.parent._captured_runtime)
+        _require(self.parent._operator_configuration is self.catalog)
+        _require(_same_anchors(_nested_anchors(self.catalog), self.catalog_anchor))
+        _require(_same_anchors(_nested_anchors(self.binding), self.binding_anchor))
+        _verify_constructed(self.parent._constructed)
+        _require(self.parent._turn_agent is self.agent)
+        _require(not self.parent._turn_frames and not self.parent._records and not self.parent._completions)
+        _require(self.parent._aux_binding is self.parent._compression_binding is self.parent._fallback_binding is None)
+        for port, name, method in (*self.methods, *self.extra_methods):
+            _require(_same_method(getattr(port, name), method))
+        if self.record is not None:
+            _require(_same_anchors(_nested_anchors(self.record), self.record_anchor))
+            _require(self.record.binding is self.binding and self.record.token is self.token)
+            _require(self.record.arguments is self.arguments)
+            _require(_same_anchors(_nested_anchors(self.arguments), self.record.argument_anchors))
+            _require(self.encode_arguments(self.arguments) == self.record.raw_bytes)
+            if self.leaf is not None:
+                _require(_json(self.leaf) == self.record.leaf_bytes)
+            if self.child_adapter is not None:
+                adapter = self.child_adapter
+                _require(adapter._delegate_parent_frame is self)
+                _require(adapter._context is self.child_context)
+                _require(adapter._runtime is self.runtime) if hasattr(adapter, "_runtime") else None
+                if self.child is not None:
+>                   _require(self.record.child is self.child)
+
+agent/native_main_payload.py:3659: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+
+    def _require(condition):
+        if not condition:
+>           raise NativeContentPolicyDenied("controlled_native_payload_invalid")
+E           agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_invalid
+
+agent/native_main_payload.py:583: NativeContentPolicyDenied
+- generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-02.xml -
+============================= slowest 10 durations =============================
+34.45s call     tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+1.46s setup    tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+
+(1 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+============================== 1 failed in 36.73s ==============================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/tools/test_native_controlled_delegation.py  (1 test failed)

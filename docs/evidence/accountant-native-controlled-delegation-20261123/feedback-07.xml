@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="30.958" timestamp="2026-11-23T11:51:30.755038+00:00"><testcase classname="tests.tools.test_native_controlled_delegation" name="test_post_acceptance_original_anchors[mutated-leaf]" time="11.857"><properties><property name="setup_seconds" value="1.596689" /><property name="call_seconds" value="10.25645" /><property name="teardown_seconds" value="0.00431" /></properties><failure message="hermes_content_policy.PolicyError: callback_failed">tests/tools/test_native_controlled_delegation.py:379: in test_post_acceptance_original_anchors
+    world.call()
+tests/tools/test_native_controlled_delegation.py:186: in call
+    return delegate_task(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4102: in captured
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+tools/delegate_tool.py:3888: in delegate_task
+    handled, controlled = _controlled_delegate_entry(locals())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4151: in _controlled_delegate_entry
+    child = delegate_tool._build_child_agent(0, goal, context, None, None,
+tools/delegate_tool.py:1737: in _build_child_agent
+    handled, controlled = _controlled_delegate_builder(locals())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4118: in checked
+    return function(arguments)
+           ^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4219: in _controlled_delegate_builder
+    frame.dispatch_request()
+agent/native_main_payload.py:3986: in dispatch_request
+    seed = self.stage(self.record.leaf_bytes, (accepted,), handle=binding.child_request,
+agent/native_main_payload.py:3867: in stage
+    content = self.runtime.derive_for_selection(handle, parents, payload,
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:627: in derive_for_selection
+    binding = self._current(request_handle)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:484: in _current
+    self._now()
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:475: in _now
+    now = self._call(self._clock)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:455: in _call
+    raise PolicyError("callback_failed") from None
+E   hermes_content_policy.PolicyError: callback_failed</failure></testcase><testcase classname="tests.tools.test_native_controlled_delegation" name="test_post_acceptance_original_anchors[construction-slot]" time="10.144"><properties><property name="setup_seconds" value="0.032939" /><property name="call_seconds" value="10.109189" /><property name="teardown_seconds" value="0.0014" /></properties><failure message="hermes_content_policy.PolicyError: callback_failed">tests/tools/test_native_controlled_delegation.py:379: in test_post_acceptance_original_anchors
+    world.call()
+tests/tools/test_native_controlled_delegation.py:186: in call
+    return delegate_task(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4102: in captured
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+tools/delegate_tool.py:3888: in delegate_task
+    handled, controlled = _controlled_delegate_entry(locals())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4151: in _controlled_delegate_entry
+    child = delegate_tool._build_child_agent(0, goal, context, None, None,
+tools/delegate_tool.py:1737: in _build_child_agent
+    handled, controlled = _controlled_delegate_builder(locals())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4118: in checked
+    return function(arguments)
+           ^^^^^^^^^^^^^^^^^^^
+agent/native_main_payload.py:4219: in _controlled_delegate_builder
+    frame.dispatch_request()
+agent/native_main_payload.py:3986: in dispatch_request
+    seed = self.stage(self.record.leaf_bytes, (accepted,), handle=binding.child_request,
+agent/native_main_payload.py:3867: in stage
+    content = self.runtime.derive_for_selection(handle, parents, payload,
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:627: in derive_for_selection
+    binding = self._current(request_handle)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:484: in _current
+    self._now()
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:475: in _now
+    now = self._call(self._clock)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:455: in _call
+    raise PolicyError("callback_failed") from None
+E   hermes_content_policy.PolicyError: callback_failed</failure></testcase><testcase classname="tests.tools.test_native_controlled_delegation" name="test_controls_preserve_exception_identity_and_partial_sends[interrupt-delegate]" time="7.533"><properties><property name="setup_seconds" value="0.014557" /><property name="call_seconds" value="7.517317" /></properties></testcase></testsuite></testsuites>

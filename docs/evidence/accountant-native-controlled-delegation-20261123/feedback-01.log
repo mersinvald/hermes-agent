@@ -1,0 +1,99 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~1 tests) under ['tests/tools/test_native_controlled_delegation.py']; running with -j 1
+[100.0% |     1/~1 | ✓0 | ✗1] ✗ tests/tools/test_native_controlled_delegation.py (1✗, 4.0s)
+
+  ╔╍ Failed: tests/tools/test_native_controlled_delegation.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ 
+  ║ =================================== FAILURES ===================================
+  ║ _____________________ test_blue_squares_actual_native_path _____________________
+  ║ tests/tools/test_native_controlled_delegation.py:162: in test_blue_squares_actual_native_path
+  ║     world = ThreeHolders().bind()
+  ║             ^^^^^^^^^^^^^^^^^^^^^
+  ║ tests/tools/test_native_controlled_delegation.py:123: in bind
+  ║     runtime = ContentPolicyRuntime(admission=self.admission, profiles=self.profiles,
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:380: in __init__
+  ║     self._operator_snapshot = self._operator()
+  ║                               ^^^^^^^^^^^^^^^^
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:405: in _operator
+  ║     routes = tuple(_route(r) for r in self._routes)
+  ║              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:405: in <genexpr>
+  ║     routes = tuple(_route(r) for r in self._routes)
+  ║                    ^^^^^^^^^
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:208: in _route
+  ║     _require(row[7].startswith("synthetic_"), "qualification_scope")
+  ║ .venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:143: in _require
+  ║     raise PolicyError(code)
+  ║ E   hermes_content_policy.PolicyError: qualification_scope
+  ║ - generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-01.xml -
+  ║ ============================= slowest 10 durations =============================
+  ║ 1.97s setup    tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+  ║ 
+  ║ (2 durations < 0.005s hidden.  Use -vv to show these durations.)
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+  ║ ============================== 1 failed in 3.22s ===============================
+  ║
+  ║  Repro: python -m pytest tests/tools/test_native_controlled_delegation.py -k test_blue_squares_actual_native_path --durations=10 --tb=short --junitxml=docs/evidence/accountant-native-controlled-delegation-20261123/feedback-01.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 1 failed (100% complete) in 4.0s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 4.0s  (runner wall: 4.0s, parallelism: 1x)
+  P50: 4.03s  P90: 4.03s  P95: 4.03s  P99: 4.03s  Max: 4.03s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      4.03s  tests/tools/test_native_controlled_delegation.py
+
+=== Failure output ===
+
+--- tests/tools/test_native_controlled_delegation.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1 item
+
+tests/tools/test_native_controlled_delegation.py F                       [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_blue_squares_actual_native_path _____________________
+tests/tools/test_native_controlled_delegation.py:162: in test_blue_squares_actual_native_path
+    world = ThreeHolders().bind()
+            ^^^^^^^^^^^^^^^^^^^^^
+tests/tools/test_native_controlled_delegation.py:123: in bind
+    runtime = ContentPolicyRuntime(admission=self.admission, profiles=self.profiles,
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:380: in __init__
+    self._operator_snapshot = self._operator()
+                              ^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:405: in _operator
+    routes = tuple(_route(r) for r in self._routes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:405: in <genexpr>
+    routes = tuple(_route(r) for r in self._routes)
+                   ^^^^^^^^^
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:208: in _route
+    _require(row[7].startswith("synthetic_"), "qualification_scope")
+.venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py:143: in _require
+    raise PolicyError(code)
+E   hermes_content_policy.PolicyError: qualification_scope
+- generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.25/docs/evidence/accountant-native-controlled-delegation-20261123/feedback-01.xml -
+============================= slowest 10 durations =============================
+1.97s setup    tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ============================
+FAILED tests/tools/test_native_controlled_delegation.py::test_blue_squares_actual_native_path
+============================== 1 failed in 3.22s ===============================
+
+=== 1 file with test failures (1 test failed) ===
+  tests/tools/test_native_controlled_delegation.py  (1 test failed)
