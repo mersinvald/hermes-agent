@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "kind": "static_verifier_key_error",
+  "requested_name": "_controlled_main_constructor",
+  "actual_name": "_validate_constructor_options",
+  "functional_execution": false
+}

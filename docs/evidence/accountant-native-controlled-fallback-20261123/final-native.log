@@ -1,0 +1,104 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~14 tests) under ['tests/agent/test_native_controlled_fallback.py']; running with -j 4
+[100.0% |    14/~14 | ✓36 | ✗ 1] ✗ tests/agent/test_native_controlled_fallback.py (36✓ 1✗, 432.2s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_fallback.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║     with content_policy_scope(world.context):
+  ║ ../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:137: in __enter__
+  ║     return next(self.gen)
+  ║            ^^^^^^^^^^^^^^
+  ║ agent/content_policy.py:190: in content_policy_scope
+  ║     validate_native_scope(context)
+  ║ agent/content_policy.py:206: in validate_native_scope
+  ║     validate_controlled_scope(context)
+  ║ agent/native_main_payload.py:2999: in validate_controlled_scope
+  ║     _attached(context).validate_scope()
+  ║ agent/native_main_payload.py:2531: in validate_scope
+  ║     self._deny()
+  ║ agent/native_main_payload.py:1039: in _deny
+  ║     raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+  ║ E   agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+  ║ - generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/docs/evidence/accountant-native-controlled-fallback-20261123/final-native.xml -
+  ║ ============================= slowest 10 durations =============================
+  ║ 77.24s call     tests/agent/test_native_controlled_fallback.py::test_prior_success_ancestry_profile_removal_and_terminal_reuse
+  ║ 39.99s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+  ║ 39.69s call     tests/agent/test_native_controlled_fallback.py::test_final_cancellation_retains_complete_result_proof
+  ║ 39.58s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+  ║ 21.22s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[malformed]
+  ║ 21.12s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[model]
+  ║ 20.98s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[empty]
+  ║ 20.56s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[send]
+  ║ 16.25s call     tests/agent/test_native_controlled_fallback.py::test_owned_activation_rejects_nested_changes_and_reentry[proof]
+  ║ 16.21s call     tests/agent/test_native_controlled_fallback.py::test_owned_activation_rejects_nested_changes_and_reentry[reentry]
+  ║ =========================== short test summary info ============================
+  ║ FAILED tests/agent/test_native_controlled_fallback.py::test_unqualified_siblings_refuse_after_profile_removal
+  ║ ============ 1 failed, 36 passed, 1 deselected in 431.88s (0:07:11) ============
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_fallback.py -k not full_historical_prefix --durations=10 --tb=short --junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/docs/evidence/accountant-native-controlled-fallback-20261123/final-native.xml
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 36 tests passed, 1 failed (100% complete) in 432.2s (4 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 432.2s  (runner wall: 432.2s, parallelism: 4x)
+  P50: 432.25s  P90: 432.25s  P95: 432.25s  P99: 432.25s  Max: 432.25s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+    432.25s  tests/agent/test_native_controlled_fallback.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_fallback.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 38 items / 1 deselected / 37 selected
+
+tests/agent/test_native_controlled_fallback.py ......................... [ 67%]
+...........F                                                             [100%]
+
+=================================== FAILURES ===================================
+____________ test_unqualified_siblings_refuse_after_profile_removal ____________
+tests/agent/test_native_controlled_fallback.py:562: in test_unqualified_siblings_refuse_after_profile_removal
+    with content_policy_scope(world.context):
+../../../../.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+agent/content_policy.py:190: in content_policy_scope
+    validate_native_scope(context)
+agent/content_policy.py:206: in validate_native_scope
+    validate_controlled_scope(context)
+agent/native_main_payload.py:2999: in validate_controlled_scope
+    _attached(context).validate_scope()
+agent/native_main_payload.py:2531: in validate_scope
+    self._deny()
+agent/native_main_payload.py:1039: in _deny
+    raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
+E   agent.content_policy.NativeContentPolicyDenied: controlled_native_payload_denied
+- generated xml file: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/docs/evidence/accountant-native-controlled-fallback-20261123/final-native.xml -
+============================= slowest 10 durations =============================
+77.24s call     tests/agent/test_native_controlled_fallback.py::test_prior_success_ancestry_profile_removal_and_terminal_reuse
+39.99s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[TimeoutError]
+39.69s call     tests/agent/test_native_controlled_fallback.py::test_final_cancellation_retains_complete_result_proof
+39.58s call     tests/agent/test_native_controlled_fallback.py::test_fallback_fixed_terminal_proof[ConnectionError]
+21.22s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[malformed]
+21.12s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[model]
+20.98s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[empty]
+20.56s call     tests/agent/test_native_controlled_fallback.py::test_fallback_failure_retains_available_proof[send]
+16.25s call     tests/agent/test_native_controlled_fallback.py::test_owned_activation_rejects_nested_changes_and_reentry[proof]
+16.21s call     tests/agent/test_native_controlled_fallback.py::test_owned_activation_rejects_nested_changes_and_reentry[reentry]
+=========================== short test summary info ============================
+FAILED tests/agent/test_native_controlled_fallback.py::test_unqualified_siblings_refuse_after_profile_removal
+============ 1 failed, 36 passed, 1 deselected in 431.88s (0:07:11) ============
+
+=== 1 file with test failures (1 test failed) ===
+  tests/agent/test_native_controlled_fallback.py  (1 test failed)

@@ -1,0 +1,259 @@
+[
+  {
+    "id": "hpwa-p10",
+    "title": "P10: Общая policy для destination и sensitive content",
+    "description": "Stable approved-plan package. Preserve its original requirements, acceptance criteria and conditional slices. See the exact source section. This import does not start implementation.",
+    "acceptance_criteria": "Satisfy the named package acceptance section with independent current-revision review and relevant evidence. No completion from import or historical audit alone.",
+    "notes": "User-authorized continuation now starts the bounded shared content/destination-policy track. Original P00/P01 prerequisites are closed. P10.1 will map existing hooks and request a concrete source-bound design/runtime allowlist before implementation. Only invented synthetic enforcement initially; no private model call, live egress, deployment or full P10 acceptance.\nNative P10.1 Task task_32e922f13c16/ctx_3a43de95ca0d ready in a separate PWA worktree. First source-bound current hook map and concrete common policy design/runtime allowlist request to root. No runtime edits before that decision, no production/real model/private data/credential or offensive review. Initial shared contract plus synthetic enforcement cannot close full P10 all-path/egress acceptance.\nP10.1 current source map now has exact native read-only input at/home/mersinvald/dev/mkl.dev/hermes-agent commit089fadba6cfeacc5af9ebffcec1e6f72ae9eed28 with13 entrypoint pins. Different checkout HEAD711d3bc5 is comparison only, not accepted/deployed enforcement proof. Root repliedmsg_d505b9a274a0 and protects the3 pre-existing native working-tree paths. No native edits/tests/runtime calls authorized; concrete shared contract and runtime allowlist still await root decision.\nRoot approved P10.1 design1889cf2378035ef969804babf76b65f2047169a8 through replymsg_8094a36d23b3. The bounded PWA package module and controlled synthetic consumers may proceed in the exact three new source/test paths plus evidence directory. Source map has55verifiedhashes and13nativeinputpins. Current lineage closure, recipient coverage, callback freshness, exact identity and honest post-send result rejection are explicit constraints. Existing application/native/Accountant paths remain unchanged. No real inference, durable policy transfer, egress or full P10 acceptance.\nP10.1 synthetic shared policy is accepted and merged through PWA PR29 at2a05257840cee4bd421466c1f420df850e6980fb. Root reviewed all new runtime/test/fake code and verified current109policy/33unchangedcompatibility cases, original failure/skip scopes, exact wheel and publication. Native wiring, shared module delivery, serialized/durable transfer, deployed source differences and actual egress remain unmet original P10 work. Next step is a concrete native integration design and exact runtime edit scope in an isolated native Orca worktree.\nNext child hpwa-p10.2 is in_progress. Ready native Orca task_f1f3c2da6888/ctx_adda559147e5 uses a new isolated Hermes worktree at /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.2 from089fadba. It will first propose exact shared-module delivery and actual native integration paths before runtime edits. The PWA synthetic component is already accepted; only actual supported native paths and separately qualified transport evidence can satisfy remaining P10 requirements.\nConcrete native designbbacf9cb87cd4b83fae3c21454e7b581c7acb9f6 approved through replymsg_46c9b42c553e. P10.2 may implement thin native admission/refusal guards in19runtimefiles and8newtestfiles, with no sensitive real-provider support. Separate P10.3 task6bf0eca22d20/ctx4391c5dffb10 is ready in a native PWA Orca worktree to extract the one unchanged dependency-free engine. P10.2 depends on accepted exact wheel for final import/consumer validation. Native dependency metadata/index lookup/publication and deployed configuration remain outside this decision. Full P10 remains open.\nP10.3 shared unchangedengine package accepted andmergedPR30/01ae0dcf. Python3.11.15/3.13.3standalone andPWAidentity/dispatchsmokes pass;12distinctscopedcases retain initialfixturefailure/singlecasererun, notfreshfullselection. Exactacceptedwheel andsource/API/rootreceipts delivered toP10.2 throughmsg_f882209c55c8. Only activeworker isP10.2 nativeadmission/refusal and actual-functionofflineproof. No real-sensitive provider/egress/fullP10 acceptance.\nP10.2 native implementation Task task_f1f3c2da6888 succeeded; root reviewed andaccepted source3b4fe67e/evidence8d70bd81 for bounded admission/refusal/currentordinarycontrolchecks only. Current137native/21compatibility cases passed at exactsource, manifestsunchanged. Freshpublication task4dc882c53090/ctx2c587a7fab10 is ready for normal PR/merge to mersinvald/hermes-agent:mkl fromverified089fadba, preserving separatemainline. No mergeclaimyet. P10.4 docs task08384e4c5116/ctxccec00d4f9f1 ready in separatePWAworktree; finalpinsawaitnativepublication. FullP10/nativepayloadpropagation/destinationqualification/serializeddurabletransfer/deployedbase/egress/private/financial gatesremainopen.\nFirstnativepublication task4dc882c53090 failed existingGit authentication without a feature ref,PR,or merge. Rootverified currentghrepo pushpermission and official credentialhelper. Freshnativepublication task22cf69db80b4/ctxd45eeefb8fae ready for one normal process-onlyhelper push; no savedconfig/token/provisioning/bypass. P10.4 docs continue preparation and awaitexactpublicationpin. Nativeoriginalpackage-lock.json concurrentlymodified byunconfirmedowner; preserved, excluded fromtask, no contentinspection/revert. FullP10stillopen.\nP10.2accepted andclosed after normalnativePR2tomkl mergea31286bd. Rootverifiedexactcandidate/actualparent/whole-tree/remotemkl/retainedfeature/0currentheadchecks andcleantask. No deployment orprivate/egress acceptance. DocumentationP10.4 receivedfinalacceptedpins throughmsg_860800b745d3 andcanfinishcanonicalreconciliation/PWA draftPR. Onlyactiveworker isP10.4. Initialnativepublicationauthfailure preserved; existingghhelperreuse changednosavedconfiguration orcredentialremediationstate.\nP10.4 canonicalreconciliation acceptedclosed afterPR31/1219df6a. Rootverifiedoriginalbytes/19objects/28upstreamchecksums/27nativepins/4bundlechecksums/7paths with nofunctionalexecution. Next childP10.5 nowin_progress innewnativeworktree fromacceptedA312. Task43c766d0c4e3/ctx9d5765c9f306 ready, initialsource-bounddesign only for actualnative mainrequest/result bytes throughshared controlleddispatch. Positivecode/API/pathboundary waitsrootdesign decision; no realprovider/private/fullP10 authority.\nP10.5 design 82273832f186289c95401eaaa2e66065e48ee93c approved with exact clarifications and delivered via msg_a5ae36e16d64 to native worker ctx_9d5765c9f306/task_43c766d0c4e3. The unchanged shared engine may dispatch complete invented main request/result bytes only through the selected synthetic_native nonstreaming operation and genuine operator-supplied eight-path qualified ports. Generic native sibling operations remain refused with an attached controlled adapter even after current source profiles become empty. Exact approved paths and conditions: root runtime hpwa-p10.5.design-approval.json. No source acceptance, publication, real inference, deployment, or full P10 claim follows. Focused validation policy remains in force.\nP10.5 source e15b69ec/candidate 44cfadc2 accepted for controlled invented main payload dispatch after full task source/test and evidence review. Recorded fresh final selection: 233 tests = 187 new + 46 directly affected compatibility, 47.7s, zero failures/skips/retries. Exact bytes, original result identity, retained profile union, all eight genuine controlled fixture ports and actual sibling-function refusal match the approved design. Root verified 12 source pins, 14 checksums, four final runtime/test hashes and 11053 unchanged base paths; no root functional rerun. Fresh native publication Task task_ca7be9b38503/ctx_8a3e9472f00a is ready for mkl; source publication and child closure remain pending. Full P10 and actual provider/egress/private/production/durable acceptance remain open.\nClosed bounded child P10.5 after independent source and publication acceptance: native PR3 merged into mkl at 5a68423dfab155604999f4da223ff8cde22dbe46, whole ba375f057dfd55a9a3482ad014f289546126eb63, exact candidate44cf/e15source. Controlled full-byte native helper support now complements prior refusal checks, without positive conversation startup, sibling, real-provider, deployment or full P10 acceptance. Next canonical documentation child will reconcile the exact published component and propose one bounded next implementation seam.\nNext child hpwa-p10.6 claimed and native Orca worker task_ea5251a131b1/ctx_25068513fe8f ready in a dedicated PWA worktree from1219df6a. Documentation-only reconciliation of published controlled native main payload, exact scope preservation and one bounded next implementation proposal. No functional rerun or full P10 acceptance.\nP10.6 canonical reconciliation accepted and closed after normal matching-head squash of PR32 at df34b86c05c671d3e7832a7822fe8e54a77a70fd on1219df6a, whole1d9d3a1a199bd97498bb4e04631a1a7c5b94d0a3/3019paths exact candidate/remote. Original requirements/canonical bytes and3012otherpaths preserved; docs-only12sourcepins14upstreamchecksums4codehashes3receipthashes4bundlechecksums checked, no functional execution or CI claim. Next P10.7 created/claimed and native Orca task_f367fd7277ae/ctx_5a16ab78147b ready in dedicated native worktree. Root selects same-thread controlled interruptible_api_call forwarding before scheduling/lifecycle callbacks, with pre-send/post-call cancellation rejection and existing ordinary/sibling/startup limits. No in-flight preemption/watchdog/real-provider/fullP10 acceptance.\nP10.7 original Task succeeded at8e7source/143devidence with105 focused passes in25.9s and draft native PR4. Root source review requests one bounded functional correction before acceptance: recognized controlled attachments must require the same current sealed context before helper dispatch and caller release, so inconsistent bound/payload markers cannot select legacy dispatch. Source-backed finding, no root runtime probe. Fresh correction Task task_841a16c3991a/ctx_c300bc851a67 ready in same issue worktree, preserving original success/evidence and ordinary paths. PR4 stays draft. Full P10 remains open.\nCorrected P10.7 accepted/closed after independently verified native PR4 matching-head squash0540e68a62275f036c8e7b4a57ee82e08c824b19 on5a68423d. Whole68910855fbf6c80b95ed38ac8149db0f879f0ecf/11105paths equals candidatef9c0 andremotemkl; source8767/initialancestry andretainedfeature/taskclean verified. R1 closed,32red/32green retained, current137focused cases34.7s (86+32+11+8), initial105 historical separate. Zeroexactheadchecks/statuses,noCIclaim/rootfunctionalrerun. Next P10.8 created/claimed, native Orca task_232c5c8a46d3/ctx_ffe04d75b72e ready for concise canonical reconciliation and actual-startup path design without runtime edits. Full P10, realproviders/egress, restoration, private/financial activation stay open.\nClosed P10.8 after source/design review and normal exact-head squash of PWA PR33 atfc33f2551bcadbd6b2f96febf1e5b55357492284 ondf34b86c, wholef48df14d/3024paths exact candidate/GHmerge/remotemain, featurecf20 retained/taskclean. Originalcanonicalbytes preserved via27/71insertions,3017otherpaths unchanged;11sourcepins33evidencepins16frozen+15currentchecksums3receipthashes4bundlechecksums verified, docs-only/noCIclaim. Root selected complete-byte controlled prologue design ff4ecf3f with exact clarifications. New P10.9 claimed and native Orca task_eaab573314a8/ctx_55a1ecc6b1d9 ready in dedicated native worktree. Same-runtime input/prepared derivation, sticky preparation mode, stable system prefix and registered identity tokens; complete conversation startup and all real/private/financial gates remain open.\nP10.9 original Task succeeded at3ed4ef6d with208focused cases70.1s and draftnativePR5. Root read runtime451/16line changes and716+38testlines plusREADME/validation. Source acceptance held for one new exact-type inconsistency: local mode/provider labels compare via equality before builtin string guards, unlike dispatch; new actualmodelcomparison needs equivalent validation. Source-backed inference, redregression pending, no root probe/test. Fresh correction Task task_a7aa47a7159c/ctx_76be6f68650b ready in sameworktree. Originalsuccess/evidence kept; fullP10 andactualstartup/private/financial remainopen.\nClosed corrected P10.9 after native PR5 squash2a84496fad0724fb3f79b9c37cef3f2c283e781c. Whole b6cdbb4f/11142paths equals reviewed70fc and remote mkl. R1 closed, current268affected passes92.4s,0checks/0statuses/noCIclaim. Next P10.10 is in_progress. Native Orca Task task_450e49f01c8a/ctx_88f3f5950359 ready for concise canonical reconciliation and source-bound real AIAgent/entrypoint design including actual constructor behavior. No runtime execution or cumulative suite. Full P10 and all external/private/financial gates remain open.\nP10.10 acceptedclosed after exact-tree normal PR34 squash095d81d5299a775f43fe2458e7ac3eb8ef22bb45 onfc33f255, whole86c26a6f/3029paths. Root verified31pins/2receipts/20+27nativechecksums/4old+6newPWAchecksums/10links/preservedcanonicalbytes/3022otherpaths/STE0new withoutfunctionalexecution. Root selected real AIAgent constructor/entrypoint design83494927 plus cumulativecounterbounds and malformed/partial/closedbinding noordinaryfallback. NewP10.11 nowin_progress, native Orca Task task_85614dc1044a/ctx_e129a9747f47 ready for actual runtime implementation in new isolatednativeworktree. Only activeworker. FullP10 andallprivate/realprovider/source/financial gates remainopen.\nP10.11 implementation Task task_85614dc1044a succeeded at62d5eaf0 source/4fe5dea9 evidence with100focused passes49.3s anddraftPR6. Root reviewed4runtime diffs/full622newtestlines/API/evidence. One bounded functional constructor correction remains: reserved synthetic_native string subclasses can miss exact-type detection before ordinaryinit. Source-backed R1, redpending/no root probe. The initial R2 snapshot hypothesis was withdrawn after actual instance-exposure tracing; no R2 change/probe requested. Fresh correction Task task_96016b92880f/ctx_f93b1fef4934 READY same issue tree, originalsuccess/scopes preserved, no routine approval pause. FullP10 remainsopen.\nP10.11 acceptedclosed after root recovered alreadytested source3a848/evidence4198 from lost correctionDispatchctx_f93b1fef4934. No test rerun or falseworker_done/status rewrite. Corrected actualnativeconstructor/bothentrypoint/resultproof/close pass105affected49.4s, red3fail3pass/green6pass scoped. NativePR6 normal squash414763cb524b3df2fd2099059d85615ced9f1cfc on2a84496f, whole6f0d3cc2/11199paths exactcandidate/remotemkl; retainedfeature4198/taskclean,0checks/statuses/noCIclaim. NewP10.12 in_progress, nativeOrcaTasktask_f4f138e392cd/ctx_9e5971ec5e7b READY for concise canonical reconciliation and common auxiliary byte/lineage design with actual sync title first. Docs-only, fullP10/externalgates remainopen.\nP10.12 acceptedclosed after PR35 normalmatchingheadsquashb0d81bafb4e38a1858d5ba6275d276df092ff7af on095d81d5, wholefcdfa9e7/3034paths exactcandidate229f/remotemain,feature/taskclean,0checks/statuses/noCIclaim. Rootverified31pins/3receipts/54upstream+6bundlechecksums/13links/canonicalpriorlines/3027otherpaths/STE0new, no runtimeexecution. Rootselected additive shared derive_for_selection API with explicitparent_requests as necessary dependency for genuineindependentauxselection; oldderive/ownership/sendcontracts unchanged. NewP10.13 nowin_progress, nativeOrcaTasktask_ce583a87c12c/ctx_1609b3c3d258 READY for exact localstandalone0.2.0 artifact andfocusedcompatibility. Nativeconsumer requires lateracceptedartifact/APIdecision. FullP10/P06/externalgatesremainopen.\nAccepted P10.13 source/API c33077a153fc0ae16218a7dbb8e008110c979d0a and candidate f74ba6f552079e79316345001ab8c3769f82f0b1. PR36 merged normally into PWA main b3d74d918824a75633cb01607e3fbb19ec501284; exact tree 91a889d8382fcdfd5323705a1039663c25237fa9. Root checked 300 focused cases (27.32 seconds), the one exact wheel and its Python 3.11/3.12/3.13 smoke evidence without functional reruns. Zero configured head checks gives no CI claim. P10.13 is closed. Accepted 0.2.0 wheel SHA256 b6dd72e900cea284b16f0aee0cb706824ce7e495176fb826c96fb508bfea5e6a and root handoff hpwa-p10.13.native-handoff.json authorize the local synthetic native consumer. P10.14 now runs as task_ce8cb7b1d27c/ctx_cf50bc90219f in its new native worktree. Full P10, real providers, durable restoration, source qualification, financial and production gates remain open.\nAccepted and closed P10.14 after source/artifact review and normal matching-head PR7 squash into native mkl 4d47543f91aaf94d4abc3bac2c04a47a411a1be2. Source 46b8d6e69a7547c5176ad624f1581d13fa013a94, candidate 309d405520816c5b2c06bb2c8a1ed0154e3ea0ae, API 2baa22dd2090e609863071548394a597c840492a35557110b38e0a5000d8e84f. Exact tree 5df58680618a33a1ef5a71ec104188bc658524c2 and 11239 paths match publication. 198 focused cases passed in 538.6 seconds; root reused pinned results without runtime reruns. No configured head checks/statuses, no CI claim. P10.15 documentation now runs as task_da60c472f1ff/ctx_443ab83d24af. It reconciles accepted bridge/title contracts and proposes a truthful local no-send result only. Full P10/P06 and external gates remain open.\nAccepted and closed P10.15 documentation plus selected local-result design. PR37 normally merged at PWA 08bde9978829cbf0ab1f7c7c5efd0d65de981ed7, candidate f75aa9491cb44f64362bdbd14121cb62936b4a88, tree a6875fd258d4c9dfcb60b1e5430531e572406b3c. Source/receipt/upstream checksum/preservation/link/prose checks pass; no runtime execution or CI claim. P10.16 now implements the selected native local no-send result as task_297c4cc99931/ctx_bb0da0b95164, using exact accepted native 4d47543f and shared wheel 0.2.0. Full P10/P06 and external gates remain open.\nAccepted and closed P10.16 local title result after source/artifact review and verified PR8 publication at native mkl a951a7156c6da9beadd0dff6f0eed85554afd116. Source ceb1c3ebc4ea9eb2ec38e9238b7c9f486019b3a2, candidate 8c4d25b4e24bdd2932902ba6f26f21339c26d009, API eefc24ed98b1b1d5dbf959c5119910450ddc3c22d5e4137075e85f765243aaee. 80 focused cases/478.1 seconds, zero failures/retries, one exact shared dependency smoke, no root app rerun and no CI claim. P10.17 documentation/source-map task now runs as task_159726cd8fb6/ctx_395b01c4a752. It reconciles the local result and designs a bounded actual synchronous compression consumer; runtime remains unchanged. Full P10/P06 and all external gates stay open.\nAccepted/closed P10.17 documentation/source map and selected bounded first-summary design. PR38 normally published PWA main1662bb918ace1513c29c5130f8ea40921d1d7245, candidate12d2d7df20a3b8077e5b536d2cea6fdb476d5230, tree730275cf93f9c9b0d12db5a537d4124e3920bb9b/3059paths. Exact source/receipts/artifacts/checksums/preservation/links/prose pass; no app execution or CI claim. P10.18 now implements the selected native helper-only compression proposal as task_fc4cee44140c/ctx_ead99f9c0f3a on a951a715 base. Four runtime files plus additive tests: independent genuine compression binding, actual constructor/summary call and complete seven/four proof on existing adapter, two early host refusals, no history replacement. Full P10/P06 and external gates stay open.",
+    "status": "in_progress",
+    "priority": 2,
+    "issue_type": "epic",
+    "owner": "git@mkl.dev",
+    "created_at": "2026-09-12T23:48:35Z",
+    "created_by": "ses_codex_8d97addc13c15c8ceca826ffa5784e0a",
+    "updated_at": "2026-11-23T05:52:55Z",
+    "started_at": "2026-11-22T16:49:53Z",
+    "metadata": {
+      "alias": "accountant:P10",
+      "track": "accountant",
+      "cutover": "active_m01_rv2",
+      "verdict": null,
+      "dispatch": "Tracking epic only. Open a bounded task before implementation.",
+      "questions": [],
+      "model_rule": "Accountant and M01: Kimi implementation, Astra architecture/review. Unlisted discovery/design roles need applicable authorization.",
+      "source_plan": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/accountant-implementation-plan.md",
+      "repositories": [
+        {
+          "base": "0d0450955c82df06919e00f9882a5eee83f04440",
+          "head": "d119415be52c916a6b31ee7d2d9e6c4631af698b",
+          "root": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa",
+          "branch": "main",
+          "worktree": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa"
+        },
+        {
+          "base": "862ffa7834eb7d6e647c66ec01c7c4b4edff0ada",
+          "head": "2078bcb8c46e037accd52b152a93099281758401",
+          "root": "/Users/mersinvald/dev/mkl.dev/infra",
+          "branch": "main",
+          "worktree": "/Users/mersinvald/dev/mkl.dev/infra"
+        }
+      ],
+      "latest_report": null,
+      "source_commit": "0d0450955c82df06919e00f9882a5eee83f04440",
+      "cutover_record": {
+        "id": "M01-CUTOVER-1",
+        "journal": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/accountant-coordination.md",
+        "meaning": "Process authority only. This marker does not accept unfinished issues.",
+        "issue_id": "hpwa-methodm01",
+        "timestamp": "2026-09-13T02:58:35.829882+00:00",
+        "journal_sha256": "3c3f3126ee31f71fab84af48eaf015811cee62bfaa70c41d619af905d1207338",
+        "review_message_id": "msg_098a119f30019Y2SUPiMZ6LrbG",
+        "reviewed_revision": "M01-RV2",
+        "canonical_issue_home": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa"
+      },
+      "observed_route": null,
+      "source_section": "P10: Общая policy для destination и sensitive content",
+      "readiness_scope": "partial_local_synthetic_components",
+      "requested_route": null,
+      "correction_round": 0,
+      "latest_component": "hpwa-p10.18",
+      "acceptance_policy": "Independent Oracle PASS for current artifact/revision and relevant checks. Coordinator alone records acceptance. No production claim from audit or synthetic scope.",
+      "accepted_pwa_head": "1662bb918ace1513c29c5130f8ea40921d1d7245",
+      "author_session_id": null,
+      "reviewer_session_id": null,
+      "accepted_native_head": "a951a7156c6da9beadd0dff6f0eed85554afd116",
+      "canonical_issue_home": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa",
+      "tracking_import_only": true,
+      "coordinator_session_id": "ses_codex_8d97addc13c15c8ceca826ffa5784e0a",
+      "implementer_session_id": null,
+      "latest_accepted_component": "hpwa-p10.17",
+      "activation_prerequisite_rule": "Before dispatching a bounded non-epic task, represent its applicable prerequisites as non-epic blocks. Tracking epic links and metadata cannot block dispatch."
+    },
+    "labels": [
+      "accountant",
+      "m01-import",
+      "tracking-package"
+    ],
+    "dependencies": [
+      {
+        "id": "hpwa-p01",
+        "title": "P01: Versioned contracts и общий набор fixtures",
+        "description": "Stable approved-plan package. Preserve its original requirements, acceptance criteria and conditional slices. See the exact source section. This import does not start implementation.",
+        "acceptance_criteria": "Satisfy the named package acceptance section with independent current-revision review and relevant evidence. No completion from import or historical audit alone.",
+        "notes": "Current continuation audit hpwa-accountant.1 maps the accepted Gate3 subset against full B03-R2/P01 requirements. Remaining bounded contract work is hpwa-p01.1-.6; full synthetic acceptance gate is hpwa-p01.7. Prior runnable_entry hpwa-p01impl is closed within Gate3 scope and is historical. P01 stays open until complete synthetic evidence exists. Current eight schema package resources are present, so no missing-package-data task was created.\nFinal acceptance found an unmet original section8 ContextSubmission processing-transition invariant. New bounded source task hpwa-p01.10 blocks acceptance hpwa-p01.7. Existing 2205-test evidence remains scoped to its integrated source and does not prove this missing validator. Full P01 stays open.\nCoordinator accepted the full original synthetic P01 scope. Current PWA documentation/evidence commit b764c69d5140e15eae2b3e406b48d92c2c8903ce; accepted Infra fb5966cd342dfe2b2063f6b8d77d387f809fd162; tested implementation 7d776955ef7de76d43278712d3eb5c7edac8022f. Final assessment maps 15 requirement sections, all 27 F groups, 55 named definitions, and 8 processing obligations, with no unmet pure requirements. Current complete suite has 2400 distinct passing test IDs matching collection exactly. All 428 exact manifest reports, including 117 processing cases, pass. Current wheel preserves 8 exact schemas and 46 Python files, with 7 independent frozen vectors. Parent checked the final report, current canonical hashes, 15 final PWA checksums, and preservation of all 26 earlier PWA evidence files. Earlier source acceptance verified 948 source pins and 80 upstream evidence checksums. Original requirements pin and all partial or failed historical evidence retain their scope. The PWA worktree is clean. P00, overall Accountant, and real adapter, source, storage, native, permission, Firefly, deployment, and operational acceptance remain open. No source main merge or push is included.",
+        "status": "closed",
+        "priority": 2,
+        "issue_type": "epic",
+        "owner": "git@mkl.dev",
+        "created_at": "2026-09-12T23:48:27Z",
+        "created_by": "ses_codex_8d97addc13c15c8ceca826ffa5784e0a",
+        "updated_at": "2026-11-21T04:23:33Z",
+        "closed_at": "2026-11-21T04:23:33Z",
+        "close_reason": "Full original synthetic P01 scope accepted through closed gate hpwa-p01.7. Current implementation fb5966cd and documentation b764c69d have 2400 passing tests, 428 exact fixtures, all 55 named types and F01-F27 coverage. P00 and all external acceptance gates remain separate.",
+        "metadata": {
+          "alias": "accountant:P01",
+          "track": "accountant",
+          "cutover": "active_m01_rv2",
+          "verdict": "accepted_synthetic",
+          "dispatch": "Tracking epic only. Open a bounded task before implementation.",
+          "questions": [],
+          "model_rule": "Accountant and M01: Kimi implementation, Astra architecture/review. Unlisted discovery/design roles need applicable authorization.",
+          "source_plan": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/accountant-implementation-plan.md",
+          "repositories": [
+            {
+              "base": "0d0450955c82df06919e00f9882a5eee83f04440",
+              "head": "d119415be52c916a6b31ee7d2d9e6c4631af698b",
+              "root": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa",
+              "branch": "main",
+              "worktree": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa"
+            },
+            {
+              "base": "862ffa7834eb7d6e647c66ec01c7c4b4edff0ada",
+              "head": "2078bcb8c46e037accd52b152a93099281758401",
+              "root": "/Users/mersinvald/dev/mkl.dev/infra",
+              "branch": "main",
+              "worktree": "/Users/mersinvald/dev/mkl.dev/infra"
+            }
+          ],
+          "latest_report": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p01.7/docs/mesh/evidence/accountant-p01-acceptance-20261121/processing-continuation/final/report.md",
+          "source_commit": "0d0450955c82df06919e00f9882a5eee83f04440",
+          "cutover_record": {
+            "id": "M01-CUTOVER-1",
+            "journal": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/accountant-coordination.md",
+            "meaning": "Process authority only. This marker does not accept unfinished issues.",
+            "issue_id": "hpwa-methodm01",
+            "timestamp": "2026-09-13T02:58:35.829882+00:00",
+            "journal_sha256": "3c3f3126ee31f71fab84af48eaf015811cee62bfaa70c41d619af905d1207338",
+            "review_message_id": "msg_098a119f30019Y2SUPiMZ6LrbG",
+            "reviewed_revision": "M01-RV2",
+            "canonical_issue_home": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa"
+          },
+          "observed_route": null,
+          "runnable_entry": "hpwa-p01impl",
+          "source_section": "P01: Versioned contracts и общий набор fixtures",
+          "readiness_scope": "synthetic_accepted",
+          "requested_route": null,
+          "source_evidence": [
+            "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/evidence/accountant-b01/sources/REPORT.md",
+            "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/evidence/accountant-b01/firefly/REPORT.md",
+            "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/evidence/accountant-b01/native/REPORT.md"
+          ],
+          "correction_round": 0,
+          "acceptance_policy": "Independent Oracle PASS for current artifact/revision and relevant checks. Coordinator alone records acceptance. No production claim from audit or synthetic scope.",
+          "author_session_id": null,
+          "primary_p00_input": "B01 primary audit snapshot is available at C01 reviewed pair. This is not full P00 completion or new live capability acceptance.",
+          "continuation_audit": "hpwa-accountant.1",
+          "reviewer_session_id": null,
+          "canonical_issue_home": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa",
+          "completion_condition": "Close only after independent acceptance of the complete original P01 scope. The runnable entry alone is not evidence of full completion. Related references are not dispatch gates.",
+          "tested_source_commit": "7d776955ef7de76d43278712d3eb5c7edac8022f",
+          "tracking_import_only": true,
+          "accepted_infra_commit": "fb5966cd342dfe2b2063f6b8d77d387f809fd162",
+          "coordinator_session_id": "ses_codex_8d97addc13c15c8ceca826ffa5784e0a",
+          "implementer_session_id": null,
+          "current_acceptance_policy": "Complete original synthetic requirements with current functional source and artifact evidence. Coordinator records closure. External capabilities remain separately gated.",
+          "activation_prerequisite_rule": "Before dispatching a bounded non-epic task, represent its applicable prerequisites as non-epic blocks. Tracking epic links and metadata cannot block dispatch.",
+          "continuation_acceptance_gate": "hpwa-p01.7",
+          "accepted_documentation_commit": "b764c69d5140e15eae2b3e406b48d92c2c8903ce"
+        },
+        "labels": [
+          "accountant",
+          "m01-import",
+          "tracking-package"
+        ],
+        "dependency_type": "blocks"
+      },
+      {
+        "id": "hpwa-p00",
+        "title": "P00: Baseline, источники и проверка внешних возможностей",
+        "description": "Stable approved-plan package. Preserve its original requirements, acceptance criteria and conditional slices. See the exact source section. This import does not start implementation.",
+        "acceptance_criteria": "Satisfy the named package acceptance section with independent current-revision review and relevant evidence. No completion from import or historical audit alone.",
+        "notes": "Current baseline refresh hpwa-accountant.2 completed at local main ac278ae. Follow-ups hpwa-p00.1-.5 distinguish producer access/profile, SMS late-change coverage, authenticated Firefly reads, isolated6.7.9 behavior, and email seal evidence. Source/Firefly access inputs are recorded as needs_input on specific tasks. P00 remains open and no old B01 live/write assumptions are accepted for a new runtime version.\nP01 full synthetic scope is now accepted and closed at Infra fb5966cd and PWA documentation b764c69d. This does not close P00 or prove real coverage, authenticated adapter behavior, native handoff, grants, Firefly writes/concurrency, deployment, or operational recovery. Existing source and capability evidence retains its recorded limits.\nUser clarified the live input boundary on 2026-11-21: Mac backup/SMS collection is already online and outside this project. Accountant consumes existing SMS objects uploaded to RustFS. hpwa-p00.1 and hpwa-p00.2 now cover archive input/profile and the consumer coverage/late-change boundary, with no Mac access or producer modification prerequisite. User instructed Check Kubernetes secrets for Firefly access; the same native worker now inspects relevant existing Secret references privately. Neither clarification accepts absent full-day completeness proof or authorizes production financial writes.\nAll current bounded source/capability/consumer tasks are accepted andpublished, including SMSPR1426ac4f1cc and localFireflyreadPWAPR113df4f007. OriginalunavailableMac/productionPAT discovery is historical, not a current prerequisite. Newhpwa-p00.9 assesses the amended canonicalP00scope and exact remaining inputs without live/private reads or guessedproof. Epic staysopen until that matrix is assessed; downstream completeness/finality/accountmapping/activation gates are separate.\nCoordinator accepts the amendedP00discoverypackage after current assessmenthpwa-p00.9. Canonicalcriteria remainunchanged: capabilitymatrix, privateprofile reference, supported/unsupported/unverifiedcases and requiredinputs are allpresent. ExactlocalaccountIDs are synthetic; realbank/account/PWAmapping remainsunverified and required downstream. Allseveneventclasses and movementswithoutSMS are explicitly classified as observations/unknowns rather than acceptedfinancialevents. Email/SMS seals/completeness/finality/native/destination/operational/activation gates remainunchanged. AcceptedPWApublicationpin3df4f007 and InfraSMS6ac4f1cc underpin assessment3be1d3b, publishedPR12 at885559ddcecfd3609a18b5aba99e402f719e87c0. No Macaccess/collectorchange/productioncredentialsearch is a prerequisite. No livewrite/deployment/activationauthority follows. P02.3 continues durableobservations independently and is notaccepted by thisclosure.",
+        "status": "closed",
+        "priority": 2,
+        "issue_type": "epic",
+        "owner": "git@mkl.dev",
+        "created_at": "2026-09-12T23:48:26Z",
+        "created_by": "ses_codex_8d97addc13c15c8ceca826ffa5784e0a",
+        "updated_at": "2026-11-21T14:34:25Z",
+        "closed_at": "2026-11-21T14:34:25Z",
+        "close_reason": "AmendedP00discoveryacceptance complete: verified capability/input matrix and privateprofile reference, with unsupported/unverified results explicit. Assessment3be1d3b published inPR12 at885559ddcecfd3609a18b5aba99e402f719e87c0. Downstream completeness/finality/mapping/context/destination/operational/financialactivation gates remainopen.",
+        "metadata": {
+          "alias": "accountant:P00",
+          "track": "accountant",
+          "cutover": "active_m01_rv2",
+          "verdict": "accepted_discovery_with_declared_limits",
+          "dispatch": "Tracking epic only. Open a bounded task before implementation.",
+          "questions": [],
+          "model_rule": "Accountant and M01: Kimi implementation, Astra architecture/review. Unlisted discovery/design roles need applicable authorization.",
+          "source_plan": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/accountant-implementation-plan.md",
+          "repositories": [
+            {
+              "base": "0d0450955c82df06919e00f9882a5eee83f04440",
+              "head": "d119415be52c916a6b31ee7d2d9e6c4631af698b",
+              "root": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa",
+              "branch": "main",
+              "worktree": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa"
+            },
+            {
+              "base": "862ffa7834eb7d6e647c66ec01c7c4b4edff0ada",
+              "head": "2078bcb8c46e037accd52b152a93099281758401",
+              "root": "/Users/mersinvald/dev/mkl.dev/infra",
+              "branch": "main",
+              "worktree": "/Users/mersinvald/dev/mkl.dev/infra"
+            }
+          ],
+          "assessment_pr": "https://github.com/mersinvald/hermes-agent-pwa/pull/12",
+          "latest_report": null,
+          "source_commit": "0d0450955c82df06919e00f9882a5eee83f04440",
+          "cutover_record": {
+            "id": "M01-CUTOVER-1",
+            "journal": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa/docs/mesh/accountant-coordination.md",
+            "meaning": "Process authority only. This marker does not accept unfinished issues.",
+            "issue_id": "hpwa-methodm01",
+            "timestamp": "2026-09-13T02:58:35.829882+00:00",
+            "journal_sha256": "3c3f3126ee31f71fab84af48eaf015811cee62bfaa70c41d619af905d1207338",
+            "review_message_id": "msg_098a119f30019Y2SUPiMZ6LrbG",
+            "reviewed_revision": "M01-RV2",
+            "canonical_issue_home": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa"
+          },
+          "observed_route": null,
+          "source_section": "P00: Baseline, источники и проверка внешних возможностей",
+          "readiness_scope": "P00_discovery_accepted_downstream_gates_unchanged",
+          "requested_route": null,
+          "assessment_issue": "hpwa-p00.9",
+          "correction_round": 0,
+          "acceptance_policy": "Independent Oracle PASS for current artifact/revision and relevant checks. Coordinator alone records acceptance. No production claim from audit or synthetic scope.",
+          "assessment_commit": "3be1d3b0115b032a07b972b8277cdca6ddd76777",
+          "author_session_id": null,
+          "continuation_audit": "hpwa-accountant.2",
+          "reviewer_session_id": null,
+          "canonical_issue_home": "/Users/mersinvald/dev/mkl.dev/hermes-agent-pwa",
+          "open_capability_gaps": [
+            "P03/P05 actual source completeness, lineage, empty-day and late-change proof",
+            "P03/P17 bank templates, posting/finality and real owner/account/transfer mapping",
+            "P02/P05 durable consumer/service/workflow/context integration",
+            "P10/P11/P12/P14 destination policy and native authenticated handoff/retrieval",
+            "P13/P16/P17 unsupported update concurrency and transfer-side date alternatives",
+            "P19/P20 operational recovery, retention policy and financial activation"
+          ],
+          "tracking_import_only": true,
+          "coordinator_session_id": "ses_codex_8d97addc13c15c8ceca826ffa5784e0a",
+          "implementer_session_id": null,
+          "assessment_merge_commit": "885559ddcecfd3609a18b5aba99e402f719e87c0",
+          "activation_prerequisite_rule": "Before dispatching a bounded non-epic task, represent its applicable prerequisites as non-epic blocks. Tracking epic links and metadata cannot block dispatch."
+        },
+        "labels": [
+          "accountant",
+          "m01-import",
+          "tracking-package"
+        ],
+        "dependency_type": "blocks"
+      }
+    ],
+    "dependent_count": 24,
+    "dependency_count": 2,
+    "comment_count": 0,
+    "revision": "-4751844606698681274"
+  }
+]

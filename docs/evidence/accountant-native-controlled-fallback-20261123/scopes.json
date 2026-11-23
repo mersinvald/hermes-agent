@@ -1,0 +1,671 @@
+{
+  "scopes": [
+    {
+      "name": "feedback-01",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "test_fallback_fixed_terminal_proof",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 10.127,
+      "source_sha256": {
+        "agent/native_main_payload.py": "90a2306c862759ff303077d2ef12df0ddb1baf50f84965d7d05ce7a664a54a1f",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "4077a3a8196d5b376312428e1a516766ee45c575b6923b2c552b4d5d5526ba78"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-02",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "test_fallback_fixed_terminal_proof",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 1.724,
+      "source_sha256": {
+        "agent/native_main_payload.py": "90a2306c862759ff303077d2ef12df0ddb1baf50f84965d7d05ce7a664a54a1f",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "59ae8ad58e0545ff099d2ea3bfddbde526d43d870f1834a5038fb572462b2d29"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-03",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "test_fallback_fixed_terminal_proof",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 1.667,
+      "source_sha256": {
+        "agent/native_main_payload.py": "90a2306c862759ff303077d2ef12df0ddb1baf50f84965d7d05ce7a664a54a1f",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "64fbe3a16a1bc1d60bc96b5c93a032f3e38215f60bcb9cfd608b0089434fa2ac"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-04",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "test_fallback_fixed_terminal_proof",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 7.564,
+      "source_sha256": {
+        "agent/native_main_payload.py": "cde4674a941cfc028848cc830b0bcb544b1a420ed64a00bbe8acb7556af9d505",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "004dbb4a0d5be25c89157aba2ccbcd941d1e8b34c7808173f39b9ba63b1e2e2b"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-05",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "test_fallback_fixed_terminal_proof",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 148.565,
+      "source_sha256": {
+        "agent/native_main_payload.py": "cde4674a941cfc028848cc830b0bcb544b1a420ed64a00bbe8acb7556af9d505",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "c36b658d5757b810031cc6ed9197ffd652f1fd2cd93984bbe085b066b65bb1fd"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-06",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "600",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "test_fallback_fixed_terminal_proof and ConnectionError",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 97.853,
+      "source_sha256": {
+        "agent/native_main_payload.py": "cde4674a941cfc028848cc830b0bcb544b1a420ed64a00bbe8acb7556af9d505",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "0a5be9328ac29957a0d92f7f52c3a83ea59ff2fa122fb7e87043ddf10caf25dd"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-07",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1800",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "external_activation or unbound_failure or current_fallback_facts_drift or wrong_thread or shared_failure_requires",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 27.441,
+      "source_sha256": {
+        "agent/native_main_payload.py": "36c2c386a98c1a3967bddd4052df6ae04bec2027c73606046d634e87ce521ef1",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "64a19befd958662f68adb705930d0bb71535976f7780930e53ef6a0f4f54cc34"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "feedback-08",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1800",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "ineligible_error or owned_activation",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 114.068,
+      "source_sha256": {
+        "agent/native_main_payload.py": "7ffef0468b72094bddcd9557acebeee6bdf8477d08ddb1d6b10b077c00806fc6",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "4ee48d5d85d95f456e0a5bc3e8551a0c56272b6edc2b123d4f44f470dd714ffe"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "final-native",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1800",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "not full_historical_prefix",
+        "--",
+        "--durations=10",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/docs/evidence/accountant-native-controlled-fallback-20261123/final-native.xml"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 432.552,
+      "source_sha256": {
+        "agent/native_main_payload.py": "6c8b81ca9b8a7f2efd609aa9414036dedfa943adf6fb70b8ede8a8c39beebc38",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "1036a48d59bd3c65f0c53071d9f5425ece2ea4043e0d00490db51a9906930317"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home",
+      "cases": [
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_fixed_terminal_proof[ConnectionError]",
+          "seconds": 40.214,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_fixed_terminal_proof[TimeoutError]",
+          "seconds": 40.007,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_bound_main_success_stays_main_and_reason_is_not_proof",
+          "seconds": 3.443,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_unbound_failure_keeps_terminal_dispatch",
+          "seconds": 1.385,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_external_activation_refuses_before_ordinary_effects[None]",
+          "seconds": 0.737,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_external_activation_refuses_before_ordinary_effects[token1]",
+          "seconds": 0.757,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_shared_failure_requires_native_observation_and_original_token[wrapper]",
+          "seconds": 2.843,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_shared_failure_requires_native_observation_and_original_token[copied_failure]",
+          "seconds": 2.933,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[interrupted]",
+          "seconds": 2.701,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[explicit]",
+          "seconds": 2.699,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[keyboard]",
+          "seconds": 2.758,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[exit]",
+          "seconds": 2.706,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[runtime]",
+          "seconds": 2.653,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[subclass]",
+          "seconds": 2.688,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_ineligible_error_is_terminal_and_controls_keep_identity[policy]",
+          "seconds": 2.693,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[binding]",
+          "seconds": 2.712,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[producer]",
+          "seconds": 2.735,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[destination]",
+          "seconds": 2.71,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[model]",
+          "seconds": 2.725,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[expiry]",
+          "seconds": 2.727,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[hostile]",
+          "seconds": 2.67,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[qualification]",
+          "seconds": 2.758,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_current_fallback_facts_drift_after_failed_send_refuses[profiles]",
+          "seconds": 2.673,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_failure_retains_available_proof[send]",
+          "seconds": 20.574,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_failure_retains_available_proof[model]",
+          "seconds": 21.133,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_failure_retains_available_proof[malformed]",
+          "seconds": 21.235,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_failure_retains_available_proof[empty]",
+          "seconds": 20.995,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_owned_activation_rejects_nested_changes_and_reentry[source]",
+          "seconds": 15.665,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_owned_activation_rejects_nested_changes_and_reentry[request]",
+          "seconds": 15.786,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_owned_activation_rejects_nested_changes_and_reentry[proof]",
+          "seconds": 16.262,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_owned_activation_rejects_nested_changes_and_reentry[reentry]",
+          "seconds": 16.222,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_owned_activation_rejects_nested_changes_and_reentry[repeat]",
+          "seconds": 15.772,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_owned_activation_rejects_nested_changes_and_reentry[reason]",
+          "seconds": 16.094,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_final_cancellation_retains_complete_result_proof",
+          "seconds": 39.706,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_prior_success_ancestry_profile_removal_and_terminal_reuse",
+          "seconds": 77.256,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_wrong_thread_refuses_before_transform",
+          "seconds": 0.846,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_unqualified_siblings_refuse_after_profile_removal",
+          "seconds": 0.806,
+          "status": "failed",
+          "properties": {}
+        }
+      ]
+    },
+    {
+      "name": "final-history",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1800",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "full_historical_prefix",
+        "--",
+        "--durations=10",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/docs/evidence/accountant-native-controlled-fallback-20261123/final-history.xml"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 887.887,
+      "source_sha256": {
+        "agent/native_main_payload.py": "6c8b81ca9b8a7f2efd609aa9414036dedfa943adf6fb70b8ede8a8c39beebc38",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "1036a48d59bd3c65f0c53071d9f5425ece2ea4043e0d00490db51a9906930317"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home",
+      "cases": [
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_full_historical_prefix_keeps_bounds_and_original_parents",
+          "seconds": 886.916,
+          "status": "passed",
+          "properties": {
+            "historical_bound": "{\"steps\": [\"main_A\", \"local_title_A\", \"compression_A\", \"main_B\", \"sent_title_B\", \"compression_B\", \"fallback\"], \"failures\": [], \"slots\": 89, \"retained_bytes\": 95771, \"main_sends\": 3, \"fallback_sends\": 1, \"auxiliary_sends\": 3, \"failed_main_records\": 1}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "final-representatives",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1800",
+        "-j",
+        "4",
+        "tests/run_agent/test_provider_fallback.py",
+        "tests/agent/test_native_controlled_conversation.py",
+        "-k",
+        "test_exhausted_returns_false or test_advances_index or real_constructor_first_and_repeated_entrypoints or retained_title_empty_snippet_completes_local_without_send or test_compression_complete_retained_first_summary",
+        "--",
+        "--durations=10",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 29.225,
+      "source_sha256": {
+        "agent/native_main_payload.py": "6c8b81ca9b8a7f2efd609aa9414036dedfa943adf6fb70b8ede8a8c39beebc38",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "1036a48d59bd3c65f0c53071d9f5425ece2ea4043e0d00490db51a9906930317"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+    },
+    {
+      "name": "corrected-focused",
+      "command": [
+        "scripts/run_tests.sh",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1800",
+        "-j",
+        "4",
+        "tests/agent/test_native_controlled_fallback.py",
+        "-k",
+        "older_title_source or (fixed_terminal_proof and ConnectionError) or (failure_retains_available_proof and send) or unqualified_siblings",
+        "--",
+        "--durations=10",
+        "--tb=short",
+        "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/docs/evidence/accountant-native-controlled-fallback-20261123/corrected-focused.xml"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 298.861,
+      "source_sha256": {
+        "agent/native_main_payload.py": "bcb2bff0a6f4fc33b426078783a39aa892707ec6205a275e0b4c29920b6fc47b",
+        "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+        "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+        "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+        "tests/agent/test_native_controlled_fallback.py": "24da7a5aeb41febd42fcb17c1137ce914fa59048bd655882b65f2a272d718b0e"
+      },
+      "source_unchanged": true,
+      "file_retries": 0,
+      "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home",
+      "cases": [
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_fixed_terminal_proof[ConnectionError]",
+          "seconds": 39.665,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_failure_retains_available_proof[send]",
+          "seconds": 20.953,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_unqualified_siblings_refuse_after_profile_removal",
+          "seconds": 6.131,
+          "status": "passed",
+          "properties": {}
+        },
+        {
+          "classname": "tests.agent.test_native_controlled_fallback",
+          "name": "test_fallback_older_title_source_keeps_actual_operation_order",
+          "seconds": 231.047,
+          "status": "passed",
+          "properties": {}
+        }
+      ]
+    }
+  ],
+  "interpretation": "Separate source scopes. Earlier passing cases do not form a fresh green run on the corrected runtime. No retries."
+}

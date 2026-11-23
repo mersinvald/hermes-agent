@@ -1,0 +1,9 @@
+{
+  "existing_signatures_unchanged": true,
+  "_native_result_bytes:byte_identical": true,
+  "_validate_constructor_options:byte_identical": true,
+  "_initialize_controlled_main:byte_identical": true,
+  "_bind_constructed_main:byte_identical": true,
+  "_verify_constructed:byte_identical": true,
+  "_close_constructed_main:byte_identical": true
+}

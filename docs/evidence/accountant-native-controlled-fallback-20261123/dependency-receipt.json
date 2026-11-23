@@ -1,0 +1,36 @@
+{
+  "distribution": "hermes-content-policy",
+  "version": "0.3.0",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.20/hermes_content_policy-0.3.0-py3-none-any.whl",
+  "wheel_sha256": "d2a98ca9dbf09c78726c1bc75d5097752bb281ab4e922b3ea83062cc8bfddb0c",
+  "engine_sha256": "d9c7608d00f9f83c87cf0fa6eb12f6a70453faebf17ef63838d2d297ad2ebace",
+  "api_sha256": "db73a486c43ba96c545a227a01b95ba146a2d8c68168782468f597c0e9b2fcf4",
+  "artifact_receipt_sha256": "2ea2a22e6883b99efc531be360a7e02b2b97ac93761d30069f90254a67c1d781",
+  "native_environment": [
+    "uv",
+    "sync",
+    "--locked",
+    "--offline",
+    "--no-install-project",
+    "--extra",
+    "dev"
+  ],
+  "delivery": [
+    "uv",
+    "pip",
+    "install",
+    "--offline",
+    "--no-index",
+    "--no-deps",
+    "--python",
+    ".venv/bin/python",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.20/hermes_content_policy-0.3.0-py3-none-any.whl"
+  ],
+  "uv_lock_sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5",
+  "pyproject_sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+  "smoke": "dependency-smoke.json",
+  "manifest_changes": false,
+  "PWA_install": false,
+  "wheel_build": false,
+  "index_lookup": false
+}

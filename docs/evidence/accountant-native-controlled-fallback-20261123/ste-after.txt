@@ -1,0 +1,5 @@
+native_main_payload.py           words=  68 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
+chat_completion_helpers.py       words=12744 total=343 per100w=  2.69 em_dash=156 mode=python-prose-v1
+conversation_loop.py             words=21893 total=614 per100w=  2.80 em_dash=280 mode=python-prose-v1
+run_agent.py                     words=9785 total=311 per100w=  3.18 em_dash=255 mode=python-prose-v1
+test_native_controlled_fallback.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1

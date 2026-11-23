@@ -1,0 +1,29 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "600",
+    "-j",
+    "4",
+    "tests/agent/test_native_controlled_fallback.py",
+    "-k",
+    "test_fallback_fixed_terminal_proof and ConnectionError",
+    "--",
+    "--durations=10",
+    "--tb=short"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 97.853,
+  "source_sha256": {
+    "agent/native_main_payload.py": "cde4674a941cfc028848cc830b0bcb544b1a420ed64a00bbe8acb7556af9d505",
+    "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+    "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+    "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+    "tests/agent/test_native_controlled_fallback.py": "0a5be9328ac29957a0d92f7f52c3a83ea59ff2fa122fb7e87043ddf10caf25dd"
+  },
+  "source_unchanged": true,
+  "file_retries": 0,
+  "isolated_home": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21/.task-home"
+}

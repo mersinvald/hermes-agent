@@ -1,0 +1,52 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~1 tests) under ['tests/agent/test_native_controlled_fallback.py']; running with -j 4
+[100.0% |     1/~1 | ✓0 | ✗0] ✗ tests/agent/test_native_controlled_fallback.py (1 tests, 148.3s)
+
+  ╔╍ Failed: tests/agent/test_native_controlled_fallback.py ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+  ║ ============================= test session starts ==============================
+  ║ platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+  ║ rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21
+  ║ configfile: pyproject.toml
+  ║ plugins: asyncio-1.3.0, anyio-4.12.1
+  ║ asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+  ║ collected 2 items
+  ║ 
+  ║ tests/agent/test_native_controlled_fallback.py .
+  ║
+  ║  Repro: python -m pytest tests/agent/test_native_controlled_fallback.py -k test_fallback_fixed_terminal_proof --durations=10 --tb=short
+  ╚╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+
+=== Summary: 1 files, 0 tests passed, 0 failed (100% complete) in 148.3s (4 workers) ===
+
+=== ✗ NO TESTS RAN — 0 collected across 1 file. This is NOT a pass. ===
+  Common causes: the selected venv has no pytest; a -k/-m filter matched nothing; or collection errored in every file.
+  Check the per-file output above for the real error.
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 148.3s  (runner wall: 148.3s, parallelism: 4x)
+  P50: 148.26s  P90: 148.26s  P95: 148.26s  P99: 148.26s  Max: 148.26s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+    148.26s  tests/agent/test_native_controlled_fallback.py
+
+=== Failure output ===
+
+--- tests/agent/test_native_controlled_fallback.py ---
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.21
+configfile: pyproject.toml
+plugins: asyncio-1.3.0, anyio-4.12.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 2 items
+
+tests/agent/test_native_controlled_fallback.py .
+
+=== 1 file where no tests ran (collection/import error, timeout before collection, etc.) ===
+  tests/agent/test_native_controlled_fallback.py

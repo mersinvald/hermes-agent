@@ -1,0 +1,19 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 2 test files (~97 tests) under ['tests/run_agent/test_provider_fallback.py', 'tests/agent/test_native_controlled_conversation.py']; running with -j 4
+[ 21.6% |    21/~97 | ✓2 | ✗0] ✓ tests/run_agent/test_provider_fallback.py (2✓, 1.8s)
+[100.0% |    97/~97 | ✓6 | ✗0] ✓ tests/agent/test_native_controlled_conversation.py (4✓, 28.9s)
+
+=== Summary: 2 files, 6 tests passed, 0 failed (100% complete) in 28.9s (4 workers) ===
+  Durations cached to test_durations.json (2 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   2
+  Total subprocess CPU-wall: 30.7s  (runner wall: 28.9s, parallelism: 4x)
+  P50: 28.92s  P90: 28.92s  P95: 28.92s  P99: 28.92s  Max: 28.92s
+  <1s: 0 files (0%)  <2s: 1 files (50%)
+  Top 10 slowest:
+     28.92s  tests/agent/test_native_controlled_conversation.py
+      1.81s  tests/run_agent/test_provider_fallback.py

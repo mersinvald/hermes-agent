@@ -1,0 +1,11 @@
+{
+  "source_sha256": {
+    "agent/native_main_payload.py": "bcb2bff0a6f4fc33b426078783a39aa892707ec6205a275e0b4c29920b6fc47b",
+    "agent/chat_completion_helpers.py": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+    "agent/conversation_loop.py": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351",
+    "run_agent.py": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932",
+    "tests/agent/test_native_controlled_fallback.py": "24da7a5aeb41febd42fcb17c1137ce914fa59048bd655882b65f2a272d718b0e"
+  },
+  "api_sha256": "07cc88df9776e220c38f8289d983eea72bea2acdf48cbbe04ecbcf477b3a46d7",
+  "consumer_sha256": "f14fd1113de097354becf239f12be7556b14b45ba6e1222b463964ad9bb0d6b5"
+}

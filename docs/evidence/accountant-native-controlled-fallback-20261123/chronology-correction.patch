@@ -1,0 +1,39 @@
+--- before/agent/native_main_payload.py
++++ after/agent/native_main_payload.py
+@@ -1655,19 +1655,29 @@
+         parents = (frame.admitted, frame.input_content, frame.output_content,
+                    *frame.request_contents, operation.content, facts.failure_content)
+         capabilities = tuple(self._handle for _ in parents)
+-        for completion in self._completions:
++        auxiliary_outputs = []
++        latest_main = -1
++        for auxiliary, _ in self._aux_frames:
++            record = (auxiliary.local_result if type(auxiliary) is _AuxiliaryFrame
++                      and auxiliary.local_result is not None else auxiliary.record)
++            _require(record is not None and record.output_content is not None)
++            present = tuple(index for index, completed in enumerate(self._completions)
++                            if any(parent is completed.content for parent in auxiliary.parents))
++            _require(present and present == tuple(range(present[-1] + 1)))
++            _require(present[-1] >= latest_main)
++            latest_main = present[-1]
++            auxiliary_outputs.append((latest_main, record.output_content, record.request_handle))
++        for index, completion in enumerate(self._completions):
+             earlier = completion.frame
+             prior = (earlier.admitted, earlier.input_content, earlier.output_content,
+                      *earlier.request_contents, completion.invocation.request_content,
+                      completion.invocation.result_content, completion.content)
+             parents += prior
+             capabilities += tuple(self._handle for _ in prior)
+-            for auxiliary, _ in self._aux_frames:
+-                if auxiliary.completion is completion:
+-                    record = auxiliary.local_result if type(auxiliary) is _AuxiliaryFrame and auxiliary.local_result is not None else auxiliary.record
+-                    if record is not None and record.output_content is not None:
+-                        parents += (record.output_content,)
+-                        capabilities += (record.request_handle,)
++            for preceding_main, content, capability in auxiliary_outputs:
++                if preceding_main == index:
++                    parents += (content,)
++                    capabilities += (capability,)
+         failed = NativeFailedMainAttempt(frame, self._handle, operation.source, operation.selected,
+             operation.producer, frame.raw_bytes, parents, capabilities, self._kwargs,
+             operation.payload, operation.content, observation, failure, facts, facts.failure_content)
