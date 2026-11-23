@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from agent.turn_context import TurnContext
     from hermes_content_policy import (
         ContentHandle, Destination, DispatchEnvelope, ExecutionBinding,
-        ProfilePolicy, RouteBinding, TransportPort,
+        FailedDispatch, ProfilePolicy, RouteBinding, TransportPort,
     )
 
 from agent.content_policy import (
@@ -63,6 +63,101 @@ class NativePreparedTurn:
 
     def __new__(cls):
         raise TypeError("Native turn tokens require adapter preparation")
+
+
+class NativeFallbackInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Fallback tokens require an observed main failure")
+
+
+@dataclass(frozen=True, slots=True)
+class _FallbackBinding:
+    handle: object
+    port: object
+    producer_ref: str
+    route: object
+    holder: tuple
+    selected: tuple
+    producer: tuple
+    original_profiles: tuple
+
+
+@dataclass(frozen=True, slots=True)
+class _FailedSendObservation:
+    operation: object
+    envelope: object
+    observed_destination: object
+    exception_type: type
+    send_count_before: int
+    send_count_after: int
+
+
+@dataclass(frozen=True, slots=True)
+class NativeFailedMainAttempt:
+    turn_frame: object
+    request_handle: object
+    source: object
+    selection: object
+    producer_policy: object
+    source_bytes: bytes
+    parents: tuple
+    parent_requests: tuple
+    request: dict
+    request_bytes: bytes
+    request_content: object
+    send_observation: _FailedSendObservation
+    shared_failure: object
+    failure_facts: object
+    failure_content: object
+
+
+@dataclass(frozen=True, slots=True)
+class _FallbackFrame:
+    token: NativeFallbackInput
+    failed_main: NativeFailedMainAttempt
+    binding: _FallbackBinding
+    parents: tuple
+    parent_requests: tuple
+    source_content: object
+    input_stages: tuple = ()
+    stage_contents: tuple = ()
+    request: dict | None = None
+    request_bytes: bytes | None = None
+    request_anchors: tuple = ()
+    activated: bool = False
+    invocation: object = None
+    result: dict | None = None
+    result_bytes: bytes | None = None
+    result_content: object = None
+    result_anchors: tuple = ()
+
+
+@dataclass(frozen=True, slots=True)
+class NativeFallbackInvocation:
+    failed_main: NativeFailedMainAttempt
+    request_handle: object
+    source: object
+    selection: object
+    producer_policy: object
+    parents: tuple
+    parent_requests: tuple
+    input_stages: tuple
+    stage_contents: tuple
+    request: dict
+    request_bytes: bytes
+    request_content: object
+    envelope: object = None
+    observed_destination: object = None
+    response_bytes: bytes | None = None
+    result_content: object = None
+    native_response: object = None
+    output_stages: tuple = ()
+    output_contents: tuple = ()
+    output: dict | None = None
+    output_bytes: bytes | None = None
+    output_content: object = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -667,6 +762,67 @@ def _same_method(current, captured):
     return len(actual) == len(captured) and all(a is b for a, b in zip(actual, captured))
 
 
+def _route_facts(route):
+    row = _row(route, shared_policy().RouteBinding)
+    for index in (0, 1, 3, 7):
+        _identifier(row[index])
+    for index in (2, 6):
+        _integer(row[index])
+    _require(type(row[4]) is str and row[4] in shared_policy().PATHS)
+    _destination(row[5])
+    _require(type(row[8]) is str and row[8] == "synthetic_only")
+    return row
+
+
+def _destination_value(destination):
+    return dict(zip(("transport_ref", "provider_ref", "model_ref", "endpoint_ref", "revision"),
+                    _destination(destination)))
+
+
+def _selection_value(selection):
+    row = _selection(selection)
+    return dict(selection_id=row[0], selection_version=row[1], api_mode=row[2],
+                destination=_destination_value(selection.destination))
+
+
+def _fallback_failed_bytes(failed):
+    frame, facts = failed.turn_frame, failed.failure_facts
+    payload = _json(dict(source=json.loads(failed.source_bytes),
+        preparation=json.loads(frame.output_bytes), source_binding=_binding(failed.source),
+        selection=_selection_value(failed.selection), producer_policy=_producer(failed.producer_policy),
+        request=failed.request, normalized_request=json.loads(failed.request_bytes),
+        prepared_request=json.loads(frame.request_bytes), failure=dict(failure_kind=facts.failure_kind,
+            phase=facts.phase, send_count=facts.send_count, response_bytes=facts.response_bytes)))
+    _require(len(payload) <= 262_144)
+    return payload
+
+
+def _fallback_result_bytes(result):
+    keys = ("completed", "failed", "interrupted", "partial", "final_response", "messages", "fallback",
+            "selected_provider", "selected_model", "provider", "model", "base_url", "api_calls",
+            "main_attempt_usage", "verified_response_usage", "total_usage_known", "estimated_cost_usd", "cost_status")
+    _keys(result, keys)
+    for name, expected in (("completed", True), ("failed", False), ("interrupted", False),
+                           ("partial", False), ("fallback", True), ("total_usage_known", False)):
+        _require(result[name] is expected)
+    _text(result["final_response"])
+    for name in ("selected_provider", "selected_model", "provider", "model"):
+        _identifier(result[name])
+    for name, expected in (("base_url", ""), ("cost_status", "unknown")):
+        _require(type(result[name]) is str and result[name] == expected)
+    _require(result["main_attempt_usage"] is None and result["estimated_cost_usd"] is None)
+    _require(type(result["api_calls"]) is int and result["api_calls"] == 2)
+    _request(dict(model=result["model"], messages=result["messages"]))
+    usage = result["verified_response_usage"]
+    _keys(usage, ("prompt_tokens", "completion_tokens", "total_tokens"))
+    for value in usage.values():
+        _integer(value, 1_000_000, 0)
+    _require(usage["prompt_tokens"] + usage["completion_tokens"] == usage["total_tokens"])
+    payload = _json(result)
+    _require(len(payload) <= 262_144)
+    return payload
+
+
 class _Admission:
     def __init__(self, adapter):
         self.adapter = adapter
@@ -675,7 +831,8 @@ class _Admission:
         adapter = self.adapter
         _require(handle is adapter._handle or (adapter._aux_binding is not None
                  and handle is adapter._aux_binding.handle) or (adapter._compression_binding is not None
-                 and handle is adapter._compression_binding.auxiliary.handle))
+                 and handle is adapter._compression_binding.auxiliary.handle) or (adapter._fallback_binding is not None
+                 and handle is adapter._fallback_binding.handle))
         return adapter._around(lambda: adapter._admission.current(handle))
 
 
@@ -710,13 +867,25 @@ class _Transport:
         _require(actual == envelope.destination)
         adapter._interrupt_operation()
         adapter._pending = (envelope, actual, None)
-        if operation.auxiliary:
+        before = adapter._send_count
+        if operation.path == "fallback":
+            _integer(adapter._fallback_send_count, _MAX_INT - 1, 0)
+            adapter._fallback_send_count += 1
+        elif operation.auxiliary:
             _integer(adapter._aux_send_count, _MAX_INT - 1, 0)
             adapter._aux_send_count += 1
         else:
             _integer(adapter._send_count, _MAX_INT - 1, 0)
             adapter._send_count += 1
-        output = self.port.send(envelope)
+        try:
+            output = self.port.send(envelope)
+        except (ConnectionError, TimeoutError) as error:
+            if (type(error) in (ConnectionError, TimeoutError) and operation.path == "main"
+                    and adapter._fallback_binding is not None):
+                adapter._failed_send_observation = _FailedSendObservation(
+                    operation, envelope, actual, type(error), before, adapter._send_count,
+                )
+            raise
         adapter._pending = (envelope, actual, output)
         adapter._checkpoint()
         _require(type(output) is bytes and len(output) <= 65_536)
@@ -748,6 +917,17 @@ class NativeMainPayloadAdapter:
         self._aux_binding = None
         self._compression_binding = None
         self._compression_owner = None
+        self._fallback_binding = None
+        self._fallback_frame = None
+        self._fallback_frame_anchor = None
+        self._fallback_records = self._fallback_anchors = ()
+        self._failed_main_attempts = self._failed_main_anchors = ()
+        self._fallback_send_count = 0
+        self._failed_send_observation = None
+        self._fallback_phase = None
+        self._fallback_expected = None
+        self._fallback_expected_anchor = None
+        self._fallback_terminal = False
         self._aux_pending = None
         self._aux_frames = ()
         self._aux_records = ()
@@ -842,6 +1022,18 @@ class NativeMainPayloadAdapter:
     def send_count(self) -> int:
         return self._send_count
 
+    @property
+    def failed_main_attempts(self) -> tuple[NativeFailedMainAttempt, ...]:
+        return self._failed_main_attempts
+
+    @property
+    def fallback_invocations(self) -> tuple[NativeFallbackInvocation, ...]:
+        return self._fallback_records
+
+    @property
+    def fallback_send_count(self) -> int:
+        return self._fallback_send_count
+
     def _deny(self):
         self._invalidate()
         raise NativeContentPolicyDenied("controlled_native_payload_denied") from None
@@ -916,6 +1108,9 @@ class NativeMainPayloadAdapter:
             _require(current_context(self._turn_agent) is context)
         for port, name, method in self._methods:
             _require(_same_method(getattr(port, name), method))
+        if self._fallback_binding is not None or hasattr(self, "_bound_fallback_binding"):
+            _require(self._fallback_binding is self._bound_fallback_binding)
+            _require(_same_anchors(_nested_anchors(self._fallback_binding), self._fallback_binding_anchor))
 
     def _snapshot(self):
         self._identity()
@@ -923,6 +1118,9 @@ class NativeMainPayloadAdapter:
         self._verify_turns()
         self._verify_completions()
         self._verify_auxiliary()
+        self._verify_fallback()
+        if self._fallback_binding is not None:
+            _require(_same_anchors(_nested_anchors(self._operator_configuration), self._fallback_catalog_anchor))
         source = self._admission.current(self._handle)
         self._identity()
         source_row = _binding(source)
@@ -958,6 +1156,8 @@ class NativeMainPayloadAdapter:
             self._aux_snapshot(source_row)
         if self._compression_binding is not None:
             self._compression_snapshot(source_row)
+        if self._fallback_binding is not None:
+            self._fallback_snapshot(source_row)
         if self._turn_agent is not None:
             model = self._turn_agent.model
             _require(type(model) is str and model == selected.destination.model_ref)
@@ -1089,6 +1289,8 @@ class NativeMainPayloadAdapter:
         conversation_history: list[dict[str, str]] | None,
         task_id: str,
     ) -> NativeTurnInput:
+        if self._fallback_frame is not None or self._fallback_terminal:
+            self._deny()
         self._preparation_enabled = True
         if self._turn_agent is None:
             self._turn_agent = agent
@@ -1096,6 +1298,7 @@ class NativeMainPayloadAdapter:
         if not self._busy and self._turn_pending is None and self._turn_state is None:
             self._turn_arguments = arguments
         with self._turn_operation(agent):
+            self._model_open()
             _require(self._turn_pending is None and self._aux_pending is None and len(self._records) < 8)
             _require(len(self._turn_frames) < 8)
             state, options = _native_state(agent, system_message)
@@ -1133,6 +1336,7 @@ class NativeMainPayloadAdapter:
         from agent.turn_context import TurnContext
 
         with self._turn_operation(agent):
+            self._model_open()
             frame = self._turn_pending
             _require(frame is not None and type(token) is NativeTurnInput and token is frame.token)
             _require(frame.output is None)
@@ -1165,6 +1369,7 @@ class NativeMainPayloadAdapter:
         self, agent: object, turn: NativeTurnInput, *, turn_context: TurnContext,
     ) -> NativePreparedTurn:
         with self._turn_operation(agent):
+            self._model_open()
             frame = self._turn_pending
             _require(frame is not None and type(turn) is NativeTurnInput and turn is frame.token)
             _require(frame.output is turn_context and frame.output is not None and frame.prepared is None)
@@ -1203,6 +1408,7 @@ class NativeMainPayloadAdapter:
 
     def prepared_request(self, agent: object, prepared: NativePreparedTurn) -> dict:
         with self._turn_operation(agent):
+            self._model_open()
             frame = self._turn_pending
             _require(frame is not None and type(prepared) is NativePreparedTurn and prepared is frame.prepared)
             request = self._turn_request(frame)
@@ -1257,6 +1463,360 @@ class NativeMainPayloadAdapter:
         _require(self._context is self._bound_context)
         _require(current_context(self._turn_agent) is self._bound_context)
         _require(_namespace(self._turn_agent).get("_native_controlled_binding") is self._constructed)
+
+    def _model_open(self):
+        _require(self._fallback_frame is None and self._fallback_terminal is False)
+
+    def _verify_fallback(self):
+        _integer(self._fallback_send_count, 1, 0)
+        _require(type(self._fallback_terminal) is bool)
+        _require(self._fallback_phase is None or (type(self._fallback_phase) is str
+                 and self._fallback_phase in ("observe", "authenticate", "activate", "activating",
+                                              "activated", "send", "complete", "released")))
+        if self._fallback_expected is not None:
+            _require(_same_anchors(_nested_anchors(self._fallback_expected), self._fallback_expected_anchor))
+        for records, anchors, cls in (
+            (self._failed_main_attempts, self._failed_main_anchors, NativeFailedMainAttempt),
+            (self._fallback_records, self._fallback_anchors, NativeFallbackInvocation),
+        ):
+            _require(type(records) is tuple and type(anchors) is tuple)
+            _require(len(records) == len(anchors) and len(records) <= 1)
+            for record, anchor in zip(records, anchors):
+                _require(type(record) is cls and record is anchor[0])
+                _require(_same_anchors(_nested_anchors(record), anchor[1]))
+        frame = self._fallback_frame
+        if frame is not None:
+            _require(type(frame) is _FallbackFrame)
+            _require(frame is self._fallback_frame_anchor[0])
+            _require(_same_anchors(_nested_anchors(frame), self._fallback_frame_anchor[1]))
+            _require(frame.failed_main is self._failed_main_attempts[0])
+            _require(frame.binding is self._fallback_binding)
+            _require(type(frame.token) is NativeFallbackInput and type(frame.activated) is bool)
+            if frame.request is not None:
+                _request(frame.request)
+                _require(_json(frame.request) == frame.request_bytes)
+                _require(_same_anchors(_nested_anchors(frame.request), frame.request_anchors))
+            if frame.invocation is not None:
+                record = frame.invocation
+                _require(record is self._fallback_records[0])
+                if record.native_response is not None:
+                    _require(_response_bytes(record.native_response, frame.binding.selected[3][2])
+                             == record.response_bytes)
+            if frame.result is not None:
+                _require(_fallback_result_bytes(frame.result) == frame.result_bytes)
+                _require(_same_anchors(_nested_anchors(frame.result), frame.result_anchors))
+
+    def _retain_fallback_frame(self, frame):
+        _require(type(frame) is _FallbackFrame)
+        self._fallback_frame = frame
+        self._fallback_frame_anchor = frame, _nested_anchors(frame)
+
+    def _retain_fallback_invocation(self, record):
+        _require(type(record) is NativeFallbackInvocation)
+        self._fallback_records = (record,)
+        self._fallback_anchors = ((record, _nested_anchors(record)),)
+        self._retain_fallback_frame(replace(self._fallback_frame, invocation=record))
+
+    def _fallback_snapshot(self, main):
+        binding = self._fallback_binding
+        target = self._admission.current(binding.handle)
+        self._identity()
+        target_row = _binding(target)
+        selected = binding.port.current(binding.handle)
+        self._identity()
+        selected_row = _selection(selected)
+        producer = self._result_port.current(binding.producer_ref)
+        self._identity()
+        producer_row = _producer(producer)
+        _require(target_row[:6] == main[:6] and target_row[:8] == binding.holder[:8])
+        _require(selected_row == binding.selected and selected_row[:2] == target_row[6:8])
+        _require(producer_row == binding.producer and producer_row[2] == self._initial_producer[2])
+        _require(set(producer_row[2]) <= set(binding.original_profiles))
+        _require(set(producer_row[2]) <= set(self._original_profiles))
+        for other in (self._aux_binding, self._compression_binding.auxiliary
+                      if self._compression_binding is not None else None):
+            if other is not None:
+                _require(binding.handle is not other.handle and binding.port is not other.port)
+                _require(binding.producer_ref != other.producer_ref and binding.selected[0] != other.selected[0])
+        now = self._clock()
+        _integer(now, _MAX_INT, 0)
+        self._identity()
+        for route in self._operator_routes:
+            _route_facts(route)
+            _require(now < route.expires_at)
+            port = self._operator_transports[route.destination.transport_ref]
+            method = next(method for original, method in self._operator_resolvers if port is original)
+            self._callback_scope()
+            _require(_same_method(port.resolve, method))
+            actual = port.resolve()
+            self._callback_scope()
+            _require(_same_method(port.resolve, method))
+            _destination(actual)
+            _require(actual == route.destination)
+        declared = tuple(route.path for route in self._operator_routes
+            if route.selection_id == selected.selection_id
+            and route.selection_version == selected.selection_version and route.consumer_ref == target.consumer_ref)
+        _require(len(declared) == len(shared_policy().PATHS) and set(declared) == set(shared_policy().PATHS))
+        facts = target_row, selected_row, producer_row
+        if self._fallback_expected is not None:
+            _require(facts == self._fallback_expected)
+        self._fallback_current = target, selected, producer
+
+    def bind_fallback(
+        self, agent: object, *, request_handle: object,
+        selection: NativeSelectionPort, producer_ref: str, route_ref: str,
+    ) -> None:
+        with self._turn_operation(agent):
+            self._model_open()
+            _require(self._constructed is not None and self._fallback_binding is None)
+            _require(self._turn_pending is None and self._aux_pending is None)
+            _identifier(producer_ref)
+            _identifier(route_ref)
+            _require(request_handle is not self._handle and selection is not self._selection_port)
+            _require(producer_ref != self._producer_ref)
+            from agent import chat_completion_helpers as chat
+            from run_agent import AIAgent
+            methods = (
+                (selection, "current"), (AIAgent, "_try_activate_fallback"),
+                (chat, "try_activate_fallback"),
+                *((self._runtime, name) for name in
+                  ("dispatch_attempt", "failure_facts", "derive_for_selection", "dispatch")),
+                *((self, name) for name in (
+                    "bind_fallback", "_begin_fallback", "_activate_fallback", "_dispatch_fallback",
+                    "_complete_fallback_turn", "_verify_fallback", "_fallback_snapshot",
+                    "_fallback_derive", "_retain_fallback_frame", "_retain_fallback_invocation",
+                    "_model_open", "dispatch", "_dispatch_retained_operation", "_identity", "_snapshot",
+                    "_checkpoint", "_around", "_interrupt_turn", "_interrupt_operation", "_turn_operation")),
+                *((wrapper, name) for wrapper in self._transport_wrappers.values() for name in ("resolve", "send")),
+                *((sys.modules[__name__], name) for name in (
+                    "_fallback_result_bytes", "_fallback_failed_bytes", "_route_facts",
+                    "_nested_anchors", "_same_anchors", "_response_bytes", "_decode_response",
+                    "_controlled_fallback_activation", "_destination_value", "_selection_value")),
+            )
+            self._methods += tuple((port, name, _method(getattr(port, name))) for port, name in methods)
+            target = self._around(lambda: self._admission.current(request_handle))
+            holder = _binding(target)
+            selected = self._around(lambda: selection.current(request_handle))
+            selected_row = _selection(selected)
+            producer = self._around(lambda: self._result_port.current(producer_ref))
+            producer_row = _producer(producer)
+            _require(holder[:6] == self._holder[:6] and holder[6] != self._holder[6])
+            _require(selected_row[:2] == holder[6:8] and selected_row[3][1] == "synthetic_native")
+            _require(producer_row[0] == producer_ref and producer_row[2] == self._initial_producer[2])
+            _require(set(producer_row[2]) <= set(holder[8]))
+            for other in (self._aux_binding, self._compression_binding.auxiliary
+                          if self._compression_binding is not None else None):
+                if other is not None:
+                    _require(request_handle is not other.handle and selection is not other.port)
+                    _require(producer_ref != other.producer_ref and holder[6] != other.selected[0])
+            routes = tuple(route for route in self._operator_routes if route.route_ref == route_ref)
+            _require(len(routes) == 1)
+            route = routes[0]
+            _route_facts(route)
+            _require(route.path == "fallback" and route.selection_id == selected.selection_id)
+            _require(route.selection_version == selected.selection_version)
+            _require(route.consumer_ref == target.consumer_ref and route.destination == selected.destination)
+            self._fallback_binding = _FallbackBinding(request_handle, selection, producer_ref,
+                route, holder, selected_row, producer_row, holder[8])
+            self._bound_fallback_binding = self._fallback_binding
+            self._fallback_binding_anchor = _nested_anchors(self._fallback_binding)
+            self._fallback_catalog_anchor = _nested_anchors(self._operator_configuration)
+            self._interrupt_turn()
+
+    def _begin_fallback(self, agent: object, *, failure: FailedDispatch) -> NativeFallbackInput:
+        _require(type(self._fallback_phase) is str)
+        _require(self._busy and self._turn_agent is agent and self._fallback_phase == "observe")
+        _require(self._fallback_binding is not None and self._fallback_frame is None)
+        self._fallback_phase = "authenticate"
+        self._interrupt_turn()
+        operation, observation, frame = self._operation, self._failed_send_observation, self._turn_pending
+        _require(type(operation) is _PendingOperation and operation is self._checked_operation)
+        _require(operation.path == "main" and operation.handle is self._handle)
+        _require(type(observation) is _FailedSendObservation and observation.operation is operation)
+        _require(frame is not None and frame.prepared is not None and self._pending is not None)
+        envelope, actual, output = self._pending
+        _require(envelope is observation.envelope and actual is observation.observed_destination and output is None)
+        _require(observation.exception_type is ConnectionError or observation.exception_type is TimeoutError)
+        _integer(observation.send_count_before, _MAX_INT - 1, 0)
+        _integer(observation.send_count_after, _MAX_INT, 1)
+        _require(observation.send_count_before + 1 == observation.send_count_after == self._send_count)
+        _require(type(failure) is shared_policy().FailedDispatch)
+        facts = self._runtime.failure_facts(self._handle, failure)
+        _row(facts, shared_policy().DispatchFailureFacts)
+        _require(facts.request_content is operation.content and facts.envelope is envelope)
+        _require(facts.source is envelope.source and facts.profiles is envelope.profiles)
+        _destination(facts.observed_destination)
+        _require(facts.observed_destination == actual == operation.selected.destination)
+        _require(type(facts.route_ref) is str and facts.route_ref == operation.route_ref)
+        _require(type(facts.failure_kind) is str and facts.failure_kind ==
+                 ("connection_error" if observation.exception_type is ConnectionError else "timeout_error"))
+        _require(type(facts.phase) is str and facts.phase == "send")
+        _require(type(facts.send_count) is int and facts.send_count == 1 and facts.response_bytes is None)
+        parents = (frame.admitted, frame.input_content, frame.output_content,
+                   *frame.request_contents, operation.content, facts.failure_content)
+        capabilities = tuple(self._handle for _ in parents)
+        auxiliary_outputs = []
+        latest_main = -1
+        for auxiliary, _ in self._aux_frames:
+            record = (auxiliary.local_result if type(auxiliary) is _AuxiliaryFrame
+                      and auxiliary.local_result is not None else auxiliary.record)
+            _require(record is not None and record.output_content is not None)
+            present = tuple(index for index, completed in enumerate(self._completions)
+                            if any(parent is completed.content for parent in auxiliary.parents))
+            _require(present and present == tuple(range(present[-1] + 1)))
+            _require(present[-1] >= latest_main)
+            latest_main = present[-1]
+            auxiliary_outputs.append((latest_main, record.output_content, record.request_handle))
+        for index, completion in enumerate(self._completions):
+            earlier = completion.frame
+            prior = (earlier.admitted, earlier.input_content, earlier.output_content,
+                     *earlier.request_contents, completion.invocation.request_content,
+                     completion.invocation.result_content, completion.content)
+            parents += prior
+            capabilities += tuple(self._handle for _ in prior)
+            for preceding_main, content, capability in auxiliary_outputs:
+                if preceding_main == index:
+                    parents += (content,)
+                    capabilities += (capability,)
+        failed = NativeFailedMainAttempt(frame, self._handle, operation.source, operation.selected,
+            operation.producer, frame.raw_bytes, parents, capabilities, self._kwargs,
+            operation.payload, operation.content, observation, failure, facts, facts.failure_content)
+        self._failed_main_attempts = (failed,)
+        self._failed_main_anchors = ((failed, _nested_anchors(failed)),)
+        token = object.__new__(NativeFallbackInput)
+        self._retain_fallback_frame(_FallbackFrame(token, failed, self._fallback_binding, parents, capabilities, None))
+        self._interrupt_turn()
+        payload = _fallback_failed_bytes(failed)
+        content = self._runtime.derive_for_selection(self._fallback_binding.handle, parents, payload,
+            path="fallback", parent_requests=capabilities)
+        self._retain_fallback_frame(replace(self._fallback_frame, source_content=content))
+        request = dict(self._kwargs, model=self._fallback_binding.selected[3][2])
+        _request(request)
+        stages = (payload, _json(dict(selection=_selection_value(self._fallback_current[1]), request=request)),
+                  _json(dict(api_mode="chat_completions", destination=_destination_value(self._fallback_current[1].destination), request=request)))
+        _stage_tuple(stages)
+        contents = ()
+        for stage in stages:
+            contents += (self._fallback_derive(stage, (content, *contents)),)
+            self._retain_fallback_frame(replace(self._fallback_frame,
+                input_stages=stages[:len(contents)], stage_contents=contents))
+            self._interrupt_turn()
+        self._retain_fallback_frame(replace(self._fallback_frame, input_stages=stages, stage_contents=contents,
+            request=request, request_bytes=_json(request), request_anchors=_nested_anchors(request)))
+        self._operation = self._checked_operation = self._pending = None
+        self._fallback_phase = "activate"
+        _require(agent._try_activate_fallback(controlled_failure=token) is True)
+        _require(self._fallback_phase == "activated" and self._fallback_frame.activated is True)
+        return token
+
+    def _fallback_derive(self, payload, additional):
+        _require(type(payload) is bytes and len(payload) <= 262_144)
+        frame = self._fallback_frame
+        self._interrupt_turn()
+        content = self._runtime.derive_for_selection(frame.binding.handle,
+            (*frame.parents, *additional), payload, path="fallback",
+            parent_requests=(*frame.parent_requests, *(frame.binding.handle for _ in additional)))
+        return content
+
+    def _activate_fallback(self, agent: object, token: NativeFallbackInput) -> bool:
+        try:
+            frame = self._fallback_frame
+            _require(type(self._fallback_phase) is str and type(frame) is _FallbackFrame)
+            _require(self._busy and self._turn_agent is agent and self._fallback_phase == "activate")
+            _require(type(token) is NativeFallbackInput and frame is not None and token is frame.token)
+            _require(frame.activated is False and frame.invocation is None and self._operation is None)
+            self._fallback_phase = "activating"
+            self._interrupt_turn()
+            self._retain_fallback_frame(replace(frame, activated=True))
+            self._interrupt_turn()
+            self._fallback_phase = "activated"
+            return True
+        except BaseException:
+            self._invalidate()
+            raise
+
+    def _dispatch_fallback(self, agent: object, token: NativeFallbackInput) -> NativeMainResponse:
+        frame = self._fallback_frame
+        _require(type(self._fallback_phase) is str and type(frame) is _FallbackFrame)
+        _require(self._busy and self._turn_agent is agent and self._fallback_phase == "activated")
+        _require(type(token) is NativeFallbackInput and token is frame.token and frame.activated is True)
+        _require(frame.invocation is None and self._operation is None and self._pending is None)
+        self._fallback_phase = "send"
+        self._interrupt_turn()
+        source, selected, producer = self._fallback_current
+        normalized = frame.input_stages[-1]
+        _require(normalized == _json(dict(api_mode="chat_completions",
+            destination=_destination_value(selected.destination), request=frame.request)))
+        content = self._fallback_derive(normalized, (frame.source_content, *frame.stage_contents))
+        operation = _PendingOperation(frame.binding.handle, source, selected, producer,
+            "fallback", frame.binding.route.route_ref, normalized, content, False)
+        record = NativeFallbackInvocation(frame.failed_main, frame.binding.handle, source, selected, producer,
+            frame.parents, frame.parent_requests, frame.input_stages, frame.stage_contents,
+            frame.request, frame.request_bytes, content)
+        self._retain_fallback_invocation(record)
+        self._operation = self._checked_operation = operation
+        self._dispatch_result = self._dispatch_response = None
+        try:
+            result, envelope, actual, output, response = self._dispatch_retained_operation(operation)
+        finally:
+            pending = self._pending
+            if pending is not None:
+                envelope, actual, output = pending
+                record = replace(record, envelope=envelope, observed_destination=actual,
+                    response_bytes=output if type(output) is bytes and len(output) <= 65_536 else None,
+                    result_content=self._dispatch_result, native_response=self._dispatch_response)
+                self._retain_fallback_invocation(record)
+            self._operation = self._checked_operation = self._pending = None
+        _require(result is record.result_content and response is record.native_response)
+        self._interrupt_turn()
+        self._fallback_phase = "complete"
+        return response
+
+    def _complete_fallback_turn(self, agent: object, *, turn_context: TurnContext,
+                                response: NativeMainResponse) -> dict:
+        with self._turn_operation(agent):
+            frame = self._fallback_frame
+            _require(frame is not None and self._fallback_phase == "complete" and not self._fallback_terminal)
+            _require(frame.failed_main.turn_frame is self._turn_pending)
+            _require(turn_context is frame.failed_main.turn_frame.output)
+            record = frame.invocation
+            _require(response is record.native_response and record.result_content is not None)
+            _require(_response_bytes(response, frame.binding.selected[3][2]) == record.response_bytes)
+            _require(bool(response.choices[0].message.content))
+            result = dict(completed=True, failed=False, interrupted=False, partial=False,
+                final_response=response.choices[0].message.content,
+                messages=[*(dict(row) for row in frame.request["messages"]),
+                          dict(role="assistant", content=response.choices[0].message.content)],
+                fallback=True, selected_provider=frame.failed_main.selection.destination.provider_ref,
+                selected_model=frame.failed_main.selection.destination.model_ref,
+                provider=record.observed_destination.provider_ref, model=response.model, base_url="",
+                api_calls=2, main_attempt_usage=None, verified_response_usage=dict(
+                    prompt_tokens=response.usage.prompt_tokens, completion_tokens=response.usage.completion_tokens,
+                    total_tokens=response.usage.total_tokens), total_usage_known=False,
+                estimated_cost_usd=None, cost_status="unknown")
+            payload = _fallback_result_bytes(result)
+            stages = (_json(dict(raw_response=json.loads(record.response_bytes), native_response=_response_value(response))), payload)
+            _stage_tuple(stages)
+            contents = ()
+            base = (frame.source_content, *frame.stage_contents, record.request_content, record.result_content)
+            for stage in stages:
+                contents += (self._fallback_derive(stage, (*base, *contents)),)
+                record = replace(record, output_stages=stages[:len(contents)], output_contents=contents)
+                self._retain_fallback_invocation(record)
+                self._interrupt_turn()
+            content = self._fallback_derive(payload, (*base, *contents))
+            record = replace(record, output=result, output_bytes=payload, output_content=content)
+            self._retain_fallback_invocation(record)
+            self._retain_fallback_frame(replace(self._fallback_frame, result=result, result_bytes=payload,
+                result_content=content, result_anchors=_nested_anchors(result)))
+            self._interrupt_turn()
+            self._fallback_terminal = True
+            self._fallback_phase = "released"
+            self._turn_pending = None
+            self._turn_arguments = self._turn_raw = self._turn_state = self._turn_options = self._turn_facts = None
+            self._interrupt_turn()
+            _require(result is self._fallback_frame.result)
+            return result
 
     def _aux_snapshot(self, main):
         binding = self._aux_binding
@@ -1396,6 +1956,7 @@ class NativeMainPayloadAdapter:
         producer_ref: str, route_ref: str, language: str,
     ) -> None:
         with self._turn_operation(agent):
+            self._model_open()
             _require(self._constructed is not None and self._aux_binding is None)
             _require(self._turn_pending is None and self._aux_pending is None)
             _require(type(path) is str and path == "title")
@@ -1466,6 +2027,7 @@ class NativeMainPayloadAdapter:
 
     def auxiliary_input(self, agent: object, *, source: dict, field: str) -> NativeAuxiliaryInput:
         with self._turn_operation(agent):
+            self._model_open()
             _require(self._aux_binding is not None and self._turn_pending is None and self._aux_pending is None)
             _require(len(self._aux_frames) < 8)
             _require(type(source) is dict and type(field) is str)
@@ -1577,8 +2139,12 @@ class NativeMainPayloadAdapter:
         _require(operation is self._checked_operation and self._busy and self._pending is None)
         self._interrupt_operation()
         self._dispatch_result = self._dispatch_response = None
-        result = self._runtime.dispatch(operation.handle, operation.content,
-                                       path=operation.path, route_ref=operation.route_ref)
+        dispatcher = (self._runtime.dispatch_attempt if self._fallback_binding is not None
+                      and operation.path == "main" else self._runtime.dispatch)
+        result = dispatcher(operation.handle, operation.content,
+                            path=operation.path, route_ref=operation.route_ref)
+        if self._fallback_binding is not None and type(result) is shared_policy().FailedDispatch:
+            return result
         self._dispatch_result = result
         self._checkpoint()
         _require(self._pending is not None)
@@ -1782,6 +2348,7 @@ class NativeMainPayloadAdapter:
         context_length: int, summary_date: str,
     ) -> None:
         with self._turn_operation(agent):
+            self._model_open()
             _require(self._constructed is not None and self._compression_binding is None)
             _require(self._turn_pending is None and self._aux_pending is None)
             _integer(context_length)
@@ -1849,6 +2416,7 @@ class NativeMainPayloadAdapter:
 
     def compression_input(self, agent: object, *, source: dict) -> NativeAuxiliaryInput:
         with self._turn_operation(agent):
+            self._model_open()
             _require(self._compression_binding is not None and self._compression_owner is not None)
             _require(self._turn_pending is None and self._aux_pending is None and len(self._aux_frames) < 8)
             _require(type(source) is dict)
@@ -1980,6 +2548,7 @@ class NativeMainPayloadAdapter:
 
     def dispatch(self, agent: object, api_kwargs: dict) -> NativeMainResponse:
         try:
+            self._model_open()
             _require(not self._busy and self._aux_pending is None and len(self._records) < 8)
             self._busy = True
             frame = None
@@ -1992,6 +2561,10 @@ class NativeMainPayloadAdapter:
                 _require(_json(api_kwargs) == frame.request_bytes)
             self._agent, self._kwargs = agent, api_kwargs
             self._expected = self._checkpoint()
+            if self._fallback_binding is not None:
+                self._fallback_expected = (_binding(self._fallback_current[0]),
+                    _selection(self._fallback_current[1]), _producer(self._fallback_current[2]))
+                self._fallback_expected_anchor = _nested_anchors(self._fallback_expected)
             self._request_bytes = self._expected[3]
             messages = api_kwargs["messages"]
             if self._records:
@@ -2029,7 +2602,12 @@ class NativeMainPayloadAdapter:
                 "main", self._route_ref, self._request_bytes, request_content, False,
             )
             self._operation = self._checked_operation = operation
-            result_content, envelope, actual, output, response = self._dispatch_retained_operation(operation)
+            outcome = self._dispatch_retained_operation(operation)
+            if self._fallback_binding is not None and type(outcome) is shared_policy().FailedDispatch:
+                self._fallback_phase = "observe"
+                token = self._begin_fallback(agent, failure=outcome)
+                return self._dispatch_fallback(agent, token)
+            result_content, envelope, actual, output, response = outcome
             record = NativeMainInvocation(
                 self._handle, self._source, self._selected, self._producer_policy,
                 self._request_bytes, request_content, envelope, actual, output,
@@ -2059,6 +2637,8 @@ class NativeMainPayloadAdapter:
         finally:
             self._agent = self._kwargs = self._pending = self._expected = None
             self._operation = self._checked_operation = None
+            self._fallback_expected = None
+            self._fallback_expected_anchor = None
             self._busy = False
 
 
@@ -2069,7 +2649,10 @@ def _nested_anchors(value):
                NativeMainSelection, NativeResultPolicy, policy.ExecutionBinding,
                policy.Destination, policy.DispatchEnvelope, policy.RouteBinding,
                NativeAuxiliaryInvocation, NativeAuxiliaryLocalResult, _AuxiliaryTitlePreparation,
-               _CompressionBinding, _AuxiliaryBinding, _CompressionPreparation)
+               _CompressionBinding, _AuxiliaryBinding, _CompressionPreparation,
+               _FallbackBinding, _FailedSendObservation, NativeFailedMainAttempt,
+               _FallbackFrame, NativeFallbackInvocation, _TurnFrame, _PendingOperation,
+               policy.ProfilePolicy, policy.DispatchFailureFacts)
     def visit(item):
         result.append(item)
         if type(item) is dict:
@@ -2456,6 +3039,24 @@ def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, Nat
             context.invalidate()
         raise NativeContentPolicyDenied("controlled_native_adapter_missing")
     return False, None
+
+
+def _controlled_fallback_activation(agent, reason, token):
+    if token is None and not _controlled_attempt(agent):
+        return False, False
+    if token is None:
+        _invalidate_constructed_attempt(agent)
+        raise NativeContentPolicyDenied("controlled_native_operation_unsupported")
+    binding = _owned_constructed_binding(agent)
+    try:
+        _require(reason is None and type(token) is NativeFallbackInput and binding is not None)
+        _verify_constructed(binding)
+        adapter = binding.adapter
+        _require(current_context(agent) is adapter._bound_context)
+        return True, adapter._activate_fallback(agent, token)
+    except BaseException:
+        _invalidate_constructed_attempt(agent)
+        raise
 
 
 # Keep these defaults equal to the existing constructor API.

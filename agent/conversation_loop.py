@@ -1940,9 +1940,16 @@ def _try_controlled_text_turn(
             request = adapter.prepared_request(agent, turn.controlled_prepared)
             from agent.chat_completion_helpers import interruptible_api_call
             response = interruptible_api_call(agent, request)
-            result = _complete_controlled_turn(agent, turn_context=turn, response=response)
+            if adapter._fallback_frame is not None:
+                result = adapter._complete_fallback_turn(agent, turn_context=turn, response=response)
+            else:
+                result = _complete_controlled_turn(agent, turn_context=turn, response=response)
         with adapter._turn_operation(agent):
-            adapter._verify_completions()
+            if adapter._fallback_frame is not None:
+                adapter._verify_fallback()
+                _require(adapter._fallback_terminal is True and result is adapter._fallback_frame.result)
+            else:
+                adapter._verify_completions()
         return True, result
     except BaseException:
         _invalidate_constructed_attempt(agent)

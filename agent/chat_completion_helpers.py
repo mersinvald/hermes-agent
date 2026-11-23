@@ -2587,7 +2587,10 @@ def _fallback_reason_text(reason: "FailoverReason | None") -> str:
     return str(value or reason or "provider failure").replace("_", " ")
 
 
-def try_activate_fallback(agent, reason: "FailoverReason | None" = None) -> bool:
+def try_activate_fallback(
+    agent, reason: "FailoverReason | None" = None, *,
+    controlled_failure: "NativeFallbackInput | None" = None,
+) -> bool:
     """Switch to the next fallback model/provider in the chain.
 
     Called when the current model is failing after retries.  Swaps the
@@ -2599,6 +2602,10 @@ def try_activate_fallback(agent, reason: "FailoverReason | None" = None) -> bool
     auth resolution and client construction — no duplicated provider→key
     mappings.
     """
+    from agent.native_main_payload import _controlled_fallback_activation
+    handled, activated = _controlled_fallback_activation(agent, reason, controlled_failure)
+    if handled:
+        return activated
     from agent.content_policy import guard_native_content
     guard_native_content("fallback", agent)
     if reason in {FailoverReason.rate_limit, FailoverReason.billing, FailoverReason.upstream_rate_limit}:
