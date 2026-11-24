@@ -4,3 +4,7 @@ All checks passed!
 native_anchor_sampler_plugin.py  words=  68 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
 test_native_anchor_sampler.py    words=  12 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1
 All checks passed!
+README.md                        words=1166 total=  2 per100w=  0.17 em_dash= 0 mode=prose-v1
+pr-body.md                       words= 139 total=  1 per100w=  0.72 em_dash= 0 mode=prose-v1
+README.md                        words=1166 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1
+pr-body.md                       words= 139 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1

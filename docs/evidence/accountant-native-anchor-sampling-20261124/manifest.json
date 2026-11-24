@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 8688,
+      "sha256": "3b22cca3e178a405cdfac862ed5cb23244a375ab27835878d3180063ac39dc5a"
+    },
+    {
+      "path": "cheap-final.log",
+      "bytes": 828,
+      "sha256": "44b6b3d50ccc61e872a2e0db4e3e1955d388bb592cba552e6e6f34b11da9d4bd"
+    },
+    {
+      "path": "cheap-final.xml",
+      "bytes": 2595,
+      "sha256": "104962e5c23bbf0b6904f33a920a3197f02549402e02cd393e556f796b52800f"
+    },
+    {
+      "path": "cheap-selection.log",
+      "bytes": 1090,
+      "sha256": "5f1e6bf5ac7d896e1bef2c1d559981a9b3151dce2b395c06dcefa9fd9f49ef59"
+    },
+    {
+      "path": "cheap-unit.log",
+      "bytes": 828,
+      "sha256": "e8e698a2c7fe31e5e2a972e525eb03d7a6b5941fb756a54ae4921b48978bf453"
+    },
+    {
+      "path": "cheap.xml",
+      "bytes": 2595,
+      "sha256": "2269da48edf7e4b5a2b639d3c289d7bc5579c045f44b20a65d5905dbe48f3373"
+    },
+    {
+      "path": "genuine.log",
+      "bytes": 855,
+      "sha256": "ef7d291c995c0467fbc3e9cd371abdf1e7dae0f58bccd7f7a8e99d7ab52364e2"
+    },
+    {
+      "path": "genuine.receipts.jsonl",
+      "bytes": 2436235,
+      "sha256": "f875693da50a6dd3096a82bcdfcc9053d350bbab73e23161dc6d1bd345655a9e"
+    },
+    {
+      "path": "genuine.xml",
+      "bytes": 2668577,
+      "sha256": "6ab0a525c19f322ff050e85bbfe3bab70ef5bbe952f0d32c94ece1454f945803"
+    },
+    {
+      "path": "sample.json",
+      "bytes": 77241,
+      "sha256": "407446fd5d531e3bc6767c93c22385f81f0486531f857a7cb2935d3153d166c6"
+    },
+    {
+      "path": "selection.json",
+      "bytes": 397,
+      "sha256": "2f25e95d42dd91077b7e4b68ff4928a4238a89aac41f2b495e77bddcf153b35b"
+    },
+    {
+      "path": "static.log",
+      "bytes": 818,
+      "sha256": "151f3134aa94a8c751e6fa944961cd17bc2698ebc8a02a554fb806d408663afe"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 19141,
+      "sha256": "ef7d82a34e5cae235c7bc5222e17218130e063bdbe91d97bba1f14f3f8d438a7"
+    }
+  ],
+  "excludes_self": true
+}
