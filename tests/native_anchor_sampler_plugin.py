@@ -90,10 +90,12 @@ class Sampler:
     """Collect code positions from one thread without changing its execution."""
 
     def __init__(self, target_thread, trigger_codes, classes=(), *, window=2.0,
-                 interval=0.01, poll_interval=0.05, sample_cap=200, frame_cap=512):
+                 interval=0.01, poll_interval=0.05, sample_cap=200, frame_cap=512,
+                 output_path=None):
         if not (0 < window <= 2.0 and interval >= 0.01 and poll_interval >= 0.05
                 and 0 < sample_cap <= 200 and 0 < frame_cap <= 512):
             raise ValueError("sampler_bounds")
+        self.output_path = output_path
         self.target_thread = target_thread
         self.trigger_codes = trigger_codes
         self.classes = classes
@@ -244,6 +246,13 @@ class Sampler:
             self.cpu_seconds = time.thread_time() - cpu_start
             self.observer_wall_seconds = time.monotonic() - wall_start
             self.stop_event.set()
+            if self.output_path is not None:
+                try:
+                    self.output_path.write_text(json.dumps(self.result(), indent=2) + "\n")
+                except BaseException:
+                    self.errors.append("partial_profile_write_error")
+            self.cpu_seconds = time.thread_time() - cpu_start
+            self.observer_wall_seconds = time.monotonic() - wall_start
 
     def start(self):
         self.thread.start()
@@ -295,7 +304,7 @@ def pytest_runtest_call(item):
     if item.nodeid == TARGET:
         try:
             codes, classes = pinned_codes()
-            sampler = Sampler(_CALL_THREAD, codes, classes)
+            sampler = Sampler(_CALL_THREAD, codes, classes, output_path=OUTPUT)
             sampler.start()
         except BaseException:
             diagnostic_error = "sampler_setup_error"

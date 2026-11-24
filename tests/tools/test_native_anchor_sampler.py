@@ -70,12 +70,15 @@ def test_frame_cap_and_code_only_external_filter():
         assert sampler.safe_metadata(sys._getframe()) == ()
 
 
-def test_deadline_sample_cap_and_cleanup():
+def test_deadline_sample_cap_and_cleanup(tmp_path):
     with fixture_thread() as (thread, codes):
-        sampler = plugin.Sampler(thread.ident, codes, window=0.055)
+        sampler = plugin.Sampler(thread.ident, codes, window=0.055,
+                                 output_path=tmp_path / "partial.json")
         sampler.start()
         sampler.thread.join(timeout=1)
         sampler.stop()
+        partial = json.loads((tmp_path / "partial.json").read_text())
+        assert partial["observations"] == len(sampler.samples) and not partial["cleanup"]
         result = sampler.result()
         assert result["cleanup"] and not result["errors"]
         assert result["stop_reason"] == "deadline"
