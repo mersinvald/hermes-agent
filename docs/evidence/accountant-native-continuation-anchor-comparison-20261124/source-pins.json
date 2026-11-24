@@ -1,0 +1,58 @@
+{
+  "native_source_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+  "native_source_bytes": 641745,
+  "prototype_sha256": "c6dc315dda1dcfdd98c3f0fbf4ab8f8a54433daa0127d71f69020acafe4f7d94",
+  "prototype_ast_sha256": "8f51ac9f67a2279d753161594c529d2fada6b90b67737a89faf544b89f2a4108",
+  "ast_interpreter": "3.11.15 (main, Jun 11 2026, 04:03:40) [Clang 22.1.3 ]",
+  "experiment_sha256": "f28e3b02a04e73f08ec4ac87299a4f1789420f4071eefdaff46e7ed742efd052",
+  "oracle": {
+    "_nested_anchors": {
+      "sha256": "bdfefcc543599e85de87bd1449d85062362d3903c3618854f89f35633a8a1447",
+      "lineno": 3530,
+      "end_lineno": 3556
+    },
+    "_same_anchors": {
+      "sha256": "70da285e47a4447967774ea1908a22b63b4d2494e45fe99830afeeb683f60539",
+      "lineno": 3559,
+      "end_lineno": 3560
+    }
+  },
+  "original_verifier": {
+    "sha256": "1f0c9df548bab3ef96f8d0ba94afa548f607ddef72ef4f448375b9eea4cb26b6",
+    "lineno": 10963,
+    "end_lineno": 11038
+  },
+  "test_pins": [
+    {
+      "repository": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50",
+      "commit": "5ceb15437ec9318cbd62903a550d20f8743a3c0f",
+      "path": "tests/tools/test_native_issued_call_episode.py",
+      "mode": "100644",
+      "blob": "49281217d22d5c4ca21740bfa0de7589813fea35",
+      "bytes": 21452,
+      "sha256": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08"
+    },
+    {
+      "repository": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50",
+      "commit": "5ceb15437ec9318cbd62903a550d20f8743a3c0f",
+      "path": "tests/tools/test_native_issued_call_continuation.py",
+      "mode": "100644",
+      "blob": "7a890b6304586c0455641e394f04e45752a5a55c",
+      "bytes": 19073,
+      "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+    }
+  ],
+  "api_pin": {
+    "repository": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50",
+    "commit": "5ceb15437ec9318cbd62903a550d20f8743a3c0f",
+    "path": "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt",
+    "mode": "100644",
+    "blob": "c06ec3e8b1f82edba2934c7d5a58836b796b15a6",
+    "bytes": 1391,
+    "sha256": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90"
+  },
+  "ast_relationship": "No runtime matcher exists. The measured prototype is unchanged. No native implementation follows from the rejected gate.",
+  "namespace": "Only explicit original type and traversal-support bindings. No original component was patched.",
+  "type_and_field_freshness": "The prototype calls shared_policy on each invocation and fields on each recognized record visit. No cache exists.",
+  "defaults_mapping": "The measured ControlledPort.send defaults are (None, None). ChatCompletionsTransport.normalize_response has the same two operands. Both functions declare no defaults. No timing rerun follows."
+}

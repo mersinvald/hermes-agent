@@ -1,0 +1,154 @@
+{
+  "checks": [
+    {
+      "name": "ste",
+      "command": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/README.md",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/experiment.py",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/prototype.py",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.52/pr-body.md"
+      ],
+      "elapsed_seconds": 0.04982676300278399,
+      "exit_code": 0,
+      "output": "README.md                        words= 603 total=  4 per100w=  0.66 em_dash= 0 mode=prose-v1\nexperiment.py                    words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\nprototype.py                     words=   1 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 136 total=  2 per100w=  1.47 em_dash= 0 mode=prose-v1\n"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/bin/python",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--select",
+        "F,E9",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/experiment.py"
+      ],
+      "elapsed_seconds": 0.039059249000274576,
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "name": "ste_corrected",
+      "command": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/README.md",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/experiment.py",
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/prototype.py",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.52/pr-body.md"
+      ],
+      "elapsed_seconds": 0.07613215000310447,
+      "exit_code": 0,
+      "output": "README.md                        words= 610 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\nexperiment.py                    words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\nprototype.py                     words=   1 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 136 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+      "details": {
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/README.md": {
+          "words": 610,
+          "sentences": 60,
+          "violations": {
+            "long_sentence(>20w)": 0,
+            "semicolon": 0,
+            "contraction": 0,
+            "passive_voice": 0,
+            "ing_main_verb": 0,
+            "nominalization": 0,
+            "phrasal_verb": 0,
+            "banned_word": 0,
+            "marketing_adjective": 0,
+            "modal_hedge": 0,
+            "long_paragraph(>6s)": 0
+          },
+          "total": 0,
+          "total_per100w": 0.0,
+          "em_dash(slop-marker)": 0,
+          "longest_sentence_words": 20,
+          "sample_marketing": [],
+          "sample_banned": [],
+          "mode": "prose-v1"
+        },
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/experiment.py": {
+          "words": 9,
+          "sentences": 1,
+          "violations": {
+            "long_sentence(>20w)": 0,
+            "semicolon": 0,
+            "contraction": 0,
+            "passive_voice": 0,
+            "ing_main_verb": 0,
+            "nominalization": 0,
+            "phrasal_verb": 0,
+            "banned_word": 0,
+            "marketing_adjective": 0,
+            "modal_hedge": 0,
+            "long_paragraph(>6s)": 0
+          },
+          "total": 0,
+          "total_per100w": 0.0,
+          "em_dash(slop-marker)": 0,
+          "longest_sentence_words": 9,
+          "sample_marketing": [],
+          "sample_banned": [],
+          "mode": "python-prose-v1"
+        },
+        "docs/evidence/accountant-native-continuation-anchor-comparison-20261124/prototype.py": {
+          "words": 1,
+          "sentences": 0,
+          "violations": {
+            "long_sentence(>20w)": 0,
+            "semicolon": 0,
+            "contraction": 0,
+            "passive_voice": 0,
+            "ing_main_verb": 0,
+            "nominalization": 0,
+            "phrasal_verb": 0,
+            "banned_word": 0,
+            "marketing_adjective": 0,
+            "modal_hedge": 0,
+            "long_paragraph(>6s)": 0
+          },
+          "total": 0,
+          "total_per100w": 0.0,
+          "em_dash(slop-marker)": 0,
+          "longest_sentence_words": 0,
+          "sample_marketing": [],
+          "sample_banned": [],
+          "mode": "python-prose-v1"
+        },
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.52/pr-body.md": {
+          "words": 136,
+          "sentences": 12,
+          "violations": {
+            "long_sentence(>20w)": 0,
+            "semicolon": 0,
+            "contraction": 0,
+            "passive_voice": 0,
+            "ing_main_verb": 0,
+            "nominalization": 0,
+            "phrasal_verb": 0,
+            "banned_word": 0,
+            "marketing_adjective": 0,
+            "modal_hedge": 0,
+            "long_paragraph(>6s)": 0
+          },
+          "total": 0,
+          "total_per100w": 0.0,
+          "em_dash(slop-marker)": 0,
+          "longest_sentence_words": 16,
+          "sample_marketing": [],
+          "sample_banned": [],
+          "mode": "prose-v1"
+        }
+      }
+    }
+  ],
+  "prototype_lint_scope": "The prototype is an injected namespace fragment. The static source receipt checks all free names against explicit original bindings and Python builtins. Ruff checks the complete experiment module.",
+  "changed_native_source": false
+}

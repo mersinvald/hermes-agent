@@ -1,0 +1,28 @@
+{
+  "start_utc": "2026-11-24T09:33:00Z",
+  "pre_ledger_allowance_seconds": 30,
+  "task_limit_seconds": 2100,
+  "validation_publication_cap_seconds": 1020,
+  "stage_caps_seconds": {
+    "warm_verification": 90,
+    "cheap": 120,
+    "genuine": 600,
+    "final_work": 150,
+    "reserve": 60
+  },
+  "historical_baseline_seconds": 544.579277353012,
+  "gate_decision": "reject",
+  "native_implementation_elapsed_seconds": 0,
+  "first_experiment_preparation_wall_seconds": 254.478988,
+  "preparation_definition": "Wall time from the ledger start to the only experiment launch, including reads and prototype work.",
+  "cheap_command_seconds": 5.225382267002715,
+  "cheap_remaining_seconds": 114.77461773299729,
+  "genuine_command_count": 0,
+  "genuine_seconds": 0,
+  "implementation_scope": "Evidence-only prototype. No native implementation.",
+  "final_stage_started_utc": "2026-11-24T09:40:54.506262+00:00",
+  "task_elapsed_before_publication_seconds": 504.506262,
+  "task_elapsed_before_commit_seconds": 578.151576,
+  "validation_known_command_seconds_before_commit": 6.456557666003704,
+  "final_stage_elapsed_before_commit_seconds": 73.645314
+}

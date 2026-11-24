@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/bin/python",
+    "-B",
+    "-c",
+    "from pathlib import Path; p=Path('docs/evidence/accountant-native-continuation-anchor-comparison-20261124/experiment.py'); exec(compile(p.read_text(),str(p),'exec'))"
+  ],
+  "cwd": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.52",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.52/pure-home",
+    "HERMES_HOME": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.52/pure-home",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "LANG": "C.UTF-8",
+    "TZ": "UTC"
+  },
+  "started_utc": "2026-11-24T09:37:14.478988+00:00",
+  "elapsed_seconds": 5.225382267002715,
+  "outer_cap_seconds": 30,
+  "exit_code": 0,
+  "timed_out": false
+}
