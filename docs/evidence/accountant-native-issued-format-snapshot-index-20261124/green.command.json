@@ -1,0 +1,24 @@
+{
+  "label": "green",
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_issued_format_snapshot_index.py",
+    "-j",
+    "1",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "25",
+    "--",
+    "--maxfail=1",
+    "-o",
+    "junit_family=xunit1",
+    "--junitxml=docs/evidence/accountant-native-issued-format-snapshot-index-20261124/green.xml",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 2.721172208999633,
+  "outer_cap_seconds": 30.0,
+  "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+  "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa"
+}

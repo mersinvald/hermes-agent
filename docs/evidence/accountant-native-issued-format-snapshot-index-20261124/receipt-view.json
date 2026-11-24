@@ -1,0 +1,21 @@
+{
+  "raw_xml": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/genuine.xml",
+    "bytes": 2668619,
+    "sha256": "96dc6427aacb959e8d865081136596fd8faec94116704134c457d6805851c046"
+  },
+  "raw_receipts": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/genuine.receipts.jsonl",
+    "bytes": 2436277,
+    "sha256": "6b0d29959c10860f8eda8bbb64874bd9a24591069f37c4564072f1deec6e4660"
+  },
+  "view": {
+    "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.57/docs/evidence/accountant-native-issued-format-snapshot-index-20261124/genuine-result.xml",
+    "bytes": 441,
+    "sha256": "e0eeb3ea33c99b61323941eb41fb69099dfc8c9b043e5fcf95ae76e296e08a36"
+  },
+  "transformation": "Remove only testcase properties from the public XML view. Exact properties remain in protected original XML and immediate receipts.",
+  "all_raw_payload_lengths_and_hashes_verified": true,
+  "all_ordered_parent_indices_verified": true,
+  "xml_properties_equal_immediate_receipts": true
+}

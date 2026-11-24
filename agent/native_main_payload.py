@@ -8188,7 +8188,8 @@ class _IssuedCallFormat:
                 actual = tuple(vars(obj).items())
                 _issued_format_require(tuple(name for name, _ in actual) == tuple(name for name, _ in pairs)
                     and _same_anchors(tuple(value for _, value in actual), tuple(value for _, value in pairs))
-                    and _same_anchors(_nested_anchors(tuple(value for _, value in actual))[1:], anchors),
+                    and _same_anchors((_nested_anchors_deep if len(anchors) >= 4096 else _nested_anchors)(
+                        tuple(value for _, value in actual))[1:], anchors),
                     "terminal_state_changed")
             for handle, original, anchor in self.graph_snapshots:
                 content = self.runtime._content(handle)
@@ -8517,7 +8518,7 @@ _ISSUED_FORMAT_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name)._
         (sys.modules[__name__], ("_validate_issued_call_format_source", "_issued_call_format_window",
             "_issued_format_require", "_issued_format_bytes", "_issued_format_content", "_issued_format_constructed",
             "_row", "_binding", "_selection", "_producer", "_json", "_text", "_method", "_same_method",
-            "_nested_anchors", "_same_anchors", "_constructed_state", "_namespace", "_native_result_anchors",
+            "_nested_anchors", "_nested_anchors_deep", "_same_anchors", "_constructed_state", "_namespace", "_native_result_anchors",
             "_native_result_bytes", "_tool_probe_request", "_identifier", "_integer", "_route_facts", "_destination_value")),
         (_format_helpers, ("make_tool_result_message", "_normalize_tool_call_id", "_is_untrusted_tool",
             "_detect_upstream_elision", "_maybe_append_elision_notice", "_tool_output_risk_metadata",

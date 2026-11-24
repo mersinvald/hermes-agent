@@ -1,0 +1,2034 @@
+{
+  "issue": "hpwa-p10.57",
+  "task": "task_0200e1adc592",
+  "dispatch": "ctx_4d2e3787b320",
+  "outcome": "PASS",
+  "scope": "One unchanged synthetic genuine issued call episode at the exact frozen source. No native admission claim from branch-only units.",
+  "source_freeze": {
+    "source_commit": "5aac17edd9cdc58c6f8ffe27347b7a94e24b63e9",
+    "source_tree": "9d79ef9c240a44cbe99e04ffbbf9500005bc95ce",
+    "runtime_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+    "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa",
+    "preserved_base_blobs_and_modes": 12110,
+    "runtime_mode_preserved": true,
+    "index_comparison": true,
+    "git_filtered_worktree_clean": true,
+    "environment_files_verified": 5,
+    "remaining_wall_seconds": 1543.965356,
+    "required_floor_seconds": 750,
+    "launch_utc": "2026-11-24T12:51:20.034644+00:00",
+    "genuine_outer_cap_seconds": 600,
+    "genuine_file_cap_seconds": 595,
+    "one_worker": true,
+    "retries": 0,
+    "sampler": false,
+    "profiler": false
+  },
+  "requested_ids": [
+    "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+  ],
+  "actual_ids": [
+    "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+  ],
+  "command": {
+    "label": "genuine",
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_episode.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "595",
+      "--",
+      "-k",
+      "test_genuine_issued_call_episode",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/genuine.xml",
+      "-q"
+    ],
+    "returncode": 0,
+    "elapsed_seconds": 439.93568488200253,
+    "outer_cap_seconds": 600.0,
+    "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+    "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa"
+  },
+  "xml_case_seconds": 435.15,
+  "raw_xml": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/genuine.xml",
+    "bytes": 2668619,
+    "sha256": "96dc6427aacb959e8d865081136596fd8faec94116704134c457d6805851c046"
+  },
+  "immediate_receipts": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/genuine.receipts.jsonl",
+    "bytes": 2436277,
+    "sha256": "6b0d29959c10860f8eda8bbb64874bd9a24591069f37c4564072f1deec6e4660"
+  },
+  "loaded_paths": [
+    {
+      "paths": {
+        "agent.native_main_payload": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.57/agent/native_main_payload.py",
+        "run_agent": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.57/run_agent.py",
+        "agent.issued_call_episode": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.57/agent/issued_call_episode.py"
+      },
+      "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.57/.venv/bin/python",
+      "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.57/.venv"
+    }
+  ],
+  "receipt_rows": 54,
+  "boundary_count": 52,
+  "boundaries": [
+    {
+      "elapsed": 0.032227603005594574,
+      "boundary": [
+        0,
+        0,
+        "binding",
+        0
+      ],
+      "retained_bytes": 0,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 0.28518097499909345,
+      "boundary": [
+        1,
+        0,
+        "constructing",
+        0
+      ],
+      "retained_bytes": 402,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 0.7746013970026979,
+      "boundary": [
+        1,
+        0,
+        "armed",
+        0
+      ],
+      "retained_bytes": 402,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 5.0004322360036895,
+      "boundary": [
+        2,
+        0,
+        "armed",
+        0
+      ],
+      "retained_bytes": 802,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 10.49429346701072,
+      "boundary": [
+        3,
+        0,
+        "armed",
+        0
+      ],
+      "retained_bytes": 1310,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 15.432181814001524,
+      "boundary": [
+        4,
+        0,
+        "armed",
+        0
+      ],
+      "retained_bytes": 2020,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 29.95106823500828,
+      "boundary": [
+        4,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 2020,
+      "sends": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 35.50881139301055,
+      "boundary": [
+        5,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 2456,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 40.50048890600738,
+      "boundary": [
+        6,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 3655,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 42.08990862000792,
+      "boundary": [
+        7,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 5251,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 43.77110258799803,
+      "boundary": [
+        8,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 5607,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 45.97502656900906,
+      "boundary": [
+        9,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 6873,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 49.984916059998795,
+      "boundary": [
+        10,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 9371,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 52.26523944899964,
+      "boundary": [
+        11,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 9992,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 53.58353288999933,
+      "boundary": [
+        12,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 10051,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 54.93264033400919,
+      "boundary": [
+        13,
+        1,
+        "armed",
+        0
+      ],
+      "retained_bytes": 12789,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 60.29684489000647,
+      "boundary": [
+        13,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 12789,
+      "sends": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 62.792393317999085,
+      "boundary": [
+        14,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 12806,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 66.35758194800292,
+      "boundary": [
+        15,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 15544,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 70.38840022400836,
+      "boundary": [
+        16,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 15603,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 73.11931939600618,
+      "boundary": [
+        17,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 16746,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 81.710917917997,
+      "boundary": [
+        18,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 18986,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 83.34630205000576,
+      "boundary": [
+        19,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 19957,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 88.55991672699747,
+      "boundary": [
+        20,
+        2,
+        "armed",
+        0
+      ],
+      "retained_bytes": 21130,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 106.29202103700663,
+      "boundary": [
+        20,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 21130,
+      "sends": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 114.74820266199822,
+      "boundary": [
+        21,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 21403,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 116.5213911489991,
+      "boundary": [
+        22,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 22181,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 123.36724536700058,
+      "boundary": [
+        23,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 22428,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 132.4936191779998,
+      "boundary": [
+        24,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 22721,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 146.29295362099947,
+      "boundary": [
+        25,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 23014,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 148.7202485470043,
+      "boundary": [
+        26,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 25321,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 155.2408229970024,
+      "boundary": [
+        27,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 25870,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 164.45037153099838,
+      "boundary": [
+        28,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 26478,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 184.46486249100417,
+      "boundary": [
+        29,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 26949,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 209.0080652970064,
+      "boundary": [
+        30,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 27364,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 220.4004176890012,
+      "boundary": [
+        31,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 27623,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 250.21291344999918,
+      "boundary": [
+        32,
+        3,
+        "armed",
+        0
+      ],
+      "retained_bytes": 28296,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 264.3351867780002,
+      "boundary": [
+        32,
+        3,
+        "paired",
+        1
+      ],
+      "retained_bytes": 28296,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 274.0794573620078,
+      "boundary": [
+        32,
+        3,
+        "paired",
+        2
+      ],
+      "retained_bytes": 28296,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 292.09419112300384,
+      "boundary": [
+        33,
+        3,
+        "paired",
+        2
+      ],
+      "retained_bytes": 29660,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 296.408165077999,
+      "boundary": [
+        34,
+        3,
+        "paired",
+        2
+      ],
+      "retained_bytes": 30791,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 302.7355718730105,
+      "boundary": [
+        35,
+        3,
+        "prepared",
+        2
+      ],
+      "retained_bytes": 32124,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 307.46386172200437,
+      "boundary": [
+        35,
+        3,
+        "prepared",
+        3
+      ],
+      "retained_bytes": 32124,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "elapsed": 335.375634423006,
+      "boundary": [
+        35,
+        4,
+        "prepared",
+        3
+      ],
+      "retained_bytes": 32124,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 343.41558229000657,
+      "boundary": [
+        36,
+        4,
+        "prepared",
+        3
+      ],
+      "retained_bytes": 32423,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 352.90764576800575,
+      "boundary": [
+        36,
+        4,
+        "sent",
+        3
+      ],
+      "retained_bytes": 32423,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 362.5993141259969,
+      "boundary": [
+        36,
+        4,
+        "sent",
+        4
+      ],
+      "retained_bytes": 32423,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 371.6652386049973,
+      "boundary": [
+        37,
+        4,
+        "normalized",
+        4
+      ],
+      "retained_bytes": 32639,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 376.4859006140032,
+      "boundary": [
+        37,
+        4,
+        "normalized",
+        5
+      ],
+      "retained_bytes": 32639,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 420.8692752680072,
+      "boundary": [
+        38,
+        4,
+        "consumed",
+        5
+      ],
+      "retained_bytes": 32850,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 425.60660080899834,
+      "boundary": [
+        38,
+        4,
+        "consumed",
+        6
+      ],
+      "retained_bytes": 32850,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "elapsed": 432.8783884560107,
+      "boundary": [
+        38,
+        4,
+        "released",
+        6
+      ],
+      "retained_bytes": 32850,
+      "sends": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    }
+  ],
+  "graph": [
+    {
+      "index": 0,
+      "bytes": 402,
+      "sha256": "e9cde689cf9a4f026de61a74f0015fe51ade06acd980d3d7a736a180a85eb631",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 1,
+      "bytes": 400,
+      "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 2,
+      "bytes": 508,
+      "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b",
+      "parents": [
+        1
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 3,
+      "bytes": 710,
+      "sha256": "b4c2d3511f11f49ad31ff563d53fa79ffe67aee08aba1e5907101d0274851b7b",
+      "parents": [
+        1,
+        2
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 4,
+      "bytes": 436,
+      "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11",
+      "parents": [
+        3
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 5,
+      "bytes": 1199,
+      "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864",
+      "parents": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 6,
+      "bytes": 1596,
+      "sha256": "b64cd0e6bd87e7366b003fdd022339310bd8fc98a741ed20cd1876a53d1483a0",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 7,
+      "bytes": 356,
+      "sha256": "4fe1b521fd1a235b5ee5834d14b9a891e6f3047ef35a3f8e2dc2f023b38d4545",
+      "parents": [
+        4,
+        6
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 8,
+      "bytes": 1266,
+      "sha256": "913e0d11a0b6f57e0b3ccb15cd3fec72a05231f4e2a8ca7728378700782cae43",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 9,
+      "bytes": 2498,
+      "sha256": "a61006cd1d5d45fce490468424c5a171b3f02db018a09f7fe7fe4e368f3e4e96",
+      "parents": [
+        5,
+        8
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate"
+    },
+    {
+      "index": 10,
+      "bytes": 621,
+      "sha256": "2f509d0937eea37bc6116cbcdaba235a0fae12cefb61c4ed45fae0ccedb66a74",
+      "parents": [
+        9
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate"
+    },
+    {
+      "index": 11,
+      "bytes": 59,
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+      "parents": [
+        10
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate"
+    },
+    {
+      "index": 12,
+      "bytes": 2738,
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+      "parents": [
+        10,
+        11
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate"
+    },
+    {
+      "index": 13,
+      "bytes": 17,
+      "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "parents": [
+        12
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate"
+    },
+    {
+      "index": 14,
+      "bytes": 2738,
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+      "parents": [
+        12
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate"
+    },
+    {
+      "index": 15,
+      "bytes": 59,
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+      "parents": [
+        14
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 16,
+      "bytes": 1143,
+      "sha256": "d1052ae84e5ec29c2696aaa570e63a27e702c9d1d4f2a99b42be0f49c3ceea23",
+      "parents": [
+        15
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 17,
+      "bytes": 2240,
+      "sha256": "3c9be6aa88ce69bec7e07c9d547f0ba4a5fe7d8b9bb01c46f2418c32c2d146ab",
+      "parents": [
+        16,
+        16
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 18,
+      "bytes": 971,
+      "sha256": "7473ffd55f6fd0df0a1cf08057543af82f808441f1dd7deee0e81604b9c538dd",
+      "parents": [
+        16,
+        16,
+        17
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 19,
+      "bytes": 1173,
+      "sha256": "0091f4298c0ecf90c02e35ec1a3d1853f26d3228dafee30065f0537099081578",
+      "parents": [
+        16,
+        16,
+        17
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 20,
+      "bytes": 273,
+      "sha256": "3afd0d646ef808434d46fee4a34194d1430ad3bb4d6af087cbd22149534d5773",
+      "parents": [
+        19
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 21,
+      "bytes": 778,
+      "sha256": "0f206048e4cea88c818267959615fe450c66cb0af91a8b125bea23e1550254ff",
+      "parents": [
+        16,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 22,
+      "bytes": 247,
+      "sha256": "da7594cff5f3c08b279d7cd92423526e436bf50568293aa965a12a5f49cdab1b",
+      "parents": [
+        14,
+        21
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 23,
+      "bytes": 293,
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+      "parents": [
+        14,
+        21,
+        22
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 24,
+      "bytes": 293,
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+      "parents": [
+        12,
+        14,
+        23
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 25,
+      "bytes": 2307,
+      "sha256": "03fedd37120ee72541fb1a663d8d2fd175ad1a1af016fc3284e9ef9d90dff28c",
+      "parents": [
+        9,
+        24
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 26,
+      "bytes": 549,
+      "sha256": "8228042bcdf5bf5c176e3c70c6db179e556ce2389cc68c3516c7a1f3dbe7d89b",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 27,
+      "bytes": 608,
+      "sha256": "8add4005a3d53086e71e75bdf8f23216802187c18e6d9868f3ffeb454a1ca34c",
+      "parents": [
+        25,
+        26
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 28,
+      "bytes": 471,
+      "sha256": "83ceb4b40ac18a4c254546e67c75a1acf1c546b3c6fb344dd63af74342ef70a0",
+      "parents": [
+        27
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 29,
+      "bytes": 415,
+      "sha256": "01c141a03033fe3920d4434eef50e21841b17aad96b92b5c5dabb1c66364c5b8",
+      "parents": [
+        28
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result"
+    },
+    {
+      "index": 30,
+      "bytes": 259,
+      "sha256": "3c20f50a804e6a4a5022eeae19f1780f532e7721dda64e60889b0911a1f6f9d5",
+      "parents": [
+        7
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 31,
+      "bytes": 673,
+      "sha256": "6f5b4793e6c7e56348a2d60b6ee4466e3c6e5b621f59b42e96741993b7a1244f",
+      "parents": [
+        30,
+        29
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 32,
+      "bytes": 1364,
+      "sha256": "8260547e3977910b4df836c9d239f7310cb66d6a852ff372405c014d3c0ade26",
+      "parents": [
+        31,
+        0
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 33,
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b",
+      "parents": [
+        32
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 34,
+      "bytes": 1333,
+      "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934",
+      "parents": [
+        32,
+        33
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 35,
+      "bytes": 299,
+      "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc",
+      "parents": [
+        34
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 36,
+      "bytes": 216,
+      "sha256": "b59d780f968215e7537bdf6f35a78ea299479286fb2e95319bed4da92a9392d1",
+      "parents": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 37,
+      "bytes": 211,
+      "sha256": "b9f8e16d327b82b5284f04e91b87d707f8b7443cdf93eb10a839e8caa3079326",
+      "parents": [
+        31,
+        0,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    }
+  ],
+  "graph_path_counts": {
+    "null": 5,
+    "main": 20,
+    "delegate": 6,
+    "tool_result": 7
+  },
+  "final": {
+    "charges": [
+      38,
+      4,
+      32850
+    ],
+    "owner_phase": "released",
+    "windows": 6,
+    "elapsed": 432.8791475090111
+  },
+  "final_bytes": {
+    "completion": {
+      "bytes": 211,
+      "sha256": "b9f8e16d327b82b5284f04e91b87d707f8b7443cdf93eb10a839e8caa3079326"
+    },
+    "request": {
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+    }
+  },
+  "policy_observations_count": 56,
+  "policy_observation_unique_count": 7,
+  "raw_payload_storage": "Original raw XML and immediate receipts remain protected outside Git. No payload bytes duplicated in this bundle.",
+  "history_runs": 1,
+  "sampler_loaded": false,
+  "profiler_loaded": false,
+  "retained_cost_context_seconds": 463.75790366400906,
+  "episode_percentage_claim": null,
+  "deferred_Beads49_harnesses": "UNEXECUTED"
+}

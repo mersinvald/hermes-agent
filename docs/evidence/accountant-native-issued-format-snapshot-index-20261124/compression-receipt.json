@@ -1,0 +1,41 @@
+{
+  "reason": "Preserve original red log and XML bytes, including traceback whitespace, through deterministic compression.",
+  "files": [
+    {
+      "original_name": "red.log",
+      "original_bytes": 5211,
+      "original_sha256": "c39a99d1a6404413750a3db4f89cc19e614451229c477b40e634bfe0abf1a9a8",
+      "protected_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/red.log",
+      "compressed_name": "red.log.gz",
+      "compressed_bytes": 1335,
+      "compressed_sha256": "4a25006002c8b7a17143c58aad53ffcc85126c87a544fa3d194c295a5acac498",
+      "exact_round_trip": true
+    },
+    {
+      "original_name": "red.xml",
+      "original_bytes": 1913,
+      "original_sha256": "f9144a348b1da31272445e61ce068f31cc8db31cca0b93dab0d7dbe3a7504cf1",
+      "protected_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/red.xml",
+      "compressed_name": "red.xml.gz",
+      "compressed_bytes": 730,
+      "compressed_sha256": "d3d93bc8e1bcccdc1c24bfbb18d0c39a357c56dadc54ea8a92fec93f96b35e7d",
+      "exact_round_trip": true
+    }
+  ],
+  "preflight_feedback": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/preflight-whitespace.json",
+    "sha256": "0e4f34fe6c83ee09d1624ed1cdeb42da15c36ae2355aedb884d5e025a6363c94",
+    "whitespace_findings": [
+      {
+        "path": "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log",
+        "returncode": 3,
+        "output": "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:9: trailing whitespace.\n+  \u2551     \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:13: trailing whitespace.\n+  \u2551     \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:19: trailing whitespace.\n+  \u2551 \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:20: trailing whitespace.\n+  \u2551 tests/agent/test_native_issued_format_snapshot_index.py:44: \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:21: trailing whitespace.\n+  \u2551 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:25: trailing whitespace.\n+  \u2551 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:26: trailing whitespace.\n+  \u2551 \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:28: trailing whitespace.\n+  \u2551 \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:33: trailing whitespace.\n+  \u2551 \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:66: trailing whitespace.\n+    \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:70: trailing whitespace.\n+    \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:77: trailing whitespace.\n+tests/agent/test_native_issued_format_snapshot_index.py:44: \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:78: trailing whitespace.\n+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log:82: trailing whitespace.\n+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml",
+        "returncode": 3,
+        "output": "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml:5: trailing whitespace.\n+    \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml:9: trailing whitespace.\n+    \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml:16: trailing whitespace.\n+tests/agent/test_native_issued_format_snapshot_index.py:44: \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml:17: trailing whitespace.\n+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ndocs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml:21: trailing whitespace.\n+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n"
+      }
+    ]
+  }
+}

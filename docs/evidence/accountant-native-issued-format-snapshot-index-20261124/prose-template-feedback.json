@@ -1,0 +1,56 @@
+{
+  "scope": "Static README template check before final receipt report. No functional rerun.",
+  "original_script": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/finalize-initial.py",
+    "sha256": "18f32a7b0ce542ebcbd2ad1fcddc5a1f8b607e280f7fe11762537e18772cd99a"
+  },
+  "original_template_sha256": "d130ddd7ff286c0223da6d21c5ae863345605194186f4720843b8dba9e3087c6",
+  "mode": "prose-v1 with numeric placeholder substitution",
+  "before": {
+    "words": 511,
+    "sentences": 53,
+    "violations": {
+      "long_sentence(>20w)": 0,
+      "semicolon": 0,
+      "contraction": 0,
+      "passive_voice": 1,
+      "ing_main_verb": 0,
+      "nominalization": 0,
+      "phrasal_verb": 0,
+      "banned_word": 0,
+      "marketing_adjective": 0,
+      "modal_hedge": 0,
+      "long_paragraph(>6s)": 1
+    },
+    "total": 2,
+    "total_per100w": 0.39,
+    "em_dash(slop-marker)": 0,
+    "longest_sentence_words": 15,
+    "sample_marketing": [],
+    "sample_banned": []
+  },
+  "after": {
+    "words": 511,
+    "sentences": 53,
+    "violations": {
+      "long_sentence(>20w)": 0,
+      "semicolon": 0,
+      "contraction": 0,
+      "passive_voice": 0,
+      "ing_main_verb": 0,
+      "nominalization": 0,
+      "phrasal_verb": 0,
+      "banned_word": 0,
+      "marketing_adjective": 0,
+      "modal_hedge": 0,
+      "long_paragraph(>6s)": 0
+    },
+    "total": 0,
+    "total_per100w": 0.0,
+    "em_dash(slop-marker)": 0,
+    "longest_sentence_words": 15,
+    "sample_marketing": [],
+    "sample_banned": []
+  },
+  "final_script_sha256": "116193102cd61ced40a5f66b5954b01685cba547f8b1f31282e608b729631b9f"
+}

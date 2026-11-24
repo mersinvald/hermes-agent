@@ -1,0 +1,114 @@
+{
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/README.md": {
+    "bytes": 3477,
+    "sha256": "85838891f189cd6343d46173a7157f4adcf1a897dc360b1471dc30daf40f9bd3"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/authority-observations.json": {
+    "bytes": 31368,
+    "sha256": "2dc23a6aaa5cb6021229063f92ed487342ea7ee1fbe6ff0de915c10d3a64b8ab"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/compression-receipt.json": {
+    "bytes": 4465,
+    "sha256": "d19fcb5f82fb3cb88fe969eca050a50e1439381900173cdbf4d622363b0f89d1"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/costs.json": {
+    "bytes": 703,
+    "sha256": "e2c91c40a59f5a482bcba4caa4160f18e01cdd5a0c0e719d391fff9869328933"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/final-static-feedback.json": {
+    "bytes": 1293,
+    "sha256": "c1d1c33443116dcedd3b4d870cac2a8abdbe47cfdb6c137e9f948b7ae870dd05"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/focused-results.json": {
+    "bytes": 6160,
+    "sha256": "24797b55a8749a7549aa099219a9a1a0d7d6b98e6887cc50d4f329e0bd71da7a"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/genuine-result.xml": {
+    "bytes": 441,
+    "sha256": "e0eeb3ea33c99b61323941eb41fb69099dfc8c9b043e5fcf95ae76e296e08a36"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/genuine.command.json": {
+    "bytes": 702,
+    "sha256": "8b8b572b0c6df49846104dc01b331f26656c0358b8cd7094ec1e8d811baa17c0"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/genuine.log": {
+    "bytes": 855,
+    "sha256": "c264b8220bdc69e67e25bc7ad8c537ab8fc77621b2c9e83418f78fbd507835ae"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/green.command.json": {
+    "bytes": 649,
+    "sha256": "a78b48aeb8242ade568e191fa672cac75314ff99ffa439ad52319eef9e1b78a9"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/green.log": {
+    "bytes": 868,
+    "sha256": "adf0deda0df53fda93fdf904563d02ad636e63d47b31c142382f1d2a036df3a1"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/green.xml": {
+    "bytes": 3189,
+    "sha256": "7e5d72a47a754aeeab07f79b973c2c1819a40a76a111c76124ded1b6733e5bad"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/inputs.json": {
+    "bytes": 6922,
+    "sha256": "e6a09911037a02e44dd8502ca9586ee26ede118aa37376f997f78a7fc0e5c834"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/preservation.json": {
+    "bytes": 1917,
+    "sha256": "f08d1ce7adeb4f8619b48ba60855bec4b5deea5864f30a94dead96453fc83663"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/prose-template-feedback.json": {
+    "bytes": 1631,
+    "sha256": "ea3578f91f02becb88e3c2f4e325287e95f20776ffe11c0bfe64f7e1f9b10094"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/qualification.json": {
+    "bytes": 35879,
+    "sha256": "21f70e37e2ce4951b6585c4c555e6cf2dea8375d5b9086964c4562af90dcf2f6"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/receipt-view.json": {
+    "bytes": 1055,
+    "sha256": "0c59f607bad788e224179fd9efe9535a8550eb349dd9e523fa725494c8acfc25"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.command.json": {
+    "bytes": 706,
+    "sha256": "737d1e84967f1168565ae3e2b8b004d6eed3035c2aed045e334f8094c2603891"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.log.gz": {
+    "bytes": 1335,
+    "sha256": "4a25006002c8b7a17143c58aad53ffcc85126c87a544fa3d194c295a5acac498"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml.gz": {
+    "bytes": 730,
+    "sha256": "d3d93bc8e1bcccdc1c24bfbb18d0c39a357c56dadc54ea8a92fec93f96b35e7d"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/reused-evidence.json": {
+    "bytes": 1926,
+    "sha256": "0482784de053c28adf42776c944e59ced9c57baabba67b8c474d0b8df7d61da8"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/ruff-base.json": {
+    "bytes": 857,
+    "sha256": "2d8ee7a99b0e5ad447bc1959677545cda03c9d2e7b1c5ae26db17ef75a6cfe7a"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/ruff-runtime.json": {
+    "bytes": 857,
+    "sha256": "2d8ee7a99b0e5ad447bc1959677545cda03c9d2e7b1c5ae26db17ef75a6cfe7a"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/ruff-test.json": {
+    "bytes": 2,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/source-freeze.json": {
+    "bytes": 755,
+    "sha256": "461f56876b3fb06aa033d7367f6e1c4cc3a8c90e0612d48207311a549fa082c9"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/source-scope.json": {
+    "bytes": 1594,
+    "sha256": "6cf7a501c7eb560966100682295e53397be5a36a0745ae3bf461e201ee58772c"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/ste-evidence.json": {
+    "bytes": 703,
+    "sha256": "382714dd1f2b009c8465216c6b7ffdc4f4651e17c577e775dcc399d46f5e9a72"
+  },
+  "docs/evidence/accountant-native-issued-format-snapshot-index-20261124/ste-source.json": {
+    "bytes": 2025,
+    "sha256": "4fbf75b172349c91f952acb4f829224daec58ad6a1882eeda68374de54062fde"
+  }
+}
