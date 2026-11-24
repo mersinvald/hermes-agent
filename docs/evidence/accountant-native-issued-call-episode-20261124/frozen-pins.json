@@ -1,0 +1,14 @@
+{
+  "agent/issued_call_episode.py": {
+    "bytes": 6468,
+    "sha256": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8"
+  },
+  "tests/tools/test_native_issued_call_episode.py": {
+    "bytes": 21452,
+    "sha256": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08"
+  },
+  "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt": {
+    "bytes": 1391,
+    "sha256": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90"
+  }
+}

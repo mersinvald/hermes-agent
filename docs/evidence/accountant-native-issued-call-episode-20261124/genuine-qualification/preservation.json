@@ -1,0 +1,7 @@
+{
+  "base_paths": 11981,
+  "prior_added_paths": 19,
+  "source_test_api_harness_unchanged": true,
+  "only_new_qualification_paths_authorized": true,
+  "ruff_and_caller_evidence": "Reused unchanged; no repeat"
+}

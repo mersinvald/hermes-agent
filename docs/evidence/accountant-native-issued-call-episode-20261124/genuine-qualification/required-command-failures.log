@@ -1,0 +1,13 @@
+Observed first required Python validation subprocess failure:
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+AssertionError
+
+Observed second required Python validation subprocess failure:
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+AssertionError
+
+Each assertion required zero STE findings. Each subprocess exited1.
+The surrounding shells continued to normal commits and pushes after these failures.
+No genuine case, caller case, source edit, or harness edit followed either failure.

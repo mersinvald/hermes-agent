@@ -1,0 +1,9 @@
+{
+  "paths": {
+    "agent.native_main_payload": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/agent/native_main_payload.py",
+    "run_agent": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/run_agent.py",
+    "agent.issued_call_episode": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/agent/issued_call_episode.py"
+  },
+  "python": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/.venv/bin/python",
+  "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/.venv"
+}

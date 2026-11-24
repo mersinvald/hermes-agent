@@ -1,0 +1,45 @@
+class NativeIssuedCallEpisodeProbe:
+    system_message: str
+    user_message: str
+    task_id: str
+    expected_arguments_json: str
+
+class NativeIssuedCallEpisodeExecution:
+    execution_request: object
+    execution_selection: NativeSelectionPort
+    execution_producer_ref: str
+    execution_main_route_ref: str
+    receiver_request: object
+    receiver_selection: NativeSelectionPort
+    receiver_producer_ref: str
+    child_request: object
+    child_selection: NativeSelectionPort
+    child_producer_ref: str
+    delegate_route_ref: str
+    child_main_route_ref: str
+    child_session_id: str
+    child_task_id: str
+
+class NativeIssuedCallEpisodeFormatter:
+    formatter_request: object
+    formatter_selection: NativeSelectionPort
+    formatter_producer_ref: str
+    formatter_main_route_ref: str
+
+class NativeIssuedCallEpisodeConsumer:
+    consumer_context: NativeContentContext
+    consumer_selection: NativeSelectionPort
+    consumer_producer_ref: str
+    consumer_main_route_ref: str
+    target_model: str
+    session_id: str
+
+def run_controlled_issued_call_episode(
+    source_agent: AIAgent,
+    source_adapter: NativeMainPayloadAdapter,
+    *,
+    probe: NativeIssuedCallEpisodeProbe,
+    execution: NativeIssuedCallEpisodeExecution,
+    formatter: NativeIssuedCallEpisodeFormatter,
+    consumer: NativeIssuedCallEpisodeConsumer,
+) -> NativeIssuedCallContinuationCompletion: ...

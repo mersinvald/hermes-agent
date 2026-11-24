@@ -1,0 +1,15 @@
+{
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "baseline": "New paths absent from accepted base; empty new-prose baseline",
+  "candidate_files": [
+    "agent/issued_call_episode.py",
+    "tests/tools/test_native_issued_call_episode.py",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/README.md"
+  ],
+  "mode": "python-prose-v1 for Python; same current linter for baseline and candidate",
+  "output": "empty-prose.py                   words=   1 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\nissued_call_episode.py           words=  19 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\ntest_native_issued_call_episode.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\nREADME.md                        words= 614 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+  "initial_findings": 3,
+  "initial_findings_scope": "Three long paragraphs in the initial new README; corrected before publication",
+  "final_avoidable_findings": 0,
+  "em_dashes": 0
+}

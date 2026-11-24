@@ -1,0 +1,46 @@
+{
+  "README.md": {
+    "bytes": 2681,
+    "sha256": "4d3f8fdc63073331adbb07cec7287cc57608ea5c761fdda7469851fefe2f9fd1"
+  },
+  "command.json": {
+    "bytes": 910,
+    "sha256": "ae4d74e82093f7d349bb93d89e06ae61f192b0f093c07a4c17b9cf30d20b31ee"
+  },
+  "genuine.log": {
+    "bytes": 855,
+    "sha256": "24d16e406b6c664b3d378e964f1284b995e25e953b2943c6102c1f91b01dbb97"
+  },
+  "genuine.receipts.jsonl": {
+    "bytes": 2436282,
+    "sha256": "75a27f8598033880f69a83c96bbdd732831d3ca6c92ef90d46ca080c254de43b"
+  },
+  "genuine.xml": {
+    "bytes": 2668624,
+    "sha256": "a4fbeca649a8ed05bc5b40a834d5b8d55239b366a0f2a6579e01a8bf9aedef61"
+  },
+  "preflight.json": {
+    "bytes": 3218,
+    "sha256": "50caaab8e7b4b42d07f0e8967ae1588fb787fc393dc1ba30e6f4558829d90126"
+  },
+  "preservation.json": {
+    "bytes": 210,
+    "sha256": "895e49401ee340d3313232c7a984735511f0ad0d01173f7895ae483682fa6cad"
+  },
+  "required-command-failures.log": {
+    "bytes": 539,
+    "sha256": "b587852bd3613e17cf014f7c9ab12ce9ac637c602e07617ef1d3835df4bdd57c"
+  },
+  "ste.json": {
+    "bytes": 1472,
+    "sha256": "e3516cac42d03cf5a8aaccd777f73b8cad76080ecc8ca4ff92fbc005c6aa50d0"
+  },
+  "timing.json": {
+    "bytes": 413,
+    "sha256": "aebc18f5e07a3f811ab6add352e8a65c8823f78b956eaac91aa4362e9c5bfba3"
+  },
+  "validation.json": {
+    "bytes": 3599,
+    "sha256": "7555cf4f4dd48a1e21dda9fc167fb2d361e58e438a3ba06856bbb706e5716033"
+  }
+}

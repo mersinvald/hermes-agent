@@ -1,0 +1,161 @@
+{
+  "requested_file": "tests/tools/test_native_issued_call_episode.py",
+  "requested_k": "test_caller_",
+  "actual_cases": [
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_exact_type_preflight[source_agent]",
+      "seconds": "0.627"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_exact_type_preflight[source_adapter]",
+      "seconds": "0.013"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_exact_type_preflight[probe]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_exact_type_preflight[execution]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_exact_type_preflight[formatter]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_exact_type_preflight[consumer]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_outside_scope_preflight",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_capture_order_forwarding_and_completion[False]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_capture_order_forwarding_and_completion[True]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[C_bind]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[enter_P]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[probe_bind]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[enable]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[probe_run]",
+      "seconds": "0.016"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[close]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[source]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[execution_bind]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[execution_run]",
+      "seconds": "0.013"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[formatter_bind]",
+      "seconds": "0.012"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[formatter_run]",
+      "seconds": "0.012"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[Wf]",
+      "seconds": "0.012"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[Wa]",
+      "seconds": "0.013"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[J]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[exit_P]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[enter_C]",
+      "seconds": "0.014"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[C_run]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[getter]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_first_exception_identity[exit_C]",
+      "seconds": "0.015"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_shared_exception_context_identity",
+      "seconds": "0.018"
+    },
+    {
+      "classname": "tests.tools.test_native_issued_call_episode",
+      "name": "test_caller_getter_requires_result_identity",
+      "seconds": "0.016"
+    }
+  ],
+  "genuine_requested_id": "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode",
+  "genuine_actual_ids": [],
+  "genuine_status": "UNEXECUTED",
+  "genuine_history_count": 0,
+  "reason": "After source freeze: charged341.144849/900; remaining558.855151; expected515 plus reserve60 exceeds remaining by16.144849"
+}

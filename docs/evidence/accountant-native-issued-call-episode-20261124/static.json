@@ -1,0 +1,181 @@
+{
+  "records": [
+    {
+      "name": "NativeIssuedCallEpisodeProbe",
+      "decorator": "dataclass(frozen=True, slots=True)",
+      "fields": [
+        {
+          "name": "system_message",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "user_message",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "task_id",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "expected_arguments_json",
+          "annotation": "str",
+          "default": null
+        }
+      ]
+    },
+    {
+      "name": "NativeIssuedCallEpisodeExecution",
+      "decorator": "dataclass(frozen=True, slots=True)",
+      "fields": [
+        {
+          "name": "execution_request",
+          "annotation": "object",
+          "default": null
+        },
+        {
+          "name": "execution_selection",
+          "annotation": "NativeSelectionPort",
+          "default": null
+        },
+        {
+          "name": "execution_producer_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "execution_main_route_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "receiver_request",
+          "annotation": "object",
+          "default": null
+        },
+        {
+          "name": "receiver_selection",
+          "annotation": "NativeSelectionPort",
+          "default": null
+        },
+        {
+          "name": "receiver_producer_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "child_request",
+          "annotation": "object",
+          "default": null
+        },
+        {
+          "name": "child_selection",
+          "annotation": "NativeSelectionPort",
+          "default": null
+        },
+        {
+          "name": "child_producer_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "delegate_route_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "child_main_route_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "child_session_id",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "child_task_id",
+          "annotation": "str",
+          "default": null
+        }
+      ]
+    },
+    {
+      "name": "NativeIssuedCallEpisodeFormatter",
+      "decorator": "dataclass(frozen=True, slots=True)",
+      "fields": [
+        {
+          "name": "formatter_request",
+          "annotation": "object",
+          "default": null
+        },
+        {
+          "name": "formatter_selection",
+          "annotation": "NativeSelectionPort",
+          "default": null
+        },
+        {
+          "name": "formatter_producer_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "formatter_main_route_ref",
+          "annotation": "str",
+          "default": null
+        }
+      ]
+    },
+    {
+      "name": "NativeIssuedCallEpisodeConsumer",
+      "decorator": "dataclass(frozen=True, slots=True)",
+      "fields": [
+        {
+          "name": "consumer_context",
+          "annotation": "NativeContentContext",
+          "default": null
+        },
+        {
+          "name": "consumer_selection",
+          "annotation": "NativeSelectionPort",
+          "default": null
+        },
+        {
+          "name": "consumer_producer_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "consumer_main_route_ref",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "target_model",
+          "annotation": "str",
+          "default": null
+        },
+        {
+          "name": "session_id",
+          "annotation": "str",
+          "default": null
+        }
+      ]
+    }
+  ],
+  "host_signature": "(\n    source_agent: AIAgent,\n    source_adapter: NativeMainPayloadAdapter,\n    *,\n    probe: NativeIssuedCallEpisodeProbe,\n    execution: NativeIssuedCallEpisodeExecution,\n    formatter: NativeIssuedCallEpisodeFormatter,\n    consumer: NativeIssuedCallEpisodeConsumer,\n) -> NativeIssuedCallContinuationCompletion: ...\n",
+  "source_sha256": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8",
+  "test_sha256": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08",
+  "genuine_count": 1,
+  "genuine_executed": false,
+  "caller_run_file_pin_note": "Whole-file source/test hashes were frozen after caller execution; the caller namespace stayed byte-identical during later integration-only static corrections",
+  "ruff_version": "0.15.10",
+  "ruff_pass": true,
+  "whitespace_pass": true,
+  "ste_final_findings": 0,
+  "ste_final_em_dashes": 0,
+  "initial_ste_findings": 3,
+  "initial_ste_corrected": true
+}

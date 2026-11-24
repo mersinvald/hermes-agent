@@ -1,0 +1,129 @@
+{
+  "status": "PASSED",
+  "requested_id": "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode",
+  "actual_ids": [
+    "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+  ],
+  "case_seconds": 541.467,
+  "command_seconds": 544.579277353012,
+  "host_episode_seconds": 539.0229705480015,
+  "original_operator_qualification_sends": 27,
+  "data_sends": {
+    "source": 1,
+    "execution_main": 0,
+    "delegate": 1,
+    "child": 1,
+    "formatter": 0,
+    "consumer": 1
+  },
+  "final_charges": [
+    38,
+    4,
+    32850
+  ],
+  "continuation_windows": 6,
+  "continuation_owner_phase": "released",
+  "final_response": "The leaf counted three blue squares.",
+  "receipt_count": 54,
+  "last_graph_receipt_property": "boundary",
+  "graph_payload_source": "genuine.receipts.jsonl",
+  "stage_summary": [
+    {
+      "index": 32,
+      "bytes": 1364,
+      "sha256": "8260547e3977910b4df836c9d239f7310cb66d6a852ff372405c014d3c0ade26",
+      "parents": [
+        31,
+        0
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 33,
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b",
+      "parents": [
+        32
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 34,
+      "bytes": 1333,
+      "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934",
+      "parents": [
+        32,
+        33
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 35,
+      "bytes": 299,
+      "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc",
+      "parents": [
+        34
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 36,
+      "bytes": 216,
+      "sha256": "b59d780f968215e7537bdf6f35a78ea299479286fb2e95319bed4da92a9392d1",
+      "parents": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 37,
+      "bytes": 211,
+      "sha256": "b9f8e16d327b82b5284f04e91b87d707f8b7443cdf93eb10a839e8caa3079326",
+      "parents": [
+        31,
+        0,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "path": "main",
+      "profiles": [
+        "restricted_documents"
+      ]
+    }
+  ],
+  "loaded": {
+    "paths": {
+      "agent.native_main_payload": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/agent/native_main_payload.py",
+      "run_agent": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/run_agent.py",
+      "agent.issued_call_episode": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/agent/issued_call_episode.py"
+    },
+    "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/.venv/bin/python",
+    "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.50/.venv"
+  },
+  "assertion_scope": "The frozen genuine case passed completion identity, request/options/tools/source association, checked destinations, terminal owners, restrictions, ordered parents, actual charges and spent-attempt refusal",
+  "old_task": "task_49288763b1d9 remains FAILED; its zero-history and UNEXECUTED labels are historical",
+  "old_caller_scope": "30 caller-only passes reused without execution",
+  "beads49": "OPEN; no old positive/live-getter/corrected-coverage harness ran",
+  "ci_success": false
+}

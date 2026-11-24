@@ -1,0 +1,32 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/tools/test_native_issued_call_episode.py",
+    "-j",
+    "1",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "595",
+    "-k",
+    "test_genuine_issued_call_episode",
+    "--maxfail=1",
+    "-o",
+    "junit_family=xunit1",
+    "--junitxml=docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/genuine.xml",
+    "-q"
+  ],
+  "requested_id": "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode",
+  "start_unix": 1795509837.681583,
+  "launch_charged_seconds": 75.11684974200034,
+  "launch_remaining_seconds": 764.8831502579997,
+  "outer_cap_seconds": 600,
+  "file_cap_seconds": 595,
+  "retries": 0,
+  "status": "PASSED",
+  "returncode": 0,
+  "outer_timeout": false,
+  "command_seconds": 544.579277353012,
+  "finish_unix": 1795510382.2608612,
+  "finish_charged_seconds": 619.6961549469997
+}
