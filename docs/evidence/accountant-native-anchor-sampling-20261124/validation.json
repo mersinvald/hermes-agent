@@ -1,0 +1,145 @@
+{
+  "issue": "hpwa-p10.54",
+  "base": "19c4e8630724932059c2d00283507504a37b0844",
+  "base_tree": "38513b8496334f880aca2ca0cc68d641ac87dd38",
+  "base_paths": 12033,
+  "input_receipt_sha256": "5adeaeb6f47f060f83139775195bdf450373ab75154f59afe4dfb8bedd920385",
+  "warm": {
+    "pin_checks": [
+      {
+        "path": "agent/native_main_payload.py",
+        "sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+        "blob": "12a9e2621d04a5237b91f2a04ec5f292889f8e4d"
+      },
+      {
+        "path": "agent/content_policy.py",
+        "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+        "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a"
+      },
+      {
+        "path": "agent/issued_call_episode.py",
+        "sha256": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8",
+        "blob": "a19675761ceb14636afdebdd63b829917dd042e4"
+      },
+      {
+        "path": "tests/tools/test_native_issued_call_episode.py",
+        "sha256": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08",
+        "blob": "49281217d22d5c4ca21740bfa0de7589813fea35"
+      },
+      {
+        "path": "tests/tools/test_native_issued_call_continuation.py",
+        "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+        "blob": "7a890b6304586c0455641e394f04e45752a5a55c"
+      },
+      {
+        "path": "scripts/run_tests.sh",
+        "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e",
+        "blob": "4445d6d5428b657e3d780903915229acbc1666ce"
+      },
+      {
+        "path": "scripts/run_tests_parallel.py",
+        "sha256": "d71999ea44ef18352ff0f0d08512fae2109ac748a654553b15aa02d72f368bd9",
+        "blob": "eb923cc9b43b3a7af8a2f19461ce91e38e18ec10"
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "bc923dc261db9e123f271a8a4d3994bf6e3be0d1469dfbb3555f596453e260bb",
+        "blob": "7ad222cd54779b2669d1177ba774265720326da4"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt",
+        "sha256": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90",
+        "blob": "c06ec3e8b1f82edba2934c7d5a58836b796b15a6"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/command.json",
+        "sha256": "ae4d74e82093f7d349bb93d89e06ae61f192b0f093c07a4c17b9cf30d20b31ee",
+        "blob": "2232611a343ec6f75c02ce096368c7db47946caa"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/validation.json",
+        "sha256": "7555cf4f4dd48a1e21dda9fc167fb2d361e58e438a3ba06856bbb706e5716033",
+        "blob": "a1805e7d3b16333140a4a39d9f159b8ceb065789"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/genuine.receipts.jsonl",
+        "sha256": "75a27f8598033880f69a83c96bbdd732831d3ca6c92ef90d46ca080c254de43b",
+        "blob": "70c8fe29538965e852b414a500da0db2e7f39400"
+      }
+    ],
+    "protected_receipts_verified": 4,
+    "environment_verified": 5,
+    "support_verified": 1,
+    "elapsed_seconds": 0.06258500900003128
+  },
+  "cheap": {
+    "results": [
+      {
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_anchor_sampler.py",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "20",
+          "--",
+          "-p",
+          "tests.native_anchor_sampler_plugin",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/docs/evidence/accountant-native-anchor-sampling-20261124/cheap.xml",
+          "-q"
+        ],
+        "returncode": 0,
+        "elapsed_seconds": 9.584943798006861
+      },
+      {
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_issued_call_episode.py",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "20",
+          "--",
+          "-p",
+          "tests.native_anchor_sampler_plugin",
+          "-k",
+          "test_genuine_issued_call_episode",
+          "--collect-only",
+          "-o",
+          "junit_family=xunit1",
+          "--native-anchor-selection=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/docs/evidence/accountant-native-anchor-sampling-20261124/selection.json",
+          "-q"
+        ],
+        "returncode": 1,
+        "elapsed_seconds": 3.6241774140071357
+      }
+    ],
+    "total_seconds": 13.20943530400109
+  },
+  "selection": {
+    "plugin_source": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/tests/native_anchor_sampler_plugin.py",
+    "selected_ids": [
+      "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+    ],
+    "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/.venv/bin/python",
+    "python": "3.11.15 (main, Jun 11 2026, 04:03:40) [Clang 22.1.3 ]"
+  },
+  "freeze_sha256": {
+    "tests/native_anchor_sampler_plugin.py": "1b30122b6733cb1264b0789c505d8654f3635604a356bb53afed32ae4869a55d",
+    "tests/tools/test_native_anchor_sampler.py": "abe597045d8744c35520cdb78e3cdb795a51a3612ba0434d366ec7c99e4db388",
+    "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+    "agent/issued_call_episode.py": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8",
+    "tests/tools/test_native_issued_call_episode.py": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90"
+  },
+  "functional_outcome": "not_launched",
+  "diagnostic_outcome": "not_launched",
+  "scope": "One unchanged synthetic genuine host case with one bounded code-position observation window."
+}

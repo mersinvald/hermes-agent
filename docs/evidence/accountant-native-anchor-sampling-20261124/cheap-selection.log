@@ -1,0 +1,21 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~7 tests) under ['tests/tools/test_native_issued_call_episode.py']; running with -j 1
+[100.0% |     7/~7 | ✓0 | ✗0] ✓ tests/tools/test_native_issued_call_episode.py (7 tests, 3.3s)
+
+=== Summary: 1 files, 0 tests passed, 0 failed (100% complete) in 3.3s (1 workers) ===
+
+=== ✗ NO TESTS RAN — 0 collected across 1 file. This is NOT a pass. ===
+  Common causes: the selected venv has no pytest; a -k/-m filter matched nothing; or collection errored in every file.
+  Check the per-file output above for the real error.
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 3.3s  (runner wall: 3.3s, parallelism: 1x)
+  P50: 3.29s  P90: 3.29s  P95: 3.29s  P99: 3.29s  Max: 3.29s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+      3.29s  tests/tools/test_native_issued_call_episode.py
