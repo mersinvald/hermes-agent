@@ -1,0 +1,23 @@
+{
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/tools/test_native_issued_call_episode.py",
+    "-j",
+    "1",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "22",
+    "-k",
+    "test_caller_",
+    "--maxfail=1",
+    "-o",
+    "junit_family=xunit1",
+    "--junitxml=docs/evidence/accountant-native-issued-call-episode-20261124/caller.xml",
+    "-q"
+  ],
+  "elapsed_seconds": 12.527675710007316,
+  "returncode": 0,
+  "total_cap_seconds": 30,
+  "scope": "Caller doubles only; no native authority or genuine history"
+}
