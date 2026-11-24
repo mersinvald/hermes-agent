@@ -1,0 +1,32 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5602,
+      "sha256": "abdbbc8035331518fc9641ba6e33e863c8b4b8868927356a1350d73c3613adac"
+    },
+    {
+      "path": "prototype.py",
+      "bytes": 1872,
+      "sha256": "c65beb9cfca7bccd02f015e53d593f335ae460f9f0393d1a81670c656623155a"
+    },
+    {
+      "path": "experiment.py",
+      "bytes": 23531,
+      "sha256": "1608eeeab027f5b357f8d2911205cf6dbac3216981e573c3382a74d1fce9c3d5"
+    },
+    {
+      "path": "result.json",
+      "bytes": 47878,
+      "sha256": "cb8c232bdb0a46b4eb5f222097d64df93f4d54c1eb43a31716cec561d26be648"
+    },
+    {
+      "path": "run.json",
+      "bytes": 27146,
+      "sha256": "dda03706c114c05349be4594fb7b522be9b5e99120d8e4fde74bdbcd5d8088bc"
+    }
+  ],
+  "self_hash": "Protected external handoff",
+  "base": "0847ff73eadfabcc92b62504674eae670f0fcc41"
+}

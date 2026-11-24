@@ -1,0 +1,2350 @@
+{
+  "differential_passed": true,
+  "cases": [
+    {
+      "id": "roots_keys_containers_aliases",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "opaque",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "empty_dict",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "empty_list",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "empty_tuple",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "bytes",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "many_opaque_after_threshold",
+      "outcome": {
+        "kind": "return",
+        "length": 33
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "fresh_container_mutation",
+      "outcome": {
+        "kind": "return",
+        "length": 14
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "container_restoration",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_0_NativeMainResponse",
+      "outcome": {
+        "kind": "return",
+        "length": 7
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_0",
+      "outcome": {
+        "kind": "return",
+        "length": 23
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_1_NativeMainChoice",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_1",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_2_NativeMainMessage",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_2",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_3_NativeMainUsage",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_3",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_4_NativeMainSelection",
+      "outcome": {
+        "kind": "return",
+        "length": 5
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_4",
+      "outcome": {
+        "kind": "return",
+        "length": 19
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_5_NativeResultPolicy",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_5",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_6_ExecutionBinding",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_6",
+      "outcome": {
+        "kind": "return",
+        "length": 29
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_7_Destination",
+      "outcome": {
+        "kind": "return",
+        "length": 6
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_7",
+      "outcome": {
+        "kind": "return",
+        "length": 21
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_8_DispatchEnvelope",
+      "outcome": {
+        "kind": "return",
+        "length": 7
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_8",
+      "outcome": {
+        "kind": "return",
+        "length": 23
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_9_RouteBinding",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_9",
+      "outcome": {
+        "kind": "return",
+        "length": 29
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_10_NativeAuxiliaryInvocation",
+      "outcome": {
+        "kind": "return",
+        "length": 29
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_10",
+      "outcome": {
+        "kind": "return",
+        "length": 67
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_11_NativeAuxiliaryLocalResult",
+      "outcome": {
+        "kind": "return",
+        "length": 27
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_11",
+      "outcome": {
+        "kind": "return",
+        "length": 63
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_12__AuxiliaryTitlePreparation",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_12",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_13__CompressionBinding",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_13",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_14__AuxiliaryBinding",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_14",
+      "outcome": {
+        "kind": "return",
+        "length": 29
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_15__CompressionPreparation",
+      "outcome": {
+        "kind": "return",
+        "length": 5
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_15",
+      "outcome": {
+        "kind": "return",
+        "length": 19
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_16__FallbackBinding",
+      "outcome": {
+        "kind": "return",
+        "length": 9
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_16",
+      "outcome": {
+        "kind": "return",
+        "length": 27
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_17__FailedSendObservation",
+      "outcome": {
+        "kind": "return",
+        "length": 7
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_17",
+      "outcome": {
+        "kind": "return",
+        "length": 23
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_18_NativeFailedMainAttempt",
+      "outcome": {
+        "kind": "return",
+        "length": 16
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_18",
+      "outcome": {
+        "kind": "return",
+        "length": 41
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_19__FallbackFrame",
+      "outcome": {
+        "kind": "return",
+        "length": 18
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_19",
+      "outcome": {
+        "kind": "return",
+        "length": 45
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_20_NativeFallbackInvocation",
+      "outcome": {
+        "kind": "return",
+        "length": 23
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_20",
+      "outcome": {
+        "kind": "return",
+        "length": 55
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_21__TurnFrame",
+      "outcome": {
+        "kind": "return",
+        "length": 15
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_21",
+      "outcome": {
+        "kind": "return",
+        "length": 39
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_22__PendingOperation",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_22",
+      "outcome": {
+        "kind": "return",
+        "length": 29
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_23_NativeDelegateBinding",
+      "outcome": {
+        "kind": "return",
+        "length": 14
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_23",
+      "outcome": {
+        "kind": "return",
+        "length": 37
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_24_NativeDelegateInvocation",
+      "outcome": {
+        "kind": "return",
+        "length": 25
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_24",
+      "outcome": {
+        "kind": "return",
+        "length": 59
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_25_ProfilePolicy",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_25",
+      "outcome": {
+        "kind": "return",
+        "length": 17
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_26_DispatchFailureFacts",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_alias_after_threshold_26",
+      "outcome": {
+        "kind": "return",
+        "length": 33
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "new_recognized_alias",
+      "outcome": {
+        "kind": "return",
+        "length": 3
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_before_mutation",
+      "outcome": {
+        "kind": "return",
+        "length": 3
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "fresh_record_mutation",
+      "outcome": {
+        "kind": "return",
+        "length": 3
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "record_restoration",
+      "outcome": {
+        "kind": "return",
+        "length": 3
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "recognized_metadata_removed_field",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "recognized_metadata_reordered_fields",
+      "outcome": {
+        "kind": "return",
+        "length": 3
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "recognized_metadata_added_field_between_calls",
+      "outcome": {
+        "kind": "return",
+        "length": 2
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "recognized_metadata_restoration",
+      "outcome": {
+        "kind": "return",
+        "length": 3
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "alias_binding_removed_between_calls",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "new_alias_binding_between_calls",
+      "outcome": {
+        "kind": "return",
+        "length": 4
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "alias_binding_restored_between_calls",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "plain_class_bases_mutation",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "plain_class_bases_restoration",
+      "outcome": {
+        "kind": "return",
+        "length": 2
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "instance_class_changes_between_alias_visits",
+      "outcome": {
+        "kind": "return",
+        "length": 14
+      },
+      "protocol_trace": [
+        [
+          "instance_fields",
+          "LocalRecord"
+        ],
+        [
+          "instance_fields",
+          "SecondAlias"
+        ]
+      ]
+    },
+    {
+      "id": "fresh_fields_for_every_alias",
+      "outcome": {
+        "kind": "return",
+        "length": 15
+      },
+      "protocol_trace": [
+        [
+          "fields",
+          126414659064336,
+          [
+            "first",
+            "second"
+          ]
+        ],
+        [
+          "fields",
+          126414659064336,
+          [
+            "first",
+            "second"
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "metadata_changes_between_alias_visits",
+      "outcome": {
+        "kind": "return",
+        "length": 14
+      },
+      "protocol_trace": [
+        [
+          "changing_fields",
+          [
+            "first",
+            "second"
+          ]
+        ],
+        [
+          "changing_fields",
+          [
+            "second"
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "exact_object_getattribute",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "missing_field_after_eighth_visit",
+      "outcome": {
+        "kind": "error",
+        "type": "AttributeError",
+        "args": [
+          "'LocalRecord' object has no attribute 'first'"
+        ]
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "invalid_key",
+      "outcome": {
+        "kind": "error",
+        "type": "NativeContentPolicyDenied",
+        "args": [
+          "controlled_native_payload_invalid"
+        ]
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "invalid_key_after_eighth_visit",
+      "outcome": {
+        "kind": "error",
+        "type": "NativeContentPolicyDenied",
+        "args": [
+          "controlled_native_payload_invalid"
+        ]
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "recursion",
+      "outcome": {
+        "kind": "error",
+        "type": "RecursionError",
+        "args": [
+          "maximum recursion depth exceeded"
+        ]
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "recursion_after_eighth_visit",
+      "outcome": {
+        "kind": "error",
+        "type": "RecursionError",
+        "args": [
+          "maximum recursion depth exceeded"
+        ]
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "custom_item_after_index_activation",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": [
+        [
+          "eq",
+          "CustomItem",
+          "list"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "tuple"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainResponse"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainChoice"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainMessage"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainUsage"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainSelection"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeResultPolicy"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "ExecutionBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "Destination"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "DispatchEnvelope"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "RouteBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeAuxiliaryInvocation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeAuxiliaryLocalResult"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_AuxiliaryTitlePreparation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_CompressionBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_AuxiliaryBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_CompressionPreparation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_FallbackBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_FailedSendObservation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeFailedMainAttempt"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_FallbackFrame"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeFallbackInvocation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_TurnFrame"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_PendingOperation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeDelegateBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeDelegateInvocation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "ProfilePolicy"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "DispatchFailureFacts"
+        ]
+      ]
+    },
+    {
+      "id": "custom_catalog_retains_tuple_path",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": [
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "object"
+        ]
+      ]
+    },
+    {
+      "id": "custom_item_list_protocol",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": [
+        [
+          "sequence_eq",
+          "list"
+        ],
+        [
+          "sequence_iter"
+        ]
+      ]
+    },
+    {
+      "id": "custom_item_list_protocol_error",
+      "outcome": {
+        "kind": "error",
+        "type": "RuntimeError",
+        "args": [
+          "later iteration failure",
+          8
+        ]
+      },
+      "protocol_trace": [
+        [
+          "sequence_eq",
+          "list"
+        ]
+      ]
+    },
+    {
+      "id": "custom_item_equality_truth_protocol",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": [
+        [
+          "truth_eq",
+          "list"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "tuple"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeMainResponse"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeMainChoice"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeMainMessage"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeMainUsage"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeMainSelection"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeResultPolicy"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "ExecutionBinding"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "Destination"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "DispatchEnvelope"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "RouteBinding"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeAuxiliaryInvocation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeAuxiliaryLocalResult"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_AuxiliaryTitlePreparation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_CompressionBinding"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_AuxiliaryBinding"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_CompressionPreparation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_FallbackBinding"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_FailedSendObservation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeFailedMainAttempt"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_FallbackFrame"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeFallbackInvocation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_TurnFrame"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "_PendingOperation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeDelegateBinding"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "NativeDelegateInvocation"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "ProfilePolicy"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "DispatchFailureFacts"
+        ],
+        [
+          "truth_bool"
+        ]
+      ]
+    },
+    {
+      "id": "custom_catalog_equality_truth_protocol",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": [
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "int"
+        ],
+        [
+          "truth_bool"
+        ],
+        [
+          "truth_eq",
+          "object"
+        ],
+        [
+          "truth_bool"
+        ]
+      ]
+    },
+    {
+      "id": "custom_item_not_implemented_equality",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": [
+        [
+          "not_implemented_eq",
+          "list"
+        ],
+        [
+          "not_implemented_eq",
+          "tuple"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeMainResponse"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeMainChoice"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeMainMessage"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeMainUsage"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeMainSelection"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeResultPolicy"
+        ],
+        [
+          "not_implemented_eq",
+          "ExecutionBinding"
+        ],
+        [
+          "not_implemented_eq",
+          "Destination"
+        ],
+        [
+          "not_implemented_eq",
+          "DispatchEnvelope"
+        ],
+        [
+          "not_implemented_eq",
+          "RouteBinding"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeAuxiliaryInvocation"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeAuxiliaryLocalResult"
+        ],
+        [
+          "not_implemented_eq",
+          "_AuxiliaryTitlePreparation"
+        ],
+        [
+          "not_implemented_eq",
+          "_CompressionBinding"
+        ],
+        [
+          "not_implemented_eq",
+          "_AuxiliaryBinding"
+        ],
+        [
+          "not_implemented_eq",
+          "_CompressionPreparation"
+        ],
+        [
+          "not_implemented_eq",
+          "_FallbackBinding"
+        ],
+        [
+          "not_implemented_eq",
+          "_FailedSendObservation"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeFailedMainAttempt"
+        ],
+        [
+          "not_implemented_eq",
+          "_FallbackFrame"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeFallbackInvocation"
+        ],
+        [
+          "not_implemented_eq",
+          "_TurnFrame"
+        ],
+        [
+          "not_implemented_eq",
+          "_PendingOperation"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeDelegateBinding"
+        ],
+        [
+          "not_implemented_eq",
+          "NativeDelegateInvocation"
+        ],
+        [
+          "not_implemented_eq",
+          "ProfilePolicy"
+        ],
+        [
+          "not_implemented_eq",
+          "DispatchFailureFacts"
+        ]
+      ]
+    },
+    {
+      "id": "custom_catalog_not_implemented_equality",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": [
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "int"
+        ],
+        [
+          "not_implemented_eq",
+          "object"
+        ]
+      ]
+    },
+    {
+      "id": "unhashable_item_after_index_activation",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": [
+        [
+          "eq",
+          "UnhashableItem",
+          "list"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "tuple"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeMainResponse"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeMainChoice"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeMainMessage"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeMainUsage"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeMainSelection"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeResultPolicy"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "ExecutionBinding"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "Destination"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "DispatchEnvelope"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "RouteBinding"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeAuxiliaryInvocation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeAuxiliaryLocalResult"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_AuxiliaryTitlePreparation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_CompressionBinding"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_AuxiliaryBinding"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_CompressionPreparation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_FallbackBinding"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_FailedSendObservation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeFailedMainAttempt"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_FallbackFrame"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeFallbackInvocation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_TurnFrame"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "_PendingOperation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeDelegateBinding"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "NativeDelegateInvocation"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "ProfilePolicy"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "DispatchFailureFacts"
+        ]
+      ]
+    },
+    {
+      "id": "unhashable_catalog",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": [
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "int"
+        ],
+        [
+          "eq",
+          "UnhashableItem",
+          "object"
+        ]
+      ]
+    },
+    {
+      "id": "nonclass_catalog_alias",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": [
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "alias_eq",
+          "int"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "list"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "tuple"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainResponse"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainChoice"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainMessage"
+        ],
+        [
+          "alias_eq",
+          "CustomItem"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeMainSelection"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeResultPolicy"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "ExecutionBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "Destination"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "DispatchEnvelope"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "RouteBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeAuxiliaryInvocation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeAuxiliaryLocalResult"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_AuxiliaryTitlePreparation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_CompressionBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_AuxiliaryBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_CompressionPreparation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_FallbackBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_FailedSendObservation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeFailedMainAttempt"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_FallbackFrame"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeFallbackInvocation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_TurnFrame"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "_PendingOperation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeDelegateBinding"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "NativeDelegateInvocation"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "ProfilePolicy"
+        ],
+        [
+          "eq",
+          "CustomItem",
+          "DispatchFailureFacts"
+        ],
+        [
+          "alias_eq",
+          "object"
+        ]
+      ]
+    },
+    {
+      "id": "observable_equality_recognizes_distinct_class",
+      "outcome": {
+        "kind": "return",
+        "length": 12
+      },
+      "protocol_trace": [
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "int"
+        ],
+        [
+          "match_eq",
+          "LocalRecord"
+        ],
+        [
+          "match_eq",
+          "object"
+        ],
+        [
+          "match_eq",
+          "object"
+        ]
+      ]
+    },
+    {
+      "id": "membership_failure_after_eighth_visit",
+      "outcome": {
+        "kind": "error",
+        "type": "ValueError",
+        "args": [
+          "later membership failure",
+          8
+        ]
+      },
+      "protocol_trace": [
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "int"
+        ],
+        [
+          "raising_eq",
+          "LocalRecord"
+        ]
+      ]
+    },
+    {
+      "id": "fields_failure_after_eighth_visit",
+      "outcome": {
+        "kind": "error",
+        "type": "LookupError",
+        "args": [
+          "later fields failure",
+          8
+        ]
+      },
+      "protocol_trace": [
+        [
+          "failing_fields",
+          126414659064336
+        ]
+      ]
+    },
+    {
+      "id": "opaque_metadata",
+      "outcome": {
+        "kind": "return",
+        "length": 10
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "opaque_metadata_changed",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": []
+    },
+    {
+      "id": "shared_policy_each_call",
+      "outcome": {
+        "kind": "return",
+        "length": 11
+      },
+      "protocol_trace": [
+        [
+          "shared_policy"
+        ]
+      ]
+    },
+    {
+      "id": "shared_policy_next_call",
+      "outcome": {
+        "kind": "return",
+        "length": 1
+      },
+      "protocol_trace": [
+        [
+          "shared_policy"
+        ]
+      ]
+    },
+    {
+      "id": "plain_class_metaclass_mutation_rejected",
+      "outcome": {
+        "kind": "error",
+        "type": "TypeError",
+        "args": [
+          "__class__ assignment only supported for mutable types or ModuleType subclasses"
+        ]
+      }
+    }
+  ],
+  "interpreter": "3.11.15 (main, Jun 11 2026, 04:03:40) [Clang 22.1.3 ]",
+  "elapsed_after_import_seconds": 0.006005492003168911,
+  "timing": {
+    "batches": [
+      {
+        "batch": 1,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "reference": {
+            "callable_defaults": 0.140274263,
+            "catalog": 0.203464364,
+            "authority": 0.016885783,
+            "request": 0.039118636,
+            "response": 0.012594242,
+            "normalized_usage": 0.013610698,
+            "transport_defaults": 0.003609408
+          },
+          "candidate": {
+            "callable_defaults": 0.00462915,
+            "catalog": 0.1650123,
+            "authority": 0.020721696,
+            "request": 0.033463552,
+            "response": 0.014344661,
+            "normalized_usage": 0.018007061,
+            "transport_defaults": 0.003673882
+          }
+        }
+      },
+      {
+        "batch": 2,
+        "order": [
+          "candidate",
+          "reference"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "candidate": {
+            "callable_defaults": 0.004579985,
+            "catalog": 0.162944527,
+            "authority": 0.023609293,
+            "request": 0.032157646,
+            "response": 0.013698157,
+            "normalized_usage": 0.017923329,
+            "transport_defaults": 0.003826465
+          },
+          "reference": {
+            "callable_defaults": 0.004349032,
+            "catalog": 0.206688084,
+            "authority": 0.017231347,
+            "request": 0.038913521,
+            "response": 0.012590724,
+            "normalized_usage": 0.015453134,
+            "transport_defaults": 0.003375598
+          }
+        }
+      },
+      {
+        "batch": 3,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "reference": {
+            "callable_defaults": 0.004297232,
+            "catalog": 0.233350573,
+            "authority": 0.018104578,
+            "request": 0.038245425,
+            "response": 0.012454483,
+            "normalized_usage": 0.01443783,
+            "transport_defaults": 0.003402859
+          },
+          "candidate": {
+            "callable_defaults": 0.004586236,
+            "catalog": 0.162737847,
+            "authority": 0.018131579,
+            "request": 0.033258365,
+            "response": 0.014162371,
+            "normalized_usage": 0.020800075,
+            "transport_defaults": 0.003666567
+          }
+        }
+      },
+      {
+        "batch": 4,
+        "order": [
+          "candidate",
+          "reference"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "candidate": {
+            "callable_defaults": 0.004620594,
+            "catalog": 0.158233333,
+            "authority": 0.017769612,
+            "request": 0.032021886,
+            "response": 0.013890406,
+            "normalized_usage": 0.017726268,
+            "transport_defaults": 0.003806727
+          },
+          "reference": {
+            "callable_defaults": 0.004332179,
+            "catalog": 0.195975439,
+            "authority": 0.017188805,
+            "request": 0.039510428,
+            "response": 0.012320334,
+            "normalized_usage": 0.0137417,
+            "transport_defaults": 0.003610649
+          }
+        }
+      },
+      {
+        "batch": 5,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "reference": {
+            "callable_defaults": 0.004474572,
+            "catalog": 0.203348178,
+            "authority": 0.018139715,
+            "request": 0.0394537,
+            "response": 0.012509157,
+            "normalized_usage": 0.014283061,
+            "transport_defaults": 0.003530395
+          },
+          "candidate": {
+            "callable_defaults": 0.004691049,
+            "catalog": 0.164352638,
+            "authority": 0.01831374,
+            "request": 0.032903239,
+            "response": 0.014909096,
+            "normalized_usage": 0.018262321,
+            "transport_defaults": 0.003925286
+          }
+        }
+      }
+    ],
+    "shapes": [
+      {
+        "name": "callable_defaults",
+        "anchor_count": 4,
+        "input_roots": 1,
+        "skip_temporary_root": true,
+        "reference_median_seconds": 3.6241933333333335e-06,
+        "candidate_median_seconds": 3.8504949999999995e-06,
+        "median_absolute_deviation_seconds": 4.3166666666666875e-08,
+        "candidate_over_reference": 1.0624419411032153,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "catalog",
+        "anchor_count": 373,
+        "input_roots": 1,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 0.00016955363666666667,
+        "candidate_median_seconds": 0.00013578710583333334,
+        "median_absolute_deviation_seconds": 2.6864333333333082e-06,
+        "candidate_over_reference": 0.8008504476980549,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "authority",
+        "anchor_count": 26,
+        "input_roots": 1,
+        "skip_temporary_root": true,
+        "reference_median_seconds": 1.4359455833333333e-05,
+        "candidate_median_seconds": 1.526145e-05,
+        "median_absolute_deviation_seconds": 4.5343999999999917e-07,
+        "candidate_over_reference": 1.062815344615833,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "request",
+        "anchor_count": 89,
+        "input_roots": 1,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 3.259886333333333e-05,
+        "candidate_median_seconds": 2.7419365833333333e-05,
+        "median_absolute_deviation_seconds": 4.669275000000025e-07,
+        "candidate_over_reference": 0.8411141687046553,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "response",
+        "anchor_count": 17,
+        "input_roots": 1,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 1.04242975e-05,
+        "candidate_median_seconds": 1.1801975833333333e-05,
+        "median_absolute_deviation_seconds": 2.2663749999999974e-07,
+        "candidate_over_reference": 1.1321603046472277,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "normalized_usage",
+        "anchor_count": 22,
+        "input_roots": 2,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 1.1902550833333333e-05,
+        "candidate_median_seconds": 1.5005884166666668e-05,
+        "median_absolute_deviation_seconds": 4.5113416666666603e-07,
+        "candidate_over_reference": 1.260728425090392,
+        "regression_beyond_noise": true
+      },
+      {
+        "name": "transport_defaults",
+        "anchor_count": 2,
+        "input_roots": 1,
+        "skip_temporary_root": true,
+        "reference_median_seconds": 2.9419958333333333e-06,
+        "candidate_median_seconds": 3.1722725000000003e-06,
+        "median_absolute_deviation_seconds": 9.879916666666655e-08,
+        "candidate_over_reference": 1.0782722613192008,
+        "regression_beyond_noise": false
+      }
+    ],
+    "reference_sum_medians_seconds": 0.00024540499333333335,
+    "candidate_sum_medians_seconds": 0.0002122985491666667,
+    "aggregate_improvement": 0.13490534042108182,
+    "summed_median_absolute_deviation_seconds": 4.426538333333309e-06,
+    "confident": true,
+    "gate_passed": false,
+    "noise_rule": "Three times the larger per-shape median absolute deviation",
+    "paired_batches": 5
+  },
+  "data": {
+    "receipts_commit": "0847ff73eadfabcc92b62504674eae670f0fcc41",
+    "receipts_path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/genuine.receipts.jsonl",
+    "receipts_sha256": "75a27f8598033880f69a83c96bbdd732831d3ca6c92ef90d46ca080c254de43b",
+    "graph_indices": {
+      "request": 33,
+      "response": 35,
+      "normalized": 36
+    },
+    "payloads": {
+      "33": {
+        "bytes": 1131,
+        "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+      },
+      "35": {
+        "bytes": 299,
+        "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc"
+      },
+      "36": {
+        "bytes": 216,
+        "sha256": "b59d780f968215e7537bdf6f35a78ea299479286fb2e95319bed4da92a9392d1"
+      }
+    },
+    "defaults": [
+      "_IssuedCallContinuation.verify",
+      "ControlledPort.send"
+    ],
+    "request_order": [
+      "model",
+      "messages",
+      "tools",
+      "stream",
+      "tool_choice"
+    ],
+    "normalized_order": [
+      "content",
+      "tool_calls",
+      "finish_reason",
+      "reasoning",
+      "usage",
+      "provider_data"
+    ],
+    "usage_order": [
+      "prompt_tokens",
+      "completion_tokens",
+      "total_tokens",
+      "cached_tokens"
+    ],
+    "catalog_sizes": [
+      20,
+      1,
+      6,
+      6
+    ],
+    "fixture": "ContinuationWorld('positive') constructor only",
+    "binding_names": [
+      "shared_policy",
+      "fields",
+      "_require",
+      "NativeMainResponse",
+      "NativeMainChoice",
+      "NativeMainMessage",
+      "NativeMainUsage",
+      "NativeMainSelection",
+      "NativeResultPolicy",
+      "NativeAuxiliaryInvocation",
+      "NativeAuxiliaryLocalResult",
+      "_AuxiliaryTitlePreparation",
+      "_CompressionBinding",
+      "_AuxiliaryBinding",
+      "_CompressionPreparation",
+      "_FallbackBinding",
+      "_FailedSendObservation",
+      "NativeFailedMainAttempt",
+      "_FallbackFrame",
+      "NativeFallbackInvocation",
+      "_TurnFrame",
+      "_PendingOperation",
+      "NativeDelegateBinding",
+      "NativeDelegateInvocation"
+    ],
+    "imports": {
+      "native": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.53/agent/native_main_payload.py",
+      "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.53/.venv/bin/python",
+      "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.53/.venv"
+    }
+  },
+  "prototype_sha256": "c65beb9cfca7bccd02f015e53d593f335ae460f9f0393d1a81670c656623155a",
+  "prototype_ast_sha256": "78202ca4c6559f583aa4ea92ed7d7a94a802d8ff4d74db7a846f3c0ae38af260",
+  "reference_sha256": "bdfefcc543599e85de87bd1449d85062362d3903c3618854f89f35633a8a1447",
+  "timing_elapsed_after_import_seconds": 2.9335107399965636
+}
