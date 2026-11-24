@@ -1,0 +1,195 @@
+{
+  "runtime_and_compatibility_tests_exact": true,
+  "test_correction_only": {
+    "runtime_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+    "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+    "old_test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+    "root_authorization": "msg_1410160b598f",
+    "exact_test_only_delta": true,
+    "all_other_bytes_and_assertions_preserved": true,
+    "original_control_identity_branch_exact": true,
+    "positive_and_live_getter_branches_exact": true,
+    "corrected_coverage_harness": "UNEXECUTED",
+    "inverse_restores_original_test_exact": true
+  },
+  "all_original_artifacts_exact": true,
+  "README_prefix_exact": true,
+  "links": [
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "source-preservation.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "native-api.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "validation-scopes.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "last-observed-J.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "proof-chain.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "source-pins.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "first-positive-correction/README.md"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "remaining-qualification/README.md"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "validation-scopes.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "vectors.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "root-coverage-review.pin.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "test-only-correction.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "validation-scopes.json"
+    }
+  ],
+  "writing": {
+    "baseline_README": {
+      "words": 818,
+      "sentences": 95,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "candidate_README": {
+      "words": 860,
+      "sentences": 99,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 19,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "new_qualification_README": {
+      "words": 1282,
+      "sentences": 121,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 17,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "baseline_test": {
+      "words": 10,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 10,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "candidate_test": {
+      "words": 10,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 10,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    }
+  },
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "earlier_static_scope": "static-checks.json retains the initial unchanged-test scope."
+}

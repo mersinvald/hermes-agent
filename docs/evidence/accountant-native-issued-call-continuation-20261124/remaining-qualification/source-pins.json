@@ -1,0 +1,17 @@
+{
+  "candidate": "14f0d1f59202c753d30585979379ff8660dd382b",
+  "runtime_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+  "test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+  "native_API_declarations_sha256": "048ddd63e210c26a1b6534fbe996bbf5c1d3d05a766be5692a7aa6d1e6575af3",
+  "consumer_sha256": "e59003d1f27bc14fb46dac1cca0e90abd1ac486ea34e09886c63ef4ab9247eba",
+  "consumer_first_line": 11367,
+  "consumer_last_line": 11384,
+  "dependency": {
+    "version": "0.4.0",
+    "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d"
+  },
+  "proposal_publication": "610acbd80ce3228c6a9258d3ec29d2b46c68b29c",
+  "proposal_sha256": "2799b8de58727a701abd37b8069331d6609ab15c1835c57e2130c415b05d4dd9"
+}

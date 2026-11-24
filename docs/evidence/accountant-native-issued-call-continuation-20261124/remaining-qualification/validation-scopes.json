@@ -1,0 +1,731 @@
+{
+  "task": "task_c18894893968",
+  "dispatch": "ctx_8a40811aaa70",
+  "outcome": "failed",
+  "status": "INCOMPLETE / DO NOT MERGE",
+  "initial_failed_coverage": "initial-validation-scopes.json",
+  "initial_runtime_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+  "initial_test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+  "resumed_test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+  "root_resume_authorization": "msg_1410160b598f",
+  "root_artifact_review": "root-coverage-review.pin.json",
+  "exact_test_correction": "test-only-correction.json",
+  "resumed_distinct_cases": [
+    {
+      "name": "original-control",
+      "status": "passed",
+      "command": {
+        "name": "original-control",
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_issued_call_continuation.py",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "425",
+          "-j",
+          "1",
+          "--maxfail=1",
+          "-q",
+          "-k",
+          "test_genuine_continuation and original_control",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/remaining-qualification/original-control.xml",
+          "-p",
+          "no:cacheprovider",
+          "-o",
+          "junit_family=xunit1"
+        ],
+        "outer_cap_seconds": 430.0,
+        "inner_file_cap_seconds": 425,
+        "requested_k": "test_genuine_continuation and original_control",
+        "pins": {
+          "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+          "tests/tools/test_native_issued_call_continuation.py": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+        },
+        "selected_test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+        "retries": 0,
+        "start_wall": 1795504180.493272,
+        "spent_before": 456.9150671580137,
+        "seconds": 390.9853605059907,
+        "exit_code": 0,
+        "outer_timeout": false,
+        "file_timeout": false
+      },
+      "actual_selected_IDs": [
+        "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[original_control]"
+      ],
+      "XML_cases": [
+        {
+          "XML_ID": "tests.tools.test_native_issued_call_continuation::test_genuine_continuation[original_control]",
+          "passed": true
+        }
+      ],
+      "phases": [
+        {
+          "phase": "setup_qualifications",
+          "seconds": 1.6235301679989789,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "bind_continuation",
+          "seconds": 0.7499419069936266,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "bind_enable",
+          "seconds": 4.457486423008959,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "source_capture_close",
+          "seconds": 39.46171527900151,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "issued_child_return",
+          "seconds": 91.02782634799951,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "formatter",
+          "seconds": 62.79898293300357,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "Wf",
+          "seconds": 34.92611857899465,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "Wa",
+          "seconds": 1.6424586979992455,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "J",
+          "seconds": 54.28019670800131,
+          "outcome": "passed",
+          "error_type": null
+        }
+      ],
+      "C_boundaries": [
+        {
+          "window": 1,
+          "phase": "paired",
+          "elapsed": 3.1169860210065963,
+          "completed_stages": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            32,
+            3,
+            28294
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "paired",
+          "elapsed": 15.880764275003457,
+          "completed_stages": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            32,
+            3,
+            28294
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "paired",
+          "elapsed": 39.355543702011346,
+          "completed_stages": [
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            33,
+            3,
+            29658
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "paired",
+          "elapsed": 44.826646326007904,
+          "completed_stages": [
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            34,
+            3,
+            30789
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "prepared",
+          "elapsed": 53.492481888999464,
+          "completed_stages": [
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            35,
+            3,
+            32122
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 3,
+          "phase": "prepared",
+          "elapsed": 59.80755285600026,
+          "completed_stages": [
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            35,
+            3,
+            32122
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 3,
+          "phase": "prepared",
+          "elapsed": 96.86358387299697,
+          "completed_stages": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            35,
+            4,
+            32122
+          ],
+          "C_sends": 1,
+          "callback_depth": 1,
+          "raw_bytes": 299
+        }
+      ],
+      "C_window_seconds": [
+        [
+          1,
+          12.792553277002298
+        ],
+        [
+          2,
+          43.925716554003884
+        ],
+        [
+          3,
+          40.14587355600088
+        ]
+      ],
+      "observed": {
+        "phase": "denied",
+        "windows": 3,
+        "counts": [
+          35,
+          4,
+          32122
+        ],
+        "qualification_sends": 27,
+        "data_sends": {
+          "0": 1,
+          "1": 0,
+          "2": 1,
+          "3": 1,
+          "4": 0,
+          "5": 1
+        },
+        "poisoned": false
+      },
+      "raw_output_bytes": 299,
+      "retained_R_C_handle": null,
+      "normalized": null,
+      "completion": null,
+      "passed_assertions": "All unchanged post-refusal assertions and the exact selected exception contract executed.",
+      "original_control_identity_passed": true,
+      "selected_grant_despite_live_alternative_passed": false,
+      "vectors": "original-control-vectors.json"
+    },
+    {
+      "name": "selected-expiry",
+      "status": "passed",
+      "command": {
+        "name": "selected-expiry",
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_issued_call_continuation.py",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "425",
+          "-j",
+          "1",
+          "--maxfail=1",
+          "-q",
+          "-k",
+          "test_genuine_continuation and selected_expiry",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/remaining-qualification/selected-expiry.xml",
+          "-p",
+          "no:cacheprovider",
+          "-o",
+          "junit_family=xunit1"
+        ],
+        "outer_cap_seconds": 430.0,
+        "inner_file_cap_seconds": 425,
+        "requested_k": "test_genuine_continuation and selected_expiry",
+        "pins": {
+          "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+          "tests/tools/test_native_issued_call_continuation.py": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+        },
+        "selected_test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+        "retries": 0,
+        "start_wall": 1795504584.792654,
+        "spent_before": 847.9004276640044,
+        "seconds": 392.0419921779976,
+        "exit_code": 0,
+        "outer_timeout": false,
+        "file_timeout": false
+      },
+      "actual_selected_IDs": [
+        "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[selected_expiry]"
+      ],
+      "XML_cases": [
+        {
+          "XML_ID": "tests.tools.test_native_issued_call_continuation::test_genuine_continuation[selected_expiry]",
+          "passed": true
+        }
+      ],
+      "phases": [
+        {
+          "phase": "setup_qualifications",
+          "seconds": 1.5944131299911533,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "bind_continuation",
+          "seconds": 0.7311316970008193,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "bind_enable",
+          "seconds": 4.58885159700003,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "source_capture_close",
+          "seconds": 39.683438804000616,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "issued_child_return",
+          "seconds": 91.17625750700245,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "formatter",
+          "seconds": 62.704375508998055,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "Wf",
+          "seconds": 34.880751513992436,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "Wa",
+          "seconds": 1.7144656500022393,
+          "outcome": "passed",
+          "error_type": null
+        },
+        {
+          "phase": "J",
+          "seconds": 55.00666119599191,
+          "outcome": "passed",
+          "error_type": null
+        }
+      ],
+      "C_boundaries": [
+        {
+          "window": 1,
+          "phase": "paired",
+          "elapsed": 3.064462050999282,
+          "completed_stages": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            32,
+            3,
+            28297
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "paired",
+          "elapsed": 15.6881474719994,
+          "completed_stages": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            32,
+            3,
+            28297
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "paired",
+          "elapsed": 39.10649413400097,
+          "completed_stages": [
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            33,
+            3,
+            29661
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "paired",
+          "elapsed": 44.748866057998384,
+          "completed_stages": [
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            34,
+            3,
+            30792
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 2,
+          "phase": "prepared",
+          "elapsed": 53.38834036400658,
+          "completed_stages": [
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            35,
+            3,
+            32125
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 3,
+          "phase": "prepared",
+          "elapsed": 59.64640169299673,
+          "completed_stages": [
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            35,
+            3,
+            32125
+          ],
+          "C_sends": 0,
+          "callback_depth": 1,
+          "raw_bytes": null
+        },
+        {
+          "window": 3,
+          "phase": "prepared",
+          "elapsed": 96.95474838999507,
+          "completed_stages": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false
+          ],
+          "charges": [
+            35,
+            4,
+            32125
+          ],
+          "C_sends": 1,
+          "callback_depth": 1,
+          "raw_bytes": 299
+        }
+      ],
+      "C_window_seconds": [
+        [
+          1,
+          12.60925801799749
+        ],
+        [
+          2,
+          43.939735670006485
+        ],
+        [
+          3,
+          40.4493535500078
+        ]
+      ],
+      "observed": {
+        "phase": "denied",
+        "windows": 3,
+        "counts": [
+          35,
+          4,
+          32125
+        ],
+        "qualification_sends": 27,
+        "data_sends": {
+          "0": 1,
+          "1": 0,
+          "2": 1,
+          "3": 1,
+          "4": 0,
+          "5": 1
+        },
+        "poisoned": true
+      },
+      "raw_output_bytes": 299,
+      "retained_R_C_handle": null,
+      "normalized": null,
+      "completion": null,
+      "passed_assertions": "All unchanged post-refusal assertions and the exact selected exception contract executed.",
+      "original_control_identity_passed": false,
+      "selected_grant_despite_live_alternative_passed": true,
+      "vectors": "selected-expiry-vectors.json"
+    },
+    {
+      "name": "ordinary-compat",
+      "status": "passed",
+      "command": {
+        "name": "ordinary-compat",
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/agent/test_native_main_payload.py",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "15",
+          "-j",
+          "1",
+          "--maxfail=1",
+          "-q",
+          "-k",
+          "test_complete_native_payload_and_result_release",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/remaining-qualification/ordinary-compat.xml",
+          "-p",
+          "no:cacheprovider",
+          "-o",
+          "junit_family=xunit1"
+        ],
+        "outer_cap_seconds": 20.0,
+        "inner_file_cap_seconds": 15,
+        "requested_k": "test_complete_native_payload_and_result_release",
+        "pins": {
+          "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+          "tests/tools/test_native_issued_call_continuation.py": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+        },
+        "selected_test_sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+        "retries": 0,
+        "start_wall": 1795505285.3746285,
+        "spent_before": 1239.942419842002,
+        "seconds": 2.519346779008629,
+        "exit_code": 0,
+        "outer_timeout": false,
+        "file_timeout": false
+      },
+      "actual_selected_IDs": [
+        "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release"
+      ],
+      "XML_cases": [
+        {
+          "XML_ID": "tests.agent.test_native_main_payload::test_complete_native_payload_and_result_release",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "wire-compat",
+      "status": "passed",
+      "command": {
+        "name": "wire-compat",
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_issued_call_wire.py",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "15",
+          "-j",
+          "1",
+          "--maxfail=1",
+          "-q",
+          "-k",
+          "test_conversion_preserves_scalar_bytes and scalars",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/remaining-qualification/wire-compat.xml",
+          "-p",
+          "no:cacheprovider",
+          "-o",
+          "junit_family=xunit1"
+        ],
+        "outer_cap_seconds": 20.0,
+        "inner_file_cap_seconds": 15,
+        "requested_k": "test_conversion_preserves_scalar_bytes and scalars",
+        "pins": {
+          "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+          "tests/tools/test_native_issued_call_continuation.py": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+        },
+        "selected_test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1",
+        "retries": 0,
+        "start_wall": 1795505313.3825886,
+        "spent_before": 1242.4617666210106,
+        "seconds": 2.971312117006164,
+        "exit_code": 0,
+        "outer_timeout": false,
+        "file_timeout": false
+      },
+      "actual_selected_IDs": [
+        "tests/tools/test_native_issued_call_wire.py::test_conversion_preserves_scalar_bytes[scalars]"
+      ],
+      "XML_cases": [
+        {
+          "XML_ID": "tests.tools.test_native_issued_call_wire::test_conversion_preserves_scalar_bytes[scalars]",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "corrected_coverage_harness": "UNEXECUTED",
+  "full_positive_harness": "UNEXECUTED on current source",
+  "live_getter_assertion": "UNEXECUTED on current source",
+  "coverage_reruns": 0,
+  "automatic_retries": 0,
+  "all_five_original_cases_passed": false,
+  "runtime_unchanged": true,
+  "original_all_three_pass_unchanged_test_criterion_met": false,
+  "prior_failed_tasks_preserved": true,
+  "fresh_positive_claim": false
+}

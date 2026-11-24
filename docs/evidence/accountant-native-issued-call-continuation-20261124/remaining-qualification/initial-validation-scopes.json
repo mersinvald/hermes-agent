@@ -1,0 +1,417 @@
+{
+  "status": "INCOMPLETE / DO NOT MERGE",
+  "task": "task_c18894893968",
+  "dispatch": "ctx_8a40811aaa70",
+  "outcome": "failed",
+  "requested_ID": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+  "actual_selected_IDs": [
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]"
+  ],
+  "XML_cases": [
+    {
+      "XML_ID": "tests.tools.test_native_issued_call_continuation::test_genuine_continuation[coverage_expiry]",
+      "failed": true
+    }
+  ],
+  "command": {
+    "name": "coverage-expiry",
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_continuation.py",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "445",
+      "-j",
+      "1",
+      "--maxfail=1",
+      "-q",
+      "-k",
+      "test_genuine_continuation and coverage_expiry",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/remaining-qualification/coverage-expiry.xml",
+      "-p",
+      "no:cacheprovider",
+      "-o",
+      "junit_family=xunit1"
+    ],
+    "outer_cap_seconds": 450.0,
+    "inner_file_cap_seconds": 445,
+    "requested_k": "test_genuine_continuation and coverage_expiry",
+    "pins": {
+      "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+      "tests/tools/test_native_issued_call_continuation.py": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d"
+    },
+    "selected_test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+    "retries": 0,
+    "start_wall": 1795502668.4014904,
+    "spent_before": 60,
+    "seconds": 395.8214547719981,
+    "exit_code": 1,
+    "outer_timeout": false,
+    "file_timeout": false
+  },
+  "phases": [
+    {
+      "phase": "setup_qualifications",
+      "seconds": 1.562865650994354,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "bind_continuation",
+      "seconds": 0.7482535609888146,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "bind_enable",
+      "seconds": 4.510184584010858,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "source_capture_close",
+      "seconds": 39.25873552799749,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "issued_child_return",
+      "seconds": 90.05353795399424,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "formatter",
+      "seconds": 64.39964240300469,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "Wf",
+      "seconds": 35.92334368500451,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "Wa",
+      "seconds": 1.6855986680020578,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "J",
+      "seconds": 55.973130621991004,
+      "outcome": "passed",
+      "error_type": null
+    }
+  ],
+  "C_boundaries": [
+    {
+      "window": 1,
+      "phase": "paired",
+      "elapsed": 3.202813943993533,
+      "completed_stages": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        32,
+        3,
+        28297
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 16.279198087999248,
+      "completed_stages": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        32,
+        3,
+        28297
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 39.67511835899495,
+      "completed_stages": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        33,
+        3,
+        29661
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 45.238387389996205,
+      "completed_stages": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        34,
+        3,
+        30792
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "prepared",
+      "elapsed": 53.86246953699447,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        3,
+        32125
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 60.30162638898764,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        3,
+        32125
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 97.23369956998795,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        4,
+        32125
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    }
+  ],
+  "C_window_seconds": [
+    [
+      1,
+      13.059123899001861
+    ],
+    [
+      2,
+      44.055606342008105
+    ],
+    [
+      3,
+      40.157603794999886
+    ]
+  ],
+  "final_observation": {
+    "phase": "denied",
+    "windows": 3,
+    "counts": [
+      35,
+      4,
+      32125
+    ],
+    "qualification_sends": 27,
+    "data_sends": {
+      "0": 1,
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 1
+    },
+    "poisoned": true
+  },
+  "retained_stages": {
+    "A_C": {
+      "index": 0,
+      "handle_identity": 127590377469920,
+      "bytes": 402,
+      "sha256": "e9cde689cf9a4f026de61a74f0015fe51ade06acd980d3d7a736a180a85eb631",
+      "parents": [],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    "J": {
+      "index": 31,
+      "handle_identity": 127590377470048,
+      "bytes": 673,
+      "sha256": "6f5b4793e6c7e56348a2d60b6ee4466e3c6e5b621f59b42e96741993b7a1244f",
+      "parents": [
+        30,
+        29
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "H_C": {
+      "index": 32,
+      "handle_identity": 127590374720160,
+      "bytes": 1364,
+      "sha256": "8260547e3977910b4df836c9d239f7310cb66d6a852ff372405c014d3c0ade26",
+      "parents": [
+        31,
+        0
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "K_C": {
+      "index": 33,
+      "handle_identity": 127590377466784,
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b",
+      "parents": [
+        32
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "W_C": {
+      "index": 34,
+      "handle_identity": 127590374720896,
+      "bytes": 1333,
+      "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934",
+      "parents": [
+        32,
+        33
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    }
+  },
+  "raw_output_bytes": 299,
+  "retained_R_C_handle": null,
+  "normalized": null,
+  "completion": null,
+  "final_policy_time": 50,
+  "exception_chain": [
+    "NativeContentPolicyDenied(controlled_native_issued_continuation_coverage_missing)",
+    "PolicyError(callback_failed)",
+    "PolicyError(post_send_rejected)"
+  ],
+  "test_expected_exception": "NativeContentPolicyDenied",
+  "post_refusal_assertions_reached": false,
+  "source_backed_configuration": {
+    "selected_main_deadlines": 100,
+    "required_fallback_deadlines": 50,
+    "source": "Unchanged frozen ContinuationWorld fixture and immutable catalog guards. The post-refusal assertions did not run."
+  },
+  "post_denial_independent_namespace_snapshot": false,
+  "unknowns": [
+    "No NativeMainResponse or normalized bytes were produced after the shared dispatch rejection.",
+    "No independent C namespace dump exists after the last callback."
+  ],
+  "functional_expansion_stopped": true,
+  "automatic_retries": 0,
+  "unexecuted_selected_IDs": [
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[original_control]",
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[selected_expiry]",
+    "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+    "tests/tools/test_native_issued_call_wire.py::test_conversion_preserves_scalar_bytes[scalars]"
+  ],
+  "positive_and_live_getter_assertion": "UNEXECUTED on current source, unchanged",
+  "prior_failed_Task_outcomes_preserved": true,
+  "five_selected_cases_passed": false,
+  "root_artifact_review": {
+    "sha256": "857e0ef0d5783d6bb5342d18b4bae37b42c2ec298ee79e8fbc7c9043067235d3",
+    "scope": "Source and retained-artifact review only. No live-owner assertion or passing pytest case."
+  },
+  "test_only_correction": {
+    "runtime_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+    "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+    "old_test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+    "root_authorization": "msg_1410160b598f",
+    "exact_test_only_delta": true,
+    "all_other_bytes_and_assertions_preserved": true,
+    "original_control_identity_branch_exact": true,
+    "positive_and_live_getter_branches_exact": true,
+    "corrected_coverage_harness": "UNEXECUTED",
+    "inverse_restores_original_test_exact": true
+  },
+  "corrected_coverage_harness": "UNEXECUTED",
+  "scope_note": "Initial failed coverage case remains exact. Root later permitted the expectation correction and distinct never-executed modes."
+}

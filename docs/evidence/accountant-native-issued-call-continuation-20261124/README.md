@@ -115,3 +115,9 @@ The source tree is `848894585f03142168bffc5c77e34ed80fb042c2`.
 [The corrective scope](first-positive-correction/README.md) records a separate task and budget.
 The original Task remains failed.
 PR22 remains INCOMPLETE / DO NOT MERGE.
+
+## Separate remaining failure qualification
+
+[The remaining qualification scope](remaining-qualification/README.md) records a separate task with unchanged runtime and a separately pinned test correction.
+All prior failed tasks and the unexecuted positive harness retain their exact scopes.
+PR22 remains INCOMPLETE / DO NOT MERGE.

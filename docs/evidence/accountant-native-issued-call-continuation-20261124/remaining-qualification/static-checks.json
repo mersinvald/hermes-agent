@@ -1,0 +1,122 @@
+{
+  "unchanged_runtime_and_all_three_test_files": true,
+  "all_original_artifacts_exact": true,
+  "README_prefix_exact": true,
+  "links": [
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "source-preservation.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "native-api.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "validation-scopes.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "last-observed-J.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "proof-chain.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "source-pins.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "first-positive-correction/README.md"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/README.md",
+      "target": "remaining-qualification/README.md"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "validation-scopes.json"
+    },
+    {
+      "page": "docs/evidence/accountant-native-issued-call-continuation-20261124/remaining-qualification/README.md",
+      "target": "vectors.json"
+    }
+  ],
+  "writing": {
+    "baseline_README": {
+      "words": 818,
+      "sentences": 95,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "candidate_README": {
+      "words": 856,
+      "sentences": 99,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "new_qualification_README": {
+      "words": 661,
+      "sentences": 62,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 17,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  },
+  "runtime_test_and_other_modes_unchanged": true
+}
