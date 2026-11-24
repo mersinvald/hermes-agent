@@ -1,0 +1,88 @@
+{
+  "changed_old_definitions": [
+    "NativeMainPayloadAdapter._around",
+    "_Admission.current",
+    "_ToolCallProbe.observe_operation",
+    "_Transport.resolve",
+    "_constructed_state"
+  ],
+  "all_old_signatures_preserved": true,
+  "all_other_old_definitions_preserved": true,
+  "unchanged_other_tracked_paths": 11624,
+  "source_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+  "test_sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+  "new_source_fields": [
+    "source_observation",
+    "response",
+    "assistant_message",
+    "finish_reason",
+    "message",
+    "message_bytes",
+    "message_content",
+    "authorization_bytes",
+    "authorization_content",
+    "anchors"
+  ],
+  "checkout_normalization": [
+    {
+      "path": "optional-skills/software-development/ast-grep/install.ps1",
+      "raw_sha256": "7ef8544f6560231ffa4e3886e94dd3038c461c6532e7941b82cb7d3c567c7268",
+      "clean_blob": "65dd6d8b6c999f8323f94df4bfec679b599708ec"
+    },
+    {
+      "path": "optional-skills/software-development/ast-grep/tests/smoke.ps1",
+      "raw_sha256": "9a59314545cbfa5330a65285f98614b4cdcd4302da70e506884021f7e292d7a6",
+      "clean_blob": "b051d1ce04ee92cae34d5ece0247de3fa7bb6fe6"
+    },
+    {
+      "path": "scripts/ci/test_install_ps1_cli_launchers.ps1",
+      "raw_sha256": "3df30f8c23eded767a8a91f822009acd99b2ce7d750786b8dd0c6fb7508ea512",
+      "clean_blob": "830e68eb1efb601cac6eaee9c02fb92b2e026a11"
+    },
+    {
+      "path": "scripts/ci/test_install_ps1_path_migration.ps1",
+      "raw_sha256": "fa7086c2eab038a27cffc60f8c74b81f8533d1cf735a7143cc6c07685cb88dcc",
+      "clean_blob": "232d49fb2478c92737bf2c6505e1dc571dc70df8"
+    },
+    {
+      "path": "scripts/desktop-update.ps1",
+      "raw_sha256": "1905baa8e7b440fc3be91674c497aa1cc91cbcb53133f7dd3f3513673c99769d",
+      "clean_blob": "227845ce011f94cf649807455490315924f9791c"
+    },
+    {
+      "path": "scripts/desktop-update/retry-policy.ps1",
+      "raw_sha256": "4816583e8a76b6b93125b6486d5da3cb977f72e8301874e5aed311fc11fc26ed",
+      "clean_blob": "004287874c17d36c97dcd79dc4e1014b1e9ad12d"
+    },
+    {
+      "path": "scripts/desktop-update/windows.ps1",
+      "raw_sha256": "3822b5f19386a820229632edc1f1c4a95958a8a8dbae2ba3a881507ce20d19e5",
+      "clean_blob": "7067cff33550d365178c8ed2f775ea272897a15a"
+    },
+    {
+      "path": "scripts/install.ps1",
+      "raw_sha256": "640c24f648393bd88bea576fa9075f610f204c3e986e38c06d1c88eccf5d359a",
+      "clean_blob": "8ac4df07902b21ff70b337eb138f5e28278261ce"
+    },
+    {
+      "path": "scripts/tests/test-install-ps1-gitbash-compatibility.ps1",
+      "raw_sha256": "861e76d19252b3d3237438a09b28d8dbb824ec7419fb9932dd41da845d37ed8e",
+      "clean_blob": "802ecb25e28347b78b8fe4fa5041fa224108ad88"
+    },
+    {
+      "path": "scripts/tests/test-install-ps1-longpath.ps1",
+      "raw_sha256": "aed0dcb17f0a51c2d3e454a64cedb32a8d2c86f893195ee9406fd9564cd2c424",
+      "clean_blob": "997738df80bf39f0ebcf589fc3d1dbac22161e0c"
+    },
+    {
+      "path": "scripts/tests/test-install-ps1-node-compatibility.ps1",
+      "raw_sha256": "bd23e8cbfa92a75e07583f72513d61e9ba5550c15694564e8ab590027e004b4b",
+      "clean_blob": "ffd7d493e1d7bb7f861b968ed2203871839e82a3"
+    },
+    {
+      "path": "scripts/tests/test-install-ps1-stage-protocol.ps1",
+      "raw_sha256": "f871aa040a0c6c16990b70d59dbbb603795d40a9c87ade77cdcc34f61a492ad5",
+      "clean_blob": "b8fa5271ce668649f2c2d01fdcec9e1484985e7f"
+    }
+  ]
+}
