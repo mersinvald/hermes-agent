@@ -1,0 +1,14 @@
+{
+  "total_limit_seconds": 840,
+  "allowance_seconds": 10,
+  "launch_preparation_charged_seconds": 75.11684974200034,
+  "command_seconds": 544.579277353012,
+  "finish_charged_seconds": 619.6961549469997,
+  "outer_cap_seconds": 600,
+  "file_cap_seconds": 595,
+  "histories": 1,
+  "retries": 0,
+  "task": "FAILED due to required prose assertions",
+  "genuine": "PASSED",
+  "charged_at_receipt": 761.7169037990097
+}
