@@ -7,5 +7,26 @@
     "genuine": 600,
     "final": 180,
     "reserve": 210
+  },
+  "measured_test_command_seconds": {
+    "cheap": 39.20191850003903,
+    "genuine": 48.82048106298316
+  },
+  "coding_and_preparation_wall_before_verification_seconds": 555.2161102294922,
+  "wall_at_genuine_launch": {
+    "task_remaining": 1867.276347398758,
+    "verification_remaining": 922.4924576282501
+  },
+  "launch_floors": {
+    "task": 900,
+    "verification": 870
+  },
+  "genuine_outer_cap": 600,
+  "genuine_file_cap": 595,
+  "automatic_retries": 0,
+  "second_history_authorized": false,
+  "measured_wall_at_evidence_seconds": {
+    "task": 1066.6595566272736,
+    "verification_publication": 511.44344663619995
   }
 }

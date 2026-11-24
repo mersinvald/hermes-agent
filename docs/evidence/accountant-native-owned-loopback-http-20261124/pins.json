@@ -115,5 +115,10 @@
       "bytes": 87,
       "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
     }
-  ]
+  ],
+  "source_freeze": {
+    "commit": "4eed82d948a558d2a06130b84dc50520bbd8d79a",
+    "tree": "add4f2faea648ee1127979d47b5309dd6a23c001"
+  },
+  "source_and_tests_unchanged_after_freeze": true
 }

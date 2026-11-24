@@ -17,7 +17,23 @@ Qualification and episode traffic have separate records.
 The four episode bodies must match the original retained dispatch envelopes.
 Execution-main and formatter-main must send no episode data.
 The source freeze precedes one genuine public history.
-Final results follow that history.
+The single history failed after 48.82 command seconds.
+The original native guard reported `controlled_native_tool_probe_authority_denied` after P response and observation retention.
+Its callback detail remains UNKNOWN.
+Functional work stopped, with no history retry.
+This Task is FAILED and the draft remains incomplete.
+
+All 27 original qualification results completed.
+The receiver observed 25 HTTP qualification requests and one P episode request.
+The receiver observed no receiver, child, or C episode request.
+The later graph, completion, live getter, validated C exit, and P close remain UNKNOWN.
+All owned receiver sockets and its thread closed.
+
+The final direct scope passed 59 cases.
+The response-script and original-catalog scope passed one case.
+Cheap commands used 39.20 seconds, including two corrected failure scopes.
+All 12,164 original Git blobs and modes remain exact.
+The original checkout filters explain the PowerShell raw-byte hash difference.
 
 The [pins](pins.json) record source, API, proposal, and dependency identities.
 The [results](results.json) retain failed cheap scopes and final selected node IDs.

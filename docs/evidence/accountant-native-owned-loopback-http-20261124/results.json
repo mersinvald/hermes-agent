@@ -1,4 +1,996 @@
 {
-  "state": "source_frozen_before_genuine",
-  "genuine_attempts": 0
+  "task_outcome": "FAILED",
+  "publication_scope": "incomplete_draft",
+  "genuine_attempts": 1,
+  "cheap_scopes": [
+    {
+      "invocation": 1,
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_owned_loopback_http.py:tests/agent/test_native_public_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-k",
+        "not genuine_public_loopback_http",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61/cheap-1.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "seconds": 11.23773727499065,
+      "returncode": 1,
+      "xml_cases": [
+        {
+          "nodeid": "tests/agent/test_native_public_loopback_http.py::test_wire_plan_and_original_json_scripts",
+          "seconds": 0.092,
+          "outcome": "failed"
+        }
+      ],
+      "scope_note": "The two files used one XML destination, so the second file replaced the first XML."
+    },
+    {
+      "invocation": 2,
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_owned_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-k",
+        "not genuine_public_loopback_http",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61/cheap-2.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "seconds": 8.130181239015656,
+      "returncode": 1,
+      "xml_cases": [
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination",
+          "seconds": 0.221,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-localhost]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-http://127.0.0.1]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-::1]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-127.0.0.2]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-True]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-0]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-65536]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[request_path-/owned-accountant-proof/v1/p?x=1]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[request_path-/owned-accountant-proof/v1/p#x]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[endpoint_ref-invented_endpoint]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[model_ref-invented_model_2]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-True]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-0]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-9007199254740992]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[provider_ref-synthetic_native]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[endpoint]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[reference]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[destination]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[method]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[helper_code]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[defaults]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[socket]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[clock]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[constant]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[layout]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[busy]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_destination_body_thread_and_reentry_denials",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[version]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[informational]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[redirect]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[duplicate]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[transfer]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[encoding]",
+          "seconds": 0.118,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[decimal]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[header]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[body_bound]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[header_bound]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[truncated]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[extra]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[unfinished]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_bounds",
+          "seconds": 0.118,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_refusal_preserves_oserror_subclass",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_deadline_and_failure_token",
+          "seconds": 5.137,
+          "outcome": "failed"
+        }
+      ],
+      "scope_note": "One explicit file and fresh XML."
+    },
+    {
+      "invocation": 3,
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_owned_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-k",
+        "not genuine_public_loopback_http",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61/cheap-3.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "seconds": 8.682340962026501,
+      "returncode": 0,
+      "xml_cases": [
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination",
+          "seconds": 0.191,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-localhost]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-http://127.0.0.1]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-::1]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-127.0.0.2]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-True]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-0]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-65536]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[request_path-/owned-accountant-proof/v1/p?x=1]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[request_path-/owned-accountant-proof/v1/p#x]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[endpoint_ref-invented_endpoint]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[model_ref-invented_model_2]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-True]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-0]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-9007199254740992]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[provider_ref-synthetic_native]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[endpoint]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[reference]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[destination]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[method]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[helper_code]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[defaults]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[socket]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[clock]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[constant]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[layout]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[busy]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_destination_body_thread_and_reentry_denials",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[version]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[informational]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[redirect]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[duplicate]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[transfer]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[encoding]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[decimal]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[header]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[body_bound]",
+          "seconds": 0.119,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[header_bound]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[truncated]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[extra]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[unfinished]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_bounds",
+          "seconds": 0.118,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_refusal_preserves_oserror_subclass",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_deadline_and_failure_token",
+          "seconds": 5.292,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_current_denial_before_send[binding]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_current_denial_before_send[route]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_current_denial_before_send[profile]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_post_send_fault_has_no_retry[dispatch]",
+          "seconds": 0.145,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_post_send_fault_has_no_retry[dispatch_attempt]",
+          "seconds": 0.137,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_partial_write_reentry_and_peer_mismatch",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[exact_connection]",
+          "seconds": 0.061,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[refused_subclass]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[exact_timeout]",
+          "seconds": 0.066,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[oserror]",
+          "seconds": 0.043,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[cancel]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[interrupt]",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_absolute_write_deadline",
+          "seconds": 0.021,
+          "outcome": "passed"
+        }
+      ],
+      "scope_note": "One explicit file and fresh XML."
+    },
+    {
+      "invocation": 4,
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_native_public_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-k",
+        "not genuine_public_loopback_http",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61/cheap-4.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "seconds": 2.1707682150008623,
+      "returncode": 0,
+      "xml_cases": [
+        {
+          "nodeid": "tests/agent/test_native_public_loopback_http.py::test_wire_plan_and_original_json_scripts",
+          "seconds": 0.038,
+          "outcome": "passed"
+        }
+      ],
+      "scope_note": "One explicit file and fresh XML."
+    },
+    {
+      "invocation": 5,
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_owned_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-k",
+        "not genuine_public_loopback_http",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61/cheap-5.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "seconds": 8.98089080900536,
+      "returncode": 0,
+      "xml_cases": [
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination",
+          "seconds": 0.192,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-localhost]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-http://127.0.0.1]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-::1]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[address-127.0.0.2]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-True]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-0]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[port-65536]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[request_path-/owned-accountant-proof/v1/p?x=1]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[request_path-/owned-accountant-proof/v1/p#x]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[endpoint_ref-invented_endpoint]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[model_ref-invented_model_2]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-True]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-0]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[revision-9007199254740992]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_descriptor_refusal[provider_ref-synthetic_native]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[endpoint]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[reference]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[destination]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[method]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[helper_code]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[defaults]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[socket]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[clock]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[constant]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[layout]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[busy]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_destination_body_thread_and_reentry_denials",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[version]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[informational]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[redirect]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[duplicate]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[transfer]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[encoding]",
+          "seconds": 0.116,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[decimal]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[header]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[body_bound]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[header_bound]",
+          "seconds": 0.118,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[truncated]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[extra]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_response_fault[unfinished]",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_bounds",
+          "seconds": 0.12,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_refusal_preserves_oserror_subclass",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_deadline_and_failure_token",
+          "seconds": 5.388,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_current_denial_before_send[binding]",
+          "seconds": 0.026,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_current_denial_before_send[route]",
+          "seconds": 0.025,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_current_denial_before_send[profile]",
+          "seconds": 0.025,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_post_send_fault_has_no_retry[dispatch]",
+          "seconds": 0.139,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_shared_post_send_fault_has_no_retry[dispatch_attempt]",
+          "seconds": 0.143,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_partial_write_reentry_and_peer_mismatch",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[exact_connection]",
+          "seconds": 0.063,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[refused_subclass]",
+          "seconds": 0.044,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[exact_timeout]",
+          "seconds": 0.065,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[oserror]",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[cancel]",
+          "seconds": 0.044,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_exception_identity_and_shared_boundary[interrupt]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_absolute_write_deadline",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_drift_at_wire_checkpoints[prewrite]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_inert_drift_at_wire_checkpoints[postread]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        }
+      ],
+      "scope_note": "One explicit file and fresh XML."
+    }
+  ],
+  "cheap_feedback": [
+    {
+      "invocation": 1,
+      "failures": [
+        "test_positive_wire_and_fresh_destination",
+        "test_wire_plan_and_original_json_scripts"
+      ],
+      "reason": "slot_descriptor_order_check"
+    },
+    {
+      "invocation": 2,
+      "passed": 43,
+      "failed": "test_actual_deadline_and_failure_token",
+      "reason": "fixture_close_at_client_deadline_race"
+    }
+  ],
+  "final_direct_cases": 59,
+  "final_plan_cases": 1,
+  "genuine": {
+    "nodeid": "tests/agent/test_native_public_loopback_http.py::test_genuine_public_loopback_http",
+    "seconds": 48.82048106298316,
+    "returncode": 1,
+    "outcome": "failed",
+    "error_type": "NativeContentPolicyDenied",
+    "error_code": "controlled_native_tool_probe_authority_denied",
+    "context_type": "PolicyError",
+    "context_code": "callback_failed",
+    "underlying_callback_detail": "UNKNOWN"
+  },
+  "later_public_result": "UNKNOWN",
+  "later_graph": "UNKNOWN",
+  "receiver_cleanup": {
+    "thread_alive": false,
+    "listener_closed": true,
+    "accepted_socket_live": false,
+    "receiver_errors": []
+  },
+  "functional_work_stopped_after_genuine": true,
+  "retries": 0
 }
