@@ -1113,6 +1113,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        projection = _assistant_wire_window(adapter)
+        if projection is not None:
+            return projection.current(handle)
         source = _assistant_source_window(adapter)
         if source is not None:
             return source.current(handle)
@@ -1146,6 +1149,9 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        projection = _assistant_wire_window(self.adapter)
+        if projection is not None:
+            return projection.resolve(self)
         source = _assistant_source_window(self.adapter)
         if source is not None:
             return source.resolve(self)
@@ -1548,6 +1554,30 @@ class NativeMainPayloadAdapter:
     @property
     def tool_call_assistant_sources(self) -> tuple[NativeToolCallAssistantSource, ...]:
         owner = _assistant_source_owner(self)
+        return () if owner is None else owner.proof_access()
+
+    def retain_tool_call_assistant_wire(
+        self, source: NativeToolCallAssistantSource,
+    ) -> NativeToolCallAssistantWireResult:
+        original = _assistant_wire_preflight(self, source)
+        owner = _ToolCallAssistantWire(self, source, original, sys._getframe())
+        try:
+            return owner.run()
+        except BaseException as error:
+            owner.phase = "denied"
+            _remember_delegate_control(owner, error)
+            if owner.control_exception is not None:
+                raise owner.control_exception
+            if not isinstance(error, Exception) or type(error) is NativeContentPolicyDenied:
+                raise
+            raise NativeContentPolicyDenied("controlled_native_assistant_wire_authority_denied") from None
+        finally:
+            owner.entry = owner.public = owner.stage_frame = None
+            owner.active_call = owner.call_anchor = None
+
+    @property
+    def tool_call_assistant_wire_results(self) -> tuple[NativeToolCallAssistantWireResult, ...]:
+        owner = _assistant_wire_owner(self)
         return () if owner is None else owner.proof_access()
 
     @property
@@ -3254,6 +3284,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        projection = _assistant_wire_window(self)
+        if projection is not None:
+            return projection.around(callback)
         source = _assistant_source_window(self)
         if source is not None:
             return source.around(callback)
@@ -9569,3 +9602,501 @@ def _assistant_source_code_current():
 
 
 _ASSISTANT_SOURCE_CHECK_CODE = _assistant_source_code_current.__code__
+
+
+@dataclass(frozen=True, slots=True)
+class NativeToolCallAssistantWireResult:
+    source_result: NativeToolCallAssistantSource
+    model: str
+    messages: list[dict[str, object]]
+    message_bytes: bytes
+    message_content: object
+    anchors: tuple
+
+
+_assistant_wire_owners = ()
+
+
+def _assistant_wire_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_assistant_wire_" + reason)
+
+
+def _assistant_wire_owner(adapter):
+    return next((owner for owner in _assistant_wire_owners if owner.parent is adapter), None)
+
+
+def _assistant_wire_window(adapter):
+    owner = _assistant_wire_owner(adapter)
+    return owner if owner is not None and owner.entry is not None and owner.stage_frame is owner.entry else None
+
+
+def _assistant_wire_keys(value, names):
+    _assistant_wire_require(type(value) is dict and all(type(key) is str for key in value), "labels_invalid")
+    _assistant_wire_require(tuple(value) == names, "shape_changed")
+
+
+def _assistant_wire_source(source, owner):
+    _assistant_wire_require(type(source) is NativeToolCallAssistantSource and source is owner.record
+        and any(entry[0] is owner and entry[1] is source and entry[2] is owner.record_anchor
+                for entry in _assistant_source_records)
+        and _same_anchors(_row(source, NativeToolCallAssistantSource), owner.record_anchor), "source_unregistered")
+    _assistant_source_bytes(source.message)
+    _assistant_wire_keys(source.message, ("role", "content", "reasoning", "finish_reason", "timestamp", "tool_calls"))
+    calls = source.message["tool_calls"]
+    _assistant_wire_require(type(calls) is list and len(calls) == 1, "source_calls_changed")
+    _assistant_wire_keys(calls[0], ("id", "call_id", "response_item_id", "type", "function"))
+    _assistant_wire_keys(calls[0]["function"], ("name", "arguments"))
+    for value in (source.message["role"], source.message["content"], source.finish_reason,
+                  calls[0]["id"], calls[0]["call_id"], calls[0]["response_item_id"], calls[0]["type"],
+                  *calls[0]["function"].values()):
+        _assistant_wire_require(type(value) is str, "scalar_invalid")
+        _text(value)
+    probe = owner.probe
+    _assistant_wire_require(source.source_observation is owner.observation is probe.records[0]
+        and source.response is owner.response and source.assistant_message is owner.assistant_message
+        and source.finish_reason is owner.finish_reason and source.message is owner.message
+        and source.message_bytes is owner.message_bytes and source.message_content is owner.message_content
+        and source.authorization_bytes is owner.authorization_bytes
+        and source.authorization_content is owner.authorization_content, "source_relation_changed")
+    expected = (owner.binding, probe, owner.constructed, owner.before_anchors, owner.before_state,
+        owner.completed_anchors, owner.completed_state, owner.backing_value,
+        _ASSISTANT_SOURCE_PROPERTY, _ASSISTANT_SOURCE_PROPERTY_GETTER, owner.after_anchors, owner.after_state,
+        owner.cache_before, owner.cache, owner.methods, owner.model_state, owner.model_anchors,
+        owner.message_anchors, owner.callables, _ASSISTANT_SOURCE_DEFAULTS, _ASSISTANT_SOURCE_WALL_TIME)
+    _assistant_wire_require(type(source.anchors) is tuple and _same_anchors(source.anchors, expected), "source_anchors_changed")
+    owner.verify()
+    probe.verify()
+    _assistant_source_builder_metadata(source.assistant_message)
+    _assistant_wire_require(owner.enabled is owner.attempted is owner.captured is owner.cache_committed is True
+        and owner.windows == 3 and owner.depth == 0 and owner.stage_frame is owner.stage_anchor is owner.capture_frame is None
+        and owner.control_exception is probe.control_exception is None
+        and probe.phase == probe.phase_anchor == "released" and probe.attempted is probe.closed is True
+        and probe.constructed is owner.constructed and owner.constructed.closed is True
+        and probe.stage_index == 8 and probe.depth == 0
+        and probe.bind_frame is probe.public_bind is probe.run_frame is probe.public_run is probe.dispatch_frame
+            is probe.active_call is probe.call_anchor is probe.stage_frame is probe.stage_anchor is None,
+        "source_not_closed")
+    _assistant_wire_require(owner.before_anchors is not owner.completed_anchors
+        and owner.completed_anchors is not owner.after_anchors and owner.before_state is not owner.completed_state
+        and owner.completed_state is not owner.after_state
+        and any(registered is owner and cache is owner.cache for registered, cache in _assistant_source_caches),
+        "constructor_snapshots_changed")
+
+
+def _assistant_wire_preflight(adapter, source):
+    _assistant_wire_require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters, "adapter_invalid")
+    _assistant_wire_require(type(source) is NativeToolCallAssistantSource, "source_unregistered")
+    original = _assistant_source_owner(adapter)
+    _assistant_wire_require(original is not None and source is original.record
+        and any(entry[0] is original and entry[1] is source and entry[2] is original.record_anchor
+                for entry in _assistant_source_records)
+        and _same_anchors(_row(source, NativeToolCallAssistantSource), original.record_anchor), "source_unregistered")
+    _assistant_wire_require(threading.get_ident() == original.thread and original.depth == original.probe.depth == 0,
+        "reentry_or_thread")
+    _assistant_wire_require(_assistant_wire_owner(adapter) is None and len(_assistant_wire_owners) < 128, "attempt_spent")
+    _assistant_wire_require(current_context() is adapter._bound_context and not adapter._busy
+        and adapter._pending is adapter._agent is adapter._kwargs is adapter._operation is adapter._checked_operation is None,
+        "scope_invalid")
+    _assistant_wire_source(source, original)
+    return original
+
+
+def _assistant_wire_terminal(owner):
+    for original, snapshot in owner.snapshots:
+        _assistant_wire_require(_same_anchors(tuple(value for pair in vars(original).items() for value in pair),
+            tuple(value for pair in snapshot for value in pair)), "terminal_namespace_changed")
+    source, producer, probe, p = owner.source_result, owner.producer, owner.probe, owner.parent
+    _assistant_wire_source(source, producer)
+    _assistant_wire_require(p._runtime is p._captured_runtime is owner.runtime is probe.runtime
+        and _tool_call_probes.get(p) is p._tool_probe_owner is probe
+        and _assistant_source_owner(p) is producer and producer.parent is p
+        and p._bound_context is p._context and p._bound_context.admission is p._admission
+        and p._bound_context.request_handle is p._handle
+        and p._bound_context._controlled_main_payload is p and p._bound_context._controlled_main_bound is True
+        and p._constructed is producer.constructed is _owned_constructed_binding(producer.agent)
+        and probe.binding is probe.registered_binding is producer.binding
+        and producer.binding.token is owner.token, "original_binding_changed")
+    for handle, retained, anchor, payload, parents in owner.graph:
+        current = owner.runtime._content(handle)
+        _assistant_wire_require(current is retained and current.payload is payload
+            and _same_anchors(tuple(getattr(current, field.name) for field in fields(current)), anchor)
+            and _same_anchors(current.parents, parents) and current.binding[:8] == probe.initial[0][:8]
+            and set(owner.profiles) <= set(current.profiles), "graph_changed")
+    _assistant_wire_require(owner.runtime._envelopes.get(id(probe.envelope)) is owner.envelope_record
+        and _same_anchors(tuple(getattr(owner.envelope_record, field.name) for field in fields(owner.envelope_record)),
+                         owner.envelope_anchor)
+        and owner.envelope_record.envelope is probe.envelope
+        and owner.envelope_record.sender_handle is p._handle
+        and probe.envelope.payload is probe.wire_bytes
+        and owner.envelope_record.content is owner.runtime._content(probe.wire_content)
+        and _destination(probe.envelope.destination) == _destination(probe.selection.destination)
+        and probe.observed_destination is probe.selection.destination,
+        "envelope_changed")
+    _assistant_wire_require(source.message_content is owner.graph[-1][0]
+        and owner.runtime._content(source.message_content).path == "main"
+        and owner.runtime._content(probe.response_content).path == "main", "source_path_changed")
+
+
+class _ToolCallAssistantWire:
+    """Retain one stock assistant projection from an original closed source."""
+
+    def __init__(self, parent, source, producer, public):
+        global _assistant_wire_owners
+        self.parent, self.source_result, self.producer, self.probe = parent, source, producer, producer.probe
+        self.runtime, self.thread, self.token = parent._runtime, producer.thread, producer.binding.token
+        self.public, self.entry, self.stage_frame = public, None, None
+        self.active_call = self.call_anchor = object()
+        self.phase, self.windows, self.depth, self.checking = "running", 0, 0, False
+        self.control_exception = None
+        self.records = ()
+        self.raw_slot = [None, None, None]
+        self.messages = self.message_anchors = self.message_bytes = self.message_content = None
+        self.helper = self.converter = None
+        self.charge_before = (len(self.runtime._contents), self.runtime._retained_bytes)
+        self.charge_after = None
+        self.derive_error = None
+        # Keep the original attempt before any helper or external callback.
+        _assistant_wire_owners = (*_assistant_wire_owners, self)
+        self.snapshots = tuple((obj, tuple(vars(obj).items())) for obj in
+            (parent, producer, self.probe, producer.constructed, producer.agent, parent._bound_context))
+        self.model = self.probe.selection.destination.model_ref
+        _assistant_wire_require(type(self.model) is str, "model_invalid")
+        _text(self.model)
+        self.inputs = [source.message]
+        self.input_anchors = _nested_anchors(self.inputs)
+        self.profiles = tuple(sorted(set((*self.probe.original_profiles, *self.probe.initial[2][2]))))
+        probe = self.probe
+        a, q, w, r = probe.binding.authorization_content, probe.request_content, probe.wire_content, probe.response_content
+        self.graph = tuple((handle, self.runtime._content(handle),
+            tuple(getattr(self.runtime._content(handle), field.name) for field in fields(self.runtime._content(handle))),
+            payload, parents) for handle, payload, parents in (
+                (a, probe.binding.authorization_bytes, ()), (q, probe.request_bytes, (a,)),
+                (w, probe.wire_bytes, (a, q)), (r, probe.response_bytes, (w,)),
+                (probe.observation_content, probe.observation_bytes, (a, q, w, r)),
+                (source.authorization_content, source.authorization_bytes, ()),
+                (source.message_content, source.message_bytes, (r, source.authorization_content))))
+        self.envelope_record = self.runtime._envelopes[id(probe.envelope)]
+        self.envelope_anchor = tuple(getattr(self.envelope_record, field.name) for field in fields(self.envelope_record))
+        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
+            (parent._admission, "current"), (parent._selection_port, "current"), (parent._result_port, "current"),
+            (parent, "_clock"), *((port, "resolve") for _, port in probe.catalog[2]),
+            *((self, name) for name in _ASSISTANT_WIRE_METHODS)))
+        self.callables = _assistant_source_callable_facts(self.methods, parent._clock)
+        self.fixed = (parent, source, producer, probe, self.runtime, self.thread, self.token, self.snapshots,
+            self.model, self.inputs, self.input_anchors, self.profiles, self.graph, self.envelope_record,
+            self.envelope_anchor, self.methods, self.callables, self.raw_slot, self.charge_before)
+
+    def access(self, *, proof=False):
+        _assistant_wire_require(threading.get_ident() == self.thread and type(self.depth) is int and self.depth == 0,
+            "reentry_or_thread")
+        _assistant_wire_require(_assistant_wire_owner(self.parent) is self
+            and any(owner is self for owner in _assistant_wire_owners), "owner_unregistered")
+        _assistant_wire_require(type(self.windows) is int and 0 <= self.windows <= 3, "window_invalid")
+        if proof:
+            _assistant_wire_require(self.entry is self.public is self.stage_frame is self.active_call is self.call_anchor is None,
+                "operation_active")
+            return
+        _assistant_wire_require(self.phase == "running" and self.active_call is self.call_anchor
+            and self.active_call is not None and self.entry is not None and self.public is not None, "window_missing")
+        _assistant_wire_require(self.entry.f_code is _ToolCallAssistantWire.run.__code__
+            and self.entry.f_locals.get("self") is self and self.entry.f_back is self.public
+            and self.public.f_code is NativeMainPayloadAdapter.retain_tool_call_assistant_wire.__code__
+            and self.public.f_locals.get("self") is self.parent
+            and self.public.f_locals.get("source") is self.source_result and self.public.f_locals.get("owner") is self
+            and self.entry.f_globals is self.public.f_globals is globals()
+            and self.stage_frame in (None, self.entry), "frame_changed")
+        frame = sys._getframe()
+        while frame is not None and frame is not self.entry:
+            frame = frame.f_back
+        _assistant_wire_require(frame is self.entry and current_context() is self.parent._bound_context, "scope_invalid")
+
+    def verify(self, *, proof=False):
+        self.access(proof=proof)
+        for obj, name, function, code in _ASSISTANT_WIRE_CODE:
+            _assistant_wire_require(getattr(obj, name, None) is function and function.__code__ is code, "code_changed")
+        _assistant_wire_require(_same_anchors((self.parent, self.source_result, self.producer, self.probe, self.runtime,
+            self.thread, self.token, self.snapshots, self.model, self.inputs, self.input_anchors, self.profiles,
+            self.graph, self.envelope_record, self.envelope_anchor, self.methods, self.callables, self.raw_slot,
+            self.charge_before), self.fixed), "owner_changed")
+        for obj, name, method in self.methods:
+            _assistant_wire_require(_same_method(getattr(obj, name, None), method), "method_changed")
+        for function, code, namespace, defaults in self.callables:
+            if code is not None:
+                _assistant_wire_require(function.__code__ is code and function.__globals__ is namespace
+                    and _same_anchors(_nested_anchors((function.__defaults__, function.__kwdefaults__))[1:], defaults),
+                    "callable_changed")
+        _assistant_wire_terminal(self)
+        _assistant_wire_require(type(self.model) is str and self.model is self.probe.selection.destination.model_ref
+            and type(self.inputs) is list and len(self.inputs) == 1 and self.inputs[0] is self.source_result.message
+            and _same_anchors(_nested_anchors(self.inputs), self.input_anchors), "input_changed")
+        _assistant_wire_require(sys.modules.get(_wire_transport_module.__name__) is _wire_transport_module
+            and sys.modules.get(_wire_base_module.__name__) is _wire_base_module
+            and _wire_transport_module.ChatCompletionsTransport is _WIRE_CLASS
+            and _wire_base_module.ProviderTransport is _WIRE_BASE
+            and _same_anchors(tuple(vars(_WIRE_CLASS).values()), _WIRE_CLASS_ANCHORS)
+            and _same_anchors(tuple(vars(_WIRE_BASE).values()), _WIRE_BASE_ANCHORS)
+            and _WIRE_CLASS.__bases__ == (_WIRE_BASE,)
+            and _WIRE_CLASS.__init__ is _WIRE_BASE.__init__ is object.__init__
+            and _WIRE_CLASS.__new__ is _WIRE_BASE.__new__ is object.__new__
+            and _WIRE_CONVERTER.__code__ is _WIRE_CONVERTER_CODE
+            and _WIRE_CONVERTER.__globals__ is vars(_wire_transport_module)
+            and _WIRE_PREDICATE.__code__ is _WIRE_PREDICATE_CODE
+            and _WIRE_PREDICATE.__globals__ is vars(_wire_transport_module)
+            and _wire_transport_module._model_consumes_thought_signature is _WIRE_PREDICATE
+            and _same_anchors(_nested_anchors((_WIRE_CONVERTER.__defaults__, _WIRE_CONVERTER.__kwdefaults__,
+                _WIRE_PREDICATE.__defaults__, _WIRE_PREDICATE.__kwdefaults__))[1:], _ASSISTANT_WIRE_DEFAULTS),
+            "converter_changed")
+        if self.helper is not None:
+            _assistant_wire_require(type(self.helper) is _WIRE_CLASS and not vars(self.helper)
+                and _same_method(self.helper.convert_messages, self.converter)
+                and self.converter[0] is self.helper and self.converter[1] is _WIRE_CONVERTER, "helper_changed")
+        if self.messages is not None:
+            _assistant_wire_shape(self.messages, self.source_result.message)
+            _assistant_wire_require(self.raw_slot[0] is self.messages and self.raw_slot[1] is self.message_anchors
+                and self.raw_slot[2] is self.message_bytes
+                and _same_anchors(_nested_anchors(self.messages), self.message_anchors)
+                and _assistant_source_bytes(self.messages) == self.message_bytes, "output_changed")
+        if self.message_content is not None:
+            retained = self.runtime._content(self.message_content)
+            _assistant_wire_require(retained.payload is self.message_bytes
+                and _same_anchors(retained.parents, (self.source_result.message_content,))
+                and type(retained.path) is str and retained.path == "main"
+                and retained.binding[:8] == self.probe.initial[0][:8]
+                and set(self.profiles) <= set(retained.profiles), "projection_content_changed")
+        self.runtime._check_operator()
+
+    def callback(self, callback, *args):
+        self.verify()
+        _assistant_wire_require(self.stage_frame is self.entry
+            and any(_same_method(callback, method) for _, _, method in self.methods), "callback_invalid")
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                try:
+                    self.verify()
+                except BaseException as error:
+                    _remember_delegate_control(self, error)
+                    raise
+
+    def checkpoint(self):
+        self.verify()
+        _assistant_wire_require(self.stage_frame is self.entry and not self.checking, "checkpoint_reentry")
+        self.checking = True
+        try:
+            p, probe = self.parent, self.probe
+            first = None
+            for _ in range(2):
+                admitted = self.callback(p._admission.current, p._handle)
+                selected = self.callback(p._selection_port.current, p._handle)
+                producer = self.callback(p._result_port.current, p._producer_ref)
+                facts = _binding(admitted), _selection(selected), _producer(producer)
+                _assistant_wire_require(facts[0][:8] == probe.initial[0][:8]
+                    and set(facts[0][8]) <= set(probe.original_profiles)
+                    and selected is probe.selection and facts[1] == probe.initial[1]
+                    and producer is probe.producer and facts[2] == probe.initial[2]
+                    and (first is None or facts == first), "authority_changed")
+                first = facts
+                now = self.callback(p._clock)
+                _integer(now, minimum=0)
+                routes, profiles = probe.catalog[:2]
+                allowed = {route.route_ref for route in routes}
+                _assistant_wire_require(set(self.profiles) <= {profile.profile_ref for profile in profiles}, "profile_missing")
+                for profile in profiles:
+                    if profile.profile_ref in self.profiles:
+                        _assistant_wire_require(profile.required_paths == shared_policy().PATHS, "profile_changed")
+                        allowed.intersection_update(profile.allowed_routes)
+                selected_route = p._main_route
+                _route_facts(selected_route)
+                _assistant_wire_require(selected_route is probe.binding.main_route
+                    and selected_route.route_ref in allowed and selected_route.path == "main"
+                    and selected_route.destination is selected.destination
+                    and now < selected_route.expires_at, "selection_expired")
+                for path in shared_policy().PATHS:
+                    _assistant_wire_require(any(route.path == path and route.route_ref in allowed
+                        and (route.consumer_ref, route.selection_id, route.selection_version)
+                            == (facts[0][3], facts[0][6], facts[0][7]) and now < route.expires_at
+                        for route in routes), "coverage_missing")
+                for route in routes:
+                    actual = self.callback(p._operator_transports[route.destination.transport_ref].resolve)
+                    _assistant_wire_require(actual is route.destination, "destination_changed")
+                final_now = self.callback(p._clock)
+                _integer(final_now, minimum=0)
+                _assistant_wire_require(final_now < selected_route.expires_at, "selection_expired")
+                for path in shared_policy().PATHS:
+                    _assistant_wire_require(any(route.path == path and route.route_ref in allowed
+                        and (route.consumer_ref, route.selection_id, route.selection_version)
+                            == (facts[0][3], facts[0][6], facts[0][7]) and final_now < route.expires_at
+                        for route in routes), "coverage_missing")
+                self.verify()
+        finally:
+            self.checking = False
+
+    @contextmanager
+    def window(self):
+        self.access()
+        frame = sys._getframe().f_back.f_back
+        _assistant_wire_require(frame is self.entry and self.stage_frame is None and self.windows < 3, "window_invalid")
+        self.windows += 1
+        self.stage_frame = self.entry
+        try:
+            self.checkpoint()
+            yield
+            self.checkpoint()
+        finally:
+            self.stage_frame = None
+
+    def derive_frame(self, frame):
+        while frame is not None and frame.f_code is not type(self.runtime).derive.__code__:
+            frame = frame.f_back
+        _assistant_wire_require(frame is not None and frame.f_locals.get("self") is self.runtime
+            and frame.f_back is self.entry and frame.f_locals.get("request_handle") is self.parent._handle
+            and type(frame.f_locals.get("parents")) is tuple
+            and _same_anchors(frame.f_locals["parents"], (self.source_result.message_content,))
+            and frame.f_locals.get("payload") is self.message_bytes
+            and type(frame.f_locals.get("path")) is str and frame.f_locals["path"] == "main"
+            and self.windows == 2 and self.stage_frame is self.entry and self.message_content is None
+            and self.runtime._busy, "derive_frame_invalid")
+
+    def current(self, handle):
+        self.verify()
+        caller = sys._getframe(1)
+        _assistant_wire_require(caller.f_code is _Admission.current.__code__
+            and caller.f_locals.get("adapter") is self.parent and handle is self.parent._handle, "admission_frame_invalid")
+        frame = caller.f_back
+        _assistant_wire_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime, "runtime_callback_frame_invalid")
+        frame = frame.f_back
+        _assistant_wire_require(frame.f_code is type(self.runtime)._current.__code__
+            and frame.f_locals.get("self") is self.runtime and frame.f_locals.get("request_handle") is handle,
+            "runtime_frame_invalid")
+        self.derive_frame(frame)
+        result = self.callback(self.parent._admission.current, handle)
+        current = _binding(result)
+        _assistant_wire_require(current[:8] == self.probe.initial[0][:8]
+            and set(current[8]) <= set(self.probe.original_profiles), "authority_changed")
+        return result
+
+    def around(self, callback):
+        self.verify()
+        caller = sys._getframe(1)
+        _assistant_wire_require(caller.f_code is NativeMainPayloadAdapter._around.__code__
+            and caller.f_locals.get("self") is self.parent and _same_method(callback, _method(self.parent._clock)),
+            "clock_invalid")
+        frame = caller.f_back
+        _assistant_wire_require(frame.f_code is self.runtime._clock.__code__
+            and frame.f_back.f_code is type(self.runtime)._call.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "clock_frame_invalid")
+        self.derive_frame(frame)
+        return self.callback(callback)
+
+    def resolve(self, wrapper):
+        self.verify()
+        caller = sys._getframe(1)
+        _assistant_wire_require(caller.f_code is _Transport.resolve.__code__ and caller.f_locals.get("self") is wrapper
+            and any(wrapper is item for _, item in self.probe.catalog[3]) and wrapper.adapter is self.parent,
+            "resolve_frame_invalid")
+        frame = caller.f_back
+        _assistant_wire_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime and frame.f_back.f_code is type(self.runtime)._coverage.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "coverage_frame_invalid")
+        self.derive_frame(frame)
+        result = self.callback(wrapper.port.resolve)
+        _assistant_wire_require(any(wrapper.port is self.parent._operator_transports[route.destination.transport_ref]
+            and result is route.destination for route in self.probe.catalog[0]), "destination_changed")
+        return result
+
+    def run(self):
+        self.entry = sys._getframe()
+        with self.window():
+            pass
+        with self.window():
+            self.verify()
+            self.depth += 1
+            try:
+                self.helper = _WIRE_CLASS()
+                self.converter = _method(self.helper.convert_messages)
+                self.raw_slot[0] = self.helper.convert_messages(self.inputs, model=self.model)
+                self.raw_slot[1] = _nested_anchors(self.raw_slot[0])
+                self.raw_slot[2] = _assistant_source_bytes(self.raw_slot[0])
+            except BaseException as error:
+                _remember_delegate_control(self, error)
+                raise
+            finally:
+                self.depth -= 1
+            self.messages, self.message_anchors, self.message_bytes = self.raw_slot
+            _assistant_wire_require(self.messages is not self.inputs
+                and sum(map(len, (self.message_bytes, self.source_result.message_bytes,
+                                  self.source_result.authorization_bytes))) <= 786432, "capacity_denied")
+            self.verify()
+            try:
+                self.message_content = self.runtime.derive(self.parent._handle,
+                    (self.source_result.message_content,), self.message_bytes, path="main")
+            except BaseException as error:
+                self.derive_error = error
+                _remember_delegate_control(self, error)
+                raise
+            finally:
+                self.charge_after = (len(self.runtime._contents), self.runtime._retained_bytes)
+        with self.window():
+            result = NativeToolCallAssistantWireResult(self.source_result, self.model, self.messages,
+                self.message_bytes, self.message_content, (self.fixed, self.helper, self.converter, self.message_anchors))
+        self.records = ((result, _row(result, NativeToolCallAssistantWireResult)),)
+        self.phase = "released"
+        return result
+
+    def proof_access(self):
+        self.access(proof=True)
+        _assistant_wire_require(type(self.records) is tuple and len(self.records) <= 1, "records_changed")
+        if self.phase != "released":
+            _assistant_wire_require(not self.records, "records_changed")
+            return ()
+        self.verify(proof=True)
+        _assistant_wire_require(self.windows == 3 and len(self.records) == 1, "release_changed")
+        result, row = self.records[0]
+        _assistant_wire_require(_same_anchors(_row(result, NativeToolCallAssistantWireResult), row)
+            and result.source_result is self.source_result and result.model is self.model
+            and result.messages is self.messages and result.message_bytes is self.message_bytes
+            and result.message_content is self.message_content
+            and _same_anchors(result.anchors, (self.fixed, self.helper, self.converter, self.message_anchors)), "record_changed")
+        return (result,)
+
+
+def _assistant_wire_shape(messages, source):
+    _assistant_wire_require(type(messages) is list and len(messages) == 1 and messages[0] is not source, "output_shape_changed")
+    message = messages[0]
+    _assistant_wire_keys(message, ("role", "content", "reasoning", "finish_reason", "tool_calls"))
+    for name in ("role", "content", "reasoning", "finish_reason"):
+        _assistant_wire_require(message[name] is source[name], "output_scalar_changed")
+    calls = message["tool_calls"]
+    _assistant_wire_require(type(calls) is list and calls is not source["tool_calls"] and len(calls) == 1
+        and calls[0] is not source["tool_calls"][0], "output_calls_changed")
+    _assistant_wire_keys(calls[0], ("id", "type", "function"))
+    for name in ("id", "type", "function"):
+        _assistant_wire_require(calls[0][name] is source["tool_calls"][0][name], "output_call_changed")
+    _assistant_wire_keys(calls[0]["function"], ("name", "arguments"))
+
+
+_ASSISTANT_WIRE_METHODS = ("__init__", "access", "verify", "callback", "checkpoint", "window", "derive_frame",
+    "current", "around", "resolve", "run", "proof_access")
+_ASSISTANT_WIRE_DEFAULTS = _nested_anchors((_WIRE_CONVERTER.__defaults__, _WIRE_CONVERTER.__kwdefaults__,
+    _WIRE_PREDICATE.__defaults__, _WIRE_PREDICATE.__kwdefaults__))[1:]
+_ASSISTANT_WIRE_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__) for obj, names in (
+    (_ToolCallAssistantWire, _ASSISTANT_WIRE_METHODS),
+    (NativeMainPayloadAdapter, ("retain_tool_call_assistant_wire",)),
+    (sys.modules[__name__], ("_assistant_wire_require", "_assistant_wire_owner", "_assistant_wire_window",
+        "_assistant_wire_keys", "_assistant_wire_source", "_assistant_wire_preflight", "_assistant_wire_terminal",
+        "_assistant_wire_shape", "_remember_delegate_control")),
+    (_wire_transport_module, ("_model_consumes_thought_signature",)), (_WIRE_CLASS, ("convert_messages",)),
+) for name in names)
+_ASSISTANT_WIRE_CODE += ((_ToolCallAssistantWire.window, "__wrapped__", _ToolCallAssistantWire.window.__wrapped__,
+    _ToolCallAssistantWire.window.__wrapped__.__code__),
+    (NativeMainPayloadAdapter.tool_call_assistant_wire_results, "fget",
+        NativeMainPayloadAdapter.tool_call_assistant_wire_results.fget,
+        NativeMainPayloadAdapter.tool_call_assistant_wire_results.fget.__code__))

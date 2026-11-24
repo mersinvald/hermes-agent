@@ -1,0 +1,18 @@
+{
+  "base": "565939d08635708714284531a46b5a6c389e1cca",
+  "base_tree": "e440c6619230537b6d1357b1362b9f4b730d5165",
+  "base_paths": 11710,
+  "unchanged_other_paths": 11709,
+  "old_runtime_restored_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+  "base_runtime_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+  "runtime_sha256": "4ce47d2567574534445ca0ad33dd8f8721f15f28e818eb7778243329cda80618",
+  "test_sha256": "0c6b1de9325f0671634fbf91539fce6798e0fa94dc6e094c12c512c22a9551b5",
+  "only_old_bodies_changed": [
+    "_Admission.current",
+    "_Transport.resolve",
+    "NativeMainPayloadAdapter._around"
+  ],
+  "restored_byte_identical": true,
+  "old_signatures_records_constructors_helpers_tests_fixtures_preserved": true,
+  "mode_changes": ""
+}
