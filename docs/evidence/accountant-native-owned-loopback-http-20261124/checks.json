@@ -1,0 +1,22 @@
+{
+  "task_outcome": "FAILED",
+  "original_git_blobs_and_modes": {
+    "original_git_blobs_and_modes": 12164,
+    "seconds": 0.8147660180111416,
+    "git_tree": "427d5721a6db87d2368548028632644b3f177e24",
+    "representation": "git_hash_object_with_original_filters"
+  },
+  "allowlist": "four_new_native_files_and_owned_evidence_only",
+  "native_public_api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+  "source_code_and_original_shapes": "all_original_blobs_exact",
+  "shared_engine_and_environment": "five_immutable_files_exact_before_and_after",
+  "ruff_scope": "four_new_Python_files_F_E9",
+  "ste_scope": "new_prose_and_Python_comments_docstrings",
+  "ste_findings": 0,
+  "em_dash_markers": 0,
+  "genuine_required_check": "FAILED",
+  "full_public_wire_qualification": "INCOMPLETE",
+  "publication": "retained_draft_only",
+  "ci_success_claim": false,
+  "remote_head_and_tree_receipt": "protected_publication_handoff"
+}

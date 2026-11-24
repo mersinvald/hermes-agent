@@ -1,0 +1,26 @@
+{
+  "precise_runtime_delta": "five_attribute_or_slot_name_replacements_only",
+  "all_other_transport_bytes_exact": true,
+  "old_direct_test_prefix_exact_after_one_matching_helper_read": true,
+  "original_genuine_assertions_exact": 76,
+  "receiver_sha256": "0505cae8002d911ecbdf533868ab4b778d3d3bdfb2866732f3c9f207cd96aca8",
+  "original_evidence": {
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/wire.json": "2185d35223ffd422dbbecc692b788da1983a90a32dc3f8ec61d86b68bf05042c",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/pins.json": "0fa23df3384823eab0376ad6de5dacbff8301def5f3d7924c4aced25a1ca16dc",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/SHA256SUMS": "1a6700c368658c33dd34d05b79a1bd474ac3f12cab741bcaad6eeed0e2cb2543",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/writing-check.json": "6668eb62de077aebeec4d089e63864a63fae757f73e8b59e99ec67ce9e89e699",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/results.json": "53c8136dbd815c17eec14e043dd37dbef3da51157dc0e9e7e2b2f099345b66aa",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/costs.json": "bc7d77f0cb72fef4d9d11013fc80d2e49986e257fd5a6fcfa8fa516463e8b7dc",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/README.md": "1fe088d932fa575391e34d34dccd931730b33b423ecd89546f3dace019eec073",
+    "docs/evidence/accountant-native-owned-loopback-http-20261124/checks.json": "17de1ebe551750427635336139bdf5d367389e06e7355af8a43fa3a7b7cd63db"
+  },
+  "original_base_git_blobs": 12164,
+  "original_native_resolver": {
+    "path": "agent/native_main_payload.py",
+    "line": 9456,
+    "ast_sha256": "7edff5ec42305cf4884e259582d76fd71f6a5111b74484cb1ef7e5502e86bb10",
+    "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe"
+  },
+  "original_failure_detail": "UNKNOWN",
+  "original_later_state": "UNKNOWN"
+}

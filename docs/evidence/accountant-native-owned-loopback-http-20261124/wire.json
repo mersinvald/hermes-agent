@@ -1,0 +1,1422 @@
+{
+  "scope": "owned_synthetic_numeric_loopback_only",
+  "qualified_for_complete_public_episode": false,
+  "source_freeze": "4eed82d948a558d2a06130b84dc50520bbd8d79a",
+  "loaded_source": {
+    "paths": {
+      "agent.native_main_payload": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/agent/native_main_payload.py",
+      "run_agent": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/run_agent.py",
+      "agent.issued_call_episode": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/agent/issued_call_episode.py",
+      "agent.conversation_loop": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/agent/conversation_loop.py",
+      "agent.content_policy": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/agent/content_policy.py",
+      "hermes_content_policy": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "agent.transports.owned_loopback_http": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/agent/transports/owned_loopback_http.py",
+      "tests.agent.owned_loopback_receiver": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/tests/agent/owned_loopback_receiver.py",
+      "tests.agent.test_native_public_loopback_http": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/tests/agent/test_native_public_loopback_http.py"
+    },
+    "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/.venv/bin/python",
+    "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.61/.venv",
+    "sha256": {
+      "agent.native_main_payload": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "run_agent": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d",
+      "agent.issued_call_episode": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "agent.conversation_loop": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61",
+      "agent.content_policy": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+      "hermes_content_policy": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+      "agent.transports.owned_loopback_http": "e31c80d1e3cf97562dbfb1c9a0b382718313ecb5b399d0447db95fa6c0f0c1f5",
+      "tests.agent.owned_loopback_receiver": "0505cae8002d911ecbdf533868ab4b778d3d3bdfb2866732f3c9f207cd96aca8",
+      "tests.agent.test_native_public_loopback_http": "004747ddd217529826d1ce4abd27b09b35fef8e26fd62f6713db13b2c2ed59cb"
+    }
+  },
+  "qualification_plan": [
+    [
+      "route_0_main",
+      "main",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_fallback",
+      "fallback",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_title",
+      "title",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_compression",
+      "compression",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_memory",
+      "memory",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_delegate",
+      "delegate",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_a2a",
+      "a2a",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_tool_result",
+      "tool_result",
+      0,
+      "invented_0",
+      true
+    ],
+    [
+      "route_1_main",
+      "main",
+      1,
+      "invented_1",
+      false
+    ],
+    [
+      "route_2_main",
+      "main",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_fallback",
+      "fallback",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_title",
+      "title",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_compression",
+      "compression",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_memory",
+      "memory",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_delegate",
+      "delegate",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_a2a",
+      "a2a",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_2_tool_result",
+      "tool_result",
+      2,
+      "invented_2",
+      true
+    ],
+    [
+      "route_3_main",
+      "main",
+      3,
+      "invented_3",
+      true
+    ],
+    [
+      "route_4_main",
+      "main",
+      4,
+      "invented_4",
+      false
+    ],
+    [
+      "route_5_main",
+      "main",
+      5,
+      "invented_5",
+      true
+    ],
+    [
+      "route_0_fallback",
+      "fallback",
+      5,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_title",
+      "title",
+      5,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_compression",
+      "compression",
+      5,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_memory",
+      "memory",
+      5,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_delegate",
+      "delegate",
+      5,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_a2a",
+      "a2a",
+      5,
+      "invented_0",
+      true
+    ],
+    [
+      "route_0_tool_result",
+      "tool_result",
+      5,
+      "invented_0",
+      true
+    ]
+  ],
+  "alias_table": [
+    [
+      0,
+      "main",
+      "invented_0"
+    ],
+    [
+      0,
+      "fallback",
+      "invented_0"
+    ],
+    [
+      0,
+      "title",
+      "invented_0"
+    ],
+    [
+      0,
+      "compression",
+      "invented_0"
+    ],
+    [
+      0,
+      "memory",
+      "invented_0"
+    ],
+    [
+      0,
+      "delegate",
+      "invented_0"
+    ],
+    [
+      0,
+      "a2a",
+      "invented_0"
+    ],
+    [
+      0,
+      "tool_result",
+      "invented_0"
+    ],
+    [
+      1,
+      "main",
+      "invented_1"
+    ],
+    [
+      1,
+      "fallback",
+      "invented_1"
+    ],
+    [
+      1,
+      "title",
+      "invented_1"
+    ],
+    [
+      1,
+      "compression",
+      "invented_1"
+    ],
+    [
+      1,
+      "memory",
+      "invented_1"
+    ],
+    [
+      1,
+      "delegate",
+      "invented_1"
+    ],
+    [
+      1,
+      "a2a",
+      "invented_1"
+    ],
+    [
+      1,
+      "tool_result",
+      "invented_1"
+    ],
+    [
+      2,
+      "main",
+      "invented_2"
+    ],
+    [
+      2,
+      "fallback",
+      "invented_2"
+    ],
+    [
+      2,
+      "title",
+      "invented_2"
+    ],
+    [
+      2,
+      "compression",
+      "invented_2"
+    ],
+    [
+      2,
+      "memory",
+      "invented_2"
+    ],
+    [
+      2,
+      "delegate",
+      "invented_2"
+    ],
+    [
+      2,
+      "a2a",
+      "invented_2"
+    ],
+    [
+      2,
+      "tool_result",
+      "invented_2"
+    ],
+    [
+      3,
+      "main",
+      "invented_3"
+    ],
+    [
+      3,
+      "fallback",
+      "invented_3"
+    ],
+    [
+      3,
+      "title",
+      "invented_3"
+    ],
+    [
+      3,
+      "compression",
+      "invented_3"
+    ],
+    [
+      3,
+      "memory",
+      "invented_3"
+    ],
+    [
+      3,
+      "delegate",
+      "invented_3"
+    ],
+    [
+      3,
+      "a2a",
+      "invented_3"
+    ],
+    [
+      3,
+      "tool_result",
+      "invented_3"
+    ],
+    [
+      4,
+      "main",
+      "invented_4"
+    ],
+    [
+      4,
+      "fallback",
+      "invented_4"
+    ],
+    [
+      4,
+      "title",
+      "invented_4"
+    ],
+    [
+      4,
+      "compression",
+      "invented_4"
+    ],
+    [
+      4,
+      "memory",
+      "invented_4"
+    ],
+    [
+      4,
+      "delegate",
+      "invented_4"
+    ],
+    [
+      4,
+      "a2a",
+      "invented_4"
+    ],
+    [
+      4,
+      "tool_result",
+      "invented_4"
+    ],
+    [
+      5,
+      "main",
+      "invented_5"
+    ],
+    [
+      5,
+      "fallback",
+      "invented_5"
+    ],
+    [
+      5,
+      "title",
+      "invented_5"
+    ],
+    [
+      5,
+      "compression",
+      "invented_5"
+    ],
+    [
+      5,
+      "memory",
+      "invented_5"
+    ],
+    [
+      5,
+      "delegate",
+      "invented_5"
+    ],
+    [
+      5,
+      "a2a",
+      "invented_5"
+    ],
+    [
+      5,
+      "tool_result",
+      "invented_5"
+    ]
+  ],
+  "endpoint_table": [
+    [
+      0,
+      [
+        [
+          "endpoint_ref",
+          "synthetic_loopback_p"
+        ],
+        [
+          "address",
+          "127.0.0.1"
+        ],
+        [
+          "port",
+          39605
+        ],
+        [
+          "request_path",
+          "/owned-accountant-proof/v1/p"
+        ],
+        [
+          "provider_ref",
+          "synthetic_native"
+        ],
+        [
+          "model_ref",
+          "invented_model_0"
+        ],
+        [
+          "revision",
+          1
+        ]
+      ]
+    ],
+    [
+      2,
+      [
+        [
+          "endpoint_ref",
+          "synthetic_loopback_receiver"
+        ],
+        [
+          "address",
+          "127.0.0.1"
+        ],
+        [
+          "port",
+          39605
+        ],
+        [
+          "request_path",
+          "/owned-accountant-proof/v1/receiver"
+        ],
+        [
+          "provider_ref",
+          "synthetic_native"
+        ],
+        [
+          "model_ref",
+          "invented_model_2"
+        ],
+        [
+          "revision",
+          1
+        ]
+      ]
+    ],
+    [
+      3,
+      [
+        [
+          "endpoint_ref",
+          "synthetic_loopback_child"
+        ],
+        [
+          "address",
+          "127.0.0.1"
+        ],
+        [
+          "port",
+          39605
+        ],
+        [
+          "request_path",
+          "/owned-accountant-proof/v1/child"
+        ],
+        [
+          "provider_ref",
+          "synthetic_native"
+        ],
+        [
+          "model_ref",
+          "invented_model_3"
+        ],
+        [
+          "revision",
+          1
+        ]
+      ]
+    ],
+    [
+      5,
+      [
+        [
+          "endpoint_ref",
+          "synthetic_loopback_c"
+        ],
+        [
+          "address",
+          "127.0.0.1"
+        ],
+        [
+          "port",
+          39605
+        ],
+        [
+          "request_path",
+          "/owned-accountant-proof/v1/c"
+        ],
+        [
+          "provider_ref",
+          "synthetic_native"
+        ],
+        [
+          "model_ref",
+          "invented_model_5"
+        ],
+        [
+          "revision",
+          1
+        ]
+      ]
+    ]
+  ],
+  "expected": {
+    "all_path_qualifications": 27,
+    "http_qualifications": 25,
+    "http_episode_data": 4,
+    "http_total": 29
+  },
+  "actual": {
+    "all_path_qualification_results": 27,
+    "http_connections_accepted": 26,
+    "http_complete_requests": 26,
+    "http_response_attempts": 26,
+    "http_qualification_requests": 25,
+    "http_episode_data_requests": 1,
+    "episode_data_by_role": {
+      "P": 1,
+      "receiver": 0,
+      "child": 0,
+      "C": 0,
+      "execution_main": 0,
+      "formatter_main": 0
+    },
+    "independently_received_request_bytes": 5976,
+    "receiver_response_socket_accepted_bytes": 2370,
+    "native_last_observed_envelopes": 1,
+    "native_last_observed_contents": 6,
+    "native_last_observed_retained_bytes": 3657
+  },
+  "observations": [
+    {
+      "order": 0,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 1,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 2,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 3,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 4,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 5,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 6,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 7,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 8,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 9,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 10,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 11,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 12,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 13,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 14,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 15,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/receiver",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 186,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 208,
+      "raw_request_sha256": "f2536b33a00078509b197e853982f0170b9ba940471f7096a7de886616e11d15",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 16,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/child",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 183,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 205,
+      "raw_request_sha256": "7026ba8f91a05394c19dd51e7aa94117519ae1a6b3f9bed635aee3fb35d24f70",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 17,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/c",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "9ee4db75ad0b50a47199cf64f3b2a611f98dbf91e502c33e13279fc62383d6c7",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 18,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 19,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 20,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 21,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 22,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 23,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 24,
+      "phase": "qualification",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 179,
+      "request_body_bytes": 22,
+      "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "raw_request_bytes": 201,
+      "raw_request_sha256": "a1ac8bd6196a89f98fe49fd085a96084cf40299d88dca08edb76e511292e0126",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 75,
+      "failure": null
+    },
+    {
+      "order": 25,
+      "phase": "episode_data",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "selected_host": "127.0.0.1:39605",
+      "client_reported_checked_peer": "127.0.0.1:39605",
+      "receiver_bound": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_local": [
+        "127.0.0.1",
+        39605
+      ],
+      "receiver_accepted_peer_address": "127.0.0.1",
+      "accepted_peer_port": "private",
+      "complete_request": true,
+      "request_header_bytes": 180,
+      "request_body_bytes": 711,
+      "request_body_sha256": "f5d83d67730f3570ffaaf5824cb053680af7c4798e6e898ed688a5719f60cf76",
+      "raw_request_bytes": 891,
+      "raw_request_sha256": "b8b72c583e1f95dc5d61759b085e3feeb6a61fa6764e2a032c17b375c8782344",
+      "receiver_response_attempts": 1,
+      "receiver_response_socket_accepted_bytes": 495,
+      "failure": null
+    }
+  ],
+  "diagnostic_header_authority": "client_reported_metadata_only",
+  "receiver_bound_authority": "independent_getsockname_check",
+  "client_success_write_counters": "not_retained_on_port",
+  "client_write_acceptance_inference": "Qualification returns and retained P response require complete client writes.",
+  "client_failure_exception_receipt": "unavailable_for_later_native_callback_failure",
+  "delivery_usage_cost": "No zero-egress or zero-cost inference.",
+  "last_native_boundary": {
+    "elapsed": 42.452457462990424,
+    "boundary": [
+      6,
+      1,
+      "armed",
+      0,
+      "observed",
+      null,
+      null
+    ],
+    "retained_bytes": 3657,
+    "sends": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "last_observed_graph": [
+    {
+      "index": 0,
+      "bytes": 403,
+      "sha256": "2442f9a056a590f3cb59c25660d752f34cadd4cb489516c54967a8791144929a",
+      "parents": [],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 1,
+      "bytes": 400,
+      "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604",
+      "parents": [],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 2,
+      "bytes": 508,
+      "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b",
+      "parents": [
+        1
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 3,
+      "bytes": 711,
+      "sha256": "f5d83d67730f3570ffaaf5824cb053680af7c4798e6e898ed688a5719f60cf76",
+      "parents": [
+        1,
+        2
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 4,
+      "bytes": 436,
+      "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11",
+      "parents": [
+        3
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 5,
+      "bytes": 1199,
+      "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864",
+      "parents": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    }
+  ],
+  "retained_P_wire_match": {
+    "graph_index": 3,
+    "bytes": 711,
+    "sha256": "f5d83d67730f3570ffaaf5824cb053680af7c4798e6e898ed688a5719f60cf76"
+  },
+  "original_data_envelope_comparison": "INCOMPLETE: the failed history did not reach the final envelope comparison.",
+  "C_windows_final": "UNKNOWN",
+  "completion_identity": "UNKNOWN",
+  "live_getter": "UNKNOWN",
+  "validated_C_exit": "UNKNOWN",
+  "P_close": "UNKNOWN",
+  "public_dictionary": "UNKNOWN",
+  "cleanup": {
+    "thread_alive": false,
+    "listener_closed": true,
+    "accepted_socket_live": false,
+    "receiver_errors": []
+  }
+}
