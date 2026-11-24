@@ -102,6 +102,10 @@ for case in ("positive", "coverage_expiry"):
                for arg in process["command"]]
     results[case] = {"requested_id": nodeid, "actual_id": nodeid, "outcome": "passed",
         "runtime_sha256": SOURCE, "test_sha256": TEST, "command": command,
+        "dependency_pins": "pins.json",
+        "raw_receipts": {suffix: {"bytes": (RAW / (case + suffix)).stat().st_size,
+            "sha256": digest((RAW / (case + suffix)).read_bytes()), "mode": "0600"}
+            for suffix in (".xml", ".properties.jsonl", ".cases.jsonl", ".log", ".process.json")},
         "private_xml_path_redacted": True, "pid": process["pid"],
         "command_seconds": process["command_seconds"], "start_utc": process["start_utc"],
         "end_utc": process["end_utc"], "exit_status": process["exit_status"],

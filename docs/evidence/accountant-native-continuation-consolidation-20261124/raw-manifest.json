@@ -109,9 +109,19 @@
     "mode": "0600",
     "sha256": "a3ddd527c64ee3deda01ecf08e7e6c23dea2c20b0891387c8822721df5e59c22"
   },
+  "static-checks.json": {
+    "bytes": 1874,
+    "mode": "0600",
+    "sha256": "2490c68ded395a7df54290176a3174a7feac3cb4cbdcad3aae14f896e5ba2e13"
+  },
   "static-preparation-corrections.json": {
     "bytes": 187,
     "mode": "0600",
     "sha256": "aa81a82d899a02b2a4279651eb0e57b1deed39efd23aaebcbc44b9c745b18e88"
+  },
+  "ste-initial-findings.json": {
+    "bytes": 240,
+    "mode": "0600",
+    "sha256": "fb107105bd474a9d3aceda81341bd63378981c993e4ea115d3e3cbc5befcc144"
   }
 }

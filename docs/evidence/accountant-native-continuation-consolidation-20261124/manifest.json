@@ -12,8 +12,8 @@
     "sha256": "77401788a0699cf0c2154e5d83ed00ec493d80ee6a0bb09a3b73a6c7dab5f4b3"
   },
   "derive.py": {
-    "bytes": 6393,
-    "sha256": "a9f30e2f9a6ced111416dfa0766467d97ba2ec6aa08bf947be8146e6cef14afa"
+    "bytes": 6699,
+    "sha256": "61c63b73140353adaab02cfd383cb6d3910e5b9c6ccaa96202e211f29a8e3a43"
   },
   "pins.json": {
     "bytes": 6953,
@@ -28,11 +28,11 @@
     "sha256": "cf7bdab95a22bba188f393635358ae6b5328112c3a552085bba64fdc43ab0bd3"
   },
   "raw-manifest.json": {
-    "bytes": 3576,
-    "sha256": "17ede5789771c75c6ab0ae6d1ceec173590436c732703363b78defd6e06e70ef"
+    "bytes": 3884,
+    "sha256": "1d27dd6d9ea7281bb940bbb2cb8c735789d8b301855942f6a2625772a16071e3"
   },
   "results.json": {
-    "bytes": 6875,
-    "sha256": "bcb00dbac68c99f888cb7e0c19452e7a9460a0b45e77f2a608c8567cff1a39dd"
+    "bytes": 8643,
+    "sha256": "403ec17acbe2fd02ffef03162c04a42215a546ab4dd4632aad9198b733466fe7"
   }
 }
