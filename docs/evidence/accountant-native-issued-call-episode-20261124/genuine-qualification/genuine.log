@@ -1,0 +1,17 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~7 tests) under ['tests/tools/test_native_issued_call_episode.py']; running with -j 1
+[100.0% |     7/~7 | ✓1 | ✗0] ✓ tests/tools/test_native_issued_call_episode.py (1✓, 543.6s)
+
+=== Summary: 1 files, 1 tests passed, 0 failed (100% complete) in 543.6s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 543.6s  (runner wall: 543.6s, parallelism: 1x)
+  P50: 543.56s  P90: 543.56s  P95: 543.56s  P99: 543.56s  Max: 543.56s
+  <1s: 0 files (0%)  <2s: 0 files (0%)
+  Top 10 slowest:
+    543.56s  tests/tools/test_native_issued_call_episode.py
