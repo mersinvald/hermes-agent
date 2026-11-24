@@ -1,0 +1,37 @@
+{
+  "status": "INCOMPLETE / DO NOT MERGE",
+  "source_commit": "288c6f60a75e3b295a58efaa3f8a949d80e49c84",
+  "source_tree": "848894585f03142168bffc5c77e34ed80fb042c2",
+  "base": "9c084dc37aa8d78b67460f968eca5bae05c59a1a",
+  "source_test": {
+    "agent/native_main_payload.py": {
+      "bytes": 640861,
+      "sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+      "blob": "1fba8ccdb280ca8d4fb055c1aec63b04257237c9"
+    },
+    "tests/tools/test_native_issued_call_continuation.py": {
+      "bytes": 15599,
+      "sha256": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602",
+      "blob": "5ce2cae15ab68a7a7a61eae50e482825e5c7b9bc"
+    }
+  },
+  "consumer": {
+    "symbol": "_IssuedCallContinuation.consume_completion",
+    "sha256": "e59003d1f27bc14fb46dac1cca0e90abd1ac486ea34e09886c63ef4ab9247eba",
+    "first_line": 11352,
+    "last_line": 11369
+  },
+  "api_sha256": "048ddd63e210c26a1b6534fbe996bbf5c1d3d05a766be5692a7aa6d1e6575af3",
+  "proposal_publication": "610acbd80ce3228c6a9258d3ec29d2b46c68b29c",
+  "proposal_candidate": "f65831eaf67253634f17cf7318dbfda7cd45c5e7",
+  "proposal_tree": "5ea621c36da9a4b790b8c31a9a9002bb2e8e033d",
+  "proposal_evidence_tree": "cc586df87aeaaf41713eb968c07bbddbf359a28e",
+  "proposal_sha256": "2799b8de58727a701abd37b8069331d6609ab15c1835c57e2130c415b05d4dd9",
+  "dependency": {
+    "distribution": "hermes-content-policy",
+    "version": "0.4.0",
+    "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d"
+  }
+}

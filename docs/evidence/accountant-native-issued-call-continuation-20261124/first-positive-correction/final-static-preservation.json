@@ -1,0 +1,12 @@
+{
+  "pins": {
+    "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+    "tests/tools/test_native_issued_call_continuation.py": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d"
+  },
+  "pure_loop_AST_exact": true,
+  "pair_proof_replacement_at_same_position_only": true,
+  "original_assertions_preserved": true,
+  "inverse_restores_failed_source_pins": true,
+  "corrected_full_history_harness": "UNEXECUTED",
+  "pure_guard_group_only_next": true
+}

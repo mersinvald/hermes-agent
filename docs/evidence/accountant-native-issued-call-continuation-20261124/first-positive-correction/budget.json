@@ -1,0 +1,138 @@
+{
+  "hard_total_seconds": 900,
+  "initial_preparation_allowance_seconds": 120,
+  "initial_allowance_is_measured_command_sum": false,
+  "final_uninstrumented_reads_handoff_orchestration_allowance_seconds": 20,
+  "measured_supervisor_seconds": 523.6953398210026,
+  "charged_before_evidence_commit": 663.6953398210026,
+  "remaining_before_evidence_commit": 236.30466017899744,
+  "original_task_charged_seconds": 1283.802234182,
+  "original_task_budget_seconds": 1500,
+  "original_task_outcome": "failed",
+  "original_task_total_unchanged": true,
+  "current_task_outcome": "failed",
+  "ledger": [
+    {
+      "name": "corrected-positive",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_continuation.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "595",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_genuine_continuation and positive",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-positive-correction/corrected-positive.xml",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "junit_family=xunit1"
+      ],
+      "outer_cap_seconds": 600.0,
+      "inner_file_cap_seconds": 595,
+      "requested_k": "test_genuine_continuation and positive",
+      "pins": {
+        "agent/native_main_payload.py": "d99e2d8cc9d8fd0dbbf8b6478375288542a99e316580ae834469721b8277b18e",
+        "tests/tools/test_native_issued_call_continuation.py": "f326c8320b5be897eb2654b617f43beb32ad8728f3c9b6ae4aadc40a7609b6a1"
+      },
+      "retries": 0,
+      "start_wall": 1795500610.3830528,
+      "seconds": 518.8297518960026,
+      "exit_code": 1,
+      "outer_timeout": false,
+      "file_timeout": false
+    },
+    {
+      "name": "evidence-package",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-positive-correction/package.py"
+      ],
+      "seconds": 0.21426882699597627,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0,
+      "pins": {
+        "agent/native_main_payload.py": "d99e2d8cc9d8fd0dbbf8b6478375288542a99e316580ae834469721b8277b18e",
+        "tests/tools/test_native_issued_call_continuation.py": "f326c8320b5be897eb2654b617f43beb32ad8728f3c9b6ae4aadc40a7609b6a1"
+      }
+    },
+    {
+      "name": "pure-code-guard",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_continuation.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "55",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_continuation_pair_code_guard",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-positive-correction/pure-code-guard.xml",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "junit_family=xunit1"
+      ],
+      "outer_cap_seconds": 60.0,
+      "inner_file_cap_seconds": 55,
+      "requested_k": "test_continuation_pair_code_guard",
+      "pins": {
+        "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+        "tests/tools/test_native_issued_call_continuation.py": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d"
+      },
+      "retries": 0,
+      "start_wall": 1795501498.1179926,
+      "seconds": 3.270704788999865,
+      "exit_code": 0,
+      "outer_timeout": false,
+      "file_timeout": false
+    },
+    {
+      "name": "final-evidence",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-positive-correction/finalize.py"
+      ],
+      "seconds": 1.2664222400053404,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0,
+      "pins": {
+        "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+        "tests/tools/test_native_issued_call_continuation.py": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d"
+      }
+    },
+    {
+      "name": "source-commit",
+      "command": [
+        "git",
+        "commit",
+        "agent/native_main_payload.py",
+        "tests/tools/test_native_issued_call_continuation.py",
+        "-m",
+        "fix(policy): guard the original native pair proof once"
+      ],
+      "seconds": 0.11419206899881829,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0,
+      "pins": {
+        "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+        "tests/tools/test_native_issued_call_continuation.py": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d"
+      }
+    }
+  ]
+}

@@ -1,0 +1,524 @@
+{
+  "kind": "AST declarations, not runtime qualification",
+  "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+  "classes": {
+    "NativeMainSelection": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "selection_id",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "selection_version",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "api_mode",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "destination",
+          "annotation": "Destination",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeResultPolicy": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "producer_ref",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "revision",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "profiles",
+          "annotation": "tuple[str, ...]",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeMainMessage": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "role",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "content",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "tool_calls",
+          "annotation": "None",
+          "default": "None",
+          "has_default": true
+        }
+      ],
+      "slots": []
+    },
+    "NativeMainChoice": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "index",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "message",
+          "annotation": "NativeMainMessage",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "finish_reason",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeMainUsage": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "prompt_tokens",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "completion_tokens",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "total_tokens",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeMainResponse": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "object",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "created",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "model",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "choices",
+          "annotation": "tuple[NativeMainChoice, ...]",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "usage",
+          "annotation": "NativeMainUsage",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeMainInvocation": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "request_handle",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "source",
+          "annotation": "ExecutionBinding",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "selection",
+          "annotation": "NativeMainSelection",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "NativeResultPolicy",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "request_content",
+          "annotation": "ContentHandle",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "envelope",
+          "annotation": "DispatchEnvelope",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "observed_destination",
+          "annotation": "Destination",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "response_bytes",
+          "annotation": "bytes",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "result_content",
+          "annotation": "ContentHandle",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "native_response",
+          "annotation": "NativeMainResponse",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeIssuedCallContinuationInput": {
+      "decorators": [],
+      "fields": [],
+      "slots": [
+        "()"
+      ]
+    },
+    "NativeIssuedCallContinuationBinding": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "token",
+          "annotation": "NativeIssuedCallContinuationInput",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "source_adapter",
+          "annotation": "NativeMainPayloadAdapter",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "consumer_context",
+          "annotation": "NativeContentContext",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "consumer_request",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "selection",
+          "annotation": "NativeMainSelection",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "producer_policy",
+          "annotation": "NativeResultPolicy",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "main_route",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "target_model",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "session_id",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "authorization_bytes",
+          "annotation": "bytes",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "authorization_content",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "thread",
+          "annotation": "int",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeIssuedCallContinuationCompletion": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "response",
+          "annotation": "NativeMainResponse",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "normalized",
+          "annotation": "NormalizedResponse",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "final_response",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "finish_reason",
+          "annotation": "str",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "usage",
+          "annotation": "Usage",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "completion_bytes",
+          "annotation": "bytes",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "completion_content",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "parents",
+          "annotation": "tuple",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    },
+    "NativeIssuedCallContinuationResult": {
+      "decorators": [
+        "dataclass(frozen=True, slots=True)"
+      ],
+      "fields": [
+        {
+          "name": "binding",
+          "annotation": "NativeIssuedCallContinuationBinding",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "pair",
+          "annotation": "NativeIssuedCallPairResult",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "adapter",
+          "annotation": "NativeMainPayloadAdapter",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "agent",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "transport",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "prefix_messages",
+          "annotation": "list[dict[str, object]]",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "tools",
+          "annotation": "list[dict[str, object]]",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "request",
+          "annotation": "dict[str, object]",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "request_bytes",
+          "annotation": "bytes",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "request_content",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "invocation",
+          "annotation": "NativeMainInvocation",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "normalized",
+          "annotation": "NormalizedResponse",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "normalized_bytes",
+          "annotation": "bytes",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "normalized_content",
+          "annotation": "object",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "completion",
+          "annotation": "NativeIssuedCallContinuationCompletion",
+          "default": null,
+          "has_default": false
+        },
+        {
+          "name": "anchors",
+          "annotation": "tuple",
+          "default": null,
+          "has_default": false
+        }
+      ],
+      "slots": []
+    }
+  },
+  "functions": {
+    "bind_issued_call_continuation": "def bind_issued_call_continuation(source_adapter: NativeMainPayloadAdapter, *, consumer_context: NativeContentContext, consumer_selection: NativeSelectionPort, consumer_producer_ref: str, consumer_main_route_ref: str, target_model: str, session_id: str) -> NativeIssuedCallContinuationInput:",
+    "run_issued_call_continuation": "def run_issued_call_continuation(authorization: NativeIssuedCallContinuationInput, pair: NativeIssuedCallPairResult) -> NativeIssuedCallContinuationResult:",
+    "issued_call_continuation_results": "def issued_call_continuation_results(authorization: NativeIssuedCallContinuationInput) -> tuple[NativeIssuedCallContinuationResult, ...]:"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "runtime_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+  "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+  "old_test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+  "root_authorization": "msg_1410160b598f",
+  "exact_test_only_delta": true,
+  "all_other_bytes_and_assertions_preserved": true,
+  "original_control_identity_branch_exact": true,
+  "positive_and_live_getter_branches_exact": true,
+  "corrected_coverage_harness": "UNEXECUTED",
+  "inverse_restores_original_test_exact": true
+}

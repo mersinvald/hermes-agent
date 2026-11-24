@@ -1,0 +1,84 @@
+{
+  "scope": "Static call chain only. No measured attribution or approved proof reduction.",
+  "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+  "spans": [
+    {
+      "function": "_IssuedCallPair.verify",
+      "first_line": 10353,
+      "last_line": 10398,
+      "calls": [
+        {
+          "line": 10378,
+          "call": "_issued_pair_terminal"
+        }
+      ]
+    },
+    {
+      "function": "_IssuedCallPair.proof_access",
+      "first_line": 10591,
+      "last_line": 10605,
+      "calls": [
+        {
+          "line": 10597,
+          "call": "self.verify"
+        }
+      ]
+    },
+    {
+      "function": "_IssuedCallContinuation.verify",
+      "first_line": 10957,
+      "last_line": 11032,
+      "calls": [
+        {
+          "line": 10997,
+          "call": "self.pair_proof"
+        }
+      ]
+    },
+    {
+      "function": "_IssuedCallContinuation.checkpoint",
+      "first_line": 11034,
+      "last_line": 11117,
+      "calls": [
+        {
+          "line": 11047,
+          "call": "self.verify"
+        },
+        {
+          "line": 11109,
+          "call": "self.verify"
+        }
+      ]
+    },
+    {
+      "function": "_IssuedCallContinuation.callback",
+      "first_line": 11119,
+      "last_line": 11138,
+      "calls": [
+        {
+          "line": 11120,
+          "call": "self.verify"
+        },
+        {
+          "line": 11138,
+          "call": "self.verify"
+        }
+      ]
+    },
+    {
+      "function": "_IssuedCallContinuation.pair_proof",
+      "first_line": 11160,
+      "last_line": 11175,
+      "calls": [
+        {
+          "line": 11166,
+          "call": "self.pair_owner.proof_access"
+        },
+        {
+          "line": 11168,
+          "call": "_issued_pair_terminal"
+        }
+      ]
+    }
+  ]
+}

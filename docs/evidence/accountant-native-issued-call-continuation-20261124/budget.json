@@ -1,0 +1,145 @@
+{
+  "hard_total_seconds": 1500,
+  "preparation_allowance_seconds": 759,
+  "preparation_allowance_scope": "Conservative wall-clock allowance through first command start. Not measured command time.",
+  "later_static_allowance_seconds": 60,
+  "later_static_allowance_scope": "Conservative allowance for later source/API/preservation/prose checks, evidence assembly, command reads and the first normal-hook source commit before publication supervision. Individual durations were not all instrumented.",
+  "measured_test_supervisor_seconds": 431.2247949210141,
+  "original_test_ledger": [
+    {
+      "name": "first-genuine-positive",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_continuation.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "415",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_genuine_continuation and positive",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-genuine-positive.xml",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cap_seconds": 420.0,
+      "requested_ids": "test_genuine_continuation and positive",
+      "pins": {
+        "agent/native_main_payload.py": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+        "tests/tools/test_native_issued_call_continuation.py": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602"
+      },
+      "retries": 0,
+      "start_wall": 1795498441.7428324,
+      "seconds": 13.044999263001955,
+      "exit_code": 1,
+      "timeout": false
+    },
+    {
+      "name": "corrected-first-genuine-positive",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_continuation.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "415",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_genuine_continuation and positive",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/corrected-first-genuine-positive.xml",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "junit_family=xunit1"
+      ],
+      "cap_seconds": 420.0,
+      "requested_ids": "test_genuine_continuation and positive",
+      "pins": {
+        "agent/native_main_payload.py": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+        "tests/tools/test_native_issued_call_continuation.py": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602"
+      },
+      "retries": 0,
+      "start_wall": 1795498602.98787,
+      "seconds": 415.44617700300296,
+      "exit_code": 1,
+      "timeout": false
+    },
+    {
+      "name": "ordinary-representative",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_main_payload.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle and absent and cli",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/ordinary-representative.xml",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "junit_family=xunit1"
+      ],
+      "cap_seconds": 5.0,
+      "requested_ids": "test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle and absent and cli",
+      "pins": {
+        "agent/native_main_payload.py": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+        "tests/tools/test_native_issued_call_continuation.py": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602"
+      },
+      "retries": 0,
+      "start_wall": 1795499455.6075664,
+      "seconds": 1.3668687870085705,
+      "exit_code": 1,
+      "timeout": false
+    },
+    {
+      "name": "wire-representative",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_wire.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "1",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_conversion_preserves_scalar_bytes and scalars",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/wire-representative.xml",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "junit_family=xunit1"
+      ],
+      "cap_seconds": 5.0,
+      "requested_ids": "test_conversion_preserves_scalar_bytes and scalars",
+      "pins": {
+        "agent/native_main_payload.py": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+        "tests/tools/test_native_issued_call_continuation.py": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602"
+      },
+      "retries": 0,
+      "start_wall": 1795499457.0082378,
+      "seconds": 1.3667498680006247,
+      "exit_code": 1,
+      "timeout": false
+    }
+  ],
+  "total_charged_before_final_publication": 1250.224794921014,
+  "remaining_before_final_publication": 249.7752050789859,
+  "expansion_stopped": true,
+  "functional_runs_after_root_stop_received": 0,
+  "qualification_status": "INCOMPLETE / DO NOT MERGE"
+}

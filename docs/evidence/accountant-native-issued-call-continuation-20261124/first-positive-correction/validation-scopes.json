@@ -1,0 +1,667 @@
+{
+  "task": "task_d10893235df3",
+  "dispatch": "ctx_8f4d7c4a0089",
+  "status": "INCOMPLETE / DO NOT MERGE",
+  "outcome": "failed",
+  "original_task_outcome_unchanged": "failed",
+  "requested_ID": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+  "actual_cases": [
+    {
+      "id": "tests.tools.test_native_issued_call_continuation::test_genuine_continuation[positive]",
+      "failed": true,
+      "error": false
+    }
+  ],
+  "command": {
+    "name": "corrected-positive",
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_continuation.py",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "595",
+      "-j",
+      "1",
+      "--maxfail=1",
+      "-q",
+      "-k",
+      "test_genuine_continuation and positive",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-positive-correction/corrected-positive.xml",
+      "-p",
+      "no:cacheprovider",
+      "-o",
+      "junit_family=xunit1"
+    ],
+    "outer_cap_seconds": 600.0,
+    "inner_file_cap_seconds": 595,
+    "requested_k": "test_genuine_continuation and positive",
+    "pins": {
+      "agent/native_main_payload.py": "d99e2d8cc9d8fd0dbbf8b6478375288542a99e316580ae834469721b8277b18e",
+      "tests/tools/test_native_issued_call_continuation.py": "f326c8320b5be897eb2654b617f43beb32ad8728f3c9b6ae4aadc40a7609b6a1"
+    },
+    "retries": 0,
+    "start_wall": 1795500610.3830528,
+    "seconds": 518.8297518960026,
+    "exit_code": 1,
+    "outer_timeout": false,
+    "file_timeout": false
+  },
+  "phases": [
+    {
+      "phase": "setup_qualifications",
+      "seconds": 1.5784908619971247,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "bind_continuation",
+      "seconds": 0.7236875199887436,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "bind_enable",
+      "seconds": 4.535922634007875,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "source_capture_close",
+      "seconds": 39.500866087997565,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "issued_child_return",
+      "seconds": 90.57738876400981,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "formatter",
+      "seconds": 62.52783969700977,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "Wf",
+      "seconds": 34.4404330499965,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "Wa",
+      "seconds": 1.7387966550013516,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "J",
+      "seconds": 53.99084733299969,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "continuation",
+      "seconds": 225.10593787100515,
+      "outcome": "passed",
+      "error_type": null
+    }
+  ],
+  "C_boundaries": [
+    {
+      "window": 1,
+      "phase": "paired",
+      "elapsed": 3.1655507130053593,
+      "completed_stages": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        32,
+        3,
+        28294
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 15.792850853002165,
+      "completed_stages": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        32,
+        3,
+        28294
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 38.919620177999604,
+      "completed_stages": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        33,
+        3,
+        29658
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 44.46921441500308,
+      "completed_stages": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        34,
+        3,
+        30789
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "prepared",
+      "elapsed": 53.037398503001896,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        3,
+        32122
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 59.33968286099844,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        3,
+        32122
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 96.17067518200201,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        4,
+        32122
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 106.59000306300004,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "charges": [
+        36,
+        4,
+        32421
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 3,
+      "phase": "sent",
+      "elapsed": 119.11443883299944,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "charges": [
+        36,
+        4,
+        32421
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 4,
+      "phase": "sent",
+      "elapsed": 131.66906385800394,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "charges": [
+        36,
+        4,
+        32421
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 4,
+      "phase": "normalized",
+      "elapsed": 143.58784633300093,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "charges": [
+        37,
+        4,
+        32637
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 5,
+      "phase": "normalized",
+      "elapsed": 150.03074122000544,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "charges": [
+        37,
+        4,
+        32637
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 5,
+      "phase": "consumed",
+      "elapsed": 209.23460957600037,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "charges": [
+        38,
+        4,
+        32848
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    },
+    {
+      "window": 6,
+      "phase": "consumed",
+      "elapsed": 215.59466720200726,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "charges": [
+        38,
+        4,
+        32848
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    }
+  ],
+  "C_window_seconds": [
+    [
+      1,
+      12.73097580698959
+    ],
+    [
+      2,
+      43.514250430001994
+    ],
+    [
+      3,
+      72.36820853299287
+    ],
+    [
+      4,
+      18.28290932699747
+    ],
+    [
+      5,
+      65.58293378799863
+    ],
+    [
+      6,
+      12.549518694999279
+    ]
+  ],
+  "actual_request_send_response_normalizer_consumer_chain_completed": true,
+  "all_original_result_assertions_completed_before_failure": true,
+  "required_replacement_refusal_reached": false,
+  "failure_boundary": {
+    "test_line": 255,
+    "operation": "Enter a new content_policy_scope(C) after the existing positive scope has restored no active context",
+    "underlying_guard": "controlled_native_issued_continuation_proof_scope_invalid",
+    "visible_failure": "controlled_native_payload_denied",
+    "replacement_installed": false,
+    "replacement_called": false,
+    "unchanged_scope_guard_preserved": true
+  },
+  "final_observation": {
+    "phase": "released",
+    "windows": 6,
+    "counts": [
+      38,
+      4,
+      32848
+    ],
+    "qualification_sends": 27,
+    "data_sends": {
+      "0": 1,
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 1
+    },
+    "poisoned": false
+  },
+  "stages": {
+    "A_C": {
+      "index": 0,
+      "handle_identity": 130515271283776,
+      "bytes": 402,
+      "sha256": "e9cde689cf9a4f026de61a74f0015fe51ade06acd980d3d7a736a180a85eb631",
+      "parents": [],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    "J": {
+      "index": 31,
+      "handle_identity": 130515271282816,
+      "bytes": 673,
+      "sha256": "6f5b4793e6c7e56348a2d60b6ee4466e3c6e5b621f59b42e96741993b7a1244f",
+      "parents": [
+        30,
+        29
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "H_C": {
+      "index": 32,
+      "handle_identity": 130515271283168,
+      "bytes": 1364,
+      "sha256": "8260547e3977910b4df836c9d239f7310cb66d6a852ff372405c014d3c0ade26",
+      "parents": [
+        31,
+        0
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "K_C": {
+      "index": 33,
+      "handle_identity": 130515268373376,
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b",
+      "parents": [
+        32
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "W_C": {
+      "index": 34,
+      "handle_identity": 130515271284800,
+      "bytes": 1333,
+      "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934",
+      "parents": [
+        32,
+        33
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "R_C": {
+      "index": 35,
+      "handle_identity": 130515271281376,
+      "bytes": 299,
+      "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc",
+      "parents": [
+        34
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "N_C": {
+      "index": 36,
+      "handle_identity": 130515271285408,
+      "bytes": 216,
+      "sha256": "b59d780f968215e7537bdf6f35a78ea299479286fb2e95319bed4da92a9392d1",
+      "parents": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    "Z_C": {
+      "index": 37,
+      "handle_identity": 130515271285728,
+      "bytes": 211,
+      "sha256": "b9f8e16d327b82b5284f04e91b87d707f8b7443cdf93eb10a839e8caa3079326",
+      "parents": [
+        31,
+        0,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    }
+  },
+  "unknowns": "No independent C namespace snapshot exists after scope denial. The ordinary denial code invalidates the adapter.",
+  "compatibility_runs": 0,
+  "distinct_required_failure_runs": 0,
+  "automatic_retries": 0,
+  "positive_case_pass": false,
+  "full_component_qualification": false,
+  "C_speedup_percentage": null,
+  "actual_selected_ids": [
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]"
+  ],
+  "pure_guard_scope": {
+    "command": {
+      "name": "pure-code-guard",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_issued_call_continuation.py",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "55",
+        "-j",
+        "1",
+        "--maxfail=1",
+        "-q",
+        "-k",
+        "test_continuation_pair_code_guard",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/receipts/first-positive-correction/pure-code-guard.xml",
+        "-p",
+        "no:cacheprovider",
+        "-o",
+        "junit_family=xunit1"
+      ],
+      "outer_cap_seconds": 60.0,
+      "inner_file_cap_seconds": 55,
+      "requested_k": "test_continuation_pair_code_guard",
+      "pins": {
+        "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+        "tests/tools/test_native_issued_call_continuation.py": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d"
+      },
+      "retries": 0,
+      "start_wall": 1795501498.1179926,
+      "seconds": 3.270704788999865,
+      "exit_code": 0,
+      "outer_timeout": false,
+      "file_timeout": false
+    },
+    "actual_cases": [
+      {
+        "XML_ID": "tests.tools.test_native_issued_call_continuation::test_continuation_pair_code_guard[stock]",
+        "outcome": "passed"
+      },
+      {
+        "XML_ID": "tests.tools.test_native_issued_call_continuation::test_continuation_pair_code_guard[replacement]",
+        "outcome": "passed"
+      },
+      {
+        "XML_ID": "tests.tools.test_native_issued_call_continuation::test_continuation_pair_code_guard[code_object_drift]",
+        "outcome": "passed"
+      }
+    ],
+    "actual_selected_ids": [
+      "tests/tools/test_native_issued_call_continuation.py::test_continuation_pair_code_guard[stock]",
+      "tests/tools/test_native_issued_call_continuation.py::test_continuation_pair_code_guard[replacement]",
+      "tests/tools/test_native_issued_call_continuation.py::test_continuation_pair_code_guard[code_object_drift]"
+    ],
+    "genuine_source_graphs": 0,
+    "fake_owners_contexts_handles_graphs_or_authority": false,
+    "scope": "Pure code-anchor checks only. No admission or live continuation getter qualification."
+  },
+  "final_full_history_harness": "UNEXECUTED",
+  "corrective_Task_outcome": "failed",
+  "final_source_relation": "The helper extraction preserves the exact prior loop and its call position. The failed actual history remains pinned to d99e2d8c/f326c832."
+}

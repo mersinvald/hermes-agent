@@ -1,0 +1,123 @@
+{
+  "base": "2259a2fe29d6fe2023d2ec47212370add4c4f6bd",
+  "changed_runtime_functions": [
+    "_IssuedCallContinuation.verify",
+    "_IssuedCallContinuation.pair_proof"
+  ],
+  "all_other_runtime_source_exact": true,
+  "all_runtime_signatures_exact": true,
+  "all_old_test_assertions_preserved": true,
+  "original_four_modes_exact": true,
+  "single_duplicate_traversal_removed": true,
+  "original_pair_code_checked_before_getter": true,
+  "owner_type_and_ordered_snapshot_before_getter": true,
+  "model_type_before_equality": true,
+  "inverse_patch_check": true,
+  "pins": {
+    "agent/native_main_payload.py": "d99e2d8cc9d8fd0dbbf8b6478375288542a99e316580ae834469721b8277b18e",
+    "tests/tools/test_native_issued_call_continuation.py": "f326c8320b5be897eb2654b617f43beb32ad8728f3c9b6ae4aadc40a7609b6a1"
+  },
+  "writing": {
+    "agent/native_main_payload.py": {
+      "baseline": {
+        "words": 291,
+        "sentences": 30,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 12,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      },
+      "candidate": {
+        "words": 291,
+        "sentences": 30,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 12,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    "tests/tools/test_native_issued_call_continuation.py": {
+      "baseline": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      },
+      "candidate": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    }
+  },
+  "seconds": 5.592124588001752
+}
