@@ -27,6 +27,10 @@
     "bytes": 210,
     "sha256": "895e49401ee340d3313232c7a984735511f0ad0d01173f7895ae483682fa6cad"
   },
+  "required-command-failures.log": {
+    "bytes": 539,
+    "sha256": "b587852bd3613e17cf014f7c9ab12ce9ac637c602e07617ef1d3835df4bdd57c"
+  },
   "ste.json": {
     "bytes": 1472,
     "sha256": "e3516cac42d03cf5a8aaccd777f73b8cad76080ecc8ca4ff92fbc005c6aa50d0"
