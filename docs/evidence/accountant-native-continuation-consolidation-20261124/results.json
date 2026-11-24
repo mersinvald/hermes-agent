@@ -1,0 +1,238 @@
+{
+  "positive": {
+    "requested_id": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+    "actual_id": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+    "outcome": "passed",
+    "runtime_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+    "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_continuation.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "595",
+      "--",
+      "-k",
+      "test_genuine_continuation and positive",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "-o",
+      "accountant_source_sha256=4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "-o",
+      "accountant_test_sha256=1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+      "--junitxml=<private-positive.xml>"
+    ],
+    "dependency_pins": "pins.json",
+    "raw_receipts": {
+      ".xml": {
+        "bytes": 2105040,
+        "sha256": "8c4876436401e4daf2d049b3fb77baee3b70ca525e41fb53ac55602622f94906",
+        "mode": "0600"
+      },
+      ".properties.jsonl": {
+        "bytes": 1751703,
+        "sha256": "19c23cb8323fcfff16c12f92595262aff1f149c833794ab1587ce50fdc8c2994",
+        "mode": "0600"
+      },
+      ".cases.jsonl": {
+        "bytes": 1007,
+        "sha256": "d203972fd869e5a248e313b71cc3ffd5995a9c77b7844b363f4156837deb5d80",
+        "mode": "0600"
+      },
+      ".log": {
+        "bytes": 870,
+        "sha256": "57479e785043b4518d5392692d96462aafd3afd9c430df5338aa41fe9749d111",
+        "mode": "0600"
+      },
+      ".process.json": {
+        "bytes": 1576,
+        "sha256": "90380154e12f318a68cef7a3c656c95d79f91bd82b6ee6f21f15baa84513bc9c",
+        "mode": "0600"
+      }
+    },
+    "private_xml_path_redacted": true,
+    "pid": 3592868,
+    "command_seconds": 478.3013687690109,
+    "start_utc": "2026-11-24T13:22:00.885714+00:00",
+    "end_utc": "2026-11-24T13:29:59.187099+00:00",
+    "exit_status": 0,
+    "outer_timeout": false,
+    "inner_timeout": false,
+    "floor_required_seconds": 1350,
+    "floor_remaining_seconds": 1704.114307641983,
+    "outer_cap_seconds": 600,
+    "file_cap_seconds": 595,
+    "retries": 0,
+    "xml_suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "470.495",
+        "timestamp": "2026-11-24T13:22:08.044088+00:00",
+        "hostname": "devenv-personal"
+      }
+    ],
+    "xml_testcase": {
+      "classname": "tests.tools.test_native_issued_call_continuation",
+      "name": "test_genuine_continuation[positive]",
+      "file": "tests/tools/test_native_issued_call_continuation.py",
+      "line": "146",
+      "time": "469.191"
+    },
+    "original_case_receipts": [
+      {
+        "nodeid": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+        "outcome": "pending",
+        "phase": "start",
+        "seconds": 0.0,
+        "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+      },
+      {
+        "nodeid": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+        "outcome": "passed",
+        "phase": "setup",
+        "seconds": 0.6490951489977306,
+        "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+      },
+      {
+        "nodeid": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+        "outcome": "passed",
+        "phase": "call",
+        "seconds": 468.5414077089954,
+        "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+      }
+    ],
+    "property_rows": 52,
+    "xml_property_rows": 54,
+    "visible_exception_markers": [],
+    "view": "positive.json"
+  },
+  "coverage_expiry": {
+    "requested_id": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+    "actual_id": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+    "outcome": "passed",
+    "runtime_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+    "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_continuation.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "595",
+      "--",
+      "-k",
+      "test_genuine_continuation and coverage_expiry",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "-o",
+      "accountant_source_sha256=4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "-o",
+      "accountant_test_sha256=1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+      "--junitxml=<private-coverage_expiry.xml>"
+    ],
+    "dependency_pins": "pins.json",
+    "raw_receipts": {
+      ".xml": {
+        "bytes": 1255501,
+        "sha256": "2768f8f9a1eb8058c8047c2bb52d11c998953901bde2a61ac8f2ba696fcd4353",
+        "mode": "0600"
+      },
+      ".properties.jsonl": {
+        "bytes": 1054303,
+        "sha256": "430158ee055f52a32d9f327d7c19005e462ad1d3c94df632ba71fc047690fcbf",
+        "mode": "0600"
+      },
+      ".cases.jsonl": {
+        "bytes": 1028,
+        "sha256": "ddf6bd16deb99b4070169b383d6789f7535116b97ba3c9a7a40f159ca5cc1cae",
+        "mode": "0600"
+      },
+      ".log": {
+        "bytes": 870,
+        "sha256": "4ecfb924301b1e51ecf4e48cef1dbe3366104ea2f7dfafd474752404623c339d",
+        "mode": "0600"
+      },
+      ".process.json": {
+        "bytes": 1602,
+        "sha256": "6918e889fc18ad4f4b9e66e15e0b79b531a754e49e94b2077b7f45f60fc492a5",
+        "mode": "0600"
+      }
+    },
+    "private_xml_path_redacted": true,
+    "pid": 3651922,
+    "command_seconds": 331.2628053310036,
+    "start_utc": "2026-11-24T13:31:07.968283+00:00",
+    "end_utc": "2026-11-24T13:36:39.231103+00:00",
+    "exit_status": 0,
+    "outer_timeout": false,
+    "inner_timeout": false,
+    "floor_required_seconds": 750,
+    "floor_remaining_seconds": 1157.0317330360413,
+    "outer_cap_seconds": 600,
+    "file_cap_seconds": 595,
+    "retries": 0,
+    "xml_suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "330.201",
+        "timestamp": "2026-11-24T13:31:08.462535+00:00",
+        "hostname": "devenv-personal"
+      }
+    ],
+    "xml_testcase": {
+      "classname": "tests.tools.test_native_issued_call_continuation",
+      "name": "test_genuine_continuation[coverage_expiry]",
+      "file": "tests/tools/test_native_issued_call_continuation.py",
+      "line": "146",
+      "time": "328.880"
+    },
+    "original_case_receipts": [
+      {
+        "nodeid": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+        "outcome": "pending",
+        "phase": "start",
+        "seconds": 0.0,
+        "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+      },
+      {
+        "nodeid": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+        "outcome": "passed",
+        "phase": "setup",
+        "seconds": 0.6459980979998363,
+        "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+      },
+      {
+        "nodeid": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+        "outcome": "passed",
+        "phase": "call",
+        "seconds": 328.2328568640078,
+        "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "test_sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+      }
+    ],
+    "property_rows": 39,
+    "xml_property_rows": 41,
+    "visible_exception_markers": [],
+    "view": "coverage_expiry.json"
+  }
+}

@@ -1,0 +1,2184 @@
+{
+  "mode": "coverage_expiry",
+  "phase": "denied",
+  "windows": 3,
+  "timings": [
+    [
+      1,
+      9.747318352994625
+    ],
+    [
+      2,
+      34.04351510500419
+    ],
+    [
+      3,
+      32.230492539005354
+    ]
+  ],
+  "source_timings": {
+    "setup_qualifications": 1.5950984720111592,
+    "bind_continuation": 0.8223833289957838,
+    "bind_enable": 4.625795633008238,
+    "source_capture_close": 40.16263771199738,
+    "issued_child_return": 91.724302609,
+    "formatter": 45.2620592660096,
+    "Wf": 25.0511512739904,
+    "Wa": 1.689011141002993,
+    "J": 41.191062736994354
+  },
+  "qualification_sends": 27,
+  "data_sends": {
+    "0": 1,
+    "1": 0,
+    "2": 1,
+    "3": 1,
+    "4": 0,
+    "5": 1
+  },
+  "counts": [
+    35,
+    4,
+    32125
+  ],
+  "before": [
+    0,
+    0,
+    0
+  ],
+  "after": [
+    35,
+    4,
+    32125
+  ],
+  "poisoned": true,
+  "payloads": {
+    "raw": {
+      "bytes": 299,
+      "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc"
+    },
+    "request": {
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+    },
+    "wire": {
+      "bytes": 1333,
+      "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934"
+    },
+    "normalized": null,
+    "completion": null
+  },
+  "before_continuation": [
+    32,
+    3,
+    28297
+  ],
+  "continuation_charge_delta": [
+    3,
+    1,
+    3828
+  ],
+  "policy_observation_count": 35,
+  "policy_observation_runs": [
+    {
+      "count": 18,
+      "value": [
+        0,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_5",
+                "synthetic_native",
+                "invented_model_5",
+                "invented_endpoint_5",
+                1
+              ]
+            ],
+            [
+              "producer_5",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        10
+      ]
+    },
+    {
+      "count": 4,
+      "value": [
+        1,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_5",
+                "synthetic_native",
+                "invented_model_5",
+                "invented_endpoint_5",
+                1
+              ]
+            ],
+            [
+              "producer_5",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        10
+      ]
+    },
+    {
+      "count": 4,
+      "value": [
+        2,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_5",
+                "synthetic_native",
+                "invented_model_5",
+                "invented_endpoint_5",
+                1
+              ]
+            ],
+            [
+              "producer_5",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        10
+      ]
+    },
+    {
+      "count": 8,
+      "value": [
+        3,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_5",
+                "synthetic_native",
+                "invented_model_5",
+                "invented_endpoint_5",
+                1
+              ]
+            ],
+            [
+              "producer_5",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        10
+      ]
+    },
+    {
+      "count": 1,
+      "value": [
+        3,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_5",
+                "synthetic_native",
+                "invented_model_5",
+                "invented_endpoint_5",
+                1
+              ]
+            ],
+            [
+              "producer_5",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        50
+      ]
+    }
+  ],
+  "final_time": 50,
+  "boundaries": [
+    {
+      "window": 1,
+      "phase": "paired",
+      "elapsed": 2.378892435997841,
+      "completed_stages": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        32,
+        3,
+        28297
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 12.163360088001355,
+      "completed_stages": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        32,
+        3,
+        28297
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 30.407880022001336,
+      "completed_stages": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        33,
+        3,
+        29661
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "paired",
+      "elapsed": 34.71273539699905,
+      "completed_stages": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        34,
+        3,
+        30792
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 2,
+      "phase": "prepared",
+      "elapsed": 41.293826086010085,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        3,
+        32125
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 46.254244148003636,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        3,
+        32125
+      ],
+      "C_sends": 0,
+      "callback_depth": 1,
+      "raw_bytes": null
+    },
+    {
+      "window": 3,
+      "phase": "prepared",
+      "elapsed": 75.99321300900192,
+      "completed_stages": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "charges": [
+        35,
+        4,
+        32125
+      ],
+      "C_sends": 1,
+      "callback_depth": 1,
+      "raw_bytes": 299
+    }
+  ],
+  "stage_receipts": [
+    {
+      "phase": "paired",
+      "windows": 2,
+      "counts": [
+        33,
+        3,
+        29661
+      ],
+      "poisoned": false,
+      "payloads": {
+        "raw": null,
+        "request": {
+          "bytes": 1131,
+          "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+        },
+        "wire": null,
+        "normalized": null,
+        "completion": null
+      }
+    },
+    {
+      "phase": "paired",
+      "windows": 2,
+      "counts": [
+        34,
+        3,
+        30792
+      ],
+      "poisoned": false,
+      "payloads": {
+        "raw": null,
+        "request": {
+          "bytes": 1131,
+          "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+        },
+        "wire": {
+          "bytes": 1333,
+          "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934"
+        },
+        "normalized": null,
+        "completion": null
+      }
+    },
+    {
+      "phase": "prepared",
+      "windows": 2,
+      "counts": [
+        35,
+        3,
+        32125
+      ],
+      "poisoned": false,
+      "payloads": {
+        "raw": null,
+        "request": {
+          "bytes": 1131,
+          "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+        },
+        "wire": {
+          "bytes": 1333,
+          "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934"
+        },
+        "normalized": null,
+        "completion": null
+      }
+    },
+    {
+      "phase": "prepared",
+      "windows": 3,
+      "counts": [
+        35,
+        4,
+        32125
+      ],
+      "poisoned": false,
+      "payloads": {
+        "raw": {
+          "bytes": 299,
+          "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc"
+        },
+        "request": {
+          "bytes": 1131,
+          "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+        },
+        "wire": {
+          "bytes": 1333,
+          "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934"
+        },
+        "normalized": null,
+        "completion": null
+      }
+    },
+    {
+      "phase": "denied",
+      "windows": 3,
+      "counts": [
+        35,
+        4,
+        32125
+      ],
+      "poisoned": true,
+      "payloads": {
+        "raw": {
+          "bytes": 299,
+          "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc"
+        },
+        "request": {
+          "bytes": 1131,
+          "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+        },
+        "wire": {
+          "bytes": 1333,
+          "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934"
+        },
+        "normalized": null,
+        "completion": null
+      }
+    }
+  ],
+  "graph": [
+    {
+      "index": 0,
+      "sha256": "e9cde689cf9a4f026de61a74f0015fe51ade06acd980d3d7a736a180a85eb631",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null,
+      "bytes": 402
+    },
+    {
+      "index": 1,
+      "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null,
+      "bytes": 400
+    },
+    {
+      "index": 2,
+      "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b",
+      "parents": [
+        1
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 508
+    },
+    {
+      "index": 3,
+      "sha256": "b4c2d3511f11f49ad31ff563d53fa79ffe67aee08aba1e5907101d0274851b7b",
+      "parents": [
+        1,
+        2
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 710
+    },
+    {
+      "index": 4,
+      "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11",
+      "parents": [
+        3
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 436
+    },
+    {
+      "index": 5,
+      "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864",
+      "parents": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 1199
+    },
+    {
+      "index": 6,
+      "sha256": "b64cd0e6bd87e7366b003fdd022339310bd8fc98a741ed20cd1876a53d1483a0",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null,
+      "bytes": 1596
+    },
+    {
+      "index": 7,
+      "sha256": "d46637e354b8e9cbbabfbdadf9f772eea34c297e9b65b359e56f9a02c9eb060e",
+      "parents": [
+        4,
+        6
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 356
+    },
+    {
+      "index": 8,
+      "sha256": "913e0d11a0b6f57e0b3ccb15cd3fec72a05231f4e2a8ca7728378700782cae43",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null,
+      "bytes": 1266
+    },
+    {
+      "index": 9,
+      "sha256": "a61006cd1d5d45fce490468424c5a171b3f02db018a09f7fe7fe4e368f3e4e96",
+      "parents": [
+        5,
+        8
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate",
+      "bytes": 2498
+    },
+    {
+      "index": 10,
+      "sha256": "2f509d0937eea37bc6116cbcdaba235a0fae12cefb61c4ed45fae0ccedb66a74",
+      "parents": [
+        9
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate",
+      "bytes": 621
+    },
+    {
+      "index": 11,
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+      "parents": [
+        10
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate",
+      "bytes": 59
+    },
+    {
+      "index": 12,
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+      "parents": [
+        10,
+        11
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate",
+      "bytes": 2738
+    },
+    {
+      "index": 13,
+      "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "parents": [
+        12
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate",
+      "bytes": 17
+    },
+    {
+      "index": 14,
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+      "parents": [
+        12
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "delegate",
+      "bytes": 2738
+    },
+    {
+      "index": 15,
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+      "parents": [
+        14
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 59
+    },
+    {
+      "index": 16,
+      "sha256": "d1052ae84e5ec29c2696aaa570e63a27e702c9d1d4f2a99b42be0f49c3ceea23",
+      "parents": [
+        15
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 1143
+    },
+    {
+      "index": 17,
+      "sha256": "3c9be6aa88ce69bec7e07c9d547f0ba4a5fe7d8b9bb01c46f2418c32c2d146ab",
+      "parents": [
+        16,
+        16
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 2240
+    },
+    {
+      "index": 18,
+      "sha256": "7473ffd55f6fd0df0a1cf08057543af82f808441f1dd7deee0e81604b9c538dd",
+      "parents": [
+        16,
+        16,
+        17
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 971
+    },
+    {
+      "index": 19,
+      "sha256": "0091f4298c0ecf90c02e35ec1a3d1853f26d3228dafee30065f0537099081578",
+      "parents": [
+        16,
+        16,
+        17
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 1173
+    },
+    {
+      "index": 20,
+      "sha256": "3afd0d646ef808434d46fee4a34194d1430ad3bb4d6af087cbd22149534d5773",
+      "parents": [
+        19
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 273
+    },
+    {
+      "index": 21,
+      "sha256": "0f206048e4cea88c818267959615fe450c66cb0af91a8b125bea23e1550254ff",
+      "parents": [
+        16,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 778
+    },
+    {
+      "index": 22,
+      "sha256": "da7594cff5f3c08b279d7cd92423526e436bf50568293aa965a12a5f49cdab1b",
+      "parents": [
+        14,
+        21
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 247
+    },
+    {
+      "index": 23,
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+      "parents": [
+        14,
+        21,
+        22
+      ],
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 293
+    },
+    {
+      "index": 24,
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+      "parents": [
+        12,
+        14,
+        23
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 293
+    },
+    {
+      "index": 25,
+      "sha256": "03fedd37120ee72541fb1a663d8d2fd175ad1a1af016fc3284e9ef9d90dff28c",
+      "parents": [
+        9,
+        24
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 2307
+    },
+    {
+      "index": 26,
+      "sha256": "8228042bcdf5bf5c176e3c70c6db179e556ce2389cc68c3516c7a1f3dbe7d89b",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null,
+      "bytes": 549
+    },
+    {
+      "index": 27,
+      "sha256": "8add4005a3d53086e71e75bdf8f23216802187c18e6d9868f3ffeb454a1ca34c",
+      "parents": [
+        25,
+        26
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 608
+    },
+    {
+      "index": 28,
+      "sha256": "e2200aeee1fe7eab1a0cbcfcd8121932300b50e13ff056e5919e4ab4dcf086df",
+      "parents": [
+        27
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 472
+    },
+    {
+      "index": 29,
+      "sha256": "01c141a03033fe3920d4434eef50e21841b17aad96b92b5c5dabb1c66364c5b8",
+      "parents": [
+        28
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "tool_result",
+      "bytes": 415
+    },
+    {
+      "index": 30,
+      "sha256": "3c20f50a804e6a4a5022eeae19f1780f532e7721dda64e60889b0911a1f6f9d5",
+      "parents": [
+        7
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 259
+    },
+    {
+      "index": 31,
+      "sha256": "6f5b4793e6c7e56348a2d60b6ee4466e3c6e5b621f59b42e96741993b7a1244f",
+      "parents": [
+        30,
+        29
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 673
+    },
+    {
+      "index": 32,
+      "sha256": "8260547e3977910b4df836c9d239f7310cb66d6a852ff372405c014d3c0ade26",
+      "parents": [
+        31,
+        0
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 1364
+    },
+    {
+      "index": 33,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b",
+      "parents": [
+        32
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 1131
+    },
+    {
+      "index": 34,
+      "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934",
+      "parents": [
+        32,
+        33
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main",
+      "bytes": 1333
+    }
+  ]
+}

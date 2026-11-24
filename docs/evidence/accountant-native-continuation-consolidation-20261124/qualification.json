@@ -1,0 +1,142 @@
+{
+  "basis": "Passed original assertions and separate static source flow.",
+  "positive": {
+    "test": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+    "target": "native._IssuedCallPair.proof_access",
+    "assertion_lines": [
+      216,
+      219,
+      221,
+      223,
+      225,
+      226,
+      230,
+      235,
+      243,
+      244,
+      246,
+      247,
+      248,
+      249,
+      250,
+      251,
+      252,
+      253,
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265,
+      266
+    ],
+    "getter_evidence": "Original pair_code_changed and replacement_calls assertions only.",
+    "replacement_observation_marker": null,
+    "source_flow": [
+      {
+        "path": "agent/native_main_payload.py",
+        "line": 11505,
+        "symbol": "issued_call_continuation_results"
+      },
+      {
+        "path": "agent/native_main_payload.py",
+        "line": 11463,
+        "symbol": "_IssuedCallContinuation.proof_access"
+      },
+      {
+        "path": "agent/native_main_payload.py",
+        "line": 11037,
+        "symbol": "verify invokes pair_proof"
+      },
+      {
+        "path": "agent/native_main_payload.py",
+        "line": 11200,
+        "symbol": "_IssuedCallContinuation.pair_proof"
+      },
+      {
+        "path": "agent/native_main_payload.py",
+        "line": 10819,
+        "symbol": "_verify_continuation_pair_code"
+      },
+      {
+        "path": "agent/native_main_payload.py",
+        "line": 11213,
+        "symbol": "original.proof_access"
+      }
+    ],
+    "cross_thread_scope": "Original denial thread only. No sensitive execution qualification."
+  },
+  "coverage_expiry": {
+    "test": "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+    "assertion_lines": [
+      190,
+      193,
+      194,
+      198,
+      200,
+      203,
+      204,
+      205,
+      207
+    ],
+    "error_context_chain": [
+      {
+        "type": "PolicyError",
+        "args": [
+          "post_send_rejected"
+        ]
+      },
+      {
+        "type": "PolicyError",
+        "args": [
+          "callback_failed"
+        ]
+      },
+      {
+        "type": "NativeContentPolicyDenied",
+        "args": [
+          "controlled_native_issued_continuation_coverage_missing"
+        ]
+      }
+    ],
+    "error_chain_basis": "Passed original test assertions. No separate exception marker.",
+    "route_expiry_source": {
+      "path": "tests/tools/test_native_issued_call_continuation.py",
+      "lines": [
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ]
+    },
+    "main_grants_live_at_50_basis": "Original assertion at line 207 and original route construction.",
+    "raw_output_identity_basis": "Original assertion at line 193.",
+    "result_records_absent_basis": "Original assertion at line 194.",
+    "completion_and_normalized_absent": "Original final continuation receipt.",
+    "control_exception": "No control case ran. Original control behavior remains exact."
+  },
+  "runner_visibility": {
+    "successful_pytest_output_retained": false,
+    "visible_unhandled_exception_markers": [],
+    "warning_absence": "UNKNOWN beyond retained log and XML visibility."
+  },
+  "owned_static_corrections": [
+    {
+      "artifact": "positive.inspection.json",
+      "reason": "Supervisor success text mismatch. Original raw process record remains exact.",
+      "functional_retry": false
+    },
+    {
+      "artifact": "static-preparation-corrections.json",
+      "reason": "STE linter has no help option. No prose check failed at that step."
+    }
+  ]
+}

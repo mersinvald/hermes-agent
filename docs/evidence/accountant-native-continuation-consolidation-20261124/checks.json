@@ -1,0 +1,70 @@
+{
+  "prose": {
+    "README.md": {
+      "words": 596,
+      "sentences": 61,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 17,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "derive.py": {
+      "words": 9,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 9,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    }
+  },
+  "ste_linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "ste_modes": [
+    "prose-v1",
+    "python-prose-v1"
+  ],
+  "new_prose_findings": 0,
+  "dash_markers": 0,
+  "raw_hashes_modes_verified": true,
+  "json_xml_property_correspondence": true,
+  "local_links_exist": true,
+  "base_blobs_modes_index_worktree_unchanged": 12142,
+  "new_evidence_only": true,
+  "whitespace_errors": 0,
+  "task_elapsed_at_static_check_seconds": 1253.027820110321,
+  "functional_command_seconds": 809.5641741000145,
+  "hard_task_seconds": 1800,
+  "final_work_seconds_reserved": 60,
+  "other_reserve_seconds": 90
+}
