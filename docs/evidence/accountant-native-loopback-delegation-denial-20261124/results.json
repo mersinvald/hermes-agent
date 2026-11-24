@@ -1,0 +1,333 @@
+{
+  "outcome": "PASS",
+  "source_freeze": "75645009a1a8288f1feec4bac9dcd2bb6563abb6",
+  "requested_cheap_nodes": [
+    "tests/agent/test_native_public_loopback_denial.py::test_observer_records_empty_and_partial_connection[empty_connection]",
+    "tests/agent/test_native_public_loopback_denial.py::test_observer_records_empty_and_partial_connection[partial_header]",
+    "tests/agent/test_native_public_loopback_denial.py::test_forbidden_route_plan_preserves_coverage",
+    "tests/agent/test_native_public_loopback_denial.py::test_shared_forbidden_delegate_pre_send"
+  ],
+  "requested_genuine_node": "tests/agent/test_native_public_loopback_denial.py::test_genuine_public_forbidden_delegate",
+  "actual_cases": {
+    "cheap-1": [
+      {
+        "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_observer_records_empty_and_partial_connection[empty_connection]",
+        "seconds": 0.604
+      },
+      {
+        "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_observer_records_empty_and_partial_connection[partial_header]",
+        "seconds": 0.572
+      },
+      {
+        "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_forbidden_route_plan_preserves_coverage",
+        "seconds": 0.026
+      },
+      {
+        "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_shared_forbidden_delegate_pre_send",
+        "seconds": 0.053
+      }
+    ],
+    "genuine-1": [
+      {
+        "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_genuine_public_forbidden_delegate",
+        "seconds": 53.692
+      }
+    ]
+  },
+  "genuine_executions": 1,
+  "retries": 0,
+  "denial": {
+    "error_class": "NativeContentPolicyDenied",
+    "reason": "controlled_native_issued_call_selected_expired_or_denied",
+    "checkpoint_line": 7463,
+    "original_exception_identity": true
+  },
+  "qualification": {
+    "results": 27,
+    "http": 25,
+    "non_http": 2
+  },
+  "a": {
+    "complete_requests": 26,
+    "qualification_requests": 25,
+    "p_data_requests": 1,
+    "p_body_envelope_equal": true,
+    "delegate_data_requests": 0,
+    "child_data_requests": 0,
+    "c_data_requests": 0,
+    "cleanup": {
+      "a_thread_alive": false,
+      "a_listener_closed": true,
+      "a_socket_live": false,
+      "a_errors": [],
+      "f_thread_alive": false,
+      "f_listener_closed": true,
+      "elapsed": 53.651621580007486
+    }
+  },
+  "f": {
+    "started_at": 142961.574987607,
+    "ready_at": 142961.625263552,
+    "last_poll_at": 143015.118908846,
+    "deadline_at": 143551.574987607,
+    "finished_at": 143015.119141551,
+    "polls": 973,
+    "errors": [],
+    "thread_stopped": true,
+    "listener_closed": true,
+    "sockets_closed": true
+  },
+  "f_times": {
+    "finish_requested_at": 143014.613354396,
+    "drain_at": 143015.118970414,
+    "cutoff_at": 143015.118972948,
+    "cleanup_started_at": 143015.118991294,
+    "cleanup_finished_at": 143015.119077139
+  },
+  "f_accepted_connections": 0,
+  "f_retained_bytes": 0,
+  "terminal": {
+    "charges": [
+      8,
+      1,
+      5609
+    ],
+    "owner_phase": "denied",
+    "stage_index": 1,
+    "p_closed": true,
+    "continuation_phase": "armed",
+    "continuation_windows": 0,
+    "sends": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "p_send_count": 1,
+    "profile_union": [
+      "restricted_documents"
+    ],
+    "clock": 10,
+    "bind_before": [
+      [
+        8,
+        1,
+        5609
+      ]
+    ],
+    "no_e_adapter": true,
+    "no_e_frame": true,
+    "authorization_content_absent": true,
+    "issued_content_absent": true,
+    "continuation_records_empty": true,
+    "continuation_completion_absent": true
+  },
+  "graph": [
+    {
+      "index": 0,
+      "bytes": 403,
+      "sha256": "2442f9a056a590f3cb59c25660d752f34cadd4cb489516c54967a8791144929a",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 1,
+      "bytes": 400,
+      "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 2,
+      "bytes": 508,
+      "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b",
+      "parents": [
+        1
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 3,
+      "bytes": 711,
+      "sha256": "f5d83d67730f3570ffaaf5824cb053680af7c4798e6e898ed688a5719f60cf76",
+      "parents": [
+        1,
+        2
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 4,
+      "bytes": 436,
+      "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11",
+      "parents": [
+        3
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 5,
+      "bytes": 1199,
+      "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864",
+      "parents": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 6,
+      "bytes": 1596,
+      "sha256": "b64cd0e6bd87e7366b003fdd022339310bd8fc98a741ed20cd1876a53d1483a0",
+      "parents": [],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 7,
+      "bytes": 356,
+      "sha256": "2cf86ebf52372b93ce8b801a0bf1abd15e6c606df712cc966a4a2dd48e0ff95e",
+      "parents": [
+        4,
+        6
+      ],
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    }
+  ],
+  "public_result_returned": false,
+  "no_new_charges_across_bind": true,
+  "source_flow_inference": "Membership denial precedes issued authorization, E construction, shared delegated dispatch, and forbidden transport connect or send.",
+  "observation_limit": "Zero accepted connections covers the active accept window. It is not packet capture or proof of zero kernel handshakes at an interval edge.",
+  "live_getter_and_validated_c_exit": "No claim. This negative call stops before those operations."
+}
