@@ -1,0 +1,19 @@
+{
+  "scope": "distinct-failures::test_original_control_after_actual_output",
+  "runtime_sha256": "429e67283c290ecf6adacc6f777275f3b32d15d2ded8b6e4f3177203ebb83806",
+  "test_sha256": "183168c9d86a4ff3e7e3eec6a2a3fbedc70397696806f190bc6e40804d6d8b3e",
+  "final_runtime_sha256": "4ce47d2567574534445ca0ad33dd8f8721f15f28e818eb7778243329cda80618",
+  "inverse": {
+    "path": "artifacts/terminal-correction-inverse.patch.gz",
+    "bytes": 508,
+    "sha256": "155ea7634898d5c51a58f984ed6ce068da1deab350af53604604f394932a32f6",
+    "compressed_sha256": "d7f370c5a7bef4ed10a93682634cec2f2c51132f31b82f85ed641f9b2461dee0"
+  },
+  "changes": [
+    "Add original agent to ordered shallow terminal snapshots.",
+    "Check selected expiry after all resolver callbacks."
+  ],
+  "unchanged_control_body": true,
+  "fresh_current_control_execution": false,
+  "whole_file_current_success": false
+}

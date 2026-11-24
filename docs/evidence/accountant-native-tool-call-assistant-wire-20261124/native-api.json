@@ -1,0 +1,9 @@
+{
+  "record": "@dataclass(frozen=True, slots=True)\nclass NativeToolCallAssistantWireResult:\n    source_result: NativeToolCallAssistantSource\n    model: str\n    messages: list[dict[str, object]]\n    message_bytes: bytes\n    message_content: object\n    anchors: tuple",
+  "members": [
+    "def retain_tool_call_assistant_wire(self, source: NativeToolCallAssistantSource) -> NativeToolCallAssistantWireResult:\n    ...",
+    "@property\ndef tool_call_assistant_wire_results(self) -> tuple[NativeToolCallAssistantWireResult, ...]:\n    ..."
+  ],
+  "runtime_sha256": "4ce47d2567574534445ca0ad33dd8f8721f15f28e818eb7778243329cda80618",
+  "consumer_sha256": "0c6b1de9325f0671634fbf91539fce6798e0fa94dc6e094c12c512c22a9551b5"
+}
