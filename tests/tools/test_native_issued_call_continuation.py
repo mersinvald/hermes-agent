@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 import threading
+import time
 from contextvars import copy_context
 from dataclasses import replace
 from types import SimpleNamespace
@@ -144,7 +145,7 @@ def retain_continuation(world, record):
 
 
 @pytest.mark.parametrize("mode", ["positive", "coverage_expiry", "original_control", "selected_expiry"])
-def test_genuine_continuation(no_delegation_effects, record_property, mode):
+def test_genuine_continuation(no_delegation_effects, record_property, mode, monkeypatch):
     world = ContinuationWorld(mode)
     try:
         world.prepare(record_property)
@@ -154,8 +155,25 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode):
         original = tuple(vars(world.adapter).items())
         control = asyncio.CancelledError("Invented continuation policy cancellation")
         refusals = []
+        continuation_started = time.monotonic()
+        last_boundary = []
+        last_stages = []
 
         def after_output():
+            stages = tuple(value is not None for value in (owner.history_content, owner.request_content,
+                owner.wire_content, owner.raw_slot[2], owner.response_content, owner.normalized_content, owner.completion))
+            boundary = (owner.windows, owner.phase, stages)
+            if not last_boundary or last_boundary[0] != boundary:
+                last_boundary[:] = [boundary]
+                record_property("C_boundary", json.dumps(dict(window=owner.windows, phase=owner.phase,
+                    elapsed=time.monotonic() - continuation_started, completed_stages=stages,
+                    charges=(len(runtime._contents), len(runtime._envelopes), runtime._retained_bytes),
+                    C_sends=owner.adapter._send_count, callback_depth=owner.depth,
+                    raw_bytes=None if owner.raw_slot[2] is None else len(owner.raw_slot[2]))))
+            if not last_stages or last_stages[0] != stages:
+                last_stages[:] = [stages]
+                if any(stages):
+                    retain_continuation(world, record_property)
             if mode == "positive" and owner.windows > 0 and not refusals:
                 with pytest.raises(NativeContentPolicyDenied, match="reentry_or_thread"):
                     native.issued_call_continuation_results(world.authorization)
@@ -208,6 +226,17 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode):
                 thread.start()
                 thread.join(timeout=5)
                 assert not thread.is_alive()
+                replacement_calls = []
+
+                def replaced_pair_getter(pair_owner):
+                    replacement_calls.append(pair_owner)
+                    return ()
+
+                with monkeypatch.context() as patch:
+                    patch.setattr(native._IssuedCallPair, "proof_access", replaced_pair_getter)
+                    with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
+                        native.issued_call_continuation_results(world.authorization)
+                    assert replacement_calls == []
         assert refusals == [True] and result.pair is world.pair and result.binding is owner.binding
         assert result.request["model"] is world.selections[5].destination.model_ref
         assert result.request["messages"][:2] == result.prefix_messages
@@ -231,3 +260,26 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode):
     finally:
         if hasattr(world, "authorization"):
             retain_continuation(world, record_property)
+
+
+@pytest.mark.parametrize("change", ["stock", "replacement", "code_object_drift"])
+def test_continuation_pair_code_guard(monkeypatch, change):
+    pair_class, name, original, code = next(entry for entry in native._ISSUED_PAIR_CODE
+        if entry[0] is native._IssuedCallPair and entry[1] == "proof_access")
+    assert native._verify_continuation_pair_code() is None
+
+    def replacement(pair_owner):
+        raise AssertionError("Replacement getter must not run")
+
+    with monkeypatch.context() as patch:
+        if change == "replacement":
+            patch.setattr(pair_class, name, replacement)
+        elif change == "code_object_drift":
+            patch.setattr(original, "__code__", replacement.__code__)
+        if change == "stock":
+            assert native._verify_continuation_pair_code() is None
+        else:
+            with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
+                native._verify_continuation_pair_code()
+    assert getattr(pair_class, name) is original and original.__code__ is code
+    assert native._verify_continuation_pair_code() is None

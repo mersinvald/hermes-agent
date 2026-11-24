@@ -10782,6 +10782,12 @@ def _continuation_shared_frame(owner, frame):
             "dispatch_arguments_changed")
 
 
+def _verify_continuation_pair_code():
+    for obj, name, function, code in _ISSUED_PAIR_CODE:
+        _continuation_require(getattr(obj, name, None) is function and function.__code__ is code,
+            "pair_code_changed")
+
+
 class _IssuedCallContinuation:
     """Consume one original pair through an independently admitted native request."""
 
@@ -11009,7 +11015,7 @@ class _IssuedCallContinuation:
                 and set(self.request) == {"model", "messages", "tools", "stream", "tool_choice"}, "request_changed")
         if self.response is not None:
             _continuation_require(_same_anchors(_nested_anchors(self.response), self.response_anchor)
-                and self.response.model == self.model and type(self.response.model) is str
+                and type(self.response.model) is str and self.response.model == self.model
                 and _response_bytes(self.response, self.model) == self.raw_slot[2], "response_changed")
         if self.normalized is not None:
             _continuation_require(_same_anchors(_nested_anchors(vars(self.normalized))
@@ -11162,10 +11168,19 @@ class _IssuedCallContinuation:
         self.access(proof=self.entry is None)
         _continuation_require(current_context() is self.context and self.depth == 0
             and self.pair is pair and self.pair_owner is not None, "proof_scope_invalid")
+        original = self.pair_owner
+        _continuation_require(type(original) is _IssuedCallPair and self.snapshots
+            and self.snapshots[0][0] is original, "pair_owner_changed")
+        _continuation_snapshot(original, self.snapshots[0][1])
+        _verify_continuation_pair_code()
+        _continuation_require(_issued_pair_owner(self.parent) is original, "pair_owner_changed")
+        getter_function = next(function for obj, name, function, _ in _ISSUED_PAIR_CODE
+            if obj is _IssuedCallPair and name == "proof_access")
+        getter = original.proof_access
+        _continuation_require(_same_method(getter, (original, getter_function)), "pair_method_changed")
         with content_policy_scope(None):
-            records = self.pair_owner.proof_access()
+            records = getter()
             _continuation_require(len(records) == 1 and records[0] is pair, "pair_unregistered")
-            _issued_pair_terminal(self.pair_owner)
             for owner, snapshot in self.snapshots:
                 _continuation_snapshot(owner, snapshot)
             for handle, record, anchor in self.graph:
@@ -11466,6 +11481,7 @@ _CONTINUATION_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__
     (_IssuedCallContinuation, _CONTINUATION_METHODS),
     (sys.modules[__name__], ("bind_issued_call_continuation", "run_issued_call_continuation",
         "issued_call_continuation_results", "_continuation_owner", "_issued_continuation_window", "_issued_continuation_view", "_continuation_require",
-        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame")),
+        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame",
+        "_verify_continuation_pair_code")),
     (_WIRE_CLASS, ("convert_tools", "convert_messages", "build_kwargs", "normalize_response")),
 ) for name in names)
