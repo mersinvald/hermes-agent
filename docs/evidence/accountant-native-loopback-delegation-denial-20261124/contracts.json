@@ -1,0 +1,64 @@
+{
+  "records": {
+    "ConnectionObservation": [
+      "order",
+      "accepted_at",
+      "peer",
+      "local",
+      "raw",
+      "headers_complete",
+      "request_complete",
+      "closed_at",
+      "error_code"
+    ],
+    "ForbiddenObservation": [
+      "bound",
+      "started_at",
+      "ready_at",
+      "last_poll_at",
+      "deadline_at",
+      "finished_at",
+      "polls",
+      "connections",
+      "errors",
+      "thread_stopped",
+      "listener_closed",
+      "sockets_closed"
+    ]
+  },
+  "observer": {
+    "window_seconds": 590,
+    "max_connections": 8,
+    "max_bytes": 264192,
+    "detection_bytes_per_connection": 1,
+    "max_retained_bytes": 2113544,
+    "connection_deadline_seconds": 5,
+    "poll_seconds": 0.05,
+    "settle_seconds": 0.5,
+    "cleanup_cap_seconds": 5,
+    "response_sends": 0
+  },
+  "operator": {
+    "original_requests": 6,
+    "baseline_routes": 20,
+    "clock": 10,
+    "all_expiries": 100,
+    "qualification_results": 27,
+    "qualification_http": 25,
+    "qualification_non_http": 2,
+    "expected_a_http_total": 26,
+    "expected_f_accepts": 0,
+    "route": "route_2_delegate_forbidden",
+    "allowed_routes": "exact baseline tuple",
+    "native_checkpoint_line": 7463
+  },
+  "cheap_node_names": [
+    "test_observer_records_empty_and_partial_connection[empty_connection]",
+    "test_observer_records_empty_and_partial_connection[partial_header]",
+    "test_forbidden_route_plan_preserves_coverage",
+    "test_shared_forbidden_delegate_pre_send"
+  ],
+  "genuine_node": "tests/agent/test_native_public_loopback_denial.py::test_genuine_public_forbidden_delegate",
+  "genuine_executions_authorized": 1,
+  "retries": 0
+}
