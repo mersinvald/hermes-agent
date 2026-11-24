@@ -175,3 +175,83 @@ def test_call_hook_preserves_original_exception():
         hook.throw(error)
     assert raised.value is error
     assert plugin._CALL_THREAD is plugin._CALL_NODE is None
+
+
+@pytest.mark.parametrize("scenario,expected", [
+    ("project", "pkg/observed.py"),
+    ("selected_stdlib", "stdlib/dataclasses.py"),
+    ("unselected_stdlib", "<external>"),
+    ("symlink_escape", "<external>"),
+    ("nested_escape", "<external>"),
+    ("prefix_collision", "<external>"),
+    ("relative", "<external>"),
+    ("resolution_loop", "<external>"),
+    ("missing_file", "<external>"),
+    ("in_root_alias", "pkg/observed.py"),
+    ("root_alias", "pkg/observed.py"),
+    ("stdlib_root_alias", "stdlib/dataclasses.py"),
+    ("selected_stdlib_escape", "<external>"),
+])
+def test_canonical_descriptor_scope(tmp_path, monkeypatch, scenario, expected):
+    worktree, stdlib, outside = (tmp_path / name for name in ("tree", "stdlib", "outside"))
+    for directory in (worktree / "pkg", stdlib, outside, tmp_path / "tree-neighbor"):
+        directory.mkdir(parents=True)
+    project = worktree / "pkg/observed.py"
+    selected = stdlib / "dataclasses.py"
+    unselected = stdlib / "unselected.py"
+    external = outside / "dependency.py"
+    neighbor = tmp_path / "tree-neighbor/observed.py"
+    source = "def observed():\n    return None\n"
+    for path in (project, selected, unselected, external, neighbor):
+        path.write_text(source)
+    filename = project
+    if scenario == "selected_stdlib":
+        filename = selected
+    elif scenario == "unselected_stdlib":
+        filename = unselected
+    elif scenario == "symlink_escape":
+        (worktree / "escape").symlink_to(outside, target_is_directory=True)
+        filename = worktree / "escape/dependency.py"
+    elif scenario == "nested_escape":
+        (worktree / "inner").symlink_to(outside, target_is_directory=True)
+        (worktree / "outer").symlink_to(worktree / "inner", target_is_directory=True)
+        filename = worktree / "outer/dependency.py"
+    elif scenario == "prefix_collision":
+        filename = neighbor
+    elif scenario == "relative":
+        filename = Path("pkg/observed.py")
+    elif scenario == "resolution_loop":
+        filename = worktree / "loop.py"
+        filename.symlink_to(filename)
+    elif scenario == "missing_file":
+        filename = worktree / "missing.py"
+    elif scenario == "in_root_alias":
+        filename = worktree / "alias.py"
+        filename.symlink_to(project)
+    elif scenario == "root_alias":
+        alias = tmp_path / "tree-alias"
+        alias.symlink_to(worktree, target_is_directory=True)
+        worktree = alias
+        filename = alias / "pkg/observed.py"
+    elif scenario == "stdlib_root_alias":
+        alias = tmp_path / "stdlib-alias"
+        alias.symlink_to(stdlib, target_is_directory=True)
+        stdlib = alias
+        filename = alias / "dataclasses.py"
+    elif scenario == "selected_stdlib_escape":
+        selected.unlink()
+        selected.symlink_to(external)
+        filename = selected
+    monkeypatch.setattr(plugin, "ROOT", worktree)
+    monkeypatch.setattr(plugin, "STDLIB", stdlib)
+    module = compile(source, str(filename), "exec")
+    code = next(value for value in module.co_consts if type(value) is type(module))
+    sampler = plugin.Sampler(threading.get_ident(), ())
+    index = sampler.descriptor(code)
+    descriptor = sampler.descriptors[index]
+    assert descriptor["filename"] == expected
+    if expected == "<external>":
+        assert descriptor["qualname"] == "<external>" and descriptor["first_line"] is None
+    else:
+        assert descriptor["qualname"] == "observed" and descriptor["first_line"] == 1
+    assert sampler.descriptor(code) == index and len(sampler.descriptors) == 1

@@ -86,6 +86,26 @@ def snapshot_sizes(snapshot, classes):
     return (("snapshot_sizes", label, len(pairs), len(anchors)),)
 
 
+def _descriptor_filename(filename, worktree, stdlib):
+    """Classify only canonical absolute paths within the permitted roots."""
+    try:
+        source = Path(filename)
+        if not source.is_absolute():
+            return "<external>"
+        source = source.resolve(strict=True)
+        worktree = Path(worktree).resolve(strict=True)
+        stdlib = Path(stdlib).resolve(strict=True)
+    except (OSError, RuntimeError, ValueError):
+        return "<external>"
+    if source.is_relative_to(worktree):
+        return source.relative_to(worktree).as_posix()
+    if source.is_relative_to(stdlib):
+        relative = source.relative_to(stdlib).as_posix()
+        if relative in PUBLIC_STDLIB:
+            return "stdlib/" + relative
+    return "<external>"
+
+
 class Sampler:
     """Collect code positions from one thread without changing its execution."""
 
@@ -132,14 +152,7 @@ class Sampler:
     def descriptor(self, code):
         if code in self.descriptor_cache:
             return self.descriptor_cache[code]
-        filename = Path(code.co_filename)
-        if filename.is_absolute() and filename.is_relative_to(ROOT):
-            name = filename.relative_to(ROOT).as_posix()
-        elif filename.is_absolute() and filename.is_relative_to(STDLIB):
-            relative = filename.relative_to(STDLIB).as_posix()
-            name = "stdlib/" + relative if relative in PUBLIC_STDLIB else "<external>"
-        else:
-            name = "<external>"
+        name = _descriptor_filename(code.co_filename, ROOT, STDLIB)
         index = len(self.descriptors)
         self.descriptor_cache[code] = index
         self.descriptors.append(dict(code=index, filename=name,

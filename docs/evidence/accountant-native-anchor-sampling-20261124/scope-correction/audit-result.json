@@ -1,0 +1,66 @@
+{
+  "original_sha256": "67c02424f6d7685a03e8de15c4ba1ca62579f047bdc034f057b2d34e2f92f7c4",
+  "public_sha256": "407446fd5d531e3bc6767c93c22385f81f0486531f857a7cb2935d3153d166c6",
+  "plugin_sha256": "c4e23997a68906b9299056551dbf68e1aab751b662a0f93e8615ae1006823dd4",
+  "audit_sha256": "94c19edef12585e2de5d1bb0557eb727bccc123f7e3079877a6ca1a8150d5f8b",
+  "result": "PASS",
+  "descriptor_redactions": 27,
+  "redacted_code_ids": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    57,
+    58,
+    59,
+    60,
+    61,
+    64,
+    68,
+    78,
+    79
+  ],
+  "coordinates": {
+    "top_positions": {
+      "rows": 26,
+      "redacted_current_lines": 3,
+      "duplicate_coordinates_preserved": 0
+    },
+    "all_positions": {
+      "rows": 120,
+      "redacted_current_lines": 30,
+      "duplicate_coordinates_preserved": 3
+    }
+  },
+  "example_current_line_redactions": 90,
+  "observation_payload_exact": true,
+  "code_ids_counts_depths_timestamps_sizes_exact": true,
+  "native_positions_and_example_order_exact": true,
+  "historical_qualification_fields_unchanged": true,
+  "private_modes_verified": true,
+  "existing_public_view_reused_by_hash": true,
+  "native_runtime_imports": 0,
+  "new_sample_windows": 0,
+  "qualification": {
+    "original_capture": "FAILED",
+    "filtered_observation_view": "PASS",
+    "corrected_collector": "unit qualification recorded separately",
+    "corrected_live_capture": "UNEXECUTED",
+    "original_functional_history": "PASSED once at the original pin",
+    "original_task_and_budget": "FAILED and unchanged"
+  }
+}
