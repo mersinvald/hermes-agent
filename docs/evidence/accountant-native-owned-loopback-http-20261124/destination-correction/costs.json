@@ -7,5 +7,24 @@
     "genuine": 600,
     "final": 90,
     "reserve": 120
-  }
+  },
+  "measured_command_seconds": {
+    "cheap": 7.313476259005256,
+    "genuine": 449.9911595369922
+  },
+  "genuine_outer_cap": 600,
+  "genuine_file_cap": 595,
+  "launch_floors": {
+    "task": 750,
+    "verification": 750
+  },
+  "actual_remaining_at_launch": {
+    "task": 1243.0632498264313,
+    "verification": 778.0448124408722
+  },
+  "wall_at_evidence": {
+    "task": 728.0673525333405,
+    "verification": 593.0857939720154
+  },
+  "original_failed_task_costs": "immutable_in_original_evidence"
 }

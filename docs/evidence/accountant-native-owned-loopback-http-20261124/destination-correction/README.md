@@ -17,7 +17,15 @@ The owned public test adds bounded primitive exception metadata around its publi
 It preserves the original exception and every original genuine assertion.
 Metadata excludes locals, representations, arbitrary arguments, and external source locations.
 The final source freeze precedes one newly authorized genuine public history.
-Current history results follow in this correction directory.
+
+The current genuine history passed in 449.99 command seconds.
+It completed 27 qualifications, 25 HTTP qualification requests, and four episode data requests.
+The four independently received bodies match the original retained dispatch envelopes.
+The original assertions passed for six C windows, completion identity, live getter, validated exit, P close, and the public dictionary.
+The corrective Task succeeded within its scope.
+
+All owned receiver sockets and its thread closed.
+The original Task remains FAILED, with its original evidence and UNKNOWN states unchanged.
 
 The [pins](pins.json) record exact source, API, specification, proposal, and dependencies.
 The [preservation receipt](preservation.json) records the exact correction boundary.

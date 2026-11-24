@@ -1,5 +1,154 @@
 {
-  "state": "source_frozen_before_new_genuine",
+  "corrective_task_outcome": "SUCCEEDED",
   "original_task_outcome": "FAILED",
-  "current_genuine_attempts": 0
+  "original_callback_detail": "UNKNOWN",
+  "original_later_state": "UNKNOWN",
+  "original_task_handoff_sha256": "f0a794ca8556061d56c4bed8469ba426524c4d8e940a2b2ae8fe992e4611a8a3",
+  "focused_scopes": [
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_owned_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "-k",
+        "test_actual_assistant_source_destination_interface",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61-destination-correction/red.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "source_pins": {
+        "agent/transports/owned_loopback_http.py": "e31c80d1e3cf97562dbfb1c9a0b382718313ecb5b399d0447db95fa6c0f0c1f5",
+        "tests/agent/test_owned_loopback_http.py": "bdec0809a0d10901e7c72ef1420bb10ef6d2461eb4d4c3fa8f0cd98cf64f5cf3"
+      },
+      "seconds": 2.7249983299989253,
+      "returncode": 1,
+      "intentional_red": true,
+      "scope": "red",
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_assistant_source_destination_interface",
+          "seconds": 1.239,
+          "outcome": "failed"
+        }
+      ]
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_owned_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "-k",
+        "test_actual_assistant_source_destination_interface or test_public_destination_immutable_identity_and_drift or test_positive_wire_and_fresh_destination or (test_drift_before_traffic and destination)",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61-destination-correction/green.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "source_pins": {
+        "agent/transports/owned_loopback_http.py": "05ec8c7eede3dc872914ff2a3b011b91d5fa63960be2b7a4fadf76d5dc7e218f",
+        "tests/agent/test_owned_loopback_http.py": "f7836f687b4ef566462f88e39f274ad3207da4e5b06674f74afb46cfb17eba49"
+      },
+      "seconds": 2.3203110829927027,
+      "returncode": 0,
+      "intentional_red": false,
+      "scope": "green",
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_drift_before_traffic[destination]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_actual_assistant_source_destination_interface",
+          "seconds": 1.105,
+          "outcome": "passed"
+        },
+        {
+          "nodeid": "tests/agent/test_owned_loopback_http.py::test_public_destination_immutable_identity_and_drift",
+          "seconds": 0.02,
+          "outcome": "passed"
+        }
+      ]
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "--files",
+        "tests/agent/test_native_public_loopback_http.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "-k",
+        "test_public_failure_metadata_primitives",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.61-destination-correction/metadata.xml",
+        "-v",
+        "--tb=short"
+      ],
+      "source_pins": {
+        "agent/transports/owned_loopback_http.py": "05ec8c7eede3dc872914ff2a3b011b91d5fa63960be2b7a4fadf76d5dc7e218f",
+        "tests/agent/test_native_public_loopback_http.py": "8fa140b1fb26bdb0341918cd77558ddf3eac8cae2d3a7c82bf39ba900c79aeb2"
+      },
+      "seconds": 2.268166846013628,
+      "returncode": 0,
+      "intentional_red": false,
+      "scope": "metadata",
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_native_public_loopback_http.py::test_public_failure_metadata_primitives",
+          "seconds": 0.035,
+          "outcome": "passed"
+        }
+      ]
+    }
+  ],
+  "original_59_direct_and_plan": "historical_reuse_only_not_reexecuted",
+  "genuine": {
+    "nodeid": "tests/agent/test_native_public_loopback_http.py::test_genuine_public_loopback_http",
+    "seconds": 449.9911595369922,
+    "returncode": 0,
+    "attempts": 1,
+    "retries": 0,
+    "source_freeze": "5fecb1f995c969d2dd7a4af855760aca96b6d99d"
+  },
+  "public_exception_metadata": null,
+  "original_genuine_assertions_preserved": 76,
+  "cleanup": {
+    "thread_alive": false,
+    "listener_closed": true,
+    "accepted_socket_live": false,
+    "receiver_errors": []
+  },
+  "later_state": "complete_synthetic_public_episode",
+  "ci_success_claim": false
 }
