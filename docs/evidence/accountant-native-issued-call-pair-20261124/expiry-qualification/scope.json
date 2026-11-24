@@ -1,0 +1,77 @@
+{
+  "task": "task_5e1e86099968",
+  "dispatch": "ctx_ebc0864481b6",
+  "supervisor": {
+    "name": "corrected-expiry",
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_pair.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "290",
+      "--",
+      "-k",
+      "test_final_non_main_coverage_after_J",
+      "-q",
+      "--maxfail=1",
+      "--tb=long",
+      "--durations=0",
+      "--durations-min=0",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.45-expiry-qualification/receipts/corrected-expiry.xml",
+      "-o",
+      "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.45/cache/pytest",
+      "-o",
+      "junit_family=xunit1",
+      "--basetemp=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.45/tmp/expiry-qualification",
+      "-o",
+      "accountant_source_sha256=e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a",
+      "-o",
+      "accountant_test_sha256=636cc79ea3bfba9a8818c15c1065e9c0205fce720e3d7b9078246371283d641e"
+    ],
+    "pins": {
+      "agent/native_main_payload.py": "e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a",
+      "tests/tools/test_native_issued_call_pair.py": "636cc79ea3bfba9a8818c15c1065e9c0205fce720e3d7b9078246371283d641e"
+    },
+    "seconds": 266.7610983170016,
+    "exit_code": 0,
+    "timeout": false,
+    "cap_seconds": 290.0,
+    "retries": 0
+  },
+  "actual_nodeid": "tests/tools/test_native_issued_call_pair.py::test_final_non_main_coverage_after_J",
+  "actual_outcome": "passed",
+  "prior_failure_preserved": true,
+  "one_qualification_execution": true,
+  "no_other_functional_scope": true,
+  "fresh_complete_current_run": false,
+  "artifacts": [
+    {
+      "path": "corrected-expiry.xml.gz",
+      "sha256": "4cdc95333bbb73fa3dc0729ca1310f569ecd8a936e8f68efd2c0c47ec851e1db",
+      "original_sha256": "bc1cca013e7ad5c0409685b1e6ed7d014e14d0c179469e64d452064912110803"
+    },
+    {
+      "path": "corrected-expiry.properties.jsonl.gz",
+      "sha256": "8d0906e46c5e4f09b9a0330dbf02c3fb772518b3f699ed9bdbfdb476f71ceda2",
+      "original_sha256": "88c975c403b9b8777f8e7b229bb6906a33852528b2661bf9b342c587d528ad63"
+    },
+    {
+      "path": "corrected-expiry.log.gz",
+      "sha256": "39f0709049fbc3a17bd5ab399d90e9b797288b694e744e6a8e2a1a007b87c4c8",
+      "original_sha256": "5d842736b22f49b9b45c545e0ea669de8f8ee2a8aa42a08262dcd55ba9b9b703"
+    },
+    {
+      "path": "native_main_payload.py.gz",
+      "sha256": "82a52832bccb2fe84cdbfb7d39b36a3bbf220860bcebe29efa2050c05ae8b44e",
+      "original_sha256": "e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a"
+    },
+    {
+      "path": "test_native_issued_call_pair.py.gz",
+      "sha256": "32a8540a2c8f8c10bab58df64681858a8a6bac1235545e91667d6354c0e5a859",
+      "original_sha256": "636cc79ea3bfba9a8818c15c1065e9c0205fce720e3d7b9078246371283d641e"
+    }
+  ]
+}

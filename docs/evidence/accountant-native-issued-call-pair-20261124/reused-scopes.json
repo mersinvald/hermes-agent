@@ -1,0 +1,30 @@
+{
+  "artifacts": [
+    {
+      "path": "artifacts/positive-native_main_payload.py.gz",
+      "sha256": "bd29fb152f133e4452527540a8fbacbbbe60c21763bed4bbb085145409fd219f",
+      "original_sha256": "53783659d0347a9488be6ccc0624b7beeea4d6134f852e8d66f02c8a395b2066"
+    },
+    {
+      "path": "artifacts/initial-test_native_issued_call_pair.py.gz",
+      "sha256": "9453b6895c2bd5f1ccc4fc97d6e2278c982487726fba6daf2ff0c90a81a51126",
+      "original_sha256": "b6e289419695cd423b225768ed5ee9cf27870aa56e6b774a5dec6f1b732a483f"
+    },
+    {
+      "path": "artifacts/helper-anchor-tightening.patch.gz",
+      "sha256": "4444bb8b399ef918c983774db6cb87fe42b4184562df5d892d51c415803aed44",
+      "original_sha256": "a6f32f8aaf2e90ace2d0220651191bf9a5931a74ef842809edf2786c7eec33ca"
+    },
+    {
+      "path": "artifacts/scope-nesting-correction.patch.gz",
+      "sha256": "de5823e1aac1c5dff28f9a13f5490d0fb0818d020fa8ee843cf6a2d7ba2ef418",
+      "original_sha256": "033a42c6c10ec72f19b7249cbcc34202840d202185a190fdf805ebf9d3df8929"
+    }
+  ],
+  "positive_body_unchanged": true,
+  "positive_source_distinct": true,
+  "final_source_change": "Original sanitizer helper code, globals, and defaults bind at module initialization.",
+  "test_change": "Expected exceptions escape the original context manager before the test catches them.",
+  "earlier_evidence": "All earlier paths retain their original bytes and recorded limits.",
+  "fresh_current_complete_success": false
+}

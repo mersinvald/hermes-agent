@@ -1,0 +1,51 @@
+{
+  "artifacts": [
+    {
+      "path": "artifacts/positive-native_main_payload.py.gz",
+      "sha256": "bd29fb152f133e4452527540a8fbacbbbe60c21763bed4bbb085145409fd219f",
+      "original_sha256": "53783659d0347a9488be6ccc0624b7beeea4d6134f852e8d66f02c8a395b2066"
+    },
+    {
+      "path": "artifacts/initial-test_native_issued_call_pair.py.gz",
+      "sha256": "9453b6895c2bd5f1ccc4fc97d6e2278c982487726fba6daf2ff0c90a81a51126",
+      "original_sha256": "b6e289419695cd423b225768ed5ee9cf27870aa56e6b774a5dec6f1b732a483f"
+    },
+    {
+      "path": "artifacts/helper-anchor-tightening.patch.gz",
+      "sha256": "4444bb8b399ef918c983774db6cb87fe42b4184562df5d892d51c415803aed44",
+      "original_sha256": "a6f32f8aaf2e90ace2d0220651191bf9a5931a74ef842809edf2786c7eec33ca"
+    },
+    {
+      "path": "artifacts/scope-nesting-correction.patch.gz",
+      "sha256": "de5823e1aac1c5dff28f9a13f5490d0fb0818d020fa8ee843cf6a2d7ba2ef418",
+      "original_sha256": "033a42c6c10ec72f19b7249cbcc34202840d202185a190fdf805ebf9d3df8929"
+    },
+    {
+      "path": "artifacts/static-0.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/static-1.log.gz",
+      "sha256": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+      "original_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "artifacts/static-2.log.gz",
+      "sha256": "c1cde1715189b653821fec99d322660b646ff61bcac02d871dbad27633ba4977",
+      "original_sha256": "12c693f00620194d1ddd372a3e5e0e30c63b00f43e96bee86c18786add683214"
+    },
+    {
+      "path": "artifacts/static-3.log.gz",
+      "sha256": "c092a7e9c5eaa5be96b2b3123e639f758192eeafc2f9a2d4437198f3bc46130f",
+      "original_sha256": "2300de6e6927fe3a574ff659155fb7b717bfd0c1e6174db24525d2bf27a05626"
+    },
+    {
+      "path": "artifacts/static-4.log.gz",
+      "sha256": "6d2318031e17bf8e7bf3cd40dd4e9128a9ba6aa1b97a0a6415d0ab178d21f1ef",
+      "original_sha256": "c43e80fd9fa7514631b4ac90a8e5db61a7eba3f7193df726736f0fc0bc757272"
+    }
+  ],
+  "raw_data": "Invented fixture data and safe source metadata only.",
+  "external_ledger": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.45/receipts/ledger.jsonl"
+}

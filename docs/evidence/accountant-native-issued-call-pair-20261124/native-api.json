@@ -1,0 +1,44 @@
+{
+  "runtime_sha256": "e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a",
+  "test_sha256": "636cc79ea3bfba9a8818c15c1065e9c0205fce720e3d7b9078246371283d641e",
+  "record": {
+    "name": "NativeIssuedCallPairResult",
+    "decorators": [
+      "dataclass(frozen=True, slots=True)"
+    ],
+    "fields": [
+      {
+        "name": "assistant_result",
+        "annotation": "NativeToolCallAssistantWireResult"
+      },
+      {
+        "name": "tool_result",
+        "annotation": "NativeIssuedCallWireResult"
+      },
+      {
+        "name": "model",
+        "annotation": "str"
+      },
+      {
+        "name": "messages",
+        "annotation": "list[dict[str, object]]"
+      },
+      {
+        "name": "message_bytes",
+        "annotation": "bytes"
+      },
+      {
+        "name": "message_content",
+        "annotation": "object"
+      },
+      {
+        "name": "anchors",
+        "annotation": "tuple"
+      }
+    ]
+  },
+  "operations": [
+    "def retain_issued_call_pair(self, assistant: NativeToolCallAssistantWireResult, tool: NativeIssuedCallWireResult) -> NativeIssuedCallPairResult:",
+    "@property\ndef issued_call_pair_results(self) -> tuple[NativeIssuedCallPairResult, ...]:"
+  ]
+}
