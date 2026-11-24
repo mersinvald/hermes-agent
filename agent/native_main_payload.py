@@ -9005,6 +9005,46 @@ def _assistant_source_model_state(value):
     return payload, tuple(anchors)
 
 
+
+
+def _assistant_source_callable_facts(methods, clock):
+    from types import FunctionType, BuiltinFunctionType
+    result = []
+    for method in (*tuple(entry[2] for entry in methods), _method(clock)):
+        function = method[-1]
+        _assistant_source_require(type(function) in (FunctionType, BuiltinFunctionType), "callable_type_invalid")
+        if any(function is row[0] for row in result):
+            continue
+        if type(function) is FunctionType:
+            result.append((function, function.__code__, function.__globals__,
+                           _nested_anchors((function.__defaults__, function.__kwdefaults__))[1:]))
+        else:
+            result.append((function, None, None, ()))
+    return tuple(result)
+
+
+def _assistant_source_builder_metadata(message):
+    _assistant_source_require(type(message) is _SOURCE_MESSAGE and type(message.tool_calls) is list
+                              and len(message.tool_calls) == 1 and type(message.tool_calls[0]) is _SOURCE_CALL,
+                              "metadata_source_invalid")
+    facts = []
+    for label, model, names in (
+        ("message", message, (*_ASSISTANT_SOURCE_ABSENT, "model_extra")),
+        ("tool_call", message.tool_calls[0], ("call_id", "response_item_id", "extra_content")),
+    ):
+        values = []
+        for name in names:
+            present = hasattr(model, name)
+            value = getattr(model, name, None)
+            if name == "model_extra":
+                _assistant_source_require(present and type(value) is dict and not value, "metadata_extra_invalid")
+            else:
+                _assistant_source_require(not present and value is None, "metadata_not_selected")
+            values.append((name, present, value))
+        facts.append((label, tuple(values)))
+    return tuple(facts)
+
+
 def _assistant_source_agent_facts(agent):
     namespace = _namespace(agent)
     values = []
@@ -9095,6 +9135,8 @@ class _ToolCallAssistantSource:
             *((self, name) for name in _ASSISTANT_SOURCE_OWNER_METHODS),
             (self.parent, "enable_tool_call_assistant_source"),
         ))
+        self.callables = _assistant_source_callable_facts((*self.methods, *probe.methods, *self.parent._methods),
+                                                          self.parent._clock)
         # This strong registry never reclaims an attempt or changes an adapter namespace.
         _assistant_source_owners = (*_assistant_source_owners, self)
         self.complete_backing_field()
@@ -9103,7 +9145,7 @@ class _ToolCallAssistantSource:
         self.fixed = (probe, self.parent, self.agent, self.constructed, self.binding, self.thread,
                       self.before_anchors, self.before_state, self.cache_before, self.agent_facts,
                       self.agent_fact_bytes, self.methods, self.raw_slot, self.original_agent_facts,
-                      self.completed_anchors, self.completed_state, self.backing_value)
+                      self.completed_anchors, self.completed_state, self.backing_value, self.callables)
 
     def complete_backing_field(self):
         _assistant_source_code_current()
@@ -9150,7 +9192,7 @@ class _ToolCallAssistantSource:
         _assistant_source_require(_same_anchors((probe, p, self.agent, self.constructed, self.binding, self.thread,
             self.before_anchors, self.before_state, self.cache_before, self.agent_facts, self.agent_fact_bytes,
             self.methods, self.raw_slot, self.original_agent_facts,
-            self.completed_anchors, self.completed_state, self.backing_value), self.fixed), "owner_changed")
+            self.completed_anchors, self.completed_state, self.backing_value, self.callables), self.fixed), "owner_changed")
         _assistant_source_require(_tool_call_probes.get(p) is probe and p._tool_probe_owner is probe
                                   and probe.binding is probe.registered_binding is self.binding
                                   and p._constructed is self.constructed, "binding_changed")
@@ -9158,6 +9200,11 @@ class _ToolCallAssistantSource:
                                   "agent_facts_changed")
         for obj, name, method in self.methods:
             _assistant_source_require(_same_method(getattr(obj, name, None), method), "method_changed")
+        for function, code, namespace, defaults in self.callables:
+            if code is not None:
+                _assistant_source_require(function.__code__ is code and function.__globals__ is namespace
+                                          and _same_anchors(_nested_anchors((function.__defaults__,
+                                              function.__kwdefaults__))[1:], defaults), "callable_code_changed")
         if self.cache_committed:
             self.cache_shape(self.cache)
             _assistant_source_require(self.constructed.anchors is self.after_anchors
@@ -9370,7 +9417,7 @@ class _ToolCallAssistantSource:
                                             present="_base_url" in _namespace(self.agent), value=self.agent.base_url),
                     cache_before=self.cache_before, response_fields=sorted(self.response.model_fields_set),
                     message_fields=sorted(self.assistant_message.model_fields_set),
-                    absent_message_fields=_ASSISTANT_SOURCE_ABSENT,
+                    builder_metadata=_assistant_source_builder_metadata(self.assistant_message),
                     finish_reason=self.finish_reason, builder="AIAgent._build_assistant_message",
                     serializer="insertion_order_utf8", response_parent="original_R"))
                 self.authorization_content = probe.runtime.admit(self.parent._handle, self.authorization_bytes)
@@ -9396,7 +9443,8 @@ class _ToolCallAssistantSource:
                            self.completed_anchors, self.completed_state, self.backing_value,
                            _ASSISTANT_SOURCE_PROPERTY, _ASSISTANT_SOURCE_PROPERTY_GETTER,
                            self.after_anchors, self.after_state, self.cache_before, self.cache, self.methods,
-                           self.model_state, self.model_anchors, self.message_anchors)
+                           self.model_state, self.model_anchors, self.message_anchors, self.callables,
+                           _ASSISTANT_SOURCE_DEFAULTS, _ASSISTANT_SOURCE_WALL_TIME)
                 self.record = NativeToolCallAssistantSource(observation, self.response, self.assistant_message,
                     self.finish_reason, self.message, self.message_bytes, self.message_content,
                     self.authorization_bytes, self.authorization_content, anchors)
@@ -9468,12 +9516,15 @@ _ASSISTANT_SOURCE_CODE = tuple((obj, name, _method(getattr(obj, name)),
         (_ToolCallAssistantSource, ("__init__", *_ASSISTANT_SOURCE_OWNER_METHODS)),
         (NativeMainPayloadAdapter, ("enable_tool_call_assistant_source",)),
         (sys.modules[__name__], ("_assistant_source_require", "_assistant_source_owner", "_assistant_source_window",
-            "_assistant_source_bytes", "_assistant_source_model_state", "_assistant_source_agent_facts",
+            "_assistant_source_bytes", "_assistant_source_model_state", "_assistant_source_callable_facts", "_assistant_source_builder_metadata", "_assistant_source_agent_facts",
             "_assistant_source_cache", "_assistant_source_preflight", "_capture_tool_call_assistant_source")),
     ) for name in names)
 # Resolve stock deferred schemas before the first operator callback.
 for _source_model in reversed(_ASSISTANT_SOURCE_MODELS):
     _source_model.model_rebuild()
+_ASSISTANT_SOURCE_DEFAULTS = tuple((method[-1],
+    _nested_anchors((method[-1].__defaults__, method[-1].__kwdefaults__))[1:])
+    for _, _, method, _ in _ASSISTANT_SOURCE_CODE)
 _ASSISTANT_SOURCE_MODEL_CLASSES = tuple((model, tuple(vars(model).items())) for model in (
     *_ASSISTANT_SOURCE_MODELS, _source_sdk_models_module.BaseModel, _source_pydantic_module.BaseModel))
 _ASSISTANT_SOURCE_WALL_TIME = _source_metadata_module.wall_time
@@ -9496,6 +9547,9 @@ def _assistant_source_code_current():
         current = getattr(obj, name, None)
         _assistant_source_require(_same_method(current, method)
                                   and getattr(current, "__func__", current).__code__ is code, "code_changed")
+    for function, defaults in _ASSISTANT_SOURCE_DEFAULTS:
+        _assistant_source_require(_same_anchors(_nested_anchors((function.__defaults__,
+                                  function.__kwdefaults__))[1:], defaults), "callable_defaults_changed")
     for name, present, original in _ASSISTANT_SOURCE_CLASS_FIELDS:
         namespace = vars(_source_agent_module.AIAgent)
         _assistant_source_require((name in namespace) is present and namespace.get(name) is original,

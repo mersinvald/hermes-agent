@@ -113,6 +113,11 @@ def test_actual_live_assistant_source(source_world, record_property, monkeypatch
     assert record.response is owner.response and record.assistant_message is owner.response.choices[0].message
     assert record.finish_reason is owner.response.choices[0].finish_reason
     assert record.message is owner.raw_slot[0] and record.message_bytes is owner.message_bytes
+    authorization = json.loads(record.authorization_bytes)
+    metadata = dict(authorization["builder_metadata"])
+    assert metadata["message"][-1] == ["model_extra", True, {}]
+    assert metadata["tool_call"] == [["call_id", False, None], ["response_item_id", False, None],
+                                      ["extra_content", False, None]]
     assert record.message_bytes == json.dumps(record.message, ensure_ascii=False, allow_nan=False,
                                              separators=(",", ":")).encode("utf-8")
     assert list(record.message) == ["role", "content", "reasoning", "finish_reason", "timestamp", "tool_calls"]
@@ -177,6 +182,22 @@ def test_actual_live_assistant_source(source_world, record_property, monkeypatch
             with pytest.raises(NativeContentPolicyDenied):
                 _ = adapter.tool_call_assistant_sources
         assert adapter.tool_call_assistant_sources[0] is record
+    clock_function = world.adapter._clock.__func__
+    original_code = clock_function.__code__
+    try:
+        clock_function.__code__ = (lambda self: 10).__code__
+        with pytest.raises(NativeContentPolicyDenied, match="callable_code_changed"):
+            _ = adapter.tool_call_assistant_sources
+    finally:
+        clock_function.__code__ = original_code
+    stamp = native._source_metadata_module.stamp_message_timestamp
+    original_defaults = stamp.__kwdefaults__
+    try:
+        stamp.__kwdefaults__ = {"timestamp": 1.0}
+        with pytest.raises(NativeContentPolicyDenied, match="callable_defaults_changed"):
+            _ = adapter.tool_call_assistant_sources
+    finally:
+        stamp.__kwdefaults__ = original_defaults
     original = call["function"]["arguments"]
     call["function"]["arguments"] = "{}"
     with pytest.raises(NativeContentPolicyDenied):
