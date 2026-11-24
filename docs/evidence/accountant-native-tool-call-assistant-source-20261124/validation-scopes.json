@@ -1,0 +1,1087 @@
+{
+  "limit_seconds": 600,
+  "used_supervisor_seconds": 332.211115305961,
+  "scopes": [
+    {
+      "name": "setup",
+      "command": [
+        "sh",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/setup.sh"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037"
+      },
+      "seconds": 73.72578797899769,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 90.0,
+      "retries": 0
+    },
+    {
+      "name": "first-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/first-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=01b109df1ff15e62f9024f81e44a586b10cf4ab3937db7f6e32822128fb90d44",
+        "-o",
+        "accountant_test_sha256=e4049af3b50735f8b393b4f01db62bd34b0a46aca3a34db70d2981a199f0a921"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01b109df1ff15e62f9024f81e44a586b10cf4ab3937db7f6e32822128fb90d44",
+        "tests/tools/test_native_tool_call_assistant_source.py": "e4049af3b50735f8b393b4f01db62bd34b0a46aca3a34db70d2981a199f0a921"
+      },
+      "seconds": 25.67040114600968,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "failed",
+          "seconds": 12.249
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/first-success.patch.gz",
+        "sha256": "eed7ad99d48dd422ea40128d9665a350f83e6aafe0ab7d58590d05acdd90ca01",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "01b109df1ff15e62f9024f81e44a586b10cf4ab3937db7f6e32822128fb90d44",
+        "compressed_sha256": "ca5036275d7eeb380449e3c6e5c60ac856fafc9935275a04d2f55e5af3058bde"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/first-success-consumer.py",
+        "sha256": "e4049af3b50735f8b393b4f01db62bd34b0a46aca3a34db70d2981a199f0a921"
+      }
+    },
+    {
+      "name": "corrected-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/corrected-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=8a54f01b8375a40ff2e131b55e759497cc18a21fd188cd87dab659aff7f0f1a5",
+        "-o",
+        "accountant_test_sha256=e4049af3b50735f8b393b4f01db62bd34b0a46aca3a34db70d2981a199f0a921"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "8a54f01b8375a40ff2e131b55e759497cc18a21fd188cd87dab659aff7f0f1a5",
+        "tests/tools/test_native_tool_call_assistant_source.py": "e4049af3b50735f8b393b4f01db62bd34b0a46aca3a34db70d2981a199f0a921"
+      },
+      "seconds": 15.59689849500137,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "failed",
+          "seconds": 12.15
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/corrected-success.patch.gz",
+        "sha256": "887b49d711a4a9184ebb3702f758d36778d6823650af9860cdfa2db611600458",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "8a54f01b8375a40ff2e131b55e759497cc18a21fd188cd87dab659aff7f0f1a5",
+        "compressed_sha256": "b93ce5118505c84d181c36af122dfa4f1ba81bdf34a872587dc71210232d7ad2"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/corrected-success-consumer.py",
+        "sha256": "e4049af3b50735f8b393b4f01db62bd34b0a46aca3a34db70d2981a199f0a921"
+      }
+    },
+    {
+      "name": "completed-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/completed-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=c99ae35249812cc0ae595e062e904779f4a2b709fc5d06aca487214051b52cff",
+        "-o",
+        "accountant_test_sha256=46b026d0f612b7120ac892466f89a33bc89a69994747117dcc25da6145bc387d"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "c99ae35249812cc0ae595e062e904779f4a2b709fc5d06aca487214051b52cff",
+        "tests/tools/test_native_tool_call_assistant_source.py": "46b026d0f612b7120ac892466f89a33bc89a69994747117dcc25da6145bc387d"
+      },
+      "seconds": 16.755376897999668,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "failed",
+          "seconds": 13.48
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/completed-success.patch.gz",
+        "sha256": "7654c40a83f7a21d36da821dab5aa85f89859fbd54eaafa62f4289647ccf9fa1",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "c99ae35249812cc0ae595e062e904779f4a2b709fc5d06aca487214051b52cff",
+        "compressed_sha256": "769a6a0cbfdb9a6b1a424d4bd8c75c5b9fbb0e9777571b8fd27ca6d8514ed112"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/completed-success-consumer.py",
+        "sha256": "46b026d0f612b7120ac892466f89a33bc89a69994747117dcc25da6145bc387d"
+      }
+    },
+    {
+      "name": "authenticated-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/authenticated-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=9e5e0d8c5770d04229b5a6d38dde1bdab7f9ff2de80f5a0592fe54a06cdc6fa2",
+        "-o",
+        "accountant_test_sha256=60680148ea59350ad088418f2d74873b6de19ada47c38c42b678adf24b842c17"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "9e5e0d8c5770d04229b5a6d38dde1bdab7f9ff2de80f5a0592fe54a06cdc6fa2",
+        "tests/tools/test_native_tool_call_assistant_source.py": "60680148ea59350ad088418f2d74873b6de19ada47c38c42b678adf24b842c17"
+      },
+      "seconds": 16.102587075991323,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "failed",
+          "seconds": 13.512
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/authenticated-success.patch.gz",
+        "sha256": "a1bf4c44817c0850abdd83c3bade53ea2791062c5045eafc561ef39d3b57c6ab",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "9e5e0d8c5770d04229b5a6d38dde1bdab7f9ff2de80f5a0592fe54a06cdc6fa2",
+        "compressed_sha256": "35ef66d0b2c593769e34a54bebe693872403197f48335252d5c155e9c946a3e0"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/authenticated-success-consumer.py",
+        "sha256": "60680148ea59350ad088418f2d74873b6de19ada47c38c42b678adf24b842c17"
+      }
+    },
+    {
+      "name": "verified-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/verified-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "-o",
+        "accountant_test_sha256=cbb4d794fe9f63c0584c8202de2cf0fd379826dcf33d3a7c5630fd2e2a764bd0"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "cbb4d794fe9f63c0584c8202de2cf0fd379826dcf33d3a7c5630fd2e2a764bd0"
+      },
+      "seconds": 17.250516715997946,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "failed",
+          "seconds": 12.993
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/verified-success.patch.gz",
+        "sha256": "7a341961019973d934aaab3f19bfbab5d82f330d95b9940e882be89cbb3a23e7",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "compressed_sha256": "e6a5d64c09e58877fab35feab0bad610621392ebf6ead4677c208c2cf0ba360b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/verified-success-consumer.py",
+        "sha256": "cbb4d794fe9f63c0584c8202de2cf0fd379826dcf33d3a7c5630fd2e2a764bd0"
+      }
+    },
+    {
+      "name": "stable-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/stable-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "-o",
+        "accountant_test_sha256=80285f859a309b3ea097bdbcb6845600f8c32018eb2ad2c2c511749ec246e2cd"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "80285f859a309b3ea097bdbcb6845600f8c32018eb2ad2c2c511749ec246e2cd"
+      },
+      "seconds": 15.945777298999019,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "passed",
+          "seconds": 13.405
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/stable-success.patch.gz",
+        "sha256": "7a341961019973d934aaab3f19bfbab5d82f330d95b9940e882be89cbb3a23e7",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "compressed_sha256": "e6a5d64c09e58877fab35feab0bad610621392ebf6ead4677c208c2cf0ba360b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/stable-success-consumer.py",
+        "sha256": "80285f859a309b3ea097bdbcb6845600f8c32018eb2ad2c2c511749ec246e2cd"
+      }
+    },
+    {
+      "name": "distinct-failures",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py",
+        "-k",
+        "test_selected_expiry_after_actual_output or test_original_control_after_actual_output or test_preflight_refusals_preserve_unused_original_token",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "100",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/distinct-failures.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "-o",
+        "accountant_test_sha256=f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704"
+      },
+      "seconds": 31.984060524991946,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 100.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_selected_expiry_after_actual_output",
+          "outcome": "passed",
+          "seconds": 15.742
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_original_control_after_actual_output",
+          "outcome": "passed",
+          "seconds": 12.459
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_preflight_refusals_preserve_unused_original_token",
+          "outcome": "passed",
+          "seconds": 1.368
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/distinct-failures.patch.gz",
+        "sha256": "7a341961019973d934aaab3f19bfbab5d82f330d95b9940e882be89cbb3a23e7",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "compressed_sha256": "e6a5d64c09e58877fab35feab0bad610621392ebf6ead4677c208c2cf0ba360b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/distinct-failures-consumer.py",
+        "sha256": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704"
+      }
+    },
+    {
+      "name": "unchanged-probe",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "45",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/unchanged-probe.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "-o",
+        "accountant_test_sha256=606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704",
+        "tests/tools/test_native_tool_call_probe.py": "606f6a0ca2256dda472bb3e7a4ddbce6d5e783d056a29aa6e05c2382561a9a28"
+      },
+      "seconds": 14.752982432997669,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_probe.py::test_actual_constructed_caller_send_observation",
+          "outcome": "passed",
+          "seconds": 12.269
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/unchanged-probe.patch.gz",
+        "sha256": "7a341961019973d934aaab3f19bfbab5d82f330d95b9940e882be89cbb3a23e7",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "compressed_sha256": "e6a5d64c09e58877fab35feab0bad610621392ebf6ead4677c208c2cf0ba360b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/unchanged-probe-consumer.py",
+        "sha256": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704"
+      }
+    },
+    {
+      "name": "ordinary-direct",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "30",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/ordinary-direct.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "-o",
+        "accountant_test_sha256=b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704",
+        "tests/agent/test_native_main_payload.py": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+      },
+      "seconds": 2.4689678540016757,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 30.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+          "outcome": "passed",
+          "seconds": 0.349
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/ordinary-direct.patch.gz",
+        "sha256": "7a341961019973d934aaab3f19bfbab5d82f330d95b9940e882be89cbb3a23e7",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "compressed_sha256": "e6a5d64c09e58877fab35feab0bad610621392ebf6ead4677c208c2cf0ba360b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/ordinary-direct-consumer.py",
+        "sha256": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704"
+      }
+    },
+    {
+      "name": "shared-smoke",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin:/bin",
+        "HOME=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/home",
+        "HERMES_HOME=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/home",
+        "PYTHONPYCACHEPREFIX=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/bytecode",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/venv/bin/python",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/shared-smoke.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/shared-smoke.py": "7d45645b4cf878d64aaf1f6e12f3ecb6a65c2ead1bdea92d1c02dc69be79c1db"
+      },
+      "seconds": 0.11407153400068637,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0
+    },
+    {
+      "name": "source-static",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/static-check.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "f1970a7ba094c725f8fed0cdc1f03f3b032b9137f3d586c8f1843a3317b5d704",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/static-check.py": "1cc37c155ee01cebb4e548886d8170802c4db9f6480cd891294ee7dbce206e7c"
+      },
+      "seconds": 1.9185918599978322,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    },
+    {
+      "name": "ruff",
+      "command": [
+        "env",
+        "RUFF_CACHE_DIR=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/ruff",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/venv/bin/ruff",
+        "check",
+        "agent/native_main_payload.py",
+        "tests/tools/test_native_tool_call_assistant_source.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f"
+      },
+      "seconds": 0.16425580899522174,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0
+    },
+    {
+      "name": "ste-cli-usage-failed",
+      "seconds": 0.1,
+      "exit_code": 1,
+      "retries": 0,
+      "command": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+        "--help"
+      ],
+      "scope": "CLI usage inspection. The script treats --help as a filename.",
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f"
+      }
+    },
+    {
+      "name": "source-static-corrected",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/static-check.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/static-check.py": "f7ce15fc87d40eaf5094e17700962041f2896f89250bc5bf4cfbf687381965f6"
+      },
+      "seconds": 2.1206877429940505,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    },
+    {
+      "name": "source-ste",
+      "command": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/new-source-prose.py",
+        "tests/tools/test_native_tool_call_assistant_source.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/new-source-prose.py": "002d565919c53736614ed3b9032849527d27f27c593fe844def9f088feca4b8c"
+      },
+      "seconds": 0.0640130190004129,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0
+    },
+    {
+      "name": "source-commit",
+      "command": [
+        "git",
+        "commit",
+        "-m",
+        "feat(policy): capture the live tool-call assistant source"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f"
+      },
+      "seconds": 0.06420058399089612,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 60.0,
+      "retries": 0
+    },
+    {
+      "name": "evidence-ste",
+      "command": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+        "docs/evidence/accountant-native-tool-call-assistant-source-20261124/README.md",
+        "docs/evidence/accountant-native-tool-call-assistant-source-20261124/consumer-contract.md"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53"
+      },
+      "seconds": 0.06408982200082392,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0,
+      "findings": {
+        "README": 2,
+        "consumer_contract": 1
+      }
+    },
+    {
+      "name": "evidence-ste-corrected",
+      "command": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+        "docs/evidence/accountant-native-tool-call-assistant-source-20261124/README.md",
+        "docs/evidence/accountant-native-tool-call-assistant-source-20261124/consumer-contract.md"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "dbb657b8c668e0fc820eaf7990d2887c497faeb2d029c7b49ae025e64b9733bf",
+        "tests/tools/test_native_tool_call_assistant_source.py": "d21147917ad178b63a635e08ee176654800a3b125e8bab9fe771dc4569a5f89f",
+        "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53"
+      },
+      "seconds": 0.06417681599850766,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0,
+      "findings": {
+        "README": 0,
+        "consumer_contract": 0
+      }
+    },
+    {
+      "name": "complete-input-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/complete-input-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=216edbc1d2b329511178c32f4b49741b5cb9f9f7c0ec4b4e2ca539f680e273c4",
+        "-o",
+        "accountant_test_sha256=a9c74fb88bf6117783d1b479c7a2608feca35fb4315a28b20d8d19e15b78172b"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "216edbc1d2b329511178c32f4b49741b5cb9f9f7c0ec4b4e2ca539f680e273c4",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a9c74fb88bf6117783d1b479c7a2608feca35fb4315a28b20d8d19e15b78172b"
+      },
+      "seconds": 15.946516951997182,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "passed",
+          "seconds": 13.39
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/complete-input-success.patch.gz",
+        "sha256": "0c85bb00bba038fb5879b6be422c9e851feb098931e94c3a29c19a071071ef18",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "216edbc1d2b329511178c32f4b49741b5cb9f9f7c0ec4b4e2ca539f680e273c4",
+        "compressed_sha256": "50d25a71b2f3449fef157e0d743a7315c8d6730f624d81e392f123bdd02a613b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/complete-input-success-consumer.py",
+        "sha256": "a9c74fb88bf6117783d1b479c7a2608feca35fb4315a28b20d8d19e15b78172b"
+      }
+    },
+    {
+      "name": "complete-input-failures",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py::test_selected_expiry_after_actual_output",
+        "tests/tools/test_native_tool_call_assistant_source.py::test_original_control_after_actual_output",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/complete-input-failures.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=216edbc1d2b329511178c32f4b49741b5cb9f9f7c0ec4b4e2ca539f680e273c4",
+        "-o",
+        "accountant_test_sha256=a9c74fb88bf6117783d1b479c7a2608feca35fb4315a28b20d8d19e15b78172b"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "216edbc1d2b329511178c32f4b49741b5cb9f9f7c0ec4b4e2ca539f680e273c4",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a9c74fb88bf6117783d1b479c7a2608feca35fb4315a28b20d8d19e15b78172b"
+      },
+      "seconds": 30.07725184400624,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 90.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_selected_expiry_after_actual_output",
+          "outcome": "passed",
+          "seconds": 15.449
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_original_control_after_actual_output",
+          "outcome": "passed",
+          "seconds": 12.151
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/complete-input-failures.patch.gz",
+        "sha256": "0c85bb00bba038fb5879b6be422c9e851feb098931e94c3a29c19a071071ef18",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "216edbc1d2b329511178c32f4b49741b5cb9f9f7c0ec4b4e2ca539f680e273c4",
+        "compressed_sha256": "50d25a71b2f3449fef157e0d743a7315c8d6730f624d81e392f123bdd02a613b"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/complete-input-failures-consumer.py",
+        "sha256": "a9c74fb88bf6117783d1b479c7a2608feca35fb4315a28b20d8d19e15b78172b"
+      }
+    },
+    {
+      "name": "anchored-success",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "120",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/anchored-success.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "-o",
+        "accountant_test_sha256=a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      },
+      "seconds": 16.197639227990294,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 120.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_actual_live_assistant_source",
+          "outcome": "passed",
+          "seconds": 13.572
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/anchored-success.patch.gz",
+        "sha256": "80d41bd3c763007d86ce02afc4eb93d787a85c1fa0425ec9d7b40a6adb41d4f5",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "compressed_sha256": "84625b5e332914b6989fff7f3f0d883b6f056e3f793b6fb3881d5312fe64688a"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/anchored-success-consumer.py",
+        "sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      }
+    },
+    {
+      "name": "anchored-failures",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_tool_call_assistant_source.py::test_selected_expiry_after_actual_output",
+        "tests/tools/test_native_tool_call_assistant_source.py::test_original_control_after_actual_output",
+        "--maxfail=1",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "90",
+        "--",
+        "-q",
+        "--tb=long",
+        "--durations=0",
+        "--durations-min=0",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/receipts/anchored-failures.xml",
+        "-o",
+        "cache_dir=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/cache/pytest",
+        "-o",
+        "junit_family=xunit1",
+        "-o",
+        "accountant_source_sha256=01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "-o",
+        "accountant_test_sha256=a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      },
+      "seconds": 30.330271181999706,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 90.0,
+      "retries": 0,
+      "cases": [
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_selected_expiry_after_actual_output",
+          "outcome": "passed",
+          "seconds": 15.693
+        },
+        {
+          "nodeid": "tests/tools/test_native_tool_call_assistant_source.py::test_original_control_after_actual_output",
+          "outcome": "passed",
+          "seconds": 12.345
+        }
+      ],
+      "source_patch": {
+        "path": "source-stages/anchored-failures.patch.gz",
+        "sha256": "80d41bd3c763007d86ce02afc4eb93d787a85c1fa0425ec9d7b40a6adb41d4f5",
+        "base_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+        "result_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "compressed_sha256": "84625b5e332914b6989fff7f3f0d883b6f056e3f793b6fb3881d5312fe64688a"
+      },
+      "consumer_freeze": {
+        "path": "source-stages/anchored-failures-consumer.py",
+        "sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      }
+    },
+    {
+      "name": "final-source-checks",
+      "command": [
+        "sh",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/final-source-checks.sh"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      },
+      "seconds": 2.1688773060013773,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    },
+    {
+      "name": "complete-source-commit",
+      "command": [
+        "git",
+        "commit",
+        "-m",
+        "fix(policy): bind complete assistant inputs and callable state"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      },
+      "seconds": 0.03191984799923375,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 60.0,
+      "retries": 0
+    },
+    {
+      "name": "final-evidence-check",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py": "15e7697fe37e179ca6c28118153b2e9f42c3e69e2933eab48c085990cd6a12a4"
+      },
+      "seconds": 0.21434850500372704,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    },
+    {
+      "name": "final-evidence-corrected",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py": "15e7697fe37e179ca6c28118153b2e9f42c3e69e2933eab48c085990cd6a12a4"
+      },
+      "seconds": 0.21434042599867098,
+      "exit_code": 1,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    },
+    {
+      "name": "final-evidence-verified",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py": "15e7697fe37e179ca6c28118153b2e9f42c3e69e2933eab48c085990cd6a12a4"
+      },
+      "seconds": 1.0165471829968737,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    },
+    {
+      "name": "evidence-whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116"
+      },
+      "seconds": 0.019095491006737575,
+      "exit_code": 2,
+      "timeout": false,
+      "cap_seconds": 15.0,
+      "retries": 0
+    },
+    {
+      "name": "frozen-evidence-check",
+      "command": [
+        "python3",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py"
+      ],
+      "pins": {
+        "agent/native_main_payload.py": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+        "tests/tools/test_native_tool_call_assistant_source.py": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/verify-evidence.py": "dbcdb377908eaa78bf04b5d2c2f128321e30888407e0577a0765d39dc3038174"
+      },
+      "seconds": 1.066863732994534,
+      "exit_code": 0,
+      "timeout": false,
+      "cap_seconds": 45.0,
+      "retries": 0
+    }
+  ],
+  "automatic_retries": 0,
+  "current_runtime_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+  "whole_file_pass_claim": false,
+  "CI_success_claim": false
+}

@@ -1,0 +1,50 @@
+{
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41",
+  "environment": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/venv",
+  "external_state": [
+    "home",
+    "cache",
+    "logs",
+    "receipts",
+    "tmp"
+  ],
+  "canonical_runner": "scripts/run_tests.sh",
+  "runner_changed": false,
+  "node_id_selection": "The runner uses file isolation and exact named selections.",
+  "zero_retries": true,
+  "runtime_sends": {
+    "qualified_original_paths": 8,
+    "expiry_qualified_routes": 9,
+    "probe": 1,
+    "capture": 0
+  },
+  "PYTHONPATH_used": false,
+  "native_install": false,
+  "dependency_delivery_repeated": false,
+  "scripts": {
+    "supervise.py": {
+      "sha256": "10995c5d6f4d989c0bb4ec4f79fe7e41d5278e1bb6e6877f863508a02be1e38b",
+      "external_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/supervise.py"
+    },
+    "run-scope.py": {
+      "sha256": "763c6314008366381f2ff7dca6cefb7a9e782f99b257135c57a0353a93c5ea1e",
+      "external_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/run-scope.py"
+    },
+    "python-driver.py": {
+      "sha256": "88e3fbfbc22ae378280155c65b45bc04fec593064153704bb87bfa27babd8cad",
+      "external_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/python-driver.py"
+    },
+    "python-wrapper": {
+      "sha256": "4353249a40cdc62c544b11a69b823f1812fd195a4ac1221ca5494ae960010fb5",
+      "external_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/python-wrapper"
+    },
+    "setup.sh": {
+      "sha256": "450562bc900bf5fc90386def764c45fa89a9066f573146980889d52c8ff80276",
+      "external_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/setup.sh"
+    },
+    "shared-smoke.py": {
+      "sha256": "7d45645b4cf878d64aaf1f6e12f3ecb6a65c2ead1bdea92d1c02dc69be79c1db",
+      "external_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.41/shared-smoke.py"
+    }
+  }
+}

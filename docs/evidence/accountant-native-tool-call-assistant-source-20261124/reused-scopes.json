@@ -1,0 +1,45 @@
+{
+  "rows": [
+    {
+      "scope": "anchored-success",
+      "source_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+      "tested_consumer_sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+      "current_consumer_sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+      "unchanged_definitions": [
+        "source_world",
+        "enable",
+        "receipt",
+        "test_actual_live_assistant_source"
+      ],
+      "delta": "The executed current source and consumer pins remain exact.",
+      "fresh_positive_repeated": false
+    },
+    {
+      "scope": "anchored-failures",
+      "source_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+      "tested_consumer_sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+      "current_consumer_sha256": "a23ba8cf6ef9e3e4b625bd37aa8d7b3cf471e5c0694f01b83ad726be91556116",
+      "unchanged_definitions": [
+        "source_world",
+        "enable",
+        "receipt",
+        "test_actual_live_assistant_source",
+        "assert_unpublished",
+        "test_selected_expiry_after_actual_output",
+        "test_original_control_after_actual_output",
+        "test_preflight_refusals_preserve_unused_original_token"
+      ],
+      "delta": "The executed current source and consumer pins remain exact.",
+      "fresh_positive_repeated": false
+    }
+  ],
+  "current_whole_file_execution": false,
+  "prior_wire_source": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+  "final_old_terminal_source": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+  "retained_unchanged_scopes": [
+    "distinct-failures::test_preflight_refusals_preserve_unused_original_token",
+    "unchanged-probe",
+    "ordinary-direct"
+  ],
+  "old_terminal_predicates": "Static-only scope stays unchanged."
+}

@@ -1,0 +1,20 @@
+{
+  "enable_tool_call_assistant_source": {
+    "source": "    def enable_tool_call_assistant_source(\n        self, agent: object, authorization: NativeToolCallProbeInput\n    ) -> None:\n        probe = _assistant_source_preflight(self, agent, authorization)\n        try:\n            owner = _ToolCallAssistantSource(probe)\n            owner.enable()\n        except BaseException as error:\n            _probe_failure(self, error)\n",
+    "sha256": "3af563b8e27b0e7d94f3b268a715ee67a9af13641ec00464b8fb50aaf5ff707b",
+    "line": 1538
+  },
+  "tool_call_assistant_sources": {
+    "source": "    @property\n    def tool_call_assistant_sources(self) -> tuple[NativeToolCallAssistantSource, ...]:\n        owner = _assistant_source_owner(self)\n        return () if owner is None else owner.proof_access()\n",
+    "sha256": "94d550bd2d9c5faf849c64cfa9b163f267c84d4943e1d57bc30e0ed0e1258e0b",
+    "line": 1549
+  },
+  "NativeToolCallAssistantSource": {
+    "source": "@dataclass(frozen=True, slots=True)\nclass NativeToolCallAssistantSource:\n    source_observation: NativeToolCallObservation\n    response: object\n    assistant_message: object\n    finish_reason: str\n    message: dict[str, object]\n    message_bytes: bytes\n    message_content: object\n    authorization_bytes: bytes\n    authorization_content: object\n    anchors: tuple\n",
+    "sha256": "b9e8ba320f8cf8d9d4b7d58c14475e466a14e34e1393d63a702d448f6c8892d1",
+    "line": 8914
+  },
+  "runtime_source_sha256": "01f40d748a7bede55ff606bbf246332ccc6dd5dca2a3b0cc28a61b78b0aed13c",
+  "source_commit": "091ec80151631422d0b6a44e2e928591f1dab525",
+  "original_signatures_preserved": true
+}

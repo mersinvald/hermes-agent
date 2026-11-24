@@ -1,0 +1,54 @@
+{
+  "distribution": "hermes-content-policy",
+  "version": "0.4.0",
+  "wheel": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "shared_api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "handoff_sha256": "308d0c5a2e7a0bea715a1ac2ddfebbeb32e65263ca3236bbc5b1001478adfed9",
+  "stock_dependencies": {
+    "openai": "2.24.0",
+    "pydantic": "2.13.4"
+  },
+  "dependency_source_files": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv/lib/python3.11/site-packages/openai/types/chat/chat_completion.py",
+      "installed_relative_path": "openai/types/chat/chat_completion.py",
+      "bytes": 3650,
+      "sha256": "acf4c90513f0600bc849715186ea4d663059b6be941074602160499202508f7a"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv/lib/python3.11/site-packages/openai/types/chat/chat_completion_message.py",
+      "installed_relative_path": "openai/types/chat/chat_completion_message.py",
+      "bytes": 2829,
+      "sha256": "c6db00eb604430a23ed3ac516e2668fa58e9caad05b4712c82bf015c9d40aac3"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv/lib/python3.11/site-packages/openai/types/chat/chat_completion_message_tool_call.py",
+      "installed_relative_path": "openai/types/chat/chat_completion_message_tool_call.py",
+      "bytes": 738,
+      "sha256": "696a4a715e8d6597f1ffe6861303f3f7d20358d09d46ec2862950286cd14bef7"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv/lib/python3.11/site-packages/openai/_models.py",
+      "installed_relative_path": "openai/_models.py",
+      "bytes": 33945,
+      "sha256": "638d5bd38e344cf8525d77f01694fd53014b5287f4084313bca9ecb00d52c0e6"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv/lib/python3.11/site-packages/pydantic/main.py",
+      "installed_relative_path": "pydantic/main.py",
+      "bytes": 85334,
+      "sha256": "35b842cfe92ef300e060b40c062ef93afee1cb075cf0b7b0037a1434867c2554"
+    }
+  ],
+  "locked_offline_deliveries": 1,
+  "no_index_no_deps_shared_installs": 1,
+  "shared_smokes": 1,
+  "SDK_clients": 0,
+  "manifest_changes": false,
+  "index_lookup": false,
+  "installed_native_validation": false,
+  "pyproject_sha256": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+  "lock_sha256": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5"
+}
