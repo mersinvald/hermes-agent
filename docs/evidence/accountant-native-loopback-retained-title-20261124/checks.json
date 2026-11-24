@@ -1,6 +1,32 @@
 {
-  "status": "Pending genuine process and final static checks.",
-  "immutable_input_verification": {
+  "status": "STATIC CHECKS PASS / GENUINE FAILED",
+  "failed_scopes": [
+    {
+      "scope": "initial discovery",
+      "failure": "Broad discovery produced truncated output."
+    },
+    {
+      "scope": "proposal discovery",
+      "failure": "Wrong proposal basename returned no file."
+    },
+    {
+      "scope": "input verifier",
+      "failure": "The verifier used protected instead of protected_receipts after checking tracked objects."
+    },
+    {
+      "scope": "prepare-static",
+      "failure": "Repeated title keyword caused a SyntaxError before evidence writes."
+    },
+    {
+      "scope": "genuine",
+      "failure": "Retained-content count assertion failed at line 316. Functional work stopped."
+    },
+    {
+      "scope": "checksum command",
+      "failure": "The first checksum command used the repository directory instead of the evidence directory."
+    }
+  ],
+  "inputs": {
     "epoch": 1795552667.2555652,
     "tracked": 71,
     "protected": 15,
@@ -8,9 +34,42 @@
     "base_paths": 12222,
     "first_scope": "Tracked objects verified before KeyError protected. Remaining groups verified in second scope."
   },
-  "initial_discovery_failures": [
-    "Broad file discovery output truncated.",
-    "Wrong proposal basename.",
-    "Input manifest field name corrected after tracked pin checks."
-  ]
+  "source_and_contract_freeze_exact": true,
+  "cheap": {
+    "passed": 2,
+    "failed": 0,
+    "case_times": [
+      {
+        "classname": "tests.agent.test_native_loopback_retained_title",
+        "name": "test_inert_retained_title_http_plan",
+        "file": "tests/agent/test_native_loopback_retained_title.py",
+        "line": "112",
+        "time": "0.038"
+      },
+      {
+        "classname": "tests.agent.test_native_loopback_retained_title",
+        "name": "test_retained_title_http_response_recipe",
+        "file": "tests/agent/test_native_loopback_retained_title.py",
+        "line": "160",
+        "time": "0.017"
+      }
+    ]
+  },
+  "genuine": {
+    "passed": 0,
+    "failed": 1,
+    "case_attributes": {
+      "classname": "tests.agent.test_native_loopback_retained_title",
+      "name": "test_genuine_retained_title_http",
+      "file": "tests/agent/test_native_loopback_retained_title.py",
+      "line": "177",
+      "time": "12.105"
+    },
+    "command_seconds": 14.356536813022103
+  },
+  "narrow_ruff": true,
+  "warm_environment": "Five exact files match before and after both test processes.",
+  "private_modes": "Private directory mode is 0700. Files now use 0600. Cheap log modes were corrected before the genuine process.",
+  "CI": "Remote checks and statuses will be recorded at the publication head. Zero checks give no CI success.",
+  "narrow_ruff_final": true
 }

@@ -17,5 +17,35 @@
   "genuine_file_seconds": 595,
   "launch_floor_seconds": 900,
   "real_provider_usage": false,
-  "performance_claim": false
+  "performance_claim": false,
+  "task_elapsed_at_evidence": 539.5690267086029,
+  "verification_elapsed_at_evidence": 539.5690269470215,
+  "task_remaining_at_launch": 1980.8797047138214,
+  "verification_remaining_at_launch": 1080.8797047138214,
+  "genuine_command_seconds": 14.356536813022103,
+  "genuine_case_seconds": 12.105,
+  "actual_phases": {
+    "setup": 81.64299821853638,
+    "title_preparation": 325.51341128349304,
+    "controls": 12.00356831800309,
+    "genuine": 14.356536813022103,
+    "final_so_far": 106.05251407623291
+  },
+  "allowance_differences": {
+    "setup": 21.642998218536377,
+    "title_preparation": 25.513411283493042,
+    "controls": -77.99643168199691,
+    "genuine": -585.6434631869779
+  },
+  "earlier_unmeasured_work": "Root-clock wall includes initial reading, discovery, and intervals outside measured commands.",
+  "final_reporting_reserve_seconds": 30,
+  "final_clock": "Private handoff records publication and a conservative final reporting charge.",
+  "command_seconds": {
+    "ruff-prelaunch.command": 0.016098474996397272,
+    "prepare-static-2.command": 0.11432954599149525,
+    "prepare-static.command": 0.11430994400870986,
+    "cheap.command": 12.00356831800309,
+    "freeze-commit.command": 0.0652768180007115,
+    "genuine.command": 14.356536813022103
+  }
 }

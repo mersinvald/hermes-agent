@@ -1,8 +1,16 @@
 {
   "base_paths": 12222,
-  "original_blobs_modes": "Exact before edits.",
-  "source": "Only one new test module.",
-  "runtime_changes": false,
+  "original_index_blobs_modes_exact": true,
+  "original_working_tree_paths_exact": true,
+  "frozen_test_sha256": "7a560448755b1172a4d20c40191063b852d802731a60e12ba0e268787fe574da",
+  "executable_changes_after_genuine": false,
+  "unchanged_contracts": [
+    "460b442c424183419fc6f98ef4c93def2e97181c89d724e67355252276486ae1",
+    "961108a1572a7827d39ecd86e786598ce03f1283c946b965a2c15ce1429b8b8d"
+  ],
+  "new_source_files": 1,
+  "new_evidence_files": 12,
   "API_changes": false,
-  "dependency_changes": false
+  "dependency_changes": false,
+  "runtime_changes": false
 }
