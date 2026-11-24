@@ -1,0 +1,12 @@
+{
+  "label": "whitespace-corrected",
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 0.01611304700782057,
+  "cap_seconds": 10.0
+}

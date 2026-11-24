@@ -88,7 +88,9 @@ Both separation checks passed.
 The batch ran once.
 No fixture, threshold, repetition count, or algorithm changed after measurement.
 `source-freeze.json` and `freeze-audit.json` pin the exact promotion and its global facts.
-`inverse.patch` reverses the runtime change exactly.
+`inverse.patch.gz` retains the exact inverse patch.
+The compressed patches and initial failure log decode to their original bytes.
+`compression-receipt.json` pins those bytes.
 
 ## Qualification boundary
 

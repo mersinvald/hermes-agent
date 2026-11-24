@@ -1,7 +1,7 @@
 {
   "docs/evidence/accountant-native-deep-anchor-index-20261124/README.md": {
-    "bytes": 6327,
-    "sha256": "a545c3ca94ade7500714aeecc7bace8b17cd5cf23dfda5948e92297ecc4886d7"
+    "bytes": 6450,
+    "sha256": "f5f8d9a7f0854ae26369e028b76fad24c2806110821e6ffba172b8194942dbec"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py": {
     "bytes": 3493,
@@ -26,6 +26,10 @@
   "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison.log": {
     "bytes": 618,
     "sha256": "5d7ce66af583af9ff40d3d87da0080e44d114f518caa42c675cccd7a311c4837"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/compression-receipt.json": {
+    "bytes": 590,
+    "sha256": "244fff42ec241832554f4f64351c0fc53bf9719631210686e2621b80c3d171f8"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/final-evidence-corrected.command.json": {
     "bytes": 260,
@@ -75,21 +79,21 @@
     "bytes": 5720,
     "sha256": "918cdae1a5affaf8b99f6749e7ab036cb481549f9ec48c90db3b1b3528ce7a2e"
   },
-  "docs/evidence/accountant-native-deep-anchor-index-20261124/inverse.patch": {
-    "bytes": 2624,
-    "sha256": "9c0549fb7e4bfabd3411095b8874a7ffe465413186c3dbfb838eb0bd6f252698"
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/inverse.patch.gz": {
+    "bytes": 951,
+    "sha256": "f27adeeb4df478d2351b6c566858e1dfd6b70c08b459a4fae65c801363739b82"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/namespace-mapping.json": {
     "bytes": 2628,
     "sha256": "1869a907f7ec391e53b7d7fd0002764661b4f9f9ec07a529ac3e408feb78601b"
   },
-  "docs/evidence/accountant-native-deep-anchor-index-20261124/promotion.patch": {
-    "bytes": 2624,
-    "sha256": "f528b02741a0ca15ef1bf69677fbbec81690e1961e723ee53051029fb227d22c"
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/promotion.patch.gz": {
+    "bytes": 950,
+    "sha256": "63838c93e491873bfca4227c06d18903f4e2e051fae3b7693e01d35ca3fcefb1"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/prose-final.json": {
     "bytes": 502,
-    "sha256": "77ab424a7d9cd3bcbe4faaf2348ec6c8d9e436a9a77ef074af42f602c3a6a4d5"
+    "sha256": "78a059afeb172bc4b49f1f148eb78d4da7a3ad179dc18c4d8a66812a21ec0a92"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/prose-initial.command.json": {
     "bytes": 317,
@@ -115,9 +119,9 @@
     "bytes": 519,
     "sha256": "7d0cf96acff113ad6d7705c33b48289a498d88a79bc17463b44a813f792ad7e1"
   },
-  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.log": {
-    "bytes": 4578,
-    "sha256": "647eedc6c67d60726b024555d862696012ab5866b9f38f2fba7953e4cb2a08af"
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.log.gz": {
+    "bytes": 1255,
+    "sha256": "2192fbeeb98e890cdc8ff5f466e2ba73bee66087aab556b997a40245edad2d96"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.xml": {
     "bytes": 10120,
@@ -178,6 +182,22 @@
   "docs/evidence/accountant-native-deep-anchor-index-20261124/static-results.json": {
     "bytes": 6494,
     "sha256": "36dfb1949ac1c7743a72826bc16331753bb4303caaefc16033f36aa8ba96d5a7"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/whitespace-corrected.command.json": {
+    "bytes": 195,
+    "sha256": "c7196e05bd5bb56045eda728360df615a12108dea93875be3f2afd8126262521"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/whitespace-corrected.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/whitespace-initial.command.json": {
+    "bytes": 191,
+    "sha256": "91ec003b317678bb8ef5432da26d0208ca7df31ecd62a8e86e940cadcd9d28a3"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/whitespace-initial.log.gz": {
+    "bytes": 190,
+    "sha256": "05a895c810056ee460a40c6bca36dfc9c9b0fb0f958b7d5a4f0dbc2b779b12b8"
   },
   "docs/evidence/accountant-native-deep-anchor-index-20261124/whitespace.log": {
     "bytes": 0,

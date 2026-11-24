@@ -1,6 +1,6 @@
 {
-  "words": 873,
-  "sentences": 95,
+  "words": 888,
+  "sentences": 97,
   "violations": {
     "long_sentence(>20w)": 0,
     "semicolon": 0,
