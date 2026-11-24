@@ -1,0 +1,66 @@
+{
+  "version": "0.4.0",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "record_sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee",
+  "verified_files": {
+    "hermes_content_policy-0.4.0.dist-info/INSTALLER": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9",
+    "hermes_content_policy-0.4.0.dist-info/METADATA": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582",
+    "hermes_content_policy-0.4.0.dist-info/REQUESTED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "hermes_content_policy-0.4.0.dist-info/WHEEL": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59",
+    "hermes_content_policy-0.4.0.dist-info/direct_url.json": "77ac1e348dddd575887b8865206dc1cc57233f1677bbaa149ce7a42dbcf7a0f7",
+    "hermes_content_policy-0.4.0.dist-info/uv_cache.json": "7cf1c455b7bf04bf9a196c6fb4799d7cdc949b7060787b4b0333b34964a2d040",
+    "hermes_content_policy/__init__.py": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+  },
+  "signatures": {
+    "admit": "(self, request_handle: 'object', payload: 'bytes') -> 'ContentHandle'",
+    "derive": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path') -> 'ContentHandle'",
+    "derive_for_selection": "(self, request_handle: 'object', parents: 'tuple[ContentHandle, ...]', payload: 'bytes', *, path: 'Path', parent_requests: 'tuple[object, ...]') -> 'ContentHandle'",
+    "dispatch": "(self, request_handle: 'object', content: 'ContentHandle', *, path: 'Path', route_ref: 'str') -> 'ContentHandle'",
+    "accept": "(self, request_handle: 'object', envelope: 'DispatchEnvelope') -> 'ContentHandle'",
+    "return_from_delegate": "(self, request_handle: 'object', envelope: 'DispatchEnvelope', accepted_content: 'ContentHandle', receiver_result: 'ContentHandle', *, receiver_request: 'object') -> 'DelegateReturnFacts'"
+  },
+  "admission": true,
+  "smoke_count": 1,
+  "scope": "One shared import/API/admission/metadata/RECORD smoke.",
+  "wheel_path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "native_dependencies_command": [
+    "uv",
+    "sync",
+    "--locked",
+    "--offline",
+    "--no-install-project",
+    "--extra",
+    "dev"
+  ],
+  "external_environment": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv",
+  "shared_installs": 1,
+  "source_changes": false,
+  "manifest_changes": false,
+  "index_lookup": false,
+  "wheel_rebuild": false,
+  "installed_native_distribution": false,
+  "native_dependency_pins": {
+    "pyproject.toml": "82fe13586be21efd7ce0760cf17531c343dd5e6f312a5dbec2d3660dbeccbfab",
+    "uv.lock": "0f36ebb5ecfe70be784b95dc51c3a7c790edb4aeeb5591f219bace458323f0f5"
+  },
+  "external_receipts": {
+    "native-sync.log": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/receipts/native-sync.log",
+      "sha256": "08c3de0f00c40838919b91bbb2ddcdd3501ad2c18092f1ed275bd11cf26d7123"
+    },
+    "shared-install.log": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/receipts/shared-install.log",
+      "sha256": "c9393bd483f9b885533e3e890714d4cbe7d4b11ac437f35ea12d21d0d4a28029"
+    },
+    "shared-smoke.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/receipts/shared-smoke.json",
+      "sha256": "22c5b9308cc1922ed88e7dd5e5faeaa33b11c240e53702e0f9649b5ce18d91c4"
+    },
+    "shared-smoke.err": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/receipts/shared-smoke.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

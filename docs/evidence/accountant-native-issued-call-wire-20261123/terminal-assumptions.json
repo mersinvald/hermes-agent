@@ -1,0 +1,69 @@
+{
+  "before_first_history": true,
+  "application_execution": false,
+  "accepted_source_sha256": "e93c100de144623b09b4d81d5b022358ccb9460793eae6a13d8074b9850f981f",
+  "candidate_source_sha256": "5427ca14eef65d89e273a8e8fd57078b4b1f950864457b57f1930b9456ec8762",
+  "changed_existing_definitions": [
+    "_Admission.current",
+    "_Transport.resolve",
+    "NativeMainPayloadAdapter._around"
+  ],
+  "comparisons": [
+    {
+      "assumption": "F releases one record and clears active frames after window four",
+      "producer": "_IssuedCallFormat.run",
+      "facts": "Four windows, records set after the last window, phase released, finally clears active_call/call_anchor/entry/public.",
+      "accepted_span_sha256": "958883535facc956d34df991cd3362a474c484e765768263f20925f9f00c2a60"
+    },
+    {
+      "assumption": "F source snapshots include original source adapter namespace",
+      "producer": "_IssuedCallFormat.__init__ and checkpoint",
+      "facts": "The source owner field exists before snapshot capture. The wire registry adds no adapter attribute.",
+      "accepted_span_sha256": "93116a69dee9c11c731c67e99831a6a039ada6f60671b87f9083eeed4806289c"
+    },
+    {
+      "assumption": "P and E remain released at eight windows",
+      "producer": "_validate_issued_call_format_source",
+      "facts": "Producer checks terminal registrations, complete source relation, child completion and closed proof before F release.",
+      "accepted_span_sha256": "6c61d9cd6b51fc6c7c9d9536f695e950811153940f6bb72a7ad6c237152040cf"
+    },
+    {
+      "assumption": "Graph snapshots retain Z ancestry and original graph objects",
+      "producer": "_IssuedCallFormat.checkpoint",
+      "facts": "Snapshots capture the complete delegate ancestry. F retains Bf/If/Mf separately.",
+      "accepted_span_sha256": "efe641672312a68f8cf48e48809ce8c528d48cb195eb240a35d17f5cf373e4b5"
+    },
+    {
+      "assumption": "F getter is proof access only",
+      "producer": "_IssuedCallFormat.scope_access",
+      "facts": "It checks record anchors. Wire admission uses an exact original-record preflight and never invokes this getter.",
+      "accepted_span_sha256": "a5a32836ca3b0e6d75da1ebdf8f58164929ff0eff2e375e7b3d8299f31ba3d42"
+    },
+    {
+      "assumption": "Converter uses local copies and original predicate with no external callback",
+      "producer": "ChatCompletionsTransport.convert_messages",
+      "facts": "The six-key input triggers removal of tool_name and timestamp. Scalar values keep their identities."
+    },
+    {
+      "assumption": "Actual transport needs no client setup",
+      "producer": "ChatCompletionsTransport and ProviderTransport",
+      "facts": "Neither class defines __init__ or __new__. Wire verifies constructor identity and class namespace anchors."
+    },
+    {
+      "assumption": "Admission stack contains runtime._call",
+      "producer": "ContentPolicyRuntime._current and _call",
+      "facts": "The stack is current -> _call -> _Admission.current -> wire.current. Wire permits only original F derive with parent Mf."
+    },
+    {
+      "assumption": "Clock closes over P._around",
+      "producer": "NativeMainPayloadAdapter.__init__",
+      "facts": "Wire routes only its registered derive frame. Clock callbacks do not call checkpoints or shared operations.",
+      "accepted_span_sha256": "2cfb9b29814a4035c8cfe230b125d765b94703167649410abcc3ffc6fcfd197e"
+    },
+    {
+      "assumption": "Derived content retains restrictions after labels disappear",
+      "producer": "ContentPolicyRuntime.derive",
+      "facts": "The original engine joins parent profiles before retention. Original selected grants remain mandatory at release."
+    }
+  ]
+}

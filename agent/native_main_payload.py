@@ -1113,6 +1113,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        wire = _issued_call_wire_window(adapter)
+        if wire is not None:
+            return wire.current(handle)
         formatter = _issued_call_format_window(adapter)
         if formatter is not None:
             return formatter.current(handle)
@@ -1140,6 +1143,9 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        wire = _issued_call_wire_window(self.adapter)
+        if wire is not None:
+            return wire.resolve(self)
         formatter = _issued_call_format_window(self.adapter)
         if formatter is not None:
             return formatter.resolve(self)
@@ -1416,6 +1422,36 @@ class NativeMainPayloadAdapter:
     @property
     def issued_call_format_results(self) -> tuple[NativeIssuedCallFormatResult, ...]:
         owner = _issued_call_formats.get(self)
+        if owner is None:
+            return ()
+        owner.scope_access()
+        return tuple(result for result, _ in owner.records)
+
+    def retain_issued_call_wire(
+        self, result: NativeIssuedCallFormatResult,
+    ) -> NativeIssuedCallWireResult:
+        formatter = _issued_wire_preflight(self, result)
+        owner = None
+        try:
+            owner = _IssuedCallWire(self, result, formatter, sys._getframe())
+            return owner.run()
+        except BaseException as error:
+            owner = _issued_call_wires.get(self)
+            if owner is not None:
+                owner.phase = "denied"
+            _remember_delegate_control(owner, error)
+            if owner is not None and owner.control_exception is not None:
+                raise owner.control_exception
+            if not isinstance(error, Exception) or type(error) is NativeContentPolicyDenied:
+                raise
+            raise NativeContentPolicyDenied("controlled_native_issued_wire_denied") from None
+        finally:
+            if owner is not None:
+                owner.active_call = owner.entry = owner.public = owner.stage_frame = None
+
+    @property
+    def issued_call_wire_results(self) -> tuple[NativeIssuedCallWireResult, ...]:
+        owner = _issued_call_wires.get(self)
         if owner is None:
             return ()
         owner.scope_access()
@@ -3197,6 +3233,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        wire = _issued_call_wire_window(self)
+        if wire is not None:
+            return wire.around(callback)
         formatter = _issued_call_format_window(self)
         if formatter is not None:
             return formatter.around(callback)
@@ -8325,3 +8364,520 @@ _ISSUED_FORMAT_CODE += ((_IssuedCallFormat.window, "__wrapped__", _IssuedCallFor
 _ISSUED_FORMAT_GETTER = NativeMainPayloadAdapter.issued_call_format_results.fget
 _ISSUED_FORMAT_CODE += ((NativeMainPayloadAdapter.issued_call_format_results, "fget", _ISSUED_FORMAT_GETTER,
     _ISSUED_FORMAT_GETTER.__code__),)
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallWireResult:
+    source_result: NativeIssuedCallFormatResult
+    model: str
+    messages: list[dict[str, object]]
+    message_bytes: bytes
+    message_content: object
+    anchors: tuple
+
+
+_issued_call_wires = _DelegateFrames()
+_issued_wire_owners = ()
+
+
+def _issued_wire_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_issued_wire_" + reason)
+
+
+def _issued_wire_preflight(source, result):
+    _issued_wire_require(type(source) is NativeMainPayloadAdapter and source in _adapters
+        and type(result) is NativeIssuedCallFormatResult, "source_invalid")
+    f = _issued_call_formats.get(source)
+    _issued_wire_require(type(f) is _IssuedCallFormat and f.parent is source
+        and source._issued_call_format_owner is f and type(f.records) is tuple and len(f.records) == 1
+        and f.records[0][0] is result
+        and _same_anchors(_row(result, NativeIssuedCallFormatResult), f.records[0][1]), "source_result_changed")
+    _issued_wire_require(threading.get_ident() == f.thread and f.depth == 0, "reentry_or_thread")
+    _issued_wire_require(source not in _issued_call_wires, "attempt_spent")
+    _issued_wire_require(len(_issued_wire_owners) < 128, "capacity_denied")
+    return f
+
+
+def _issued_call_wire_window(adapter):
+    owner = _issued_call_wires.get(adapter)
+    return owner if owner is not None and owner.active_call is not None else None
+
+
+def _issued_wire_shape(messages, original):
+    _issued_wire_require(type(messages) is list and len(messages) == 1 and type(messages[0]) is dict
+        and messages[0] is not original and tuple(messages[0]) == ("role", "name", "content", "tool_call_id"),
+        "message_invalid")
+    row = messages[0]
+    _issued_wire_require(type(row["role"]) is str and row["role"] == "tool"
+        and all(row[name] is original[name] for name in row), "message_values_changed")
+    for key, value in row.items():
+        _text(key)
+        _text(value)
+
+
+def _issued_wire_snapshot_check(snapshot):
+    obj, pairs, anchors = snapshot
+    actual = tuple(vars(obj).items())
+    _issued_wire_require(tuple(name for name, _ in actual) == tuple(name for name, _ in pairs)
+        and _same_anchors(tuple(value for _, value in actual), tuple(value for _, value in pairs))
+        and _same_anchors(_nested_anchors(tuple(value for _, value in actual))[1:], anchors), "terminal_state_changed")
+
+
+def _validate_issued_wire_terminal(view):
+    f, result, source = view.formatter, view.source_result, view.parent
+    _issued_wire_require(_issued_call_formats.get(source) is f and source._issued_call_format_owner is f
+        and f.parent is source and f.runtime is view.runtime and f.phase == f.phase_anchor == "released"
+        and f.attempted is True and f.stage_index == 4 and f.depth == 0 and not f.checking
+        and f.active_call is f.call_anchor is f.entry is f.public is f.stage_frame is f.source_frame is None
+        and f.pending_handle is f.current_row is None and len(f.records) == 1 and f.records[0][0] is result,
+        "formatter_not_terminal")
+    obj, pairs = view.formatter_snapshot
+    actual = tuple(vars(obj).items())
+    _issued_wire_require(obj is f and tuple(name for name, _ in actual) == tuple(name for name, _ in pairs)
+        and _same_anchors(tuple(value for _, value in actual), tuple(value for _, value in pairs)),
+        "formatter_state_changed")
+    _issued_wire_require(_same_anchors(_row(result, NativeIssuedCallFormatResult), f.records[0][1])
+        and result.binding is f.binding is f.registered_binding and result.source_result is f.source_result
+        and _same_anchors(_row(f.binding, NativeIssuedCallFormatBinding), f.binding_anchor)
+        and f.binding.source_adapter is source and f.binding.formatter_request is f.options[0]
+        and f.binding.selection is f.originals[4][1] and f.binding.producer_policy is f.originals[4][2]
+        and f.binding.thread == view.thread
+        and _same_anchors(f.binding.anchors, (f.options, f.catalog_anchors, f.initial_anchors,
+            f.source_snapshots, f.graph_snapshots, f.methods, f.wall_time)), "formatter_binding_changed")
+    _issued_wire_require(result.message is f.message and result.message_bytes is f.message_bytes
+        and result.message_content is f.message_content and result.anchors is f.message_anchors
+        and len(f.partial_results) == 1 and f.partial_results[0][0] is result.message
+        and f.partial_results[0][1] is result.anchors and f.partial_results[0][2] is result.message_bytes
+        and _same_anchors(_nested_anchors(f.partial_results)[1:], f.partial_anchors)
+        and _same_anchors(_nested_anchors(result.message), result.anchors)
+        and _issued_format_bytes(result.message) == result.message_bytes, "formatter_message_changed")
+    message, issued = result.message, result.source_result
+    _issued_wire_require(type(message) is dict and tuple(message) == (
+        "role", "name", "tool_name", "content", "tool_call_id", "timestamp")
+        and type(message["role"]) is str and message["role"] == "tool"
+        and message["name"] is message["tool_name"] is issued.observation.function_name
+        and message["content"] is issued.aggregate and message["tool_call_id"] is issued.observation.call_id
+        and type(message["timestamp"]) is float and math.isfinite(message["timestamp"]), "formatter_shape_changed")
+    for value in message.values():
+        if type(value) is str:
+            _text(value)
+    _issued_wire_require(f.methods is f.methods_anchor and source._operator_configuration is f.catalog is view.catalog
+        and _same_anchors(_nested_anchors(f.catalog), f.catalog_anchors)
+        and _same_anchors(_nested_anchors(f.options), f.option_anchors)
+        and _same_anchors(_nested_anchors((f.initial, f.originals))[1:], f.initial_anchors), "formatter_facts_changed")
+    for obj, name, method in f.methods:
+        _issued_wire_require(_same_method(getattr(obj, name), method), "formatter_method_changed")
+    for function, code in f.method_codes:
+        _issued_wire_require(function.__code__ is code, "formatter_code_changed")
+    _issued_wire_require(_format_timestamp_module.wall_time is f.wall_time
+        and _same_method(f.wall_time, f.wall_method) and getattr(f.wall_time, "__code__", None) is f.wall_code
+        and f.formatter is _format_helpers.make_tool_result_message
+        and all(getattr(_format_helpers, name) is value for name, value in f.helper_constants), "formatter_helper_changed")
+    for snapshot in f.source_snapshots:
+        _issued_wire_snapshot_check(snapshot)
+    for handle, original, anchor in f.graph_snapshots:
+        current = view.runtime._content(handle)
+        _issued_wire_require(current is original and _same_anchors(tuple(getattr(current, field.name)
+            for field in fields(current)), anchor), "ancestry_changed")
+    p, e = f.probe, f.execution
+    _issued_wire_require(type(p) is _ToolCallProbe and type(e) is _IssuedCallExecution
+        and _tool_call_probes.get(source) is source._tool_probe_owner is p
+        and _issued_call_frames.get(source) is source._issued_call_owner is e
+        and p.parent is e.parent is source and p.phase == p.phase_anchor == e.phase == e.phase_anchor == "released"
+        and p.attempted is e.attempted is True and p.stage_index == e.stage_index == 8
+        and p.depth == e.depth == 0 and not e.checking
+        and p.active_call is p.bind_frame is p.run_frame is e.active_call is e.entry is e.public is None
+        and len(e.result_anchors) == 1 and e.result_anchors[0][0] is issued
+        and _same_anchors(_row(issued, NativeIssuedCallResult), e.result_anchors[0][1]), "issued_result_changed")
+    for owner in (p, e):
+        _issued_wire_require(owner.methods is owner.methods_anchor, "source_methods_changed")
+        for obj, name, method in owner.methods:
+            _issued_wire_require(_same_method(getattr(obj, name), method), "source_method_changed")
+    for obj, name, method, code in e.execution_methods:
+        _issued_wire_require(_same_method(getattr(obj, name), method) and method[-1].__code__ is code,
+            "execution_method_changed")
+    for function, code in e.method_codes:
+        _issued_wire_require(function.__code__ is code, "source_code_changed")
+    _issued_wire_require(all(getattr(view.runtime, name) is value for name, value in p.runtime_facts)
+        and _same_anchors(_nested_anchors(view.runtime._route_rows), p.runtime_routes)
+        and len(view.runtime._ports) == len(p.runtime_ports)
+        and all(view.runtime._ports.get(name) is port for name, port in p.runtime_ports), "runtime_ports_changed")
+    invocation, frame = issued.invocation, e.frame
+    _issued_wire_require(issued.observation is e.observation is p.records[0] is p.record_anchors[0][0]
+        and _same_anchors(_row(issued.observation, NativeToolCallObservation), p.record_anchors[0][1])
+        and issued.binding is e.binding is e.registered_binding
+        and _same_anchors(_row(e.binding, NativeIssuedCallBinding), e.binding_anchor)
+        and frame is e.registered_frame is e.binding.anchors[-1] is _delegate_frames.get(e.adapter)
+        and invocation is frame.record is frame.registered_record
+        and _same_anchors(_row(invocation, NativeDelegateInvocation), frame.record_anchor)
+        and _same_anchors(_nested_anchors(frame.record_anchor[2:])[1:], frame.record_nested)
+        and _same_anchors(_nested_anchors(invocation.arguments), invocation.argument_anchors)
+        and issued.aggregate is e.aggregate and issued.aggregate.encode("utf-8") == invocation.aggregate_bytes
+        and issued.closed_child_proof is frame.closed_proof
+        and _same_anchors(frame.closed_proof, frame.proof()), "source_association_changed")
+    for obj, name, method in (*frame.methods, *frame.extra_methods):
+        _issued_wire_require(_same_method(getattr(obj, name), method), "delegate_method_changed")
+    child, completion = frame.child_adapter, invocation.child_completion
+    _issued_wire_require(child is invocation.child_adapter and child._completions[0] is completion
+        and len(completion.result) == 29 and _native_result_bytes(completion.result) == completion.payload
+        and _same_anchors(_native_result_anchors(completion.result), completion.anchors), "completion_changed")
+    facts = issued.return_facts
+    _issued_wire_require(type(facts) is shared_policy().DelegateReturnFacts and facts is invocation.return_facts
+        and facts.envelope is invocation.envelope and facts.accepted_content is invocation.accepted_content
+        and facts.receiver_result is invocation.receiver_result and facts.sender is invocation.envelope.source
+        and _binding(facts.sender)[:8] == e.initial[1][0][:8]
+        and _binding(facts.receiver)[:8] == e.initial[2][0][:8]
+        and set(e.profile_union) <= set(facts.profiles), "return_changed")
+    registered = view.runtime._envelopes.get(id(invocation.envelope))
+    acceptance = view.runtime._delegate_acceptances.get(id(invocation.accepted_content))
+    _issued_wire_require(registered is not None and registered.envelope is invocation.envelope
+        and registered.sender_handle is e.options[0]
+        and acceptance is not None and acceptance.envelope is invocation.envelope
+        and acceptance.accepted_content is invocation.accepted_content
+        and acceptance.receiver_request is e.options[4] and acceptance.receiver is facts.receiver
+        and view.runtime._delegate_returns.get(id(invocation.envelope)) is invocation.envelope,
+        "registered_return_changed")
+    view.runtime._delegate_anchors(registered, acceptance, invocation.receiver_result)
+    _issued_format_content(view.runtime, facts.returned_content, invocation.aggregate_bytes,
+        (invocation.request_content, invocation.accepted_content, invocation.receiver_result), e.profile_union)
+    _issued_format_content(view.runtime, issued.result_content, issued.result_bytes,
+        (e.issued_content, facts.returned_content), e.profile_union)
+    for adapter, closed in ((source, p.closed), (e.adapter, False), (child, True)):
+        _issued_format_constructed(adapter, closed)
+        _issued_wire_require(adapter._runtime is adapter._captured_runtime is view.runtime
+            and adapter._admission is source._admission and adapter._bound_context.admission is source._admission
+            and adapter._bound_context.request_handle is adapter._handle
+            and adapter._bound_context._controlled_main_payload is adapter
+            and adapter._bound_context._controlled_main_bound is True, "runtime_context_changed")
+    for handle, payload, parents in (
+        (f.authorization_content, f.authorization_bytes, ()),
+        (f.input_content, f.input_bytes, (issued.result_content, f.authorization_content)),
+        (result.message_content, result.message_bytes, (f.input_content,)),
+    ):
+        _issued_format_content(view.runtime, handle, payload, parents, f.profiles)
+    _issued_wire_require(type(f.binding.selection.api_mode) is str and f.binding.selection.api_mode == "chat_completions"
+        and view.model is f.binding.selection.destination.model_ref and type(view.model) is str, "model_changed")
+    _text(view.model)
+
+
+class _IssuedCallWire:
+    """Retain one actual wire projection without reopening terminal source windows."""
+
+    def __init__(self, source, result, formatter, public):
+        global _issued_wire_owners
+        self.parent, self.source_result, self.formatter = source, result, formatter
+        self.runtime, self.thread, self.catalog = formatter.runtime, formatter.thread, formatter.catalog
+        self.public, self.entry, self.stage_frame = public, None, None
+        self.active_call = self.call_anchor = object()
+        self.phase, self.stage_index, self.depth = "running", 0, 0
+        self.checking = False
+        self.records = self.partial_results = self.partial_anchors = ()
+        self.messages = self.message_bytes = self.message_content = self.message_anchors = None
+        self.helper = self.converter = None
+        self.control_exception = None
+        _issued_call_wires[source] = self
+        _issued_wire_owners += (self,)
+        self.formatter_snapshot = (formatter, tuple(vars(formatter).items()))
+        self.model = result.binding.selection.destination.model_ref
+        self.inputs = [result.message]
+        self.input_anchors = _nested_anchors(self.inputs)
+        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
+            (source._admission, "current"), (source._result_port, "current"), (source, "_clock"),
+            *((port, "current") for port in (*formatter.execution.selections, formatter.options[1])),
+            *((port, "resolve") for _, port in self.catalog[2]),
+            *((self, name) for name in _ISSUED_WIRE_METHODS)))
+        self.methods_anchor = self.methods
+        self.method_codes = tuple((method[-1], method[-1].__code__) for _, _, method in self.methods
+            if hasattr(method[-1], "__code__"))
+        self.anchors = (formatter, formatter.records, self.formatter_snapshot, formatter.binding, self.inputs,
+            self.input_anchors, _WIRE_CLASS, _WIRE_CONVERTER, _WIRE_CONVERTER.__code__, _WIRE_PREDICATE,
+            _WIRE_PREDICATE.__code__, self.model, source, formatter.probe, formatter.execution,
+            formatter.source_snapshots, formatter.graph_snapshots)
+
+    def access(self):
+        _issued_wire_require(threading.get_ident() == self.thread and self.depth == 0, "reentry_or_thread")
+        _issued_wire_require(_issued_call_wires.get(self.parent) is self
+            and any(owner is self for owner in _issued_wire_owners)
+            and self.active_call is self.call_anchor and self.active_call is not None
+            and self.phase == "running" and self.entry is not None, "window_missing")
+        _issued_wire_require(self.entry.f_code is _IssuedCallWire.run.__code__ and self.entry.f_locals.get("self") is self
+            and self.entry.f_back is self.public and self.public.f_code is NativeMainPayloadAdapter.retain_issued_call_wire.__code__
+            and self.public.f_locals.get("self") is self.parent and self.public.f_locals.get("result") is self.source_result
+            and self.public.f_locals.get("owner") is self and self.entry.f_globals is self.public.f_globals is globals(),
+            "frame_changed")
+        frame = sys._getframe()
+        while frame is not None and frame is not self.entry:
+            frame = frame.f_back
+        _issued_wire_require(frame is self.entry and current_context() in (None, self.parent._bound_context)
+            and (self.stage_frame is None or self.stage_frame is self.entry), "scope_or_frame_invalid")
+
+    def verify(self):
+        self.access()
+        for obj, name, function, code in (*_TOOL_PROBE_CODE, *_ISSUED_CALL_CODE, *_ISSUED_FORMAT_CODE, *_ISSUED_WIRE_CODE):
+            _issued_wire_require(getattr(obj, name, None) is function and function.__code__ is code, "code_changed")
+        _issued_wire_require(self.methods is self.methods_anchor, "methods_changed")
+        for obj, name, method in self.methods:
+            _issued_wire_require(_same_method(getattr(obj, name), method), "method_changed")
+        for function, code in self.method_codes:
+            _issued_wire_require(function.__code__ is code, "method_code_changed")
+        _issued_wire_require(_wire_transport_module.ChatCompletionsTransport is _WIRE_CLASS
+            and _wire_base_module.ProviderTransport is _WIRE_BASE
+            and _same_anchors(tuple(vars(_WIRE_CLASS).values()), _WIRE_CLASS_ANCHORS)
+            and _same_anchors(tuple(vars(_WIRE_BASE).values()), _WIRE_BASE_ANCHORS)
+            and _WIRE_CLASS.__bases__ == (_WIRE_BASE,)
+            and _WIRE_CLASS.__init__ is _WIRE_BASE.__init__ is object.__init__
+            and _WIRE_CLASS.__new__ is _WIRE_BASE.__new__ is object.__new__
+            and _wire_transport_module._model_consumes_thought_signature is _WIRE_PREDICATE,
+            "helper_changed")
+        _validate_issued_wire_terminal(self)
+        _issued_wire_require(_same_anchors(_nested_anchors(self.inputs), self.input_anchors)
+            and type(self.inputs) is list and len(self.inputs) == 1 and self.inputs[0] is self.source_result.message,
+            "input_changed")
+        if self.helper is not None:
+            _issued_wire_require(type(self.helper) is _WIRE_CLASS
+                and _same_method(self.helper.convert_messages, self.converter)
+                and self.converter[0] is self.helper and self.converter[1] is _WIRE_CONVERTER
+                and not vars(self.helper), "converter_changed")
+        _issued_wire_require(len(self.partial_results) <= 1
+            and _same_anchors(_nested_anchors(self.partial_results)[1:], self.partial_anchors), "partial_changed")
+        if self.messages is not None:
+            _issued_wire_require(self.messages is not self.inputs
+                and _same_anchors(_nested_anchors(self.messages), self.message_anchors)
+                and _issued_format_bytes(self.messages) == self.message_bytes, "message_changed")
+        if self.message_content is not None:
+            content = _issued_format_content(self.runtime, self.message_content, self.message_bytes,
+                (self.source_result.message_content,), self.formatter.profiles)
+            _issued_wire_require(content.path == "tool_result" and content.binding[:8] == self.formatter.initial[4][0][:8],
+                "content_changed")
+        self.runtime._check_operator()
+
+    def callback(self, callback, *args):
+        self.verify()
+        _issued_wire_require(self.stage_frame is self.entry and any(_same_method(callback, method)
+            for _, _, method in self.methods), "callback_invalid")
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                try:
+                    self.verify()
+                except BaseException as error:
+                    _remember_delegate_control(self, error)
+                    raise
+
+    def checkpoint(self):
+        self.verify()
+        _issued_wire_require(self.stage_frame is self.entry and not self.checking, "checkpoint_reentry")
+        self.checking = True
+        try:
+            f = self.formatter
+            for _ in range(2):
+                facts, originals = [], []
+                for handle, selection, producer_ref in zip((*f.execution.capabilities, f.options[0]),
+                        (*f.execution.selections, f.options[1]), (*f.execution.producers, f.options[2])):
+                    admitted = self.callback(self.parent._admission.current, handle)
+                    selected = self.callback(selection.current, handle)
+                    producer = self.callback(self.parent._result_port.current, producer_ref)
+                    facts.append((_binding(admitted), _selection(selected), _producer(producer)))
+                    originals.append((admitted, selected, producer))
+                for actual, retained, current, original in zip(facts, f.initial, originals, f.originals):
+                    _issued_wire_require(actual[0][:8] == retained[0][:8] and set(actual[0][8]) <= set(retained[0][8])
+                        and actual[1:] == retained[1:] and current[1] is original[1] and current[2] is original[2],
+                        "authority_changed")
+                receiver = _binding(self.callback(self.parent._admission.current, f.execution.receiver_port))
+                _issued_wire_require(receiver[:8] == f.execution.initial[2][0][:8]
+                    and set(receiver[8]) <= set(f.execution.initial[2][0][8]), "receiver_changed")
+                now = self.callback(self.parent._clock)
+                _integer(now, minimum=0)
+                allowed = {route.route_ref for route in self.catalog[0]}
+                _issued_wire_require(set(f.profiles) <= {p.profile_ref for p in self.catalog[1]}, "profile_missing")
+                for profile in self.catalog[1]:
+                    if profile.profile_ref in f.profiles:
+                        _issued_wire_require(profile.required_paths == shared_policy().PATHS, "profile_changed")
+                        allowed.intersection_update(profile.allowed_routes)
+                for i, route in (*enumerate(f.selected_routes), (2, f.execution.routes[2])):
+                    _route_facts(route)
+                    holder = f.initial[i][0]
+                    _issued_wire_require(route.route_ref in allowed and now < route.expires_at
+                        and (route.consumer_ref, route.selection_id, route.selection_version)
+                            == (holder[3], holder[6], holder[7]), "selected_expired_or_denied")
+                    if route is f.selected_routes[i]:
+                        _issued_wire_require(f.originals[i][1].destination is route.destination, "destination_changed")
+                for holder, _, _ in facts:
+                    for path in shared_policy().PATHS:
+                        _issued_wire_require(any(route.route_ref in allowed and route.path == path
+                            and (route.consumer_ref, route.selection_id, route.selection_version)
+                                == (holder[3], holder[6], holder[7]) and now < route.expires_at
+                            for route in self.catalog[0]), "coverage_missing")
+                for route in self.catalog[0]:
+                    actual = self.callback(self.parent._operator_transports[route.destination.transport_ref].resolve)
+                    _issued_wire_require(actual is route.destination, "destination_changed")
+                self.verify()
+        finally:
+            self.checking = False
+
+    @contextmanager
+    def window(self):
+        self.access()
+        _issued_wire_require(self.stage_frame is None and self.stage_index < 3, "capacity_denied")
+        self.stage_index += 1
+        self.stage_frame = self.entry
+        try:
+            self.checkpoint()
+            yield
+            self.checkpoint()
+        finally:
+            self.stage_frame = None
+
+    def derive_frame(self, frame):
+        while frame is not None and frame.f_code is not type(self.runtime).derive.__code__:
+            frame = frame.f_back
+        _issued_wire_require(frame is not None and frame.f_locals.get("self") is self.runtime
+            and frame.f_back is self.entry and frame.f_locals.get("request_handle") is self.formatter.options[0]
+            and _same_anchors(frame.f_locals.get("parents", ()), (self.source_result.message_content,))
+            and frame.f_locals.get("payload") is self.message_bytes
+            and type(frame.f_locals.get("path")) is str and frame.f_locals["path"] == "tool_result"
+            and self.stage_index == 2 and self.stage_frame is self.entry and self.message_content is None,
+            "operation_invalid")
+
+    def current(self, handle):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_wire_require(caller.f_code is _Admission.current.__code__ and caller.f_locals.get("adapter") is self.parent
+            and handle is self.formatter.options[0], "admission_frame_invalid")
+        frame = caller.f_back
+        _issued_wire_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime, "runtime_callback_frame_invalid")
+        frame = frame.f_back
+        _issued_wire_require(frame.f_code is type(self.runtime)._current.__code__
+            and frame.f_locals.get("self") is self.runtime and frame.f_locals.get("request_handle") is handle,
+            "runtime_frame_invalid")
+        self.derive_frame(frame)
+        admitted = self.callback(self.parent._admission.current, handle)
+        current, original = _binding(admitted), self.formatter.initial[4][0]
+        _issued_wire_require(current[:8] == original[:8] and set(current[8]) <= set(original[8]), "authority_changed")
+        return admitted
+
+    def around(self, callback):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_wire_require(caller.f_code is NativeMainPayloadAdapter._around.__code__
+            and caller.f_locals.get("self") is self.parent and self.runtime._busy
+            and _same_method(callback, _method(self.parent._clock)), "clock_invalid")
+        frame = caller.f_back
+        _issued_wire_require(frame.f_code is self.runtime._clock.__code__
+            and frame.f_back.f_code is type(self.runtime)._call.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "clock_frame_invalid")
+        self.derive_frame(frame)
+        return self.callback(callback)
+
+    def resolve(self, wrapper):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_wire_require(caller.f_code is _Transport.resolve.__code__ and caller.f_locals.get("self") is wrapper
+            and any(wrapper is item for _, item in self.catalog[3]) and self.runtime._busy, "resolve_invalid")
+        frame = caller.f_back
+        _issued_wire_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime
+            and frame.f_back.f_code is type(self.runtime)._coverage.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "resolve_frame_invalid")
+        self.derive_frame(frame)
+        actual = self.callback(wrapper.port.resolve)
+        _issued_wire_require(any(wrapper.port is self.parent._operator_transports[route.destination.transport_ref]
+            and actual is route.destination for route in self.catalog[0]), "resolve_destination_changed")
+        return actual
+
+    def run(self):
+        self.entry = sys._getframe()
+        with self.window():
+            pass
+        with self.window():
+            _issued_wire_require(not self.partial_results, "partial_capacity_denied")
+            self.partial_results = ((None, None, None),)
+            self.partial_anchors = _nested_anchors(self.partial_results)[1:]
+            self.verify()
+            self.depth += 1
+            try:
+                self.helper = _WIRE_CLASS()
+                self.converter = _method(self.helper.convert_messages)
+                _issued_wire_require(type(self.helper) is _WIRE_CLASS
+                    and self.converter[0] is self.helper and self.converter[1] is _WIRE_CONVERTER
+                    and _WIRE_CONVERTER.__code__ is _WIRE_CONVERTER_CODE
+                    and _wire_transport_module._model_consumes_thought_signature is _WIRE_PREDICATE
+                    and _WIRE_PREDICATE.__code__ is _WIRE_PREDICATE_CODE, "converter_changed")
+                messages = self.helper.convert_messages(self.inputs, model=self.model)
+                self.partial_results = ((messages, None, None),)
+                anchors = _nested_anchors(messages)
+                self.partial_results = ((messages, anchors, None),)
+                self.partial_anchors = _nested_anchors(self.partial_results)[1:]
+                payload = _issued_format_bytes(messages)
+                self.partial_results = ((messages, anchors, payload),)
+                self.partial_anchors = _nested_anchors(self.partial_results)[1:]
+            except BaseException as error:
+                _remember_delegate_control(self, error)
+                raise
+            finally:
+                self.depth -= 1
+            self.messages, self.message_bytes, self.message_anchors = messages, payload, anchors
+            _issued_wire_shape(messages, self.source_result.message)
+            _issued_wire_require(messages is not self.inputs and len(payload) <= _MAX_NATIVE_RESULT
+                and len(payload) + sum(map(len, (self.formatter.authorization_bytes, self.formatter.input_bytes,
+                    self.source_result.message_bytes))) <= 786432, "capacity_denied")
+            self.verify()
+            self.message_content = self.runtime.derive(self.formatter.options[0],
+                (self.source_result.message_content,), self.message_bytes, path="tool_result")
+        with self.window():
+            result = NativeIssuedCallWireResult(self.source_result, self.model, self.messages, self.message_bytes,
+                self.message_content, (self.anchors, self.helper, self.converter, self.message_anchors))
+        self.records = ((result, _row(result, NativeIssuedCallWireResult)),)
+        self.phase = "released"
+        return result
+
+    def scope_access(self):
+        _issued_wire_require(threading.get_ident() == self.thread and self.depth == 0, "reentry_or_thread")
+        _issued_wire_require(_issued_call_wires.get(self.parent) is self
+            and any(owner is self for owner in _issued_wire_owners)
+            and type(self.records) is tuple and len(self.records) <= 1, "records_changed")
+        for result, anchor in self.records:
+            _issued_wire_require(_same_anchors(_row(result, NativeIssuedCallWireResult), anchor)
+                and result.source_result is self.source_result and result.model is self.model
+                and result.messages is self.messages and result.message_bytes is self.message_bytes
+                and result.message_content is self.message_content
+                and _same_anchors(result.anchors, (self.anchors, self.helper, self.converter, self.message_anchors))
+                and _same_anchors(_nested_anchors(result.messages), self.message_anchors)
+                and _issued_format_bytes(result.messages) == result.message_bytes, "record_changed")
+
+
+from agent.transports import chat_completions as _wire_transport_module
+from agent.transports import base as _wire_base_module
+
+_WIRE_CLASS = _wire_transport_module.ChatCompletionsTransport
+_WIRE_BASE = _wire_base_module.ProviderTransport
+_WIRE_CLASS_ANCHORS = tuple(vars(_WIRE_CLASS).values())
+_WIRE_BASE_ANCHORS = tuple(vars(_WIRE_BASE).values())
+_WIRE_CONVERTER = _WIRE_CLASS.convert_messages
+_WIRE_CONVERTER_CODE = _WIRE_CONVERTER.__code__
+_WIRE_PREDICATE = _wire_transport_module._model_consumes_thought_signature
+_WIRE_PREDICATE_CODE = _WIRE_PREDICATE.__code__
+_ISSUED_WIRE_METHODS = ("__init__", "access", "verify", "callback", "checkpoint", "window", "derive_frame",
+    "current", "around", "resolve", "run", "scope_access")
+_ISSUED_WIRE_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__)
+    for obj, names in (
+        (_IssuedCallWire, _ISSUED_WIRE_METHODS),
+        (NativeMainPayloadAdapter, ("retain_issued_call_wire",)),
+        (sys.modules[__name__], ("_issued_wire_require", "_issued_wire_preflight", "_issued_call_wire_window",
+            "_issued_wire_shape", "_issued_wire_snapshot_check", "_validate_issued_wire_terminal",
+            "_remember_delegate_control")),
+        (_wire_transport_module, ("_model_consumes_thought_signature",)),
+        (_WIRE_CLASS, ("convert_messages",)),
+    ) for name in names)
+_ISSUED_WIRE_CODE += ((_IssuedCallWire.window, "__wrapped__", _IssuedCallWire.window.__wrapped__,
+    _IssuedCallWire.window.__wrapped__.__code__),
+    (NativeMainPayloadAdapter.issued_call_wire_results, "fget", NativeMainPayloadAdapter.issued_call_wire_results.fget,
+        NativeMainPayloadAdapter.issued_call_wire_results.fget.__code__))

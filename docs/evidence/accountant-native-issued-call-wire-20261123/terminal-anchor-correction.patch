@@ -1,0 +1,28 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -8492,0 +8493,13 @@
++    for owner in (p, e):
++        _issued_wire_require(owner.methods is owner.methods_anchor, "source_methods_changed")
++        for obj, name, method in owner.methods:
++            _issued_wire_require(_same_method(getattr(obj, name), method), "source_method_changed")
++    for obj, name, method, code in e.execution_methods:
++        _issued_wire_require(_same_method(getattr(obj, name), method) and method[-1].__code__ is code,
++            "execution_method_changed")
++    for function, code in e.method_codes:
++        _issued_wire_require(function.__code__ is code, "source_code_changed")
++    _issued_wire_require(all(getattr(view.runtime, name) is value for name, value in p.runtime_facts)
++        and _same_anchors(_nested_anchors(view.runtime._route_rows), p.runtime_routes)
++        and len(view.runtime._ports) == len(p.runtime_ports)
++        and all(view.runtime._ports.get(name) is port for name, port in p.runtime_ports), "runtime_ports_changed")
+@@ -8505,0 +8519,2 @@
++    for obj, name, method in (*frame.methods, *frame.extra_methods):
++        _issued_wire_require(_same_method(getattr(obj, name), method), "delegate_method_changed")
+@@ -8519,0 +8535 @@
++        and registered.sender_handle is e.options[0]
+@@ -8521,0 +8538 @@
++        and acceptance.receiver_request is e.options[4] and acceptance.receiver is facts.receiver
+@@ -8524,0 +8542,4 @@
++    _issued_format_content(view.runtime, facts.returned_content, invocation.aggregate_bytes,
++        (invocation.request_content, invocation.accepted_content, invocation.receiver_result), e.profile_union)
++    _issued_format_content(view.runtime, issued.result_content, issued.result_bytes,
++        (e.issued_content, facts.returned_content), e.profile_union)

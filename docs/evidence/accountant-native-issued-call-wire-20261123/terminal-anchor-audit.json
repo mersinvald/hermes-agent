@@ -1,0 +1,23 @@
+{
+  "tested_source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+  "proposed_source_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+  "patch_sha256": "5b505fe2965fa434790f1153b1ef45eb98e0e0c648ff5b92da3777923a32a674",
+  "source_file_edited": false,
+  "observations": [
+    "The current terminal validator compares retained p/e method tuples through snapshots, but does not resolve every original method against its current owner.",
+    "The current terminal validator does not compare current runtime route/port internals with retained p.runtime_facts.",
+    "The current terminal validator omits the original sender_handle and receiver_request/receiver acceptance relations.",
+    "The current terminal validator does not connect facts.returned_content to the already anchored original Z parent by identity."
+  ],
+  "proposed_scope": "Add read-only checks from the accepted original F source validator to the new terminal validator.",
+  "existing_old_definitions_changed": false,
+  "another_history_started": false,
+  "changed_definition": [
+    "_validate_issued_wire_terminal"
+  ],
+  "all_other_definition_AST_exact": true,
+  "external_forward_inverse": true,
+  "additional_tranche_used_seconds": 426.2277880569891,
+  "remaining_seconds": 113.77221194301092,
+  "successful_current_pin_cases": 9
+}

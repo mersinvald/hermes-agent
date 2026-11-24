@@ -1,0 +1,35 @@
+{
+  "external_root": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39",
+  "original_homes_read": false,
+  "isolation_before_application_import": true,
+  "canonical_runner": "scripts/run_tests.sh",
+  "runner_changed": false,
+  "per_file_isolation": true,
+  "retries": 0,
+  "external_environment": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/venv",
+  "shared_smoke_count": 1,
+  "ruff_cache_correction": "The first Ruff command created its own cache in the worktree. The complete new cache moved to the external task root.",
+  "paths": {
+    "python-wrapper": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/python-wrapper",
+      "sha256": "4250c28489ba9bb99c9fe8252730cb585bf1f2e1891f4f86b389c8d9d38d47c0"
+    },
+    "python-driver.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/python-driver.py",
+      "sha256": "8bfd49a98162aa5547be2431b25f7a653f3f3a6f18873516001563913b2fb5cd"
+    },
+    "run-scope.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/run-scope.py",
+      "sha256": "6bda07c186fa4138f668a17bbeaab56fa994dae3fcaab209ff88c5741be0f884"
+    },
+    "run-capped-scope.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.39/run-capped-scope.py",
+      "sha256": "54553c003e6b4f349d298f0ce6db8ba81126dfdac731928a7a18285bb39338b5"
+    }
+  },
+  "additional_tranche_seconds": 540,
+  "outer_supervisor_deadlines": true,
+  "first_corrected_case_cap_seconds": 300,
+  "canonical_runner_and_file_isolation_preserved": true,
+  "final_ordinary_cap_seconds": 30
+}

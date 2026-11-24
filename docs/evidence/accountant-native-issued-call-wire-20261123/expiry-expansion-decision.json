@@ -1,0 +1,16 @@
+{
+  "first_scope": "corrected-positive-01",
+  "success": true,
+  "source_seconds": 122.55992572300602,
+  "formatter_seconds": 56.85616158899211,
+  "wire_seconds": 32.59313998000289,
+  "setup_seconds": 1.452726,
+  "call_seconds": 212.010873,
+  "supervisor_seconds": 214.88901592399634,
+  "remaining_seconds": 325.11098407600366,
+  "expiry_estimate_seconds": 257.8668191087956,
+  "direct_reserve_seconds": 35,
+  "expiry_supervisor_cap_seconds": 285,
+  "finite_expansion_fits": true,
+  "positive_repeat": false
+}

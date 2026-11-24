@@ -1,0 +1,25 @@
+{
+  "final_source_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+  "executed_history_source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+  "final_delta_added_lines": 21,
+  "earlier_question_added_line_count": 26,
+  "earlier_count_superseded": true,
+  "final_delta_definition": "_validate_issued_wire_terminal",
+  "accepted_F_validator_sha256": "6c61d9cd6b51fc6c7c9d9536f695e950811153940f6bb72a7ad6c237152040cf",
+  "accepted_Z_producer_sha256": "2c7f9cbb94156680e764885834d231bf4fe19b0cccdc152edb798a52b2ffef9d",
+  "added_checks": [
+    "Current original P/E methods and E method code",
+    "Original execution-adapter methods and code",
+    "Current original runtime route and port identity",
+    "Current original delegate methods",
+    "Registered original sender and acceptance receiver",
+    "Original returned-content and Z parent identity"
+  ],
+  "all_added_checks_read_only": true,
+  "active_old_guard_calls": false,
+  "operations_added": 0,
+  "authority_added": false,
+  "added_predicate_verification": "Static comparison with accepted producers only.",
+  "final_ordinary_check_scope": "Final module and ordinary path only. It does not run the terminal wire predicates.",
+  "root_decision_sha256": "46b5ecf6f055c2b1bb8b43829a75570bf3b0f1dcc3d29c390eaf84fccf689739"
+}

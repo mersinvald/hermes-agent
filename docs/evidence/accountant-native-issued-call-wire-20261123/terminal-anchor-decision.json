@@ -1,0 +1,87 @@
+{
+  "issue": "hpwa-p10.39",
+  "decision": "apply exact read-only terminal-anchor correction",
+  "tested_source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+  "selected_source_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+  "test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1",
+  "patch_sha256": "5b505fe2965fa434790f1153b1ef45eb98e0e0c648ff5b92da3777923a32a674",
+  "patch_added_lines": 21,
+  "changed_definition": [
+    "_validate_issued_wire_terminal"
+  ],
+  "all_other_definitions_and_signatures_exact": true,
+  "external_forward_inverse": true,
+  "producer_comparison": {
+    "original_F_validator": "accepted native2f8fb48b, lines7770-7791/7804-7813/7838-7852",
+    "Z_producer": "_IssuedCallExecution.run, accepted lines7537-7544",
+    "checks": "Current original methods/code, runtime route/port facts, registered sender/receiver identities and exact returned-content parent relation.",
+    "operations_or_authority_added": false,
+    "ordinary_runtime_logic_changed": false
+  },
+  "scoped_history_evidence": [
+    {
+      "scope": "corrected-positive-01",
+      "cases": [
+        "test_actual_wire_projection[success]"
+      ],
+      "seconds": 214.88901592399634,
+      "source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+      "test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1"
+    },
+    {
+      "scope": "corrected-expiry-01",
+      "cases": [
+        "test_actual_wire_projection[selected_expiry]"
+      ],
+      "seconds": 207.9541075379966,
+      "source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+      "test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1"
+    },
+    {
+      "scope": "direct-01",
+      "cases": [
+        "test_conversion_preserves_scalar_bytes[scalars]",
+        "test_conversion_preserves_scalar_bytes[character_limit]",
+        "test_wire_shape_refuses_non_scalar_or_oversize_strings[surrogate]",
+        "test_wire_shape_refuses_non_scalar_or_oversize_strings[characters]",
+        "test_wire_shape_refuses_non_scalar_or_oversize_strings[utf8]",
+        "test_strict_serialization_refuses_nonfinite_and_surrogate"
+      ],
+      "seconds": 2.0180942500010133,
+      "source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+      "test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1"
+    },
+    {
+      "scope": "ordinary-01",
+      "cases": [
+        "test_complete_native_payload_and_result_release"
+      ],
+      "seconds": 1.3665703449951252,
+      "source_sha256": "7d7c6c0b423378a3f4b5fc6fd743235ccabab2e469f16f1a64c318dfc9ca3363",
+      "test_sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1"
+    }
+  ],
+  "executed_history_scope": "These nine cases ran on7d7c6c0b, not on selectedcfac0ddc. Keep that attribution exact.",
+  "additional_tranche_used_seconds": 426.2277880569891,
+  "remaining_seconds": 113.77221194301092,
+  "selected_final_functional_check": {
+    "nodeid": "tests/agent/test_native_main_payload.py::test_complete_native_payload_and_result_release",
+    "source_sha256": "cfac0ddc4394a1942c668f2d363ad93c45647868ab960251bb85020d5b21e037",
+    "supervisor_cap_seconds": 30,
+    "retries": 0,
+    "scope": "Final module and ordinary path only. This does not execute the new terminal checks through a full history."
+  },
+  "selected_final_static_checks": [
+    "Exact producer comparison and preserved original method/code/runtime/return associations",
+    "AST/signature/old-body/path preservation",
+    "External source-patch forward/inverse check",
+    "Ruff, same-version new-prose lint and whitespace",
+    "Source/API/consumer/evidence pin refresh with truthful reuse scopes"
+  ],
+  "no_new_genuine_history": true,
+  "no_repeated_six_unchanged_direct_cases": true,
+  "no_budget_renewal": true,
+  "no_fresh_current_full_claim": true,
+  "root_application_execution": false,
+  "final_source_acceptance_pending": true
+}
