@@ -1,0 +1,793 @@
+{
+  "issue": "hpwa-p10.69",
+  "accepted_native": {
+    "commit": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+    "parent": "11c1456b3874fa62798573bf6622bb33510bfe98",
+    "tree": "5d26eea9b33a3a738f148f85af8bea1d1b5e6e61",
+    "paths": 12222,
+    "PR": "https://github.com/mersinvald/hermes-agent/pull/34"
+  },
+  "accepted_PWA": {
+    "commit": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+    "parent": "41f70cfef9247fde8bc24d1acd9b85a8b612300e",
+    "tree": "07b1d48eb0e534db11c6a8aa5df25fa85cc92cce",
+    "paths": 3287,
+    "PR": "https://github.com/mersinvald/hermes-agent-pwa/pull/63"
+  },
+  "roots": {
+    "native": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.67",
+    "PWA": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.68"
+  },
+  "tracked": [
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/agent_init.py",
+      "bytes": 162327,
+      "sha256": "7c4ec73235904e6177261cdd2ae6d1bf5db4766c2f189440c08400ba6695ff56",
+      "mode": "100644",
+      "blob": "46c0de27cbeb50a5232ac848e8cb2a60c55b14bb"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/agent_runtime_helpers.py",
+      "bytes": 236455,
+      "sha256": "d9de3e0002c3484e23f47f014d42beedf09142722febaf1902b0a77675f162f8",
+      "mode": "100644",
+      "blob": "93e7463b1bcd346c81b4d56a30b17473eb753df3"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/auxiliary_client.py",
+      "bytes": 510443,
+      "sha256": "df48bcbd50b39b51b1d5f3eb82531d54803f7220d7483f49121db0e28ef9e952",
+      "mode": "100644",
+      "blob": "2928149003d067281ff864afe8a1f06b28f572e9"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/chat_completion_helpers.py",
+      "bytes": 275491,
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+      "mode": "100644",
+      "blob": "9a8ec5f35c8fb62751821d530c7f2016c15cd418"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/content_policy.py",
+      "bytes": 11094,
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+      "mode": "100644",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/conversation_loop.py",
+      "bytes": 502389,
+      "sha256": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61",
+      "mode": "100644",
+      "blob": "426935624a5da3e149bd9d5eaff0ef9b48c5e2a5"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/issued_call_episode.py",
+      "bytes": 18395,
+      "sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "mode": "100644",
+      "blob": "3bd647c07ca5ae640c1ae58e6a9031d0e8643616"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/native_main_payload.py",
+      "bytes": 643457,
+      "sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "mode": "100644",
+      "blob": "397e44876d39fe347f9d2c1ca5817b9e9acf9cde"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/skill_commands.py",
+      "bytes": 37739,
+      "sha256": "3ff2f67ee417be29e90994742b7d3561de427241093056cc307c6dfafebc7b64",
+      "mode": "100644",
+      "blob": "6b776e1f68fb90e313f3a97ae1d42bad618c029f"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/title_generator.py",
+      "bytes": 39784,
+      "sha256": "27ee62f4b21ecfa696bfb613690e80021b54af8a7af3db90675b99d88c6fab60",
+      "mode": "100644",
+      "blob": "f99f973dbc14fc01ef8a852e3e9e66c461f17808"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/transports/owned_loopback_http.py",
+      "bytes": 15921,
+      "sha256": "05ec8c7eede3dc872914ff2a3b011b91d5fa63960be2b7a4fadf76d5dc7e218f",
+      "mode": "100644",
+      "blob": "cc1137f51030a43ea2d513fe18e64010679b8f77"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "agent/turn_context.py",
+      "bytes": 78569,
+      "sha256": "463426b6e3fcf7d183513d54bb1f989743a49f32df26362744bd99f9ba19a3a5",
+      "mode": "100644",
+      "blob": "8737d1726f08d3206ed87031ffff6c2b19f212b3"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/README.md",
+      "bytes": 8065,
+      "sha256": "cc7b6645a8bc05d8479f2ff84b94384b8f4a6d89ffe36fe0e2a513f7789dd9a2",
+      "mode": "100644",
+      "blob": "068772350de4c4c44ccf8eba7da2410107cc5b9f"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/native-api.json",
+      "bytes": 2401,
+      "sha256": "07cc88df9776e220c38f8289d983eea72bea2acdf48cbbe04ecbcf477b3a46d7",
+      "mode": "100644",
+      "blob": "dde66e0b7a023a070b92a3d6efe0cf376dc17a96"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/scopes.json",
+      "bytes": 26443,
+      "sha256": "349bac42dd5d706f5e8f4b5405b0ecdccdf11b524b91be9a2e6993ece11b80a7",
+      "mode": "100644",
+      "blob": "956aba0d67897cc3bab46bbfa2db0ff02596f637"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/README.md",
+      "bytes": 2386,
+      "sha256": "91083e16d5286af700ba45b3ef3725713e743e232c47ff20ebf3174d216b8449",
+      "mode": "100644",
+      "blob": "bcab93ddca56a259a536be0d7e034c163b5537b2"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/README.md",
+      "bytes": 3522,
+      "sha256": "d1b994b00798b04a5ba449da9bc6735b5281250fa4b8795e3e64125976c2eeb6",
+      "mode": "100644",
+      "blob": "b66b77588c7432a0df43d086763560e552084c8a"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/SHA256SUMS",
+      "bytes": 887,
+      "sha256": "fa3cead063a02b11a51d037decb4f45f203257b231ee4d581e34d79afca5c1b3",
+      "mode": "100644",
+      "blob": "cd474eb44c786d26d7c7ff99c8cda0f63785fc8f"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/checks.json",
+      "bytes": 5683,
+      "sha256": "c666ba6dfff19460bc18b5df772468e6b6452391772e8453fdd275e9d5fc5049",
+      "mode": "100644",
+      "blob": "256fbba2d25275014d791305a157084770c65c56"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/contracts.json",
+      "bytes": 1473,
+      "sha256": "c6bf3788080df080ec7275b0f2175f54df8557ea7880a419ac88ad92bb7d9e4a",
+      "mode": "100644",
+      "blob": "d8525eeb00af7a0dce40950072e5dcc7453cc39e"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/controls.json",
+      "bytes": 1629,
+      "sha256": "bf43e9ad14bde6554868301d274908259f8a20189d0f78521d6d08bd1442c7b1",
+      "mode": "100644",
+      "blob": "a16487c9595a5cb31741cdd10a175bc696c9272c"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/costs.json",
+      "bytes": 1345,
+      "sha256": "11d66a79fe0e218992d53e2f173a580eb12f5d79b09ce0dad6a5b0b675973332",
+      "mode": "100644",
+      "blob": "65738630fd8a66902cda7db78070a2288dca22e6"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/operator-table.json",
+      "bytes": 11519,
+      "sha256": "3462030296eb3a778413f8629af719252b2a5b83f27186bbb7c1dca7d320cae7",
+      "mode": "100644",
+      "blob": "df7a40a931c80176437b945b7b4d2f1fb854c15a"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/pins.json",
+      "bytes": 20579,
+      "sha256": "86a5cefd4d011126eb9d40c85f22fb1a96e149af410d4ea1322f17d9132de6d7",
+      "mode": "100644",
+      "blob": "50489f1507c714492a2898e6c4989f402042474c"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/preservation.json",
+      "bytes": 5117,
+      "sha256": "e7db341f0101ab66dfff1e9231d2be14458a09a535cb1681281c7ca38c423aee",
+      "mode": "100644",
+      "blob": "05f94a5609dba4220c7570cd2f052c8ac69b356b"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/results.json",
+      "bytes": 20933,
+      "sha256": "96789f0ee2350aeec79fbbe62c828e86ada7ed1adbf74ebe5ecb5bbba20f6282",
+      "mode": "100644",
+      "blob": "057ba413205feeb62341061173b8cf7004314e32"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/source-freeze.json",
+      "bytes": 3036,
+      "sha256": "e32fcb8d3bb04427cc93b64cb789eed6f214a40aa615eb0d06ee3b6e769daa50",
+      "mode": "100644",
+      "blob": "9565657ff424111692d7ab88930110dbe4cc37d5"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/writing-check.json",
+      "bytes": 3694,
+      "sha256": "8843178fb19928723467346f5ed852a9c0a687e8eb6d1b3fde1d9d703feeb3ee",
+      "mode": "100644",
+      "blob": "ba0519e65765c8f3b4b03db895c2ef80a00d11f3"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/README.md",
+      "bytes": 3908,
+      "sha256": "a6d66811b71dd0810f2e63f2f90f7ee717c8783f5cee45e5b7bd60d56202f8e1",
+      "mode": "100644",
+      "blob": "c9ca6695650144da063a4c414de8f34504dc1f80"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/SHA256SUMS",
+      "bytes": 887,
+      "sha256": "0a1d325c439ed689b4d6315efc99df21ba752fcd366e5a356f1fbd3422ddc42f",
+      "mode": "100644",
+      "blob": "b2e0558d9edc8f9de25e1c2a99ca6f3b441ea389"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/checks.json",
+      "bytes": 3311,
+      "sha256": "da3c8f06ec007f8364b7643ae0144c91ce73c22286559174d3a45575324fc4ac",
+      "mode": "100644",
+      "blob": "7aa322b9fe0beeb3468c8d03270f3d0b86a4d095"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/contracts.json",
+      "bytes": 1586,
+      "sha256": "339881833bd7660114d1215ec22ea5b96d97e35cf2ee5b576925dd1ba38a0719",
+      "mode": "100644",
+      "blob": "3c54d92225299344e58a2b34db97668624d97d88"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/controls.json",
+      "bytes": 4688,
+      "sha256": "dfa9521951cc6432a150e202fc0dfb76cad2b3203777cdca68f2f8d684b95bf2",
+      "mode": "100644",
+      "blob": "8a23c99b371daccd25bf7cfdc8a7dfae00017a29"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/costs.json",
+      "bytes": 2850,
+      "sha256": "4d7ef4ea0fe2a0bc09a14f5e83d5369259c86ea5b99005fb573c015dcf171024",
+      "mode": "100644",
+      "blob": "32ed51b6e4e71f841573c94bc4b99bcda60fa5ec"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/operator-table.json",
+      "bytes": 2822,
+      "sha256": "edbbbaa7f807cb02f3145bf844ae6a8b717aa74fe8ac15f46a5a64d6df96c05f",
+      "mode": "100644",
+      "blob": "ed24d4ff7d4e364e14c72a9e1265ee8755926db2"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/pins.json",
+      "bytes": 24618,
+      "sha256": "36456dc96c9adcc739b336bbfce605b2b0cf9a21e9c7ae1fca9bbc1573fcd92c",
+      "mode": "100644",
+      "blob": "f99c991dad7128acd2e519b0cf1e199a684c2a39"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/preservation.json",
+      "bytes": 534,
+      "sha256": "8be6c2d964df7a0840b0a0e49780e06a8ac82c65fd9b8587cf159626afc09ef5",
+      "mode": "100644",
+      "blob": "23400f0938a4d7f28bf25ef465836fa8c718aab2"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/results.json",
+      "bytes": 15279,
+      "sha256": "623aef6c5b5fafb6f43ffebd41b4fd965caedd930b9d75aad27720d413d1d50b",
+      "mode": "100644",
+      "blob": "725fe7a927401601654736df13b7f8d6a8656e60"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/source-freeze.json",
+      "bytes": 642,
+      "sha256": "a3c4029ee92893281565e12ade98e891497f536f35ea715d4cb28084cde96b93",
+      "mode": "100644",
+      "blob": "5737184feac15bbe872cf767e16e0e4ecc7ae69f"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "docs/evidence/accountant-native-loopback-fallback-success-20261124/writing-check.json",
+      "bytes": 7206,
+      "sha256": "56060ca4e694ae8b6002875b8fdc35bc158a808ecd19556c43ba3d2eb66d9202",
+      "mode": "100644",
+      "blob": "878bb2515fdce1a5fccca982d12b9f67d8538204"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "run_agent.py",
+      "bytes": 443603,
+      "sha256": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d",
+      "mode": "100644",
+      "blob": "456ec0d6168927f23036bc4ac19c9c00ebcd6fb3"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "scripts/run_tests.sh",
+      "bytes": 9010,
+      "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e",
+      "mode": "100755",
+      "blob": "4445d6d5428b657e3d780903915229acbc1666ce"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "scripts/run_tests_parallel.py",
+      "bytes": 52720,
+      "sha256": "d71999ea44ef18352ff0f0d08512fae2109ac748a654553b15aa02d72f368bd9",
+      "mode": "100755",
+      "blob": "eb923cc9b43b3a7af8a2f19461ce91e38e18ec10"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/owned_loopback_observer.py",
+      "bytes": 11488,
+      "sha256": "ef41c3d6514225d4786dea5fef0da58e148ad86179231fce8df9768e0904307e",
+      "mode": "100644",
+      "blob": "444e321dc75056103ba32575e6212b2bcb065c41"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/owned_loopback_receiver.py",
+      "bytes": 23175,
+      "sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d",
+      "mode": "100644",
+      "blob": "b3f575c9f680b7d7c0c0a23c2696885856903680"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "bytes": 128596,
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+      "mode": "100644",
+      "blob": "686aeb4f234d9522ab096e12b870fa4798ff1c6a"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_controlled_fallback.py",
+      "bytes": 33291,
+      "sha256": "24da7a5aeb41febd42fcb17c1137ce914fa59048bd655882b65f2a272d718b0e",
+      "mode": "100644",
+      "blob": "d2d3848215ef83cbd0df71fe604e96dbe41ab63a"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_loopback_fallback_denial.py",
+      "bytes": 29178,
+      "sha256": "02f943767adf01eda785da8e2a8eddf72405fb6e8e89e32132214f728e5ab8a1",
+      "mode": "100644",
+      "blob": "b47fb8ed893d6c1eb1a206b064146e57b5e6d0a9"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_loopback_fallback_success.py",
+      "bytes": 25269,
+      "sha256": "fd03d032aaa884f8d4cdc12b93e681bde35da05e3ae13566e1be06b33016e9c9",
+      "mode": "100644",
+      "blob": "aa91a7e2fc35dd908af1ce37e28fcf3eac5aa2f1"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_main_payload.py",
+      "bytes": 66496,
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+      "mode": "100644",
+      "blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_public_loopback_denial.py",
+      "bytes": 22200,
+      "sha256": "680413a39536bb674e75f4b89aaa8729bfc522cb52e4064301f20de3235ea9e1",
+      "mode": "100644",
+      "blob": "bde4b8729114e46b3639e6b62eeec7b095b73922"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_native_public_loopback_http.py",
+      "bytes": 28278,
+      "sha256": "8fa140b1fb26bdb0341918cd77558ddf3eac8cae2d3a7c82bf39ba900c79aeb2",
+      "mode": "100644",
+      "blob": "3a85985764f0bd3f0901617d2f16715f7f371845"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/agent/test_owned_loopback_http.py",
+      "bytes": 20685,
+      "sha256": "f7836f687b4ef566462f88e39f274ad3207da4e5b06674f74afb46cfb17eba49",
+      "mode": "100644",
+      "blob": "0736ea8fda2337dadbf1f29e44d845f0d710e0c0"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/tools/test_native_issued_call_continuation.py",
+      "bytes": 19073,
+      "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+      "mode": "100644",
+      "blob": "7a890b6304586c0455641e394f04e45752a5a55c"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/tools/test_native_issued_call_execution.py",
+      "bytes": 30758,
+      "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e",
+      "mode": "100644",
+      "blob": "a413572199885607d3288029f64f0f3332834559"
+    },
+    {
+      "repo": "native",
+      "ref": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+      "path": "tests/tools/test_native_issued_call_format.py",
+      "bytes": 16748,
+      "sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb",
+      "mode": "100644",
+      "blob": "07dd165a556045ad7d2c5ce553349433ea45085f"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "AGENTS.md",
+      "bytes": 2797,
+      "sha256": "e4c7e948a58647447df4f882e4942e2045a1fc9d22470853096f1715b5f812d6",
+      "mode": "100644",
+      "blob": "a6e6dff29baeaff3945dbafed482d98fe8c083e4"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/README.md",
+      "bytes": 2236,
+      "sha256": "9c5b7b452e7f753ddb05f625130eb7c9eb492d814cf0439d0d461b0eb4e820b8",
+      "mode": "100644",
+      "blob": "6175dc998d6cf727584bc4b39c491f536ca67113"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "bytes": 484795,
+      "sha256": "3b985f95b097d9ad9ee817dc420bd68bfdc542e91980598294198798555b4e18",
+      "mode": "100644",
+      "blob": "424ee2e2b1f94be19d602278bb7a39d15b5de3d9"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "bytes": 292147,
+      "sha256": "f99bffed54ff6f48b7f0b174521288eecda1068eae1ae29aaa380a87d4441aaf",
+      "mode": "100644",
+      "blob": "3c43f90e816d0f6dd5279f4dee716c6d10e14b4b"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/README.md",
+      "bytes": 7748,
+      "sha256": "6b0e0db81ee44980b92716683b5d9e507574ae762b817167f39f3049a3caabfd",
+      "mode": "100644",
+      "blob": "96152b2dcd04c6b65d1b42f59bb73df0db2ba37d"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/SHA256SUMS",
+      "bytes": 499,
+      "sha256": "77941fa64f89b17422afaa1859aec6d40e96025b3f243a2aafd917fc919f464d",
+      "mode": "100644",
+      "blob": "ffee50628a0ce87a5ea1620b4cf59e8a78bc4113"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/next-component-design.md",
+      "bytes": 16179,
+      "sha256": "7168632393dc06a45dfed3a1ff408f91f85a3fd7313a40d962857d9043a4aab7",
+      "mode": "100644",
+      "blob": "e6e4be87b736bae131ab83242c83ab8d513a7667"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/source-map.md",
+      "bytes": 13269,
+      "sha256": "68baf6f6accf04c328d386fb3672f6b7abdf88331348e7520d3218c58a3fc670",
+      "mode": "100644",
+      "blob": "b440c3ddbbd6dfe5da48b345cb0864f78c33e4bf"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/source-pins.json",
+      "bytes": 70538,
+      "sha256": "7ba02582e94e061017a979028a1facf0f5f95b210939b1a04273bad992002ec5",
+      "mode": "100644",
+      "blob": "b90e3e3ab7a74b8eb0f418a5c6e2d83c01fd69c3"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/verification.json",
+      "bytes": 9224,
+      "sha256": "0df3f8478b45ac9e23c3282e64f45fe374ec86e0e9251df0f229e018c33a11ec",
+      "mode": "100644",
+      "blob": "b1bfa383db969e7cb662408f4cb1ac2179d50b66"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-fallback-success-contracts-20261124/writing-check.json",
+      "bytes": 7961,
+      "sha256": "27a8eca9c1d92cf55ab9950a1055e72cd8d773c857947582f82c30df1398e2c1",
+      "mode": "100644",
+      "blob": "2885a9b1aa700c215151d9d83229e08582af8a70"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/README.md",
+      "bytes": 6488,
+      "sha256": "493070242b2b94c7adaeaf245dc9d08e52f1910d0af73077e3f901c60b26cfea",
+      "mode": "100644",
+      "blob": "0b8649e0ec6b16bdff0c9da5a1ffa66dc91ab507"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "docs/v1-implementation-plan.md",
+      "bytes": 33712,
+      "sha256": "dd1312f3aee814ab9a9219b9cf767ca2b6d9f44c89f579ef720361c88c56e1d0",
+      "mode": "100644",
+      "blob": "e27e37ee340509aefb0fd84bbc789a3ed90142cf"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "packages/content-policy/pyproject.toml",
+      "bytes": 340,
+      "sha256": "3d26075c28bfcab3b6e559ffce4c8dec3cf3765651776bc5fdacf80207e944ff",
+      "mode": "100644",
+      "blob": "d918dfc833ec6f107c27329ff709265139be3bcb"
+    },
+    {
+      "repo": "PWA",
+      "ref": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+      "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+      "mode": "100644",
+      "blob": "7d7046d85cccfea171c758b95fc3ec76c606c35e"
+    }
+  ],
+  "protected_receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.68.spec.md",
+      "bytes": 18636,
+      "sha256": "4a0cc01bcbd9672d7acd3c893f8e0e8682ab51fafd689dd0bf564bcf6cdf81a7",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.68.input-receipts.json",
+      "bytes": 28539,
+      "sha256": "dca214dee84a44fda9317649ab3430bfceb8712084e61926a8cf63f811d708f3",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.68.root-static-review.json",
+      "bytes": 3630,
+      "sha256": "f78bda9e1e98cabdccb5c267bb7e173a64fe1c696af97069657cf68dd81c0d29",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.68.root-final-review.json",
+      "bytes": 3163,
+      "sha256": "3f530f379dd6eb5e3173cf3e600effc33d15668b942cee2dbaf6dd7f541d97be",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.68.root-publication-receipt.json",
+      "bytes": 1103,
+      "sha256": "a91db5fdfc3931626100f69ca70b7932a74101e363ed87cb412f9d0b7934e7e3",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.67.spec.md",
+      "bytes": 19668,
+      "sha256": "08db2d7c1f248211b71a68881c6d27f157cb461c986a5d1323afa255144c3f94",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.67.input-receipts.json",
+      "bytes": 24618,
+      "sha256": "36456dc96c9adcc739b336bbfce605b2b0cf9a21e9c7ae1fca9bbc1573fcd92c",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.67.root-review-before-summary-correction.json",
+      "bytes": 3111,
+      "sha256": "30a0c7741b1ca75a21888cd132558fedd71444fe15b2b4fcf4ccbc151a2fe9fb",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.67.root-summary-correction-review.json",
+      "bytes": 1259,
+      "sha256": "c8e528e4f96da17a394796e8f55ac9062599f6444869b7658387dc0f72ac4054",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.67.root-final-review.json",
+      "bytes": 2014,
+      "sha256": "aca13c1d5eaf748058512b84c2ad5118975ae87aef6bdcf093386b6b60e1aff5",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.67.root-publication-receipt.json",
+      "bytes": 1121,
+      "sha256": "e2e5ab3d7d1f4fd09062448717c03385ebbfe855cda84e60f6fd1ac1a9403da1",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.23.native-handoff.json",
+      "bytes": 2278,
+      "sha256": "308d0c5a2e7a0bea715a1ac2ddfebbeb32e65263ca3236bbc5b1001478adfed9",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.68/handoff.json",
+      "bytes": 10829,
+      "sha256": "a49e7adef810f793a4dd9bfc42f6d6d96542e13a8cfcead10e0fce6315bb4457",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.67/handoff.json",
+      "bytes": 26584,
+      "sha256": "3280424e21413eda434fd68b4554ec407f3f065274a128dbd9b51fbd0214965b",
+      "mode": "0o600"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.67-summary-correction/handoff.json",
+      "bytes": 10888,
+      "sha256": "07c5cc5ffdb8ed895511568d7f25d12153488196fc163beaa40d0a379b0601bb",
+      "mode": "0o600"
+    }
+  ],
+  "environment": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "bytes": 197,
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "bytes": 160,
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "bytes": 756,
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "bytes": 87,
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "shared_wheel": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+    "sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b"
+  },
+  "shared_engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+  "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a",
+  "selected_proposal_sha256": "7168632393dc06a45dfed3a1ff408f91f85a3fd7313a40d962857d9043a4aab7",
+  "source_map_sha256": "68baf6f6accf04c328d386fb3672f6b7abdf88331348e7520d3218c58a3fc670",
+  "source_pins_sha256": "7ba02582e94e061017a979028a1facf0f5f95b210939b1a04273bad992002ec5",
+  "scope": "One new test-only nonempty retained title HTTP history using unchanged native/shared0.4 current authority, source completion, transforms and title release. All full/external gates remain open."
+}

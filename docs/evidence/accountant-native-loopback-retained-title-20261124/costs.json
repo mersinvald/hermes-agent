@@ -1,0 +1,21 @@
+{
+  "task_root_epoch": 1795552585.612567,
+  "verification_start_epoch": 1795552585.612567,
+  "verification_basis": "Conservative Root epoch includes all reading and discovery.",
+  "task_cap_seconds": 2400,
+  "verification_cap_seconds": 1500,
+  "allowances": {
+    "setup": 60,
+    "title_preparation": 300,
+    "controls": 90,
+    "genuine": 600,
+    "final": 240,
+    "reserve": 210
+  },
+  "cheap_command_seconds": 12.00356831800309,
+  "genuine_outer_seconds": 600,
+  "genuine_file_seconds": 595,
+  "launch_floor_seconds": 900,
+  "real_provider_usage": false,
+  "performance_claim": false
+}

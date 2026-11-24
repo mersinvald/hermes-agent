@@ -1,0 +1,15 @@
+{
+  "test_sha256": "7a560448755b1172a4d20c40191063b852d802731a60e12ba0e268787fe574da",
+  "base": {
+    "commit": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+    "parent": "11c1456b3874fa62798573bf6622bb33510bfe98",
+    "tree": "5d26eea9b33a3a738f148f85af8bea1d1b5e6e61",
+    "paths": 12222,
+    "PR": "https://github.com/mersinvald/hermes-agent/pull/34"
+  },
+  "contracts_sha256": "460b442c424183419fc6f98ef4c93def2e97181c89d724e67355252276486ae1",
+  "operator_sha256": "961108a1572a7827d39ecd86e786598ce03f1283c946b965a2c15ce1429b8b8d",
+  "source_map": "68baf6f6accf04c328d386fb3672f6b7abdf88331348e7520d3218c58a3fc670",
+  "source_pins": "7ba02582e94e061017a979028a1facf0f5f95b210939b1a04273bad992002ec5",
+  "freeze": "Normal-hook commit before genuine launch. Exact commit is in private launch receipt."
+}

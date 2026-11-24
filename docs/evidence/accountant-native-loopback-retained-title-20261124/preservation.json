@@ -1,0 +1,8 @@
+{
+  "base_paths": 12222,
+  "original_blobs_modes": "Exact before edits.",
+  "source": "Only one new test module.",
+  "runtime_changes": false,
+  "API_changes": false,
+  "dependency_changes": false
+}

@@ -1,0 +1,10 @@
+{
+  "new_cases": [
+    "test_inert_retained_title_http_plan",
+    "test_retained_title_http_response_recipe"
+  ],
+  "command": 12.00356831800309,
+  "passed": 2,
+  "failed": 0,
+  "reuse": "Prior observer, default, fallback, and historical title refusal scopes remain at input pins. No rerun follows."
+}

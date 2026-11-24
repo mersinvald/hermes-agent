@@ -1,0 +1,16 @@
+{
+  "status": "Pending genuine process and final static checks.",
+  "immutable_input_verification": {
+    "epoch": 1795552667.2555652,
+    "tracked": 71,
+    "protected": 15,
+    "environment": 5,
+    "base_paths": 12222,
+    "first_scope": "Tracked objects verified before KeyError protected. Remaining groups verified in second scope."
+  },
+  "initial_discovery_failures": [
+    "Broad file discovery output truncated.",
+    "Wrong proposal basename.",
+    "Input manifest field name corrected after tracked pin checks."
+  ]
+}
