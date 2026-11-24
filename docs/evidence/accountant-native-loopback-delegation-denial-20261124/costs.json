@@ -1,0 +1,42 @@
+{
+  "task_cap_seconds": 1800,
+  "verification_publication_cap_seconds": 1000,
+  "allowances": {
+    "setup": 60,
+    "cheap": 120,
+    "genuine": 600,
+    "final": 120,
+    "reserve": 100
+  },
+  "measured_commands": {
+    "cheap-1": {
+      "requested_nodes": [
+        "test_observer_records_empty_and_partial_connection[empty_connection]",
+        "test_observer_records_empty_and_partial_connection[partial_header]",
+        "test_forbidden_route_plan_preserves_coverage",
+        "test_shared_forbidden_delegate_pre_send"
+      ],
+      "seconds": 11.868960774008883,
+      "exit": 0
+    },
+    "genuine-1": {
+      "seconds": 55.84393797800294,
+      "exit": 0
+    },
+    "ruff-1": {
+      "seconds": 0.011481620982522145,
+      "exit": 0
+    },
+    "source-commit": {
+      "seconds": 0.028263997985050082,
+      "exit": 0
+    }
+  },
+  "source_preparation_seconds": 2.0387148690060712,
+  "prelaunch_task_remaining": 1292.2927191257477,
+  "prelaunch_verification_remaining": 839.5862503130047,
+  "wall_to_evidence_snapshot_seconds": 626.2081699371338,
+  "wall_scope": "Preparation through this evidence snapshot. Final publication time follows in the private handoff.",
+  "historical_positive_seconds": 449.991159537,
+  "historical_limit": "The accepted positive cost is not a negative result or a speedup measurement."
+}

@@ -1,0 +1,60 @@
+{
+  "actual_cases": [
+    {
+      "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_observer_records_empty_and_partial_connection[empty_connection]",
+      "seconds": 0.604
+    },
+    {
+      "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_observer_records_empty_and_partial_connection[partial_header]",
+      "seconds": 0.572
+    },
+    {
+      "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_forbidden_route_plan_preserves_coverage",
+      "seconds": 0.026
+    },
+    {
+      "nodeid": "tests/agent/test_native_public_loopback_denial.py::test_shared_forbidden_delegate_pre_send",
+      "seconds": 0.053
+    }
+  ],
+  "shared": {
+    "error_class": "PolicyError",
+    "reason": "route_forbidden",
+    "before": [
+      1,
+      0,
+      35
+    ],
+    "after": [
+      1,
+      0,
+      35
+    ],
+    "no_dispatch_envelope": true,
+    "no_result": true,
+    "admission_payload_sha256": "9cb1bea167ec714cd1801657b384aff18678dc04f5d175c28d836470eca610eb",
+    "receiver_observation": "UNKNOWN: listeners did not start"
+  },
+  "observer_controls": [
+    {
+      "kind": "empty_connection",
+      "accepted_connections": 1,
+      "retained_bytes": 0,
+      "errors": [],
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "drain_ack": true
+    },
+    {
+      "kind": "partial_header",
+      "accepted_connections": 1,
+      "retained_bytes": 56,
+      "errors": [],
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "drain_ack": true
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "accepted_native": "045dbf5fc627e76b8026553f590365728ef43671",
+  "accepted_PWA": "c6013556c187ff9982e46c735e31de721626b8c5",
+  "selected_proposal_sha256": "d776f403ba17e99250b67707d9fbe8ef3ca8d138996d162bff76502c084ffb30",
+  "source_map_sha256": "54fbfc5fa59d815518fd47d707b265c49c7124f48f4187588be40c5815cca59c",
+  "native_public_api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+  "transport_local_api_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a",
+  "shared_wheel": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+    "sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b"
+  },
+  "environment": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "bytes": 197,
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "bytes": 160,
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "bytes": 756,
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "bytes": 87,
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "native_tree": "426d94194e3c7596918a3601e12a738fb8c7cca7",
+  "pwa_tree": "d808801cd3e854c564f16575bc02b6e9de292189",
+  "input_receipt_sha256": "587c074165618943b23e5c90de43ea2ffec53c02af5dabf03a7a513a1777b145",
+  "root_final_review_sha256": "27f9a1cb716ca06ad4f40ecbc66c4f95b2703d36d4a581513c85b34567ed72d3",
+  "root_publication_sha256": "49f1bb0dfdd76b4897083b02670dfcfb30a580258eb486c95e938085a8f56161",
+  "source": [
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "agent/transports/owned_loopback_http.py",
+      "bytes": 15921,
+      "sha256": "05ec8c7eede3dc872914ff2a3b011b91d5fa63960be2b7a4fadf76d5dc7e218f",
+      "blob": "cc1137f51030a43ea2d513fe18e64010679b8f77",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/agent/owned_loopback_receiver.py",
+      "bytes": 8029,
+      "sha256": "0505cae8002d911ecbdf533868ab4b778d3d3bdfb2866732f3c9f207cd96aca8",
+      "blob": "97a83a9c9d153b69458cfc5f1f7a844370cf86c2",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/agent/test_owned_loopback_http.py",
+      "bytes": 20685,
+      "sha256": "f7836f687b4ef566462f88e39f274ad3207da4e5b06674f74afb46cfb17eba49",
+      "blob": "0736ea8fda2337dadbf1f29e44d845f0d710e0c0",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/agent/test_native_public_loopback_http.py",
+      "bytes": 28278,
+      "sha256": "8fa140b1fb26bdb0341918cd77558ddf3eac8cae2d3a7c82bf39ba900c79aeb2",
+      "blob": "3a85985764f0bd3f0901617d2f16715f7f371845",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "agent/native_main_payload.py",
+      "bytes": 643457,
+      "sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "blob": "397e44876d39fe347f9d2c1ca5817b9e9acf9cde",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "agent/content_policy.py",
+      "bytes": 11094,
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "agent/issued_call_episode.py",
+      "bytes": 18395,
+      "sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "blob": "3bd647c07ca5ae640c1ae58e6a9031d0e8643616",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "agent/conversation_loop.py",
+      "bytes": 502389,
+      "sha256": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61",
+      "blob": "426935624a5da3e149bd9d5eaff0ef9b48c5e2a5",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "agent/chat_completion_helpers.py",
+      "bytes": 275491,
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+      "blob": "9a8ec5f35c8fb62751821d530c7f2016c15cd418",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "run_agent.py",
+      "bytes": 443603,
+      "sha256": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d",
+      "blob": "456ec0d6168927f23036bc4ac19c9c00ebcd6fb3",
+      "mode": "100644"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/tools/test_native_issued_call_execution.py",
+      "bytes": 30758,
+      "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e",
+      "mode": "100644",
+      "blob": "a413572199885607d3288029f64f0f3332834559"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/tools/test_native_issued_call_format.py",
+      "bytes": 16748,
+      "sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb",
+      "mode": "100644",
+      "blob": "07dd165a556045ad7d2c5ce553349433ea45085f"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/tools/test_native_issued_call_continuation.py",
+      "bytes": 19073,
+      "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+      "mode": "100644",
+      "blob": "7a890b6304586c0455641e394f04e45752a5a55c"
+    },
+    {
+      "repo": "native",
+      "ref": "045dbf5fc627e76b8026553f590365728ef43671",
+      "path": "tests/agent/test_native_main_payload.py",
+      "bytes": 66496,
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+      "mode": "100644",
+      "blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb"
+    }
+  ],
+  "new_source": {
+    "tests/agent/owned_loopback_observer.py": {
+      "sha256": "ef41c3d6514225d4786dea5fef0da58e148ad86179231fce8df9768e0904307e",
+      "bytes": 11488,
+      "mode": "100644"
+    },
+    "tests/agent/test_native_public_loopback_denial.py": {
+      "sha256": "680413a39536bb674e75f4b89aaa8729bfc522cb52e4064301f20de3235ea9e1",
+      "bytes": 22200,
+      "mode": "100644"
+    }
+  }
+}
