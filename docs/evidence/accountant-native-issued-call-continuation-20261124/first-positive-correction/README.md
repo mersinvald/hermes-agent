@@ -105,5 +105,5 @@ These cases create no fake owner, context, handle, graph, result, or authority.
 The pure guard passes do not qualify a live continuation getter.
 The earlier 518.829751896-second case remains failed on its exact source and test pins.
 [Current pins](current-pins.json) separates final source from that actual history.
-[The extraction patch](guard-extraction-forward.patch) and its inverse restore those failed-source bytes exactly.
+[The extraction patch](guard-extraction-forward.patch.gz) and its inverse restore those failed-source bytes exactly.
 The corrective Task outcome remains FAILED under its original whole-case criterion.

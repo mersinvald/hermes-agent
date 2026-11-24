@@ -146,7 +146,7 @@
       "mode": "prose-v1"
     },
     "new_correction_README": {
-      "words": 961,
+      "words": 962,
       "sentences": 90,
       "violations": {
         "long_sentence(>20w)": 0,

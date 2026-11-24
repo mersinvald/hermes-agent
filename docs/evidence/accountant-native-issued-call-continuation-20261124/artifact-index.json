@@ -111,8 +111,8 @@
   },
   {
     "path": "first-positive-correction/README.md",
-    "bytes": 6935,
-    "sha256": "7e718d2fa80098882764643fd3055ba8c93be0bc202a0e762687cb8bc30d24e6"
+    "bytes": 6938,
+    "sha256": "57978b84c2d5245a64b918cfe3a376d21f2e021149f02b62c233d1c54ecfc500"
   },
   {
     "path": "first-positive-correction/artifacts/corrected-positive.cases.jsonl.gz",
@@ -158,6 +158,16 @@
     "path": "first-positive-correction/artifacts/failed-writing.json.gz",
     "bytes": 501,
     "sha256": "f6db38edb655bbdddba615bc78dad50a2aa42023cb546256f5f3a89c8f07dee9"
+  },
+  {
+    "path": "first-positive-correction/artifacts/full-task-whitespace.json.gz",
+    "bytes": 339,
+    "sha256": "baf11a1e533d07637917aaa23efff49e41a133490a0a40288ca0c8a68ee21bc1"
+  },
+  {
+    "path": "first-positive-correction/artifacts/full-task-whitespace.log.gz",
+    "bytes": 241,
+    "sha256": "53d1f385079e45dbc1a134586b15c31c6dd32cd6ed23ce60ab64941bb12b7a1c"
   },
   {
     "path": "first-positive-correction/artifacts/pure-code-guard.cases.jsonl.gz",
@@ -210,14 +220,14 @@
     "sha256": "e05da0d48e9bb778486bba907c5c65fb0f04c871bada997b22cc22b1d7446a6e"
   },
   {
-    "path": "first-positive-correction/final-forward.patch",
-    "bytes": 8631,
-    "sha256": "b707761b2ee4fd633d2dc042ad38f2e12203f496c0f2c6064f30f1f11c97c7ba"
+    "path": "first-positive-correction/final-forward.patch.gz",
+    "bytes": 2529,
+    "sha256": "1f4f8196e5f1233c5aa880b5391514eea5a5f26ecf1d397980a849e6294d8925"
   },
   {
-    "path": "first-positive-correction/final-inverse.patch",
-    "bytes": 8643,
-    "sha256": "3b2c5b4126314ed875c20d9073cda2c0f731ab1f65be56ebb17c8787e55be6f4"
+    "path": "first-positive-correction/final-inverse.patch.gz",
+    "bytes": 2528,
+    "sha256": "299f2e175f64a4433dfa64f583449737c8a6bafa4db56c523a787c8fda3e8325"
   },
   {
     "path": "first-positive-correction/final-restoration.json",
@@ -230,19 +240,19 @@
     "sha256": "94d831d1c0bbb98b9be5638ff5606d42941c5729487a80c876d1f07bc1670f0c"
   },
   {
-    "path": "first-positive-correction/forward.patch",
-    "bytes": 6160,
-    "sha256": "c8dea50db6c0e18a01f3333d5f14c01c32366c90b24dfa7a05c606882247d2d6"
+    "path": "first-positive-correction/forward.patch.gz",
+    "bytes": 1895,
+    "sha256": "d56917d2b1bccd96b0939c1984a47b2c20eb7598ff2c0c0df76334602dd07b76"
   },
   {
-    "path": "first-positive-correction/guard-extraction-forward.patch",
-    "bytes": 5146,
-    "sha256": "f8d4e3ee745d67a6a87afdcc34623215e7be87e3841df8be0ed879c0ae263f3e"
+    "path": "first-positive-correction/guard-extraction-forward.patch.gz",
+    "bytes": 1494,
+    "sha256": "a8c867fe0d903bacbb120c89edd90a1b064373dec0930309bb43a2ca40084e79"
   },
   {
-    "path": "first-positive-correction/guard-extraction-inverse.patch",
-    "bytes": 5146,
-    "sha256": "18166c47b7058ff13a2db0123f7dd6815309fa94ddbd7a26e643f13ecd1695c0"
+    "path": "first-positive-correction/guard-extraction-inverse.patch.gz",
+    "bytes": 1492,
+    "sha256": "f15e78dd13217f07d3884dbbd8df05a27c762b4253103a9420fba640295e5014"
   },
   {
     "path": "first-positive-correction/input-and-environment-verification.json",
@@ -255,9 +265,14 @@
     "sha256": "d520c0606d652358d853ac459ee14477913948532294a047c7c1c0deff559e70"
   },
   {
-    "path": "first-positive-correction/inverse.patch",
-    "bytes": 6168,
-    "sha256": "8e30477187874fefde968bff407e85712e86e67467d4c0b95d2cce54c4af9c8a"
+    "path": "first-positive-correction/inverse.patch.gz",
+    "bytes": 1899,
+    "sha256": "0d0069d167b6be234d3ec6de3b876459f09b10056a0c9b3ca08d2dae3223554c"
+  },
+  {
+    "path": "first-positive-correction/patch-preservation.json",
+    "bytes": 1566,
+    "sha256": "13f31d02071b75c321b99668b2bc8a2b780506fd40099a20233d3dd24d30f51b"
   },
   {
     "path": "first-positive-correction/previous-SHA256SUMS",
@@ -287,7 +302,7 @@
   {
     "path": "first-positive-correction/writing-check.json",
     "bytes": 4464,
-    "sha256": "fa2e2b2288d6d9156703382e674d82d845c4674f8b5857ebb1a25a37ed5f8b74"
+    "sha256": "bd51a178098e6be9c342d367d43ea8f449990edebdc7ebc5e5c03905085a287a"
   },
   {
     "path": "last-observed-J.json",

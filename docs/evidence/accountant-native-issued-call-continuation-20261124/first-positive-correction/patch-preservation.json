@@ -1,0 +1,31 @@
+{
+  "scope": "Exact gzip storage avoids whitespace findings from unified-patch blank context lines.",
+  "plain_patches_retained_externally": true,
+  "patches": {
+    "forward.patch.gz": {
+      "gzip_sha256": "d56917d2b1bccd96b0939c1984a47b2c20eb7598ff2c0c0df76334602dd07b76",
+      "uncompressed_sha256": "c8dea50db6c0e18a01f3333d5f14c01c32366c90b24dfa7a05c606882247d2d6"
+    },
+    "guard-extraction-inverse.patch.gz": {
+      "gzip_sha256": "f15e78dd13217f07d3884dbbd8df05a27c762b4253103a9420fba640295e5014",
+      "uncompressed_sha256": "18166c47b7058ff13a2db0123f7dd6815309fa94ddbd7a26e643f13ecd1695c0"
+    },
+    "final-inverse.patch.gz": {
+      "gzip_sha256": "299f2e175f64a4433dfa64f583449737c8a6bafa4db56c523a787c8fda3e8325",
+      "uncompressed_sha256": "3b2c5b4126314ed875c20d9073cda2c0f731ab1f65be56ebb17c8787e55be6f4"
+    },
+    "final-forward.patch.gz": {
+      "gzip_sha256": "1f4f8196e5f1233c5aa880b5391514eea5a5f26ecf1d397980a849e6294d8925",
+      "uncompressed_sha256": "b707761b2ee4fd633d2dc042ad38f2e12203f496c0f2c6064f30f1f11c97c7ba"
+    },
+    "inverse.patch.gz": {
+      "gzip_sha256": "0d0069d167b6be234d3ec6de3b876459f09b10056a0c9b3ca08d2dae3223554c",
+      "uncompressed_sha256": "8e30477187874fefde968bff407e85712e86e67467d4c0b95d2cce54c4af9c8a"
+    },
+    "guard-extraction-forward.patch.gz": {
+      "gzip_sha256": "a8c867fe0d903bacbb120c89edd90a1b064373dec0930309bb43a2ca40084e79",
+      "uncompressed_sha256": "f8d4e3ee745d67a6a87afdcc34623215e7be87e3841df8be0ed879c0ae263f3e"
+    }
+  },
+  "failed_whitespace_check_preserved": true
+}
