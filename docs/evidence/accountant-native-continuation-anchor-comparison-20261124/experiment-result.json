@@ -1,0 +1,553 @@
+{
+  "cases": [
+    {
+      "id": "scalar_identity",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "scalar_distinct",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "equal_value_distinct_identity",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "containers_and_alias_occurrences",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 12
+    },
+    {
+      "id": "alias_occurrence_mismatch",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 12
+    },
+    {
+      "id": "short_anchors",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 11
+    },
+    {
+      "id": "long_anchors",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 13
+    },
+    {
+      "id": "empty_anchors",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 0
+    },
+    {
+      "id": "multiple_roots",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 15
+    },
+    {
+      "id": "empty_roots",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 0
+    },
+    {
+      "id": "temporary_tuple_root",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 14
+    },
+    {
+      "id": "temporary_root_identity_is_skipped",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 14
+    },
+    {
+      "id": "empty_temporary_root",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 0
+    },
+    {
+      "id": "ordinary_root_identity",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 12
+    },
+    {
+      "id": "ordered_keys",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 5
+    },
+    {
+      "id": "recognized_fields",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 4
+    },
+    {
+      "id": "fresh_field_mutation",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 4
+    },
+    {
+      "id": "field_restoration",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 4
+    },
+    {
+      "id": "fresh_container_mutation",
+      "result": [
+        "return",
+        false
+      ],
+      "anchors": 12
+    },
+    {
+      "id": "container_restoration",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 12
+    },
+    {
+      "id": "invalid_key",
+      "result": [
+        "error",
+        "agent.content_policy",
+        "NativeContentPolicyDenied",
+        "controlled_native_payload_invalid"
+      ],
+      "anchors": 0
+    },
+    {
+      "id": "mismatch_then_invalid_key",
+      "result": [
+        "error",
+        "agent.content_policy",
+        "NativeContentPolicyDenied",
+        "controlled_native_payload_invalid"
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "recursive_input",
+      "result": [
+        "error",
+        "builtins",
+        "RecursionError",
+        "maximum recursion depth exceeded"
+      ],
+      "anchors": 0
+    },
+    {
+      "id": "mismatch_then_recursion",
+      "result": [
+        "error",
+        "builtins",
+        "RecursionError",
+        "maximum recursion depth exceeded"
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "later_root_invalid_key",
+      "result": [
+        "error",
+        "agent.content_policy",
+        "NativeContentPolicyDenied",
+        "controlled_native_payload_invalid"
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "unrecognized_metadata",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 1
+    },
+    {
+      "id": "unrecognized_metadata_changed",
+      "result": [
+        "return",
+        true
+      ],
+      "anchors": 1
+    }
+  ],
+  "differential_passed": true,
+  "timing": {
+    "batches": [
+      {
+        "batch": 1,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "reference": {
+            "callable_defaults": 0.004297892,
+            "catalog": 0.233456813,
+            "authority": 0.017058702,
+            "request": 0.037782687,
+            "response": 0.012349409,
+            "normalized_usage": 0.013771342,
+            "transport_defaults": 0.00364731
+          },
+          "candidate": {
+            "callable_defaults": 0.003601773,
+            "catalog": 0.187779063,
+            "authority": 0.015376207,
+            "request": 0.033773911,
+            "response": 0.011281575,
+            "normalized_usage": 0.010385143,
+            "transport_defaults": 0.00274184
+          }
+        }
+      },
+      {
+        "batch": 2,
+        "order": [
+          "candidate",
+          "reference"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "candidate": {
+            "callable_defaults": 0.003413952,
+            "catalog": 0.180444162,
+            "authority": 0.015448896,
+            "request": 0.034265697,
+            "response": 0.011333566,
+            "normalized_usage": 0.010604123,
+            "transport_defaults": 0.002760036
+          },
+          "reference": {
+            "callable_defaults": 0.004251693,
+            "catalog": 0.194466527,
+            "authority": 0.016963977,
+            "request": 0.038209035,
+            "response": 0.012401137,
+            "normalized_usage": 0.01385342,
+            "transport_defaults": 0.00343371
+          }
+        }
+      },
+      {
+        "batch": 3,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "reference": {
+            "callable_defaults": 0.004226544,
+            "catalog": 0.203820565,
+            "authority": 0.017471383,
+            "request": 0.038871888,
+            "response": 0.01329745,
+            "normalized_usage": 0.014749331,
+            "transport_defaults": 0.003595952
+          },
+          "candidate": {
+            "callable_defaults": 0.003803131,
+            "catalog": 0.182442898,
+            "authority": 0.01551379,
+            "request": 0.034534992,
+            "response": 0.011432085,
+            "normalized_usage": 0.01061794,
+            "transport_defaults": 0.002756639
+          }
+        }
+      },
+      {
+        "batch": 4,
+        "order": [
+          "candidate",
+          "reference"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "candidate": {
+            "callable_defaults": 0.003467545,
+            "catalog": 0.182538791,
+            "authority": 0.015473502,
+            "request": 0.034568446,
+            "response": 0.011435071,
+            "normalized_usage": 0.010662795,
+            "transport_defaults": 0.002728995
+          },
+          "reference": {
+            "callable_defaults": 0.004356462,
+            "catalog": 0.195897289,
+            "authority": 0.017331324,
+            "request": 0.038533168,
+            "response": 0.0123975,
+            "normalized_usage": 0.01394739,
+            "transport_defaults": 0.003450663
+          }
+        }
+      },
+      {
+        "batch": 5,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "repetitions": 1200,
+        "seconds": {
+          "reference": {
+            "callable_defaults": 0.004301489,
+            "catalog": 0.195077036,
+            "authority": 0.017446595,
+            "request": 0.038799998,
+            "response": 0.0125012,
+            "normalized_usage": 0.014053593,
+            "transport_defaults": 0.00342336
+          },
+          "candidate": {
+            "callable_defaults": 0.003490148,
+            "catalog": 0.183295999,
+            "authority": 0.015457541,
+            "request": 0.034546874,
+            "response": 0.011481118,
+            "normalized_usage": 0.010626306,
+            "transport_defaults": 0.002775446
+          }
+        }
+      }
+    ],
+    "shapes": [
+      {
+        "name": "callable_defaults",
+        "anchor_count": 4,
+        "input_roots": 1,
+        "skip_temporary_root": true,
+        "reference_median_seconds": 3.581576666666667e-06,
+        "candidate_median_seconds": 2.908456666666667e-06,
+        "median_absolute_deviation_seconds": 6.34966666666669e-08,
+        "candidate_over_reference": 0.8120604240404365,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "catalog",
+        "anchor_count": 373,
+        "input_roots": 1,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 0.00016324774083333334,
+        "candidate_median_seconds": 0.00015211565916666667,
+        "median_absolute_deviation_seconds": 1.1923016666666746e-06,
+        "candidate_over_reference": 0.9318086632633288,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "authority",
+        "anchor_count": 26,
+        "input_roots": 1,
+        "skip_temporary_root": true,
+        "reference_median_seconds": 1.444277e-05,
+        "candidate_median_seconds": 1.2881284166666666e-05,
+        "median_absolute_deviation_seconds": 1.1671583333333396e-07,
+        "candidate_over_reference": 0.891884601545733,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "request",
+        "anchor_count": 89,
+        "input_roots": 1,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 3.2110973333333334e-05,
+        "candidate_median_seconds": 2.877916e-05,
+        "median_absolute_deviation_seconds": 2.7011083333333116e-07,
+        "candidate_over_reference": 0.8962406620706608,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "response",
+        "anchor_count": 17,
+        "input_roots": 1,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 1.0334280833333333e-05,
+        "candidate_median_seconds": 9.526737499999999e-06,
+        "median_absolute_deviation_seconds": 4.310666666666564e-08,
+        "candidate_over_reference": 0.9218578102959429,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "normalized_usage",
+        "anchor_count": 22,
+        "input_roots": 2,
+        "skip_temporary_root": false,
+        "reference_median_seconds": 1.1622825e-05,
+        "candidate_median_seconds": 8.848283333333333e-06,
+        "median_absolute_deviation_seconds": 8.850249999999941e-08,
+        "candidate_over_reference": 0.76128508631364,
+        "regression_beyond_noise": false
+      },
+      {
+        "name": "transport_defaults",
+        "anchor_count": 2,
+        "input_roots": 1,
+        "skip_temporary_root": true,
+        "reference_median_seconds": 2.8755525e-06,
+        "candidate_median_seconds": 2.2971991666666665e-06,
+        "median_absolute_deviation_seconds": 2.2752500000000084e-08,
+        "candidate_over_reference": 0.7988722746904,
+        "regression_beyond_noise": false
+      }
+    ],
+    "reference_sum_medians_seconds": 0.00023821571916666663,
+    "candidate_sum_medians_seconds": 0.00021735678,
+    "aggregate_improvement": 0.08756323570768543,
+    "summed_median_absolute_deviation_seconds": 1.7969866666666717e-06,
+    "confident": true,
+    "gate_passed": false,
+    "noise_rule": "Three times the larger per-shape median absolute deviation",
+    "paired_batches": 5
+  },
+  "data": {
+    "receipts_commit": "5ceb15437ec9318cbd62903a550d20f8743a3c0f",
+    "receipts_path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/genuine.receipts.jsonl",
+    "receipts_sha256": "75a27f8598033880f69a83c96bbdd732831d3ca6c92ef90d46ca080c254de43b",
+    "graph_indices": {
+      "request": 33,
+      "response": 35,
+      "normalized": 36
+    },
+    "payloads": {
+      "33": {
+        "bytes": 1131,
+        "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+      },
+      "35": {
+        "bytes": 299,
+        "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc"
+      },
+      "36": {
+        "bytes": 216,
+        "sha256": "b59d780f968215e7537bdf6f35a78ea299479286fb2e95319bed4da92a9392d1"
+      }
+    },
+    "defaults": [
+      "_IssuedCallContinuation.verify",
+      "ControlledPort.send"
+    ],
+    "request_order": [
+      "model",
+      "messages",
+      "tools",
+      "stream",
+      "tool_choice"
+    ],
+    "normalized_order": [
+      "content",
+      "tool_calls",
+      "finish_reason",
+      "reasoning",
+      "usage",
+      "provider_data"
+    ],
+    "usage_order": [
+      "prompt_tokens",
+      "completion_tokens",
+      "total_tokens",
+      "cached_tokens"
+    ],
+    "catalog_sizes": [
+      20,
+      1,
+      6,
+      6
+    ],
+    "fixture": "ContinuationWorld('positive') constructor only",
+    "binding_names": [
+      "shared_policy",
+      "fields",
+      "_require",
+      "NativeMainResponse",
+      "NativeMainChoice",
+      "NativeMainMessage",
+      "NativeMainUsage",
+      "NativeMainSelection",
+      "NativeResultPolicy",
+      "NativeAuxiliaryInvocation",
+      "NativeAuxiliaryLocalResult",
+      "_AuxiliaryTitlePreparation",
+      "_CompressionBinding",
+      "_AuxiliaryBinding",
+      "_CompressionPreparation",
+      "_FallbackBinding",
+      "_FailedSendObservation",
+      "NativeFailedMainAttempt",
+      "_FallbackFrame",
+      "NativeFallbackInvocation",
+      "_TurnFrame",
+      "_PendingOperation",
+      "NativeDelegateBinding",
+      "NativeDelegateInvocation"
+    ],
+    "imports": {
+      "native": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.52/agent/native_main_payload.py",
+      "interpreter": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/bin/python",
+      "prefix": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv"
+    }
+  },
+  "prototype_sha256": "c6dc315dda1dcfdd98c3f0fbf4ab8f8a54433daa0127d71f69020acafe4f7d94",
+  "prototype_ast_sha256": "8f51ac9f67a2279d753161594c529d2fada6b90b67737a89faf544b89f2a4108",
+  "experiment_seconds_after_import": 2.8000946269894484,
+  "scope": "Pure comparison only. No prepare, qualification, runtime admission, storage, model, service, or send call."
+}

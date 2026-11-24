@@ -1,0 +1,6 @@
+Static evidence check, attempt 1: AssertionError while comparing AST dump hashes across Python 3.12 and the measured Python 3.11.
+The prototype byte hash matched exactly. Python 3.12 adds type_params to FunctionDef AST dumps.
+Correction: use the measured immutable Python 3.11 interpreter for the static AST receipt. No experiment or timing batch was repeated.
+STE first pass: README total=4 (two long sentences, one passive phrase, one long table paragraph), PR body total=2 (one long sentence, one nominalization).
+Correction: shorten the sentences, split the table, and use active voice. Original output remains in hygiene.json.
+Linter help attempt: exit 1, FileNotFoundError for --help because the bundled linter accepts file arguments only. No prose check was bypassed.

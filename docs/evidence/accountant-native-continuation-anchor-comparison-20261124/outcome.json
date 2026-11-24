@@ -1,0 +1,18 @@
+{
+  "path": "evidence_only_rejection",
+  "gate_passed": false,
+  "differential_passed": true,
+  "differential_cases": 27,
+  "comparison_command_seconds": 5.225382267002715,
+  "paired_batches": 5,
+  "aggregate_change_fraction": 0.08756323570768543,
+  "threshold_fraction": 0.1,
+  "runtime_edits": 0,
+  "test_edits": 0,
+  "genuine_commands": 0,
+  "native_implementation_seconds": 0,
+  "conditional_tests": "Not launched after the failed gate.",
+  "failure_status": "One static AST assertion and initial STE findings corrected. The failure log retains the original results.",
+  "ci_claim": false,
+  "acceptance": "Root retains acceptance, merge and Beads closure."
+}
