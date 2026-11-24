@@ -1113,6 +1113,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        source = _assistant_source_window(adapter)
+        if source is not None:
+            return source.current(handle)
         wire = _issued_call_wire_window(adapter)
         if wire is not None:
             return wire.current(handle)
@@ -1143,6 +1146,9 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        source = _assistant_source_window(self.adapter)
+        if source is not None:
+            return source.resolve(self)
         wire = _issued_call_wire_window(self.adapter)
         if wire is not None:
             return wire.resolve(self)
@@ -1528,6 +1534,21 @@ class NativeMainPayloadAdapter:
             return owner.run(agent, authorization, sys._getframe())
         except BaseException as error:
             _probe_failure(self, error)
+
+    def enable_tool_call_assistant_source(
+        self, agent: object, authorization: NativeToolCallProbeInput
+    ) -> None:
+        probe = _assistant_source_preflight(self, agent, authorization)
+        try:
+            owner = _ToolCallAssistantSource(probe)
+            owner.enable()
+        except BaseException as error:
+            _probe_failure(self, error)
+
+    @property
+    def tool_call_assistant_sources(self) -> tuple[NativeToolCallAssistantSource, ...]:
+        owner = _assistant_source_owner(self)
+        return () if owner is None else owner.proof_access()
 
     @property
     def tool_call_observations(self) -> tuple[NativeToolCallObservation, ...]:
@@ -3233,6 +3254,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        source = _assistant_source_window(self)
+        if source is not None:
+            return source.around(callback)
         wire = _issued_call_wire_window(self)
         if wire is not None:
             return wire.around(callback)
@@ -4050,6 +4074,8 @@ def _constructed_state(namespace):
         if name == "_native_controlled_options":
             _require(type(item) is bytes)
             value[name] = item.decode("ascii")
+        elif name == "_thinking_pad_cache" and _assistant_source_cache(namespace, item):
+            value[name] = [list(item[0]), item[1]]
         elif name in ("valid_tool_names", "_active_children", "_tool_worker_threads"):
             _require(type(item) is set and len(item) == 0)
             value[name] = []
@@ -6837,6 +6863,7 @@ class _ToolCallProbe:
         self.record_anchors = ((record, _row(record, NativeToolCallObservation)),)
         self.parent._dispatch_response = record
         self.phase = self.phase_anchor = "observed"
+        _capture_tool_call_assistant_source(self, record)
         self.checkpoint()
         return record
 
@@ -8881,3 +8908,610 @@ _ISSUED_WIRE_CODE += ((_IssuedCallWire.window, "__wrapped__", _IssuedCallWire.wi
     _IssuedCallWire.window.__wrapped__.__code__),
     (NativeMainPayloadAdapter.issued_call_wire_results, "fget", NativeMainPayloadAdapter.issued_call_wire_results.fget,
         NativeMainPayloadAdapter.issued_call_wire_results.fget.__code__))
+
+
+@dataclass(frozen=True, slots=True)
+class NativeToolCallAssistantSource:
+    source_observation: NativeToolCallObservation
+    response: object
+    assistant_message: object
+    finish_reason: str
+    message: dict[str, object]
+    message_bytes: bytes
+    message_content: object
+    authorization_bytes: bytes
+    authorization_content: object
+    anchors: tuple
+
+
+_assistant_source_owners = ()
+_assistant_source_records = ()
+_assistant_source_caches = ()
+
+
+def _assistant_source_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_assistant_source_" + reason)
+
+
+def _assistant_source_owner(adapter):
+    return next((owner for owner in _assistant_source_owners if owner.parent is adapter), None)
+
+
+def _assistant_source_window(adapter):
+    owner = _assistant_source_owner(adapter)
+    return owner if owner is not None and owner.stage_frame is not None else None
+
+
+def _assistant_source_bytes(value):
+    def check(item, depth=0):
+        _assistant_source_require(depth <= 32, "value_depth")
+        kind = type(item)
+        if kind is str:
+            _text(item)
+        elif kind is int:
+            _integer(item, minimum=0)
+        elif kind is float:
+            _assistant_source_require(math.isfinite(item), "value_invalid")
+        elif kind in (bool, type(None)):
+            pass
+        elif kind in (dict, list, tuple):
+            _assistant_source_require(len(item) <= 128, "value_size")
+            if kind is dict:
+                for key, child in item.items():
+                    _assistant_source_require(type(key) is str, "label_invalid")
+                    _text(key)
+                    check(child, depth + 1)
+            else:
+                for child in item:
+                    check(child, depth + 1)
+        else:
+            _assistant_source_require(False, "value_type")
+    check(value)
+    payload = json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
+    _assistant_source_require(len(payload) <= _MAX_NATIVE_RESULT, "value_size")
+    return payload
+
+
+def _assistant_source_model_state(value):
+    anchors = []
+
+    def visit(item):
+        anchors.append(item)
+        kind = type(item)
+        if kind in _ASSISTANT_SOURCE_MODELS:
+            namespace = object.__getattribute__(item, "__dict__")
+            extra = object.__getattribute__(item, "__pydantic_extra__")
+            private = object.__getattribute__(item, "__pydantic_private__")
+            present = object.__getattribute__(item, "__pydantic_fields_set__")
+            _assistant_source_require(type(namespace) is dict and type(extra) is dict and not extra
+                                      and private is None and type(present) is set
+                                      and all(type(key) is str for key in present), "model_state_invalid")
+            anchors.extend((namespace, extra, private, present))
+            return dict(model=kind.__name__, fields=visit(namespace), present=sorted(present), extra={}, private=None)
+        if kind is dict:
+            _assistant_source_require(all(type(key) is str for key in item), "model_label_invalid")
+            result = {}
+            for key, child in item.items():
+                anchors.append(key)
+                result[key] = visit(child)
+            return result
+        if kind is list:
+            return [visit(child) for child in item]
+        _assistant_source_require(kind in (str, int, bool, type(None)), "model_value_invalid")
+        return item
+
+    payload = _assistant_source_bytes(visit(value))
+    return payload, tuple(anchors)
+
+
+def _assistant_source_agent_facts(agent):
+    namespace = _namespace(agent)
+    values = []
+    for name in _ASSISTANT_SOURCE_FIELDS:
+        present, value = name in namespace, namespace.get(name)
+        if name in ("provider", "model", "api_mode", "base_url", "_base_url", "_base_url_lower") and present:
+            _assistant_source_require(type(value) is str, "agent_scalar_invalid")
+            _text(value)
+        elif name == "verbose_logging":
+            _assistant_source_require(present and value is False, "agent_scalar_invalid")
+        else:
+            _assistant_source_require(not present or value is None or (name == "_reasoning_echo_flag" and value is False),
+                                      "agent_callback_or_reasoning")
+        values.append((name, present, value))
+    _assistant_source_require(namespace.get("provider") == "synthetic_native"
+                              and namespace.get("api_mode") == "chat_completions", "agent_invalid")
+    return tuple(values)
+
+
+def _assistant_source_cache(namespace, item):
+    binding = namespace.get("_native_controlled_binding")
+    owner = next((owner for owner in _assistant_source_owners if owner.constructed is binding), None)
+    _assistant_source_require(owner is not None and owner.cache is item and owner.cache_committed
+                              and any(registered is owner and cache is item for registered, cache in _assistant_source_caches)
+                              and _namespace(owner.agent) is namespace, "cache_unregistered")
+    owner.cache_shape(item)
+    return True
+
+
+def _assistant_source_preflight(adapter, agent, authorization):
+    _assistant_source_require(type(adapter) is NativeMainPayloadAdapter and adapter in _adapters, "adapter_invalid")
+    probe = _tool_call_probes.get(adapter)
+    _assistant_source_require(probe is not None and adapter._tool_probe_owner is probe, "probe_missing")
+    _assistant_source_require(type(authorization) is NativeToolCallProbeInput and probe.binding is not None
+                              and authorization is probe.binding.token, "token_invalid")
+    _assistant_source_require(agent is probe.agent and _owned_constructed_binding(agent) is probe.constructed
+                              and adapter._constructed is probe.constructed and not probe.constructed.closed,
+                              "agent_invalid")
+    _assistant_source_require(probe.phase == "bound" and not probe.attempted and not probe.closed
+                              and not probe.records and probe.run_frame is probe.bind_frame is None
+                              and probe.stage_index == 1 and adapter._send_count == 0,
+                              "probe_spent")
+    _assistant_source_require(_assistant_source_owner(adapter) is None and len(_assistant_source_owners) < 128,
+                              "attempt_spent")
+    _assistant_source_require(probe.depth == 0 and threading.get_ident() == probe.thread
+                              and current_context() is adapter._bound_context
+                              and current_context(agent) is adapter._bound_context
+                              and not adapter._invalid and not adapter._bound_context._denied,
+                              "scope_invalid")
+    probe.verify()
+    _assistant_source_code_current()
+    return probe
+
+
+def _capture_tool_call_assistant_source(probe, observation):
+    owner = _assistant_source_owner(probe.parent)
+    if owner is not None:
+        owner.capture(probe, observation)
+
+
+class _ToolCallAssistantSource:
+    """Retain one actual live builder return and its original inputs."""
+
+    def __init__(self, probe):
+        global _assistant_source_owners
+        self.probe, self.parent, self.agent = probe, probe.parent, probe.agent
+        self.constructed, self.binding, self.thread = probe.constructed, probe.binding, probe.thread
+        self.depth = self.windows = 0
+        self.stage_frame = self.stage_anchor = self.capture_frame = None
+        self.enabled = self.attempted = self.captured = self.cache_committed = False
+        self.control_exception = None
+        self.response = self.assistant_message = self.finish_reason = None
+        self.model_state = self.model_anchors = None
+        self.observation = self.observation_anchor = None
+        self.authorization_bytes = self.authorization_content = None
+        self.message = self.message_bytes = self.message_content = self.message_anchors = None
+        self.cache = self.after_anchors = self.after_state = None
+        self.before_anchors, self.before_state = self.constructed.anchors, self.constructed.state
+        namespace = _namespace(self.agent)
+        self.cache_before = ("_thinking_pad_cache" in namespace, namespace.get("_thinking_pad_cache"))
+        _assistant_source_require(self.cache_before == (False, None), "cache_not_cold")
+        self.original_agent_facts = _assistant_source_agent_facts(self.agent)
+        self.completed_anchors = self.completed_state = self.backing_value = None
+        self.raw_slot = [None, None, None]
+        self.record = self.record_anchor = None
+        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
+            *((self.agent, name) for name in _ASSISTANT_SOURCE_AGENT_METHODS),
+            *((self, name) for name in _ASSISTANT_SOURCE_OWNER_METHODS),
+            (self.parent, "enable_tool_call_assistant_source"),
+        ))
+        # This strong registry never reclaims an attempt or changes an adapter namespace.
+        _assistant_source_owners = (*_assistant_source_owners, self)
+        self.complete_backing_field()
+        self.agent_facts = _assistant_source_agent_facts(self.agent)
+        self.agent_fact_bytes = _assistant_source_bytes(self.agent_facts)
+        self.fixed = (probe, self.parent, self.agent, self.constructed, self.binding, self.thread,
+                      self.before_anchors, self.before_state, self.cache_before, self.agent_facts,
+                      self.agent_fact_bytes, self.methods, self.raw_slot, self.original_agent_facts,
+                      self.completed_anchors, self.completed_state, self.backing_value)
+
+    def complete_backing_field(self):
+        _assistant_source_code_current()
+        self.probe.verify()
+        _verify_constructed(self.constructed)
+        namespace = _namespace(self.agent)
+        _assistant_source_require(self.constructed.anchors is self.before_anchors
+                                  and self.constructed.state is self.before_state
+                                  and "_base_url" not in namespace
+                                  and type(namespace.get("base_url")) is str and namespace["base_url"] == "",
+                                  "backing_completion_invalid")
+        shadow = next(value for name, value in self.before_anchors if name == "base_url")
+        _assistant_source_require(namespace["base_url"] is shadow, "backing_shadow_changed")
+        self.backing_value = shadow
+        namespace["_base_url"] = shadow
+        self.completed_anchors = tuple(namespace.items())
+        _assistant_source_require(len(self.completed_anchors) == len(self.before_anchors) + 1
+                                  and all(name == key and value is original for (name, value), (key, original)
+                                      in zip(self.completed_anchors, self.before_anchors))
+                                  and self.completed_anchors[-1][0] == "_base_url"
+                                  and self.completed_anchors[-1][1] is shadow, "backing_completion_invalid")
+        self.completed_state = _constructed_state(namespace)
+        self.constructed.anchors, self.constructed.state = self.completed_anchors, self.completed_state
+        _verify_constructed(self.constructed)
+
+    def access(self):
+        _assistant_source_require(_assistant_source_owner(self.parent) is self and type(self.depth) is int
+                                  and type(self.probe.depth) is int and self.depth == self.probe.depth == 0
+                                  and type(self.windows) is int and 0 <= self.windows <= 3
+                                  and threading.get_ident() == self.thread, "reentry_or_thread")
+        if self.stage_frame is not None:
+            _assistant_source_require(self.stage_frame is self.stage_anchor, "window_changed")
+            current = sys._getframe()
+            while current is not None and current is not self.stage_frame:
+                current = current.f_back
+            _assistant_source_require(current is self.stage_frame, "window_missing")
+        self.probe.access()
+
+    def verify(self):
+        self.access()
+        _assistant_source_code_current()
+        p, probe = self.parent, self.probe
+        _assistant_source_require(not p._invalid and not p._bound_context._denied, "owner_denied")
+        _assistant_source_require(_same_anchors((probe, p, self.agent, self.constructed, self.binding, self.thread,
+            self.before_anchors, self.before_state, self.cache_before, self.agent_facts, self.agent_fact_bytes,
+            self.methods, self.raw_slot, self.original_agent_facts,
+            self.completed_anchors, self.completed_state, self.backing_value), self.fixed), "owner_changed")
+        _assistant_source_require(_tool_call_probes.get(p) is probe and p._tool_probe_owner is probe
+                                  and probe.binding is probe.registered_binding is self.binding
+                                  and p._constructed is self.constructed, "binding_changed")
+        _assistant_source_require(_assistant_source_bytes(_assistant_source_agent_facts(self.agent)) == self.agent_fact_bytes,
+                                  "agent_facts_changed")
+        for obj, name, method in self.methods:
+            _assistant_source_require(_same_method(getattr(obj, name, None), method), "method_changed")
+        if self.cache_committed:
+            self.cache_shape(self.cache)
+            _assistant_source_require(self.constructed.anchors is self.after_anchors
+                                      and self.constructed.state is self.after_state
+                                      and _namespace(self.agent).get("_thinking_pad_cache") is self.cache, "cache_changed")
+        else:
+            _assistant_source_require(self.constructed.anchors is self.completed_anchors
+                                      and self.constructed.state is self.completed_state, "constructor_changed")
+        namespace = _namespace(self.agent)
+        _assistant_source_require(namespace.get("_base_url") is self.backing_value
+                                  and namespace.get("base_url") is self.backing_value
+                                  and type(self.backing_value) is str and self.backing_value == "",
+                                  "backing_field_changed")
+        if self.response is not None:
+            payload, anchors = _assistant_source_model_state(self.response)
+            _assistant_source_require(payload == self.model_state and _same_anchors(anchors, self.model_anchors)
+                                      and self.assistant_message is self.response.choices[0].message
+                                      and self.finish_reason is self.response.choices[0].finish_reason, "response_changed")
+        if self.observation is not None:
+            _assistant_source_require(len(probe.records) == 1 and probe.records[0] is self.observation
+                                      and _same_anchors(_row(self.observation, NativeToolCallObservation),
+                                                        self.observation_anchor), "observation_changed")
+        for handle, payload, parents in (
+            (self.authorization_content, self.authorization_bytes, ()),
+            (self.message_content, self.message_bytes, (probe.response_content, self.authorization_content)),
+        ):
+            if handle is not None:
+                probe.content(handle, payload, parents)
+        if self.message_bytes is not None:
+            _assistant_source_require(self.raw_slot[0] is self.message
+                                      and _same_anchors(_nested_anchors(self.message), self.message_anchors)
+                                      and _assistant_source_bytes(self.message) == self.message_bytes, "output_changed")
+            self.output_shape()
+        if self.record is not None:
+            registered = next((entry for entry in _assistant_source_records if entry[0] is self), None)
+            _assistant_source_require(registered is not None and registered[1] is self.record
+                                      and registered[2] is self.record_anchor
+                                      and _same_anchors(_row(self.record, NativeToolCallAssistantSource), self.record_anchor)
+                                      and self.record.message is self.message and self.record.response is self.response
+                                      and self.record.authorization_bytes is self.authorization_bytes
+                                      and self.record.authorization_content is self.authorization_content
+                                      and self.record.message_content is self.message_content
+                                      and self.record.message_bytes is self.message_bytes,
+                                      "record_changed")
+        probe.runtime._check_operator()
+
+    def callback(self, callback, *args):
+        self.verify()
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            import asyncio
+            if isinstance(error, (InterruptedError, asyncio.CancelledError, KeyboardInterrupt, SystemExit)):
+                if self.control_exception is None:
+                    self.control_exception = error
+                if self.probe.control_exception is None:
+                    self.probe.control_exception = error
+            raise
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                self.verify()
+
+    def checkpoint(self):
+        self.verify()
+        facts = self.probe.checkpoint()
+        self.verify()
+        return facts
+
+    @contextmanager
+    def window(self):
+        self.access()
+        _assistant_source_require(self.stage_frame is None and self.windows < 3, "window_invalid")
+        frame = sys._getframe().f_back.f_back
+        _assistant_source_require(frame.f_locals.get("self") is self
+                                  and frame.f_globals is globals()
+                                  and frame.f_code in (_ToolCallAssistantSource.enable.__code__,
+                                                       _ToolCallAssistantSource.capture.__code__), "window_caller_invalid")
+        if frame.f_code is _ToolCallAssistantSource.enable.__code__:
+            public = frame.f_back
+            _assistant_source_require(public.f_code is NativeMainPayloadAdapter.enable_tool_call_assistant_source.__code__
+                                      and public.f_locals.get("self") is self.parent
+                                      and public.f_locals.get("agent") is self.agent
+                                      and public.f_locals.get("authorization") is self.binding.token, "enable_caller_invalid")
+        else:
+            seam = frame.f_back
+            _assistant_source_require(frame is self.capture_frame
+                                      and seam.f_code is _capture_tool_call_assistant_source.__code__
+                                      and seam.f_locals.get("probe") is self.probe
+                                      and seam.f_back.f_code is _ToolCallProbe.observe_operation.__code__
+                                      and seam.f_back.f_locals.get("self") is self.probe,
+                                      "capture_caller_invalid")
+        self.windows += 1
+        self.stage_frame = self.stage_anchor = frame
+        try:
+            self.checkpoint()
+            yield
+            self.checkpoint()
+        finally:
+            self.stage_frame = self.stage_anchor = None
+
+    def current(self, handle):
+        self.access()
+        _assistant_source_require(handle is self.parent._handle, "handle_invalid")
+        return self.callback(self.parent._admission.current, handle)
+
+    def resolve(self, wrapper):
+        self.access()
+        _assistant_source_require(self.parent._transport_wrappers.get(wrapper.port.destination.transport_ref) is wrapper
+                                  and wrapper.adapter is self.parent, "port_changed")
+        result = self.callback(wrapper.port.resolve)
+        _destination(result)
+        return result
+
+    def around(self, callback):
+        self.checkpoint()
+        output = self.callback(callback)
+        self.checkpoint()
+        return output
+
+    def enable(self):
+        with self.window():
+            _assistant_source_require(not self.enabled and not self.probe.attempted, "attempt_spent")
+            self.enabled = True
+
+    def cache_shape(self, item):
+        _assistant_source_require(type(item) is tuple and len(item) == 2
+                                  and type(item[0]) is tuple and len(item[0]) == 3
+                                  and all(type(value) is str for value in item[0]) and type(item[1]) is bool,
+                                  "cache_shape_invalid")
+        namespace = _namespace(self.agent)
+        key = (namespace["provider"], namespace["model"], namespace.get("_base_url_lower", namespace["base_url"]))
+        _assistant_source_require(item[0] == key, "cache_key_changed")
+
+    def commit_constructor(self):
+        global _assistant_source_caches
+        namespace = _namespace(self.agent)
+        before = self.completed_anchors
+        after = tuple(namespace.items())
+        if len(after) == len(before) and all(name == key and value is original
+                for (name, value), (key, original) in zip(after, before)):
+            return
+        _assistant_source_require(not self.cache_committed and self.capture_frame is sys._getframe().f_back
+                                  and self.raw_slot[0] is self.message and self.message_bytes is not None,
+                                  "cache_transition_invalid")
+        _assistant_source_require(len(after) == len(before) + 1 and after[-1][0] == "_thinking_pad_cache"
+                                  and all(name == key and value is original
+                                      for (name, value), (key, original) in zip(after, before)), "namespace_changed")
+        self.cache = after[-1][1]
+        self.cache_shape(self.cache)
+        _assistant_source_code_current()
+        _assistant_source_require(not any(owner is self for owner, _ in _assistant_source_caches), "cache_attempt_spent")
+        _assistant_source_caches = (*_assistant_source_caches, (self, self.cache))
+        self.cache_committed = True
+        self.after_anchors, self.after_state = after, _constructed_state(namespace)
+        self.constructed.anchors, self.constructed.state = self.after_anchors, self.after_state
+
+    def output_shape(self):
+        message, original = self.message, self.assistant_message
+        _assistant_source_require(type(message) is dict, "output_type_invalid")
+        expected = ["role", "content", "reasoning", "finish_reason", "timestamp"]
+        if self.cache is not None and self.cache[1]:
+            expected.append("reasoning_content")
+        expected.append("tool_calls")
+        _assistant_source_require(list(message) == expected and message["role"] == "assistant"
+                                  and message["content"] == "" and message["reasoning"] is None
+                                  and message["finish_reason"] is self.finish_reason
+                                  and type(message["timestamp"]) is float and math.isfinite(message["timestamp"]),
+                                  "output_shape_invalid")
+        calls = message["tool_calls"]
+        _assistant_source_require(type(calls) is list and len(calls) == 1 and type(calls[0]) is dict,
+                                  "output_call_invalid")
+        call, source = calls[0], original.tool_calls[0]
+        _assistant_source_require(list(call) == ["id", "call_id", "response_item_id", "type", "function"]
+                                  and type(call["id"]) is str and call["id"] == self.observation.call_id
+                                  and call["call_id"] is call["id"] and type(call["response_item_id"]) is str
+                                  and call["type"] is source.type and type(call["function"]) is dict
+                                  and list(call["function"]) == ["name", "arguments"]
+                                  and call["function"]["name"] is source.function.name
+                                  and call["function"]["arguments"] is source.function.arguments,
+                                  "output_relation_changed")
+
+    def capture(self, probe, observation):
+        global _assistant_source_records
+        _assistant_source_require(probe is self.probe and self.enabled and not self.attempted and not self.captured
+                                  and probe.attempted and probe.phase == "observed" and probe.stage_index == 5
+                                  and probe.records[0] is observation and probe.dispatch_frame is not None,
+                                  "capture_invalid")
+        self.attempted = True
+        self.capture_frame = sys._getframe()
+        self.observation, self.observation_anchor = observation, _row(observation, NativeToolCallObservation)
+        try:
+            with self.window():
+                # The original probe checked these exact raw bytes before this seam.
+                self.response = _ASSISTANT_SOURCE_RESPONSE.model_validate_json(observation.response_bytes)
+                self.assistant_message = self.response.choices[0].message
+                self.finish_reason = self.response.choices[0].finish_reason
+                self.model_state, self.model_anchors = _assistant_source_model_state(self.response)
+                _assistant_source_require(type(self.finish_reason) is str and self.finish_reason == "tool_calls"
+                                          and self.assistant_message.content is None
+                                          and len(self.assistant_message.tool_calls) == 1, "typed_shape_invalid")
+                facts = self.checkpoint()
+                retained = probe.runtime._content(observation.response_content)
+                _assistant_source_require(set(retained.profiles) <= set(facts[0][8]), "capture_authority_missing")
+                self.authorization_bytes = _assistant_source_bytes(dict(
+                    producer="first_local_typed_controlled_response", agent_fields=self.agent_facts,
+                    original_agent_fields=self.original_agent_facts,
+                    backing_completion=dict(original_present=False, shadow=self.backing_value,
+                                            present="_base_url" in _namespace(self.agent), value=self.agent.base_url),
+                    cache_before=self.cache_before, response_fields=sorted(self.response.model_fields_set),
+                    message_fields=sorted(self.assistant_message.model_fields_set),
+                    absent_message_fields=_ASSISTANT_SOURCE_ABSENT,
+                    finish_reason=self.finish_reason, builder="AIAgent._build_assistant_message",
+                    serializer="insertion_order_utf8", response_parent="original_R"))
+                self.authorization_content = probe.runtime.admit(self.parent._handle, self.authorization_bytes)
+                self.checkpoint()
+                # Reserve the raw slot before the unchanged builder runs exactly once.
+                self.depth += 1
+                try:
+                    self.raw_slot[0] = self.agent._build_assistant_message(self.assistant_message, self.finish_reason)
+                finally:
+                    self.depth -= 1
+                self.message = self.raw_slot[0]
+                self.raw_slot[1] = tuple(_namespace(self.agent).items())
+                self.raw_slot[2] = _namespace(self.agent).get("_thinking_pad_cache")
+                self.message_bytes = _assistant_source_bytes(self.message)
+                self.message_anchors = _nested_anchors(self.message)
+                self.commit_constructor()
+                self.output_shape()
+            with self.window():
+                self.message_content = probe.runtime.derive(self.parent._handle,
+                    (observation.response_content, self.authorization_content), self.message_bytes, path="main")
+                self.checkpoint()
+                anchors = (self.binding, probe, self.constructed, self.before_anchors, self.before_state,
+                           self.completed_anchors, self.completed_state, self.backing_value,
+                           _ASSISTANT_SOURCE_PROPERTY, _ASSISTANT_SOURCE_PROPERTY_GETTER,
+                           self.after_anchors, self.after_state, self.cache_before, self.cache, self.methods,
+                           self.model_state, self.model_anchors, self.message_anchors)
+                self.record = NativeToolCallAssistantSource(observation, self.response, self.assistant_message,
+                    self.finish_reason, self.message, self.message_bytes, self.message_content,
+                    self.authorization_bytes, self.authorization_content, anchors)
+                self.record_anchor = _row(self.record, NativeToolCallAssistantSource)
+                _assistant_source_require(not any(entry[0] is self for entry in _assistant_source_records), "record_attempt_spent")
+                _assistant_source_records = (*_assistant_source_records, (self, self.record, self.record_anchor))
+                self.captured = True
+        finally:
+            self.capture_frame = None
+
+    def proof_access(self):
+        self.access()
+        if (not self.captured or self.probe.phase != "released" or self.probe.run_frame is not None
+                or self.parent._invalid or self.parent._bound_context._denied):
+            return ()
+        self.verify()
+        self.probe.verify()
+        _assistant_source_require(self.windows == 3 and self.probe.stage_index == 8, "release_invalid")
+        return (self.record,)
+
+
+from agent import agent_runtime_helpers as _source_runtime_module
+from agent import message_metadata as _source_metadata_module
+from agent import message_content as _source_content_module
+from agent import message_sanitization as _source_sanitization_module
+from agent import codex_responses_adapter as _source_codex_module
+import run_agent as _source_agent_module
+import utils as _source_utils_module
+from openai.types.chat.chat_completion import ChatCompletion as _ASSISTANT_SOURCE_RESPONSE, Choice as _SOURCE_CHOICE
+from openai.types.chat.chat_completion_message import ChatCompletionMessage as _SOURCE_MESSAGE
+from openai.types.chat.chat_completion_message_function_tool_call import (
+    ChatCompletionMessageFunctionToolCall as _SOURCE_CALL, Function as _SOURCE_FUNCTION,
+)
+from openai.types.completion_usage import CompletionUsage as _SOURCE_USAGE
+from openai import _models as _source_sdk_models_module
+import pydantic.main as _source_pydantic_module
+
+_ASSISTANT_SOURCE_MODELS = (_ASSISTANT_SOURCE_RESPONSE, _SOURCE_CHOICE, _SOURCE_MESSAGE,
+                            _SOURCE_CALL, _SOURCE_FUNCTION, _SOURCE_USAGE)
+_ASSISTANT_SOURCE_FIELDS = ("provider", "model", "api_mode", "base_url", "_base_url", "_base_url_lower", "verbose_logging",
+    "reasoning_callback", "stream_delta_callback", "_stream_callback", "reasoning_config", "_reasoning_echo_flag")
+_ASSISTANT_SOURCE_ABSENT = ("reasoning", "reasoning_content", "reasoning_details", "anthropic_content_blocks",
+    "codex_reasoning_items", "codex_message_items")
+_ASSISTANT_SOURCE_AGENT_METHODS = ("_build_assistant_message", "_extract_reasoning", "_strip_think_blocks",
+    "_needs_thinking_reasoning_pad", "_needs_deepseek_tool_reasoning", "_needs_kimi_tool_reasoning",
+    "_needs_mimo_tool_reasoning", "_reasoning_echo_opt_in", "_split_responses_tool_id",
+    "_derive_responses_function_call_id", "_deterministic_call_id")
+_ASSISTANT_SOURCE_OWNER_METHODS = ("complete_backing_field", "access", "verify", "callback", "checkpoint", "window", "current", "resolve",
+    "around", "enable", "cache_shape", "commit_constructor", "output_shape", "capture", "proof_access")
+_ASSISTANT_SOURCE_MODULES = tuple((module.__name__, module) for module in (
+    _probe_caller_module, _source_runtime_module, _source_metadata_module, _source_content_module,
+    _source_sanitization_module, _source_codex_module, _source_agent_module, _source_utils_module,
+    _source_sdk_models_module, _source_pydantic_module,
+    *(sys.modules[model.__module__] for model in _ASSISTANT_SOURCE_MODELS)))
+_ASSISTANT_SOURCE_CODE = tuple((obj, name, _method(getattr(obj, name)),
+    getattr(getattr(obj, name), "__func__", getattr(obj, name)).__code__)
+    for obj, names in (
+        (_source_agent_module.AIAgent, _ASSISTANT_SOURCE_AGENT_METHODS),
+        (_probe_caller_module, ("build_assistant_message", "flatten_message_text", "_sanitize_surrogates",
+                                "stamp_message_timestamp")),
+        (_source_runtime_module, ("extract_reasoning",)),
+        (_source_metadata_module, ("stamp_message_timestamp",)),
+        (_source_content_module, ("flatten_message_text", "_field", "_text_from_part")),
+        (_source_sanitization_module, ("matches_reasoning_echo_family", "_family_rule", "_sanitize_surrogates")),
+        (_source_codex_module, ("_split_responses_tool_id", "_derive_responses_function_call_id")),
+        (_source_utils_module, ("base_url_host_matches", "base_url_hostname")),
+        (_ASSISTANT_SOURCE_RESPONSE, ("model_validate_json",)),
+        (_source_pydantic_module.BaseModel, ("model_validate_json", "__getattr__")),
+        (_ToolCallAssistantSource, ("__init__", *_ASSISTANT_SOURCE_OWNER_METHODS)),
+        (NativeMainPayloadAdapter, ("enable_tool_call_assistant_source",)),
+        (sys.modules[__name__], ("_assistant_source_require", "_assistant_source_owner", "_assistant_source_window",
+            "_assistant_source_bytes", "_assistant_source_model_state", "_assistant_source_agent_facts",
+            "_assistant_source_cache", "_assistant_source_preflight", "_capture_tool_call_assistant_source")),
+    ) for name in names)
+# Resolve stock deferred schemas before the first operator callback.
+for _source_model in reversed(_ASSISTANT_SOURCE_MODELS):
+    _source_model.model_rebuild()
+_ASSISTANT_SOURCE_MODEL_CLASSES = tuple((model, tuple(vars(model).items())) for model in (
+    *_ASSISTANT_SOURCE_MODELS, _source_sdk_models_module.BaseModel, _source_pydantic_module.BaseModel))
+_ASSISTANT_SOURCE_WALL_TIME = _source_metadata_module.wall_time
+_ASSISTANT_SOURCE_RULES = _source_sanitization_module._REASONING_ECHO_RULES
+_ASSISTANT_SOURCE_RULE_ANCHORS = _nested_anchors(_ASSISTANT_SOURCE_RULES)
+_ASSISTANT_SOURCE_GETTER = NativeMainPayloadAdapter.tool_call_assistant_sources.fget
+_ASSISTANT_SOURCE_GETTER_CODE = _ASSISTANT_SOURCE_GETTER.__code__
+_ASSISTANT_SOURCE_PROPERTY = _source_agent_module.AIAgent.base_url
+_ASSISTANT_SOURCE_PROPERTY_GETTER = _ASSISTANT_SOURCE_PROPERTY.fget
+_ASSISTANT_SOURCE_PROPERTY_CODE = _ASSISTANT_SOURCE_PROPERTY_GETTER.__code__
+_ASSISTANT_SOURCE_CLASS_FIELDS = tuple((name, name in vars(_source_agent_module.AIAgent),
+    vars(_source_agent_module.AIAgent).get(name)) for name in _ASSISTANT_SOURCE_FIELDS)
+
+
+def _assistant_source_code_current():
+    _assistant_source_require(_assistant_source_code_current.__code__ is _ASSISTANT_SOURCE_CHECK_CODE, "check_code_changed")
+    for name, module in _ASSISTANT_SOURCE_MODULES:
+        _assistant_source_require(sys.modules.get(name) is module, "module_changed")
+    for obj, name, method, code in _ASSISTANT_SOURCE_CODE:
+        current = getattr(obj, name, None)
+        _assistant_source_require(_same_method(current, method)
+                                  and getattr(current, "__func__", current).__code__ is code, "code_changed")
+    for name, present, original in _ASSISTANT_SOURCE_CLASS_FIELDS:
+        namespace = vars(_source_agent_module.AIAgent)
+        _assistant_source_require((name in namespace) is present and namespace.get(name) is original,
+                                  "agent_descriptor_changed")
+    for model, namespace in _ASSISTANT_SOURCE_MODEL_CLASSES:
+        _assistant_source_require(_same_anchors(tuple(value for pair in vars(model).items() for value in pair),
+            tuple(value for pair in namespace for value in pair)), "response_model_changed")
+    _assistant_source_require(_source_metadata_module.wall_time is _ASSISTANT_SOURCE_WALL_TIME
+                              and _source_sanitization_module._REASONING_ECHO_RULES is _ASSISTANT_SOURCE_RULES
+                              and _same_anchors(_nested_anchors(_ASSISTANT_SOURCE_RULES), _ASSISTANT_SOURCE_RULE_ANCHORS)
+                              and NativeMainPayloadAdapter.tool_call_assistant_sources.fget is _ASSISTANT_SOURCE_GETTER
+                              and _ASSISTANT_SOURCE_GETTER.__code__ is _ASSISTANT_SOURCE_GETTER_CODE
+                              and _source_agent_module.AIAgent.base_url is _ASSISTANT_SOURCE_PROPERTY
+                              and _ASSISTANT_SOURCE_PROPERTY.fget is _ASSISTANT_SOURCE_PROPERTY_GETTER
+                              and _ASSISTANT_SOURCE_PROPERTY_GETTER.__code__ is _ASSISTANT_SOURCE_PROPERTY_CODE,
+                              "helper_changed")
+
+
+_ASSISTANT_SOURCE_CHECK_CODE = _assistant_source_code_current.__code__
