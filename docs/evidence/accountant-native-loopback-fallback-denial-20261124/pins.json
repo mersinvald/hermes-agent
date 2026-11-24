@@ -1,0 +1,512 @@
+{
+  "input_receipts_sha256": "fdf1ad97bff3d5c3d9a37791c3b0f17bb8dd2874945b2a7cae5bc6d3592f42ad",
+  "tracked": [
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "agent/transports/owned_loopback_http.py",
+      "bytes": 15921,
+      "sha256": "05ec8c7eede3dc872914ff2a3b011b91d5fa63960be2b7a4fadf76d5dc7e218f",
+      "mode": "100644",
+      "blob": "cc1137f51030a43ea2d513fe18e64010679b8f77"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/owned_loopback_receiver.py",
+      "bytes": 8029,
+      "sha256": "0505cae8002d911ecbdf533868ab4b778d3d3bdfb2866732f3c9f207cd96aca8",
+      "mode": "100644",
+      "blob": "97a83a9c9d153b69458cfc5f1f7a844370cf86c2"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/test_owned_loopback_http.py",
+      "bytes": 20685,
+      "sha256": "f7836f687b4ef566462f88e39f274ad3207da4e5b06674f74afb46cfb17eba49",
+      "mode": "100644",
+      "blob": "0736ea8fda2337dadbf1f29e44d845f0d710e0c0"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/test_native_public_loopback_http.py",
+      "bytes": 28278,
+      "sha256": "8fa140b1fb26bdb0341918cd77558ddf3eac8cae2d3a7c82bf39ba900c79aeb2",
+      "mode": "100644",
+      "blob": "3a85985764f0bd3f0901617d2f16715f7f371845"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "agent/native_main_payload.py",
+      "bytes": 643457,
+      "sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "mode": "100644",
+      "blob": "397e44876d39fe347f9d2c1ca5817b9e9acf9cde"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "agent/content_policy.py",
+      "bytes": 11094,
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+      "mode": "100644",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "agent/issued_call_episode.py",
+      "bytes": 18395,
+      "sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "mode": "100644",
+      "blob": "3bd647c07ca5ae640c1ae58e6a9031d0e8643616"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "agent/conversation_loop.py",
+      "bytes": 502389,
+      "sha256": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61",
+      "mode": "100644",
+      "blob": "426935624a5da3e149bd9d5eaff0ef9b48c5e2a5"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "agent/chat_completion_helpers.py",
+      "bytes": 275491,
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f",
+      "mode": "100644",
+      "blob": "9a8ec5f35c8fb62751821d530c7f2016c15cd418"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "run_agent.py",
+      "bytes": 443603,
+      "sha256": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d",
+      "mode": "100644",
+      "blob": "456ec0d6168927f23036bc4ac19c9c00ebcd6fb3"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/tools/test_native_issued_call_execution.py",
+      "bytes": 30758,
+      "sha256": "0f892af8f0b3e8e33243e6aa674b79807bac622db100c585cb73f9697214697e",
+      "mode": "100644",
+      "blob": "a413572199885607d3288029f64f0f3332834559"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/tools/test_native_issued_call_format.py",
+      "bytes": 16748,
+      "sha256": "02f7a2e858f5c7eb983923cbd46157e2a7bb61e1bd9a4e9437c0d1f34a9665bb",
+      "mode": "100644",
+      "blob": "07dd165a556045ad7d2c5ce553349433ea45085f"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/tools/test_native_issued_call_continuation.py",
+      "bytes": 19073,
+      "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+      "mode": "100644",
+      "blob": "7a890b6304586c0455641e394f04e45752a5a55c"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/test_native_main_payload.py",
+      "bytes": 66496,
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5",
+      "mode": "100644",
+      "blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/owned_loopback_observer.py",
+      "bytes": 11488,
+      "sha256": "ef41c3d6514225d4786dea5fef0da58e148ad86179231fce8df9768e0904307e",
+      "mode": "100644",
+      "blob": "444e321dc75056103ba32575e6212b2bcb065c41"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/test_native_public_loopback_denial.py",
+      "bytes": 22200,
+      "sha256": "680413a39536bb674e75f4b89aaa8729bfc522cb52e4064301f20de3235ea9e1",
+      "mode": "100644",
+      "blob": "bde4b8729114e46b3639e6b62eeec7b095b73922"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/test_native_controlled_fallback.py",
+      "bytes": 33291,
+      "sha256": "24da7a5aeb41febd42fcb17c1137ce914fa59048bd655882b65f2a272d718b0e",
+      "mode": "100644",
+      "blob": "d2d3848215ef83cbd0df71fe604e96dbe41ab63a"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "bytes": 128596,
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad",
+      "mode": "100644",
+      "blob": "686aeb4f234d9522ab096e12b870fa4798ff1c6a"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/README.md",
+      "bytes": 8065,
+      "sha256": "cc7b6645a8bc05d8479f2ff84b94384b8f4a6d89ffe36fe0e2a513f7789dd9a2",
+      "mode": "100644",
+      "blob": "068772350de4c4c44ccf8eba7da2410107cc5b9f"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/native-api.json",
+      "bytes": 2401,
+      "sha256": "07cc88df9776e220c38f8289d983eea72bea2acdf48cbbe04ecbcf477b3a46d7",
+      "mode": "100644",
+      "blob": "dde66e0b7a023a070b92a3d6efe0cf376dc17a96"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/dependency-receipt.json",
+      "bytes": 1323,
+      "sha256": "dc50592a9168b5cc62b4990152a9a27bffca8872cada8344e20afc2670f32c91",
+      "mode": "100644",
+      "blob": "1173dc09c1a666e823cad200b4e946ec941b7353"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-controlled-fallback-20261123/scopes.json",
+      "bytes": 26443,
+      "sha256": "349bac42dd5d706f5e8f4b5405b0ecdccdf11b524b91be9a2e6993ece11b80a7",
+      "mode": "100644",
+      "blob": "956aba0d67897cc3bab46bbfa2db0ff02596f637"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/README.md",
+      "bytes": 2386,
+      "sha256": "91083e16d5286af700ba45b3ef3725713e743e232c47ff20ebf3174d216b8449",
+      "mode": "100644",
+      "blob": "bcab93ddca56a259a536be0d7e034c163b5537b2"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/SHA256SUMS",
+      "bytes": 716,
+      "sha256": "6bb880b167df67d2bff4bec637bb35ea3ac8e0f49744aaebdbf85f7caa278688",
+      "mode": "100644",
+      "blob": "6e9a731b1aa22f536bd963c1e54f56f2e4284dbd"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/checks.json",
+      "bytes": 240,
+      "sha256": "6e520d157f1a0a7e3f564f502dd992cd18a8bf9bce9c89f1c535f27460b7e44b",
+      "mode": "100644",
+      "blob": "d4ded75f75d5e29ee65868e8a0f1a575297581e5"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/contracts.json",
+      "bytes": 1668,
+      "sha256": "938adc0f7391b1803e02a54b746e617704b56dfd9ad732701ea24ee73054a4f0",
+      "mode": "100644",
+      "blob": "365d5beade986b1a57effd607c985d2c7adc6b98"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/controls.json",
+      "bytes": 1589,
+      "sha256": "67a110d5b9c6b31ce713e299b5647b0d90802e521530f3375ccbcc389df59183",
+      "mode": "100644",
+      "blob": "9a502b92e8a9a855dac7adf36d70031adc6b06a5"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/costs.json",
+      "bytes": 1327,
+      "sha256": "fa6a671c71bb97da421b9ab13837fc44715fd70ccce8b82006798108a02145cd",
+      "mode": "100644",
+      "blob": "091483927dcfe8a5978c400f3b7b4faac893e6cb"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/pins.json",
+      "bytes": 7626,
+      "sha256": "b0ff8abd214223f7b9991ba7de5a97c492694df5ff2fc443803b12d25bf89984",
+      "mode": "100644",
+      "blob": "bbdc3a87d3dd64169063b9b3076df8b01d341dd1"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/preservation.json",
+      "bytes": 3382,
+      "sha256": "71bd74b63dc09e249a3e9d5a6ff1e6c12ae05a2bc8dfabb4133f46b903ea74c2",
+      "mode": "100644",
+      "blob": "812b1a4e68a16e4c1335859c39b59841ff3d05a6"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/results.json",
+      "bytes": 8017,
+      "sha256": "62078afbd6fdfd834c8dd9eb308f93f1c8775814e4134d309e648df4160c63a8",
+      "mode": "100644",
+      "blob": "114523c75a7b822896f7d38f36012344b9355455"
+    },
+    {
+      "repo": "native",
+      "ref": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+      "path": "docs/evidence/accountant-native-loopback-delegation-denial-20261124/writing-check.json",
+      "bytes": 6367,
+      "sha256": "4d9d1858bfddf1865cf3c06c2c97130be890a17c1080e4de63c72ee6433458fc",
+      "mode": "100644",
+      "blob": "4712cb4fa3eecb5f8b27696e0effc63bd97a50fc"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "AGENTS.md",
+      "bytes": 2797,
+      "sha256": "e4c7e948a58647447df4f882e4942e2045a1fc9d22470853096f1715b5f812d6",
+      "mode": "100644",
+      "blob": "a6e6dff29baeaff3945dbafed482d98fe8c083e4"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/v1-implementation-plan.md",
+      "bytes": 33712,
+      "sha256": "dd1312f3aee814ab9a9219b9cf767ca2b6d9f44c89f579ef720361c88c56e1d0",
+      "mode": "100644",
+      "blob": "e27e37ee340509aefb0fd84bbc789a3ed90142cf"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/README.md",
+      "bytes": 2236,
+      "sha256": "9c5b7b452e7f753ddb05f625130eb7c9eb492d814cf0439d0d461b0eb4e820b8",
+      "mode": "100644",
+      "blob": "6175dc998d6cf727584bc4b39c491f536ca67113"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "bytes": 272255,
+      "sha256": "f73bd02a7703fa1a9049623a3966831a599b65994ce37d20caad7c732f46f35a",
+      "mode": "100644",
+      "blob": "b02071f110d514dfa6fc98a11d665fc2545c384a"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "bytes": 463786,
+      "sha256": "9a1c2a0621b92d57d69edfac232a5a4e3f4473dadc901c462994bc3cde279c80",
+      "mode": "100644",
+      "blob": "2b42458b0707c859c8a00022e13d327ab36fc640"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+      "mode": "100644",
+      "blob": "7d7046d85cccfea171c758b95fc3ec76c606c35e"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "packages/content-policy/pyproject.toml",
+      "bytes": 340,
+      "sha256": "3d26075c28bfcab3b6e559ffce4c8dec3cf3765651776bc5fdacf80207e944ff",
+      "mode": "100644",
+      "blob": "d918dfc833ec6f107c27329ff709265139be3bcb"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/README.md",
+      "bytes": 6488,
+      "sha256": "493070242b2b94c7adaeaf245dc9d08e52f1910d0af73077e3f901c60b26cfea",
+      "mode": "100644",
+      "blob": "0b8649e0ec6b16bdff0c9da5a1ffa66dc91ab507"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/source-pins.json",
+      "bytes": 37885,
+      "sha256": "559226a1268c32ce5f9f81673b8c78b15f388b0f4c4e5c8dd7d2b6a2e04d312c",
+      "mode": "100644",
+      "blob": "0e76d8bd5e02d98e75b0b863f62b3a342a03b88e"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/source-map.md",
+      "bytes": 8396,
+      "sha256": "54fbfc5fa59d815518fd47d707b265c49c7124f48f4187588be40c5815cca59c",
+      "mode": "100644",
+      "blob": "1844e294230a4db91fb614c33dd7c607d1d02e11"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/next-component-design.md",
+      "bytes": 14859,
+      "sha256": "d776f403ba17e99250b67707d9fbe8ef3ca8d138996d162bff76502c084ffb30",
+      "mode": "100644",
+      "blob": "a1671bdb54ca14f3adeb963701b46b6608c498c6"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/verification.json",
+      "bytes": 6320,
+      "sha256": "dfe1043121ddd8bb76a34695bc27c98e621dbd15b6d072df0dffc35dd466c549",
+      "mode": "100644",
+      "blob": "884d40ec88f84497397b4e7975154e0d50db423b"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/writing-check.json",
+      "bytes": 9590,
+      "sha256": "36bacd332ac9c34281518b61bc6d0c6b3d7bb9d198eba5e72896d940756b8c35",
+      "mode": "100644",
+      "blob": "610c3c982a5caa56063b1e6a594d502041afb604"
+    },
+    {
+      "repo": "PWA",
+      "ref": "c6013556c187ff9982e46c735e31de721626b8c5",
+      "path": "docs/mesh/evidence/accountant-native-loopback-wire-contracts-20261124/SHA256SUMS",
+      "bytes": 499,
+      "sha256": "0c9bc9a470d3ecb18b495ec793fe24a20977eaecbe32381c4afa8e0ae36d4c36",
+      "mode": "100644",
+      "blob": "d5045f915a87a0f7e959a349962f5e4c88ed5ff9"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/accountant-implementation-plan.md",
+      "bytes": 277585,
+      "sha256": "3756d080c7b0bf6ea07dddc5f2d9964eaf7fc4d26f1e83bab220acfe491c8991",
+      "mode": "100644",
+      "blob": "72d6da53b5b3c536c0521cdfe88518d6ddde62ce"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/accountant-contract-architecture.md",
+      "bytes": 470233,
+      "sha256": "53294a01cbb37a92db042aa66e0eb51a6c7c328e640137085a5d31b231e20044",
+      "mode": "100644",
+      "blob": "b38233f35131500bca4dbe0adcc050b3feb79342"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/README.md",
+      "bytes": 5378,
+      "sha256": "b944a820f8ea9576d702dcbe2bcbf5ca2b25ccf48ed1aa824324060a6f0a1919",
+      "mode": "100644",
+      "blob": "cc0ef0c92acb61a1b60c4f48888c8adbb1c1900a"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/source-map.md",
+      "bytes": 8260,
+      "sha256": "21346389721448a9f4819cd6f0b65df981bfc19b8ee5eb3e79fe07bf7e1b8b00",
+      "mode": "100644",
+      "blob": "fd5df0ce4c1b3654ba8098f17a1c815c80d5eb91"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/next-component-design.md",
+      "bytes": 15010,
+      "sha256": "c6ab6a2d7570f4d19a16d4d5385ab11b7b75cefef2765775366423886d7b5972",
+      "mode": "100644",
+      "blob": "65b36f7e4c8370ccbc7e1e8f4094315079ae78c9"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/source-pins.json",
+      "bytes": 50851,
+      "sha256": "1325dbac091e9776fe61efa0fd886c67f3f41da6919cd788d4192627bbae7485",
+      "mode": "100644",
+      "blob": "6ed6988a5ddb3f7736a30c991d3488f769e19c22"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/verification.json",
+      "bytes": 3928,
+      "sha256": "450a580563198acd1dc5c0966b45a7ade91fcd47026b5f061b87314e5fc1b579",
+      "mode": "100644",
+      "blob": "2bf942c46dd28ad9dab64ad8d4a01a7dcb3886cb"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/writing-check.json",
+      "bytes": 13566,
+      "sha256": "08df2a7424d10b609fb28877df787125f37e8116ff910d1889fa600b566cda08",
+      "mode": "100644",
+      "blob": "531284c30aa82b169333da7605bd991ce6f9737e"
+    },
+    {
+      "repo": "PWA",
+      "ref": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+      "path": "docs/mesh/evidence/accountant-native-delegation-denial-contracts-20261124/SHA256SUMS",
+      "bytes": 499,
+      "sha256": "3833f50b3438ebfc6e20ebef3b4f7f96c1e56ee711ff4e944c88db174b930896",
+      "mode": "100644",
+      "blob": "400b42a6925581ffffc580c0489ab1b51e6a5a23"
+    }
+  ],
+  "protected_receipts_verified": 25,
+  "environment_files_verified": 5,
+  "shared_wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "accepted_native_tree": "188d751e4123240a605d571637819d22a5b54fd6",
+  "native_paths": 12196,
+  "accepted_pwa": "e61af88b86b5486dfdae48a14edc3d9ec52db7f3",
+  "pwa_tree": "4993614f696ce2bc8bd2200d8103a72081b080b2",
+  "pwa_paths": 3273,
+  "proposal_sha256": "c6ab6a2d7570f4d19a16d4d5385ab11b7b75cefef2765775366423886d7b5972",
+  "source_map_sha256": "21346389721448a9f4819cd6f0b65df981bfc19b8ee5eb3e79fe07bf7e1b8b00",
+  "root_review_sha256": "a52d733b35fa6ffecefe78abcf35f47c07787c1ff1e98c827d79b372ccc19c0a",
+  "root_publication_sha256": "ea55bc1679090473288dc04ce1b879fee378e8ece748e190c1a884a25328c624"
+}

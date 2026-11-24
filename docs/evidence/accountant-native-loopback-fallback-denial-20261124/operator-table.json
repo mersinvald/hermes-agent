@@ -1,0 +1,392 @@
+{
+  "routes": [
+    {
+      "route_ref": "route_main",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "main",
+      "destination": {
+        "transport_ref": "invented_main",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_0",
+        "endpoint_ref": "synthetic_loopback_p",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_loopback_main",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_fallback",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "fallback",
+      "destination": {
+        "transport_ref": "invented_fallback",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_title",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "title",
+      "destination": {
+        "transport_ref": "invented_title",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_title",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_compression",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "invented_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_memory",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "memory",
+      "destination": {
+        "transport_ref": "invented_memory",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_memory",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_delegate",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "delegate",
+      "destination": {
+        "transport_ref": "invented_delegate",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_delegate",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_a2a",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "a2a",
+      "destination": {
+        "transport_ref": "invented_a2a",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_a2a",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_tool_result",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "tool_result",
+      "destination": {
+        "transport_ref": "invented_tool_result",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_tool_result",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_main",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "main",
+      "destination": {
+        "transport_ref": "fallback_transport_main",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_main",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_fallback",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "fallback",
+      "destination": {
+        "transport_ref": "fallback_transport_fallback",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_5",
+        "endpoint_ref": "synthetic_loopback_c",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_loopback_fallback",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_title",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "title",
+      "destination": {
+        "transport_ref": "fallback_transport_title",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_title",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_compression",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "fallback_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_memory",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "memory",
+      "destination": {
+        "transport_ref": "fallback_transport_memory",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_memory",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_delegate",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "delegate",
+      "destination": {
+        "transport_ref": "fallback_transport_delegate",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_delegate",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_a2a",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "a2a",
+      "destination": {
+        "transport_ref": "fallback_transport_a2a",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_a2a",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "fallback_tool_result",
+      "selection_id": "fallback_selection",
+      "selection_version": 8,
+      "consumer_ref": "document_specialist",
+      "path": "tool_result",
+      "destination": {
+        "transport_ref": "fallback_transport_tool_result",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_fallback_model",
+        "endpoint_ref": "invented_fallback_endpoint",
+        "revision": 1
+      },
+      "expires_at": 1000,
+      "qualification_ref": "synthetic_inprocess_fallback_selection_tool_result",
+      "qualification_scope": "synthetic_only"
+    }
+  ],
+  "profiles": [
+    {
+      "profile_ref": "restricted_documents",
+      "allowed_routes": [
+        "route_main",
+        "route_fallback",
+        "route_title",
+        "route_compression",
+        "route_memory",
+        "route_delegate",
+        "route_a2a",
+        "route_tool_result",
+        "fallback_main",
+        "fallback_fallback",
+        "fallback_title",
+        "fallback_compression",
+        "fallback_memory",
+        "fallback_delegate",
+        "fallback_a2a",
+        "fallback_tool_result"
+      ],
+      "required_paths": [
+        "main",
+        "fallback",
+        "title",
+        "compression",
+        "memory",
+        "delegate",
+        "a2a",
+        "tool_result"
+      ]
+    }
+  ],
+  "endpoint_roles": [
+    {
+      "endpoint_ref": "synthetic_loopback_p",
+      "request_path": "/owned-accountant-proof/v1/p",
+      "provider_ref": "synthetic_native",
+      "model_ref": "invented_model_0",
+      "revision": 1
+    },
+    {
+      "endpoint_ref": "synthetic_loopback_c",
+      "request_path": "/owned-accountant-proof/v1/c",
+      "provider_ref": "synthetic_native",
+      "model_ref": "invented_model_5",
+      "revision": 1
+    }
+  ],
+  "aliases": [
+    [
+      "main",
+      "invented_main"
+    ],
+    [
+      "fallback",
+      "invented_fallback"
+    ],
+    [
+      "title",
+      "invented_title"
+    ],
+    [
+      "compression",
+      "invented_compression"
+    ],
+    [
+      "memory",
+      "invented_memory"
+    ],
+    [
+      "delegate",
+      "invented_delegate"
+    ],
+    [
+      "a2a",
+      "invented_a2a"
+    ],
+    [
+      "tool_result",
+      "invented_tool_result"
+    ],
+    [
+      "fallback_capability_main",
+      "fallback_transport_main"
+    ],
+    [
+      "fallback_capability_fallback",
+      "fallback_transport_fallback"
+    ],
+    [
+      "fallback_capability_title",
+      "fallback_transport_title"
+    ],
+    [
+      "fallback_capability_compression",
+      "fallback_transport_compression"
+    ],
+    [
+      "fallback_capability_memory",
+      "fallback_transport_memory"
+    ],
+    [
+      "fallback_capability_delegate",
+      "fallback_transport_delegate"
+    ],
+    [
+      "fallback_capability_a2a",
+      "fallback_transport_a2a"
+    ],
+    [
+      "fallback_capability_tool_result",
+      "fallback_transport_tool_result"
+    ]
+  ],
+  "scope": "Inert initial composition. Actual listeners and traffic remain private."
+}

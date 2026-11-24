@@ -1,0 +1,29 @@
+{
+  "status": "Check selection frozen before launch. Results appear in checks.json.",
+  "cheap_nodes": [
+    "tests/agent/test_native_loopback_fallback_denial.py::test_observation_qualification_mark_drain",
+    "tests/agent/test_native_loopback_fallback_denial.py::test_marked_window_connection[empty]",
+    "tests/agent/test_native_loopback_fallback_denial.py::test_marked_window_connection[partial]",
+    "tests/agent/test_native_loopback_fallback_denial.py::test_inert_initial_plan_and_trigger_guard",
+    "tests/agent/test_native_loopback_fallback_denial.py::test_shared_expired_fallback_control",
+    "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination"
+  ],
+  "genuine_node": "tests/agent/test_native_loopback_fallback_denial.py::test_genuine_current_fallback_expiry",
+  "genuine_executions_authorized": 1,
+  "retries": 0,
+  "workers": 1,
+  "task_cap_seconds": 2400,
+  "verification_cap_seconds": 1200,
+  "cheap_command_cap_seconds": 90,
+  "genuine_outer_cap_seconds": 600,
+  "genuine_file_cap_seconds": 595,
+  "genuine_launch_floor_task_and_verification_seconds": 900,
+  "observation_seconds": 590,
+  "connections_per_receiver": 8,
+  "detection_bytes_per_connection": 264193,
+  "retained_bytes_per_receiver": 2113544,
+  "ordinary_progress_and_cleanup_seconds": 5,
+  "planned_silent_hold_seconds": 6,
+  "minimum_quiet_drain_seconds": 0.5,
+  "scope": "Synthetic owned numeric loopback only. No full fallback or external egress claim."
+}
