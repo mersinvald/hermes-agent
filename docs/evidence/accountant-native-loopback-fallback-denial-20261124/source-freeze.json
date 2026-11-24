@@ -1,0 +1,106 @@
+{
+  "ReceiverWindowMark": {
+    "fields": [
+      "bound: tuple",
+      "listener_id: int",
+      "started_at: float",
+      "row_count: int",
+      "active_count: int",
+      "polls: int"
+    ],
+    "methods": []
+  },
+  "_ReceiverConnection": {
+    "fields": [
+      "order: int",
+      "bound: tuple",
+      "local: tuple",
+      "peer: tuple",
+      "listener_fd: int",
+      "accepted_at: float",
+      "closed_at: float | None",
+      "raw: bytes",
+      "raw_sha256: str",
+      "raw_length: int",
+      "header: bytes",
+      "body: bytes",
+      "body_sha256: str",
+      "body_length: int",
+      "path: bytes | None",
+      "host: bytes | None",
+      "client_reported_peer: bytes | None",
+      "complete: bool",
+      "settled: bool",
+      "response_attempts: int",
+      "response_accepted: int",
+      "response: bytes",
+      "status: str",
+      "failure: str | None"
+    ],
+    "methods": []
+  },
+  "ReceiverWindowReceipt": {
+    "fields": [
+      "bound: tuple",
+      "listener_id: int",
+      "ready_at: float | None",
+      "deadline_at: float | None",
+      "mark: ReceiverWindowMark | None",
+      "finish_requested_at: float | None",
+      "drain_at: float | None",
+      "cutoff_at: float | None",
+      "finished_at: float",
+      "polls: int",
+      "connections: tuple",
+      "errors: tuple",
+      "thread_stopped: bool",
+      "listener_closed: bool",
+      "sockets_closed: bool"
+    ],
+    "methods": []
+  },
+  "OwnedReceiver": {
+    "fields": [],
+    "methods": [
+      "def __init__(self, *, observation_seconds: float | None=None):",
+      "def start(self, steps):",
+      "def _serve(self):",
+      "def check(self):",
+      "def wait(self, count):",
+      "def close(self):",
+      "def mark_window(self) -> ReceiverWindowMark:",
+      "def finish(self, *, settle_seconds: float=0.5) -> ReceiverWindowReceipt:",
+      "def _close_observed(self):",
+      "def _observed_settle(self, connection, status, failure=None):",
+      "def _observed_read(self, connection, row):",
+      "def _serve_observed(self):",
+      "def __enter__(self):",
+      "def __exit__(self, *args):"
+    ]
+  },
+  "MainSendObservation": {
+    "fields": [
+      "envelope: object",
+      "output: bytes | None",
+      "error: BaseException | None",
+      "transport_receipt: tuple | None",
+      "started_at: float",
+      "finished_at: float"
+    ],
+    "methods": []
+  },
+  "RetainedMainPort": {
+    "fields": [],
+    "methods": [
+      "def __init__(self, core: OwnedLoopbackHTTPTransport):",
+      "def __setattr__(self, name, value):",
+      "def __delattr__(self, name):",
+      "def resolve(self):",
+      "def send(self, envelope) -> bytes:"
+    ]
+  },
+  "helper_sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d",
+  "tests_sha256": "02f943767adf01eda785da8e2a8eddf72405fb6e8e89e32132214f728e5ab8a1",
+  "native_public_api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+  "transport_api_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+}
