@@ -1,0 +1,68 @@
+{
+  "scope": "One current owned HTTP fallback success after a stock main timeout.",
+  "functions": [
+    "fallback_reply_bytes",
+    "observe_failed_main",
+    "test_inert_current_fallback_success_plan",
+    "test_current_fallback_response_recipe",
+    "test_genuine_current_fallback_success"
+  ],
+  "nested_function": "observe_failed_main.trigger",
+  "unchanged_helpers": [
+    "build_world",
+    "assert_plan",
+    "qualify",
+    "charges",
+    "graph",
+    "assert_receipt",
+    "record",
+    "ordinary_effects",
+    "RetainedMainPort",
+    "MainSendObservation",
+    "construct",
+    "bind_fallback",
+    "fixed_turn",
+    "World.bind",
+    "reply",
+    "canonical"
+  ],
+  "logical_time": 10,
+  "expiries": [
+    100,
+    1000
+  ],
+  "listeners": 2,
+  "qualifications": {
+    "http": 2,
+    "in_process": 14,
+    "contents": 32,
+    "envelopes": 16,
+    "bytes": 4229
+  },
+  "trigger": {
+    "contents": 5,
+    "envelopes": 1,
+    "bytes": 1492
+  },
+  "terminal": {
+    "contents": 14,
+    "envelopes": 2
+  },
+  "limits": {
+    "connections": 8,
+    "per_connection": 264193,
+    "aggregate": 2113544,
+    "observation_seconds": 590,
+    "ordinary_io_seconds": 5,
+    "silent_hold_seconds": 6,
+    "parents": 32,
+    "handles_including_failures": 128,
+    "hops": 128,
+    "retained_bytes": 8388608,
+    "payload_bytes": 1048576,
+    "native_stage_bytes": 262144,
+    "response_bytes": 65536
+  },
+  "stop_rule": "Any genuine failure stops all functional work. No retry or source correction follows.",
+  "qualification": "Synthetic only. Main usage and total cost remain unknown."
+}
