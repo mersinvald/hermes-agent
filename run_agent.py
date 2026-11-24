@@ -8714,8 +8714,30 @@ class AIAgent:
         persist_user_display_kind: Optional[str] = None,
         persist_user_display_metadata: Optional[Dict[str, Any]] = None,
         moa_config: Optional[dict[str, Any]] = None,
+        *,
+        controlled_issued_call: "NativeIssuedCallConversationPlan | None" = None,
     ) -> Dict[str, Any]:
         """Forwarder — see ``agent.conversation_loop.run_conversation``."""
+        if controlled_issued_call is not None:
+            from agent import issued_call_episode as episode
+            anchors = episode._PUBLIC_EPISODE_CODE
+            row = anchors[-1]
+            checker = row[2]
+            if (episode._check_public_episode_code is not checker
+                    or checker.__code__ is not row[3]
+                    or checker.__globals__ is not row[4]
+                    or checker.__defaults__ is not row[5]
+                    or checker.__kwdefaults__ is not row[6]):
+                raise episode.NativeContentPolicyDenied("controlled_native_payload_denied")
+            checker(anchors)
+            _, result = anchors[3][2](
+                self, user_message, system_message, conversation_history, task_id,
+                stream_callback, persist_user_message, persist_user_timestamp,
+                persist_user_display_kind, persist_user_display_metadata, moa_config,
+                controlled_issued_call=controlled_issued_call,
+            )
+            checker(anchors)
+            return result
         from agent.conversation_loop import _try_controlled_text_turn
         controlled, result = _try_controlled_text_turn(
             self, user_message, system_message, conversation_history, task_id,
