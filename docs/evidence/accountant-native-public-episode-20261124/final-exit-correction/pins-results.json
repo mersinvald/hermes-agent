@@ -1,0 +1,349 @@
+{
+  "task": "task_2dbd3c6a1d2d",
+  "dispatch": "ctx_6e6a2cec0097",
+  "spec": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.59.final-exit-correction.spec.md",
+    "bytes": 7262,
+    "sha256": "5019fa2803d727eaf93622002cc3e252897a6690a58786950e5dbd5a36c74b38"
+  },
+  "source_commit": "c7fc7af2b3f89cf020d1c16331360d9d69fdd0bc",
+  "source": {
+    "path": "agent/issued_call_episode.py",
+    "bytes": 18395,
+    "sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be"
+  },
+  "test": {
+    "path": "tests/agent/test_native_public_issued_call_conversation.py",
+    "bytes": 31619,
+    "sha256": "20d66ce3ce799041b10896cc4fd68d5bb620281fe2066cb932ca96215c2936f1"
+  },
+  "api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+  "api_unchanged": true,
+  "correspondence": {
+    "original_candidate": "dd3682118764a90e8c1ce6b6ba8b7915206caaf7",
+    "original_source_freeze": "0398b91f9638f44979af2de37e99236d2b8db252",
+    "runtime_exact_one_line": true,
+    "inverse_restores_original_module_bytes": true,
+    "all_other_module_ast_exact": true,
+    "existing_test_prefix_exact": true,
+    "api": {
+      "run_agent.py": {
+        "run_conversation": {
+          "signature": "self, user_message: Any, system_message: str=None, conversation_history: List[Dict[str, Any]]=None, task_id: str=None, stream_callback: Optional[callable]=None, persist_user_message: Optional[Any]=None, persist_user_timestamp: Optional[float]=None, persist_user_display_kind: Optional[str]=None, persist_user_display_metadata: Optional[Dict[str, Any]]=None, moa_config: Optional[dict[str, Any]]=None, *, controlled_issued_call: 'NativeIssuedCallConversationPlan | None'=None",
+          "returns": "Dict[str, Any]",
+          "code_sha256": "755820db622233faecdbf5d360fa6149e0c67bdac766373c9cc724fb40304a03"
+        }
+      },
+      "agent/conversation_loop.py": {
+        "run_conversation": {
+          "signature": "agent, user_message: Any, system_message: str=None, conversation_history: List[Dict[str, Any]]=None, task_id: str=None, stream_callback: Optional[callable]=None, persist_user_message: Optional[Any]=None, persist_user_timestamp: Optional[float]=None, persist_user_display_kind: Optional[str]=None, persist_user_display_metadata: Optional[Dict[str, Any]]=None, moa_config: Optional[dict[str, Any]]=None, *, controlled_issued_call: 'NativeIssuedCallConversationPlan | None'=None",
+          "returns": "Dict[str, Any]",
+          "code_sha256": "0c7dc2c3ee1d865004ab46663636c1d8a6a477922f26364f8aba2add6b9653dd"
+        }
+      },
+      "agent/issued_call_episode.py": {
+        "run_controlled_issued_call_episode": {
+          "signature": "source_agent: AIAgent, source_adapter: NativeMainPayloadAdapter, *, probe: NativeIssuedCallEpisodeProbe, execution: NativeIssuedCallEpisodeExecution, formatter: NativeIssuedCallEpisodeFormatter, consumer: NativeIssuedCallEpisodeConsumer",
+          "returns": "NativeIssuedCallContinuationCompletion",
+          "code_sha256": "8300fb80b2b791e02375441f2f67ce24cbc6acbd97cb80435f75ee1051c119b0"
+        }
+      }
+    },
+    "api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "patch_roundtrips": {
+      "original": {
+        "forward_tree": "696af5564cab21309cecc0cf9d7620563bb04bef",
+        "inverse_tree": "00ff729a28155362fda1c69a9a0e1cbe07cd12c1",
+        "sha256": "3df15d54abbfb3c3b62ce7f1736417c194d1b1f9e3352be66195892494cd9589",
+        "bytes": 20647
+      },
+      "zero_context": {
+        "forward_tree": "696af5564cab21309cecc0cf9d7620563bb04bef",
+        "inverse_tree": "00ff729a28155362fda1c69a9a0e1cbe07cd12c1",
+        "sha256": "023ac7d3fe7175de9f88be1b3ec2096263134fa0c563cc564ca6c286825e470e",
+        "bytes": 17723
+      }
+    },
+    "original_evidence_unchanged_except_patch_and_one_manifest_entry": true,
+    "source_sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+    "test_sha256": "20d66ce3ce799041b10896cc4fd68d5bb620281fe2066cb932ca96215c2936f1",
+    "runtime_patch_roundtrip": {
+      "forward_tree": "11e3809f8056a949cc4bc3b22ba15d81a35c6fd8",
+      "inverse_tree": "2f007d881c2c2c941822ef065482ca3487698db2",
+      "inverse_patch_sha256": "226abc6cf4548bdd61b7bea752dd2703487860e5dd9217e90606b50dcc2ac9d7"
+    },
+    "static_feedback": "The initial inverse command used the revision-order flag. The corrected -R patch passes the private-index round trip."
+  },
+  "scopes": [
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_public_issued_call_conversation.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "15",
+        "-o",
+        "junit_family=xunit1",
+        "--maxfail=1",
+        "-k",
+        "test_public_episode_final_exit_checker_drift",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/red.xml"
+      ],
+      "seconds": 2.41874698799802,
+      "returncode": 1,
+      "source_sha256": "25159b91cace7c213e0daf4fa664a6fb43241009b2df751fa82e4bcfedcc7964",
+      "test_sha256": "20d66ce3ce799041b10896cc4fd68d5bb620281fe2066cb932ca96215c2936f1",
+      "actual_nodeid": "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_final_exit_checker_drift",
+      "xml_seconds": 0.034,
+      "expected_outcome": "intentional_red"
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_public_issued_call_conversation.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "15",
+        "-o",
+        "junit_family=xunit1",
+        "--maxfail=1",
+        "-k",
+        "test_public_episode_final_exit_checker_drift",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/green.xml"
+      ],
+      "seconds": 2.068244733993197,
+      "returncode": 0,
+      "source_sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "test_sha256": "20d66ce3ce799041b10896cc4fd68d5bb620281fe2066cb932ca96215c2936f1",
+      "actual_nodeid": "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_final_exit_checker_drift",
+      "xml_seconds": 0.032,
+      "expected_outcome": "passed"
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_public_issued_call_conversation.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "15",
+        "-o",
+        "junit_family=xunit1",
+        "--maxfail=1",
+        "-k",
+        "test_public_episode_executor_scope and None",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/success.xml"
+      ],
+      "seconds": 2.369020437996369,
+      "returncode": 0,
+      "source_sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "test_sha256": "20d66ce3ce799041b10896cc4fd68d5bb620281fe2066cb932ca96215c2936f1",
+      "actual_nodeid": "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[None]",
+      "xml_seconds": 0.033,
+      "expected_outcome": "passed"
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_public_issued_call_conversation.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "15",
+        "-o",
+        "junit_family=xunit1",
+        "--maxfail=1",
+        "-k",
+        "test_public_episode_executor_scope and exit_C",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/control.xml"
+      ],
+      "seconds": 2.1682194320019335,
+      "returncode": 0,
+      "source_sha256": "2607cddf3af9f214dae5575855699ea9f92f528d7a33d00a712ceb512eff23be",
+      "test_sha256": "20d66ce3ce799041b10896cc4fd68d5bb620281fe2066cb932ca96215c2936f1",
+      "actual_nodeid": "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[exit_C]",
+      "xml_seconds": 0.035,
+      "expected_outcome": "passed"
+    }
+  ],
+  "red_boundary": {
+    "events": [
+      "context",
+      "C_bind",
+      "enter_P",
+      "probe_bind",
+      "enable",
+      "probe_run",
+      "close",
+      "source",
+      "execution_bind",
+      "execution_run",
+      "formatter_bind",
+      "formatter_run",
+      "Wf",
+      "Wa",
+      "J",
+      "exit_P",
+      "enter_C",
+      "C_run",
+      "getter",
+      "projection",
+      "exit_C"
+    ],
+    "active_none": true
+  },
+  "green_boundary": {
+    "events": [
+      "context",
+      "C_bind",
+      "enter_P",
+      "probe_bind",
+      "enable",
+      "probe_run",
+      "close",
+      "source",
+      "execution_bind",
+      "execution_run",
+      "formatter_bind",
+      "formatter_run",
+      "Wf",
+      "Wa",
+      "J",
+      "exit_P",
+      "enter_C",
+      "C_run",
+      "getter",
+      "projection",
+      "exit_C"
+    ],
+    "active_none": true
+  },
+  "reuse": {
+    "original_candidate": "dd3682118764a90e8c1ce6b6ba8b7915206caaf7",
+    "original_source": "0398b91f9638f44979af2de37e99236d2b8db252",
+    "original_handoff_sha256": "cc4c103d47259ec3c1e099fa115972c5013ec686dab2013bd4d74a8b10c42f43",
+    "original_task": "task_5df2f839b4f2",
+    "original_outcome": "SUCCEEDED",
+    "old_scoped_union": 93,
+    "genuine_command_seconds": 443.49921278402326,
+    "genuine_scope": "The genuine case ran once at the original source. No genuine case ran on the corrected source.",
+    "final_source_scope": "One pure checkpoint has focused inert red/green, two inert controls, and static correspondence qualification."
+  },
+  "costs": {
+    "cheap_command_seconds": 9.024231591989519,
+    "cheap_limit_seconds": 30,
+    "task_limit_seconds": 600,
+    "final_reserve_seconds": 60,
+    "wall_seconds_at_evidence": 278.2544221878052
+  },
+  "publication_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/handoff.json",
+  "ci_success_claim": false,
+  "raw_receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/red.xml",
+      "bytes": 3920,
+      "sha256": "817accc9755a5e7f7ab9ae8eeab0fa8384ca42e095091a6c02c12022ebcd5f86"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/red.cases.jsonl",
+      "bytes": 688,
+      "sha256": "ef2dba56a60524c44da0235b1b5bb94c34ba8d10bb82c9a2c75d546d79b80135"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/red.command.json",
+      "bytes": 652,
+      "sha256": "98b914006a0fbd3bd6bd4ecd83ea41d535d40d533e4ebba4b0314b7dde20dd98"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/red.log",
+      "bytes": 7901,
+      "sha256": "adf6c3d92034ebf48a846f8a25cb12ca22a89b5137a90d63a03f5a6647075062"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/green.xml",
+      "bytes": 1057,
+      "sha256": "ba08ae20df66cf8bdb27d0c8bb24a01eb47cdc9725b0665cb9c5a0b81547684e"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/green.cases.jsonl",
+      "bytes": 689,
+      "sha256": "3e2433f0d932cb524acdd888f1a26bb9745d219e6e9a18d7b7336c8035d7cb72"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/green.command.json",
+      "bytes": 655,
+      "sha256": "46c4de18c47b5e9eab2dbc94b31688e418ad11e832cb1c17bb79fcc292d323d7"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/green.log",
+      "bytes": 877,
+      "sha256": "02d31073ce9a5646de335083f05a14b1c0365569803a7ca712fe7fb50d62482f"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/success.xml",
+      "bytes": 469,
+      "sha256": "23eebad4eaaea5ccb8be2157f8471abead3d549a1ea036db57ca29c2e427d4af"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/success.cases.jsonl",
+      "bytes": 676,
+      "sha256": "e17cca2aa83493284a5ff4c31ff1182534ac4623bf6528cb1ca562f71f23c8da"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/success.command.json",
+      "bytes": 656,
+      "sha256": "e5b6a9f0b4e75f2f4b79af5e357317e79c2660a42323713cef5bcbbcb6337c42"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/success.log",
+      "bytes": 875,
+      "sha256": "e3e9dc3d59d722e0c3b28e13729b37bafa5592798114b195d2d2a8c619b4aa50"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/control.xml",
+      "bytes": 471,
+      "sha256": "d6453853ba97162fb5f8f263c32e1f1b83d08cd9ddf65d20466d900e2a06479a"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/control.cases.jsonl",
+      "bytes": 683,
+      "sha256": "cbcc8ab3f573bbd7d758823fc80a3c46a5577901a6205a23394f331f73572bb0"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/control.command.json",
+      "bytes": 659,
+      "sha256": "225cb418375c3a673327795eb30e756aae00b60b8af02b21908723c21051023b"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/control.log",
+      "bytes": 877,
+      "sha256": "f6be2d5e05b2dbd6b2916fe864b25f0f2c587cf2bfb967aefb65c68f676b9b45"
+    }
+  ],
+  "preserved_old_patch": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59-final-exit-correction/original-preservation.patch",
+    "bytes": 20647,
+    "sha256": "3df15d54abbfb3c3b62ce7f1736417c194d1b1f9e3352be66195892494cd9589"
+  },
+  "writing": {
+    "baseline_episode_words": 53,
+    "baseline_test_words": 110,
+    "candidate_episode_words": 53,
+    "candidate_test_words": 123,
+    "python_mode": "python-prose-v1",
+    "readme_mode": "prose-v1",
+    "new_findings": 0,
+    "new_dash_markers": 0,
+    "raw_sha256": "ea211257884c9028624cf5b6e56a6fbbe634fd96265c1adeabd50a9826249874"
+  }
+}

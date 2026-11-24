@@ -1,0 +1,6 @@
+diff --git b/agent/issued_call_episode.py a/agent/issued_call_episode.py
+index 3bd647c07c..fe728aa3cf 100644
+--- b/agent/issued_call_episode.py
++++ a/agent/issued_call_episode.py
+@@ -233 +232,0 @@ def _execute_issued_call_episode(
+-    checkpoint()
