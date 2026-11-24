@@ -1,0 +1,103 @@
+{
+  "new_scopes": {
+    "requested_ids": [
+      "tests/agent/test_native_loopback_fallback_success.py::test_inert_current_fallback_success_plan",
+      "tests/agent/test_native_loopback_fallback_success.py::test_current_fallback_response_recipe"
+    ],
+    "actual_ids": [
+      "tests.agent.test_native_loopback_fallback_success::test_inert_current_fallback_success_plan",
+      "tests.agent.test_native_loopback_fallback_success::test_current_fallback_response_recipe"
+    ],
+    "cases": [
+      {
+        "name": "test_inert_current_fallback_success_plan",
+        "seconds": 0.038
+      },
+      {
+        "name": "test_current_fallback_response_recipe",
+        "seconds": 0.018
+      }
+    ],
+    "xml_sha256": "0adfaf5e506efe20357558badad387ec400e7c1474c9b4d8dc4371fbdc8b1cb7",
+    "command_seconds": 10.736114263534546,
+    "workers": 1,
+    "retries": 0,
+    "maxfail": 1,
+    "xunit_family": "xunit1",
+    "environment_files_verified_before_and_after": 5
+  },
+  "reused_only": [
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/README.md",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "d1b994b00798b04a5ba449da9bc6735b5281250fa4b8795e3e64125976c2eeb6"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/SHA256SUMS",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "fa3cead063a02b11a51d037decb4f45f203257b231ee4d581e34d79afca5c1b3"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/checks.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "c666ba6dfff19460bc18b5df772468e6b6452391772e8453fdd275e9d5fc5049"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/contracts.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "c6bf3788080df080ec7275b0f2175f54df8557ea7880a419ac88ad92bb7d9e4a"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/controls.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "bf43e9ad14bde6554868301d274908259f8a20189d0f78521d6d08bd1442c7b1"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/costs.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "11d66a79fe0e218992d53e2f173a580eb12f5d79b09ce0dad6a5b0b675973332"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/operator-table.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "3462030296eb3a778413f8629af719252b2a5b83f27186bbb7c1dca7d320cae7"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/pins.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "86a5cefd4d011126eb9d40c85f22fb1a96e149af410d4ea1322f17d9132de6d7"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/preservation.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "e7db341f0101ab66dfff1e9231d2be14458a09a535cb1681281c7ca38c423aee"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/results.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "96789f0ee2350aeec79fbbe62c828e86ada7ed1adbf74ebe5ecb5bbba20f6282"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/source-freeze.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "e32fcb8d3bb04427cc93b64cb789eed6f214a40aa615eb0d06ee3b6e769daa50"
+    },
+    {
+      "path": "docs/evidence/accountant-native-loopback-fallback-denial-20261124/writing-check.json",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "8843178fb19928723467346f5ed852a9c0a687e8eb6d1b3fde1d9d703feeb3ee"
+    },
+    {
+      "path": "tests/agent/test_native_public_loopback_http.py",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "8fa140b1fb26bdb0341918cd77558ddf3eac8cae2d3a7c82bf39ba900c79aeb2"
+    },
+    {
+      "path": "tests/agent/test_owned_loopback_http.py",
+      "ref": "11c1456b3874fa62798573bf6622bb33510bfe98",
+      "sha256": "f7836f687b4ef566462f88e39f274ad3207da4e5b06674f74afb46cfb17eba49"
+    }
+  ],
+  "reused_controls": "Observer, default receiver, and expiry controls remain at their accepted pins. They did not run again.",
+  "historical_outcomes": "Earlier failed tasks remain failed. This history supplies no fresh interruption or expiry qualification."
+}

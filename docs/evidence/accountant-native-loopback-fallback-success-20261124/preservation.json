@@ -1,0 +1,16 @@
+{
+  "paths": 12209,
+  "blobs_and_modes_exact": true,
+  "working_tree_diff_empty": true,
+  "initial_static_failure": "Raw hash rejected an existing CRLF checkout. Tree comparison preserves Git object identity.",
+  "source_commit": "7dff3182a782b7b5092d0eca21930e39e6feacf5",
+  "new_executable_paths": 1,
+  "new_evidence_files": 12,
+  "production_or_shared_edits": false,
+  "helper_edits": false,
+  "old_test_edits": false,
+  "dependency_edits": false,
+  "configuration_edits": false,
+  "beads_writes": false,
+  "network_sync": false
+}

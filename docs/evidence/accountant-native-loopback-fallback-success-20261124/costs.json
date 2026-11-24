@@ -1,0 +1,44 @@
+{
+  "task_start": "2026-11-24T19:32:41Z",
+  "verification_start": "2026-11-24T19:32:41Z",
+  "task_cap_seconds": 2400,
+  "verification_cap_seconds": 1200,
+  "earlier_unmeasured_allowance_seconds": 10,
+  "report_allowance_seconds": 30,
+  "elapsed_at_evidence_seconds": 431.2759733200073,
+  "charged_at_evidence_seconds": 471.2759733200073,
+  "launch": {
+    "task_remaining": 2104.152437210083,
+    "verification_remaining": 904.152437210083
+  },
+  "setup_before_cheap_seconds": 225.4244966506958,
+  "setup_planning_allowance_seconds": 60,
+  "setup_allowance_exceeded": true,
+  "cheap_command_seconds": 10.736114263534546,
+  "cheap_command_cap_seconds": 90,
+  "genuine_command_seconds": 51.0724196434021,
+  "genuine_outer_cap_seconds": 600,
+  "genuine_file_cap_seconds": 595,
+  "final_publication_allowance_seconds": 240,
+  "phases": [
+    {
+      "name": "receivers_ready",
+      "seconds": 0.11123846197733656
+    },
+    {
+      "name": "native_bound",
+      "seconds": 0.9974938389786985
+    }
+  ],
+  "genuine_observed_end_seconds": 48.93091779499082,
+  "usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "main_attempt_usage": null,
+  "total_usage_known": false,
+  "estimated_cost_usd": null,
+  "cost_status": "unknown",
+  "claim": "No timing benefit or speedup claim. Main egress remains explicit."
+}
