@@ -1,0 +1,127 @@
+{
+  "base": "9c084dc37aa8d78b67460f968eca5bae05c59a1a",
+  "base_tree": "a65914e16f198d6f385f95a8257e0fc09647b556",
+  "tracked_paths": 11843,
+  "old_functions_including_nested": 437,
+  "old_classes": 70,
+  "changed_original_bodies": [
+    "NativeMainPayloadAdapter.__init__",
+    "NativeMainPayloadAdapter._around",
+    "NativeMainPayloadAdapter._checkpoint",
+    "NativeMainPayloadAdapter.validate_scope",
+    "_Admission.current",
+    "_Transport.resolve",
+    "_Transport.send",
+    "dispatch_controlled_main"
+  ],
+  "all_other_original_function_source_exact": true,
+  "all_original_signatures_exact_except_last_private_constructor_keyword": true,
+  "all_original_field_shapes_exact": true,
+  "old_bytes_preserved_in_order": true,
+  "insertions": [
+    {
+      "old_line": 1116,
+      "new_lines": 3,
+      "owners": [
+        "_Admission.current"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1155,
+      "new_lines": 3,
+      "owners": [
+        "_Transport.resolve"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1182,
+      "new_lines": 3,
+      "owners": [
+        "_Transport.send"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1259,
+      "new_lines": 1,
+      "owners": [
+        "NativeMainPayloadAdapter.__init__"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1260,
+      "new_lines": 5,
+      "owners": [
+        "NativeMainPayloadAdapter.__init__"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1364,
+      "new_lines": 2,
+      "owners": [
+        "NativeMainPayloadAdapter.__init__"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1375,
+      "new_lines": 2,
+      "owners": [
+        "NativeMainPayloadAdapter.__init__"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 1384,
+      "new_lines": 2,
+      "owners": [
+        "NativeMainPayloadAdapter.__init__"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 3306,
+      "new_lines": 3,
+      "owners": [
+        "NativeMainPayloadAdapter._checkpoint"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 3320,
+      "new_lines": 3,
+      "owners": [
+        "NativeMainPayloadAdapter._around"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 3352,
+      "new_lines": 8,
+      "owners": [
+        "NativeMainPayloadAdapter.validate_scope"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 3887,
+      "new_lines": 3,
+      "owners": [
+        "dispatch_controlled_main"
+      ],
+      "module_append": false
+    },
+    {
+      "old_line": 10590,
+      "new_lines": 844,
+      "owners": [],
+      "module_append": true
+    }
+  ],
+  "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+  "base_runtime_sha256": "e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a"
+}

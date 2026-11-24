@@ -1,0 +1,140 @@
+{
+  "status": "incomplete_positive_timed_out",
+  "selected_ids": [
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]"
+  ],
+  "current_command_scopes": [
+    {
+      "name": "first-genuine-positive",
+      "requested_k": "test_genuine_continuation and positive",
+      "actual_ids": [
+        "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]"
+      ],
+      "seconds": 13.044999263001955,
+      "exit_code": 1,
+      "outer_timeout": false,
+      "file_timeout": false,
+      "automatic_retries": 0,
+      "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+      "test_sha256": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602",
+      "source": "artifacts/first-genuine-positive.log.gz",
+      "outcome": "setup_error"
+    },
+    {
+      "name": "corrected-first-genuine-positive",
+      "requested_k": "test_genuine_continuation and positive",
+      "actual_ids": [
+        "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]"
+      ],
+      "seconds": 415.44617700300296,
+      "exit_code": 1,
+      "outer_timeout": false,
+      "file_timeout": true,
+      "automatic_retries": 0,
+      "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+      "test_sha256": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602",
+      "source": "artifacts/corrected-first-genuine-positive.log.gz",
+      "outcome": "file_timeout"
+    },
+    {
+      "name": "ordinary-representative",
+      "requested_k": "test_controlled_caller_ordinary_calls_keep_selector_and_lifecycle and absent and cli",
+      "actual_ids": [],
+      "seconds": 1.3668687870085705,
+      "exit_code": 1,
+      "outer_timeout": false,
+      "file_timeout": true,
+      "automatic_retries": 0,
+      "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+      "test_sha256": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602",
+      "source": "artifacts/ordinary-representative.log.gz",
+      "outcome": "file_timeout"
+    },
+    {
+      "name": "wire-representative",
+      "requested_k": "test_conversion_preserves_scalar_bytes and scalars",
+      "actual_ids": [],
+      "seconds": 1.3667498680006247,
+      "exit_code": 1,
+      "outer_timeout": false,
+      "file_timeout": true,
+      "automatic_retries": 0,
+      "runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+      "test_sha256": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602",
+      "source": "artifacts/wire-representative.log.gz",
+      "outcome": "file_timeout"
+    }
+  ],
+  "phases": [
+    {
+      "phase": "setup_qualifications",
+      "seconds": 1.5567615070031025,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "bind_continuation",
+      "seconds": 0.7676889569993364,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "bind_enable",
+      "seconds": 4.545810777999577,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "source_capture_close",
+      "seconds": 40.817054909988656,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "issued_child_return",
+      "seconds": 90.0287070589984,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "formatter",
+      "seconds": 63.09274771199853,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "Wf",
+      "seconds": 34.57712770398939,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "Wa",
+      "seconds": 1.7223478560044896,
+      "outcome": "passed",
+      "error_type": null
+    },
+    {
+      "phase": "J",
+      "seconds": 54.19447669599322,
+      "outcome": "passed",
+      "error_type": null
+    }
+  ],
+  "last_complete_observation": "actual_J",
+  "continuation_phase_started": true,
+  "continuation_window_timings": null,
+  "continuation_final_bytes_handles_sends_charges_release": "unknown after the last complete observation",
+  "corrected_xml_exists": false,
+  "new_histories_after_timeout": 0,
+  "required_unmet_ids": [
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[positive]",
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[coverage_expiry]",
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[original_control]",
+    "tests/tools/test_native_issued_call_continuation.py::test_genuine_continuation[selected_expiry]"
+  ],
+  "compatibility_qualified": false,
+  "full_current_pass": false,
+  "historical_positive_reclassified": false,
+  "original_guards_weakened": false
+}

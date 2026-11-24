@@ -1,0 +1,117 @@
+{
+  "source_preservation": true,
+  "Ruff": "passed",
+  "whitespace": "passed before evidence commit",
+  "initial_preservation_helper_failure": {
+    "kind": "AssertionError from conditional-expression precedence in the external verifier",
+    "functional_execution": false,
+    "fixed_script_scope": "External static verifier only"
+  },
+  "ste_help_probe_failure": {
+    "kind": "The linter treats --help as a file path",
+    "functional_execution": false
+  },
+  "writing": {
+    "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+    "scope": "Same-version Python prose baseline and candidate, plus new test prose and new README. JSON and literal code vectors are data.",
+    "files": {
+      "baseline_runtime": {
+        "words": 281,
+        "sentences": 29,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 12,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      },
+      "candidate_runtime": {
+        "words": 291,
+        "sentences": 30,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 12,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      },
+      "new_test": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      },
+      "new_readme": {
+        "words": 771,
+        "sentences": 88,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 16,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    }
+  },
+  "no_runtime_test_changes_after_first_requested_command": true
+}
