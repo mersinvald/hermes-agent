@@ -42,7 +42,7 @@ The main client wrote 534 bytes and received zero response-prefix bytes.
 
 B received the 368-byte fallback body after qualification.
 
-B wrote the complete 338-byte HTTP response, with a 280-byte canonical response body.
+B wrote the complete 338-byte HTTP response, with a 279-byte canonical response body.
 
 The verified fallback usage is 3 input, 2 output, and 5 total tokens.
 

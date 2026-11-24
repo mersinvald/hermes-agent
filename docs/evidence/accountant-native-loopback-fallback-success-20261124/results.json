@@ -549,7 +549,7 @@
   },
   "fallback": {
     "body_bytes": 368,
-    "response_body_bytes": 280,
+    "response_body_bytes": 279,
     "response_http_bytes": 338,
     "native_response": true,
     "released_result_identity": true,
