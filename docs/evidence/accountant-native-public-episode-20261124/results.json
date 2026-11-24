@@ -1,0 +1,1698 @@
+{
+  "scope": "One genuine constructed public class-entry episode. Inert controls and pure projection data establish no native authority.",
+  "cheap_scopes": [
+    {
+      "name": "cheap-new-1",
+      "requested_file": "tests/agent/test_native_public_issued_call_conversation.py",
+      "requested_k": "not test_genuine_public_issued_call_conversation",
+      "seconds": 10.93817065199255,
+      "returncode": 1,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-1.xml",
+        "bytes": 1462,
+        "sha256": "ac193395da9ed9702e7bd41a077944c912e1e666f3ce0e8610bded6c60d53402"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-1.log",
+        "bytes": 5556,
+        "sha256": "5dfa199c337cc5de2cd1fb456ad3e5c3a350120658aaf0e0510596706933d982"
+      },
+      "passed": 0,
+      "failed": 1,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[class]"
+      ]
+    },
+    {
+      "name": "cheap-new-2",
+      "requested_file": "tests/agent/test_native_public_issued_call_conversation.py",
+      "requested_k": "not test_genuine_public_issued_call_conversation",
+      "seconds": 2.3688946180045605,
+      "returncode": 1,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-2.xml",
+        "bytes": 2574,
+        "sha256": "750935a6d7167f9db59c9303901d76c76d23d373b08c89b004bb51bd766a492f"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-2.log",
+        "bytes": 6115,
+        "sha256": "d23ba22a663d2bac1152b3a0fac2d1f148776d1b2fa5d9833496df9793ca4acd"
+      },
+      "passed": 2,
+      "failed": 1,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[user_message]"
+      ]
+    },
+    {
+      "name": "cheap-new-3",
+      "requested_file": "tests/agent/test_native_public_issued_call_conversation.py",
+      "requested_k": "not test_genuine_public_issued_call_conversation",
+      "seconds": 3.575454450008692,
+      "returncode": 1,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-3.xml",
+        "bytes": 18652,
+        "sha256": "8665341d788e84bfdf06bffc3bd769c40b4feb4c53e7e40c043df6c66542aef2"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-3.log",
+        "bytes": 19963,
+        "sha256": "252d3d4626e4a7838ee2849907b84308f323fe914585a79a28cae864a6ff4a41"
+      },
+      "passed": 47,
+      "failed": 0,
+      "errors": 1,
+      "actual_nodeids": [
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[system_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[task_id]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[conversation_history]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[stream_callback]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_timestamp]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_display_kind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_display_metadata]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[moa_config]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[system_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[task_id]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[plan]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[agent]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[adapter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[probe]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[execution]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[formatter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[consumer]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[agent_adapter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[context]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_active_scope[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_active_scope[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_dispatch[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_dispatch[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[bool]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[negative]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[inconsistent]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[component_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[sum_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[bytes_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[C_bind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[probe_run]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[close]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[getter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[exit_C]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_gate_exception",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[entry]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[gate]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[checker]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[projector]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[decoder]",
+        ".py::UNKNOWN",
+        "pytest.py::internal"
+      ]
+    },
+    {
+      "name": "cheap-new-4",
+      "requested_file": "tests/agent/test_native_public_issued_call_conversation.py",
+      "requested_k": "not test_genuine_public_issued_call_conversation",
+      "seconds": 3.3712692850094754,
+      "returncode": 0,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-4.xml",
+        "bytes": 11168,
+        "sha256": "35a0d7a5b046fcee44970b06904666044d773e9366272403cf0705135c73e7d9"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-4.log",
+        "bytes": 879,
+        "sha256": "a60de2f4d2534a91c8443ccf4e9f6770045617aab939128a9d5f076e6c284b48"
+      },
+      "passed": 49,
+      "failed": 0,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[system_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[task_id]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[conversation_history]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[stream_callback]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_timestamp]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_display_kind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_display_metadata]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[moa_config]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[system_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[task_id]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[plan]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[agent]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[adapter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[probe]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[execution]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[formatter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[consumer]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[agent_adapter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[context]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_active_scope[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_active_scope[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_dispatch[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_dispatch[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[bool]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[negative]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[inconsistent]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[component_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[sum_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[bytes_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[C_bind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[probe_run]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[close]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[getter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[exit_C]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_gate_exception",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[entry]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[gate]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[checker]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[projector]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[decoder]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[encoder]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[executor]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[host]"
+      ]
+    },
+    {
+      "name": "cheap-new-5",
+      "requested_file": "tests/agent/test_native_public_issued_call_conversation.py",
+      "requested_k": "not test_genuine_public_issued_call_conversation",
+      "seconds": 3.6723715040134266,
+      "returncode": 1,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-5.xml",
+        "bytes": 17380,
+        "sha256": "263bfa37d761129b7ae1824615e858a80cb82f06a784b0871c9d9f8427f8bfbe"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-5.log",
+        "bytes": 8919,
+        "sha256": "8b4090d24f401369e980cff5317f8df7351c41e4a820ee76d964479650f0d3b7"
+      },
+      "passed": 59,
+      "failed": 1,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_unselected[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[system_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[task_id]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[conversation_history]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[stream_callback]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_timestamp]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_display_kind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[persist_user_display_metadata]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_argument_refusal[moa_config]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[user_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[system_message]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_probe_binding[task_id]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[plan]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[agent]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[adapter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[probe]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[execution]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[formatter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[consumer]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[agent_adapter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_plan_identity[context]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_active_scope[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_active_scope[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_dispatch[class]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_dispatch[module]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[bool]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[negative]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[inconsistent]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[component_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[sum_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_refusal[bytes_bound]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[C_bind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[probe_run]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[close]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[getter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_failure[exit_C]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_gate_exception",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[entry]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[gate]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[checker]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[projector]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[decoder]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[encoder]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[executor]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_code_replacement[host]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[None]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[C_bind]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[probe_run]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[close]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[getter]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[exit_C]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_executor_scope[projection]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_callable_metadata[checker_code]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_callable_metadata[projector_code]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_callable_metadata[entry_defaults]",
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_exact_bounds"
+      ]
+    },
+    {
+      "name": "cheap-new-6",
+      "requested_file": "tests/agent/test_native_public_issued_call_conversation.py",
+      "requested_k": "test_public_episode_projection_exact_bounds",
+      "seconds": 2.569947156996932,
+      "returncode": 0,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-6.xml",
+        "bytes": 472,
+        "sha256": "c0cb166460b908e2536e6e8cbc52c3bf5504caa9cbebd59b9fb21850e71de531"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/cheap-new-6.log",
+        "bytes": 875,
+        "sha256": "5bb01281d1f2fc8e04f03362f8b17694c611cda8be632b2cb49dca763b7dce46"
+      },
+      "passed": 1,
+      "failed": 0,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/agent/test_native_public_issued_call_conversation.py::test_public_episode_projection_exact_bounds"
+      ]
+    },
+    {
+      "name": "caller",
+      "requested_file": "tests/tools/test_native_issued_call_episode.py",
+      "requested_k": "test_caller_",
+      "seconds": 3.972986578999553,
+      "returncode": 0,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/caller.xml",
+        "bytes": 6231,
+        "sha256": "645dac575e750336fb05bc1adff731e5125566e7b56a10bee62a1d27768fd87a"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/caller.log",
+        "bytes": 841,
+        "sha256": "f878bb8d0942ee46f1413c60cdd576c56a9bc6460f4e2c6bcf8caded3fbc8086"
+      },
+      "passed": 30,
+      "failed": 0,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/tools/test_native_issued_call_episode.py::test_caller_exact_type_preflight[source_agent]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_exact_type_preflight[source_adapter]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_exact_type_preflight[probe]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_exact_type_preflight[execution]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_exact_type_preflight[formatter]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_exact_type_preflight[consumer]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_outside_scope_preflight",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_capture_order_forwarding_and_completion[False]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_capture_order_forwarding_and_completion[True]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[C_bind]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[enter_P]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[probe_bind]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[enable]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[probe_run]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[close]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[source]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[execution_bind]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[execution_run]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[formatter_bind]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[formatter_run]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[Wf]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[Wa]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[J]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[exit_P]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[enter_C]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[C_run]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[getter]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_first_exception_identity[exit_C]",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_shared_exception_context_identity",
+        "tests/tools/test_native_issued_call_episode.py::test_caller_getter_requires_result_identity"
+      ]
+    },
+    {
+      "name": "ordinary",
+      "requested_file": "tests/agent/test_native_controlled_conversation.py",
+      "requested_k": "test_ordinary_method_keeps_forwarding_and_instrumentation or test_ordinary_module_keeps_prologue_forwarding or test_empty_text_stays_empty",
+      "seconds": 3.573588794009993,
+      "returncode": 0,
+      "xml": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/ordinary.xml",
+        "bytes": 867,
+        "sha256": "56c7f3f90e23a8cab168b286b0d95960fbed1df4a3c553dd29f34351f9fe6b65"
+      },
+      "raw_log": {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/ordinary.log",
+        "bytes": 851,
+        "sha256": "0e0275cf74df53d242523cc99535ffb4a75dafe65cc60d2d2c2f6093923e036c"
+      },
+      "passed": 3,
+      "failed": 0,
+      "errors": 0,
+      "actual_nodeids": [
+        "tests/agent/test_native_controlled_conversation.py::test_empty_text_stays_empty",
+        "tests/agent/test_native_controlled_conversation.py::test_ordinary_method_keeps_forwarding_and_instrumentation",
+        "tests/agent/test_native_controlled_conversation.py::test_ordinary_module_keeps_prologue_forwarding"
+      ]
+    }
+  ],
+  "cheap_final_scope": {
+    "passed_current_unchanged_bodies": 59,
+    "passed_corrected_bound_case": 1,
+    "claim": "Scoped union after test-data correction, not a fresh all-cases pass at the final test hash."
+  },
+  "owned_feedback": [
+    {
+      "scope": "cheap-new-1",
+      "reason": "Forwarding test supplied one extra positional argument.",
+      "outcome": "Test corrected."
+    },
+    {
+      "scope": "cheap-new-2",
+      "reason": "Inert anchor omitted the gate keyword defaults.",
+      "outcome": "Test anchor metadata corrected."
+    },
+    {
+      "scope": "cheap-new-3",
+      "reason": "Encoder replacement remained active during pytest report serialization.",
+      "outcome": "Patch lifetime corrected before report hooks."
+    },
+    {
+      "scope": "cheap-new-5",
+      "reason": "Bound test padded content that appears twice in the dictionary.",
+      "outcome": "Pure request data corrected. Only the affected bound case ran again."
+    }
+  ],
+  "genuine": {
+    "requested_nodeid": "tests/agent/test_native_public_issued_call_conversation.py::test_genuine_public_issued_call_conversation",
+    "actual_nodeid": "tests/agent/test_native_public_issued_call_conversation.py::test_genuine_public_issued_call_conversation",
+    "passed": 1,
+    "command_seconds": 443.49921278402326,
+    "xml_seconds": 441.071,
+    "outer_cap": 600,
+    "file_cap": 595,
+    "retries": 0,
+    "final_state": "SNAPSHOT_PRESENT",
+    "source_commit": "0398b91f9638f44979af2de37e99236d2b8db252",
+    "loaded": {
+      "paths": {
+        "agent.native_main_payload": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/agent/native_main_payload.py",
+        "run_agent": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/run_agent.py",
+        "agent.issued_call_episode": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/agent/issued_call_episode.py",
+        "agent.conversation_loop": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/agent/conversation_loop.py",
+        "agent.content_policy": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/agent/content_policy.py",
+        "hermes_content_policy": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py"
+      },
+      "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/.venv/bin/python",
+      "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.59/.venv",
+      "sha256": {
+        "agent.native_main_payload": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+        "run_agent": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d",
+        "agent.issued_call_episode": "25159b91cace7c213e0daf4fa664a6fb43241009b2df751fa82e4bcfedcc7964",
+        "agent.conversation_loop": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61",
+        "agent.content_policy": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+        "hermes_content_policy": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+      }
+    },
+    "property_rows": 68,
+    "graph_snapshots": 62,
+    "charges": [
+      38,
+      4,
+      32849
+    ],
+    "phase": "released",
+    "windows": 6,
+    "sends": [
+      1,
+      0,
+      1,
+      1,
+      0,
+      1
+    ],
+    "qualification_sends": 27,
+    "api_calls": 2,
+    "parent_tokens": {
+      "prompt_tokens": 16,
+      "completion_tokens": 10,
+      "total_tokens": 26,
+      "last_prompt_tokens": 11
+    },
+    "model": "invented_model_5",
+    "source_session": "invented_source_session",
+    "consumer_session": "invented_consumer_session",
+    "message_roles": [
+      "system",
+      "user",
+      "assistant",
+      "tool",
+      "assistant"
+    ],
+    "projected_canonical_bytes": 1544,
+    "request": {
+      "bytes": 1131,
+      "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b"
+    },
+    "completion": {
+      "bytes": 211,
+      "sha256": "b9f8e16d327b82b5284f04e91b87d707f8b7443cdf93eb10a839e8caa3079326"
+    },
+    "source_closed": true,
+    "original_completion_result_identity": true,
+    "original_live_getter_and_scope_exit": true,
+    "ordinary_lifecycle_sdk_network": "Excluded fixture assertions passed.",
+    "raw": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/genuine.xml",
+        "bytes": 3025494,
+        "sha256": "a9eb7b964b9c71cbf4ebd1ce8bf187cd3ee6afc8f434435719b3845287ac3cd4"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/genuine.receipts.jsonl",
+        "bytes": 2766129,
+        "sha256": "60b530fe55ffdc01ea2cf8bb0936a50ab968de2999acd1985ae811f08e91cf3b"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/genuine.cases.jsonl",
+        "bytes": 685,
+        "sha256": "69ee2584aaab4fc4aeb8604a4938602beb6176f58caa910c8b4276fcf98d7227"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/genuine.command.json",
+        "bytes": 207993,
+        "sha256": "5e056b7772b5130c6b4d37b83d39dc59094b3e2e17e33cec60820315ee14ba01"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/genuine.log",
+        "bytes": 893,
+        "sha256": "b8ab14fe0d4ce6e135f5d2ae3f99048242df4d46ab7baa92986ac07f8350b5f7"
+      }
+    ],
+    "final_graph": [
+      {
+        "index": 0,
+        "bytes": 402,
+        "sha256": "e9cde689cf9a4f026de61a74f0015fe51ade06acd980d3d7a736a180a85eb631",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "bytes": 400,
+        "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 2,
+        "bytes": 508,
+        "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b",
+        "parents": [
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 3,
+        "bytes": 710,
+        "sha256": "b4c2d3511f11f49ad31ff563d53fa79ffe67aee08aba1e5907101d0274851b7b",
+        "parents": [
+          1,
+          2
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 4,
+        "bytes": 436,
+        "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11",
+        "parents": [
+          3
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 5,
+        "bytes": 1199,
+        "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864",
+        "parents": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 6,
+        "bytes": 1596,
+        "sha256": "b64cd0e6bd87e7366b003fdd022339310bd8fc98a741ed20cd1876a53d1483a0",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 7,
+        "bytes": 355,
+        "sha256": "d43a16ea814d2020da4bfbdffc4029cfd4a7bfed4c49315b7efcbfa2cf56a7d0",
+        "parents": [
+          4,
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 8,
+        "bytes": 1266,
+        "sha256": "913e0d11a0b6f57e0b3ccb15cd3fec72a05231f4e2a8ca7728378700782cae43",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 9,
+        "bytes": 2498,
+        "sha256": "a61006cd1d5d45fce490468424c5a171b3f02db018a09f7fe7fe4e368f3e4e96",
+        "parents": [
+          5,
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 10,
+        "bytes": 621,
+        "sha256": "2f509d0937eea37bc6116cbcdaba235a0fae12cefb61c4ed45fae0ccedb66a74",
+        "parents": [
+          9
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 11,
+        "bytes": 59,
+        "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+        "parents": [
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 12,
+        "bytes": 2738,
+        "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+        "parents": [
+          10,
+          11
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 13,
+        "bytes": 17,
+        "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "parents": [
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 14,
+        "bytes": 2738,
+        "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+        "parents": [
+          12
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 15,
+        "bytes": 59,
+        "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+        "parents": [
+          14
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 16,
+        "bytes": 1143,
+        "sha256": "d1052ae84e5ec29c2696aaa570e63a27e702c9d1d4f2a99b42be0f49c3ceea23",
+        "parents": [
+          15
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 17,
+        "bytes": 2240,
+        "sha256": "3c9be6aa88ce69bec7e07c9d547f0ba4a5fe7d8b9bb01c46f2418c32c2d146ab",
+        "parents": [
+          16,
+          16
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 18,
+        "bytes": 971,
+        "sha256": "7473ffd55f6fd0df0a1cf08057543af82f808441f1dd7deee0e81604b9c538dd",
+        "parents": [
+          16,
+          16,
+          17
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 19,
+        "bytes": 1173,
+        "sha256": "0091f4298c0ecf90c02e35ec1a3d1853f26d3228dafee30065f0537099081578",
+        "parents": [
+          16,
+          16,
+          17
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 20,
+        "bytes": 273,
+        "sha256": "3afd0d646ef808434d46fee4a34194d1430ad3bb4d6af087cbd22149534d5773",
+        "parents": [
+          19
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 21,
+        "bytes": 778,
+        "sha256": "0f206048e4cea88c818267959615fe450c66cb0af91a8b125bea23e1550254ff",
+        "parents": [
+          16,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 22,
+        "bytes": 247,
+        "sha256": "da7594cff5f3c08b279d7cd92423526e436bf50568293aa965a12a5f49cdab1b",
+        "parents": [
+          14,
+          21
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 23,
+        "bytes": 293,
+        "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+        "parents": [
+          14,
+          21,
+          22
+        ],
+        "binding": [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 24,
+        "bytes": 293,
+        "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+        "parents": [
+          12,
+          14,
+          23
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 25,
+        "bytes": 2307,
+        "sha256": "03fedd37120ee72541fb1a663d8d2fd175ad1a1af016fc3284e9ef9d90dff28c",
+        "parents": [
+          9,
+          24
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 26,
+        "bytes": 549,
+        "sha256": "8228042bcdf5bf5c176e3c70c6db179e556ce2389cc68c3516c7a1f3dbe7d89b",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 27,
+        "bytes": 608,
+        "sha256": "8add4005a3d53086e71e75bdf8f23216802187c18e6d9868f3ffeb454a1ca34c",
+        "parents": [
+          25,
+          26
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 28,
+        "bytes": 471,
+        "sha256": "57f282390ba8f00679673b3ffee6362781a41af794136ce72f69f99b43667f2a",
+        "parents": [
+          27
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 29,
+        "bytes": 415,
+        "sha256": "01c141a03033fe3920d4434eef50e21841b17aad96b92b5c5dabb1c66364c5b8",
+        "parents": [
+          28
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 30,
+        "bytes": 259,
+        "sha256": "3c20f50a804e6a4a5022eeae19f1780f532e7721dda64e60889b0911a1f6f9d5",
+        "parents": [
+          7
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 31,
+        "bytes": 673,
+        "sha256": "6f5b4793e6c7e56348a2d60b6ee4466e3c6e5b621f59b42e96741993b7a1244f",
+        "parents": [
+          30,
+          29
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 32,
+        "bytes": 1364,
+        "sha256": "8260547e3977910b4df836c9d239f7310cb66d6a852ff372405c014d3c0ade26",
+        "parents": [
+          31,
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 33,
+        "bytes": 1131,
+        "sha256": "314a8adb41d6c2c496aac46880d4476bdd31031d4141291062b1299b708e224b",
+        "parents": [
+          32
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 34,
+        "bytes": 1333,
+        "sha256": "daad5ad50f50ec3adc9615f80d06779e0dbb5b59f151a0a720513a703824a934",
+        "parents": [
+          32,
+          33
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 35,
+        "bytes": 299,
+        "sha256": "40be79ce4aace54ae26f86cd794933f776ce9e53bf7c0496b50c3ab07d3895dc",
+        "parents": [
+          34
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 36,
+        "bytes": 216,
+        "sha256": "b59d780f968215e7537bdf6f35a78ea299479286fb2e95319bed4da92a9392d1",
+        "parents": [
+          32,
+          33,
+          34,
+          35
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 37,
+        "bytes": 211,
+        "sha256": "b9f8e16d327b82b5284f04e91b87d707f8b7443cdf93eb10a839e8caa3079326",
+        "parents": [
+          31,
+          0,
+          32,
+          33,
+          34,
+          35,
+          36
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection_0",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      }
+    ],
+    "phases": [
+      [
+        "binding",
+        0,
+        null,
+        null,
+        null
+      ],
+      [
+        "constructing",
+        0,
+        null,
+        null,
+        null
+      ],
+      [
+        "armed",
+        0,
+        "bound",
+        null,
+        null
+      ],
+      [
+        "armed",
+        0,
+        "entered",
+        null,
+        null
+      ],
+      [
+        "armed",
+        0,
+        "sent",
+        null,
+        null
+      ],
+      [
+        "armed",
+        0,
+        "observed",
+        null,
+        null
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        null,
+        null
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "binding",
+        null
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "bound",
+        null
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "running",
+        null
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "released",
+        null
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "released",
+        "binding"
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "released",
+        "bound"
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "released",
+        "running"
+      ],
+      [
+        "armed",
+        0,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "paired",
+        1,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "paired",
+        2,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "prepared",
+        2,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "prepared",
+        3,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "sent",
+        3,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "sent",
+        4,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "normalized",
+        4,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "normalized",
+        5,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "consumed",
+        5,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "consumed",
+        6,
+        "released",
+        "released",
+        "released"
+      ],
+      [
+        "released",
+        6,
+        "released",
+        "released",
+        "released"
+      ]
+    ]
+  },
+  "reused_scopes": {
+    "host": "hpwa-p10.50.final-review.json",
+    "helper": "hpwa-p10.57.final-review.json",
+    "continuation": "hpwa-p10.49.consolidation.final-review.json",
+    "basis": "Exact protected pins in pins.json. No repeated histories."
+  },
+  "preservation": {
+    "base_paths": 12152,
+    "other_paths": 12149,
+    "source_freeze_exact": true,
+    "environment_files": 5,
+    "protected_receipts": 10,
+    "wheel_exact": true,
+    "private_modes_exact": true
+  },
+  "warnings_scope": "The original runner suppresses successful pytest stdout. No blanket warning-absence claim.",
+  "ci": {
+    "receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/handoff.json",
+    "scope": "Exact final head checks and statuses follow the evidence commit.",
+    "success_claim": false
+  },
+  "limits": [
+    "Root review, acceptance, merge, Beads closure, and canonical reconciliation remain pending.",
+    "Full P10, full P06, real providers, private inference, egress, durable transfer, cross-thread support, and source completeness remain open."
+  ],
+  "owned_static_feedback_receipt": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/owned-static-feedback.json"
+}

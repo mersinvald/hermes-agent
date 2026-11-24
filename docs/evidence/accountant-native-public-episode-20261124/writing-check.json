@@ -1,0 +1,70 @@
+{
+  "mode": "python-prose-v1 for both baseline and candidate",
+  "baseline": {
+    "run_agent": {
+      "words": 9785,
+      "violations": 311,
+      "per100": 3.18,
+      "em_dash": 255
+    },
+    "conversation_loop": {
+      "words": 21893,
+      "violations": 614,
+      "per100": 2.8,
+      "em_dash": 280
+    },
+    "episode": {
+      "words": 19,
+      "violations": 0,
+      "per100": 0,
+      "em_dash": 0
+    }
+  },
+  "candidate": {
+    "run_agent": {
+      "words": 9785,
+      "violations": 311,
+      "per100": 3.18,
+      "em_dash": 255
+    },
+    "conversation_loop": {
+      "words": 21893,
+      "violations": 614,
+      "per100": 2.8,
+      "em_dash": 280
+    },
+    "episode": {
+      "words": 53,
+      "violations": 0,
+      "per100": 0,
+      "em_dash": 0
+    },
+    "test": {
+      "words": 110,
+      "violations": 0,
+      "per100": 0,
+      "em_dash": 0
+    }
+  },
+  "new_readme": {
+    "mode": "prose-v1",
+    "violations": 0,
+    "em_dash": 0,
+    "corrected_paragraph_feedback": {
+      "before_per100": 0.26,
+      "before_violations": 1,
+      "after_per100": 0,
+      "after_violations": 0
+    }
+  },
+  "scope": "Known unchanged baseline findings remain outside this task.",
+  "new_pr_body": {
+    "mode": "prose-v1",
+    "violations": 0,
+    "em_dash": 0
+  },
+  "raw_final_receipt": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.59/writing-final-corrected.txt",
+    "sha256": "8c49b5bbf195e60becf25c649c9cd7e30d8246a8f49a98ba63cc5f772b10ce20"
+  }
+}

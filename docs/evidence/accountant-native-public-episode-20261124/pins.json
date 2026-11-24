@@ -1,0 +1,433 @@
+{
+  "issue": "hpwa-p10.59",
+  "base": {
+    "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+    "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+    "tree": "00ff729a28155362fda1c69a9a0e1cbe07cd12c1",
+    "paths": 12152
+  },
+  "proposal_publication": {
+    "worktree": "/home/mersinvald/orca/workspaces/hermes-agent-pwa/hpwa-p10.58",
+    "commit": "5308190b244be653208908800b428567222a3730",
+    "tree": "6e448924772e3d7b42aa978d3b438a14eae9fd6a",
+    "paths": 3252
+  },
+  "proposal_sha256": "a231a3b00e9856899c2104609e2a73370a2053efcdf2ff09e490b4c804bb9dd4",
+  "source_map_sha256": "ac8978ae2ac02a68c74ca9a6df3b07c680c436f54a1461aaaa257c687b12e53f",
+  "input_receipt": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.59.input-receipts.json",
+    "sha256": "bab2977fdc085c85855cb16251b2cde3d0ae83abe61d61b5000504d2eab76e74"
+  },
+  "source_freeze": {
+    "commit": "0398b91f9638f44979af2de37e99236d2b8db252",
+    "tree": "f44cd3040dd39c3b6cdc7901ef1af8c40b290d86",
+    "api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "files": {
+      "run_agent.py": {
+        "bytes": 443603,
+        "sha256": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d"
+      },
+      "agent/conversation_loop.py": {
+        "bytes": 502389,
+        "sha256": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61"
+      },
+      "agent/issued_call_episode.py": {
+        "bytes": 18378,
+        "sha256": "25159b91cace7c213e0daf4fa664a6fb43241009b2df751fa82e4bcfedcc7964"
+      },
+      "tests/agent/test_native_public_issued_call_conversation.py": {
+        "bytes": 29038,
+        "sha256": "ef7272f534875e48ba0561470bc81ad940a32309b654b9a3f24e0a6c19b92811"
+      }
+    }
+  },
+  "public_api": {
+    "run_agent.py": {
+      "run_conversation": {
+        "signature": "self, user_message: Any, system_message: str=None, conversation_history: List[Dict[str, Any]]=None, task_id: str=None, stream_callback: Optional[callable]=None, persist_user_message: Optional[Any]=None, persist_user_timestamp: Optional[float]=None, persist_user_display_kind: Optional[str]=None, persist_user_display_metadata: Optional[Dict[str, Any]]=None, moa_config: Optional[dict[str, Any]]=None, *, controlled_issued_call: 'NativeIssuedCallConversationPlan | None'=None",
+        "returns": "Dict[str, Any]",
+        "code_sha256": "755820db622233faecdbf5d360fa6149e0c67bdac766373c9cc724fb40304a03"
+      }
+    },
+    "agent/conversation_loop.py": {
+      "run_conversation": {
+        "signature": "agent, user_message: Any, system_message: str=None, conversation_history: List[Dict[str, Any]]=None, task_id: str=None, stream_callback: Optional[callable]=None, persist_user_message: Optional[Any]=None, persist_user_timestamp: Optional[float]=None, persist_user_display_kind: Optional[str]=None, persist_user_display_metadata: Optional[Dict[str, Any]]=None, moa_config: Optional[dict[str, Any]]=None, *, controlled_issued_call: 'NativeIssuedCallConversationPlan | None'=None",
+        "returns": "Dict[str, Any]",
+        "code_sha256": "0c7dc2c3ee1d865004ab46663636c1d8a6a477922f26364f8aba2add6b9653dd"
+      }
+    },
+    "agent/issued_call_episode.py": {
+      "run_controlled_issued_call_episode": {
+        "signature": "source_agent: AIAgent, source_adapter: NativeMainPayloadAdapter, *, probe: NativeIssuedCallEpisodeProbe, execution: NativeIssuedCallEpisodeExecution, formatter: NativeIssuedCallEpisodeFormatter, consumer: NativeIssuedCallEpisodeConsumer",
+        "returns": "NativeIssuedCallContinuationCompletion",
+        "code_sha256": "8300fb80b2b791e02375441f2f67ce24cbc6acbd97cb80435f75ee1051c119b0"
+      }
+    }
+  },
+  "original_host_api_sha256": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90",
+  "preservation": {
+    "run_agent.py": {
+      "sha256": "7fb2fbd84814cfb0c0cda9f7a9293f46ef1461aee046101624d526f1ba18813d",
+      "bytes": 443603,
+      "original_signature_defaults_preserved": true
+    },
+    "agent/conversation_loop.py": {
+      "sha256": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61",
+      "bytes": 502389,
+      "original_signature_defaults_preserved": true
+    },
+    "record_fields": {
+      "NativeIssuedCallEpisodeProbe": [
+        "system_message",
+        "user_message",
+        "task_id",
+        "expected_arguments_json"
+      ],
+      "NativeIssuedCallEpisodeExecution": [
+        "execution_request",
+        "execution_selection",
+        "execution_producer_ref",
+        "execution_main_route_ref",
+        "receiver_request",
+        "receiver_selection",
+        "receiver_producer_ref",
+        "child_request",
+        "child_selection",
+        "child_producer_ref",
+        "delegate_route_ref",
+        "child_main_route_ref",
+        "child_session_id",
+        "child_task_id"
+      ],
+      "NativeIssuedCallEpisodeFormatter": [
+        "formatter_request",
+        "formatter_selection",
+        "formatter_producer_ref",
+        "formatter_main_route_ref"
+      ],
+      "NativeIssuedCallEpisodeConsumer": [
+        "consumer_context",
+        "consumer_selection",
+        "consumer_producer_ref",
+        "consumer_main_route_ref",
+        "target_model",
+        "session_id"
+      ]
+    },
+    "agent/issued_call_episode.py": {
+      "sha256": "25159b91cace7c213e0daf4fa664a6fb43241009b2df751fa82e4bcfedcc7964",
+      "bytes": 18378,
+      "original_signature_defaults_preserved": true
+    },
+    "other_base_paths_preserved": 12149,
+    "total_base_paths": 12152,
+    "native_payload_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+    "new_plan_frozen_slots": true,
+    "original_episode_structure_restored": true,
+    "original_28_field_capture_exact": true,
+    "controlled_text_result_keys_exact": [
+      "final_response",
+      "last_reasoning",
+      "messages",
+      "api_calls",
+      "completed",
+      "turn_exit_reason",
+      "failed",
+      "partial",
+      "interrupted",
+      "response_transformed",
+      "pre_transform_response",
+      "response_previewed",
+      "model",
+      "provider",
+      "base_url",
+      "input_tokens",
+      "output_tokens",
+      "cache_read_tokens",
+      "cache_write_tokens",
+      "reasoning_tokens",
+      "prompt_tokens",
+      "completion_tokens",
+      "total_tokens",
+      "last_prompt_tokens",
+      "estimated_cost_usd",
+      "cost_status",
+      "cost_source",
+      "service_tier",
+      "session_id"
+    ],
+    "three_source_modes_preserved": true
+  },
+  "shared": {
+    "version": "0.4.0",
+    "wheel": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+      "sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b"
+    },
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+    "consumer_sha256": "2f7687490e73de1802eb1071806acd02b28ccbfdf62f63ad47e278b395131be8",
+    "native_content_policy_sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+  },
+  "protected_receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.58.static-review.json",
+      "bytes": 1777,
+      "sha256": "7cde7388ed7b221a37af9bd32be33d40061f00143d909a38be7d74faf7dc842c"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.58.final-review.json",
+      "bytes": 3033,
+      "sha256": "bca94f82cbe99fbcf3d593c21b0fea161c2566c1e495e5adcea0107a98484b73"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.58.publication.json",
+      "bytes": 1317,
+      "sha256": "0fc8d7c8f5cb990bde820939ad6123ee1d9891c97159719fa87a585974c1045e"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.49.consolidation.final-review.json",
+      "bytes": 2604,
+      "sha256": "e1f9e68d67b55444b5d59eb1b813fcf12b48a9edf24c221e0594246f50ace2d1"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.49.consolidation.publication.json",
+      "bytes": 1089,
+      "sha256": "b8848c66ac3d1fda61e2e850d61550aabbfad388d951c94b80e4ea693645fd38"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.57.final-review.json",
+      "bytes": 1960,
+      "sha256": "cf7588ac8fffb08cf4d9f6af964b6a2db572678c2b4a972fee94c5d7bc1ef376"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.57.publication.json",
+      "bytes": 1044,
+      "sha256": "9cce5c29411a624813277b05c3ac29d7497c989b4a58fdfa3110fa1604ee47d1"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.50.final-review.json",
+      "bytes": 4182,
+      "sha256": "4b1e8ff6bb3ff4fc590b44ae0e4f5e5ab49e67344960f98d89fecf30eb483019"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.50.publication.json",
+      "bytes": 1634,
+      "sha256": "aed82395c5fbeda64a1bd3ae31aec324ad0bc16cf9f23a132403cb2a7f3bbf3a"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.23.native-handoff.json",
+      "bytes": 2278,
+      "sha256": "308d0c5a2e7a0bea715a1ac2ddfebbeb32e65263ca3236bbc5b1001478adfed9"
+    }
+  ],
+  "environment": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "bytes": 197,
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "bytes": 160,
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "bytes": 756,
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "bytes": 87,
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "original_source_pins": [
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "run_agent.py",
+      "mode": "100644",
+      "blob": "c84a0304464e87ea899f07078e29a4c8ff8ef7c4",
+      "bytes": 442455,
+      "sha256": "7ab6c348055875e6221f42514dea41320dca92aaf406c448f80e56aedd300932"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/conversation_loop.py",
+      "mode": "100644",
+      "blob": "eeb145af9551762481a5a3903063b2fbaf6d78d2",
+      "bytes": 501328,
+      "sha256": "a8edcd27a3722ac146eca42de8904cb9f7d1f5c53e0aa67958d237f09a6a0351"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/issued_call_episode.py",
+      "mode": "100644",
+      "blob": "a19675761ceb14636afdebdd63b829917dd042e4",
+      "bytes": 6468,
+      "sha256": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/native_main_payload.py",
+      "mode": "100644",
+      "blob": "397e44876d39fe347f9d2c1ca5817b9e9acf9cde",
+      "bytes": 643457,
+      "sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/content_policy.py",
+      "mode": "100644",
+      "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+      "bytes": 11094,
+      "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/chat_completion_helpers.py",
+      "mode": "100644",
+      "blob": "9a8ec5f35c8fb62751821d530c7f2016c15cd418",
+      "bytes": 275491,
+      "sha256": "19b6d8f93c721a2aee65646dc5ad2fba92729178459d55d99f5ac57c6704ae1f"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/transports/types.py",
+      "mode": "100644",
+      "blob": "6ad20f2376d1c3d65c8902ddc05599c082e617f0",
+      "bytes": 6332,
+      "sha256": "148b1f6389d10952a70da2a79c7a6baf056f7a41178b9b5e0b673626dad2fa2b"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/transports/chat_completions.py",
+      "mode": "100644",
+      "blob": "e2a6707b09af16c7adee3797e90bb7447b51858a",
+      "bytes": 52313,
+      "sha256": "fec0186cdb5536f657f8428ef873ea8871bed7d178db629b5a15a1c50f765003"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "agent/turn_finalizer.py",
+      "mode": "100644",
+      "blob": "bc279c767a5d22ea28c726a9b698d5ebefbb7e97",
+      "bytes": 41015,
+      "sha256": "584ade4613a11565c2ccd48546327adb9682f58ec70ace9d02921c3c240c14d5"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/tools/test_native_issued_call_episode.py",
+      "mode": "100644",
+      "blob": "49281217d22d5c4ca21740bfa0de7589813fea35",
+      "bytes": 21452,
+      "sha256": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/tools/test_native_issued_call_continuation.py",
+      "mode": "100644",
+      "blob": "7a890b6304586c0455641e394f04e45752a5a55c",
+      "bytes": 19073,
+      "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/tools/test_native_parent_resumption.py",
+      "mode": "100644",
+      "blob": "bf73d63a2f0dbc494539a5207ead7dc46242d5f0",
+      "bytes": 23343,
+      "sha256": "77724b5e8f459f425b780390ad6af74b72e919753b9078b7c740372ae2f1fe2f"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/tools/test_native_issued_call_wire.py",
+      "mode": "100644",
+      "blob": "06d68b8fc730ca486dd0056c9f4afb91ddc4e2df",
+      "bytes": 11113,
+      "sha256": "684f64f6e2780ae7f4719f6cfbb74a9ea4a1a58823ca43eaf5db395bdd59d8a1"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "mode": "100644",
+      "blob": "686aeb4f234d9522ab096e12b870fa4798ff1c6a",
+      "bytes": 128596,
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/agent/test_native_main_payload.py",
+      "mode": "100644",
+      "blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb",
+      "bytes": 66496,
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "scripts/run_tests.sh",
+      "mode": "100755",
+      "blob": "4445d6d5428b657e3d780903915229acbc1666ce",
+      "bytes": 9010,
+      "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "scripts/run_tests_parallel.py",
+      "mode": "100755",
+      "blob": "eb923cc9b43b3a7af8a2f19461ce91e38e18ec10",
+      "bytes": 52720,
+      "sha256": "d71999ea44ef18352ff0f0d08512fae2109ac748a654553b15aa02d72f368bd9"
+    },
+    {
+      "repository": "hermes-agent",
+      "worktree": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.49",
+      "commit": "cbf2bc37b8908ecdfb92118937b54c652f4f900f",
+      "path": "tests/conftest.py",
+      "mode": "100644",
+      "blob": "ffa5e7b9282ca6189d3eda1177a26d30a948284e",
+      "bytes": 74072,
+      "sha256": "795284130f89c6894a84f520f48699d57201eec3d79535c03c257aa765f55a47"
+    }
+  ]
+}

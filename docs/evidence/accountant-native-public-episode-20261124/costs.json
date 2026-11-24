@@ -1,0 +1,32 @@
+{
+  "task_start_utc": "2026-11-24T14:38:09+00:00",
+  "task_limit_seconds": 2400,
+  "task_wall_seconds_at_evidence": 1378.9597568511963,
+  "allowances": {
+    "verification_total": 900,
+    "setup": 70,
+    "cheap": 80,
+    "genuine": 600,
+    "final_publication": 90,
+    "reserve": 60
+  },
+  "measured_command_seconds": {
+    "cheap_all_attempts": 34.04268303903518,
+    "genuine": 443.49921278402326,
+    "final_static_receipt": 0.04666532398550771,
+    "initial_pin_verification": 0.394899473,
+    "initial_pinned_import": 2.480857864,
+    "private_inert_import": 1.067719856,
+    "source_writing_check": 1.225217753
+  },
+  "launch_floors": {
+    "task_remaining": 1604.905689716339,
+    "required_task_remaining": 750,
+    "verification_remaining": 795.9573169609648,
+    "required_verification_remaining": 750
+  },
+  "verification_basis": "Command costs, with setup charged at its full allowance; coding and review count against task wall.",
+  "charged_verification_before_publication": 547.588561147044,
+  "final_publication": "Exact measured duration will be in the protected handoff after remote verification.",
+  "measurement_scope": "Named command durations only. Task wall includes coding, review, setup, waiting, and publication. Setup uses its full 70-second charge."
+}
