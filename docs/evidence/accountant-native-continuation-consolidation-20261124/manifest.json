@@ -1,0 +1,38 @@
+{
+  "README.md": {
+    "bytes": 4423,
+    "sha256": "360cebbbc6750140aec231845a5ed26198c869f805360132ec54440326126c51"
+  },
+  "checks.json": {
+    "bytes": 1874,
+    "sha256": "2490c68ded395a7df54290176a3174a7feac3cb4cbdcad3aae14f896e5ba2e13"
+  },
+  "coverage_expiry.json": {
+    "bytes": 44411,
+    "sha256": "77401788a0699cf0c2154e5d83ed00ec493d80ee6a0bb09a3b73a6c7dab5f4b3"
+  },
+  "derive.py": {
+    "bytes": 6393,
+    "sha256": "a9f30e2f9a6ced111416dfa0766467d97ba2ec6aa08bf947be8146e6cef14afa"
+  },
+  "pins.json": {
+    "bytes": 6953,
+    "sha256": "3627cc7b43a4c7202388571ab0eec387f673c7c934b18a7bd2483fc6247b6e81"
+  },
+  "positive.json": {
+    "bytes": 60816,
+    "sha256": "eebca7b62d1e81a60a27afe42d04f3caca6a0cd3b459c5179d7d35b04a07c342"
+  },
+  "qualification.json": {
+    "bytes": 3667,
+    "sha256": "cf7bdab95a22bba188f393635358ae6b5328112c3a552085bba64fdc43ab0bd3"
+  },
+  "raw-manifest.json": {
+    "bytes": 3576,
+    "sha256": "17ede5789771c75c6ab0ae6d1ceec173590436c732703363b78defd6e06e70ef"
+  },
+  "results.json": {
+    "bytes": 6875,
+    "sha256": "bcb00dbac68c99f888cb7e0c19452e7a9460a0b45e77f2a608c8567cff1a39dd"
+  }
+}
