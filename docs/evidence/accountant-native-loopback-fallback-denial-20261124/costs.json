@@ -1,0 +1,37 @@
+{
+  "task_cap_seconds": 2400,
+  "verification_cap_seconds": 1200,
+  "measured_test_commands_seconds": {
+    "cheap-new": 12.697620424994966,
+    "cheap-default": 0.815502887009643,
+    "genuine": 12.696580138988793
+  },
+  "cheap_command_total_seconds": 13.513123312004609,
+  "measured_all_test_commands_seconds": 26.209703450993402,
+  "task_wall_to_evidence_seconds": 667.6981604099274,
+  "verification_wall_to_evidence_seconds": 318.2016770839691,
+  "verification_start_basis": "First retained Ruff report time minus a conservative 10 second setup allowance.",
+  "final_publication_allowance_seconds": 240,
+  "reserve_allowance_seconds": 210,
+  "launch": {
+    "at": 1795545663.9919791,
+    "args": [
+      "scripts/run_tests.sh",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "595",
+      "tests/agent/test_native_loopback_fallback_denial.py::test_genuine_current_fallback_expiry",
+      "--",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.65/genuine.xml"
+    ],
+    "task_remaining": 1885.0080208778381,
+    "verification_remaining": 1034.5045042037964
+  },
+  "historical_timings": "55.84 second delegation and 449.99 second positive histories remain separate. No timing prediction or speedup claim."
+}

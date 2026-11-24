@@ -1,0 +1,70 @@
+[
+  {
+    "nodeid": "tests/agent/test_native_loopback_fallback_denial.py::test_observation_qualification_mark_drain",
+    "kind": "qualification_mark_drain",
+    "prior_rows": 1,
+    "connections": 1,
+    "suffix_bytes": 0,
+    "errors": [],
+    "thread_stopped": true,
+    "listener_closed": true,
+    "sockets_closed": true,
+    "poll_progress": 11
+  },
+  {
+    "nodeid": "tests/agent/test_native_loopback_fallback_denial.py::test_marked_window_connection[empty]",
+    "kind": "empty",
+    "prior_rows": 1,
+    "connections": 2,
+    "suffix_bytes": 0,
+    "errors": [
+      [
+        "ValueError",
+        "eof_empty"
+      ]
+    ],
+    "thread_stopped": true,
+    "listener_closed": true,
+    "sockets_closed": true,
+    "poll_progress": 13
+  },
+  {
+    "nodeid": "tests/agent/test_native_loopback_fallback_denial.py::test_marked_window_connection[partial]",
+    "kind": "partial",
+    "prior_rows": 1,
+    "connections": 2,
+    "suffix_bytes": 49,
+    "errors": [
+      [
+        "ValueError",
+        "eof_partial_request"
+      ]
+    ],
+    "thread_stopped": true,
+    "listener_closed": true,
+    "sockets_closed": true,
+    "poll_progress": 14
+  },
+  {
+    "nodeid": "tests/agent/test_native_loopback_fallback_denial.py::test_inert_initial_plan_and_trigger_guard",
+    "genuine_native_history": false,
+    "trigger_inert": true
+  },
+  {
+    "before": [
+      1,
+      0,
+      22
+    ],
+    "after": [
+      1,
+      0,
+      22
+    ],
+    "reason": "path_coverage_missing",
+    "no_envelope": true,
+    "no_result": true,
+    "native_post_failure_claim": false,
+    "receiver_observation": "UNKNOWN: no listeners"
+  }
+]

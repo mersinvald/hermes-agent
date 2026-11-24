@@ -1,5 +1,5 @@
 {
-  "status": "FROZEN CHECK SELECTION. Results pending.",
+  "status": "Check selection frozen before launch. Results appear in checks.json.",
   "cheap_nodes": [
     "tests/agent/test_native_loopback_fallback_denial.py::test_observation_qualification_mark_drain",
     "tests/agent/test_native_loopback_fallback_denial.py::test_marked_window_connection[empty]",

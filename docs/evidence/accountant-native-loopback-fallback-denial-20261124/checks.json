@@ -1,0 +1,176 @@
+{
+  "scopes": [
+    {
+      "name": "cheap-new",
+      "command": [
+        "scripts/run_tests.sh",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "65",
+        "tests/agent/test_native_loopback_fallback_denial.py",
+        "-k",
+        "not test_genuine_current_fallback_expiry",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.65/cheap-new.xml"
+      ],
+      "outer_cap": 70.0,
+      "started": 1795545551.6098487,
+      "seconds": 12.697620424994966,
+      "exit": 0,
+      "outer_timeout": false,
+      "requested": [
+        "tests/agent/test_native_loopback_fallback_denial.py",
+        "-k",
+        "not test_genuine_current_fallback_expiry"
+      ],
+      "actual_nodes": [
+        {
+          "name": "test_observation_qualification_mark_drain",
+          "class": "tests.agent.test_native_loopback_fallback_denial",
+          "seconds": "0.608",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_marked_window_connection[empty]",
+          "class": "tests.agent.test_native_loopback_fallback_denial",
+          "seconds": "0.590",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_marked_window_connection[partial]",
+          "class": "tests.agent.test_native_loopback_fallback_denial",
+          "seconds": "0.589",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inert_initial_plan_and_trigger_guard",
+          "class": "tests.agent.test_native_loopback_fallback_denial",
+          "seconds": "0.020",
+          "outcome": "passed"
+        },
+        {
+          "name": "test_shared_expired_fallback_control",
+          "class": "tests.agent.test_native_loopback_fallback_denial",
+          "seconds": "0.031",
+          "outcome": "passed"
+        }
+      ],
+      "environment_five_exact_after": true
+    },
+    {
+      "name": "cheap-default",
+      "command": [
+        "scripts/run_tests.sh",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.65/cheap-default.xml"
+      ],
+      "outer_cap": 30.0,
+      "started": 1795545592.694494,
+      "seconds": 0.815502887009643,
+      "exit": 0,
+      "outer_timeout": false,
+      "requested": [
+        "tests/agent/test_owned_loopback_http.py::test_positive_wire_and_fresh_destination"
+      ],
+      "actual_nodes": [
+        {
+          "name": "test_positive_wire_and_fresh_destination",
+          "class": "tests.agent.test_owned_loopback_http",
+          "seconds": "0.098",
+          "outcome": "passed"
+        }
+      ],
+      "environment_five_exact_after": true
+    },
+    {
+      "name": "genuine",
+      "command": [
+        "scripts/run_tests.sh",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "595",
+        "tests/agent/test_native_loopback_fallback_denial.py::test_genuine_current_fallback_expiry",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.65/genuine.xml"
+      ],
+      "outer_cap": 600.0,
+      "started": 1795545663.9921358,
+      "seconds": 12.696580138988793,
+      "exit": 0,
+      "outer_timeout": false,
+      "requested": [
+        "tests/agent/test_native_loopback_fallback_denial.py::test_genuine_current_fallback_expiry"
+      ],
+      "actual_nodes": [
+        {
+          "name": "test_genuine_current_fallback_expiry",
+          "class": "tests.agent.test_native_loopback_fallback_denial",
+          "seconds": "10.388",
+          "outcome": "passed"
+        }
+      ],
+      "environment_five_exact_after": true
+    }
+  ],
+  "total_passed": 7,
+  "source_static_corrections": {
+    "initial_ruff": {
+      "findings": [
+        "F821: observation record declaration order",
+        "F401: unused import"
+      ],
+      "resolved": true
+    },
+    "initial_preservation": {
+      "failure": "Raw checkout hash differs for a CRLF checkout path",
+      "resolution": "Git clean-filter hashes confirm original canonical blobs. No file changed."
+    },
+    "predicate_lookup": {
+      "before_genuine": "Two matching source predicates. Restricted lookup to original fallback snapshot.",
+      "functional_rerun": false
+    }
+  },
+  "genuine_and_final_test_pin_exact": true,
+  "environment_five_exact_before_and_after_each_process": true,
+  "functional_retries": 0,
+  "extra_functional_cases": 0,
+  "CI_success_claim": false,
+  "source_pins_by_scope": {
+    "cheap-new": {
+      "test_sha256": "b4aa2ca5436587ff59db2fd9d1f15d237c5eeb537686f7fcde4025e05b729199",
+      "helper_sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d",
+      "source_correspondence": "Only the unexecuted genuine predicate lookup differs from the final test."
+    },
+    "cheap-default": {
+      "test_sha256": "f7836f687b4ef566462f88e39f274ad3207da4e5b06674f74afb46cfb17eba49",
+      "helper_sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d"
+    },
+    "genuine": {
+      "test_sha256": "02f943767adf01eda785da8e2a8eddf72405fb6e8e89e32132214f728e5ab8a1",
+      "helper_sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d",
+      "source_commit": "2baf135db954dc3f4c62d601ff2a308f7c74285d"
+    }
+  }
+}
