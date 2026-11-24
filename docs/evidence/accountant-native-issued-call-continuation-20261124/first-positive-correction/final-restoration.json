@@ -1,0 +1,8 @@
+{
+  "final_inverse_restores_base_runtime_and_test_exact": true,
+  "extraction_inverse_restores_failed_history_runtime_and_test_exact": true,
+  "all_original_body_branches_and_public_API_exact": true,
+  "final_harness_UNEXECUTED": true,
+  "pure_guard_only_passed": 3,
+  "genuine_positive_case_outcome": "failed"
+}

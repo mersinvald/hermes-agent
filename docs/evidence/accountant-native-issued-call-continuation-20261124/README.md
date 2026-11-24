@@ -109,3 +109,9 @@ All original predicates and callback checks remain unchanged.
 The frozen source commit is `288c6f60a75e3b295a58efaa3f8a949d80e49c84`.
 The source tree is `848894585f03142168bffc5c77e34ed80fb042c2`.
 [Source pins](source-pins.json) binds the runtime, test, API, consumer, proposal, and dependency.
+
+## Separate first-positive correction
+
+[The corrective scope](first-positive-correction/README.md) records a separate task and budget.
+The original Task remains failed.
+PR22 remains INCOMPLETE / DO NOT MERGE.

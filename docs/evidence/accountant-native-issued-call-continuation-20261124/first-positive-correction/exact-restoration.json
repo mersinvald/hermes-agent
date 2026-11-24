@@ -1,0 +1,8 @@
+{
+  "outside_two_runtime_functions_exact": true,
+  "forward_inverse_restores_original_bytes": true,
+  "restored": {
+    "agent/native_main_payload.py": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+    "tests/tools/test_native_issued_call_continuation.py": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602"
+  }
+}

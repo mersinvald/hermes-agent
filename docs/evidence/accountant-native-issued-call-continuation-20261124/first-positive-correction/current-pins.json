@@ -1,0 +1,17 @@
+{
+  "runtime_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+  "test_sha256": "7d6b7881157e1e038f9f5bb8380570a1211a6d78ad8ef1104e613188739bfc1d",
+  "failed_actual_history_runtime_sha256": "d99e2d8cc9d8fd0dbbf8b6478375288542a99e316580ae834469721b8277b18e",
+  "failed_actual_history_test_sha256": "f326c8320b5be897eb2654b617f43beb32ad8728f3c9b6ae4aadc40a7609b6a1",
+  "consumer_sha256": "e59003d1f27bc14fb46dac1cca0e90abd1ac486ea34e09886c63ef4ab9247eba",
+  "consumer_first_line": 11367,
+  "consumer_last_line": 11384,
+  "native_API_declarations_sha256": "048ddd63e210c26a1b6534fbe996bbf5c1d3d05a766be5692a7aa6d1e6575af3",
+  "public_API_unchanged": true,
+  "pure_helper_signature": "_verify_continuation_pair_code()",
+  "pure_helper_returns": null,
+  "final_full_history_harness": "UNEXECUTED",
+  "source_commit": "76f68ae95d3d2b3467e942f7adbd536d76b3a3dc",
+  "source_tree": "c5391ff74c5cc5796480b59d6f235df2c6ece6b6",
+  "parent": "2259a2fe29d6fe2023d2ec47212370add4c4f6bd"
+}

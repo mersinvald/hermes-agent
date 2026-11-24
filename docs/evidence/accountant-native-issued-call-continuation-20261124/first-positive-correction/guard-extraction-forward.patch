@@ -1,0 +1,97 @@
+--- a/agent/native_main_payload.py
++++ b/agent/native_main_payload.py
+@@ -10782,6 +10782,12 @@
+             "dispatch_arguments_changed")
+ 
+ 
++def _verify_continuation_pair_code():
++    for obj, name, function, code in _ISSUED_PAIR_CODE:
++        _continuation_require(getattr(obj, name, None) is function and function.__code__ is code,
++            "pair_code_changed")
++
++
+ class _IssuedCallContinuation:
+     """Consume one original pair through an independently admitted native request."""
+ 
+@@ -11166,9 +11172,7 @@
+         _continuation_require(type(original) is _IssuedCallPair and self.snapshots
+             and self.snapshots[0][0] is original, "pair_owner_changed")
+         _continuation_snapshot(original, self.snapshots[0][1])
+-        for obj, name, function, code in _ISSUED_PAIR_CODE:
+-            _continuation_require(getattr(obj, name, None) is function and function.__code__ is code,
+-                "pair_code_changed")
++        _verify_continuation_pair_code()
+         _continuation_require(_issued_pair_owner(self.parent) is original, "pair_owner_changed")
+         getter_function = next(function for obj, name, function, _ in _ISSUED_PAIR_CODE
+             if obj is _IssuedCallPair and name == "proof_access")
+@@ -11477,6 +11481,7 @@
+     (_IssuedCallContinuation, _CONTINUATION_METHODS),
+     (sys.modules[__name__], ("bind_issued_call_continuation", "run_issued_call_continuation",
+         "issued_call_continuation_results", "_continuation_owner", "_issued_continuation_window", "_issued_continuation_view", "_continuation_require",
+-        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame")),
++        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame",
++        "_verify_continuation_pair_code")),
+     (_WIRE_CLASS, ("convert_tools", "convert_messages", "build_kwargs", "normalize_response")),
+ ) for name in names)
+--- a/tests/tools/test_native_issued_call_continuation.py
++++ b/tests/tools/test_native_issued_call_continuation.py
+@@ -226,6 +226,17 @@
+                 thread.start()
+                 thread.join(timeout=5)
+                 assert not thread.is_alive()
++                replacement_calls = []
++
++                def replaced_pair_getter(pair_owner):
++                    replacement_calls.append(pair_owner)
++                    return ()
++
++                with monkeypatch.context() as patch:
++                    patch.setattr(native._IssuedCallPair, "proof_access", replaced_pair_getter)
++                    with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
++                        native.issued_call_continuation_results(world.authorization)
++                    assert replacement_calls == []
+         assert refusals == [True] and result.pair is world.pair and result.binding is owner.binding
+         assert result.request["model"] is world.selections[5].destination.model_ref
+         assert result.request["messages"][:2] == result.prefix_messages
+@@ -246,18 +257,29 @@
+         assert tuple(vars(world.adapter)) == tuple(key for key, _ in original)
+         assert owner.windows == 6 and owner.phase == "released"
+         assert len(runtime._contents) == before[0] + 6 and len(runtime._envelopes) == before[1] + 1
+-        replacement_calls = []
+-
+-        def replaced_pair_getter(pair_owner):
+-            replacement_calls.append(pair_owner)
+-            return ()
+-
+-        with content_policy_scope(world.consumer_context):
+-            with monkeypatch.context() as patch:
+-                patch.setattr(native._IssuedCallPair, "proof_access", replaced_pair_getter)
+-                with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
+-                    native.issued_call_continuation_results(world.authorization)
+-                assert replacement_calls == []
+     finally:
+         if hasattr(world, "authorization"):
+             retain_continuation(world, record_property)
++
++
++@pytest.mark.parametrize("change", ["stock", "replacement", "code_object_drift"])
++def test_continuation_pair_code_guard(monkeypatch, change):
++    pair_class, name, original, code = next(entry for entry in native._ISSUED_PAIR_CODE
++        if entry[0] is native._IssuedCallPair and entry[1] == "proof_access")
++    assert native._verify_continuation_pair_code() is None
++
++    def replacement(pair_owner):
++        raise AssertionError("Replacement getter must not run")
++
++    with monkeypatch.context() as patch:
++        if change == "replacement":
++            patch.setattr(pair_class, name, replacement)
++        elif change == "code_object_drift":
++            patch.setattr(original, "__code__", replacement.__code__)
++        if change == "stock":
++            assert native._verify_continuation_pair_code() is None
++        else:
++            with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
++                native._verify_continuation_pair_code()
++    assert getattr(pair_class, name) is original and original.__code__ is code
++    assert native._verify_continuation_pair_code() is None

@@ -1,0 +1,11 @@
+{
+  "correction_input_sha256": "20c03d38470a4a92ea1a53049b2fbcf91303bcf74e5f56f565cdda38b6a1f6fa",
+  "original_spec_sha256": "b5665bb1afceb836015b50337598b01f555cf5a4cb6231f11eecf90780a3555c",
+  "original_handoff_sha256": "bee936d8dccd302767233021f1f62a1f78233d78c97433fcca9d7bafa9273e80",
+  "old_runtime_sha256": "e6c2c956fb14ce12400159a7734c3caaf71b10254e83dd3e9edf5f65486d9923",
+  "old_test_sha256": "bb428529e2ee4a3341c3825412cd887d26c4473a096eb87f39033067caddf602",
+  "current_pins": {
+    "agent/native_main_payload.py": "d99e2d8cc9d8fd0dbbf8b6478375288542a99e316580ae834469721b8277b18e",
+    "tests/tools/test_native_issued_call_continuation.py": "f326c8320b5be897eb2654b617f43beb32ad8728f3c9b6ae4aadc40a7609b6a1"
+  }
+}

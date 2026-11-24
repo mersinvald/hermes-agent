@@ -1,0 +1,149 @@
+diff --git b/agent/native_main_payload.py a/agent/native_main_payload.py
+index 12a9e2621d..1fba8ccdb2 100644
+--- b/agent/native_main_payload.py
++++ a/agent/native_main_payload.py
+@@ -10782,12 +10782,6 @@ def _continuation_shared_frame(owner, frame):
+             "dispatch_arguments_changed")
+ 
+ 
+-def _verify_continuation_pair_code():
+-    for obj, name, function, code in _ISSUED_PAIR_CODE:
+-        _continuation_require(getattr(obj, name, None) is function and function.__code__ is code,
+-            "pair_code_changed")
+-
+-
+ class _IssuedCallContinuation:
+     """Consume one original pair through an independently admitted native request."""
+ 
+@@ -11015,7 +11009,7 @@ class _IssuedCallContinuation:
+                 and set(self.request) == {"model", "messages", "tools", "stream", "tool_choice"}, "request_changed")
+         if self.response is not None:
+             _continuation_require(_same_anchors(_nested_anchors(self.response), self.response_anchor)
+-                and type(self.response.model) is str and self.response.model == self.model
++                and self.response.model == self.model and type(self.response.model) is str
+                 and _response_bytes(self.response, self.model) == self.raw_slot[2], "response_changed")
+         if self.normalized is not None:
+             _continuation_require(_same_anchors(_nested_anchors(vars(self.normalized))
+@@ -11168,19 +11162,10 @@ class _IssuedCallContinuation:
+         self.access(proof=self.entry is None)
+         _continuation_require(current_context() is self.context and self.depth == 0
+             and self.pair is pair and self.pair_owner is not None, "proof_scope_invalid")
+-        original = self.pair_owner
+-        _continuation_require(type(original) is _IssuedCallPair and self.snapshots
+-            and self.snapshots[0][0] is original, "pair_owner_changed")
+-        _continuation_snapshot(original, self.snapshots[0][1])
+-        _verify_continuation_pair_code()
+-        _continuation_require(_issued_pair_owner(self.parent) is original, "pair_owner_changed")
+-        getter_function = next(function for obj, name, function, _ in _ISSUED_PAIR_CODE
+-            if obj is _IssuedCallPair and name == "proof_access")
+-        getter = original.proof_access
+-        _continuation_require(_same_method(getter, (original, getter_function)), "pair_method_changed")
+         with content_policy_scope(None):
+-            records = getter()
++            records = self.pair_owner.proof_access()
+             _continuation_require(len(records) == 1 and records[0] is pair, "pair_unregistered")
++            _issued_pair_terminal(self.pair_owner)
+             for owner, snapshot in self.snapshots:
+                 _continuation_snapshot(owner, snapshot)
+             for handle, record, anchor in self.graph:
+@@ -11481,7 +11466,6 @@ _CONTINUATION_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__
+     (_IssuedCallContinuation, _CONTINUATION_METHODS),
+     (sys.modules[__name__], ("bind_issued_call_continuation", "run_issued_call_continuation",
+         "issued_call_continuation_results", "_continuation_owner", "_issued_continuation_window", "_issued_continuation_view", "_continuation_require",
+-        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame",
+-        "_verify_continuation_pair_code")),
++        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame")),
+     (_WIRE_CLASS, ("convert_tools", "convert_messages", "build_kwargs", "normalize_response")),
+ ) for name in names)
+diff --git b/tests/tools/test_native_issued_call_continuation.py a/tests/tools/test_native_issued_call_continuation.py
+index 93c92aeaf4..5ce2cae15a 100644
+--- b/tests/tools/test_native_issued_call_continuation.py
++++ a/tests/tools/test_native_issued_call_continuation.py
+@@ -5,7 +5,6 @@ import copy
+ import hashlib
+ import json
+ import threading
+-import time
+ from contextvars import copy_context
+ from dataclasses import replace
+ from types import SimpleNamespace
+@@ -145,7 +144,7 @@ def retain_continuation(world, record):
+ 
+ 
+ @pytest.mark.parametrize("mode", ["positive", "coverage_expiry", "original_control", "selected_expiry"])
+-def test_genuine_continuation(no_delegation_effects, record_property, mode, monkeypatch):
++def test_genuine_continuation(no_delegation_effects, record_property, mode):
+     world = ContinuationWorld(mode)
+     try:
+         world.prepare(record_property)
+@@ -155,25 +154,8 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode, monk
+         original = tuple(vars(world.adapter).items())
+         control = asyncio.CancelledError("Invented continuation policy cancellation")
+         refusals = []
+-        continuation_started = time.monotonic()
+-        last_boundary = []
+-        last_stages = []
+ 
+         def after_output():
+-            stages = tuple(value is not None for value in (owner.history_content, owner.request_content,
+-                owner.wire_content, owner.raw_slot[2], owner.response_content, owner.normalized_content, owner.completion))
+-            boundary = (owner.windows, owner.phase, stages)
+-            if not last_boundary or last_boundary[0] != boundary:
+-                last_boundary[:] = [boundary]
+-                record_property("C_boundary", json.dumps(dict(window=owner.windows, phase=owner.phase,
+-                    elapsed=time.monotonic() - continuation_started, completed_stages=stages,
+-                    charges=(len(runtime._contents), len(runtime._envelopes), runtime._retained_bytes),
+-                    C_sends=owner.adapter._send_count, callback_depth=owner.depth,
+-                    raw_bytes=None if owner.raw_slot[2] is None else len(owner.raw_slot[2]))))
+-            if not last_stages or last_stages[0] != stages:
+-                last_stages[:] = [stages]
+-                if any(stages):
+-                    retain_continuation(world, record_property)
+             if mode == "positive" and owner.windows > 0 and not refusals:
+                 with pytest.raises(NativeContentPolicyDenied, match="reentry_or_thread"):
+                     native.issued_call_continuation_results(world.authorization)
+@@ -226,17 +208,6 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode, monk
+                 thread.start()
+                 thread.join(timeout=5)
+                 assert not thread.is_alive()
+-                replacement_calls = []
+-
+-                def replaced_pair_getter(pair_owner):
+-                    replacement_calls.append(pair_owner)
+-                    return ()
+-
+-                with monkeypatch.context() as patch:
+-                    patch.setattr(native._IssuedCallPair, "proof_access", replaced_pair_getter)
+-                    with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
+-                        native.issued_call_continuation_results(world.authorization)
+-                    assert replacement_calls == []
+         assert refusals == [True] and result.pair is world.pair and result.binding is owner.binding
+         assert result.request["model"] is world.selections[5].destination.model_ref
+         assert result.request["messages"][:2] == result.prefix_messages
+@@ -260,26 +231,3 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode, monk
+     finally:
+         if hasattr(world, "authorization"):
+             retain_continuation(world, record_property)
+-
+-
+-@pytest.mark.parametrize("change", ["stock", "replacement", "code_object_drift"])
+-def test_continuation_pair_code_guard(monkeypatch, change):
+-    pair_class, name, original, code = next(entry for entry in native._ISSUED_PAIR_CODE
+-        if entry[0] is native._IssuedCallPair and entry[1] == "proof_access")
+-    assert native._verify_continuation_pair_code() is None
+-
+-    def replacement(pair_owner):
+-        raise AssertionError("Replacement getter must not run")
+-
+-    with monkeypatch.context() as patch:
+-        if change == "replacement":
+-            patch.setattr(pair_class, name, replacement)
+-        elif change == "code_object_drift":
+-            patch.setattr(original, "__code__", replacement.__code__)
+-        if change == "stock":
+-            assert native._verify_continuation_pair_code() is None
+-        else:
+-            with pytest.raises(NativeContentPolicyDenied, match="pair_code_changed"):
+-                native._verify_continuation_pair_code()
+-    assert getattr(pair_class, name) is original and original.__code__ is code
+-    assert native._verify_continuation_pair_code() is None

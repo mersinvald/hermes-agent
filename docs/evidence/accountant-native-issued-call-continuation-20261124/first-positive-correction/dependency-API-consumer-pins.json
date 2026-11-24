@@ -1,0 +1,14 @@
+{
+  "distribution": "hermes-content-policy",
+  "version": "0.4.0",
+  "wheel_sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b",
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "native_API_declarations_document_sha256": "048ddd63e210c26a1b6534fbe996bbf5c1d3d05a766be5692a7aa6d1e6575af3",
+  "native_API_declarations_unchanged": true,
+  "consumer_sha256": "e59003d1f27bc14fb46dac1cca0e90abd1ac486ea34e09886c63ef4ab9247eba",
+  "consumer_first_line": 11363,
+  "consumer_last_line": 11380,
+  "new_installs": 0,
+  "new_smokes": 0
+}

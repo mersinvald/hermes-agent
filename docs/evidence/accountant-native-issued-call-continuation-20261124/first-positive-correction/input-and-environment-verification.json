@@ -1,0 +1,22 @@
+{
+  "verified_protected": 5,
+  "verified_tracked": 5,
+  "dependency_RECORD_and_recorded_files_exact": true,
+  "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+  "metadata_versions": {
+    "hermes-content-policy": "0.4.0",
+    "openai": "2.24.0",
+    "pydantic": "2.13.4"
+  },
+  "API_AST": {
+    "admit": "self, request_handle: object, payload: bytes",
+    "derive": "self, request_handle: object, parents: tuple[ContentHandle, ...], payload: bytes, *, path: Path",
+    "derive_for_selection": "self, request_handle: object, parents: tuple[ContentHandle, ...], payload: bytes, *, path: Path, parent_requests: tuple[object, ...]",
+    "dispatch": "self, request_handle: object, content: ContentHandle, *, path: Path, route_ref: str",
+    "accept": "self, request_handle: object, envelope: DispatchEnvelope",
+    "return_from_delegate": "self, request_handle: object, envelope: DispatchEnvelope, accepted_content: ContentHandle, receiver_result: ContentHandle, *, receiver_request: object"
+  },
+  "imports": false,
+  "admission_or_shared_smoke": false,
+  "install_or_delivery": false
+}
