@@ -1,0 +1,12 @@
+{
+  "base_sha256": "25fe4762e7411083794528f3879a7e004299006fbd15711ad628a4f1de9e1a51",
+  "candidate_sha256": "e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a",
+  "restored_sha256": "25fe4762e7411083794528f3879a7e004299006fbd15711ad628a4f1de9e1a51",
+  "unchanged_old_signatures": 408,
+  "changed_old_bodies": [
+    "_Admission.current",
+    "_Transport.resolve",
+    "NativeMainPayloadAdapter._around"
+  ],
+  "status": " M agent/native_main_payload.py\n?? tests/tools/test_native_issued_call_pair.py\n"
+}

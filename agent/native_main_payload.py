@@ -1113,6 +1113,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        pair = _issued_pair_window(adapter)
+        if pair is not None:
+            return pair.current(handle)
         projection = _assistant_wire_window(adapter)
         if projection is not None:
             return projection.current(handle)
@@ -1149,6 +1152,9 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        pair = _issued_pair_window(self.adapter)
+        if pair is not None:
+            return pair.resolve(self)
         projection = _assistant_wire_window(self.adapter)
         if projection is not None:
             return projection.resolve(self)
@@ -1578,6 +1584,33 @@ class NativeMainPayloadAdapter:
     @property
     def tool_call_assistant_wire_results(self) -> tuple[NativeToolCallAssistantWireResult, ...]:
         owner = _assistant_wire_owner(self)
+        return () if owner is None else owner.proof_access()
+
+    def retain_issued_call_pair(
+        self,
+        assistant: NativeToolCallAssistantWireResult,
+        tool: NativeIssuedCallWireResult,
+    ) -> NativeIssuedCallPairResult:
+        assistant_owner, tool_owner = _issued_pair_preflight(self, assistant, tool)
+        owner = _IssuedCallPair(self, assistant, tool, assistant_owner, tool_owner, sys._getframe())
+        try:
+            return owner.run()
+        except BaseException as error:
+            owner.phase = "denied"
+            owner.records = ()
+            _remember_delegate_control(owner, error)
+            if owner.control_exception is not None:
+                raise owner.control_exception
+            if not isinstance(error, Exception) or type(error) is NativeContentPolicyDenied:
+                raise
+            raise NativeContentPolicyDenied("controlled_native_issued_pair_denied") from None
+        finally:
+            owner.entry = owner.public = owner.stage_frame = None
+            owner.active_call = owner.call_anchor = None
+
+    @property
+    def issued_call_pair_results(self) -> tuple[NativeIssuedCallPairResult, ...]:
+        owner = _issued_pair_owner(self)
         return () if owner is None else owner.proof_access()
 
     @property
@@ -3284,6 +3317,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        pair = _issued_pair_window(self)
+        if pair is not None:
+            return pair.around(callback)
         projection = _assistant_wire_window(self)
         if projection is not None:
             return projection.around(callback)
@@ -10100,3 +10136,454 @@ _ASSISTANT_WIRE_CODE += ((_ToolCallAssistantWire.window, "__wrapped__", _ToolCal
     (NativeMainPayloadAdapter.tool_call_assistant_wire_results, "fget",
         NativeMainPayloadAdapter.tool_call_assistant_wire_results.fget,
         NativeMainPayloadAdapter.tool_call_assistant_wire_results.fget.__code__))
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallPairResult:
+    assistant_result: NativeToolCallAssistantWireResult
+    tool_result: NativeIssuedCallWireResult
+    model: str
+    messages: list[dict[str, object]]
+    message_bytes: bytes
+    message_content: object
+    anchors: tuple
+
+
+_issued_pair_owners = ()
+
+
+def _issued_pair_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_issued_pair_" + reason)
+
+
+def _issued_pair_owner(adapter):
+    return next((owner for owner in _issued_pair_owners if owner.parent is adapter), None)
+
+
+def _issued_pair_window(adapter):
+    owner = _issued_pair_owner(adapter)
+    return owner if owner is not None and owner.entry is not None and owner.stage_frame is owner.entry else None
+
+
+def _issued_pair_registered(parent, assistant, tool):
+    _issued_pair_require(type(parent) is NativeMainPayloadAdapter and parent in _adapters
+        and type(assistant) is NativeToolCallAssistantWireResult and type(tool) is NativeIssuedCallWireResult,
+        "records_unregistered")
+    a, t = _assistant_wire_owner(parent), _issued_call_wires.get(parent)
+    for owner, record, cls in ((a, assistant, NativeToolCallAssistantWireResult), (t, tool, NativeIssuedCallWireResult)):
+        _issued_pair_require(owner is not None and owner.parent is parent and type(owner.records) is tuple
+            and len(owner.records) == 1 and owner.records[0][0] is record
+            and _same_anchors(_row(record, cls), owner.records[0][1]), "records_unregistered")
+    _issued_pair_require(assistant.source_result.source_observation is tool.source_result.source_result.observation
+        is tool.source_result.source_result.binding.observation
+        and tool.source_result.binding.source_adapter is tool.source_result.source_result.binding.source_adapter is parent,
+        "association_changed")
+    return a, t
+
+
+def _issued_pair_preflight(parent, assistant, tool):
+    a, t = _issued_pair_registered(parent, assistant, tool)
+    _issued_pair_require(threading.get_ident() == a.thread == t.thread and a.depth == t.depth == 0,
+        "reentry_or_thread")
+    _issued_pair_require(_issued_pair_owner(parent) is None, "attempt_spent")
+    _issued_pair_require(len(_issued_pair_owners) < 128, "capacity_denied")
+    _issued_pair_require(current_context() is parent._bound_context and not parent._busy
+        and parent._pending is parent._agent is parent._kwargs is parent._operation is parent._checked_operation is None,
+        "scope_invalid")
+    return a, t
+
+
+def _issued_pair_terminal(owner):
+    p, a, t = owner.parent, owner.assistant_owner, owner.tool_owner
+    _issued_pair_require(_same_anchors(_issued_pair_registered(p, owner.assistant, owner.tool), (a, t)),
+        "owners_changed")
+    for original, snapshot in owner.snapshots:
+        actual = tuple(vars(original).items())
+        _issued_pair_require(tuple(name for name, _ in actual) == tuple(name for name, _ in snapshot)
+            and _same_anchors(tuple(value for _, value in actual), tuple(value for _, value in snapshot)),
+            "terminal_namespace_changed")
+    _issued_pair_require(p.tool_call_assistant_wire_results[0] is owner.assistant
+        and p.issued_call_wire_results[0] is owner.tool, "records_changed")
+    _validate_issued_wire_terminal(t)
+    for obj, name, function, code in (*_TOOL_PROBE_CODE, *_ISSUED_CALL_CODE, *_ISSUED_FORMAT_CODE,
+                                    *_ISSUED_WIRE_CODE, *_ASSISTANT_WIRE_CODE):
+        _issued_pair_require(getattr(obj, name, None) is function and function.__code__ is code, "source_code_changed")
+    f, e = t.formatter, t.formatter.execution
+    _issued_pair_require(f is owner.formatter and f.parent is p and f.runtime is owner.runtime is a.runtime
+        and f.binding.formatter_request is owner.handles[4]
+        and f.binding.selection is f.originals[4][1] and owner.model is f.binding.selection.destination.model_ref
+        and a.probe is f.probe and a.source_result.source_observation is e.observation
+        and e.result_anchors[0][0] is owner.tool.source_result.source_result
+        and e.binding is e.registered_binding and e.frame.record is e.frame.registered_record
+        and e.result_anchors[0][0].return_facts is e.frame.record.return_facts
+        and e.result_anchors[0][0].closed_child_proof is e.frame.closed_proof
+        and e.frame.terminal and not e.frame.running and e.frame.phase == "released"
+        and e.frame.child_adapter._constructed.closed is True
+        and t.phase == "released" and t.stage_index == 3 and t.depth == 0
+        and t.active_call is t.entry is t.public is t.stage_frame is None
+        and p._constructed.closed is True and a.probe.closed is True,
+        "terminal_relation_changed")
+    _assistant_wire_shape(owner.assistant.messages, owner.assistant.source_result.message)
+    _issued_wire_shape(owner.tool.messages, owner.tool.source_result.message)
+    for record, path, holder in ((owner.assistant, "main", f.initial[0][0]),
+                                 (owner.tool, "tool_result", f.initial[4][0])):
+        content = owner.runtime._content(record.message_content)
+        _issued_pair_require(content.payload is record.message_bytes and content.path == path
+            and content.binding[:8] == holder[:8], "parent_content_changed")
+    for handle, record, anchor in owner.graph:
+        _issued_pair_require(owner.runtime._content(handle) is record
+            and _same_anchors(tuple(getattr(record, field.name) for field in fields(record)), anchor), "graph_changed")
+    _issued_pair_require(f.initial[0][0][:6] == f.initial[4][0][:6], "holder_mismatch")
+
+
+class _IssuedCallPair:
+    """Retain one local transcript from original registered converter rows."""
+
+    def __init__(self, parent, assistant, tool, assistant_owner, tool_owner, public):
+        global _issued_pair_owners
+        self.parent, self.assistant, self.tool = parent, assistant, tool
+        self.assistant_owner, self.tool_owner = assistant_owner, tool_owner
+        self.formatter = tool_owner.formatter
+        self.runtime, self.thread = parent._runtime, assistant_owner.thread
+        self.public, self.entry, self.stage_frame = public, None, None
+        self.active_call = self.call_anchor = object()
+        self.phase, self.windows, self.depth, self.checking = "running", 0, 0, False
+        self.control_exception = None
+        self.records = ()
+        self.raw_slot = [None, None, None]
+        self.messages = self.message_anchors = self.message_bytes = self.message_content = None
+        self.derive_error = self.charge_after = None
+        self.policy_observations = []
+        self.charge_before = (len(self.runtime._contents), len(self.runtime._envelopes), self.runtime._retained_bytes)
+        _issued_pair_owners = (*_issued_pair_owners, self)
+        f, e = self.formatter, self.formatter.execution
+        self.model = f.binding.selection.destination.model_ref
+        self.handles = (*e.capabilities, f.options[0])
+        self.parents = (assistant.message_content, tool.message_content)
+        self.parent_requests = (self.handles[0], self.handles[4])
+        self.inputs = [assistant.messages[0], tool.messages[0]]
+        self.input_anchors = _nested_anchors(self.inputs)
+        self.input_bytes = _assistant_source_bytes(self.inputs)
+        self.snapshots = tuple((obj, tuple(vars(obj).items())) for obj in
+            (parent, parent._bound_context, assistant_owner, assistant_owner.producer, f.probe, f, e,
+             e.adapter, e.frame, e.frame.child_adapter, tool_owner, f.probe.constructed, f.probe.agent))
+        self.graph = tuple((row.handle, row, tuple(getattr(row, field.name) for field in fields(row)))
+            for row in self.runtime._contents.values())
+        self.profiles = tuple(sorted(set(f.profiles) | set(assistant_owner.profiles)
+            | {profile for _, row, _ in self.graph for profile in row.profiles}))
+        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
+            (parent._admission, "current"), (parent._result_port, "current"), (parent, "_clock"),
+            *((port, "current") for port in (*e.selections, f.options[1])),
+            *((port, name) for _, port in f.catalog[2] for name in ("resolve", "send")),
+            *((self, name) for name in _ISSUED_PAIR_METHODS)))
+        self.callables = _assistant_source_callable_facts(self.methods, parent._clock)
+        self.sanitizer = _source_runtime_module.sanitize_api_messages
+        self.helper_facts = _ISSUED_PAIR_HELPERS
+        self.roles = _source_agent_module.AIAgent._VALID_API_ROLES
+        self.role_anchors = _nested_anchors(self.roles)
+        self.placeholder = _source_runtime_module._INTERRUPTED_PLACEHOLDER
+        self.fixed = (parent, assistant, tool, assistant_owner, tool_owner, f, self.runtime, self.thread,
+            self.raw_slot, self.charge_before, self.model, self.handles, self.parents, self.parent_requests,
+            self.inputs, self.input_anchors, self.input_bytes, self.snapshots, self.graph, self.profiles,
+            self.methods, self.callables, self.sanitizer, self.helper_facts, self.roles, self.role_anchors,
+            self.placeholder, self.policy_observations)
+
+    def access(self, *, proof=False):
+        _issued_pair_require(threading.get_ident() == self.thread and type(self.depth) is int and self.depth == 0,
+            "reentry_or_thread")
+        _issued_pair_require(_issued_pair_owner(self.parent) is self and type(self.windows) is int
+            and 0 <= self.windows <= 3, "owner_changed")
+        if proof:
+            _issued_pair_require(self.entry is self.public is self.stage_frame is self.active_call is self.call_anchor is None,
+                "operation_active")
+            return
+        _issued_pair_require(self.phase == "running" and self.active_call is self.call_anchor
+            and self.active_call is not None and self.entry is not None and self.public is not None,
+            "window_missing")
+        _issued_pair_require(self.entry.f_code is _IssuedCallPair.run.__code__ and self.entry.f_locals.get("self") is self
+            and self.entry.f_back is self.public and self.public.f_code is NativeMainPayloadAdapter.retain_issued_call_pair.__code__
+            and self.public.f_locals.get("self") is self.parent and self.public.f_locals.get("assistant") is self.assistant
+            and self.public.f_locals.get("tool") is self.tool and self.public.f_locals.get("owner") is self
+            and self.entry.f_globals is self.public.f_globals is globals()
+            and current_context() is self.parent._bound_context and self.stage_frame in (None, self.entry), "frame_invalid")
+        frame = sys._getframe()
+        while frame is not None and frame is not self.entry:
+            frame = frame.f_back
+        _issued_pair_require(frame is self.entry, "frame_missing")
+
+    def verify(self, *, proof=False):
+        self.access(proof=proof)
+        for obj, name, function, code in _ISSUED_PAIR_CODE:
+            _issued_pair_require(getattr(obj, name, None) is function and function.__code__ is code, "code_changed")
+        _issued_pair_require(_same_anchors((self.parent, self.assistant, self.tool, self.assistant_owner, self.tool_owner,
+            self.formatter, self.runtime, self.thread, self.raw_slot, self.charge_before, self.model, self.handles,
+            self.parents, self.parent_requests, self.inputs, self.input_anchors, self.input_bytes, self.snapshots,
+            self.graph, self.profiles, self.methods, self.callables, self.sanitizer, self.helper_facts,
+            self.roles, self.role_anchors, self.placeholder, self.policy_observations), self.fixed), "owner_changed")
+        for obj, name, method in self.methods:
+            _issued_pair_require(_same_method(getattr(obj, name, None), method), "method_changed")
+        for function, code, namespace, defaults in self.callables:
+            if code is not None:
+                _issued_pair_require(function.__code__ is code and function.__globals__ is namespace
+                    and _same_anchors(_nested_anchors((function.__defaults__, function.__kwdefaults__))[1:], defaults),
+                    "callable_changed")
+        for module, name, function, code, namespace, defaults in self.helper_facts:
+            _issued_pair_require(sys.modules.get(module.__name__) is module and getattr(module, name, None) is function
+                and function.__code__ is code and function.__globals__ is namespace
+                and _same_anchors(_nested_anchors((function.__defaults__, function.__kwdefaults__))[1:], defaults),
+                "sanitizer_helper_changed")
+        _issued_pair_require(self.sanitizer is _ISSUED_PAIR_SANITIZER
+            and _source_agent_module.AIAgent._VALID_API_ROLES is self.roles
+            and _same_anchors(_nested_anchors(self.roles), self.role_anchors)
+            and _source_runtime_module._INTERRUPTED_PLACEHOLDER is self.placeholder, "sanitizer_configuration_changed")
+        _issued_pair_terminal(self)
+        _issued_pair_require(type(self.inputs) is list and len(self.inputs) == 2
+            and self.inputs[0] is self.assistant.messages[0] and self.inputs[1] is self.tool.messages[0]
+            and _same_anchors(_nested_anchors(self.inputs), self.input_anchors)
+            and _assistant_source_bytes(self.inputs) == self.input_bytes
+            and self.input_bytes == b"[" + self.assistant.message_bytes[1:-1] + b"," + self.tool.message_bytes[1:-1] + b"]"
+            and len(self.input_bytes) == len(self.assistant.message_bytes) + len(self.tool.message_bytes) - 1,
+            "input_changed")
+        if self.messages is not None:
+            _issued_pair_require(type(self.messages) is list and len(self.messages) == 2
+                and self.messages[0] is self.inputs[0] and self.messages[1] is self.inputs[1]
+                and _same_anchors(_nested_anchors(self.messages), self.message_anchors)
+                and _assistant_source_bytes(self.messages) == self.message_bytes == self.input_bytes
+                and _same_anchors(tuple(self.raw_slot), (self.messages, self.message_anchors, self.message_bytes)),
+                "sanitizer_repaired")
+        if self.message_content is not None:
+            row = self.runtime._content(self.message_content)
+            _issued_pair_require(row.payload is self.message_bytes and _same_anchors(row.parents, self.parents)
+                and row.path == "main" and row.binding[:8] == self.formatter.initial[4][0][:8]
+                and set(self.profiles) <= set(row.profiles), "content_changed")
+        self.runtime._check_operator()
+
+    def callback(self, callback, *args):
+        self.verify()
+        _issued_pair_require(self.stage_frame is self.entry
+            and any(_same_method(callback, method) for _, _, method in self.methods), "callback_invalid")
+        self.depth += 1
+        try:
+            return callback(*args)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                try:
+                    self.verify()
+                except BaseException as error:
+                    _remember_delegate_control(self, error)
+                    raise
+
+    def checkpoint(self):
+        self.verify()
+        _issued_pair_require(self.stage_frame is self.entry and not self.checking, "checkpoint_reentry")
+        self.checking = True
+        try:
+            f, e, first = self.formatter, self.formatter.execution, None
+            for _ in range(2):
+                facts = []
+                for handle, port, producer_ref, retained, original in zip(self.handles,
+                        (*e.selections, f.options[1]), (*e.producers, f.options[2]), f.initial, f.originals):
+                    admitted = self.callback(self.parent._admission.current, handle)
+                    selected = self.callback(port.current, handle)
+                    producer = self.callback(self.parent._result_port.current, producer_ref)
+                    actual = _binding(admitted), _selection(selected), _producer(producer)
+                    _issued_pair_require(actual[0][:8] == retained[0][:8]
+                        and set(actual[0][8]) <= set(retained[0][8]) and actual[1:] == retained[1:]
+                        and selected is original[1] and producer is original[2], "authority_changed")
+                    facts.append(actual)
+                receiver = _binding(self.callback(self.parent._admission.current, e.receiver_port))
+                _issued_pair_require(receiver[:8] == f.initial[2][0][:8]
+                    and set(receiver[8]) <= set(f.initial[2][0][8]), "receiver_changed")
+                facts = tuple(facts)
+                _issued_pair_require(first is None or facts == first, "unstable_observation")
+                first = facts
+                now = self.callback(self.parent._clock)
+                _integer(now, minimum=0)
+                allowed = {route.route_ref for route in f.catalog[0]}
+                _issued_pair_require(set(self.profiles) <= {p.profile_ref for p in f.catalog[1]}, "profile_missing")
+                for profile in f.catalog[1]:
+                    if profile.profile_ref in self.profiles:
+                        _issued_pair_require(profile.required_paths == shared_policy().PATHS, "profile_changed")
+                        allowed.intersection_update(profile.allowed_routes)
+                for route in f.catalog[0]:
+                    port = self.parent._operator_transports[route.destination.transport_ref]
+                    actual = self.callback(port.resolve)
+                    _issued_pair_require(actual is route.destination
+                        and _destination(actual) == _destination(route.destination), "destination_changed")
+                final_now = self.callback(self.parent._clock)
+                _integer(final_now, minimum=now)
+                self.policy_observations.append((self.windows, facts, receiver, now, final_now))
+                for i, route in (*enumerate(f.selected_routes), (2, e.routes[2])):
+                    _route_facts(route)
+                    holder = f.initial[i][0]
+                    _issued_pair_require(route.route_ref in allowed and final_now < route.expires_at
+                        and (route.consumer_ref, route.selection_id, route.selection_version)
+                            == (holder[3], holder[6], holder[7]), "selected_expired_or_denied")
+                    if route is f.selected_routes[i]:
+                        _issued_pair_require(f.originals[i][1].destination is route.destination, "destination_changed")
+                for holder, _, _ in facts:
+                    for path in shared_policy().PATHS:
+                        _issued_pair_require(any(route.path == path and route.route_ref in allowed
+                            and (route.consumer_ref, route.selection_id, route.selection_version)
+                                == (holder[3], holder[6], holder[7]) and final_now < route.expires_at
+                            for route in f.catalog[0]), "coverage_missing")
+                self.verify()
+        finally:
+            self.checking = False
+
+    @contextmanager
+    def window(self):
+        self.access()
+        _issued_pair_require(sys._getframe().f_back.f_back is self.entry
+            and self.stage_frame is None and self.windows < 3, "window_invalid")
+        self.windows += 1
+        self.stage_frame = self.entry
+        try:
+            self.checkpoint()
+            yield
+            self.checkpoint()
+        finally:
+            self.stage_frame = None
+
+    def derive_frame(self, frame):
+        self.verify()
+        runtime_class = type(self.runtime)
+        while frame is not None and frame.f_code is not runtime_class.derive_for_selection.__code__:
+            _issued_pair_require(frame.f_globals is vars(sys.modules[runtime_class.__module__])
+                and (frame.f_locals.get("self") is self.runtime or frame.f_code.co_name == "checkpoint"),
+                "shared_stack_invalid")
+            frame = frame.f_back
+        _issued_pair_require(frame is not None and frame.f_back is self.entry
+            and frame.f_locals.get("self") is self.runtime and frame.f_locals.get("request_handle") is self.handles[4]
+            and frame.f_locals.get("parents") is self.parents and frame.f_locals.get("parent_requests") is self.parent_requests
+            and frame.f_locals.get("payload") is self.message_bytes
+            and type(frame.f_locals.get("path")) is str and frame.f_locals["path"] == "main"
+            and self.windows == 2 and self.stage_frame is self.entry and self.message_content is None
+            and self.runtime._busy is True, "derive_frame_invalid")
+
+    def current(self, handle):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_pair_require(caller.f_code is _Admission.current.__code__
+            and caller.f_locals.get("adapter") is self.parent
+            and any(handle is item for item in self.parent_requests), "admission_frame_invalid")
+        frame = caller.f_back
+        _issued_pair_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime and frame.f_back.f_code is type(self.runtime)._current.__code__
+            and frame.f_back.f_locals.get("request_handle") is handle, "admission_stack_invalid")
+        self.derive_frame(frame)
+        result = self.callback(self.parent._admission.current, handle)
+        retained = self.formatter.initial[0 if handle is self.handles[0] else 4][0]
+        current = _binding(result)
+        _issued_pair_require(current[:8] == retained[:8] and set(current[8]) <= set(retained[8]), "authority_changed")
+        return result
+
+    def around(self, callback):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_pair_require(caller.f_code is NativeMainPayloadAdapter._around.__code__
+            and caller.f_locals.get("self") is self.parent and _same_method(callback, _method(self.parent._clock)),
+            "clock_invalid")
+        frame = caller.f_back
+        _issued_pair_require(frame.f_code is self.runtime._clock.__code__
+            and frame.f_back.f_code is type(self.runtime)._call.__code__
+            and frame.f_back.f_locals.get("self") is self.runtime, "clock_stack_invalid")
+        self.derive_frame(frame.f_back)
+        return self.callback(callback)
+
+    def resolve(self, wrapper):
+        self.verify()
+        caller = sys._getframe(1)
+        _issued_pair_require(caller.f_code is _Transport.resolve.__code__ and caller.f_locals.get("self") is wrapper
+            and wrapper.adapter is self.parent and any(wrapper is item for _, item in self.formatter.catalog[3]),
+            "resolve_invalid")
+        frame = caller.f_back
+        _issued_pair_require(frame.f_code is type(self.runtime)._call.__code__
+            and frame.f_locals.get("self") is self.runtime and frame.f_back.f_code is type(self.runtime)._coverage.__code__,
+            "coverage_stack_invalid")
+        self.derive_frame(frame)
+        result = self.callback(wrapper.port.resolve)
+        _issued_pair_require(any(wrapper.port is self.parent._operator_transports[route.destination.transport_ref]
+            and result is route.destination for route in self.formatter.catalog[0]), "destination_changed")
+        return result
+
+    def run(self):
+        self.entry = sys._getframe()
+        with self.window():
+            pass
+        with self.window():
+            self.verify()
+            self.depth += 1
+            try:
+                self.raw_slot[0] = self.sanitizer(self.inputs)
+                self.raw_slot[1] = _nested_anchors(self.raw_slot[0])
+                self.raw_slot[2] = _assistant_source_bytes(self.raw_slot[0])
+            except BaseException as error:
+                _remember_delegate_control(self, error)
+                raise
+            finally:
+                self.depth -= 1
+            self.messages, self.message_anchors, self.message_bytes = self.raw_slot
+            self.verify()
+            _issued_pair_require(len(self.message_bytes) <= 262144
+                and sum(map(len, (self.assistant.message_bytes, self.tool.message_bytes, self.message_bytes))) <= 786432,
+                "capacity_denied")
+            self.runtime._capacity(1, len(self.message_bytes))
+            try:
+                self.message_content = self.runtime.derive_for_selection(self.handles[4], self.parents,
+                    self.message_bytes, path="main", parent_requests=self.parent_requests)
+            except BaseException as error:
+                self.derive_error = error
+                _remember_delegate_control(self, error)
+                raise
+            finally:
+                self.charge_after = (len(self.runtime._contents), len(self.runtime._envelopes), self.runtime._retained_bytes)
+        with self.window():
+            result = NativeIssuedCallPairResult(self.assistant, self.tool, self.model, self.messages,
+                self.message_bytes, self.message_content, (self.fixed, self.message_anchors))
+        self.records = ((result, _row(result, NativeIssuedCallPairResult)),)
+        self.phase = "released"
+        return result
+
+    def proof_access(self):
+        self.access(proof=True)
+        _issued_pair_require(type(self.records) is tuple and len(self.records) <= 1, "records_changed")
+        if self.phase != "released":
+            _issued_pair_require(not self.records, "records_changed")
+            return ()
+        self.verify(proof=True)
+        _issued_pair_require(self.windows == 3 and len(self.records) == 1, "release_changed")
+        result, anchor = self.records[0]
+        _issued_pair_require(_same_anchors(_row(result, NativeIssuedCallPairResult), anchor)
+            and result.assistant_result is self.assistant and result.tool_result is self.tool
+            and result.model is self.model and result.messages is self.messages
+            and result.message_bytes is self.message_bytes and result.message_content is self.message_content
+            and _same_anchors(result.anchors, (self.fixed, self.message_anchors)), "record_changed")
+        return (result,)
+
+
+_ISSUED_PAIR_METHODS = ("__init__", "access", "verify", "callback", "checkpoint", "window", "derive_frame",
+    "current", "around", "resolve", "run", "proof_access")
+_ISSUED_PAIR_SANITIZER = _source_runtime_module.sanitize_api_messages
+_ISSUED_PAIR_HELPERS = tuple((module, name, function, function.__code__, function.__globals__,
+    _nested_anchors((function.__defaults__, function.__kwdefaults__))[1:]) for module, names in (
+    (_source_runtime_module, ("sanitize_api_messages", "repair_empty_non_final_messages", "_msg_has_payload", "_ra",
+        "tool_call_id_variants", "tool_result_id_variants", "coalesce_tool_call_id")),
+    (_source_sanitization_module, ("_expand_tool_id_variants", "tool_call_id_variants", "tool_result_id_variants",
+        "coalesce_tool_call_id")),
+) for name in names for function in (getattr(module, name),))
+_ISSUED_PAIR_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__) for obj, names in (
+    (_IssuedCallPair, _ISSUED_PAIR_METHODS),
+    (NativeMainPayloadAdapter, ("retain_issued_call_pair",)),
+    (sys.modules[__name__], ("_issued_pair_require", "_issued_pair_owner", "_issued_pair_window",
+        "_issued_pair_registered", "_issued_pair_preflight", "_issued_pair_terminal")),
+) for name in names)
+_ISSUED_PAIR_CODE += ((_IssuedCallPair.window, "__wrapped__", _IssuedCallPair.window.__wrapped__,
+    _IssuedCallPair.window.__wrapped__.__code__),
+    (NativeMainPayloadAdapter.issued_call_pair_results, "fget", NativeMainPayloadAdapter.issued_call_pair_results.fget,
+        NativeMainPayloadAdapter.issued_call_pair_results.fget.__code__))

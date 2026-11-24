@@ -1,0 +1,31 @@
+{
+  "base": "f3440d7a27e4bcda42a598923871a70d0c1c7c83",
+  "base_tree": "eb8a1f719aa66b0b28775c5f7f73f549ff1d3961",
+  "selected_PWA_publication": "d21efcb812ec0d207a952378ed28c96c9bb758bb",
+  "proposal_sha256": "1372d9eae9f17b626a560bbeb58c17d0fa38ac9f4bdee3d0c723818d49e4ced8",
+  "source_map_sha256": "ef0ba3c590b982df8932d0b8f5c4e5fc3a8b80a03306b804952562dc68d4d537",
+  "source_pins_sha256": "f0927e3d5d99e0648d475d1d55c3204078fd5ec143ef673a217080a023ff9f43",
+  "files": {
+    "agent/native_main_payload.py": {
+      "bytes": 586409,
+      "sha256": "e18ed40a2642a6255eea61a3feb1212815a35c11a72e82037744db5698600a6a"
+    },
+    "tests/tools/test_native_issued_call_pair.py": {
+      "bytes": 14228,
+      "sha256": "636cc79ea3bfba9a8818c15c1065e9c0205fce720e3d7b9078246371283d641e"
+    },
+    "docs/evidence/accountant-native-issued-call-pair-20261124/native-api.json": {
+      "bytes": 1208,
+      "sha256": "5916de14b4803a4045fcff7d76e7d5cfe0e9020c37b4d686a15c35f2772650cb"
+    },
+    "docs/evidence/accountant-native-issued-call-pair-20261124/consumer-contract.md": {
+      "bytes": 5425,
+      "sha256": "a66da4792bec4b8d11ff662deba3196b7c24c9bbaecb51952699801805f8e7cb"
+    },
+    "docs/evidence/accountant-native-issued-call-pair-20261124/input-receipts.json": {
+      "bytes": 65750,
+      "sha256": "1127635b9d2b697bd113ff9495bbb22e40dd00c45cb5bd60e2c14950986d511d"
+    }
+  },
+  "ste_linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53"
+}
