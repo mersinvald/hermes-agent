@@ -17,11 +17,12 @@ Qualification and episode traffic have separate records.
 The four episode bodies must match the original retained dispatch envelopes.
 Execution-main and formatter-main must send no episode data.
 The source freeze precedes one genuine public history.
+
 The single history failed after 48.82 command seconds.
 The original native guard reported `controlled_native_tool_probe_authority_denied` after P response and observation retention.
 Its callback detail remains UNKNOWN.
 Functional work stopped, with no history retry.
-This Task is FAILED and the draft remains incomplete.
+This Task failed, and the draft remains incomplete.
 
 All 27 original qualification results completed.
 The receiver observed 25 HTTP qualification requests and one P episode request.

@@ -1,0 +1,21 @@
+{
+  "scope": "README_PR_body_and_four_Python_prose_sources",
+  "baseline_findings": 0,
+  "final_findings": 0,
+  "em_dash_markers": 0,
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "output": [
+    "owned_loopback_http.py           words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1",
+    "owned_loopback_receiver.py       words=  10 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1",
+    "test_owned_loopback_http.py      words=  21 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1",
+    "test_native_public_loopback_http.py words=  10 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1",
+    "README.md                        words= 442 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1",
+    "pr-body.md                       words= 148 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1"
+  ],
+  "machine_JSON_code_and_signatures_excluded_from_prose": true,
+  "ruff_source_unchanged_since_success": true,
+  "owned_prose_feedback": {
+    "readme_findings_corrected": 2,
+    "PR_findings_corrected": 2
+  }
+}
