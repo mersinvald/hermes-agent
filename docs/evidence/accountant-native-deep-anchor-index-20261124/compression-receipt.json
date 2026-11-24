@@ -1,0 +1,17 @@
+{
+  "files": {
+    "inverse.patch.gz": {
+      "decoded_sha256": "9c0549fb7e4bfabd3411095b8874a7ffe465413186c3dbfb838eb0bd6f252698",
+      "decoded_bytes": 2624
+    },
+    "promotion.patch.gz": {
+      "decoded_sha256": "f528b02741a0ca15ef1bf69677fbbec81690e1961e723ee53051029fb227d22c",
+      "decoded_bytes": 2624
+    },
+    "prototype-pure-initial.log.gz": {
+      "decoded_sha256": "647eedc6c67d60726b024555d862696012ab5866b9f38f2fba7953e4cb2a08af",
+      "decoded_bytes": 4578
+    }
+  },
+  "reason": "Lossless storage preserves raw patch context and original runner log whitespace."
+}

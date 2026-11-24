@@ -1,0 +1,10 @@
+{
+  "label": "final-evidence",
+  "command": [
+    ".venv/bin/python",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.55/final-evidence.py"
+  ],
+  "returncode": 1,
+  "elapsed_seconds": 0.11408225700142793,
+  "cap_seconds": 10.0
+}

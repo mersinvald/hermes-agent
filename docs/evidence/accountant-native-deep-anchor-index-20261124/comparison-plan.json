@@ -1,0 +1,22 @@
+{
+  "fixtures": [
+    "_DelegateFrame",
+    "_IssuedCallExecution"
+  ],
+  "pairs_per_fixture": 5,
+  "repetitions_per_method_per_pair": 10,
+  "criterion": "Gain at least 0.20 from sums of all paired method medians. For each fixture the slowest candidate pair median must beat the fastest reference pair median.",
+  "formula": "1 - sum(candidate pair medians) / sum(reference pair medians)",
+  "measured_cap_seconds": 20,
+  "algorithm_frozen": true,
+  "threshold": 4096,
+  "no_adjustments_after_measurement": true,
+  "pin_paths": [
+    "agent/native_main_payload.py",
+    "tests/agent/test_native_deep_anchor_equivalence.py",
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype.py",
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/fixtures.py",
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/namespace-mapping.json",
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py"
+  ]
+}

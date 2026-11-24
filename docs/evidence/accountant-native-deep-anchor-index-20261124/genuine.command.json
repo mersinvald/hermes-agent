@@ -1,0 +1,24 @@
+{
+  "label": "genuine",
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/tools/test_native_issued_call_episode.py",
+    "-j",
+    "1",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "595",
+    "--",
+    "-k",
+    "test_genuine_issued_call_episode",
+    "--maxfail=1",
+    "-o",
+    "junit_family=xunit1",
+    "--junitxml=docs/evidence/accountant-native-deep-anchor-index-20261124/genuine.xml",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 463.75790366400906,
+  "cap_seconds": 600.0
+}

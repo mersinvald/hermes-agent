@@ -1,0 +1,11 @@
+{
+  "label": "comparison",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import runpy; runpy.run_path('docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py', run_name='__main__')"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 4.423313770996174,
+  "cap_seconds": 25.0
+}

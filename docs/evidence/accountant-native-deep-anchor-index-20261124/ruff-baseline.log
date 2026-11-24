@@ -1,0 +1,36 @@
+[
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 58,
+      "row": 6271
+    },
+    "filename": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.55/baseline-native.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6272
+          },
+          "location": {
+            "column": 1,
+            "row": 6271
+          }
+        }
+      ],
+      "message": "Remove unused import: `agent.content_policy.content_policy_scope`"
+    },
+    "location": {
+      "column": 38,
+      "row": 6271
+    },
+    "message": "`agent.content_policy.content_policy_scope` imported but unused",
+    "noqa_row": 6271,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  }
+]

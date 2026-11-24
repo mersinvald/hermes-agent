@@ -1,0 +1,701 @@
+{
+  "prototype-pure-initial": {
+    "requested_ids": [
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[empty]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[small]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[nested]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[aliases]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[0]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[1]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[2]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[3]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[4]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[5]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[6]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[7]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[8]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[9]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[10]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[11]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[12]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[13]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[14]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[15]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[16]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[17]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[18]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[19]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[20]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[21]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[22]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[23]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[24]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[25]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[26]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[cycle]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[depth]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_hostile_protocols_untouched",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_fresh_policy_fields_and_raw_reads",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[False]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[True]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[equal]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[add]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[remove]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[nested]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[reorder]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[invalid]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4095]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4096]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_short_circuit",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_DelegateFrame-41416]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_IssuedCallExecution-31931]"
+    ],
+    "actual": [
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[empty]",
+        "seconds": 0.038,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[small]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[nested]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[aliases]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[0]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[1]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[2]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[3]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[4]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[5]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[6]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[7]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[8]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[9]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[10]",
+        "seconds": 0.018,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[11]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[12]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[13]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[14]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[15]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[16]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[17]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[18]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[19]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[20]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[21]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[22]",
+        "seconds": 0.018,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[23]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[24]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[25]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[26]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[cycle]",
+        "seconds": 0.018,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[depth]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_hostile_protocols_untouched",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_fresh_policy_fields_and_raw_reads",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[False]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[True]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[equal]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[add]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[remove]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[nested]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[reorder]",
+        "seconds": 0.019,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[invalid]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4095]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4096]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_short_circuit",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_DelegateFrame-41416]",
+        "seconds": 0.162,
+        "status": "failed"
+      }
+    ],
+    "command": {
+      "label": "prototype-pure-initial",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_deep_anchor_equivalence.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.xml",
+        "-q",
+        "-k",
+        "not runtime"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 10.288429802996689,
+      "cap_seconds": 30.0
+    },
+    "pins": {
+      "tests/agent/test_native_deep_anchor_equivalence.py": "1823792bcb98a4f4c0e3b305158d44b0718ca5ec3e9f33e795e247dd69420752",
+      "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype.py": "1c935c675cfe403f385498a409d82b063a6df54074c10e906f17308979d0d029",
+      "docs/evidence/accountant-native-deep-anchor-index-20261124/fixtures.py": "d657cf990cf757135cd5b679d717ff5b66e9ba31c5ed9337815d402c724daff9"
+    }
+  },
+  "prototype-pure-final": {
+    "requested_ids": [
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[empty]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[small]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[nested]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[aliases]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[0]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[1]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[2]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[3]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[4]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[5]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[6]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[7]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[8]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[9]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[10]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[11]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[12]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[13]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[14]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[15]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[16]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[17]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[18]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[19]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[20]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[21]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[22]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[23]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[24]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[25]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[26]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[cycle]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[depth]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_hostile_protocols_untouched",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_fresh_policy_fields_and_raw_reads",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[False]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[True]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[equal]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[add]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[remove]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[nested]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[reorder]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[invalid]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4095]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4096]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_short_circuit",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_DelegateFrame-41416]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_IssuedCallExecution-31931]"
+    ],
+    "actual": [
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[empty]",
+        "seconds": 0.03,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[small]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[nested]",
+        "seconds": 0.013,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_preorder[aliases]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[0]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[1]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[2]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[3]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[4]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[5]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[6]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[7]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[8]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[9]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[10]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[11]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[12]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[13]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[14]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[15]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[16]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[17]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[18]",
+        "seconds": 0.013,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[19]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[20]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[21]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[22]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[23]",
+        "seconds": 0.013,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[24]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[25]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_every_record_family[26]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[cycle]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_recursion_failure[depth]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_hostile_protocols_untouched",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_fresh_policy_fields_and_raw_reads",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[False]",
+        "seconds": 0.014,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_custom_metaclass_fallback[True]",
+        "seconds": 0.013,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[equal]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[add]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[remove]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[nested]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[reorder]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_mutations[invalid]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4095]",
+        "seconds": 0.017,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_threshold[4096]",
+        "seconds": 0.015,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_snapshot_short_circuit",
+        "seconds": 0.012,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_DelegateFrame-41416]",
+        "seconds": 0.09,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_deep_snapshot_wrapper[_IssuedCallExecution-31931]",
+        "seconds": 0.057,
+        "status": "passed"
+      }
+    ],
+    "command": {
+      "label": "prototype-pure-final",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_deep_anchor_equivalence.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-final.xml",
+        "-q",
+        "-k",
+        "not runtime"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.9701936899946304,
+      "cap_seconds": 30.0
+    },
+    "pins": {
+      "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+      "tests/agent/test_native_deep_anchor_equivalence.py": "4dbf32efe082ffc0fef56a4913c4d5d6dc78b0ad3bb463735083e594b2f93ce6",
+      "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype.py": "1c935c675cfe403f385498a409d82b063a6df54074c10e906f17308979d0d029",
+      "docs/evidence/accountant-native-deep-anchor-index-20261124/fixtures.py": "d657cf990cf757135cd5b679d717ff5b66e9ba31c5ed9337815d402c724daff9",
+      "docs/evidence/accountant-native-deep-anchor-index-20261124/namespace-mapping.json": "1869a907f7ec391e53b7d7fd0002764661b4f9f9ec07a529ac3e408feb78601b",
+      "docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py": "5b24e41e950b82f95494d3450b3538546de8cc95f67a89f7101416708022ef96"
+    }
+  },
+  "runtime-representatives": {
+    "requested_ids": [
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_threshold_representative[4095]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_threshold_representative[4096]",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_snapshot_representative",
+      "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_fallback_representative"
+    ],
+    "actual": [
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_threshold_representative[4095]",
+        "seconds": 0.032,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_threshold_representative[4096]",
+        "seconds": 0.016,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_snapshot_representative",
+        "seconds": 0.05,
+        "status": "passed"
+      },
+      {
+        "nodeid": "tests/agent/test_native_deep_anchor_equivalence.py::test_runtime_fallback_representative",
+        "seconds": 0.014,
+        "status": "passed"
+      }
+    ],
+    "command": {
+      "label": "runtime-representatives",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_deep_anchor_equivalence.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=docs/evidence/accountant-native-deep-anchor-index-20261124/runtime-representatives.xml",
+        "-q",
+        "-k",
+        "runtime"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.3200511440081755,
+      "cap_seconds": 30.0
+    }
+  },
+  "reuse": "Complete prototype equivalence retains its exact pins. Four runtime representatives are the only fresh final pure runtime scope."
+}

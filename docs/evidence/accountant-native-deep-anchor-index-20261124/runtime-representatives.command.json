@@ -1,0 +1,24 @@
+{
+  "label": "runtime-representatives",
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_deep_anchor_equivalence.py",
+    "-j",
+    "1",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "25",
+    "--",
+    "--maxfail=1",
+    "-o",
+    "junit_family=xunit1",
+    "--junitxml=docs/evidence/accountant-native-deep-anchor-index-20261124/runtime-representatives.xml",
+    "-q",
+    "-k",
+    "runtime"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 2.3200511440081755,
+  "cap_seconds": 30.0
+}

@@ -1,0 +1,220 @@
+{
+  "command_seconds": 1.1521104290004587,
+  "commands": [
+    {
+      "label": "ruff-owned",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--select",
+        "F,E9",
+        "tests/agent/test_native_deep_anchor_equivalence.py",
+        "docs/evidence/accountant-native-deep-anchor-index-20261124/fixtures.py",
+        "docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.013875819990062155
+    },
+    {
+      "label": "ruff-baseline",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--select",
+        "F,E9",
+        "--output-format",
+        "json",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.55/baseline-native.py"
+      ],
+      "returncode": 1,
+      "seconds": 0.047376470000017434
+    },
+    {
+      "label": "ruff-runtime",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--select",
+        "F,E9",
+        "--output-format",
+        "json",
+        "agent/native_main_payload.py"
+      ],
+      "returncode": 1,
+      "seconds": 0.044588467993889935
+    },
+    {
+      "label": "ruff-prototype",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--select",
+        "F,E9",
+        "--config",
+        "builtins=[\"NativeMainResponse\", \"NativeMainChoice\", \"NativeMainMessage\", \"NativeMainUsage\", \"NativeMainSelection\", \"NativeResultPolicy\", \"NativeAuxiliaryInvocation\", \"NativeAuxiliaryLocalResult\", \"_AuxiliaryTitlePreparation\", \"_CompressionBinding\", \"_AuxiliaryBinding\", \"_CompressionPreparation\", \"_FallbackBinding\", \"_FailedSendObservation\", \"NativeFailedMainAttempt\", \"_FallbackFrame\", \"NativeFallbackInvocation\", \"_TurnFrame\", \"_PendingOperation\", \"NativeDelegateBinding\", \"NativeDelegateInvocation\", \"shared_policy\", \"fields\", \"_require\", \"_issued_wire_require\", \"_same_anchors\", \"_nested_anchors\"]",
+        "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.011513325007399544
+    },
+    {
+      "label": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.017430944004445337
+    }
+  ],
+  "STE_mode": "python-prose-v1",
+  "STE_linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "STE": {
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.55/baseline-native.py": {
+      "words": 291,
+      "sentences": 30,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 12,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "agent/native_main_payload.py": {
+      "words": 291,
+      "sentences": 30,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 12,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "tests/agent/test_native_deep_anchor_equivalence.py": {
+      "words": 9,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 9,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/fixtures.py": {
+      "words": 9,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 9,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py": {
+      "words": 10,
+      "sentences": 1,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 10,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype.py": {
+      "words": 1,
+      "sentences": 0,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 0,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    }
+  },
+  "old_F401_unchanged": true
+}

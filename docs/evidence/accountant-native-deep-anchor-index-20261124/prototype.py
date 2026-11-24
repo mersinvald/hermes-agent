@@ -1,0 +1,39 @@
+def _nested_anchors_deep(value):
+    result = []
+    policy = shared_policy()
+    records = (NativeMainResponse, NativeMainChoice, NativeMainMessage, NativeMainUsage,
+               NativeMainSelection, NativeResultPolicy, policy.ExecutionBinding,
+               policy.Destination, policy.DispatchEnvelope, policy.RouteBinding,
+               NativeAuxiliaryInvocation, NativeAuxiliaryLocalResult, _AuxiliaryTitlePreparation,
+               _CompressionBinding, _AuxiliaryBinding, _CompressionPreparation,
+               _FallbackBinding, _FailedSendObservation, NativeFailedMainAttempt,
+               _FallbackFrame, NativeFallbackInvocation, _TurnFrame, _PendingOperation,
+               NativeDelegateBinding, NativeDelegateInvocation,
+               policy.ProfilePolicy, policy.DispatchFailureFacts)
+    record_index = frozenset(records) if all(type(record) is type for record in records) else None
+    def visit(item):
+        result.append(item)
+        item_type = type(item)
+        if item_type is dict:
+            for key, child in item.items():
+                _require(type(key) is str)
+                visit(key)
+                visit(child)
+        elif item_type in (list, tuple):
+            for child in item:
+                visit(child)
+        elif (item_type in record_index if record_index is not None and type(item_type) is type
+              else item_type in records):
+            for field in fields(item):
+                visit(object.__getattribute__(item, field.name))
+    visit(value)
+    return tuple(result)
+
+
+def candidate_snapshot_check(snapshot):
+    obj, pairs, anchors = snapshot
+    actual = tuple(vars(obj).items())
+    _issued_wire_require(tuple(name for name, _ in actual) == tuple(name for name, _ in pairs)
+        and _same_anchors(tuple(value for _, value in actual), tuple(value for _, value in pairs))
+        and _same_anchors((_nested_anchors_deep if len(anchors) >= 4096 else _nested_anchors)(
+            tuple(value for _, value in actual))[1:], anchors), "terminal_state_changed")

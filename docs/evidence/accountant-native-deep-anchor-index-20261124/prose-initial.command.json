@@ -1,0 +1,14 @@
+{
+  "label": "prose-initial",
+  "command": [
+    "python3",
+    "-I",
+    "-S",
+    "-B",
+    "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/README.md"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 0.0640395759983221,
+  "cap_seconds": 10.0
+}
