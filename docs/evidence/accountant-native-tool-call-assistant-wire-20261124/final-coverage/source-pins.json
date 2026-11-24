@@ -1,0 +1,19 @@
+{
+  "base_candidate": "49cb5ca6f558f1a2564c25c220b6c6642a231fbf",
+  "base_runtime_sha256": "4ce47d2567574534445ca0ad33dd8f8721f15f28e818eb7778243329cda80618",
+  "runtime_sha256": "25fe4762e7411083794528f3879a7e004299006fbd15711ad628a4f1de9e1a51",
+  "previous_test_sha256": "0c6b1de9325f0671634fbf91539fce6798e0fa94dc6e094c12c512c22a9551b5",
+  "test_sha256": "fc534c7dc372fd98e60c4c44233cc4d16bf6648db4f90f1dfab8603acc99cae5",
+  "API_sha256": "32e66f7b8c24c6b3bf42bdc3c80db86c0522e4b3654f16374d7a9f0eaf9fbd35",
+  "contract_sha256": "263f6d102843927c897d555521b13e8b52c6cd30d77c0f76d11dfef51fa3e33c",
+  "specification_sha256": "8054f50cb17f8adfbe70681e4a5c6996d85ea4a83d999d50a248fdda707e1a6b",
+  "original_handoff_sha256": "beff70148f4fd109f6afc9bd31c2af42295ff31e3c59f0423381bfe90bc84c4d",
+  "original_budget_immutable": true,
+  "only_changed_runtime_body": "_ToolCallAssistantWire.checkpoint",
+  "all_existing_test_bytes_preserved": true,
+  "earlier_evidence_preserved": true,
+  "selected_expiry_check_first": true,
+  "new_callbacks": 0,
+  "new_clock_reads": 0,
+  "new_windows": 0
+}

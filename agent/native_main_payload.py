@@ -9929,6 +9929,11 @@ class _ToolCallAssistantWire:
                 final_now = self.callback(p._clock)
                 _integer(final_now, minimum=0)
                 _assistant_wire_require(final_now < selected_route.expires_at, "selection_expired")
+                for path in shared_policy().PATHS:
+                    _assistant_wire_require(any(route.path == path and route.route_ref in allowed
+                        and (route.consumer_ref, route.selection_id, route.selection_version)
+                            == (facts[0][3], facts[0][6], facts[0][7]) and final_now < route.expires_at
+                        for route in routes), "coverage_missing")
                 self.verify()
         finally:
             self.checking = False

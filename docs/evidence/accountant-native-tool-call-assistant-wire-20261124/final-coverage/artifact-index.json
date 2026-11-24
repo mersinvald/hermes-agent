@@ -1,0 +1,74 @@
+[
+  {
+    "path": "artifacts/red-expired50.log.gz",
+    "bytes": 8129,
+    "sha256": "0112f27b5f71f6c6102a61b371a7aa4218cf2c1226cd5402b9b927a1420a1a19",
+    "compressed_sha256": "bd323783cfed030ffb8a142947c484eef7fae6b6177358ff526965f1b67c0690"
+  },
+  {
+    "path": "artifacts/red-expired50.xml.gz",
+    "bytes": 27925,
+    "sha256": "0da4edf22a96b0eb7b40b113a4e06bc4210563860ea257649e79744c4988a91d",
+    "compressed_sha256": "81cff0a05d6374770b682cd5f5e3b33f18177f51b3035c9b54b90f6a72f28608"
+  },
+  {
+    "path": "artifacts/red-expired50.cases.jsonl.gz",
+    "bytes": 1034,
+    "sha256": "51251992ddc309442914fec9def750efbcf97c198c8e9c3d74d5d5c9f506db07",
+    "compressed_sha256": "9000df340f4716b38c976042b62d8e9101d740d8cde9698f09b467f4d9b2e00a"
+  },
+  {
+    "path": "artifacts/red-expired50.json.gz",
+    "bytes": 1237,
+    "sha256": "6fe6cfd5fcb4cbf12b0fd0a561ef85897ca00bec11bf05eb4d4057f3e2826ca5",
+    "compressed_sha256": "c519ce6f4c167ab47746eca17e6b40b8f4763963d56087dbd42ed529cf9c3021"
+  },
+  {
+    "path": "artifacts/red-expired50-native_main_payload.py.gz",
+    "bytes": 556517,
+    "sha256": "4ce47d2567574534445ca0ad33dd8f8721f15f28e818eb7778243329cda80618",
+    "compressed_sha256": "dff68ad13b87814fbc660a0cdc9a0bda50c4e1be83e93505edeeccbbceca2624"
+  },
+  {
+    "path": "artifacts/red-expired50-test_native_tool_call_assistant_wire.py.gz",
+    "bytes": 17571,
+    "sha256": "fc534c7dc372fd98e60c4c44233cc4d16bf6648db4f90f1dfab8603acc99cae5",
+    "compressed_sha256": "de12a9a3c6f449706bbb1ae3078a0455d13fb26aad4b0093c728a83a0bc1ed75"
+  },
+  {
+    "path": "artifacts/green-boundaries.log.gz",
+    "bytes": 1074,
+    "sha256": "b4954b914348cd9951012fcaa02e0e5432947e7d9db3e138070e6f50d663399d",
+    "compressed_sha256": "b9a9b16ad824884fa5847fd4d0055fdb8e692175bad89880fcd027a58eeb6f2f"
+  },
+  {
+    "path": "artifacts/green-boundaries.xml.gz",
+    "bytes": 52275,
+    "sha256": "fc67b2a4652aa82337d74859ba7747e7eb3033ba9343b13facab2724f4dbb33f",
+    "compressed_sha256": "317998c3e0cbb2c8e5cf09fc95e9ddd4bb12c490b94eb1cc0ade0b997e30d58a"
+  },
+  {
+    "path": "artifacts/green-boundaries.cases.jsonl.gz",
+    "bytes": 2419,
+    "sha256": "7bd826a81e669c5423e1cfc34f377021667c8ed2e911cc1d8345ae71cb2d5c46",
+    "compressed_sha256": "9a7045c09e19ef9a841427fe0091b2687697f62890cedb51b5d877e701006063"
+  },
+  {
+    "path": "artifacts/green-boundaries.json.gz",
+    "bytes": 1254,
+    "sha256": "368ff3f3ea6edf68c8547207d00c2cbf152d9079dabc63aec812b990d7f052dd",
+    "compressed_sha256": "f5445a78a36e97035dc9f94191adb25873f172c89ebfa4e3322df963d5a933d6"
+  },
+  {
+    "path": "artifacts/green-boundaries-native_main_payload.py.gz",
+    "bytes": 556930,
+    "sha256": "25fe4762e7411083794528f3879a7e004299006fbd15711ad628a4f1de9e1a51",
+    "compressed_sha256": "469a3d084d797f0f84af6b021cfb935e6f478fee12adb59b543e73ebc04c197e"
+  },
+  {
+    "path": "artifacts/green-boundaries-test_native_tool_call_assistant_wire.py.gz",
+    "bytes": 17571,
+    "sha256": "fc534c7dc372fd98e60c4c44233cc4d16bf6648db4f90f1dfab8603acc99cae5",
+    "compressed_sha256": "de12a9a3c6f449706bbb1ae3078a0455d13fb26aad4b0093c728a83a0bc1ed75"
+  }
+]

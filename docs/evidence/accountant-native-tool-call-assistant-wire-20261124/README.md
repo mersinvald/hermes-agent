@@ -73,3 +73,8 @@ The online Mac collector remains outside scope.
 Root retains acceptance, merge, Beads closure, canonical reconciliation, and later runtime selection.
 
 Zero checks or a pending status do not establish CI success.
+## Final required-path coverage correction
+
+The final clock read now checks every required path after the original selected-grant check.
+The original candidate released at 50 despite expired non-main coverage. The corrected case refuses at 50, while its success control passes at 49.
+[Correction evidence](final-coverage/README.md) preserves the genuine red, two green cases, actual charges, unchanged API, and all earlier scopes.

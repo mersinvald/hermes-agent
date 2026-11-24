@@ -263,3 +263,63 @@ def test_original_control_after_actual_output(projection_source, record_property
         assert world.adapter.tool_call_assistant_sources[0] is source
     finally:
         record_property("projection_proof", json.dumps(proof(world)))
+
+
+@pytest.mark.parametrize("boundary", [50, 49], ids=["expired50", "live49"])
+def test_final_required_path_coverage(excluded, record_property, boundary):
+    world = ProbeWorld()
+    non_main = next(route.path for route in world.routes if route.path != "main")
+    world.routes = tuple(replace(route, expires_at=50) if route.path == non_main else route
+                         for route in world.routes)
+    start = time.monotonic()
+    world.construct()
+    world.source_timings = dict(setup=time.monotonic() - start)
+    source = capture_closed(world)
+    ticks, returned = [], []
+    actual_clock = world.now
+    try:
+        with content_policy_scope(world.context):
+            def advance():
+                owner = native._assistant_wire_owner(world.adapter)
+                if owner is not None and owner.windows == 3:
+                    ticks.append(world.now)
+                    if len(ticks) == 8:
+                        world.now = boundary
+            world.clock_hook = advance
+            start = time.monotonic()
+            try:
+                if boundary == 50:
+                    with pytest.raises(NativeContentPolicyDenied, match="coverage_missing"):
+                        returned.append(world.adapter.retain_tool_call_assistant_wire(source))
+                else:
+                    returned.append(world.adapter.retain_tool_call_assistant_wire(source))
+            finally:
+                world.source_timings["projection"] = time.monotonic() - start
+                actual_clock = world.now
+                world.clock_hook = None
+                world.now = 10
+        owner = native._assistant_wire_owner(world.adapter)
+        assert len(ticks) == 8 and ticks == [10] * 8 and actual_clock == boundary
+        assert owner.windows == 3 and owner.probe.selection is world.selection
+        assert owner.probe.binding.main_route.expires_at == 100 > actual_clock
+        assert len(world.qualification_records) == 8
+        assert_retained(world, source)
+        assert world.adapter.tool_call_assistant_sources[0] is source
+        if boundary == 50:
+            assert not returned and not owner.records and owner.phase == "denied"
+            assert world.adapter.tool_call_assistant_wire_results == ()
+            assert not any(route.path == non_main and actual_clock < route.expires_at for route in world.routes)
+        else:
+            assert len(returned) == 1 and returned[0] is owner.records[0][0]
+            assert world.adapter.tool_call_assistant_wire_results[0] is returned[0]
+            assert all(any(route.path == path and actual_clock < route.expires_at for route in world.routes)
+                       for path in native.shared_policy().PATHS)
+    finally:
+        world.clock_hook = None
+        world.now = 10
+        retained = proof(world)
+        retained.update(boundary=boundary, actual_clock=actual_clock, clock_callbacks=len(ticks),
+            clock_values=ticks, selected_main_expiry=world.adapter._main_route.expires_at,
+            route_deadlines=[dict(path=route.path, expires_at=route.expires_at) for route in world.routes],
+            returned_results=len(returned), released_results=len(native._assistant_wire_owner(world.adapter).records))
+        record_property("final_coverage_proof", json.dumps(retained))

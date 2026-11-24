@@ -1,0 +1,16 @@
+{
+  "inverse": {
+    "path": "artifacts/inverse.patch.gz",
+    "bytes": 510,
+    "sha256": "9e4b6f534118cddd261b196161878342333a4d34aebf998eb9444e042c563a4f",
+    "compressed_sha256": "fbe182b857c167f09f7097d3697373c3e520ccc95ee3154ce05e082e11a10d4f"
+  },
+  "inverse_restores_runtime_sha256": "4ce47d2567574534445ca0ad33dd8f8721f15f28e818eb7778243329cda80618",
+  "previous_scopes_preserved_at_original_pins": true,
+  "control_body_unchanged": true,
+  "control_runtime_sha256": "429e67283c290ecf6adacc6f777275f3b32d15d2ded8b6e4f3177203ebb83806",
+  "control_raises_before_new_final_coverage_predicate": true,
+  "control_repeated": false,
+  "shared_setup_installs_smokes_repeated": false,
+  "API_contract_unchanged": true
+}
