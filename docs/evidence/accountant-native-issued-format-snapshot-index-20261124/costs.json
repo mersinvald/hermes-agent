@@ -1,0 +1,19 @@
+{
+  "task_start_utc": "2026-11-24T12:47:04Z",
+  "deadline_utc": "2026-11-24T13:17:04Z",
+  "task_wall_limit_seconds": 1800,
+  "task_wall_seconds_at_evidence": 756.432932,
+  "verification_plan_seconds": 900,
+  "conservative_allowance_seconds": {
+    "preparation": 90,
+    "focused": 60,
+    "genuine": 600,
+    "final": 60,
+    "reserve": 90
+  },
+  "focused_command_seconds": 13.01201215099718,
+  "genuine_command_seconds": 439.93568488200253,
+  "measured_runner_command_seconds": 452.9476970329997,
+  "final_evidence_command_seconds": 0.16002367000328377,
+  "command_timing_scope": "Measured canonical selections only, separate from all task wall time. Publication costs remain in protected handoff."
+}

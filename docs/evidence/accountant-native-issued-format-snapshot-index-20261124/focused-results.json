@@ -1,0 +1,120 @@
+{
+  "scope": "Branch-only extracted exact production snapshot loop and actual verifier prefix with inert owner. No native admission or authority qualification.",
+  "red": {
+    "requested_ids": [
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_registered_helper_replacement_refused"
+    ],
+    "actual_ids": [
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_registered_helper_replacement_refused"
+    ],
+    "expected_nonzero": true,
+    "command": {
+      "label": "red",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_issued_format_snapshot_index.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "-k",
+        "test_registered_helper_replacement_refused",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml",
+        "-q"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 10.290839941997547,
+      "outer_cap_seconds": 30.0,
+      "source_sha256": "c5e32e34c6bdfdfdb2a40ee7d85e6e999dc76f61ff5d09380f2834c94aade7f3",
+      "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa"
+    },
+    "artifacts": [
+      {
+        "original_name": "red.log",
+        "original_bytes": 5211,
+        "original_sha256": "c39a99d1a6404413750a3db4f89cc19e614451229c477b40e634bfe0abf1a9a8",
+        "protected_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/red.log",
+        "compressed_name": "red.log.gz",
+        "compressed_bytes": 1335,
+        "compressed_sha256": "4a25006002c8b7a17143c58aad53ffcc85126c87a544fa3d194c295a5acac498",
+        "exact_round_trip": true
+      },
+      {
+        "original_name": "red.xml",
+        "original_bytes": 1913,
+        "original_sha256": "f9144a348b1da31272445e61ce068f31cc8db31cca0b93dab0d7dbe3a7504cf1",
+        "protected_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/receipts/red.xml",
+        "compressed_name": "red.xml.gz",
+        "compressed_bytes": 730,
+        "compressed_sha256": "d3d93bc8e1bcccdc1c24bfbb18d0c39a357c56dadc54ea8a92fec93f96b35e7d",
+        "exact_round_trip": true
+      }
+    ]
+  },
+  "green": {
+    "requested_ids": [
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_registered_helper_replacement_refused",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_registered_helper_code_drift_refused",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_stock_verifier_prefix",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_threshold[4095]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_threshold[4096]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[add]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[remove]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[rename]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[reorder]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[shallow]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_nested_mutation_failure_order[False]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_nested_mutation_failure_order[True]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_repeated_aliases",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_custom_metaclass_fallback"
+    ],
+    "actual_ids": [
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_registered_helper_replacement_refused",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_registered_helper_code_drift_refused",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_stock_verifier_prefix",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_threshold[4095]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_threshold[4096]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[add]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[remove]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[rename]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[reorder]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_namespace_and_identity[shallow]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_nested_mutation_failure_order[False]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_nested_mutation_failure_order[True]",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_repeated_aliases",
+      "tests/agent/test_native_issued_format_snapshot_index.py::test_branch_custom_metaclass_fallback"
+    ],
+    "command": {
+      "label": "green",
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_issued_format_snapshot_index.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=docs/evidence/accountant-native-issued-format-snapshot-index-20261124/green.xml",
+        "-q"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.721172208999633,
+      "outer_cap_seconds": 30.0,
+      "source_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+      "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa"
+    }
+  },
+  "focused_command_seconds": 13.01201215099718,
+  "plan_seconds": 60
+}

@@ -1,0 +1,35 @@
+{
+  "base": "91975e5b0f2b5a34b7bf31f8ab02ded68ec9b76c",
+  "base_runtime_sha256": "c5e32e34c6bdfdfdb2a40ee7d85e6e999dc76f61ff5d09380f2834c94aade7f3",
+  "runtime_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+  "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa",
+  "exact_inverse_restores_base_bytes": true,
+  "restored_module_ast_equal": true,
+  "definition_count": 538,
+  "changed_definition_spans": [
+    "_IssuedCallFormat",
+    "_IssuedCallFormat.verify"
+  ],
+  "unchanged_helpers": {
+    "_nested_anchors": "bdfefcc543599e85de87bd1449d85062362d3903c3618854f89f35633a8a1447",
+    "_nested_anchors_deep": "d6d843eb114c3795f725742a55ffba504e2d8ab6486d21b9117d9b9e288e28da",
+    "_same_anchors": "70da285e47a4447967774ea1908a22b63b4d2494e45fe99830afeeb683f60539",
+    "_issued_wire_snapshot_check": "2716318763decdda544ca066c3d3e156d3536df590c2290d81f88e920f8ce8d2"
+  },
+  "old_paths": 12111,
+  "allowlisted_old_file": "agent/native_main_payload.py",
+  "edits": [
+    "_IssuedCallFormat.verify source snapshot walker selector",
+    "_ISSUED_FORMAT_CODE initial module helper tuple adds one name"
+  ],
+  "source_spans": {
+    "_IssuedCallFormat": {
+      "before": "623da00b6e40b822bcbc852cc863172fb0d8372ae352a42e8ea6ba8483692401",
+      "after": "0389eeedc0b4cc3efad97eda5fdaffef2aeb815b86435782e5b412e7276d89a9"
+    },
+    "_IssuedCallFormat.verify": {
+      "before": "d5a822f122c217f295525e0ed4188d195226d94e508fc8dac687f075db921438",
+      "after": "053f1fc6cf1d67147fb3a8ee73e1e2b024723dac1b9964f315b259ab4a07c816"
+    }
+  }
+}

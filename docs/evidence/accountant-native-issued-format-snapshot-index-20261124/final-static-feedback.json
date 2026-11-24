@@ -1,0 +1,26 @@
+{
+  "scope": "Owned private evidence file permissions. No functional rerun.",
+  "initial_command": [
+    "python3",
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/finalize.py"
+  ],
+  "initial_returncode": 1,
+  "exception": "AssertionError: /home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/preflight-whitespace.json",
+  "script_sha256": "116193102cd61ced40a5f66b5954b01685cba547f8b1f31282e608b729631b9f",
+  "runtime_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+  "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa",
+  "initial_evidence_manifest_sha256": "933be75c35da57a9a2342caab03606b2cf034564df354d4e650eb323262ef152",
+  "failed_files": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/preflight-whitespace.json",
+      "mode": "0o664",
+      "sha256": "0e4f34fe6c83ee09d1624ed1cdeb42da15c36ae2355aedb884d5e025a6363c94"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.57/run.py",
+      "mode": "0o664",
+      "sha256": "8786b6fb1ee9310e9833a2a4f2624e797a1d48544de42951e373f63ddb04161f"
+    }
+  ],
+  "correction": "Set task-owned private directories to 0700 and files to 0600. Preserve every file byte."
+}

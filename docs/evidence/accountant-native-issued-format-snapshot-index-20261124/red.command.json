@@ -1,0 +1,26 @@
+{
+  "label": "red",
+  "command": [
+    "scripts/run_tests.sh",
+    "tests/agent/test_native_issued_format_snapshot_index.py",
+    "-j",
+    "1",
+    "--file-retries",
+    "0",
+    "--file-timeout",
+    "25",
+    "--",
+    "-k",
+    "test_registered_helper_replacement_refused",
+    "--maxfail=1",
+    "-o",
+    "junit_family=xunit1",
+    "--junitxml=docs/evidence/accountant-native-issued-format-snapshot-index-20261124/red.xml",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_seconds": 10.290839941997547,
+  "outer_cap_seconds": 30.0,
+  "source_sha256": "c5e32e34c6bdfdfdb2a40ee7d85e6e999dc76f61ff5d09380f2834c94aade7f3",
+  "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa"
+}

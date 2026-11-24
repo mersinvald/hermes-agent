@@ -1,0 +1,39 @@
+{
+  "publication": "91975e5b0f2b5a34b7bf31f8ab02ded68ec9b76c",
+  "proposal_sha256": "9556cd999fdc9c7cb71b51892c466d2e672a47bda2dd4eb9b5fa2ba1a9233fca",
+  "scope": "Reuse only at original source and test pins. No fresh matrix, comparison, sampler, or profiler.",
+  "prototype_cases": 48,
+  "runtime_representatives": 4,
+  "benefit_scope": "Pure synthetic comparison only. No guaranteed caller speedup, CPU dominance, or causal episode percentage.",
+  "retained_cost_context_seconds": 463.75790366400906,
+  "files": {
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/pure-results.json": {
+      "bytes": 29824,
+      "sha256": "5f08c8c9fd89e337029f48c0b93a4ef884070f457f3233359b3429ea23631690"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-final.xml": {
+      "bytes": 9376,
+      "sha256": "f7e5ce5aa87f8196031866c51520bb0802747e99ac386c6eca467c7c7a8e90a4"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/runtime-representatives.xml": {
+      "bytes": 1057,
+      "sha256": "f0130c509e37d63373880281a2cb7d5e39ed2784595be63630bec245452852ee"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison-plan.json": {
+      "bytes": 952,
+      "sha256": "a5509655aa7aa3076e01ed9d522f74ed4300c0ad15e8906f8c07391da7d6485d"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison-result.json": {
+      "bytes": 12812,
+      "sha256": "af7b9fe7f4d1a3936a3e0d092cf8ebd1c7bb38a664b5a86c3397d709363c6ea8"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/source-freeze.json": {
+      "bytes": 537,
+      "sha256": "478e9bd7771b505c0463638621df88b8e593a7307ed5a050755cb5bfad1252ed"
+    },
+    "docs/evidence/accountant-native-deep-anchor-index-20261124/freeze-audit.json": {
+      "bytes": 3717,
+      "sha256": "8f903b111457f2cdad1990898f92c9bd1f8cfb9fb0854374c11809c03045939d"
+    }
+  }
+}

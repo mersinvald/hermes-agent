@@ -1,0 +1,20 @@
+{
+  "source_commit": "5aac17edd9cdc58c6f8ffe27347b7a94e24b63e9",
+  "source_tree": "9d79ef9c240a44cbe99e04ffbbf9500005bc95ce",
+  "runtime_sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe",
+  "test_sha256": "83f5117edc31a384e7fdd9146a150235021445f8e8dec381064f541919e828aa",
+  "preserved_base_blobs_and_modes": 12110,
+  "runtime_mode_preserved": true,
+  "index_comparison": true,
+  "git_filtered_worktree_clean": true,
+  "environment_files_verified": 5,
+  "remaining_wall_seconds": 1543.965356,
+  "required_floor_seconds": 750,
+  "launch_utc": "2026-11-24T12:51:20.034644+00:00",
+  "genuine_outer_cap_seconds": 600,
+  "genuine_file_cap_seconds": 595,
+  "one_worker": true,
+  "retries": 0,
+  "sampler": false,
+  "profiler": false
+}
