@@ -1,6 +1,7 @@
 # One genuine host qualification
 
-Status: PASSED. This new qualification Task ran one selected case under an 840-second total supervisor limit.
+Genuine case: PASSED. Task: FAILED because a required prose check failed.
+The new qualification Task ran one selected case under an 840-second total supervisor limit.
 The ledger includes a labeled 10-second allowance before its successful start.
 The original failed Task, ledger, and evidence retain their historical scope.
 
@@ -13,6 +14,7 @@ The fresh `genuine.xml` report records the actual collected ID and result.
 The case passed in 541.467 seconds. The canonical command cost 544.579277 seconds.
 The actual history retained 38 contents, four envelopes, and 32850 bytes.
 It retained 27 qualification sends and four episode data sends.
+
 The original continuation completed six windows and released its exact completion.
 [Validation](validation.json) binds those observations to the passing case.
 The pinned test writes its original immediate observations to `genuine.receipts.jsonl`.
@@ -31,3 +33,7 @@ Root retains source acceptance, merge, Beads closure, canonical reconciliation, 
 Beads49 stays OPEN. Every original failed P10.47 Task and unexecuted harness label retains its historical meaning.
 Full P10/P06 and all external gates remain open.
 Real providers, private inference, financial writes, deployment, activation, Mac collection, and Firefly remain outside scope.
+
+The first final-prose check found one long paragraph and failed its assertion.
+The corrected prose has zero findings. The failing required command retains its failed scope.
+The genuine passing case retains its separate functional scope. No history or caller case ran again.
