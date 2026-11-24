@@ -101,12 +101,14 @@ def test_genuine_issued_call_episode(tmp_path, monkeypatch, record):
         "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv").resolve()
     record("loaded_paths", dict(paths=paths, interpreter=sys.executable, prefix=sys.prefix))
     world = EpisodeWorld("positive").prepare_source()
-    started, previous = time.monotonic(), []
+    started, previous, continuation_before = time.monotonic(), [], []
 
     def observe():
         owners = [owner for owner in native._issued_continuation_owners if owner.parent is world.adapter]
         owner = owners[0] if owners else None
         runtime = world.adapter._runtime
+        if owner is not None and owner.phase == "paired" and not continuation_before:
+            continuation_before.append((len(runtime._contents), len(runtime._envelopes), runtime._retained_bytes))
         boundary = (len(runtime._contents), len(runtime._envelopes),
                     None if owner is None else owner.phase, None if owner is None else owner.windows)
         if previous == [boundary]:
@@ -175,8 +177,9 @@ def test_genuine_issued_call_episode(tmp_path, monkeypatch, record):
     for handle, parents in ((h, (j, a)), (k, (h,)), (w, (h, k)), (r, (w,)),
                             (n, (h, k, w, r)), (completion.completion_content, (j, a, h, k, w, r, n))):
         assert runtime._content(handle).parents == parents
-    assert len(runtime._contents) == owner.charge_before[0] + 6
-    assert len(runtime._envelopes) == owner.charge_before[1] + 1
+    assert len(continuation_before) == 1
+    assert len(runtime._contents) == continuation_before[0][0] + 6
+    assert len(runtime._envelopes) == continuation_before[0][1] + 1
     assert runtime._retained_bytes == sum(len(row.payload) for row in runtime._contents.values())
     observe()
     before = (len(runtime._contents), len(runtime._envelopes), runtime._retained_bytes)

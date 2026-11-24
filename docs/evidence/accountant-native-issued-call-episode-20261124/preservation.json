@@ -1,0 +1,22 @@
+{
+  "base_commit": "435454934a3cd37fc741968d61884d892556c428",
+  "base_tree": "b4c2c24ede7879a7db44b3692f9af68b3b413e18",
+  "preserved_paths": 11981,
+  "base_path_modes_blobs_exact": true,
+  "tracked_worktree_clean": true,
+  "additional_paths": [
+    "agent/issued_call_episode.py",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/caller-run.json",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/caller.log",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/caller.xml",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/frozen-pins.json",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/source-isolation.json",
+    "tests/tools/test_native_issued_call_episode.py"
+  ],
+  "ignored_runtime_symlink": {
+    "path": ".venv",
+    "target": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv",
+    "existing_ignore_rule": true
+  }
+}
