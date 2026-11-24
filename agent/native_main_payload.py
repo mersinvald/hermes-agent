@@ -1113,6 +1113,9 @@ class _Admission:
 
     def current(self, handle):
         adapter = self.adapter
+        continuation = _issued_continuation_window(adapter)
+        if continuation is not None:
+            return continuation.current(handle)
         pair = _issued_pair_window(adapter)
         if pair is not None:
             return pair.current(handle)
@@ -1152,6 +1155,9 @@ class _Transport:
         self.adapter, self.port, self.main = adapter, port, main
 
     def resolve(self):
+        continuation = _issued_continuation_window(self.adapter)
+        if continuation is not None:
+            return continuation.resolve(self)
         pair = _issued_pair_window(self.adapter)
         if pair is not None:
             return pair.resolve(self)
@@ -1179,6 +1185,9 @@ class _Transport:
 
     def send(self, envelope):
         adapter = self.adapter
+        continuation = _issued_continuation_window(adapter)
+        if continuation is not None:
+            return continuation.send(self, envelope)
         issued = _issued_window(adapter)
         if issued is not None:
             return issued.send(self, envelope)
@@ -1256,7 +1265,13 @@ class NativeMainPayloadAdapter:
         _delegation_frame: object = None,
         _memory_prompt_frame: object = None,
         _issued_call_frame: object = None,
+        _issued_call_continuation_frame: object = None,
     ) -> None:
+        _require(_issued_call_continuation_frame is None or (
+            _delegation_frame is None and _memory_prompt_frame is None and _issued_call_frame is None))
+        if _issued_call_continuation_frame is not None:
+            _require(type(_issued_call_continuation_frame) is _IssuedCallContinuation)
+            _issued_call_continuation_frame.open_view(self, context)
         _require(_delegation_frame is None or _memory_prompt_frame is None)
         _require(_issued_call_frame is None or (_delegation_frame is None and _memory_prompt_frame is None))
         if _issued_call_frame is not None:
@@ -1361,6 +1376,8 @@ class NativeMainPayloadAdapter:
                 wrapper = (_Transport(self, port, main=name == main_transport)
                            if _memory_prompt_frame is None and _issued_call_frame is None else
                            (_memory_prompt_frame or _issued_call_frame).parent._transport_wrappers[name])
+                if _issued_call_continuation_frame is not None:
+                    wrapper = _issued_call_continuation_frame.parent._transport_wrappers[name]
                 wrappers.append((name, wrapper))
             self._operator_routes = routes
             self._operator_profiles = profiles
@@ -1372,6 +1389,8 @@ class NativeMainPayloadAdapter:
                 self._operator_configuration = _memory_prompt_frame.catalog
             if _issued_call_frame is not None:
                 self._operator_configuration = _issued_call_frame.catalog
+            if _issued_call_continuation_frame is not None:
+                self._operator_configuration = _issued_call_continuation_frame.catalog
             self._main_route = selected[0]
             self._busy = True
             self._checkpoint()
@@ -1381,6 +1400,8 @@ class NativeMainPayloadAdapter:
                 self._runtime = _memory_prompt_frame.runtime
             elif _delegation_frame is not None:
                 self._runtime = _delegation_frame.runtime
+            elif _issued_call_continuation_frame is not None:
+                self._runtime = _issued_call_continuation_frame.runtime
             else:
                 self._runtime = policy.ContentPolicyRuntime(
                     admission=_Admission(self), profiles=profiles, routes=routes,
@@ -3303,6 +3324,9 @@ class NativeMainPayloadAdapter:
             return stages, output
 
     def _checkpoint(self):
+        continuation = _issued_continuation_window(self)
+        if continuation is not None:
+            return continuation.checkpoint()
         probe = _tool_call_probes.get(self)
         if probe is not None:
             return probe.checkpoint()
@@ -3317,6 +3341,9 @@ class NativeMainPayloadAdapter:
         return first
 
     def _around(self, callback):
+        continuation = _issued_continuation_window(self)
+        if continuation is not None:
+            return continuation.around(callback)
         pair = _issued_pair_window(self)
         if pair is not None:
             return pair.around(callback)
@@ -3349,6 +3376,14 @@ class NativeMainPayloadAdapter:
 
     def validate_scope(self) -> None:
         try:
+            continuation = _issued_continuation_view(self)
+            if continuation is not None:
+                if continuation.entry is None:
+                    continuation.verify(proof=True)
+                    return
+                continuation.access()
+                continuation.checkpoint()
+                return
             issued = _issued_call_frames.get(self)
             if issued is not None and self is issued.adapter:
                 issued.scope_access()
@@ -3884,6 +3919,9 @@ def dispatch_controlled_main(agent: object, api_kwargs: dict) -> tuple[bool, Nat
     context = current_context(agent)
     if context is not None and context._controlled_main_bound:
         adapter = _attached(context)
+        continuation = _issued_continuation_window(adapter)
+        if continuation is not None:
+            return True, continuation.dispatch(agent, api_kwargs, sys._getframe())
         probe = _tool_call_probes.get(adapter)
         if probe is not None:
             try:
@@ -10587,3 +10625,847 @@ _ISSUED_PAIR_CODE += ((_IssuedCallPair.window, "__wrapped__", _IssuedCallPair.wi
     _IssuedCallPair.window.__wrapped__.__code__),
     (NativeMainPayloadAdapter.issued_call_pair_results, "fget", NativeMainPayloadAdapter.issued_call_pair_results.fget,
         NativeMainPayloadAdapter.issued_call_pair_results.fget.__code__))
+
+
+class NativeIssuedCallContinuationInput:
+    __slots__ = ()
+
+    def __new__(cls):
+        raise TypeError("Continuation tokens require operator admission")
+
+
+from agent.transports.types import NormalizedResponse, Usage
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallContinuationBinding:
+    token: NativeIssuedCallContinuationInput
+    source_adapter: NativeMainPayloadAdapter
+    consumer_context: NativeContentContext
+    consumer_request: object
+    selection: NativeMainSelection
+    producer_policy: NativeResultPolicy
+    main_route: object
+    target_model: str
+    session_id: str
+    authorization_bytes: bytes
+    authorization_content: object
+    anchors: tuple
+    thread: int
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallContinuationCompletion:
+    response: NativeMainResponse
+    normalized: NormalizedResponse
+    final_response: str
+    finish_reason: str
+    usage: Usage
+    completion_bytes: bytes
+    completion_content: object
+    parents: tuple
+    anchors: tuple
+
+
+@dataclass(frozen=True, slots=True)
+class NativeIssuedCallContinuationResult:
+    binding: NativeIssuedCallContinuationBinding
+    pair: NativeIssuedCallPairResult
+    adapter: NativeMainPayloadAdapter
+    agent: object
+    transport: object
+    prefix_messages: list[dict[str, object]]
+    tools: list[dict[str, object]]
+    request: dict[str, object]
+    request_bytes: bytes
+    request_content: object
+    invocation: NativeMainInvocation
+    normalized: NormalizedResponse
+    normalized_bytes: bytes
+    normalized_content: object
+    completion: NativeIssuedCallContinuationCompletion
+    anchors: tuple
+
+
+_issued_continuation_owners = ()
+
+
+def _continuation_require(condition, reason):
+    if not condition:
+        raise NativeContentPolicyDenied("controlled_native_issued_continuation_" + reason)
+
+
+def _issued_continuation_window(adapter):
+    return next((owner for owner in _issued_continuation_owners
+        if (adapter is owner.parent or adapter is owner.adapter) and owner.entry is not None
+        and owner.phase not in ("released", "denied", "armed")), None)
+
+
+def _issued_continuation_view(adapter):
+    return next((owner for owner in _issued_continuation_owners if owner.adapter is adapter), None)
+
+
+def _continuation_owner(token):
+    _continuation_require(type(token) is NativeIssuedCallContinuationInput, "token_unregistered")
+    owner = next((owner for owner in _issued_continuation_owners if owner.token is token), None)
+    _continuation_require(owner is not None, "token_unregistered")
+    return owner
+
+
+def _continuation_snapshot(owner, snapshot):
+    actual = tuple(vars(owner).items())
+    _continuation_require(tuple(k for k, _ in actual) == tuple(k for k, _ in snapshot)
+        and _same_anchors(tuple(v for _, v in actual), tuple(v for _, v in snapshot)), "terminal_namespace_changed")
+
+
+def _continuation_normalized(value):
+    _continuation_require(type(value) is NormalizedResponse and type(value.usage) is Usage, "normalized_invalid")
+    _continuation_require(tuple(vars(value)) == tuple(field.name for field in fields(NormalizedResponse))
+        and tuple(vars(value.usage)) == tuple(field.name for field in fields(Usage)), "normalized_fields_changed")
+    _text(value.content)
+    _continuation_require(type(value.finish_reason) is str and value.finish_reason == "stop"
+        and value.tool_calls is value.reasoning is value.provider_data is None, "normalized_shape_invalid")
+    usage = {field.name: getattr(value.usage, field.name) for field in fields(Usage)}
+    for count in usage.values():
+        _integer(count, minimum=0)
+    _continuation_require(usage["prompt_tokens"] + usage["completion_tokens"] == usage["total_tokens"], "usage_invalid")
+    return _json(dict(content=value.content, tool_calls=value.tool_calls, finish_reason=value.finish_reason,
+        reasoning=value.reasoning, usage=usage, provider_data=value.provider_data))
+
+
+def _continuation_shared(owner, name, handle, parents, payload, path, parent_requests, route_ref):
+    owner.verify()
+    _continuation_require(owner.shared is None, "shared_reentry")
+    _continuation_require(type(payload) is bytes and len(payload) <= 262144, "capacity_denied")
+    _continuation_require(sum(len(p) for p in owner.stage_bytes) + len(payload) <= 786432, "capacity_denied")
+    owner.runtime._capacity(1, len(payload))
+    owner.shared = (name, handle, parents, payload, path, parent_requests, route_ref, sys._getframe())
+    try:
+        if name == "admit":
+            result = owner.runtime.admit(handle, payload)
+        elif name == "derive_for_selection":
+            result = owner.runtime.derive_for_selection(handle, parents, payload, path=path,
+                parent_requests=parent_requests)
+        else:
+            _continuation_require(name == "derive", "shared_method_invalid")
+            result = owner.runtime.derive(handle, parents, payload, path=path)
+        owner.stages += ((result, payload, parents, handle, path),)
+        owner.stage_bytes += (payload,)
+        return result
+    finally:
+        owner.shared = None
+        owner.charge_after = (len(owner.runtime._contents), len(owner.runtime._envelopes), owner.runtime._retained_bytes)
+
+
+def _continuation_shared_frame(owner, frame):
+    owner.verify()
+    _continuation_require(owner.shared is not None, "shared_window_missing")
+    name, handle, parents, payload, path, parent_requests, route_ref, origin = owner.shared
+    cls = type(owner.runtime)
+    while frame is not None and frame.f_code is not getattr(cls, name).__code__:
+        _continuation_require(frame.f_globals is vars(sys.modules[cls.__module__])
+            and (frame.f_locals.get("self") is owner.runtime or frame.f_code.co_name == "checkpoint"),
+            "shared_stack_invalid")
+        frame = frame.f_back
+    _continuation_require(frame is not None and frame.f_back is origin and frame.f_locals.get("self") is owner.runtime
+        and frame.f_locals.get("request_handle") is handle, "shared_frame_invalid")
+    if name != "dispatch":
+        _continuation_require(frame.f_locals.get("payload") is payload, "shared_payload_changed")
+        if name != "admit":
+            _continuation_require(frame.f_locals.get("parents") is parents and frame.f_locals.get("path") == path,
+                "shared_parents_changed")
+            if name == "derive_for_selection":
+                _continuation_require(frame.f_locals.get("parent_requests") is parent_requests, "shared_requests_changed")
+    else:
+        _continuation_require(frame.f_locals.get("content") is owner.wire_content
+            and frame.f_locals.get("route_ref") is route_ref and frame.f_locals.get("path") == "main",
+            "dispatch_arguments_changed")
+
+
+class _IssuedCallContinuation:
+    """Consume one original pair through an independently admitted native request."""
+
+    def __init__(self, source_adapter, consumer_context, consumer_selection,
+            consumer_producer_ref, consumer_main_route_ref, target_model, session_id, public_frame):
+        global _issued_continuation_owners
+        _continuation_require(type(source_adapter) is NativeMainPayloadAdapter and source_adapter in _adapters,
+            "source_unregistered")
+        _continuation_require(len(_issued_continuation_owners) < 128
+            and not any(o.parent is source_adapter for o in _issued_continuation_owners), "capacity_or_attempt_spent")
+        self.parent, self.context, self.selection_port = source_adapter, consumer_context, consumer_selection
+        self.producer_ref, self.route_ref = consumer_producer_ref, consumer_main_route_ref
+        self.model, self.session_id, self.public = target_model, session_id, public_frame
+        self.thread, self.runtime, self.catalog = source_adapter._thread, source_adapter._runtime, source_adapter._operator_configuration
+        self.token = object.__new__(NativeIssuedCallContinuationInput)
+        self.adapter = self.agent = self.binding = None
+        self.entry = self.stage_frame = self.shared = None
+        self.phase, self.depth, self.windows, self.attempted, self.checking = "bound", 0, 0, False, False
+        self.control_exception = None
+        self.pair = self.pair_owner = None
+        self.snapshots = self.graph = self.records = self.stages = self.stage_bytes = ()
+        self.selection = self.producer = self.source = self.initial = self.original_anchors = None
+        self.request = self.request_bytes = self.request_content = self.history_content = None
+        self.wire_bytes = self.wire_content = self.operation = self.invocation = None
+        self.response = self.response_content = self.response_anchor = self.dispatch_result = None
+        self.normalized = self.normalized_bytes = self.normalized_content = self.normalized_anchor = None
+        self.completion = self.completion_anchor = None
+        self.raw_slot = [None, None, None, None, None]
+        self.policy_observations, self.timings = [], []
+        self.charge_before = self.charge_after = (len(self.runtime._contents), len(self.runtime._envelopes), self.runtime._retained_bytes)
+        _issued_continuation_owners = (*_issued_continuation_owners, self)
+        _continuation_require(type(consumer_context) is NativeContentContext
+            and consumer_context.admission is source_adapter._admission and not consumer_context._controlled_main_bound
+            and not consumer_context._denied and consumer_context is not source_adapter._bound_context,
+            "context_invalid")
+        self.handle = consumer_context.request_handle
+        _continuation_require(self.handle is not source_adapter._handle and source_adapter not in _tool_call_probes,
+            "source_already_captured")
+        _identifier(target_model)
+        _identifier(session_id)
+        _identifier(consumer_producer_ref)
+        _identifier(consumer_main_route_ref)
+        _continuation_require(type(target_model) is str and target_model == "invented_model_5", "model_invalid")
+        _continuation_require(len(self.catalog[0]) <= 128 and len(self.catalog[1]) <= 32
+            and len(self.catalog[2]) <= 128, "capacity_denied")
+        routes = tuple(r for r in self.catalog[0] if r.route_ref == consumer_main_route_ref)
+        _continuation_require(len(routes) == 1 and routes[0].path == "main", "route_invalid")
+        self.route = routes[0]
+        self.p_initial = (_binding(source_adapter._source), _selection(source_adapter._selected),
+            _producer(source_adapter._producer_policy))
+        self.p_original = (source_adapter._source, source_adapter._selected, source_adapter._producer_policy)
+        self.catalog_anchor = _nested_anchors(self.catalog)
+        from agent import chat_completion_helpers as caller
+        self.caller = caller.interruptible_api_call
+        self.methods = tuple((obj, name, _method(getattr(obj, name))) for obj, name in (
+            (source_adapter._admission, "current"), (consumer_selection, "current"),
+            (source_adapter._selection_port, "current"), (source_adapter._result_port, "current"),
+            (source_adapter, "_clock"),
+            *((port, name) for _, port in self.catalog[2] for name in ("resolve", "send")),
+            *((caller, name) for name in ("interruptible_api_call", "_controlled_main_api_call",
+                "_dispatch_nonstreaming_api_request")),
+            *((self.runtime, name) for name in ("admit", "derive", "derive_for_selection", "dispatch",
+                "_check_operator", "_capacity", "_content")),
+            *((source_adapter, name) for name in ("_dispatch_retained_operation", "_checkpoint", "_around", "validate_scope")),
+            *((self, name) for name in _CONTINUATION_METHODS)))
+        self.callables = _assistant_source_callable_facts(self.methods, source_adapter._clock)
+        self.fixed = (self.parent, self.context, self.selection_port, self.producer_ref, self.route_ref, self.model,
+            self.session_id, self.thread, self.runtime, self.catalog, self.token, self.handle, self.route,
+            self.p_initial, self.p_original, self.catalog_anchor, self.methods, self.callables, self.caller, self.raw_slot)
+
+    def bind(self, public_frame):
+        from agent.content_policy import content_policy_scope
+        from run_agent import AIAgent
+        self.entry = sys._getframe()
+        _continuation_require(public_frame is self.public and public_frame.f_code is bind_issued_call_continuation.__code__,
+            "binding_frame_invalid")
+        self.phase = "binding"
+        try:
+            self.source = self.callback(self.parent._admission.current, self.handle)
+            self.selection = self.callback(self.selection_port.current, self.handle)
+            self.producer = self.callback(self.parent._result_port.current, self.producer_ref)
+            self.initial = (_binding(self.source), _selection(self.selection), _producer(self.producer))
+            self.original_anchors = _nested_anchors((self.source, self.selection, self.producer))[1:]
+            _continuation_require(self.initial[0][:6] == self.p_initial[0][:6]
+                and self.selection is not self.p_original[1] and self.selection_port is not self.parent._selection_port
+                and self.initial[1][:2] == self.initial[0][6:8] and self.initial[2][0] == self.producer_ref,
+                "authority_invalid")
+            destination = self.selection.destination
+            _continuation_require(type(destination.model_ref) is str and destination.model_ref == self.model
+                and type(destination.provider_ref) is str and destination.provider_ref == "synthetic_native"
+                and type(self.selection.api_mode) is str and self.selection.api_mode == "chat_completions"
+                and destination is self.route.destination, "selected_destination_invalid")
+            self.profiles = tuple(sorted(set(self.p_initial[0][8]) | set(self.p_initial[2][2])
+                | set(self.initial[0][8]) | set(self.initial[2][2])))
+            self.checkpoint()
+            authorization_bytes = _json(dict(holder=self.initial[0], selection=self.initial[1], producer_policy=self.initial[2],
+                main_route_ref=self.route_ref, target_model=self.model, session_id=self.session_id))
+            authorization_content = _continuation_shared(self, "admit", self.handle, (), authorization_bytes, None, None, None)
+            anchors = (self.fixed, self.original_anchors)
+            self.binding = NativeIssuedCallContinuationBinding(self.token, self.parent, self.context, self.handle,
+                self.selection, self.producer, self.route, self.model, self.session_id,
+                authorization_bytes, authorization_content, anchors, self.thread)
+            self.binding_anchor = _row(self.binding, NativeIssuedCallContinuationBinding)
+            self.phase = "constructing"
+            self.adapter = NativeMainPayloadAdapter(self.context, selection=self.selection_port,
+                result_policy=self.parent._result_port, producer_ref=self.producer_ref, main_route_ref=self.route_ref,
+                profiles=self.catalog[1], routes=self.catalog[0], transports=self.catalog[2], clock=self.parent._clock,
+                _issued_call_continuation_frame=self)
+            with content_policy_scope(self.context):
+                self.agent = AIAgent(controlled_main=self.adapter, provider="synthetic_native", api_mode="chat_completions",
+                    model=self.model, session_id=self.session_id, enabled_toolsets=[], quiet_mode=True,
+                    skip_memory=True, skip_context_files=True, skip_background_review=True)
+                self.arm()
+            self.phase = "armed"
+            return self.token
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            self.phase = "denied"
+            raise self.control_exception or error
+        finally:
+            self.entry = self.public = None
+
+    def open_view(self, adapter, context):
+        self.access()
+        caller = sys._getframe(1)
+        _continuation_require(self.phase == "constructing" and self.adapter is None and context is self.context
+            and caller.f_code is NativeMainPayloadAdapter.__init__.__code__ and caller.f_back is self.entry
+            and caller.f_locals.get("_issued_call_continuation_frame") is self
+            and current_context() is None, "constructor_window_invalid")
+        self.adapter = adapter
+
+    def arm(self):
+        self.verify()
+        _verify_constructed(self.adapter._constructed)
+        _continuation_require(self.adapter._runtime is self.runtime and self.adapter._operator_configuration is self.catalog
+            and self.adapter._turn_agent is self.agent and self.agent.model is self.model,
+            "constructed_relation_changed")
+        self.c_configuration = tuple((name, getattr(self.adapter, name)) for name in (
+            "_context", "_bound_context", "_admission", "_handle", "_selection_port", "_result_port", "_producer_ref",
+            "_route_ref", "_clock", "_main_route", "_runtime", "_captured_runtime", "_operator_configuration",
+            "_operator_routes", "_operator_profiles", "_constructed", "_turn_agent"))
+        self.c_wrappers = tuple(self.adapter._transport_wrappers.items())
+        self.c_ports = tuple(self.adapter._operator_transports.items())
+        self.checkpoint()
+
+    def access(self, *, proof=False):
+        _continuation_require(threading.get_ident() == self.thread and type(self.depth) is int and self.depth == 0,
+            "reentry_or_thread")
+        _continuation_require(any(owner is self for owner in _issued_continuation_owners)
+            and type(self.windows) is int and 0 <= self.windows <= 6, "owner_changed")
+        if proof:
+            _continuation_require(self.entry is self.public is self.stage_frame is self.shared is None, "operation_active")
+            return
+        _continuation_require(self.entry is not None and self.public is not None
+            and self.entry.f_locals.get("self") is self and self.entry.f_globals is globals()
+            and self.entry.f_back is self.public and self.public.f_globals is globals(), "frame_invalid")
+        if self.entry.f_code is _IssuedCallContinuation.bind.__code__:
+            _continuation_require(self.public.f_code is bind_issued_call_continuation.__code__
+                and self.public.f_locals.get("owner") is self
+                and self.public.f_locals.get("source_adapter") is self.parent
+                and self.public.f_locals.get("consumer_context") is self.context, "binding_frame_invalid")
+        else:
+            _continuation_require(self.entry.f_code is _IssuedCallContinuation.run.__code__
+                and self.public.f_code is run_issued_call_continuation.__code__
+                and self.public.f_locals.get("authorization") is self.token
+                and self.public.f_locals.get("pair") is self.pair and self.public.f_locals.get("owner") is self
+                and current_context() is self.context, "run_frame_invalid")
+        frame = sys._getframe()
+        while frame is not None and frame is not self.entry:
+            frame = frame.f_back
+        _continuation_require(frame is self.entry and self.stage_frame in (None, self.entry), "frame_missing")
+
+    def verify(self, *, proof=False):
+        self.access(proof=proof)
+        _continuation_require(_same_anchors((self.parent, self.context, self.selection_port, self.producer_ref,
+            self.route_ref, self.model, self.session_id, self.thread, self.runtime, self.catalog, self.token,
+            self.handle, self.route, self.p_initial, self.p_original, self.catalog_anchor, self.methods,
+            self.callables, self.caller, self.raw_slot), self.fixed), "owner_changed")
+        for obj, name, method in self.methods:
+            _continuation_require(_same_method(getattr(obj, name, None), method), "method_changed")
+        for function, code, namespace, defaults in self.callables:
+            if code is not None:
+                _continuation_require(function.__code__ is code and function.__globals__ is namespace
+                    and _same_anchors(_nested_anchors((function.__defaults__, function.__kwdefaults__))[1:], defaults),
+                    "callable_changed")
+        for obj, name, function, code in _CONTINUATION_CODE:
+            _continuation_require(getattr(obj, name, None) is function and function.__code__ is code, "code_changed")
+        p = self.parent
+        _continuation_require(p._runtime is p._captured_runtime is self.runtime
+            and p._operator_configuration is self.catalog and not p._invalid and not p._bound_context._denied
+            and self.context.admission is p._admission and self.context.request_handle is self.handle
+            and not self.context._denied and _same_anchors(_nested_anchors(self.catalog), self.catalog_anchor),
+            "configuration_changed")
+        _continuation_require(p._selected is self.p_original[1] and p._producer_policy is self.p_original[2]
+            and _binding(p._source)[:8] == self.p_initial[0][:8], "initial_source_changed")
+        if self.initial is not None:
+            _continuation_require(_same_anchors(_nested_anchors((self.source, self.selection, self.producer))[1:],
+                self.original_anchors), "initial_authority_changed")
+        if self.binding is not None:
+            _continuation_require(_same_anchors(_row(self.binding, NativeIssuedCallContinuationBinding), self.binding_anchor),
+                "binding_changed")
+        if hasattr(self, "c_configuration"):
+            a = self.adapter
+            _continuation_require(all(getattr(a, name) is value for name, value in self.c_configuration)
+                and len(a._transport_wrappers) == len(self.c_wrappers)
+                and all(a._transport_wrappers.get(name) is value for name, value in self.c_wrappers)
+                and len(a._operator_transports) == len(self.c_ports)
+                and all(a._operator_transports.get(name) is value for name, value in self.c_ports)
+                and a._bound_context is self.context and self.context._controlled_main_payload is a
+                and self.context._controlled_main_bound is True and not a._invalid, "consumer_configuration_changed")
+            _verify_constructed(a._constructed)
+        if self.pair is not None:
+            self.pair_proof(self.pair)
+        for handle, payload, parents, request, path in self.stages:
+            row = self.runtime._content(handle)
+            _continuation_require(row.payload is payload and _same_anchors(row.parents, parents)
+                and row.binding[:8] == (self.initial[0][:8] if request is self.handle else self.p_initial[0][:8])
+                and set(self.profiles) <= set(row.profiles) and row.path == path, "content_changed")
+        if self.request is not None:
+            _continuation_require(_same_anchors(_nested_anchors(self.request), self.request_anchor)
+                and _json(self.request) == self.request_bytes
+                and self.request["model"] is self.model and self.request["tools"] is self.tools
+                and self.request["messages"] is self.messages and self.request["stream"] is False
+                and type(self.request["tool_choice"]) is str and self.request["tool_choice"] == "none"
+                and set(self.request) == {"model", "messages", "tools", "stream", "tool_choice"}, "request_changed")
+        if self.response is not None:
+            _continuation_require(_same_anchors(_nested_anchors(self.response), self.response_anchor)
+                and self.response.model == self.model and type(self.response.model) is str
+                and _response_bytes(self.response, self.model) == self.raw_slot[2], "response_changed")
+        if self.normalized is not None:
+            _continuation_require(_same_anchors(_nested_anchors(vars(self.normalized))
+                + _nested_anchors(vars(self.normalized.usage)), self.normalized_anchor)
+                and _continuation_normalized(self.normalized) == self.normalized_bytes
+                and self.normalized.content is self.response.choices[0].message.content
+                and self.normalized.finish_reason is self.response.choices[0].finish_reason, "normalized_changed")
+        if hasattr(self, "transport_methods"):
+            for obj, name, method in self.transport_methods:
+                _continuation_require(_same_method(getattr(obj, name, None), method), "transport_method_changed")
+            for function, code, namespace, defaults in self.transport_callables:
+                _continuation_require(function.__code__ is code and function.__globals__ is namespace
+                    and _same_anchors(_nested_anchors((function.__defaults__, function.__kwdefaults__))[1:], defaults),
+                    "transport_callable_changed")
+        if self.completion is not None:
+            _continuation_require(_same_anchors(_row(self.completion, NativeIssuedCallContinuationCompletion),
+                self.completion_anchor) and self.completion.normalized is self.normalized
+                and self.completion.response is self.response and self.completion.usage is self.normalized.usage,
+                "completion_changed")
+        self.runtime._check_operator()
+
+    def checkpoint(self):
+        if self.adapter is not None and self.operation is not None:
+            response = getattr(self.adapter, "_dispatch_response", None)
+            if response is not None and self.response is None:
+                self.response = response
+                self.response_anchor = _nested_anchors(response)
+            result = getattr(self.adapter, "_dispatch_result", None)
+            if result is not None and self.dispatch_result is None:
+                self.dispatch_result = result
+                self.response_content = result
+                row = self.runtime._content(result)
+                self.stages += ((result, row.payload, (self.wire_content,), self.handle, "main"),)
+                self.stage_bytes += (row.payload,)
+        self.verify()
+        _continuation_require(not self.checking, "checkpoint_reentry")
+        self.checking = True
+        try:
+            original = [(self.parent._handle, self.parent._selection_port, self.parent._producer_ref,
+                self.p_initial, self.p_original, self.parent._main_route)]
+            if self.pair_owner is not None:
+                f, e = self.pair_owner.formatter, self.pair_owner.formatter.execution
+                original = list(zip((*e.capabilities, f.options[0]), (*e.selections, f.options[1]),
+                    (*e.producers, f.options[2]), f.initial, f.originals, f.selected_routes))
+            if self.initial is not None:
+                original.append((self.handle, self.selection_port, self.producer_ref, self.initial,
+                    (self.source, self.selection, self.producer), self.route))
+            first = None
+            for _ in range(2):
+                facts = []
+                for handle, selector, ref, retained, issued, route in original:
+                    admitted = self.callback(self.parent._admission.current, handle)
+                    selected = self.callback(selector.current, handle)
+                    producer = self.callback(self.parent._result_port.current, ref)
+                    actual = _binding(admitted), _selection(selected), _producer(producer)
+                    _continuation_require(actual[0][:8] == retained[0][:8]
+                        and set(actual[0][8]) <= set(retained[0][8]) and actual[1:] == retained[1:]
+                        and selected is issued[1] and producer is issued[2], "authority_changed")
+                    facts.append(actual)
+                if self.pair_owner is not None:
+                    receiver = _binding(self.callback(self.parent._admission.current, e.receiver_port))
+                    _continuation_require(receiver[:8] == f.initial[2][0][:8]
+                        and set(receiver[8]) <= set(f.initial[2][0][8]), "receiver_changed")
+                facts = tuple(facts)
+                _continuation_require(first is None or first == facts, "unstable_observation")
+                first = facts
+                allowed = {r.route_ref for r in self.catalog[0]}
+                restrictions = set(getattr(self, "profiles", self.p_initial[0][8]))
+                if self.pair_owner is not None:
+                    restrictions.update(self.pair_owner.profiles)
+                _continuation_require(restrictions <= {p.profile_ref for p in self.catalog[1]}, "profile_missing")
+                for profile in self.catalog[1]:
+                    if profile.profile_ref in restrictions:
+                        _continuation_require(profile.required_paths == shared_policy().PATHS, "profile_changed")
+                        allowed.intersection_update(profile.allowed_routes)
+                for route in self.catalog[0]:
+                    actual = self.callback(self.parent._operator_transports[route.destination.transport_ref].resolve)
+                    _continuation_require(actual is route.destination, "destination_changed")
+                final_now = self.callback(self.parent._clock)
+                _integer(final_now, minimum=0)
+                self.policy_observations.append((self.windows, facts, final_now))
+                for handle, selector, ref, retained, issued, route in original:
+                    holder = retained[0]
+                    _route_facts(route)
+                    _continuation_require(route.route_ref in allowed and final_now < route.expires_at
+                        and (route.consumer_ref, route.selection_id, route.selection_version)
+                            == (holder[3], holder[6], holder[7]) and issued[1].destination is route.destination,
+                        "selected_expired_or_denied")
+                    for path in shared_policy().PATHS:
+                        _continuation_require(any(r.path == path and r.route_ref in allowed
+                            and (r.consumer_ref, r.selection_id, r.selection_version) == (holder[3], holder[6], holder[7])
+                            and final_now < r.expires_at for r in self.catalog[0]), "coverage_missing")
+                if self.pair_owner is not None:
+                    receiver_route = e.routes[2]
+                    _continuation_require(receiver_route.route_ref in allowed and final_now < receiver_route.expires_at,
+                        "receiver_selected_expired")
+                self.verify()
+            if self.adapter is not None and self.phase == "constructing" and self.adapter._holder is None:
+                a = self.adapter
+                a._source, a._selected, a._producer_policy = self.source, self.selection, self.producer
+                a._holder, a._initial_selection, a._initial_producer = self.initial[0][:8], self.initial[1], self.initial[2]
+                a._original_profiles = self.profiles
+            return (*self.initial, self.wire_bytes) if self.initial is not None else (*self.p_initial, None)
+        finally:
+            self.checking = False
+
+    def callback(self, callback, *args):
+        self.verify()
+        _continuation_require(any(_same_method(callback, method) for _, _, method in self.methods), "callback_invalid")
+        self.depth += 1
+        try:
+            output = callback(*args)
+            if self.raw_slot[0] is not None and len(args) == 1 and args[0] is self.raw_slot[0]:
+                self.raw_slot[2] = output
+                self.raw_slot[3] = _nested_anchors(output)
+                a, envelope, pending, operation = self.send_association
+                _continuation_require(a._pending is pending and a._operation is a._checked_operation is operation
+                    and envelope is args[0], "send_association_changed")
+            return output
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise self.control_exception or error
+        finally:
+            self.depth -= 1
+            if self.control_exception is None:
+                self.verify()
+
+    @contextmanager
+    def window(self):
+        import time
+        self.access()
+        _continuation_require(sys._getframe().f_back.f_back is self.entry and self.stage_frame is None
+            and self.windows < 6, "window_invalid")
+        self.windows += 1
+        self.stage_frame = self.entry
+        started = time.monotonic()
+        try:
+            self.checkpoint()
+            yield
+            self.checkpoint()
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise self.control_exception or error
+        finally:
+            self.timings.append((self.windows, time.monotonic() - started))
+            self.stage_frame = None
+
+    def pair_proof(self, pair):
+        from agent.content_policy import content_policy_scope
+        self.access(proof=self.entry is None)
+        _continuation_require(current_context() is self.context and self.depth == 0
+            and self.pair is pair and self.pair_owner is not None, "proof_scope_invalid")
+        with content_policy_scope(None):
+            records = self.pair_owner.proof_access()
+            _continuation_require(len(records) == 1 and records[0] is pair, "pair_unregistered")
+            _issued_pair_terminal(self.pair_owner)
+            for owner, snapshot in self.snapshots:
+                _continuation_snapshot(owner, snapshot)
+            for handle, record, anchor in self.graph:
+                _continuation_require(self.runtime._content(handle) is record
+                    and _same_anchors(tuple(getattr(record, field.name) for field in fields(record)), anchor), "graph_changed")
+        self.access(proof=self.entry is None)
+        _continuation_require(current_context() is self.context and self.depth == 0, "proof_scope_changed")
+
+    def prepare_request(self):
+        from agent.transports.chat_completions import ChatCompletionsTransport
+        self.verify()
+        probe = self.pair_owner.assistant_owner.probe
+        _continuation_require(probe.request_content is probe.records[0].request_content
+            and self.runtime._content(probe.request_content).payload is probe.request_bytes
+            and _same_anchors(_nested_anchors(probe.request), probe.request_anchors), "probe_request_changed")
+        self.prefix_messages = probe.request["messages"]
+        _continuation_require(type(self.prefix_messages) is list and len(self.prefix_messages) == 2
+            and tuple(row["role"] for row in self.prefix_messages) == ("system", "user"), "prefix_invalid")
+        self.messages = [*self.prefix_messages, *self.pair.messages]
+        self.tools = probe.request["tools"]
+        self.transport = ChatCompletionsTransport()
+        self.transport_methods = tuple((self.transport, name, _method(getattr(self.transport, name)))
+            for name in ("convert_tools", "convert_messages", "build_kwargs", "normalize_response"))
+        self.transport_callables = _assistant_source_callable_facts(self.transport_methods, self.parent._clock)
+        self.converted_tools = self.transport.convert_tools(self.tools)
+        _continuation_require(self.converted_tools is self.tools and len(self.tools) == 1
+            and self.tools[0] == _tool_probe_schema(), "tool_definition_changed")
+        self.params = dict(request_overrides={"stream": False, "tool_choice": "none"}, provider_name="synthetic_native",
+            base_url="", reasoning_config=None, max_tokens=None, temperature=None, timeout=None,
+            session_id=self.session_id, supports_prompt_cache_key=False)
+        facts_bytes = _json(dict(messages=self.messages, tools=self.tools, model=self.model, params=self.params))
+        f_handle = self.pair_owner.formatter.options[0]
+        self.history_content = _continuation_shared(self, "derive_for_selection", self.handle,
+            (self.pair.message_content, self.binding.authorization_content), facts_bytes, "main", (f_handle, self.handle), None)
+        before = _nested_anchors((self.messages, self.tools, self.params))[1:]
+        request = self.transport.build_kwargs(model=self.model, messages=self.messages, tools=self.converted_tools, **self.params)
+        self.request_bytes = _json(request)
+        self.request_anchor = _nested_anchors(request)
+        self.request = request
+        _continuation_require(_same_anchors(_nested_anchors((self.messages, self.tools, self.params))[1:], before),
+            "converter_mutated_input")
+        _continuation_require(request["messages"] is self.messages, "converter_changed_messages")
+        self.verify()
+        self.request_content = _continuation_shared(self, "derive", self.handle, (self.history_content,),
+            self.request_bytes, "main", None, None)
+        self.wire_bytes = _json(dict(api_mode="chat_completions", destination=_destination_value(self.selection.destination),
+            request=self.request))
+        self.wire_content = _continuation_shared(self, "derive", self.handle, (self.history_content, self.request_content),
+            self.wire_bytes, "main", None, None)
+        self.phase = "prepared"
+
+    def dispatch(self, agent, api_kwargs, public_frame):
+        self.verify()
+        _continuation_require(self.windows == 3 and self.stage_frame is self.entry and self.phase == "prepared"
+            and agent is self.agent and api_kwargs is self.request and public_frame.f_code is dispatch_controlled_main.__code__
+            and public_frame.f_locals.get("continuation") is self and public_frame.f_locals.get("adapter") is self.adapter
+            and public_frame.f_back.f_code is sys.modules["agent.chat_completion_helpers"]._dispatch_nonstreaming_api_request.__code__,
+            "dispatch_frame_invalid")
+        a = self.adapter
+        _continuation_require(a._pending is a._operation is a._checked_operation is None and a._send_count == 0,
+            "operation_spent")
+        self.operation = _PendingOperation(self.handle, self.source, self.selection, self.producer,
+            "main", self.route_ref, self.wire_bytes, self.wire_content, False)
+        a._busy, a._operation, a._checked_operation = True, self.operation, self.operation
+        self.shared = ("dispatch", self.handle, (), self.wire_bytes, "main", None, self.route_ref, None)
+        try:
+            retained = NativeMainPayloadAdapter._dispatch_retained_operation
+            self.shared = (*self.shared[:7], None)
+            self.dispatch_frame = sys._getframe()
+            result, envelope, actual, raw, response = retained(a, self.operation)
+            _continuation_require(response is self.response and result is self.dispatch_result
+                and envelope is self.raw_slot[0] and raw is self.raw_slot[2] and actual is self.selection.destination,
+                "dispatch_result_changed")
+            self.invocation = NativeMainInvocation(self.handle, self.source, self.selection, self.producer,
+                self.wire_bytes, self.wire_content, envelope, actual, raw, result, response)
+            self.phase = "sent"
+            return response
+        finally:
+            self.shared = None
+            a._busy = False
+            a._operation = a._checked_operation = a._pending = None
+            self.charge_after = (len(self.runtime._contents), len(self.runtime._envelopes), self.runtime._retained_bytes)
+
+    def send(self, wrapper, envelope):
+        self.verify()
+        caller = sys._getframe(1)
+        a = self.adapter
+        _continuation_require(caller.f_code is _Transport.send.__code__ and caller.f_locals.get("self") is wrapper
+            and wrapper.adapter is self.parent and self.windows == 3 and self.operation is a._operation is a._checked_operation
+            and a._busy is True and a._pending is None and type(envelope) is shared_policy().DispatchEnvelope
+            and envelope.payload is self.wire_bytes and _destination(envelope.destination) == _destination(self.selection.destination)
+            and envelope.path == "main" and _binding(envelope.source)[:8] == self.initial[0][:8]
+            and set(envelope.source.profiles) <= set(self.initial[0][8])
+            and set(self.profiles) <= set(envelope.profiles)
+            and envelope.recipient_ref == self.initial[0][3]
+            and wrapper is self.parent._transport_wrappers[self.selection.destination.transport_ref], "send_frame_invalid")
+        _continuation_require(wrapper.port.resolve.__self__ is self.parent._operator_transports[self.selection.destination.transport_ref],
+            "send_port_changed")
+        actual = self.callback(wrapper.port.resolve)
+        _continuation_require(actual is self.selection.destination, "destination_changed")
+        a._pending = (envelope, actual, None)
+        self.send_association = (a, envelope, a._pending, self.operation)
+        self.raw_slot[0], self.raw_slot[1], self.raw_slot[4] = envelope, actual, self.send_association
+        a._send_count += 1
+        output = self.callback(wrapper.port.send, envelope)
+        _continuation_require(type(output) is bytes and len(output) <= 65536, "response_capacity_denied")
+        a._pending = (envelope, actual, output)
+        self.checkpoint()
+        return output
+
+    def current(self, handle):
+        self.verify()
+        caller = sys._getframe(1)
+        _continuation_require(caller.f_code is _Admission.current.__code__ and caller.f_locals.get("adapter") is self.parent,
+            "admission_frame_invalid")
+        self._shared_access(caller.f_back)
+        allowed = (self.handle, self.parent._handle)
+        if self.pair_owner is not None:
+            allowed += (*self.pair_owner.handles,)
+        _continuation_require(any(handle is h for h in allowed), "capability_invalid")
+        return self.callback(self.parent._admission.current, handle)
+
+    def resolve(self, wrapper):
+        self.verify()
+        caller = sys._getframe(1)
+        _continuation_require(caller.f_code is _Transport.resolve.__code__ and caller.f_locals.get("self") is wrapper
+            and any(wrapper is w for _, w in self.catalog[3]), "resolve_frame_invalid")
+        self._shared_access(caller.f_back)
+        result = self.callback(wrapper.port.resolve)
+        _continuation_require(any(result is route.destination
+            and wrapper.port is self.parent._operator_transports[route.destination.transport_ref] for route in self.catalog[0]),
+            "destination_changed")
+        return result
+
+    def _shared_access(self, frame):
+        if self.shared is not None and self.shared[0] == "dispatch":
+            cls = type(self.runtime)
+            while frame is not None and frame.f_code is not cls.dispatch.__code__:
+                _continuation_require(frame.f_globals is vars(sys.modules[cls.__module__])
+                    and (frame.f_locals.get("self") is self.runtime or frame.f_code.co_name == "checkpoint"),
+                    "shared_stack_invalid")
+                frame = frame.f_back
+            _continuation_require(frame is not None and frame.f_locals.get("request_handle") is self.handle
+                and frame.f_locals.get("content") is self.wire_content
+                and frame.f_locals.get("path") == "main" and frame.f_locals.get("route_ref") is self.route_ref
+                and frame.f_back.f_code is NativeMainPayloadAdapter._dispatch_retained_operation.__code__
+                and frame.f_back.f_locals.get("self") is self.adapter
+                and frame.f_back.f_locals.get("operation") is self.operation, "dispatch_stack_invalid")
+            return
+        _continuation_shared_frame(self, frame)
+
+    def around(self, callback):
+        self.verify()
+        caller = sys._getframe(1)
+        _continuation_require(caller.f_code is NativeMainPayloadAdapter._around.__code__
+            and caller.f_locals.get("self") is self.parent and _same_method(callback, _method(self.parent._clock)),
+            "clock_frame_invalid")
+        frame = caller.f_back
+        _continuation_require(frame.f_code is self.runtime._clock.__code__, "clock_stack_invalid")
+        self._shared_access(frame.f_back)
+        return self.callback(callback)
+
+    def normalize(self, response):
+        self.verify()
+        _continuation_require(self.windows == 4 and self.phase == "sent" and response is self.response
+            and self.invocation.native_response is response, "normalization_frame_invalid")
+        self.depth += 1
+        try:
+            self.normalized = self.transport.normalize_response(response)
+            self.normalized_anchor = _nested_anchors(vars(self.normalized)) + _nested_anchors(vars(self.normalized.usage))
+            self.normalized_bytes = _continuation_normalized(self.normalized)
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            raise self.control_exception or error
+        finally:
+            self.depth -= 1
+        self.verify()
+        self.normalized_content = _continuation_shared(self, "derive", self.handle,
+            (self.history_content, self.request_content, self.wire_content, self.response_content),
+            self.normalized_bytes, "main", None, None)
+        self.phase = "normalized"
+        return self.normalized
+
+    def consume_completion(self, normalized):
+        self.verify()
+        _continuation_require(self.windows == 5 and self.phase == "normalized" and normalized is self.normalized,
+            "consumer_frame_invalid")
+        completion_bytes = _json(dict(final_response=normalized.content, finish_reason=normalized.finish_reason,
+            model=self.selection.destination.model_ref,
+            usage={field.name: getattr(normalized.usage, field.name) for field in fields(Usage)}, completed=True))
+        parents = (self.pair.message_content, self.binding.authorization_content, self.history_content,
+            self.request_content, self.wire_content, self.response_content, self.normalized_content)
+        parent_requests = (self.pair_owner.formatter.options[0],) + (self.handle,) * 6
+        content = _continuation_shared(self, "derive_for_selection", self.handle, parents,
+            completion_bytes, "main", parent_requests, None)
+        self.completion = NativeIssuedCallContinuationCompletion(self.response, normalized, normalized.content,
+            normalized.finish_reason, normalized.usage, completion_bytes, content, parents,
+            (self.response_anchor, self.normalized_anchor, self.fixed))
+        self.completion_anchor = _row(self.completion, NativeIssuedCallContinuationCompletion)
+        self.phase = "consumed"
+        return self.completion
+
+    def run(self, pair, public_frame):
+        self.entry, self.public, self.pair = sys._getframe(), public_frame, pair
+        self.phase = "paired"
+        self.pair_owner = _issued_pair_owner(self.parent)
+        try:
+            _continuation_require(self.pair_owner is not None and self.pair_owner.phase == "released"
+                and len(self.pair_owner.records) == 1 and self.pair_owner.records[0][0] is pair,
+                "pair_unregistered")
+            self.snapshots = tuple((owner, tuple(vars(owner).items())) for owner in
+                (self.pair_owner, *(owner for owner, _ in self.pair_owner.snapshots)))
+            self.graph = tuple((row.handle, row, tuple(getattr(row, field.name) for field in fields(row)))
+                for row in self.runtime._contents.values())
+            self.profiles = tuple(sorted(set(self.profiles) | set(self.pair_owner.profiles)))
+            _continuation_require(self.pair_owner.formatter.initial[4][0][:6] == self.initial[0][:6]
+                and all(self.handle is not h for h in self.pair_owner.handles)
+                and all(self.selection is not row[1] for row in self.pair_owner.formatter.originals), "consumer_not_independent")
+            with self.window():
+                self.pair_proof(pair)
+            with self.window():
+                self.prepare_request()
+            with self.window():
+                returned = self.caller(self.agent, self.request)
+                _continuation_require(returned is self.response is self.invocation.native_response, "caller_response_changed")
+            with self.window():
+                self.normalize(returned)
+            with self.window():
+                self.consume_completion(self.normalized)
+            with self.window():
+                result = NativeIssuedCallContinuationResult(self.binding, pair, self.adapter, self.agent, self.transport,
+                    self.prefix_messages, self.tools, self.request, self.request_bytes, self.request_content,
+                    self.invocation, self.normalized, self.normalized_bytes, self.normalized_content, self.completion,
+                    (self.fixed, self.request_anchor, self.response_anchor, self.normalized_anchor, self.completion_anchor))
+            self.records = ((result, _row(result, NativeIssuedCallContinuationResult)),)
+            self.phase = "released"
+            return result
+        except BaseException as error:
+            _remember_delegate_control(self, error)
+            self.phase = "denied"
+            raise self.control_exception or error
+        finally:
+            self.entry = self.public = self.stage_frame = self.shared = None
+            self.charge_after = (len(self.runtime._contents), len(self.runtime._envelopes), self.runtime._retained_bytes)
+
+    def proof_access(self):
+        self.access(proof=True)
+        if self.phase != "released":
+            _continuation_require(not self.records, "records_changed")
+            return ()
+        self.verify(proof=True)
+        _continuation_require(len(self.records) == 1 and self.windows == 6, "release_changed")
+        result, anchor = self.records[0]
+        _continuation_require(_same_anchors(_row(result, NativeIssuedCallContinuationResult), anchor), "record_changed")
+        return (result,)
+
+
+def bind_issued_call_continuation(
+    source_adapter: NativeMainPayloadAdapter, *,
+    consumer_context: NativeContentContext,
+    consumer_selection: NativeSelectionPort,
+    consumer_producer_ref: str,
+    consumer_main_route_ref: str,
+    target_model: str,
+    session_id: str,
+) -> NativeIssuedCallContinuationInput:
+    owner = _IssuedCallContinuation(source_adapter, consumer_context, consumer_selection,
+        consumer_producer_ref, consumer_main_route_ref, target_model, session_id, sys._getframe())
+    return owner.bind(sys._getframe())
+
+
+def run_issued_call_continuation(
+    authorization: NativeIssuedCallContinuationInput,
+    pair: NativeIssuedCallPairResult,
+) -> NativeIssuedCallContinuationResult:
+    owner = _continuation_owner(authorization)
+    owner.access(proof=True)
+    _continuation_require(not owner.attempted and owner.phase == "armed", "attempt_spent")
+    candidate = _issued_pair_owner(owner.parent)
+    _continuation_require(type(pair) is NativeIssuedCallPairResult and candidate is not None
+        and candidate.phase == "released" and len(candidate.records) == 1 and candidate.records[0][0] is pair,
+        "pair_unregistered")
+    _continuation_require(current_context() is owner.context, "scope_invalid")
+    owner.attempted = True
+    return owner.run(pair, sys._getframe())
+
+
+def issued_call_continuation_results(
+    authorization: NativeIssuedCallContinuationInput,
+) -> tuple[NativeIssuedCallContinuationResult, ...]:
+    return _continuation_owner(authorization).proof_access()
+
+
+_CONTINUATION_METHODS = ("__init__", "bind", "open_view", "arm", "access", "verify", "checkpoint", "callback", "window",
+    "pair_proof", "prepare_request", "dispatch", "send", "current", "resolve", "around", "normalize",
+    "consume_completion", "run", "proof_access", "_shared_access")
+_CONTINUATION_CODE = tuple((obj, name, getattr(obj, name), getattr(obj, name).__code__) for obj, names in (
+    (_IssuedCallContinuation, _CONTINUATION_METHODS),
+    (sys.modules[__name__], ("bind_issued_call_continuation", "run_issued_call_continuation",
+        "issued_call_continuation_results", "_continuation_owner", "_issued_continuation_window", "_issued_continuation_view", "_continuation_require",
+        "_continuation_snapshot", "_continuation_normalized", "_continuation_shared", "_continuation_shared_frame")),
+    (_WIRE_CLASS, ("convert_tools", "convert_messages", "build_kwargs", "normalize_response")),
+) for name in names)
