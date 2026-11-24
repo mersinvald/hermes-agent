@@ -230,6 +230,7 @@ def _execute_issued_call_episode(
             checkpoint()
             projection = anchors[5][2](result, source, source_session_id)
             checkpoint()
+    checkpoint()
     return result.completion, projection
 
 

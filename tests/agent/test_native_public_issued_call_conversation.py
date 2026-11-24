@@ -520,3 +520,56 @@ def test_public_episode_projection_exact_bounds():
     source.response.usage = SimpleNamespace(prompt_tokens=native._MAX_INT-21, completion_tokens=3,
         total_tokens=native._MAX_INT-18)
     assert episode._project_issued_call_conversation(result, source, "source_session")["total_tokens"] == native._MAX_INT
+
+
+def test_public_episode_final_exit_checker_drift(monkeypatch, record):
+    """Deny checker drift at C exit with inert ports and no native authority."""
+    from contextlib import contextmanager
+
+    world = CallerWorld(monkeypatch)
+    world.agent.session_id = "source_session"
+    original_scope = episode.content_policy_scope
+    escaped, replaced, boundary = [], [], []
+
+    def changed(anchors):
+        globals()["_replacement_ran"].append(True)
+
+    @contextmanager
+    def scope(context):
+        with original_scope(context):
+            yield
+        if context is world.child:
+            assert world.events[-1] == "exit_C" and world.active is None
+            boundary.append("exit_C")
+            record("final_exit_boundary", dict(events=world.events, active_none=True))
+            checker.__code__ = changed.__code__
+
+    def project(result, source, session):
+        assert world.active is world.child
+        assert result is world.result and source is world.source and session is world.agent.session_id
+        world.events.append("projection")
+        return {}
+
+    namespace = dict(episode.__dict__, _replacement_ran=replaced)
+    execute = clone(episode._execute_issued_call_episode, namespace)
+    checker = clone(episode._check_public_episode_code, namespace)
+    anchors = list(episode._PUBLIC_EPISODE_CODE)
+    components = {
+        4: execute, 5: project, 8: episode.current_context, 9: scope,
+        10: scope.__wrapped__, 11: episode.bind_issued_call_continuation,
+        12: episode.run_issued_call_continuation, 13: episode.issued_call_continuation_results,
+        14: type(world.agent).close, 25: type(world.adapter).tool_call_assistant_sources.fget,
+        len(anchors)-1: checker,
+    }
+    for index in range(15, 25):
+        components[index] = getattr(type(world.adapter), anchors[index][1])
+    for index, function in components.items():
+        obj = SimpleNamespace(function=function)
+        anchors[index] = (obj, "function", function, function.__code__, function.__globals__,
+            function.__defaults__, function.__kwdefaults__, tuple((function.__kwdefaults__ or {}).items()))
+    namespace.update(_PUBLIC_EPISODE_CODE=anchors, _check_public_episode_code=checker)
+    with pytest.raises(NativeContentPolicyDenied, match="^controlled_native_payload_denied$"):
+        escaped.append(execute(world.agent, world.adapter, **world.inputs, project_conversation=True))
+    assert escaped == replaced == [] and boundary == ["exit_C"]
+    assert world.events == ORDER[:-1] + ["projection", "exit_C"]
+    assert world.active is None

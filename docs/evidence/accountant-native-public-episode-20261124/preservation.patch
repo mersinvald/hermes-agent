@@ -2,19 +2,10 @@ diff --git a/agent/conversation_loop.py b/agent/conversation_loop.py
 index eeb145af95..426935624a 100644
 --- a/agent/conversation_loop.py
 +++ b/agent/conversation_loop.py
-@@ -1968,6 +1968,8 @@ def run_conversation(
-     persist_user_display_kind: Optional[str] = None,
-     persist_user_display_metadata: Optional[Dict[str, Any]] = None,
-     moa_config: Optional[dict[str, Any]] = None,
+@@ -1970,0 +1971,2 @@ def run_conversation(
 +    *,
 +    controlled_issued_call: "NativeIssuedCallConversationPlan | None" = None,
- ) -> Dict[str, Any]:
-     """
-     Run a complete conversation with tool calling until completion.
-@@ -1997,6 +1999,26 @@ def run_conversation(
-     Returns:
-         Dict: Complete conversation result with final response and message history
-     """
+@@ -1999,0 +2002,20 @@ def run_conversation(
 +    if controlled_issued_call is not None:
 +        from agent import issued_call_episode as episode
 +        anchors = episode._PUBLIC_EPISODE_CODE
@@ -35,30 +26,18 @@ index eeb145af95..426935624a 100644
 +        )
 +        checker(anchors)
 +        return result
-     controlled, result = _try_controlled_text_turn(
-         agent, user_message, system_message, conversation_history, task_id,
-         stream_callback, persist_user_message, persist_user_timestamp,
 diff --git a/agent/issued_call_episode.py b/agent/issued_call_episode.py
 index a19675761c..fe728aa3cf 100644
 --- a/agent/issued_call_episode.py
 +++ b/agent/issued_call_episode.py
-@@ -1,7 +1,12 @@
- """Run one controlled episode through the original component entries."""
- 
+@@ -2,0 +3,2 @@
 +import json
 +import sys
- from dataclasses import dataclass
- 
+@@ -4,0 +7,3 @@ from dataclasses import dataclass
 +from agent import conversation_loop
 +from agent import native_main_payload as native
 +
- from agent.content_policy import (
-     NativeContentContext, NativeContentPolicyDenied, content_policy_scope, current_context,
- )
-@@ -66,6 +71,40 @@ def run_controlled_issued_call_episode(
-     consumer: NativeIssuedCallEpisodeConsumer,
- ) -> NativeIssuedCallContinuationCompletion:
-     """Return the original completion after the original scope validators pass."""
+@@ -68,0 +74,34 @@ def run_controlled_issued_call_episode(
 +    completion, _ = _execute_issued_call_episode(
 +        source_agent, source_adapter, probe=probe, execution=execution,
 +        formatter=formatter, consumer=consumer, project_conversation=False,
@@ -93,45 +72,23 @@ index a19675761c..fe728aa3cf 100644
 +        checker(anchors)
 +
 +    checkpoint()
-     if (type(source_agent) is not AIAgent
-             or type(source_adapter) is not NativeMainPayloadAdapter
-             or type(probe) is not NativeIssuedCallEpisodeProbe
-@@ -73,7 +112,7 @@ def run_controlled_issued_call_episode(
-             or type(formatter) is not NativeIssuedCallEpisodeFormatter
-             or type(consumer) is not NativeIssuedCallEpisodeConsumer):
-         raise NativeContentPolicyDenied("issued_call_episode_input_type")
+@@ -76 +115 @@ def run_controlled_issued_call_episode(
 -    if current_context() is not None:
 +    if (anchors[8][2] if project_conversation else current_context)() is not None:
-         raise NativeContentPolicyDenied("issued_call_episode_scope_active")
-     agent, adapter = source_agent, source_adapter
-     parent_context = adapter._bound_context
-@@ -113,7 +152,10 @@ def run_controlled_issued_call_episode(
-         consumer.target_model,
-         consumer.session_id,
-     )
+@@ -116 +155,4 @@ def run_controlled_issued_call_episode(
 -    continuation = bind_issued_call_continuation(adapter,
 +    source_session_id = agent.session_id if project_conversation else None
 +    projection = None
 +    checkpoint()
 +    continuation = (anchors[11][2] if project_conversation else bind_issued_call_continuation)(adapter,
-         consumer_context=consumer_refs[0],
-         consumer_selection=consumer_refs[1],
-         consumer_producer_ref=consumer_refs[2],
-@@ -121,18 +163,26 @@ def run_controlled_issued_call_episode(
-         target_model=consumer_refs[4],
-         session_id=consumer_refs[5],
-     )
+@@ -124,2 +166,4 @@ def run_controlled_issued_call_episode(
 -    with content_policy_scope(parent_context):
 -        token = adapter.bind_tool_call_probe(agent,
 +    checkpoint()
 +    with (anchors[9][2] if project_conversation else content_policy_scope)(parent_context):
 +        checkpoint()
 +        token = (anchors[15][2].__get__(adapter) if project_conversation else adapter.bind_tool_call_probe)(agent,
-             system_message=probe_refs[0],
-             user_message=probe_refs[1],
-             task_id=probe_refs[2],
-             expected_arguments_json=probe_refs[3],
-         )
+@@ -131,5 +175,11 @@ def run_controlled_issued_call_episode(
 -        adapter.enable_tool_call_assistant_source(agent, token)
 -        observation = adapter.run_tool_call_probe(agent, token)
 -        agent.close()
@@ -148,24 +105,14 @@ index a19675761c..fe728aa3cf 100644
 +                   else adapter.tool_call_assistant_sources)
 +        checkpoint()
 +        issued_token = (anchors[18][2].__get__(adapter) if project_conversation else adapter.bind_issued_call_execution)(observation,
-             execution_request=execution_refs[0],
-             execution_selection=execution_refs[1],
-             execution_producer_ref=execution_refs[2],
-@@ -148,20 +198,199 @@ def run_controlled_issued_call_episode(
-             child_session_id=execution_refs[12],
-             child_task_id=execution_refs[13],
-         )
+@@ -151,2 +201,4 @@ def run_controlled_issued_call_episode(
 -        issued = adapter.run_issued_call_execution(issued_token)
 -        format_token = adapter.bind_issued_call_format(issued,
 +        checkpoint()
 +        issued = (anchors[19][2].__get__(adapter) if project_conversation else adapter.run_issued_call_execution)(issued_token)
 +        checkpoint()
 +        format_token = (anchors[20][2].__get__(adapter) if project_conversation else adapter.bind_issued_call_format)(issued,
-             formatter_request=formatter_refs[0],
-             formatter_selection=formatter_refs[1],
-             formatter_producer_ref=formatter_refs[2],
-             formatter_main_route_ref=formatter_refs[3],
-         )
+@@ -158,7 +210,16 @@ def run_controlled_issued_call_episode(
 -        formatted = adapter.run_issued_call_format(format_token)
 -        tool = adapter.retain_issued_call_wire(formatted)
 -        assistant = adapter.retain_tool_call_assistant_wire(source)
@@ -189,8 +136,7 @@ index a19675761c..fe728aa3cf 100644
 +        checkpoint()
 +        records = (anchors[13][2] if project_conversation else issued_call_continuation_results)(continuation)
 +        checkpoint()
-         if len(records) != 1 or records[0] is not result:
-             raise NativeContentPolicyDenied("issued_call_episode_result_identity")
+@@ -167 +228,169 @@ def run_controlled_issued_call_episode(
 -    return result.completion
 +        checkpoint()
 +        if project_conversation:
@@ -365,14 +311,10 @@ diff --git a/run_agent.py b/run_agent.py
 index c84a030446..456ec0d616 100644
 --- a/run_agent.py
 +++ b/run_agent.py
-@@ -8714,8 +8714,30 @@ class AIAgent:
-         persist_user_display_kind: Optional[str] = None,
-         persist_user_display_metadata: Optional[Dict[str, Any]] = None,
-         moa_config: Optional[dict[str, Any]] = None,
+@@ -8716,0 +8717,2 @@ class AIAgent:
 +        *,
 +        controlled_issued_call: "NativeIssuedCallConversationPlan | None" = None,
-     ) -> Dict[str, Any]:
-         """Forwarder — see ``agent.conversation_loop.run_conversation``."""
+@@ -8718,0 +8721,20 @@ class AIAgent:
 +        if controlled_issued_call is not None:
 +            from agent import issued_call_episode as episode
 +            anchors = episode._PUBLIC_EPISODE_CODE
@@ -393,6 +335,3 @@ index c84a030446..456ec0d616 100644
 +            )
 +            checker(anchors)
 +            return result
-         from agent.conversation_loop import _try_controlled_text_turn
-         controlled, result = _try_controlled_text_turn(
-             self, user_message, system_message, conversation_history, task_id,
