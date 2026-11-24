@@ -1,0 +1,11 @@
+{
+  "task_cap": 1500,
+  "verification_publication_cap": 900,
+  "allowances": {
+    "setup": 60,
+    "cheap": 30,
+    "genuine": 600,
+    "final": 90,
+    "reserve": 120
+  }
+}

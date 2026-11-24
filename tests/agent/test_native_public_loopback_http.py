@@ -225,8 +225,15 @@ def test_genuine_public_loopback_http(tmp_path, monkeypatch, record, no_delegati
 
         world.hooks["clock"] = observe
         record("phase", "public_entry")
-        public = world.agent.run_conversation(plan.probe.user_message,
-            system_message=plan.probe.system_message, task_id=plan.probe.task_id, controlled_issued_call=plan)
+        try:
+            public = world.agent.run_conversation(plan.probe.user_message,
+                system_message=plan.probe.system_message, task_id=plan.probe.task_id, controlled_issued_call=plan)
+        except BaseException as error:
+            try:
+                record("public_exception", _public_failure_metadata(error))
+            except BaseException:
+                pass
+            raise
         owner, = [owner for owner in native._issued_continuation_owners if owner.parent is world.adapter]
         result = owner.records[0][0]
         completion = result.completion
@@ -342,3 +349,80 @@ def test_genuine_public_loopback_http(tmp_path, monkeypatch, record, no_delegati
             record("cleanup", dict(thread_alive=receiver.thread is not None and receiver.thread.is_alive(),
                 listener_closed=receiver.listener.fileno() == -1, accepted_socket_live=receiver.active is not None,
                 receiver_errors=[type(error).__name__ for error in receiver.errors]))
+
+
+def _public_failure_metadata(error):
+    """Extract bounded primitive failure facts without exception values or locals."""
+    import re
+
+    identifier = re.compile(r"[A-Za-z_][A-Za-z0-9_.:]{0,127}\Z", re.ASCII)
+    reasons = frozenset(("controlled_native_tool_probe_authority_denied", "callback_failed", "post_send_rejected",
+        "controlled_native_payload_denied", "controlled_native_tool_probe_capacity_denied", "content_policy_context_missing",
+        "controlled_native_adapter_missing", "controlled_native_attachment_invalid", "runtime_stale", "invalid_input"))
+    root = Path(__file__).resolve().parents[2]
+    owned = ("run_agent.py", "agent/conversation_loop.py", "agent/issued_call_episode.py", "agent/native_main_payload.py",
+        "agent/content_policy.py", "agent/chat_completion_helpers.py", "agent/transports/owned_loopback_http.py",
+        "tests/agent/test_native_public_loopback_http.py")
+    allowed = {str(root / name): name for name in owned}
+    shared = Path("/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py")
+    allowed[str(shared)] = "hermes_content_policy/__init__.py"
+    allowed[str(root / ".venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py")] = "hermes_content_policy/__init__.py"
+    entries, seen = [], set()
+    current, trace, frame = error, None, None
+    try:
+        while current is not None and len(entries) < 8 and id(current) not in seen:
+            seen.add(id(current))
+            kind = type(current)
+            module = type.__getattribute__(kind, "__module__")
+            name = type.__getattribute__(kind, "__name__")
+            entry = dict(class_module=module if type(module) is str and identifier.fullmatch(module) else None,
+                class_name=name if type(name) is str and identifier.fullmatch(name) else None,
+                reason_code=None, attribute_name=None, locations=[])
+            args = BaseException.args.__get__(current, kind)
+            if type(args) is tuple and len(args) == 1 and type(args[0]) is str:
+                code = args[0]
+                if code in reasons and identifier.fullmatch(code):
+                    entry["reason_code"] = code
+            if isinstance(current, AttributeError):
+                attribute = AttributeError.name.__get__(current, kind)
+                if type(attribute) is str and identifier.fullmatch(attribute):
+                    entry["attribute_name"] = attribute
+            trace = BaseException.__traceback__.__get__(current, kind)
+            walked = 0
+            while trace is not None and len(entry["locations"]) < 16 and walked < 64:
+                frame = trace.tb_frame
+                filename = frame.f_code.co_filename
+                if type(filename) is str and filename in allowed:
+                    entry["locations"].append(dict(path=allowed[filename], line=trace.tb_lineno))
+                trace = trace.tb_next
+                frame = None
+                walked += 1
+            entries.append(entry)
+            cause = BaseException.__cause__.__get__(current, kind)
+            current = cause if cause is not None else BaseException.__context__.__get__(current, kind)
+        return tuple(entries)
+    finally:
+        current = trace = frame = error = None
+
+
+def test_public_failure_metadata_primitives():
+    from hermes_content_policy import PolicyError
+
+    original = AttributeError("Invented private value", name="destination", obj=object())
+    metadata = None
+    with pytest.raises(AttributeError) as caught:
+        try:
+            try:
+                raise PolicyError("callback_failed")
+            except PolicyError:
+                raise original
+        except BaseException as error:
+            metadata = _public_failure_metadata(error)
+            raise
+    assert caught.value is original
+    assert len(metadata) == 2 and metadata[0]["attribute_name"] == "destination"
+    assert metadata[1]["reason_code"] == "callback_failed"
+    assert all(len(entry["locations"]) <= 16 for entry in metadata)
+    assert "Invented private value" not in json.dumps(metadata)
+    assert all(set(entry) == {"class_module", "class_name", "reason_code", "attribute_name", "locations"}
+               for entry in metadata)

@@ -283,7 +283,7 @@ def inert_module(monkeypatch, *, error=None, peer=None, reenter=False, deadline=
             if reenter and not state.reentered:
                 state.reentered.append(True)
                 with pytest.raises(ValueError, match="owned_loopback_busy"):
-                    state.port.send(envelope(state.port._destination))
+                    state.port.send(envelope(state.port.destination))
             if error is not None and state.accepted >= 7:
                 raise error
             count = min(7, len(data))
@@ -370,3 +370,35 @@ def test_inert_drift_at_wire_checkpoints(monkeypatch, drift):
     assert receipt[4] == 1 and len(state.sockets) == 1 and state.sockets[0].closed
     assert receipt[5] == (0 if drift == "prewrite" else state.accepted)
     assert not state.port._busy
+
+
+def test_actual_assistant_source_destination_interface():
+    """Check the original resolver data interface without native authority."""
+    from agent.native_main_payload import _ToolCallAssistantSource
+
+    with OwnedReceiver() as receiver:
+        destination, _, port = configured(receiver.bound[1])
+        parent = SimpleNamespace(_transport_wrappers={})
+        wrapper = SimpleNamespace(port=port, adapter=parent)
+        parent._transport_wrappers[destination.transport_ref] = wrapper
+        scaffold = SimpleNamespace(parent=parent, access=lambda: None, callback=lambda callback: callback())
+        assert _ToolCallAssistantSource.resolve(scaffold, wrapper) is destination
+        assert port.destination is port.resolve() is destination
+        assert receiver.rows == []
+
+
+def test_public_destination_immutable_identity_and_drift():
+    with OwnedReceiver() as receiver:
+        destination, _, port = configured(receiver.bound[1])
+        assert len(type(port).__slots__) == 6 and "destination" in type(port).__slots__
+        assert port.destination is port.resolve() is destination
+        with pytest.raises(AttributeError, match="owned_loopback_immutable"):
+            port.destination = replace(destination)
+        with pytest.raises(AttributeError, match="owned_loopback_immutable"):
+            del port.destination
+        object.__setattr__(port, "destination", replace(destination))
+        with pytest.raises(ValueError, match="owned_loopback_identity"):
+            port.resolve()
+        with pytest.raises(ValueError):
+            port.send(envelope(destination))
+        assert receiver.rows == []

@@ -131,9 +131,9 @@ def _guard(port, busy):
              "owned_loopback_thread")
     anchors = port._anchors
     _require(type(anchors) is tuple and len(anchors) == 5, "owned_loopback_anchors")
-    _require(port._destination is anchors[0] and port._endpoint is anchors[1]
+    _require(port.destination is anchors[0] and port._endpoint is anchors[1]
              and port._owner_thread is anchors[4], "owned_loopback_identity")
-    destination = _destination(port._destination)
+    destination = _destination(port.destination)
     endpoint = _endpoint(port._endpoint, destination)
     _require(all(a is b for a, b in zip(destination, anchors[2]))
              and all(a is b for a, b in zip(endpoint, anchors[3])), "owned_loopback_facts")
@@ -194,14 +194,14 @@ def _response(connection, deadline, observed):
 
 
 class OwnedLoopbackHTTPTransport:
-    __slots__ = ("_destination", "_endpoint", "_owner_thread", "_anchors", "_integrity", "_busy")
+    __slots__ = ("destination", "_endpoint", "_owner_thread", "_anchors", "_integrity", "_busy")
 
     def __init__(self, destination, *, endpoint):
         _ORIGINAL_CODE_CHECK(_INTEGRITY)
         destination_facts = _destination(destination)
         endpoint_facts = _endpoint(endpoint, destination_facts)
         owner = _THREAD()
-        object.__setattr__(self, "_destination", destination)
+        object.__setattr__(self, "destination", destination)
         object.__setattr__(self, "_endpoint", endpoint)
         object.__setattr__(self, "_owner_thread", owner)
         object.__setattr__(self, "_anchors", (destination, endpoint, destination_facts, endpoint_facts, owner))
@@ -217,7 +217,7 @@ class OwnedLoopbackHTTPTransport:
 
     def resolve(self):
         _ORIGINAL_GUARD(self, False)
-        return self._destination
+        return self.destination
 
     def send(self, envelope) -> bytes:
         connection, peer, selected = None, None, None
