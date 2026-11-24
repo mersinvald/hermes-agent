@@ -1,0 +1,65 @@
+{
+  "operators": [
+    {
+      "boundary": "Initial composition",
+      "original": "build_world; assert_plan",
+      "verified_relation": "Sixteen original routes and fourteen ControlledPort objects."
+    },
+    {
+      "boundary": "Qualification",
+      "original": "qualify; ContentPolicyRuntime.dispatch",
+      "verified_relation": "Two HTTP and fourteen in-process qualifications, 32/16/4229."
+    },
+    {
+      "boundary": "Main request",
+      "original": "construct; fixed_turn; dispatch_attempt",
+      "verified_relation": "Actual canonical main bytes reach A."
+    },
+    {
+      "boundary": "Original failure",
+      "original": "RetainedMainPort.send; dispatch_attempt; _begin_fallback",
+      "verified_relation": "Stock TimeoutError, original FailedDispatch, facts, frame, and distinct native token."
+    },
+    {
+      "boundary": "Failure checkpoint",
+      "original": "observe_failed_main.trigger",
+      "verified_relation": "Authenticate phase, one settled B prefix, unchanged logical time 10."
+    },
+    {
+      "boundary": "Fallback input",
+      "original": "_fallback_snapshot; derive_for_selection; _activate_fallback",
+      "verified_relation": "Current original grants and exact ordered ancestry persist."
+    },
+    {
+      "boundary": "Fallback send",
+      "original": "_dispatch_fallback; _Transport.send; OwnedLoopbackHTTPTransport.send",
+      "verified_relation": "Original selected model5 destination and actual B body agree."
+    },
+    {
+      "boundary": "Native response",
+      "original": "_dispatch_retained_operation; _decode_response; _response",
+      "verified_relation": "Canonical model-bound decode precedes NativeMainResponse."
+    },
+    {
+      "boundary": "Release",
+      "original": "_complete_fallback_turn; _try_controlled_text_turn",
+      "verified_relation": "Original frame, invocation, and result identities agree."
+    },
+    {
+      "boundary": "Cleanup",
+      "original": "OwnedReceiver.mark_window; finish; close",
+      "verified_relation": "Mark after both B responses. Quiet suffix and closed owned resources."
+    },
+    {
+      "boundary": "Terminal refusal",
+      "original": "_close_constructed_main; _verify_constructed",
+      "verified_relation": "Close twice, original records persist, closed next turn refuses before HTTP."
+    }
+  ],
+  "source_map_sha256": "0a37c44a891b94b9d469d677d3ab93c37fadb0dd98aeff433b64322832fa6381",
+  "source_pins_sha256": "e4f79f31c41e4f6d0c426cd7570376a0a464fba0b786e1f1a9e9bb0f1c6f0227",
+  "native_api_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+  "shared_api_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+  "transport_api_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a",
+  "global_method_instrumentation": false
+}

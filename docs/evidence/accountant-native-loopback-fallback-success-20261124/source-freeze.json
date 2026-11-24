@@ -1,0 +1,17 @@
+{
+  "base": {
+    "commit": "11c1456b3874fa62798573bf6622bb33510bfe98",
+    "parent": "444795c2ea0ec6b16dce0936f66c15c220e61248",
+    "tree": "ab012b1a9dc92eb31fcc90eb3912d2b206c65cde",
+    "paths": 12209,
+    "PR": "https://github.com/mersinvald/hermes-agent/pull/33"
+  },
+  "test": {
+    "path": "tests/agent/test_native_loopback_fallback_success.py",
+    "sha256": "fd03d032aaa884f8d4cdc12b93e681bde35da05e3ae13566e1be06b33016e9c9",
+    "bytes": 25269
+  },
+  "contracts_sha256": "339881833bd7660114d1215ec22ea5b96d97e35cf2ee5b576925dd1ba38a0719",
+  "unchanged_inputs": 50,
+  "freeze": "Normal source commit precedes the genuine launch."
+}

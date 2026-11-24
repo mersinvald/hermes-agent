@@ -1,0 +1,92 @@
+{
+  "input_verification": {
+    "verified": true,
+    "tracked": 50,
+    "protected": 13,
+    "environment": 5,
+    "epoch": 1795548799.9420865
+  },
+  "source_commit": "7dff3182a782b7b5092d0eca21930e39e6feacf5",
+  "frozen_test_sha256": "fd03d032aaa884f8d4cdc12b93e681bde35da05e3ae13566e1be06b33016e9c9",
+  "frozen_test_unchanged": true,
+  "ruff": "PASS",
+  "whole_base_blobs_and_modes": 12209,
+  "case_results": {
+    "cheap": {
+      "requested_ids": [
+        "tests/agent/test_native_loopback_fallback_success.py::test_inert_current_fallback_success_plan",
+        "tests/agent/test_native_loopback_fallback_success.py::test_current_fallback_response_recipe"
+      ],
+      "actual_ids": [
+        "tests.agent.test_native_loopback_fallback_success::test_inert_current_fallback_success_plan",
+        "tests.agent.test_native_loopback_fallback_success::test_current_fallback_response_recipe"
+      ],
+      "cases": [
+        {
+          "name": "test_inert_current_fallback_success_plan",
+          "seconds": 0.038
+        },
+        {
+          "name": "test_current_fallback_response_recipe",
+          "seconds": 0.018
+        }
+      ],
+      "xml_sha256": "0adfaf5e506efe20357558badad387ec400e7c1474c9b4d8dc4371fbdc8b1cb7",
+      "command_seconds": 10.736114263534546,
+      "workers": 1,
+      "retries": 0,
+      "maxfail": 1,
+      "xunit_family": "xunit1",
+      "environment_files_verified_before_and_after": 5
+    },
+    "genuine": {
+      "requested_ids": [
+        "tests/agent/test_native_loopback_fallback_success.py::test_genuine_current_fallback_success"
+      ],
+      "actual_ids": [
+        "tests.agent.test_native_loopback_fallback_success::test_genuine_current_fallback_success"
+      ],
+      "cases": [
+        {
+          "name": "test_genuine_current_fallback_success",
+          "seconds": 48.972
+        }
+      ],
+      "xml_sha256": "3902b7499eed1fc89c6f762a30ca3128f010bf3320e51a5516cdee89c6a3950d",
+      "command_seconds": 51.0724196434021,
+      "workers": 1,
+      "retries": 0,
+      "maxfail": 1,
+      "xunit_family": "xunit1",
+      "environment_files_verified_before_and_after": 5
+    }
+  },
+  "failed_static_scopes": [
+    {
+      "scope": "Initial raw whole-base hash",
+      "finding": "Existing checkout line endings differ from Git blob bytes.",
+      "resolution": "Compared every original mode and blob in the complete committed trees. Working tree diff is empty."
+    },
+    {
+      "scope": "Initial prose lint",
+      "finding": "Raw JSON data caused paragraph findings. Operator identifiers and separators caused code findings.",
+      "resolution": "Retained the raw scores. Checked new prose fields with the same lint_file function."
+    },
+    {
+      "scope": "Initial local link check",
+      "finding": "SHA256SUMS did not yet exist.",
+      "resolution": "Created the manifest before the final local link check."
+    }
+  ],
+  "links": "PASS: twelve local evidence links.",
+  "whitespace": "PASS: git diff --check.",
+  "ci": "No CI success claim. Exact-head statuses follow in the private publication receipt.",
+  "ast_definitions": [
+    "fallback_reply_bytes",
+    "observe_failed_main",
+    "test_inert_current_fallback_success_plan",
+    "test_current_fallback_response_recipe",
+    "test_genuine_current_fallback_success",
+    "trigger"
+  ]
+}

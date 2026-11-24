@@ -1,0 +1,72 @@
+{
+  "task_start": "2026-11-24T19:32:27.321563+00:00",
+  "verification_start": "2026-11-24T19:32:41Z",
+  "task_cap_seconds": 2400,
+  "verification_cap_seconds": 1200,
+  "earlier_unmeasured_allowance_seconds": 10,
+  "report_allowance_seconds": 30,
+  "elapsed_at_evidence_seconds": 444.95441198349,
+  "charged_at_evidence_seconds": 484.95441198349,
+  "launch": {
+    "task_remaining": 2090.4739985466003,
+    "verification_remaining": 904.152437210083,
+    "previous_worker_task_remaining": 2104.152437210083
+  },
+  "setup_before_cheap_seconds": 225.4244966506958,
+  "setup_planning_allowance_seconds": 60,
+  "setup_allowance_exceeded": true,
+  "cheap_command_seconds": 10.736114263534546,
+  "cheap_command_cap_seconds": 90,
+  "genuine_command_seconds": 51.0724196434021,
+  "genuine_outer_cap_seconds": 600,
+  "genuine_file_cap_seconds": 595,
+  "final_publication_allowance_seconds": 240,
+  "phases": [
+    {
+      "name": "receivers_ready",
+      "seconds": 0.11123846197733656
+    },
+    {
+      "name": "native_bound",
+      "seconds": 0.9974938389786985
+    }
+  ],
+  "genuine_observed_end_seconds": 48.93091779499082,
+  "usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "main_attempt_usage": null,
+  "total_usage_known": false,
+  "estimated_cost_usd": null,
+  "cost_status": "unknown",
+  "claim": "No timing benefit or speedup claim. Main egress remains explicit.",
+  "task_start_epoch": 1795548747.3215613,
+  "previous_worker_task_start": "2026-11-24T19:32:41Z",
+  "previous_worker_task_start_epoch": 1795548761.0,
+  "task_clock_correction_seconds": 13.678438663482666,
+  "verification_start_epoch": 1795548761.0,
+  "verification_elapsed_at_evidence_seconds": 431.2759733200073,
+  "verification_charged_at_evidence_seconds": 471.2759733200073,
+  "verification_remaining_at_evidence_seconds": 728.7240266799927,
+  "task_remaining_at_evidence_seconds": 1915.04558801651,
+  "original_publication": {
+    "epoch": 1795549377.5787055,
+    "corrected_task_actual_wall_seconds": 630.2571442127228,
+    "corrected_task_charged_wall_seconds": 670.2571442127228,
+    "corrected_task_remaining_seconds": 1729.7428557872772,
+    "previous_worker_task_actual_wall_seconds": 616.5787055492401,
+    "previous_worker_task_charged_wall_seconds": 656.5787055492401,
+    "verification_actual_wall_seconds": 616.5787055492401,
+    "verification_charged_wall_seconds": 656.5787055492401,
+    "verification_remaining_seconds": 543.4212944507599,
+    "final_phase_seconds": 279.6589186191559,
+    "final_phase_base_allowance_seconds": 240,
+    "final_phase_allowance_overrun_seconds": 39.658918619155884,
+    "reserve_seconds": 210,
+    "final_phase_within_base_plus_reserve": true,
+    "original_task_outcome": "SUCCEEDED",
+    "original_handoff_sha256": "3280424e21413eda434fd68b4554ec407f3f065274a128dbd9b51fbd0214965b"
+  }
+}

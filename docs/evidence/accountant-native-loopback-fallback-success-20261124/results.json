@@ -1,0 +1,661 @@
+{
+  "outcome": "PASS: bounded synthetic current fallback success",
+  "scopes": {
+    "cheap": {
+      "requested_ids": [
+        "tests/agent/test_native_loopback_fallback_success.py::test_inert_current_fallback_success_plan",
+        "tests/agent/test_native_loopback_fallback_success.py::test_current_fallback_response_recipe"
+      ],
+      "actual_ids": [
+        "tests.agent.test_native_loopback_fallback_success::test_inert_current_fallback_success_plan",
+        "tests.agent.test_native_loopback_fallback_success::test_current_fallback_response_recipe"
+      ],
+      "cases": [
+        {
+          "name": "test_inert_current_fallback_success_plan",
+          "seconds": 0.038
+        },
+        {
+          "name": "test_current_fallback_response_recipe",
+          "seconds": 0.018
+        }
+      ],
+      "xml_sha256": "0adfaf5e506efe20357558badad387ec400e7c1474c9b4d8dc4371fbdc8b1cb7",
+      "command_seconds": 10.736114263534546,
+      "workers": 1,
+      "retries": 0,
+      "maxfail": 1,
+      "xunit_family": "xunit1",
+      "environment_files_verified_before_and_after": 5
+    },
+    "genuine": {
+      "requested_ids": [
+        "tests/agent/test_native_loopback_fallback_success.py::test_genuine_current_fallback_success"
+      ],
+      "actual_ids": [
+        "tests.agent.test_native_loopback_fallback_success::test_genuine_current_fallback_success"
+      ],
+      "cases": [
+        {
+          "name": "test_genuine_current_fallback_success",
+          "seconds": 48.972
+        }
+      ],
+      "xml_sha256": "3902b7499eed1fc89c6f762a30ca3128f010bf3320e51a5516cdee89c6a3950d",
+      "command_seconds": 51.0724196434021,
+      "workers": 1,
+      "retries": 0,
+      "maxfail": 1,
+      "xunit_family": "xunit1",
+      "environment_files_verified_before_and_after": 5
+    }
+  },
+  "qualification": {
+    "charges": [
+      32,
+      16,
+      4229
+    ],
+    "http": 2,
+    "in_process": 14
+  },
+  "trigger": {
+    "phase": "authenticate",
+    "logical_time": 10,
+    "charges": [
+      5,
+      1,
+      1492
+    ],
+    "original_registry_associations": true,
+    "native_token_distinct": true,
+    "settled_prefix_rows": 1,
+    "receiver_window": false
+  },
+  "released": {
+    "result": {
+      "completed": true,
+      "failed": false,
+      "interrupted": false,
+      "partial": false,
+      "final_response": "The blue folder stays.",
+      "fallback": true,
+      "selected_provider": "synthetic_native",
+      "selected_model": "invented_model_0",
+      "provider": "synthetic_native",
+      "model": "invented_model_5",
+      "base_url": "",
+      "api_calls": 2,
+      "main_attempt_usage": null,
+      "verified_response_usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 2,
+        "total_tokens": 5
+      },
+      "total_usage_known": false,
+      "estimated_cost_usd": null,
+      "cost_status": "unknown"
+    },
+    "phase": "released",
+    "terminal": true,
+    "pending_turn": false,
+    "operation": false,
+    "contents": [
+      {
+        "index": 0,
+        "bytes": 314,
+        "sha256": "5c833e0a6a5c678b1f5b5c827e0b271c92fc4293c41b3c1648c630f397c3e931",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "bytes": 592,
+        "sha256": "4de58ac6edf21a4747b06662a13b2d914b0780f5cd6a6502e0618f62c8cdb728",
+        "parents": [
+          0,
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "bytes": 148,
+        "sha256": "5c84c1c040efa5d4147abd1ee096a5f36018140cc6a5b8b0624717336b97a8d6",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 3,
+        "bytes": 354,
+        "sha256": "3e6ff6445d9d945ae5cbaeb9bdffe3b8b888ea49dfdec9f38eb31ef9fc65e411",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 4,
+        "bytes": 84,
+        "sha256": "3b6b256487559236d2f72e6a882d99dfc5c4f7f5914730389796e163b0b87a6f",
+        "parents": [
+          3
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 5,
+        "bytes": 1992,
+        "sha256": "862fbffc81f69c80b173ddfb108b1c04c3cf900cf9262e5a9b87a447ecf22d65",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 6,
+        "bytes": 1992,
+        "sha256": "862fbffc81f69c80b173ddfb108b1c04c3cf900cf9262e5a9b87a447ecf22d65",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 7,
+        "bytes": 440,
+        "sha256": "0661b5e3f5fe47c63042a3b0f357c4b81bdae7cb1b90ef858e91cb4708e37639",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 8,
+        "bytes": 368,
+        "sha256": "a8d7a78179cfd4a4f79c4e056828334317f8f22a4c5dc5bbdab28f385333d623",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 9,
+        "bytes": 368,
+        "sha256": "a8d7a78179cfd4a4f79c4e056828334317f8f22a4c5dc5bbdab28f385333d623",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 10,
+        "bytes": 279,
+        "sha256": "c62dff2d398202c529f4244ed0c0884b639de2b61260889cb1c0772b9a3f770b",
+        "parents": [
+          9
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 11,
+        "bytes": 594,
+        "sha256": "5e0d42cbc941dfd550ffed96bae0da8f205e9a492d717af347e2135fb078e9c0",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 12,
+        "bytes": 635,
+        "sha256": "fa7b529875f19f8bd184f134288f5226d24c25302f7caa95f15b837558266139",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 13,
+        "bytes": 635,
+        "sha256": "fa7b529875f19f8bd184f134288f5226d24c25302f7caa95f15b837558266139",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "fallback_selection",
+          8,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      }
+    ],
+    "charges": [
+      14,
+      2,
+      8795
+    ],
+    "combined_capacity_including_failure": 17,
+    "lineage_hops": [
+      2
+    ],
+    "conversation_exit_verified": true
+  },
+  "main": {
+    "error_type": "TimeoutError",
+    "same_exception_object_retained": true,
+    "body_bytes": 354,
+    "client_write_bytes": 534,
+    "response_prefix_bytes": 0,
+    "send_count": 1,
+    "usage": null,
+    "cost": "unknown"
+  },
+  "fallback": {
+    "body_bytes": 368,
+    "response_body_bytes": 279,
+    "response_http_bytes": 338,
+    "native_response": true,
+    "released_result_identity": true,
+    "send_count": 1,
+    "successful_client_diagnostic_receipt": false
+  },
+  "receivers": {
+    "a": {
+      "rows": 2,
+      "polls": 810,
+      "quiet_drain_seconds": 0.5106313080177642,
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "errors": [],
+      "mark_rows": null,
+      "mark_active": null,
+      "connections": [
+        {
+          "order": 0,
+          "raw_sha256": "578fda620943eb5f232c5f0cd59470e2d72dcfc64f8343fd26fdbdfe30d23045",
+          "raw_length": 201,
+          "body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+          "body_length": 22,
+          "complete": true,
+          "settled": true,
+          "response_attempts": 1,
+          "response_accepted": 75,
+          "status": "response_sent",
+          "failure": null
+        },
+        {
+          "order": 1,
+          "raw_sha256": "7bdd1af449aeb4e8f6281c19563acd4fa1eb5ae28945bb850b2554715b63abc6",
+          "raw_length": 534,
+          "body_sha256": "3e6ff6445d9d945ae5cbaeb9bdffe3b8b888ea49dfdec9f38eb31ef9fc65e411",
+          "body_length": 354,
+          "complete": true,
+          "settled": true,
+          "response_attempts": 0,
+          "response_accepted": 0,
+          "status": "planned_disconnect",
+          "failure": "eof_after_request"
+        }
+      ]
+    },
+    "b": {
+      "rows": 2,
+      "polls": 823,
+      "quiet_drain_seconds": 0.5109061219845898,
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "errors": [],
+      "mark_rows": 2,
+      "mark_active": 0,
+      "connections": [
+        {
+          "order": 0,
+          "raw_sha256": "ef6040071bbe7ccc01ce0cf22c657886459137928f1bb6ba498998b09e7a2fd4",
+          "raw_length": 201,
+          "body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+          "body_length": 22,
+          "complete": true,
+          "settled": true,
+          "response_attempts": 1,
+          "response_accepted": 75,
+          "status": "response_sent",
+          "failure": null
+        },
+        {
+          "order": 1,
+          "raw_sha256": "821cb57aa1f924d3e294051809916ae7a81bef42074e95049b520284ded2fce8",
+          "raw_length": 548,
+          "body_sha256": "a8d7a78179cfd4a4f79c4e056828334317f8f22a4c5dc5bbdab28f385333d623",
+          "body_length": 368,
+          "complete": true,
+          "settled": true,
+          "response_attempts": 1,
+          "response_accepted": 338,
+          "status": "response_sent",
+          "failure": null
+        }
+      ]
+    }
+  },
+  "terminal_refusal": {
+    "error_type": "NativeContentPolicyDenied",
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "denied": true,
+    "closed": true,
+    "phase": "released",
+    "sends": 1,
+    "fallback_sends": 1
+  },
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_errors": [],
+    "b_errors": [],
+    "seconds": 48.93091779499082
+  },
+  "raw_evidence_sha256": "ac40d421a848ce6ee1e4a8ec266302a9a6df9c42ff94dc42465c7c46f8123095",
+  "boundary": "Accepted connections over recorded intervals. No packet or kernel-handshake claim."
+}
