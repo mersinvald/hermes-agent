@@ -11,7 +11,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 
 import pytest
-from hermes_content_policy import ContentPolicyRuntime, Destination, PATHS, ProfilePolicy, RouteBinding
+from hermes_content_policy import ContentPolicyRuntime, Destination, PATHS, PolicyError, ProfilePolicy, RouteBinding
 
 from agent import native_main_payload as native
 from agent.content_policy import NativeContentContext, NativeContentPolicyDenied, content_policy_scope
@@ -186,7 +186,7 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode, monk
 
         world.hooks["clock"] = after_output
         if mode != "positive":
-            error = asyncio.CancelledError if mode == "original_control" else NativeContentPolicyDenied
+            error = asyncio.CancelledError if mode == "original_control" else PolicyError
             with pytest.raises(error) as caught:
                 with content_policy_scope(world.consumer_context):
                     native.run_issued_call_continuation(world.authorization, world.pair)
@@ -195,6 +195,13 @@ def test_genuine_continuation(no_delegation_effects, record_property, mode, monk
             if mode == "original_control":
                 assert caught.value is owner.control_exception is control
             else:
+                assert type(caught.value) is PolicyError and caught.value.args == ("post_send_rejected",)
+                callback_error = caught.value.__context__
+                assert type(callback_error) is PolicyError and callback_error.args == ("callback_failed",)
+                native_error = callback_error.__context__
+                reason = "coverage_missing" if mode == "coverage_expiry" else "selected_expired_or_denied"
+                assert type(native_error) is NativeContentPolicyDenied
+                assert native_error.args == ("controlled_native_issued_continuation_" + reason,)
                 assert owner.policy_observations[-1][-1] == world.now == 50
                 if mode == "coverage_expiry":
                     assert all(route.expires_at > world.now for route in world.routes if route.path == "main")
