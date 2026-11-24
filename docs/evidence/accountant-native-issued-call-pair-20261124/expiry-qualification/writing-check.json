@@ -1,0 +1,171 @@
+{
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "checks": {
+    "README.md": {
+      "baseline": {
+        "words": 933,
+        "sentences": 100,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "candidate": {
+        "words": 1040,
+        "sentences": 111,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "added": {
+        "words": 107,
+        "sentences": 11,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 17,
+        "sample_marketing": [],
+        "sample_banned": []
+      }
+    },
+    "consumer-contract.md": {
+      "baseline": {
+        "words": 718,
+        "sentences": 69,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 19,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "candidate": {
+        "words": 836,
+        "sentences": 80,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 19,
+        "sample_marketing": [],
+        "sample_banned": []
+      },
+      "added": {
+        "words": 118,
+        "sentences": 11,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 17,
+        "sample_marketing": [],
+        "sample_banned": []
+      }
+    },
+    "qualification_README": {
+      "words": 429,
+      "sentences": 42,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  }
+}

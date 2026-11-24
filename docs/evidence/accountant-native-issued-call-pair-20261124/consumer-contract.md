@@ -89,3 +89,16 @@ Full P10/P06, native manifests, index delivery, real inference, private sources,
 Source completeness, financial writes, production, deployment, and activation remain open.
 The online Mac collector and local Firefly staging remain outside scope.
 Root retains source acceptance, merge, Beads closure, and all wider activation decisions.
+
+## Separate expiry harness qualification
+
+The [corrected expiry case](expiry-qualification/README.md) passes once on unchanged runtime, test, and API bytes.
+Its actual J has 673 bytes and ordered original parents `(Wa, Wf)`.
+At final time 50, required fallback coverage expires while every selected main grant remains live until 100.
+The operation retains J and publishes zero pair results. The owner stays spent.
+
+The original terminal predicates prove closed P and child state after the final clock callback.
+Exception propagation leaves the original scope before the test catches the expected refusal.
+The qualification changes no original guard, denial, clock, callback, frame, or operation.
+The original failed task and all earlier scope limits remain exact.
+Root retains acceptance and all downstream gates above.

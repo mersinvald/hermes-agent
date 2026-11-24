@@ -1,0 +1,3207 @@
+{
+  "timings": {
+    "setup_qualifications": 1.0075081810064148,
+    "bind_enable": 4.026907860999927,
+    "source_capture_close": 34.300995644007344,
+    "issued_child_return": 83.42471737701271,
+    "formatter": 57.10144914599368,
+    "Wf": 31.700126070005354,
+    "Wa": 1.5710714140004711,
+    "pair_expiry": 50.323077173001366
+  },
+  "qualifications": 19,
+  "sends": {
+    "0": 1,
+    "1": 0,
+    "2": 1,
+    "3": 1,
+    "4": 0
+  },
+  "data_sends": 3,
+  "content_slots": 31,
+  "envelopes": 3,
+  "retained_bytes": 27894,
+  "poisoned": false,
+  "now": 50,
+  "graph": [
+    {
+      "index": 0,
+      "identity": 137787436245760,
+      "payload": "{\"expected_arguments_json\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_0_main\",\"producer_policy\":[\"producer_0\",4,[\"restricted_documents\"]],\"system_message\":\"Request one leaf call.\",\"task_id\":\"execution\",\"user_message\":\"Count blue squares.\"}",
+      "bytes": 400,
+      "sha256": "e8943280cb8e0a28a22e542e9d27036a25932071ca695ce69dfb3f6aad8c1604",
+      "parents": [],
+      "path": null,
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 1,
+      "identity": 137787436248992,
+      "payload": "{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]}",
+      "bytes": 508,
+      "sha256": "04e154b520da3ee3c80712a7bfa020af7b77c5aa4db21ce0f512004c864dfa1b",
+      "parents": [
+        0
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 2,
+      "identity": 137787436245888,
+      "payload": "{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint_0\",\"model_ref\":\"invented_model_0\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_0\"},\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]}}",
+      "bytes": 710,
+      "sha256": "b4c2d3511f11f49ad31ff563d53fa79ffe67aee08aba1e5907101d0274851b7b",
+      "parents": [
+        0,
+        1
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 3,
+      "identity": 137787436248704,
+      "payload": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}}",
+      "bytes": 436,
+      "sha256": "3a6489a189a671968dc5c1967b7c29bb9aa0246989a8a12a81f99a18cb16dc11",
+      "parents": [
+        2
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 4,
+      "identity": 137787436248896,
+      "payload": "{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"}",
+      "bytes": 1199,
+      "sha256": "54bce0752f92cc74d79822ada7bb7aded4c174587473f65e108710077fa84864",
+      "parents": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 5,
+      "identity": 137787436247936,
+      "payload": "{\"producer\":\"first_local_typed_controlled_response\",\"agent_fields\":[[\"provider\",true,\"synthetic_native\"],[\"model\",true,\"invented_model_0\"],[\"api_mode\",true,\"chat_completions\"],[\"base_url\",true,\"\"],[\"_base_url\",true,\"\"],[\"_base_url_lower\",false,null],[\"verbose_logging\",true,false],[\"reasoning_callback\",true,null],[\"stream_delta_callback\",true,null],[\"_stream_callback\",false,null],[\"reasoning_config\",true,null],[\"_reasoning_echo_flag\",false,null]],\"original_agent_fields\":[[\"provider\",true,\"synthetic_native\"],[\"model\",true,\"invented_model_0\"],[\"api_mode\",true,\"chat_completions\"],[\"base_url\",true,\"\"],[\"_base_url\",false,null],[\"_base_url_lower\",false,null],[\"verbose_logging\",true,false],[\"reasoning_callback\",true,null],[\"stream_delta_callback\",true,null],[\"_stream_callback\",false,null],[\"reasoning_config\",true,null],[\"_reasoning_echo_flag\",false,null]],\"backing_completion\":{\"original_present\":false,\"shadow\":\"\",\"present\":true,\"value\":\"\"},\"cache_before\":[false,null],\"response_fields\":[\"choices\",\"created\",\"id\",\"model\",\"object\",\"usage\"],\"message_fields\":[\"content\",\"role\",\"tool_calls\"],\"builder_metadata\":[[\"message\",[[\"reasoning\",false,null],[\"reasoning_content\",false,null],[\"reasoning_details\",false,null],[\"anthropic_content_blocks\",false,null],[\"codex_reasoning_items\",false,null],[\"codex_message_items\",false,null],[\"model_extra\",true,{}]]],[\"tool_call\",[[\"call_id\",false,null],[\"response_item_id\",false,null],[\"extra_content\",false,null]]]],\"finish_reason\":\"tool_calls\",\"builder\":\"AIAgent._build_assistant_message\",\"serializer\":\"insertion_order_utf8\",\"response_parent\":\"original_R\"}",
+      "bytes": 1596,
+      "sha256": "b64cd0e6bd87e7366b003fdd022339310bd8fc98a741ed20cd1876a53d1483a0",
+      "parents": [],
+      "path": null,
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 6,
+      "identity": 137787436247616,
+      "payload": "{\"role\":\"assistant\",\"content\":\"\",\"reasoning\":null,\"finish_reason\":\"tool_calls\",\"timestamp\":1795493938.0821753,\"tool_calls\":[{\"id\":\"invented-call-1\",\"call_id\":\"invented-call-1\",\"response_item_id\":\"fc_invented-call-1\",\"type\":\"function\",\"function\":{\"name\":\"delegate_task\",\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\"}}]}",
+      "bytes": 356,
+      "sha256": "20821df66997ce3709310a85e139e8bb7e48e82688240eebb60b12dc9e614fb5",
+      "parents": [
+        3,
+        5
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 7,
+      "identity": 137787436247360,
+      "payload": "{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"child\":{\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"main_route_ref\":\"route_3_main\",\"producer_policy\":[\"producer_3\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_3\",\"synthetic_native\",\"invented_model_3\",\"invented_endpoint_3\",1]],\"session_id\":\"invented_child_session\",\"task_id\":\"child_execution\"},\"execution\":{\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_1_main\",\"producer_policy\":[\"producer_1\",4,[\"restricted_documents\"]],\"selection\":[\"selection_0\",3,\"chat_completions\",[\"invented_1\",\"synthetic_native\",\"invented_model_1\",\"invented_endpoint_1\",1]]},\"receiver\":{\"delegate_route_ref\":\"route_2_delegate\",\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"producer_policy\":[\"producer_2\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_2\",\"synthetic_native\",\"invented_model_2\",\"invented_endpoint_2\",1]]}}",
+      "bytes": 1266,
+      "sha256": "913e0d11a0b6f57e0b3ccb15cd3fec72a05231f4e2a8ca7728378700782cae43",
+      "parents": [],
+      "path": null,
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 8,
+      "identity": 137787436249088,
+      "payload": "{\"authorization\":{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"child\":{\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"main_route_ref\":\"route_3_main\",\"producer_policy\":[\"producer_3\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_3\",\"synthetic_native\",\"invented_model_3\",\"invented_endpoint_3\",1]],\"session_id\":\"invented_child_session\",\"task_id\":\"child_execution\"},\"execution\":{\"holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_1_main\",\"producer_policy\":[\"producer_1\",4,[\"restricted_documents\"]],\"selection\":[\"selection_0\",3,\"chat_completions\",[\"invented_1\",\"synthetic_native\",\"invented_model_1\",\"invented_endpoint_1\",1]]},\"receiver\":{\"delegate_route_ref\":\"route_2_delegate\",\"holder\":[\"owner\",\"child_execution\",\"lineage\",\"child_specialist\",7,9,\"selection_2\",5,[\"restricted_documents\"]],\"producer_policy\":[\"producer_2\",4,[\"restricted_documents\"]],\"selection\":[\"selection_2\",5,\"chat_completions\",[\"invented_2\",\"synthetic_native\",\"invented_model_2\",\"invented_endpoint_2\",1]]}},\"observation\":{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"}}",
+      "bytes": 2498,
+      "sha256": "a61006cd1d5d45fce490468424c5a171b3f02db018a09f7fe7fe4e368f3e4e96",
+      "parents": [
+        4,
+        7
+      ],
+      "path": "delegate",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 9,
+      "identity": 137787436249984,
+      "payload": "{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]}",
+      "bytes": 621,
+      "sha256": "2f509d0937eea37bc6116cbcdaba235a0fae12cefb61c4ed45fae0ccedb66a74",
+      "parents": [
+        8
+      ],
+      "path": "delegate",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 10,
+      "identity": 137787436250304,
+      "payload": "{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"}",
+      "bytes": 59,
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+      "parents": [
+        9
+      ],
+      "path": "delegate",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 11,
+      "identity": 137787436250400,
+      "payload": "{\"constructor\":{\"api_mode\":\"chat_completions\",\"enabled_toolsets\":[],\"model\":\"invented_model_3\",\"provider\":\"synthetic_native\",\"quiet_mode\":true,\"session_id\":\"invented_child_session\",\"skip_background_review\":true,\"skip_context_files\":true,\"skip_memory\":true},\"entry\":{\"system_message\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"task_id\":\"child_execution\",\"user_message\":\"Count blue squares.\"},\"leaf\":{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"},\"raw\":{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]},\"system_prompt\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\"}",
+      "bytes": 2738,
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+      "parents": [
+        9,
+        10
+      ],
+      "path": "delegate",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 12,
+      "identity": 137787436246944,
+      "payload": "{\"accepted\":true}",
+      "bytes": 17,
+      "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "parents": [
+        11
+      ],
+      "path": "delegate",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 13,
+      "identity": 137787436246848,
+      "payload": "{\"constructor\":{\"api_mode\":\"chat_completions\",\"enabled_toolsets\":[],\"model\":\"invented_model_3\",\"provider\":\"synthetic_native\",\"quiet_mode\":true,\"session_id\":\"invented_child_session\",\"skip_background_review\":true,\"skip_context_files\":true,\"skip_memory\":true},\"entry\":{\"system_message\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"task_id\":\"child_execution\",\"user_message\":\"Count blue squares.\"},\"leaf\":{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"},\"raw\":{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]},\"system_prompt\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\"}",
+      "bytes": 2738,
+      "sha256": "5507d722a16eebe6809134fdcffacfac1c68063948e6ff00591e38b5cdc20cd8",
+      "parents": [
+        11
+      ],
+      "path": "delegate",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 14,
+      "identity": 137787436250848,
+      "payload": "{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"}",
+      "bytes": 59,
+      "sha256": "6db61c072df964c50d9271ad63ea665d63bb194620e2500bb9d2ac406d20c3e5",
+      "parents": [
+        13
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 15,
+      "identity": 137787436249920,
+      "payload": "{\"conversation_history\":null,\"options\":{\"max_tokens\":{\"present\":true,\"value\":null},\"model\":{\"present\":true,\"value\":\"invented_model_3\"},\"stream\":{\"present\":false,\"value\":false},\"temperature\":{\"present\":false,\"value\":null}},\"system_message\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"task_id\":\"child_execution\",\"user_message\":\"Count blue squares.\"}",
+      "bytes": 1143,
+      "sha256": "d1052ae84e5ec29c2696aaa570e63a27e702c9d1d4f2a99b42be0f49c3ceea23",
+      "parents": [
+        14
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 16,
+      "identity": 137787436249696,
+      "payload": "{\"request\":{\"messages\":[{\"content\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_3\",\"stream\":false},\"turn_context\":{\"active_system_prompt\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"conversation_history\":null,\"current_turn_user_idx\":0,\"effective_task_id\":\"child_execution\",\"ext_prefetch_cache\":\"\",\"messages\":[{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"original_user_message\":\"Count blue squares.\",\"plugin_user_context\":\"\",\"preflight_compression_blocked\":false,\"should_review_memory\":false,\"turn_id\":\"native-turn-1\",\"user_message\":\"Count blue squares.\"}}",
+      "bytes": 2240,
+      "sha256": "3c9be6aa88ce69bec7e07c9d547f0ba4a5fe7d8b9bb01c46f2418c32c2d146ab",
+      "parents": [
+        15,
+        15
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 17,
+      "identity": 137787436249408,
+      "payload": "{\"messages\":[{\"content\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_3\",\"stream\":false}",
+      "bytes": 971,
+      "sha256": "7473ffd55f6fd0df0a1cf08057543af82f808441f1dd7deee0e81604b9c538dd",
+      "parents": [
+        15,
+        15,
+        16
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 18,
+      "identity": 137787436251200,
+      "payload": "{\"api_mode\":\"chat_completions\",\"destination\":{\"endpoint_ref\":\"invented_endpoint_3\",\"model_ref\":\"invented_model_3\",\"provider_ref\":\"synthetic_native\",\"revision\":1,\"transport_ref\":\"invented_3\"},\"request\":{\"messages\":[{\"content\":\"You are a focused subagent working on a specific delegated task.\\n\\nYOUR TASK:\\nCount blue squares.\\n\\nComplete this task using the tools available to you. When finished, provide a clear, concise summary of:\\n- What you did\\n- What you found or accomplished\\n- Any files you created or modified\\n- Any issues encountered\\n\\nImportant workspace rule: Never assume a repository lives at /workspace/... or any other container-style path unless the task/context explicitly gives that path. If no exact local path is provided, discover it first before issuing git/workdir-specific commands.\\n\\nKeep your final summary tight: lead with outcomes, prefer bullet points over paragraphs, and don't replay your whole process. Your response is returned to the parent agent as a summary, and overlong summaries crowd out the parent's context window.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_3\",\"stream\":false}}",
+      "bytes": 1173,
+      "sha256": "0091f4298c0ecf90c02e35ec1a3d1853f26d3228dafee30065f0537099081578",
+      "parents": [
+        15,
+        15,
+        16
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 19,
+      "identity": 137787436247200,
+      "payload": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"Three blue squares.\",\"role\":\"assistant\"}}],\"created\":12,\"id\":\"invented_child_reply\",\"model\":\"invented_model_3\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":2,\"prompt_tokens\":3,\"total_tokens\":5}}",
+      "bytes": 273,
+      "sha256": "3afd0d646ef808434d46fee4a34194d1430ad3bb4d6af087cbd22149534d5773",
+      "parents": [
+        18
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 20,
+      "identity": 137787436247840,
+      "payload": "{\"api_calls\":1,\"base_url\":\"\",\"cache_read_tokens\":0,\"cache_write_tokens\":0,\"completed\":true,\"completion_tokens\":2,\"cost_source\":null,\"cost_status\":\"unknown\",\"estimated_cost_usd\":null,\"failed\":false,\"final_response\":\"Three blue squares.\",\"input_tokens\":3,\"interrupted\":false,\"last_prompt_tokens\":3,\"last_reasoning\":null,\"messages\":[{\"content\":\"Count blue squares.\",\"role\":\"user\"},{\"content\":\"Three blue squares.\",\"role\":\"assistant\"}],\"model\":\"invented_model_3\",\"output_tokens\":2,\"partial\":false,\"pre_transform_response\":null,\"prompt_tokens\":3,\"provider\":\"synthetic_native\",\"reasoning_tokens\":0,\"response_previewed\":false,\"response_transformed\":false,\"service_tier\":null,\"session_id\":\"invented_child_session\",\"total_tokens\":5,\"turn_exit_reason\":\"text_response(finish_reason=stop)\"}",
+      "bytes": 778,
+      "sha256": "0f206048e4cea88c818267959615fe450c66cb0af91a8b125bea23e1550254ff",
+      "parents": [
+        15,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 21,
+      "identity": 137787436246304,
+      "payload": "{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}",
+      "bytes": 247,
+      "sha256": "da7594cff5f3c08b279d7cd92423526e436bf50568293aa965a12a5f49cdab1b",
+      "parents": [
+        13,
+        20
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 22,
+      "identity": 137787436246080,
+      "payload": "{\"results\": [{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}], \"total_duration_seconds\": 0.0}",
+      "bytes": 293,
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+      "parents": [
+        13,
+        20,
+        21
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "child_execution",
+        "lineage",
+        "child_specialist",
+        7,
+        9,
+        "selection_2",
+        5,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 23,
+      "identity": 137787436249824,
+      "payload": "{\"results\": [{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}], \"total_duration_seconds\": 0.0}",
+      "bytes": 293,
+      "sha256": "b4564569c551def2aa49c1094dfffd1c3ebb4246913f462cf670cb755801a6cf",
+      "parents": [
+        11,
+        13,
+        22
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 24,
+      "identity": 137787436248320,
+      "payload": "{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"execution_arguments\":{\"arguments\":[[\"goal\",true,\"Count blue squares.\"],[\"context\",true,null],[\"tasks\",false,null],[\"max_iterations\",false,null],[\"role\",true,\"leaf\"],[\"background\",false,null],[\"output_schema\",false,null],[\"action\",false,null],[\"subagent_id\",false,null],[\"message\",false,null],[\"parent_agent\",true,{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}],[\"credentials_cfg\",false,null]],\"keywords\":[[\"goal\",\"Count blue squares.\"],[\"context\",null],[\"role\",\"leaf\"],[\"parent_agent\",{\"parent_request\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3]}]],\"positional\":[]},\"observation\":{\"api_calls\":1,\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"executed\":false,\"request\":{\"messages\":[{\"content\":\"Request one leaf call.\",\"role\":\"system\"},{\"content\":\"Count blue squares.\",\"role\":\"user\"}],\"model\":\"invented_model_0\",\"stream\":false,\"tool_choice\":{\"function\":{\"name\":\"delegate_task\"},\"type\":\"function\"},\"tools\":[{\"function\":{\"name\":\"delegate_task\",\"parameters\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"type\":[\"string\",\"null\"]},\"goal\":{\"type\":\"string\"},\"role\":{\"enum\":[\"leaf\"],\"type\":\"string\"}},\"required\":[\"context\",\"goal\",\"role\"],\"type\":\"object\"}},\"type\":\"function\"}]},\"response\":{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}]}}],\"created\":1,\"id\":\"invented_response\",\"model\":\"invented_model_0\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":3,\"prompt_tokens\":5,\"total_tokens\":8}},\"status\":\"tool_call_observed\"},\"result\":{\"results\":[{\"api_calls\":1,\"duration_seconds\":0.0,\"exit_reason\":\"completed\",\"model\":\"invented_model_3\",\"status\":\"completed\",\"summary\":\"Three blue squares.\",\"task_index\":0,\"tokens\":{\"input\":3,\"output\":2},\"tool_trace\":[],\"truncated\":false}],\"total_duration_seconds\":0.0}}",
+      "bytes": 2307,
+      "sha256": "03fedd37120ee72541fb1a663d8d2fd175ad1a1af016fc3284e9ef9d90dff28c",
+      "parents": [
+        8,
+        23
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 25,
+      "identity": 137787436249472,
+      "payload": "{\"format_mode\":\"delegate_result_v1\",\"formatter_holder\":[\"owner\",\"execution\",\"lineage\",\"document_specialist\",7,9,\"selection_0\",3,[\"restricted_documents\"]],\"main_route_ref\":\"route_4_main\",\"producer_policy\":[\"producer_4\",4,[\"restricted_documents\"]],\"selection\":[\"selection_0\",3,\"chat_completions\",[\"invented_4\",\"synthetic_native\",\"invented_model_4\",\"invented_endpoint_4\",1]],\"source_call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"}}",
+      "bytes": 549,
+      "sha256": "8228042bcdf5bf5c176e3c70c6db179e556ce2389cc68c3516c7a1f3dbe7d89b",
+      "parents": [],
+      "path": null,
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 26,
+      "identity": 137787436248224,
+      "payload": "{\"call\":{\"function\":{\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\",\"name\":\"delegate_task\"},\"id\":\"invented-call-1\",\"type\":\"function\"},\"content\":\"{\\\"results\\\": [{\\\"task_index\\\": 0, \\\"status\\\": \\\"completed\\\", \\\"summary\\\": \\\"Three blue squares.\\\", \\\"api_calls\\\": 1, \\\"duration_seconds\\\": 0.0, \\\"model\\\": \\\"invented_model_3\\\", \\\"exit_reason\\\": \\\"completed\\\", \\\"truncated\\\": false, \\\"tokens\\\": {\\\"input\\\": 3, \\\"output\\\": 2}, \\\"tool_trace\\\": []}], \\\"total_duration_seconds\\\": 0.0}\",\"effect_disposition\":{\"present\":false},\"name\":\"delegate_task\",\"tool_call_id\":\"invented-call-1\"}",
+      "bytes": 608,
+      "sha256": "8add4005a3d53086e71e75bdf8f23216802187c18e6d9868f3ffeb454a1ca34c",
+      "parents": [
+        24,
+        25
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 27,
+      "identity": 137787436247488,
+      "payload": "{\"role\":\"tool\",\"name\":\"delegate_task\",\"tool_name\":\"delegate_task\",\"content\":\"{\\\"results\\\": [{\\\"task_index\\\": 0, \\\"status\\\": \\\"completed\\\", \\\"summary\\\": \\\"Three blue squares.\\\", \\\"api_calls\\\": 1, \\\"duration_seconds\\\": 0.0, \\\"model\\\": \\\"invented_model_3\\\", \\\"exit_reason\\\": \\\"completed\\\", \\\"truncated\\\": false, \\\"tokens\\\": {\\\"input\\\": 3, \\\"output\\\": 2}, \\\"tool_trace\\\": []}], \\\"total_duration_seconds\\\": 0.0}\",\"tool_call_id\":\"invented-call-1\",\"timestamp\":1795494060.191782}",
+      "bytes": 471,
+      "sha256": "4c1147b18801fb9fa5c2ec7d77f4b1901fcf3d9a34182824c796cb1b6026236b",
+      "parents": [
+        26
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 28,
+      "identity": 137787436249280,
+      "payload": "[{\"role\":\"tool\",\"name\":\"delegate_task\",\"content\":\"{\\\"results\\\": [{\\\"task_index\\\": 0, \\\"status\\\": \\\"completed\\\", \\\"summary\\\": \\\"Three blue squares.\\\", \\\"api_calls\\\": 1, \\\"duration_seconds\\\": 0.0, \\\"model\\\": \\\"invented_model_3\\\", \\\"exit_reason\\\": \\\"completed\\\", \\\"truncated\\\": false, \\\"tokens\\\": {\\\"input\\\": 3, \\\"output\\\": 2}, \\\"tool_trace\\\": []}], \\\"total_duration_seconds\\\": 0.0}\",\"tool_call_id\":\"invented-call-1\"}]",
+      "bytes": 415,
+      "sha256": "01c141a03033fe3920d4434eef50e21841b17aad96b92b5c5dabb1c66364c5b8",
+      "parents": [
+        27
+      ],
+      "path": "tool_result",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 29,
+      "identity": 137787436248480,
+      "payload": "[{\"role\":\"assistant\",\"content\":\"\",\"reasoning\":null,\"finish_reason\":\"tool_calls\",\"tool_calls\":[{\"id\":\"invented-call-1\",\"type\":\"function\",\"function\":{\"name\":\"delegate_task\",\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\"}}]}]",
+      "bytes": 259,
+      "sha256": "3c20f50a804e6a4a5022eeae19f1780f532e7721dda64e60889b0911a1f6f9d5",
+      "parents": [
+        6
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    },
+    {
+      "index": 30,
+      "identity": 137787436252160,
+      "payload": "[{\"role\":\"assistant\",\"content\":\"\",\"reasoning\":null,\"finish_reason\":\"tool_calls\",\"tool_calls\":[{\"id\":\"invented-call-1\",\"type\":\"function\",\"function\":{\"name\":\"delegate_task\",\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\"}}]},{\"role\":\"tool\",\"name\":\"delegate_task\",\"content\":\"{\\\"results\\\": [{\\\"task_index\\\": 0, \\\"status\\\": \\\"completed\\\", \\\"summary\\\": \\\"Three blue squares.\\\", \\\"api_calls\\\": 1, \\\"duration_seconds\\\": 0.0, \\\"model\\\": \\\"invented_model_3\\\", \\\"exit_reason\\\": \\\"completed\\\", \\\"truncated\\\": false, \\\"tokens\\\": {\\\"input\\\": 3, \\\"output\\\": 2}, \\\"tool_trace\\\": []}], \\\"total_duration_seconds\\\": 0.0}\",\"tool_call_id\":\"invented-call-1\"}]",
+      "bytes": 673,
+      "sha256": "6f5b4793e6c7e56348a2d60b6ee4466e3c6e5b621f59b42e96741993b7a1244f",
+      "parents": [
+        29,
+        28
+      ],
+      "path": "main",
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "selection_0",
+        3,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "profiles": [
+        "restricted_documents"
+      ]
+    }
+  ],
+  "pair": {
+    "phase": "denied",
+    "windows": 3,
+    "raw_messages": [
+      {
+        "role": "assistant",
+        "content": "",
+        "reasoning": null,
+        "finish_reason": "tool_calls",
+        "tool_calls": [
+          {
+            "id": "invented-call-1",
+            "type": "function",
+            "function": {
+              "name": "delegate_task",
+              "arguments": "{\"context\":null,\"goal\":\"Count blue squares.\",\"role\":\"leaf\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "name": "delegate_task",
+        "content": "{\"results\": [{\"task_index\": 0, \"status\": \"completed\", \"summary\": \"Three blue squares.\", \"api_calls\": 1, \"duration_seconds\": 0.0, \"model\": \"invented_model_3\", \"exit_reason\": \"completed\", \"truncated\": false, \"tokens\": {\"input\": 3, \"output\": 2}, \"tool_trace\": []}], \"total_duration_seconds\": 0.0}",
+        "tool_call_id": "invented-call-1"
+      }
+    ],
+    "raw_bytes": "[{\"role\":\"assistant\",\"content\":\"\",\"reasoning\":null,\"finish_reason\":\"tool_calls\",\"tool_calls\":[{\"id\":\"invented-call-1\",\"type\":\"function\",\"function\":{\"name\":\"delegate_task\",\"arguments\":\"{\\\"context\\\":null,\\\"goal\\\":\\\"Count blue squares.\\\",\\\"role\\\":\\\"leaf\\\"}\"}}]},{\"role\":\"tool\",\"name\":\"delegate_task\",\"content\":\"{\\\"results\\\": [{\\\"task_index\\\": 0, \\\"status\\\": \\\"completed\\\", \\\"summary\\\": \\\"Three blue squares.\\\", \\\"api_calls\\\": 1, \\\"duration_seconds\\\": 0.0, \\\"model\\\": \\\"invented_model_3\\\", \\\"exit_reason\\\": \\\"completed\\\", \\\"truncated\\\": false, \\\"tokens\\\": {\\\"input\\\": 3, \\\"output\\\": 2}, \\\"tool_trace\\\": []}], \\\"total_duration_seconds\\\": 0.0}\",\"tool_call_id\":\"invented-call-1\"}]",
+    "raw_hex": "5b7b22726f6c65223a22617373697374616e74222c22636f6e74656e74223a22222c22726561736f6e696e67223a6e756c6c2c2266696e6973685f726561736f6e223a22746f6f6c5f63616c6c73222c22746f6f6c5f63616c6c73223a5b7b226964223a22696e76656e7465642d63616c6c2d31222c2274797065223a2266756e6374696f6e222c2266756e6374696f6e223a7b226e616d65223a2264656c65676174655f7461736b222c22617267756d656e7473223a227b5c22636f6e746578745c223a6e756c6c2c5c22676f616c5c223a5c22436f756e7420626c756520737175617265732e5c222c5c22726f6c655c223a5c226c6561665c227d227d7d5d7d2c7b22726f6c65223a22746f6f6c222c226e616d65223a2264656c65676174655f7461736b222c22636f6e74656e74223a227b5c22726573756c74735c223a205b7b5c227461736b5f696e6465785c223a20302c205c227374617475735c223a205c22636f6d706c657465645c222c205c2273756d6d6172795c223a205c22546872656520626c756520737175617265732e5c222c205c226170695f63616c6c735c223a20312c205c226475726174696f6e5f7365636f6e64735c223a20302e302c205c226d6f64656c5c223a205c22696e76656e7465645f6d6f64656c5f335c222c205c22657869745f726561736f6e5c223a205c22636f6d706c657465645c222c205c227472756e63617465645c223a2066616c73652c205c22746f6b656e735c223a207b5c22696e7075745c223a20332c205c226f75747075745c223a20327d2c205c22746f6f6c5f74726163655c223a205b5d7d5d2c205c22746f74616c5f6475726174696f6e5f7365636f6e64735c223a20302e307d222c22746f6f6c5f63616c6c5f6964223a22696e76656e7465642d63616c6c2d31227d5d",
+    "handle": 30,
+    "before": [
+      30,
+      3,
+      27221
+    ],
+    "after": [
+      31,
+      3,
+      27894
+    ],
+    "results": 0,
+    "policy_observations": [
+      [
+        1,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        1,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        1,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        1,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        2,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        2,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        2,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        2,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        3,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        3,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        3,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        10
+      ],
+      [
+        3,
+        [
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_0",
+                "synthetic_native",
+                "invented_model_0",
+                "invented_endpoint_0",
+                1
+              ]
+            ],
+            [
+              "producer_0",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_1",
+                "synthetic_native",
+                "invented_model_1",
+                "invented_endpoint_1",
+                1
+              ]
+            ],
+            [
+              "producer_1",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_2",
+                "synthetic_native",
+                "invented_model_2",
+                "invented_endpoint_2",
+                1
+              ]
+            ],
+            [
+              "producer_2",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "child_execution",
+              "lineage",
+              "child_specialist",
+              7,
+              9,
+              "selection_2",
+              5,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_2",
+              5,
+              "chat_completions",
+              [
+                "invented_3",
+                "synthetic_native",
+                "invented_model_3",
+                "invented_endpoint_3",
+                1
+              ]
+            ],
+            [
+              "producer_3",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ],
+          [
+            [
+              "owner",
+              "execution",
+              "lineage",
+              "document_specialist",
+              7,
+              9,
+              "selection_0",
+              3,
+              [
+                "restricted_documents"
+              ]
+            ],
+            [
+              "selection_0",
+              3,
+              "chat_completions",
+              [
+                "invented_4",
+                "synthetic_native",
+                "invented_model_4",
+                "invented_endpoint_4",
+                1
+              ]
+            ],
+            [
+              "producer_4",
+              4,
+              [
+                "restricted_documents"
+              ]
+            ]
+          ]
+        ],
+        [
+          "owner",
+          "child_execution",
+          "lineage",
+          "child_specialist",
+          7,
+          9,
+          "selection_2",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        10,
+        50
+      ]
+    ],
+    "control_type": null
+  }
+}

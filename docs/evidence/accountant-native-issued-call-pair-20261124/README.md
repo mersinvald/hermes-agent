@@ -107,3 +107,15 @@ The STE helper has no `--help` option. That failed inspection runs no functional
 Full P10/P06 and every downstream gate in the consumer contract remain open.
 Root retains acceptance, merge, Beads closure, and all wider activation decisions.
 A draft PR, zero checks, or a pending status supplies no CI success claim.
+
+## Separate corrected expiry qualification
+
+The [separate qualification](expiry-qualification/README.md) passes the unchanged corrected expiry case once in 266.7610983170016 supervisor seconds.
+It retains actual J673, then refuses release at final time 50 with zero pair results.
+Selected main grants remain live until 100. Required fallback grants expire at 50.
+All corrected postconditions pass after exception propagation skips normal scope-exit validation.
+
+This closes the corrected expiry harness gap from the original task.
+The original failed execution, source scopes, reports, and handoff remain exact.
+This separate result supplies no fresh combined whole-file pass or source acceptance.
+PR21 stays draft. Root retains acceptance, merge, Beads closure, and all wider gates.
