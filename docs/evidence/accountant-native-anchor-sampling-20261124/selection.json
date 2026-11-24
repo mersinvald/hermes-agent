@@ -1,0 +1,8 @@
+{
+  "plugin_source": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/tests/native_anchor_sampler_plugin.py",
+  "selected_ids": [
+    "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+  ],
+  "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/.venv/bin/python",
+  "python": "3.11.15 (main, Jun 11 2026, 04:03:40) [Clang 22.1.3 ]"
+}

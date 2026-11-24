@@ -1,0 +1,478 @@
+{
+  "issue": "hpwa-p10.54",
+  "base": "19c4e8630724932059c2d00283507504a37b0844",
+  "base_tree": "38513b8496334f880aca2ca0cc68d641ac87dd38",
+  "base_paths": 12033,
+  "input_receipt_sha256": "5adeaeb6f47f060f83139775195bdf450373ab75154f59afe4dfb8bedd920385",
+  "warm": {
+    "pin_checks": [
+      {
+        "path": "agent/native_main_payload.py",
+        "sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+        "blob": "12a9e2621d04a5237b91f2a04ec5f292889f8e4d"
+      },
+      {
+        "path": "agent/content_policy.py",
+        "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836",
+        "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a"
+      },
+      {
+        "path": "agent/issued_call_episode.py",
+        "sha256": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8",
+        "blob": "a19675761ceb14636afdebdd63b829917dd042e4"
+      },
+      {
+        "path": "tests/tools/test_native_issued_call_episode.py",
+        "sha256": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08",
+        "blob": "49281217d22d5c4ca21740bfa0de7589813fea35"
+      },
+      {
+        "path": "tests/tools/test_native_issued_call_continuation.py",
+        "sha256": "1cb07f12079b4a4d508e345aa71caa2a5fdb398d420484b4cacebf39ab6648a0",
+        "blob": "7a890b6304586c0455641e394f04e45752a5a55c"
+      },
+      {
+        "path": "scripts/run_tests.sh",
+        "sha256": "9ef635bcee1f879d31f37b4eeccab6e203283036d38ed0bf4e249efcd7d0469e",
+        "blob": "4445d6d5428b657e3d780903915229acbc1666ce"
+      },
+      {
+        "path": "scripts/run_tests_parallel.py",
+        "sha256": "d71999ea44ef18352ff0f0d08512fae2109ac748a654553b15aa02d72f368bd9",
+        "blob": "eb923cc9b43b3a7af8a2f19461ce91e38e18ec10"
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "bc923dc261db9e123f271a8a4d3994bf6e3be0d1469dfbb3555f596453e260bb",
+        "blob": "7ad222cd54779b2669d1177ba774265720326da4"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt",
+        "sha256": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90",
+        "blob": "c06ec3e8b1f82edba2934c7d5a58836b796b15a6"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/command.json",
+        "sha256": "ae4d74e82093f7d349bb93d89e06ae61f192b0f093c07a4c17b9cf30d20b31ee",
+        "blob": "2232611a343ec6f75c02ce096368c7db47946caa"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/validation.json",
+        "sha256": "7555cf4f4dd48a1e21dda9fc167fb2d361e58e438a3ba06856bbb706e5716033",
+        "blob": "a1805e7d3b16333140a4a39d9f159b8ceb065789"
+      },
+      {
+        "path": "docs/evidence/accountant-native-issued-call-episode-20261124/genuine-qualification/genuine.receipts.jsonl",
+        "sha256": "75a27f8598033880f69a83c96bbdd732831d3ca6c92ef90d46ca080c254de43b",
+        "blob": "70c8fe29538965e852b414a500da0db2e7f39400"
+      }
+    ],
+    "protected_receipts_verified": 4,
+    "environment_verified": 5,
+    "support_verified": 1,
+    "elapsed_seconds": 0.06258500900003128
+  },
+  "cheap": {
+    "results": [
+      {
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_anchor_sampler.py",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "20",
+          "--",
+          "-p",
+          "tests.native_anchor_sampler_plugin",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/docs/evidence/accountant-native-anchor-sampling-20261124/cheap.xml",
+          "-q"
+        ],
+        "returncode": 0,
+        "elapsed_seconds": 9.584943798006861
+      },
+      {
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_issued_call_episode.py",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "20",
+          "--",
+          "-p",
+          "tests.native_anchor_sampler_plugin",
+          "-k",
+          "test_genuine_issued_call_episode",
+          "--collect-only",
+          "-o",
+          "junit_family=xunit1",
+          "--native-anchor-selection=/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/docs/evidence/accountant-native-anchor-sampling-20261124/selection.json",
+          "-q"
+        ],
+        "returncode": 1,
+        "elapsed_seconds": 3.6241774140071357
+      },
+      {
+        "command": [
+          "scripts/run_tests.sh",
+          "tests/tools/test_native_anchor_sampler.py",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "15",
+          "--",
+          "-p",
+          "tests.native_anchor_sampler_plugin",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=docs/evidence/accountant-native-anchor-sampling-20261124/cheap-final.xml",
+          "-q"
+        ],
+        "returncode": 0,
+        "elapsed_seconds": 1.968983387996559
+      }
+    ],
+    "total_seconds": 15.17841869199765
+  },
+  "selection": {
+    "plugin_source": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/tests/native_anchor_sampler_plugin.py",
+    "selected_ids": [
+      "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+    ],
+    "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/.venv/bin/python",
+    "python": "3.11.15 (main, Jun 11 2026, 04:03:40) [Clang 22.1.3 ]"
+  },
+  "freeze_sha256": {
+    "tests/native_anchor_sampler_plugin.py": "e623c14a2ec9a6fae0ad1beeae319e4342f28c8f310a2b9bc6182b8894d02178",
+    "tests/tools/test_native_anchor_sampler.py": "b158a325dde6107558d016724976847d54a1ac7c7d99d57501815f6013e0b1a3",
+    "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+    "agent/issued_call_episode.py": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8",
+    "tests/tools/test_native_issued_call_episode.py": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90"
+  },
+  "functional_outcome": "passed",
+  "diagnostic_outcome": "FAILED: frame filename scope classification",
+  "scope": "One unchanged synthetic genuine host case with one bounded code-position observation window.",
+  "prelaunch_floor": {
+    "task_elapsed_seconds": 422.21435260772705,
+    "task_remaining_seconds": 1377.785647392273,
+    "validation_charged_seconds": 65.17841869199765,
+    "validation_remaining_seconds": 834.8215813080024,
+    "required_seconds": 780,
+    "warm_conservative_allowance_seconds": 45,
+    "static_freeze_allowance_seconds": 5,
+    "cheap_combined_seconds": 15.17841869199765
+  },
+  "freeze_commit": "8eb8e9502de278dfc1c7c22c406a682a26adf2b7",
+  "genuine": {
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/tools/test_native_issued_call_episode.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "595",
+      "--",
+      "-p",
+      "tests.native_anchor_sampler_plugin",
+      "-k",
+      "test_genuine_issued_call_episode",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=docs/evidence/accountant-native-anchor-sampling-20261124/genuine.xml",
+      "-q"
+    ],
+    "outer_cap_seconds": 600,
+    "file_cap_seconds": 595,
+    "requested_ids": [
+      "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode"
+    ],
+    "start_utc": "2026-11-24T10:53:32.217120+00:00",
+    "start_monotonic_ns": 118598181682350,
+    "outcome": "finished",
+    "returncode": 0,
+    "timed_out": false,
+    "elapsed_seconds": 537.8043483729998,
+    "end_utc": "2026-11-24T11:02:30.021816+00:00"
+  },
+  "task_outcome": "failed",
+  "bounded_window_outcome": "passed",
+  "profile_scope_validation": {
+    "outcome": "failed",
+    "reason": "The frozen collector used a lexical worktree prefix and included dependency frames through the .venv symlink.",
+    "affected_code_descriptors": 27,
+    "published_correction": "Affected descriptors and current lines map to the external category. Code IDs and numeric aggregates remain unchanged.",
+    "original_profile_sha256": "67c02424f6d7685a03e8de15c4ba1ca62579f047bdc034f057b2d34e2f92f7c4",
+    "original_profile_protected_path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.54/sample.original.json",
+    "collector_source_unchanged_after_launch": true
+  },
+  "genuine_actual_id": "tests/tools/test_native_issued_call_episode.py::test_genuine_issued_call_episode",
+  "actual_receipts": {
+    "records": 54,
+    "boundary_records": 52,
+    "loaded_paths": {
+      "paths": {
+        "agent.native_main_payload": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/agent/native_main_payload.py",
+        "run_agent": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/run_agent.py",
+        "agent.issued_call_episode": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/agent/issued_call_episode.py"
+      },
+      "interpreter": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/.venv/bin/python",
+      "prefix": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.54/.venv"
+    },
+    "final_sends": [
+      1,
+      0,
+      1,
+      1,
+      0,
+      1
+    ],
+    "final_charges_and_retained_bytes": [
+      38,
+      4,
+      32850
+    ],
+    "final_owner_phase": "released",
+    "final_windows": 6,
+    "original_episode_elapsed_seconds": 532.3413854989922,
+    "final_graph_records": 38,
+    "final_graph_bytes": 32850
+  },
+  "environment_after": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "bytes": 197,
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "bytes": 160,
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "bytes": 756,
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "bytes": 87,
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "installed_hook_source": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/hookspec.py",
+      "bytes": 41840,
+      "sha256": "12098571044671c24ed0011e2bb7d94976380265e5734c30f856479482e6f88d"
+    }
+  ],
+  "protected_input_receipts": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.53.final-review.json",
+      "bytes": 1585,
+      "sha256": "53a70bcfe115d4975fe7380607379e0dde13789edb4a46ae3cbbf9ae83a8e777"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.53.publication.json",
+      "bytes": 1360,
+      "sha256": "784518d0dfe81e8ab5c0abee326cf719c87d675ec1d3b172d920f3fdf72b811d"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.53/worker-handoff.json",
+      "bytes": 21461,
+      "sha256": "4d86b552e54e06ffbf220f83fb56293171989c3b9b2bbaa88da3587b3138ac14"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.50.final-review.json",
+      "bytes": 4182,
+      "sha256": "4b1e8ff6bb3ff4fc590b44ae0e4f5e5ab49e67344960f98d89fecf30eb483019"
+    }
+  ],
+  "source_preservation": {
+    "base_paths": 12033,
+    "all_original_worktree_filtered_blobs_and_git_modes_exact": true,
+    "checkout_normalization_feedback": {
+      "initial_check": "Raw-byte SHA1 comparison failed on normal CRLF checkout normalization.",
+      "normalized_paths": [
+        {
+          "path": "optional-skills/software-development/ast-grep/install.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "optional-skills/software-development/ast-grep/tests/smoke.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/ci/test_install_ps1_cli_launchers.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/ci/test_install_ps1_path_migration.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/desktop-update.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/desktop-update/retry-policy.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/desktop-update/windows.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/install.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/tests/test-install-ps1-gitbash-compatibility.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/tests/test-install-ps1-longpath.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/tests/test-install-ps1-node-compatibility.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        },
+        {
+          "path": "scripts/tests/test-install-ps1-stage-protocol.ps1",
+          "crlf_normalized_blob_matches": true,
+          "git_filtered_blob_matches": true
+        }
+      ]
+    },
+    "all_committed_changes_additions_only": true,
+    "native_source_sha256": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc"
+  },
+  "sampler_summary": {
+    "observations": 130,
+    "actual_window_seconds": 2.005214129,
+    "overrun_seconds": 0.005214129000000067,
+    "start_monotonic_ns": 118906531685987,
+    "end_monotonic_ns": 118908536900116,
+    "truncated_stacks": 0,
+    "pretrigger_poll_count": 5524,
+    "observer_cpu_seconds": 0.713576145,
+    "observer_wall_seconds": 307.32322651900176,
+    "observation_active_wall_seconds": 0.037405789000331424,
+    "cleanup": true,
+    "stop_reason": "deadline",
+    "errors": []
+  },
+  "static_review": {
+    "forbidden_call_names_absent": [
+      "sys.setprofile",
+      "sys.settrace",
+      "signal.signal",
+      "repr",
+      "getattr",
+      "vars"
+    ],
+    "f_locals_read_count": 3,
+    "allowed_local_entries": [
+      "result",
+      "value",
+      "snapshot"
+    ],
+    "manual_review": [
+      "Only target thread frame lookup, with immediate temporary dictionary release",
+      "Pinned native code identity for both trigger methods",
+      "No native method call from observer",
+      "Code descriptors and numeric structural sizes only",
+      "Public pytest hook wrapper yields without outcome replacement",
+      "Original conftest creates isolated HERMES_HOME before imports and per test",
+      "Partial sample output before test completion and bounded join at call completion"
+    ],
+    "new_source_lines": 341
+  },
+  "ledger": {
+    "task_start_utc": "2026-11-24T10:46:30Z",
+    "conservative_pre_ledger_allowance_seconds": 45,
+    "ledger_created_utc": "2026-11-24T10:47:12.579163+00:00",
+    "task_cap_seconds": 1800,
+    "validation_publication_cap_seconds": 900,
+    "plan_seconds": {
+      "warm": 90,
+      "cheap": 30,
+      "genuine": 600,
+      "final": 120,
+      "reserve": 60
+    },
+    "events": [
+      {
+        "type": "ledger_label_correction",
+        "initial_allowance_seconds": 18,
+        "corrected_allowance_seconds": 45,
+        "reason": "18 seconds covered the lead-in to the first clock read only; 45 seconds covers the full interval through ledger creation. The earlier task start and task cap are unchanged."
+      }
+    ],
+    "implementation_elapsed_before_launch_seconds": 357.0359339157294,
+    "prelaunch_task_elapsed_seconds": 422.21435260772705,
+    "prelaunch_validation_charged_seconds": 65.17841869199765,
+    "prelaunch_validation_cost_method": "45-second warm allowance + 15.17841869199765-second measured cheap commands + 5-second static and freeze allowance",
+    "genuine_launch_utc": "2026-11-24T10:53:32Z"
+  },
+  "final_verification_elapsed_seconds": 70.3826717500051,
+  "publication": "Final head, draft PR, remote metadata, costs and clean porcelain are recorded in the protected worker handoff.",
+  "final_work_plan_extension": {
+    "original_seconds": 120,
+    "revised_seconds": 180,
+    "reported_before_expansion": true,
+    "reason": "Review and record the frame filename scope failure, sanitize publication descriptors, and preserve corrected check feedback."
+  },
+  "validation_feedback": {
+    "collection_only_runner_returncode": 1,
+    "resolved_by": "selection.json records one exact target and pinned source check passed",
+    "preservation": "Initial raw-byte check rejected normal CRLF checkout files; original Git filters confirm exact base blobs without source edits.",
+    "prose": "Earlier STE paragraph findings remain in static.log. Final prose splits those paragraphs."
+  },
+  "final_cost_snapshot": {
+    "task_elapsed_seconds": 1085.5259687900543,
+    "final_phase_elapsed_seconds": 113.11704342201119,
+    "concurrent_publication_prework_extra_allowance_seconds": 45,
+    "final_cost_location": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.54/worker-handoff.json"
+  },
+  "final_static": {
+    "ruff_F_E9_new_plugin_and_unit": "passed on frozen source",
+    "ste_new_plugin_unit_readme_pr_body_violations": 0,
+    "whitespace": "passed",
+    "native_historical_F401_line": 6271,
+    "native_historical_F401_scope": "unchanged and not rerun",
+    "ci_success_claim": false
+  }
+}

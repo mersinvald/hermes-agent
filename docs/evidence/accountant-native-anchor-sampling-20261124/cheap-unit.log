@@ -1,0 +1,17 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~9 tests) under ['tests/tools/test_native_anchor_sampler.py']; running with -j 1
+[100.0% |     9/~9 | ✓13 | ✗ 0] ✓ tests/tools/test_native_anchor_sampler.py (13✓, 1.6s)
+
+=== Summary: 1 files, 13 tests passed, 0 failed (100% complete) in 1.6s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 1.6s  (runner wall: 1.6s, parallelism: 1x)
+  P50: 1.57s  P90: 1.57s  P95: 1.57s  P99: 1.57s  Max: 1.57s
+  <1s: 0 files (0%)  <2s: 1 files (100%)
+  Top 10 slowest:
+      1.57s  tests/tools/test_native_anchor_sampler.py

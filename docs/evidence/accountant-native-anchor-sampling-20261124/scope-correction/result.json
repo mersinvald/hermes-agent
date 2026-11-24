@@ -1,0 +1,356 @@
+{
+  "repair_task": "task_78de4215143f",
+  "original_task": "task_75c367b00f67",
+  "initial_head": "51a899759b9dda7cc06fdd59e18a5fe17a26d396",
+  "accepted_base": "19c4e8630724932059c2d00283507504a37b0844",
+  "source_pins": {
+    "tests/native_anchor_sampler_plugin.py": "c4e23997a68906b9299056551dbf68e1aab751b662a0f93e8615ae1006823dd4",
+    "tests/tools/test_native_anchor_sampler.py": "c348eb14502ec2f44e8c476cfebb17b45c5b6536ea2eb26fdace33c6da65c848",
+    "docs/evidence/accountant-native-anchor-sampling-20261124/scope-correction/audit.py": "94c19edef12585e2de5d1bb0557eb727bccc123f7e3079877a6ca1a8150d5f8b"
+  },
+  "runtime_host_test_api_pins": {
+    "agent/native_main_payload.py": "d89bf29d21deb65e5dd717bb33bf9cdd633ec47409a554e1c7b1f0076cd4c3dc",
+    "agent/issued_call_episode.py": "a633b1c86ca6364f81010dff920032075075270d247c21692f61e42cd23a30b8",
+    "tests/tools/test_native_issued_call_episode.py": "9ccd4485ad2893d9750371be7e26ce8c8427766c843cac09c96723ad95947a08",
+    "docs/evidence/accountant-native-issued-call-episode-20261124/api.txt": "ebd407c41dbe81d305e8c91e66c9f0e06776511a26b62198bae6186077bd4f90"
+  },
+  "checks": [
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/tools/test_native_anchor_sampler.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "25",
+        "--",
+        "-p",
+        "tests.native_anchor_sampler_plugin",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=docs/evidence/accountant-native-anchor-sampling-20261124/scope-correction/unit.xml",
+        "-q"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.5210051050089533,
+      "outer_cap_seconds": 30
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "docs/evidence/accountant-native-anchor-sampling-20261124/scope-correction/audit.py",
+        "--private-original",
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.54/sample.original.json",
+        "--output",
+        "docs/evidence/accountant-native-anchor-sampling-20261124/scope-correction/audit-result.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.06394524399365764,
+      "outer_cap_seconds": 15
+    }
+  ],
+  "unit_cases": [
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_call_hook_placement",
+      "duration_seconds": 0.735
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_target_thread_and_both_trigger_codes",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_frame_cap_and_code_only_external_filter",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_deadline_sample_cap_and_cleanup",
+      "duration_seconds": 0.091
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_stop_before_trigger_and_observer_error",
+      "duration_seconds": 0.03
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_exact_builtin_metadata_without_custom_protocols",
+      "duration_seconds": 0.013
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_recursive_occurrences_are_separate_from_presence",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_invalid_bounds[kwargs0]",
+      "duration_seconds": 0.013
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_invalid_bounds[kwargs1]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_invalid_bounds[kwargs2]",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_invalid_bounds[kwargs3]",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_invalid_bounds[kwargs4]",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_call_hook_preserves_original_exception",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[project-pkg/observed.py]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[selected_stdlib-stdlib/dataclasses.py]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[unselected_stdlib-<external>]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[symlink_escape-<external>]",
+      "duration_seconds": 0.018
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[nested_escape-<external>]",
+      "duration_seconds": 0.016
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[prefix_collision-<external>]",
+      "duration_seconds": 0.016
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[relative-<external>]",
+      "duration_seconds": 0.016
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[resolution_loop-<external>]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[missing_file-<external>]",
+      "duration_seconds": 0.018
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[in_root_alias-pkg/observed.py]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[root_alias-pkg/observed.py]",
+      "duration_seconds": 0.014
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[stdlib_root_alias-stdlib/dataclasses.py]",
+      "duration_seconds": 0.015
+    },
+    {
+      "nodeid": "tests/tools/test_native_anchor_sampler.py::test_canonical_descriptor_scope[selected_stdlib_escape-<external>]",
+      "duration_seconds": 0.014
+    }
+  ],
+  "old_evidence_pins": [
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/README.md",
+      "mode": "100644",
+      "blob": "dde794a3b87cc17129134ecba08ada15d7869701",
+      "sha256": "3b22cca3e178a405cdfac862ed5cb23244a375ab27835878d3180063ac39dc5a"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/cheap-final.log",
+      "mode": "100644",
+      "blob": "fd2f365016122cdc65b80e7c7b57da09ee57d060",
+      "sha256": "44b6b3d50ccc61e872a2e0db4e3e1955d388bb592cba552e6e6f34b11da9d4bd"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/cheap-final.xml",
+      "mode": "100644",
+      "blob": "135ab506eeb5a5bf8d91a78c605d576f42f2f75a",
+      "sha256": "104962e5c23bbf0b6904f33a920a3197f02549402e02cd393e556f796b52800f"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/cheap-selection.log",
+      "mode": "100644",
+      "blob": "6d5f35cc86b90e25f4d9e86122e9f06b838553b7",
+      "sha256": "5f1e6bf5ac7d896e1bef2c1d559981a9b3151dce2b395c06dcefa9fd9f49ef59"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/cheap-unit.log",
+      "mode": "100644",
+      "blob": "e38c875e78a8744b7e82651cb0acc70f6f1e0fc1",
+      "sha256": "e8e698a2c7fe31e5e2a972e525eb03d7a6b5941fb756a54ae4921b48978bf453"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/cheap.xml",
+      "mode": "100644",
+      "blob": "43cd003dc44c41ff20e55b232dc2c02d89e47324",
+      "sha256": "2269da48edf7e4b5a2b639d3c289d7bc5579c045f44b20a65d5905dbe48f3373"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/genuine.log",
+      "mode": "100644",
+      "blob": "3ab170586f78016fcc9583619c4b31056ce685a8",
+      "sha256": "ef7d291c995c0467fbc3e9cd371abdf1e7dae0f58bccd7f7a8e99d7ab52364e2"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/genuine.receipts.jsonl",
+      "mode": "100644",
+      "blob": "215c32652ae064359e9fafae191bc93af6f530fd",
+      "sha256": "f875693da50a6dd3096a82bcdfcc9053d350bbab73e23161dc6d1bd345655a9e"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/genuine.xml",
+      "mode": "100644",
+      "blob": "02e913415478cc5c938ac70a2589158cc1cbf68f",
+      "sha256": "6ab0a525c19f322ff050e85bbfe3bab70ef5bbe952f0d32c94ece1454f945803"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/manifest.json",
+      "mode": "100644",
+      "blob": "8fa2e3042e0a5dae9bb2fbd2cc42ff325fd1c9ec",
+      "sha256": "a45ad6ed9efa52f75263a920f0a5842d0fedc4c412c32cab653c76a8ebb9611a"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/sample.json",
+      "mode": "100644",
+      "blob": "1105ae88a1c8faeaabee84957704278133f76229",
+      "sha256": "407446fd5d531e3bc6767c93c22385f81f0486531f857a7cb2935d3153d166c6"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/selection.json",
+      "mode": "100644",
+      "blob": "ef6fa7c1f0573848a5e572bb78642368ad41374f",
+      "sha256": "2f25e95d42dd91077b7e4b68ff4928a4238a89aac41f2b495e77bddcf153b35b"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/static.log",
+      "mode": "100644",
+      "blob": "4d1327e3662b1d3a2944e21714be4eafe2cbb0a2",
+      "sha256": "151f3134aa94a8c751e6fa944961cd17bc2698ebc8a02a554fb806d408663afe"
+    },
+    {
+      "path": "docs/evidence/accountant-native-anchor-sampling-20261124/validation.json",
+      "mode": "100644",
+      "blob": "a8c59fded8dd287f6b37237affb67b3f66eb39b3",
+      "sha256": "ef7d82a34e5cae235c7bc5222e17218130e063bdbe91d97bba1f14f3f8d438a7"
+    }
+  ],
+  "audit": {
+    "original_sha256": "67c02424f6d7685a03e8de15c4ba1ca62579f047bdc034f057b2d34e2f92f7c4",
+    "public_sha256": "407446fd5d531e3bc6767c93c22385f81f0486531f857a7cb2935d3153d166c6",
+    "plugin_sha256": "c4e23997a68906b9299056551dbf68e1aab751b662a0f93e8615ae1006823dd4",
+    "audit_sha256": "94c19edef12585e2de5d1bb0557eb727bccc123f7e3079877a6ca1a8150d5f8b",
+    "result": "PASS",
+    "descriptor_redactions": 27,
+    "redacted_code_ids": [
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      57,
+      58,
+      59,
+      60,
+      61,
+      64,
+      68,
+      78,
+      79
+    ],
+    "coordinates": {
+      "top_positions": {
+        "rows": 26,
+        "redacted_current_lines": 3,
+        "duplicate_coordinates_preserved": 0
+      },
+      "all_positions": {
+        "rows": 120,
+        "redacted_current_lines": 30,
+        "duplicate_coordinates_preserved": 3
+      }
+    },
+    "example_current_line_redactions": 90,
+    "observation_payload_exact": true,
+    "code_ids_counts_depths_timestamps_sizes_exact": true,
+    "native_positions_and_example_order_exact": true,
+    "historical_qualification_fields_unchanged": true,
+    "private_modes_verified": true,
+    "existing_public_view_reused_by_hash": true,
+    "native_runtime_imports": 0,
+    "new_sample_windows": 0,
+    "qualification": {
+      "original_capture": "FAILED",
+      "filtered_observation_view": "PASS",
+      "corrected_collector": "unit qualification recorded separately",
+      "corrected_live_capture": "UNEXECUTED",
+      "original_functional_history": "PASSED once at the original pin",
+      "original_task_and_budget": "FAILED and unchanged"
+    }
+  },
+  "preservation": {
+    "plugin_AST_exact_outside_descriptor_and_private_classifier": true,
+    "existing_13_unit_cases_byte_exact_prefix": true,
+    "old_evidence_files_byte_exact": 14,
+    "immutable_environment_files_exact": 5,
+    "all_12033_original_Git_blobs_modes": "Final commit and handoff verify tree identity.",
+    "original_protected_hash_and_modes": "Verified before and during deterministic audit."
+  },
+  "qualification": {
+    "repair": "PASS within this bounded scope, pending publication verification",
+    "original_capture_scope": "FAILED",
+    "filtered_observation_view": "PASS",
+    "corrected_collector": "unit-qualified only",
+    "corrected_live_capture": "UNEXECUTED",
+    "original_functional_history": "PASSED once at its original pin",
+    "original_Task_and_budget": "FAILED and unchanged"
+  },
+  "new_genuine_histories": 0,
+  "new_sample_windows": 0,
+  "feedback": [
+    {
+      "check": "STE README",
+      "initial": "The six-row qualification table exceeded the mechanical paragraph line limit.",
+      "correction": "The new README uses short scope paragraphs. No observation or qualification changed."
+    }
+  ],
+  "static": {
+    "ruff_F_E9_changed_plugin_unit": "PASS",
+    "STE_new_prose": "PASS, zero final violations and em dashes",
+    "whitespace": "PASS",
+    "native_F401_line_6271": "Unchanged and outside scope"
+  },
+  "costs": {
+    "measured_unit_seconds": 3.5210051050089533,
+    "measured_audit_seconds": 0.06394524399365764,
+    "preliminary_read_static_allowance_seconds": 6,
+    "verification_seconds": 0.05052549100946635,
+    "total_wall_cap_seconds": 600,
+    "measured_checks_publication_cap_seconds": 120,
+    "final_reserve_seconds": 60,
+    "final_costs_location": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.54/scope-correction-handoff.json"
+  },
+  "publication": "Existing draft PR26 only; exact final metadata and clean porcelain in protected repair handoff."
+}
