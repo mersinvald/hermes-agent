@@ -1,0 +1,36 @@
+[
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 58,
+      "row": 6303
+    },
+    "filename": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.55/agent/native_main_payload.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6304
+          },
+          "location": {
+            "column": 1,
+            "row": 6303
+          }
+        }
+      ],
+      "message": "Remove unused import: `agent.content_policy.content_policy_scope`"
+    },
+    "location": {
+      "column": 38,
+      "row": 6303
+    },
+    "message": "`agent.content_policy.content_policy_scope` imported but unused",
+    "noqa_row": 6303,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  }
+]

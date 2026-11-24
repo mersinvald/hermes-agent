@@ -1,0 +1,140 @@
+{
+  "helper_source_exact": true,
+  "wrapper_source_exact": true,
+  "all_old_definitions_and_constants_exact": true,
+  "all_old_signatures_exact": true,
+  "oracle_and_comparison_exact": true,
+  "global_facts": {
+    "NativeMainChoice": {
+      "module": "agent.native_main_payload",
+      "name": "NativeMainChoice"
+    },
+    "NativeAuxiliaryLocalResult": {
+      "module": "agent.native_main_payload",
+      "name": "NativeAuxiliaryLocalResult"
+    },
+    "frozenset": {
+      "module": "builtins",
+      "name": "frozenset"
+    },
+    "_AuxiliaryTitlePreparation": {
+      "module": "agent.native_main_payload",
+      "name": "_AuxiliaryTitlePreparation"
+    },
+    "_FallbackFrame": {
+      "module": "agent.native_main_payload",
+      "name": "_FallbackFrame"
+    },
+    "fields": {
+      "module": "dataclasses",
+      "name": "fields"
+    },
+    "NativeMainUsage": {
+      "module": "agent.native_main_payload",
+      "name": "NativeMainUsage"
+    },
+    "object": {
+      "module": "builtins",
+      "name": "object"
+    },
+    "tuple": {
+      "module": "builtins",
+      "name": "tuple"
+    },
+    "shared_policy": {
+      "module": "agent.content_policy",
+      "name": "shared_policy"
+    },
+    "_CompressionBinding": {
+      "module": "agent.native_main_payload",
+      "name": "_CompressionBinding"
+    },
+    "all": {
+      "module": "builtins",
+      "name": "all"
+    },
+    "NativeMainMessage": {
+      "module": "agent.native_main_payload",
+      "name": "NativeMainMessage"
+    },
+    "dict": {
+      "module": "builtins",
+      "name": "dict"
+    },
+    "NativeDelegateBinding": {
+      "module": "agent.native_main_payload",
+      "name": "NativeDelegateBinding"
+    },
+    "NativeResultPolicy": {
+      "module": "agent.native_main_payload",
+      "name": "NativeResultPolicy"
+    },
+    "str": {
+      "module": "builtins",
+      "name": "str"
+    },
+    "NativeMainSelection": {
+      "module": "agent.native_main_payload",
+      "name": "NativeMainSelection"
+    },
+    "_FailedSendObservation": {
+      "module": "agent.native_main_payload",
+      "name": "_FailedSendObservation"
+    },
+    "NativeFailedMainAttempt": {
+      "module": "agent.native_main_payload",
+      "name": "NativeFailedMainAttempt"
+    },
+    "_CompressionPreparation": {
+      "module": "agent.native_main_payload",
+      "name": "_CompressionPreparation"
+    },
+    "NativeFallbackInvocation": {
+      "module": "agent.native_main_payload",
+      "name": "NativeFallbackInvocation"
+    },
+    "NativeMainResponse": {
+      "module": "agent.native_main_payload",
+      "name": "NativeMainResponse"
+    },
+    "type": {
+      "module": "builtins",
+      "name": "type"
+    },
+    "_AuxiliaryBinding": {
+      "module": "agent.native_main_payload",
+      "name": "_AuxiliaryBinding"
+    },
+    "_require": {
+      "module": "agent.native_main_payload",
+      "name": "_require"
+    },
+    "NativeAuxiliaryInvocation": {
+      "module": "agent.native_main_payload",
+      "name": "NativeAuxiliaryInvocation"
+    },
+    "_PendingOperation": {
+      "module": "agent.native_main_payload",
+      "name": "_PendingOperation"
+    },
+    "_FallbackBinding": {
+      "module": "agent.native_main_payload",
+      "name": "_FallbackBinding"
+    },
+    "_TurnFrame": {
+      "module": "agent.native_main_payload",
+      "name": "_TurnFrame"
+    },
+    "NativeDelegateInvocation": {
+      "module": "agent.native_main_payload",
+      "name": "NativeDelegateInvocation"
+    },
+    "list": {
+      "module": "builtins",
+      "name": "list"
+    }
+  },
+  "five_environment_files_exact": true,
+  "other_pinned_inputs_and_receipts_exact": true,
+  "runtime_sha256": "c5e32e34c6bdfdfdb2a40ee7d85e6e999dc76f61ff5d09380f2834c94aade7f3"
+}

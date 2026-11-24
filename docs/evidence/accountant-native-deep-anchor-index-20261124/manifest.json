@@ -1,0 +1,194 @@
+{
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/README.md": {
+    "bytes": 6327,
+    "sha256": "a545c3ca94ade7500714aeecc7bace8b17cd5cf23dfda5948e92297ecc4886d7"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/compare.py": {
+    "bytes": 3493,
+    "sha256": "5b24e41e950b82f95494d3450b3538546de8cc95f67a89f7101416708022ef96"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison-freeze.json": {
+    "bytes": 2487,
+    "sha256": "cf0ee7effabf823628ca1cbb1d74d4b5a92c4879f2dfc9e3761ac985e45b2019"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison-plan.json": {
+    "bytes": 952,
+    "sha256": "a5509655aa7aa3076e01ed9d522f74ed4300c0ad15e8906f8c07391da7d6485d"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison-result.json": {
+    "bytes": 12812,
+    "sha256": "af7b9fe7f4d1a3936a3e0d092cf8ebd1c7bb38a664b5a86c3397d709363c6ea8"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison.command.json": {
+    "bytes": 293,
+    "sha256": "a341816f6d90be3a8be7cce8768d36e1be53807a1028b98669c09dd825fd0103"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/comparison.log": {
+    "bytes": 618,
+    "sha256": "5d7ce66af583af9ff40d3d87da0080e44d114f518caa42c675cccd7a311c4837"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/final-evidence-corrected.command.json": {
+    "bytes": 260,
+    "sha256": "6273c186626bf3be2d4c75a63d628929f45370b4f20baaba5b5311da8f68c2dc"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/final-evidence-corrected.log": {
+    "bytes": 279,
+    "sha256": "0ed298e8ff2e49374e79c06e58727ed1d6063bcef69ee3c28a025f998bb82fff"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/final-evidence-initial.command.json": {
+    "bytes": 250,
+    "sha256": "e1ccd120a8d1ce62d5e2ded1c3613fd95b37f1e3ca6078e528fe9b87c97389b2"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/final-evidence-initial.log": {
+    "bytes": 812,
+    "sha256": "fa3f8a9eeca4f2e6c8943d613fa9f595156613eb1912a4bbb06718c66c6b5da0"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/final-prose-feedback.json": {
+    "bytes": 296,
+    "sha256": "f15b53dff91414f8a4cdc777aff52a7bc6e6724bf176a29ceafedc3b569aa928"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/fixtures.py": {
+    "bytes": 6522,
+    "sha256": "d657cf990cf757135cd5b679d717ff5b66e9ba31c5ed9337815d402c724daff9"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/freeze-audit.json": {
+    "bytes": 3717,
+    "sha256": "8f903b111457f2cdad1990898f92c9bd1f8cfb9fb0854374c11809c03045939d"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/genuine.command.json": {
+    "bytes": 508,
+    "sha256": "4a76d2689cf3d188f74682a61c262ab5c209566fdecd32246c1c0c34e4dc3b64"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/genuine.log": {
+    "bytes": 855,
+    "sha256": "9ba26eb9509fbd587791f412e4cb023a6256dadd81656bbcabd21aff2ff71e47"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/genuine.receipts.jsonl": {
+    "bytes": 2436276,
+    "sha256": "7b859902185dc2c98abbdb58d5498d1761f0eb7ac77317e401be39184f4a9e10"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/genuine.xml": {
+    "bytes": 2668618,
+    "sha256": "4902cf4c4c1c23e0b63eb1f3e203ba425a11e7e066da93cb4c3e3208dc99154a"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/inputs.json": {
+    "bytes": 5720,
+    "sha256": "918cdae1a5affaf8b99f6749e7ab036cb481549f9ec48c90db3b1b3528ce7a2e"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/inverse.patch": {
+    "bytes": 2624,
+    "sha256": "9c0549fb7e4bfabd3411095b8874a7ffe465413186c3dbfb838eb0bd6f252698"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/namespace-mapping.json": {
+    "bytes": 2628,
+    "sha256": "1869a907f7ec391e53b7d7fd0002764661b4f9f9ec07a529ac3e408feb78601b"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/promotion.patch": {
+    "bytes": 2624,
+    "sha256": "f528b02741a0ca15ef1bf69677fbbec81690e1961e723ee53051029fb227d22c"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prose-final.json": {
+    "bytes": 502,
+    "sha256": "77ab424a7d9cd3bcbe4faaf2348ec6c8d9e436a9a77ef074af42f602c3a6a4d5"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prose-initial.command.json": {
+    "bytes": 317,
+    "sha256": "e94d2687c9f64dc7f06ac1dfd6bb2f9dd2fc1addfcc782434a7508ff3d39fa4d"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prose-initial.log": {
+    "bytes": 94,
+    "sha256": "85e7b9f7c128e0a9c823fd3cfc97cfc13318b1f47c5bb4e1201296d258745ffb"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-final.command.json": {
+    "bytes": 515,
+    "sha256": "6db90987d3d1aa6cb2f47a76e649a80a53f65196922f3c48957bf556aad7f805"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-final.log": {
+    "bytes": 855,
+    "sha256": "13bcb8e4762672e1e096efc45084a3a1fc6e3d4592b870d5c628228617ccbbac"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-final.xml": {
+    "bytes": 9376,
+    "sha256": "f7e5ce5aa87f8196031866c51520bb0802747e99ac386c6eca467c7c7a8e90a4"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.command.json": {
+    "bytes": 519,
+    "sha256": "7d0cf96acff113ad6d7705c33b48289a498d88a79bc17463b44a813f792ad7e1"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.log": {
+    "bytes": 4578,
+    "sha256": "647eedc6c67d60726b024555d862696012ab5866b9f38f2fba7953e4cb2a08af"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype-pure-initial.xml": {
+    "bytes": 10120,
+    "sha256": "dda078d982842785640bc412ed1d08865d66754e75c8d33ebfea7548147d1ad3"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/prototype.py": {
+    "bytes": 2038,
+    "sha256": "1c935c675cfe403f385498a409d82b063a6df54074c10e906f17308979d0d029"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/pure-results.json": {
+    "bytes": 29824,
+    "sha256": "5f08c8c9fd89e337029f48c0b93a4ef884070f457f3233359b3429ea23631690"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/result.json": {
+    "bytes": 254641,
+    "sha256": "24d303e84fad9780733090241893086f50a791d7633be9eb7375311422a7ca19"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/ruff-baseline.log": {
+    "bytes": 855,
+    "sha256": "4972959ee7ce18207611812e07bb5835b7c1fc3e7149ebf5af165056a7e77486"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/ruff-owned.log": {
+    "bytes": 19,
+    "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/ruff-prototype.log": {
+    "bytes": 19,
+    "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/ruff-runtime.log": {
+    "bytes": 857,
+    "sha256": "ac7af7222cbe79cdd3580dd51f7acbf462b1614adb4a91ddb66644f6e48d65e9"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/runtime-representatives.command.json": {
+    "bytes": 517,
+    "sha256": "4cb0e6c0724de4934abcd4b72aa10cb60abccd37e2dba6c0d1ab684d6143ef7e"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/runtime-representatives.log": {
+    "bytes": 853,
+    "sha256": "3f3636340ce4628b6333b34f27aa3428b1938b5666fb9a88fda2d2891d2e7c71"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/runtime-representatives.xml": {
+    "bytes": 1057,
+    "sha256": "f0130c509e37d63373880281a2cb7d5e39ed2784595be63630bec245452852ee"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/source-freeze.json": {
+    "bytes": 537,
+    "sha256": "478e9bd7771b505c0463638621df88b8e593a7307ed5a050755cb5bfad1252ed"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/static-initial.command.json": {
+    "bytes": 248,
+    "sha256": "40c91a526349301d12fcccbe537f45ac8ddd41a6505e17fd51520deb3ffff172"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/static-initial.log": {
+    "bytes": 106,
+    "sha256": "1e76f5e9f8eb45192eb876ba82b5634baecef937c163529119c9dc83d8befefa"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/static-results.json": {
+    "bytes": 6494,
+    "sha256": "36dfb1949ac1c7743a72826bc16331753bb4303caaefc16033f36aa8ba96d5a7"
+  },
+  "docs/evidence/accountant-native-deep-anchor-index-20261124/whitespace.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "agent/native_main_payload.py": {
+    "bytes": 643356,
+    "sha256": "c5e32e34c6bdfdfdb2a40ee7d85e6e999dc76f61ff5d09380f2834c94aade7f3"
+  },
+  "tests/agent/test_native_deep_anchor_equivalence.py": {
+    "bytes": 10860,
+    "sha256": "4dbf32efe082ffc0fef56a4913c4d5d6dc78b0ad3bb463735083e594b2f93ce6"
+  }
+}

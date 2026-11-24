@@ -1,0 +1,17 @@
+▶ running per-file parallel test suite via run_tests_parallel.py
+  (TZ=UTC LANG=C.UTF-8 PYTHONHASHSEED=0; clean env)
+▶ pre-compiling bytecode cache
+▶ launching test runner
+Discovered 1 test files (~13 tests) under ['tests/agent/test_native_deep_anchor_equivalence.py']; running with -j 1
+[100.0% |    13/~13 | ✓4 | ✗0] ✓ tests/agent/test_native_deep_anchor_equivalence.py (4✓, 1.9s)
+
+=== Summary: 1 files, 4 tests passed, 0 failed (100% complete) in 1.9s (1 workers) ===
+  Durations cached to test_durations.json (1 files)
+
+=== Per-file subprocess time distribution ===
+  Files:   1
+  Total subprocess CPU-wall: 1.9s  (runner wall: 1.9s, parallelism: 1x)
+  P50: 1.88s  P90: 1.88s  P95: 1.88s  P99: 1.88s  Max: 1.88s
+  <1s: 0 files (0%)  <2s: 1 files (100%)
+  Top 10 slowest:
+      1.88s  tests/agent/test_native_deep_anchor_equivalence.py
