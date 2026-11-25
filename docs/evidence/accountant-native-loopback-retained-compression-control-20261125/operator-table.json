@@ -1,0 +1,528 @@
+{
+  "routes": [
+    {
+      "route_ref": "route_main",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "main",
+      "destination": {
+        "transport_ref": "invented_main",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_0",
+        "endpoint_ref": "synthetic_loopback_p",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_loopback_main",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_fallback",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "fallback",
+      "destination": {
+        "transport_ref": "invented_fallback",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_fallback",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_title",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "title",
+      "destination": {
+        "transport_ref": "invented_title",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_title",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_compression",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "invented_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_memory",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "memory",
+      "destination": {
+        "transport_ref": "invented_memory",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_memory",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_delegate",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "delegate",
+      "destination": {
+        "transport_ref": "invented_delegate",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_delegate",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_a2a",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "a2a",
+      "destination": {
+        "transport_ref": "invented_a2a",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_a2a",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "route_tool_result",
+      "selection_id": "selection",
+      "selection_version": 3,
+      "consumer_ref": "document_specialist",
+      "path": "tool_result",
+      "destination": {
+        "transport_ref": "invented_tool_result",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_tool_result",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_main",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "main",
+      "destination": {
+        "transport_ref": "title_transport_main",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_main",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_fallback",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "fallback",
+      "destination": {
+        "transport_ref": "title_transport_fallback",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_fallback",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_title",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "title",
+      "destination": {
+        "transport_ref": "title_transport_title",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_title",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_compression",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "title_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_memory",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "memory",
+      "destination": {
+        "transport_ref": "title_transport_memory",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_memory",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_delegate",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "delegate",
+      "destination": {
+        "transport_ref": "title_transport_delegate",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_delegate",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_a2a",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "a2a",
+      "destination": {
+        "transport_ref": "title_transport_a2a",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_a2a",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "title_tool_result",
+      "selection_id": "title_selection",
+      "selection_version": 5,
+      "consumer_ref": "document_specialist",
+      "path": "tool_result",
+      "destination": {
+        "transport_ref": "title_transport_tool_result",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_title_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_tool_result",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_main",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "main",
+      "destination": {
+        "transport_ref": "compression_transport_main",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_main",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_fallback",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "fallback",
+      "destination": {
+        "transport_ref": "compression_transport_fallback",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_fallback",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_title",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "title",
+      "destination": {
+        "transport_ref": "compression_transport_title",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_title",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_compression",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "compression_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_5",
+        "endpoint_ref": "synthetic_loopback_c",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_loopback_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_memory",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "memory",
+      "destination": {
+        "transport_ref": "compression_transport_memory",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_memory",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_delegate",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "delegate",
+      "destination": {
+        "transport_ref": "compression_transport_delegate",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_delegate",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_a2a",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "a2a",
+      "destination": {
+        "transport_ref": "compression_transport_a2a",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_a2a",
+      "qualification_scope": "synthetic_only"
+    },
+    {
+      "route_ref": "compression_tool_result",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "tool_result",
+      "destination": {
+        "transport_ref": "compression_transport_tool_result",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_inprocess_tool_result",
+      "qualification_scope": "synthetic_only"
+    }
+  ],
+  "profiles": [
+    {
+      "profile_ref": "restricted_documents",
+      "allowed_routes": [
+        "route_main",
+        "route_fallback",
+        "route_title",
+        "route_compression",
+        "route_memory",
+        "route_delegate",
+        "route_a2a",
+        "route_tool_result",
+        "title_main",
+        "title_fallback",
+        "title_title",
+        "title_compression",
+        "title_memory",
+        "title_delegate",
+        "title_a2a",
+        "title_tool_result",
+        "compression_main",
+        "compression_fallback",
+        "compression_title",
+        "compression_compression",
+        "compression_memory",
+        "compression_delegate",
+        "compression_a2a",
+        "compression_tool_result"
+      ],
+      "required_paths": [
+        "main",
+        "fallback",
+        "title",
+        "compression",
+        "memory",
+        "delegate",
+        "a2a",
+        "tool_result"
+      ]
+    }
+  ],
+  "main_binding": {
+    "owner_ref": "owner",
+    "execution_ref": "execution",
+    "lineage_ref": "lineage",
+    "consumer_ref": "document_specialist",
+    "auth_epoch": 7,
+    "policy_revision": 9,
+    "selection_id": "selection",
+    "selection_version": 3,
+    "profiles": [
+      "restricted_documents"
+    ]
+  },
+  "compression_binding": {
+    "owner_ref": "owner",
+    "execution_ref": "execution",
+    "lineage_ref": "lineage",
+    "consumer_ref": "document_specialist",
+    "auth_epoch": 7,
+    "policy_revision": 9,
+    "selection_id": "compression_selection",
+    "selection_version": 6,
+    "profiles": [
+      "restricted_documents"
+    ]
+  },
+  "main_policy": {
+    "producer_ref": "invented_producer",
+    "revision": 4,
+    "profiles": [
+      "restricted_documents"
+    ]
+  },
+  "compression_policy": {
+    "producer_ref": "compression_producer",
+    "revision": 3,
+    "profiles": [
+      "restricted_documents"
+    ]
+  },
+  "main_selection": {
+    "selection_id": "selection",
+    "selection_version": 3,
+    "api_mode": "chat_completions",
+    "destination": {
+      "transport_ref": "invented_main",
+      "provider_ref": "synthetic_native",
+      "model_ref": "invented_model_0",
+      "endpoint_ref": "synthetic_loopback_p",
+      "revision": 1
+    }
+  },
+  "compression_selection": {
+    "selection_id": "compression_selection",
+    "selection_version": 6,
+    "api_mode": "chat_completions",
+    "destination": {
+      "transport_ref": "compression_transport_compression",
+      "provider_ref": "synthetic_native",
+      "model_ref": "invented_model_5",
+      "endpoint_ref": "synthetic_loopback_c",
+      "revision": 1
+    }
+  },
+  "now": 10,
+  "qualification": {
+    "routes": 24,
+    "http_sends": 2,
+    "in_process_sends": 22,
+    "contents": 48,
+    "envelopes": 24,
+    "retained_bytes": 6909
+  },
+  "route_mutations": 0,
+  "alternate_routes": 0
+}

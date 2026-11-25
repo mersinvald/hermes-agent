@@ -1,0 +1,162 @@
+{
+  "scope": "Bounded original bare control after complete owned HTTP compression bytes",
+  "control": {
+    "type": "KeyboardInterrupt",
+    "args": [
+      "invented compression control"
+    ],
+    "same_original_object": true,
+    "one_trigger": true,
+    "cause": null,
+    "context": null,
+    "suppress_context": false,
+    "traceback": [
+      {
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "function": "test_genuine_bare_control_after_compression_http",
+        "line": 344
+      },
+      {
+        "file": "tests/agent/test_native_controlled_conversation.py",
+        "function": "summarize",
+        "line": 1831
+      },
+      {
+        "file": "agent/context_compressor.py",
+        "function": "_generate_summary",
+        "line": 5349
+      },
+      {
+        "file": "agent/auxiliary_client.py",
+        "function": "wrapped",
+        "line": 3478
+      },
+      {
+        "file": "agent/auxiliary_client.py",
+        "function": "call_llm",
+        "line": 9794
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_try_controlled_auxiliary_call",
+        "line": 3897
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "dispatch_auxiliary",
+        "line": 2995
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_dispatch_retained_operation",
+        "line": 2949
+      },
+      {
+        "file": "hermes_content_policy/__init__.py",
+        "function": "dispatch",
+        "line": 733
+      },
+      {
+        "file": "hermes_content_policy/__init__.py",
+        "function": "_call",
+        "line": 452
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "send",
+        "line": 1250
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1794
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_resumption_callback",
+        "line": 228
+      },
+      {
+        "file": "tests/agent/test_native_controlled_conversation.py",
+        "function": "current",
+        "line": 1747
+      },
+      {
+        "file": "tests/agent/test_native_controlled_conversation.py",
+        "function": "current",
+        "line": 716
+      },
+      {
+        "file": "tests/agent/test_native_main_payload.py",
+        "function": "current",
+        "line": 117
+      },
+      {
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "function": "trigger",
+        "line": 122
+      }
+    ],
+    "catch_outside_scope": true
+  },
+  "state": {
+    "shared_poisoned": false,
+    "shared_busy": false,
+    "native_invalid": true,
+    "native_context_denied": true,
+    "native_busy": false,
+    "pending": null,
+    "aux_pending": null,
+    "turn_pending": null,
+    "operation": null,
+    "checked_operation": null,
+    "dispatch_result": null,
+    "dispatch_response": null,
+    "health_probe_operations": 0,
+    "basis": "Passed exact assertions in frozen test"
+  },
+  "partial": {
+    "contents": 15,
+    "envelopes": 2,
+    "retained_bytes": 29787,
+    "input_stages": 7,
+    "raw_body_bytes": 312,
+    "raw_body_outside_shared_contents": true,
+    "shared_result": null,
+    "decoded_response": null,
+    "output_stages": 0,
+    "output_contents": 0,
+    "output_bytes": null,
+    "output_content": null,
+    "output": null,
+    "summary": null
+  },
+  "authority": {
+    "request_capabilities": 3,
+    "independent_producer_policies": 3,
+    "independent_compression_selection_version": 6,
+    "all_original_parent_identities": true,
+    "distinct_replaced_auxiliary_frame": true,
+    "original_completion_request_preparation_response_identities": true,
+    "registered_callables_unchanged": true,
+    "clock": 10,
+    "live_routes": 24,
+    "expiry": 100
+  },
+  "limits": {
+    "slots": 128,
+    "retained_bytes": 8388608,
+    "content_bytes": 1048576,
+    "parents": 32,
+    "hops": 128,
+    "auxiliary_bytes": 262144,
+    "response_bytes": 65536,
+    "message_count": 32,
+    "message_bytes": 16384
+  }
+}

@@ -1,0 +1,362 @@
+{
+  "status": "PASSED",
+  "genuine_histories": 1,
+  "retries": 0,
+  "cases": [
+    {
+      "scope": "genuine",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_control",
+        "name": "test_genuine_bare_control_after_compression_http",
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "line": "208",
+        "time": "16.150"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.03736909801955335,
+          "recorded_at": 1795576143.3020642
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 16.111926668992965,
+          "recorded_at": 1795576159.418806
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0005933780048508197,
+          "recorded_at": 1795576159.4258265
+        }
+      ]
+    }
+  ],
+  "exception": {
+    "type": "KeyboardInterrupt",
+    "args": [
+      "invented compression control"
+    ],
+    "same_original_object": true,
+    "one_trigger": true,
+    "cause": null,
+    "context": null,
+    "suppress_context": false,
+    "traceback": [
+      {
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "function": "test_genuine_bare_control_after_compression_http",
+        "line": 344
+      },
+      {
+        "file": "tests/agent/test_native_controlled_conversation.py",
+        "function": "summarize",
+        "line": 1831
+      },
+      {
+        "file": "agent/context_compressor.py",
+        "function": "_generate_summary",
+        "line": 5349
+      },
+      {
+        "file": "agent/auxiliary_client.py",
+        "function": "wrapped",
+        "line": 3478
+      },
+      {
+        "file": "agent/auxiliary_client.py",
+        "function": "call_llm",
+        "line": 9794
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_try_controlled_auxiliary_call",
+        "line": 3897
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "dispatch_auxiliary",
+        "line": 2995
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_dispatch_retained_operation",
+        "line": 2949
+      },
+      {
+        "file": "hermes_content_policy/__init__.py",
+        "function": "dispatch",
+        "line": 733
+      },
+      {
+        "file": "hermes_content_policy/__init__.py",
+        "function": "_call",
+        "line": 452
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "send",
+        "line": 1250
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1794
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_resumption_callback",
+        "line": 228
+      },
+      {
+        "file": "tests/agent/test_native_controlled_conversation.py",
+        "function": "current",
+        "line": 1747
+      },
+      {
+        "file": "tests/agent/test_native_controlled_conversation.py",
+        "function": "current",
+        "line": 716
+      },
+      {
+        "file": "tests/agent/test_native_main_payload.py",
+        "function": "current",
+        "line": 117
+      },
+      {
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "function": "trigger",
+        "line": 122
+      }
+    ],
+    "catch_outside_scope": true
+  },
+  "graphs": {
+    "qualification_complete": {
+      "contents": 48,
+      "envelopes": 24,
+      "retained_bytes": 6909,
+      "ordered_parent_edges": 24,
+      "private_graph_sha256": "2d0d054087135704b6a02196d9c608b63681939fe94cc1c8e0ccb4707f6444d4",
+      "all_payload_hashes_verified": true,
+      "all_profiles_restricted": true
+    },
+    "main_released": {
+      "contents": 6,
+      "envelopes": 1,
+      "retained_bytes": 2463,
+      "ordered_parent_edges": 15,
+      "private_graph_sha256": "66e7013f0ae1a3944989f349902176a731bb793b519f4fd79157e0b52b3c7c9c",
+      "all_payload_hashes_verified": true,
+      "all_profiles_restricted": true
+    },
+    "compression_partial": {
+      "contents": 15,
+      "envelopes": 2,
+      "retained_bytes": 29787,
+      "ordered_parent_edges": 58,
+      "private_graph_sha256": "4f20640c32b79277c98607acfecc2319dc97b59ecc9e5cf6f3a76c79f55cce36",
+      "all_payload_hashes_verified": true,
+      "all_profiles_restricted": true
+    },
+    "verified": {
+      "contents": 15,
+      "envelopes": 2,
+      "retained_bytes": 29787,
+      "ordered_parent_edges": 58,
+      "private_graph_sha256": "4f20640c32b79277c98607acfecc2319dc97b59ecc9e5cf6f3a76c79f55cce36",
+      "all_payload_hashes_verified": true,
+      "all_profiles_restricted": true
+    },
+    "qualification_retained_final": {
+      "contents": 48,
+      "envelopes": 24,
+      "retained_bytes": 6909,
+      "ordered_parent_edges": 24,
+      "private_graph_sha256": "2d0d054087135704b6a02196d9c608b63681939fe94cc1c8e0ccb4707f6444d4",
+      "all_payload_hashes_verified": true,
+      "all_profiles_restricted": true
+    },
+    "native_retained_final": {
+      "contents": 15,
+      "envelopes": 2,
+      "retained_bytes": 29787,
+      "ordered_parent_edges": 58,
+      "private_graph_sha256": "4f20640c32b79277c98607acfecc2319dc97b59ecc9e5cf6f3a76c79f55cce36",
+      "all_payload_hashes_verified": true,
+      "all_profiles_restricted": true
+    }
+  },
+  "input_stages": [
+    {
+      "index": 0,
+      "bytes": 661,
+      "sha256": "adf22d29e30f45d04364ed9eb7ecbfda2a747b27d66c7d1803aae960e3afe5ca"
+    },
+    {
+      "index": 1,
+      "bytes": 93,
+      "sha256": "804c17b49bbf248c90e72a5598fbf624280eec5adc16bf79a41aab26bd4fd279"
+    },
+    {
+      "index": 2,
+      "bytes": 109,
+      "sha256": "2aa7bc882026f313d006cc2d4d8b90b64c4a29c831a3b50701f6911c86bd0a95"
+    },
+    {
+      "index": 3,
+      "bytes": 171,
+      "sha256": "756bb73054e3ac8c04cd3ef866d2fe2b0c7f09188bd31b1251d8dd4d744b2723"
+    },
+    {
+      "index": 4,
+      "bytes": 119,
+      "sha256": "57d37aa6876466081e1573ed2d1740b321d77c98d766f9053941ade649ea4b64"
+    },
+    {
+      "index": 5,
+      "bytes": 6295,
+      "sha256": "408ded8427d9726de7817c0dbffceadbbd8d884ae5cf8200a82ddbeedc0973e2"
+    },
+    {
+      "index": 6,
+      "bytes": 13105,
+      "sha256": "b7d6d34e1a332acd38caaac5bf3f63dc11ad2d938575efada401a5361779e7b2"
+    }
+  ],
+  "wire": [
+    {
+      "receiver": "a_final",
+      "index": 0,
+      "request_bytes": 22,
+      "response_body_bytes": 17,
+      "response_http_bytes": 75,
+      "request_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "response_http_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+      "complete": true,
+      "settled": true,
+      "forwarding_equal": true,
+      "content_lengths_exact": true,
+      "accepted_response_bytes": 75
+    },
+    {
+      "receiver": "a_final",
+      "index": 1,
+      "request_bytes": 355,
+      "response_body_bytes": 270,
+      "response_http_bytes": 329,
+      "request_sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+      "response_body_sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+      "response_http_sha256": "164cfcecc87b356dbfde0e213205de8008b816335ccd78c357c4c08054289aee",
+      "complete": true,
+      "settled": true,
+      "forwarding_equal": true,
+      "content_lengths_exact": true,
+      "accepted_response_bytes": 329
+    },
+    {
+      "receiver": "b_final",
+      "index": 0,
+      "request_bytes": 22,
+      "response_body_bytes": 17,
+      "response_http_bytes": 75,
+      "request_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "response_http_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+      "complete": true,
+      "settled": true,
+      "forwarding_equal": true,
+      "content_lengths_exact": true,
+      "accepted_response_bytes": 75
+    },
+    {
+      "receiver": "b_final",
+      "index": 1,
+      "request_bytes": 6664,
+      "response_body_bytes": 312,
+      "response_http_bytes": 371,
+      "request_sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+      "response_body_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+      "response_http_sha256": "46e358ff21189937e25c870d09083f09aa690dc2e5b3f61cba0f57934b1feb92",
+      "complete": true,
+      "settled": true,
+      "forwarding_equal": true,
+      "content_lengths_exact": true,
+      "accepted_response_bytes": 371
+    }
+  ],
+  "identity": {
+    "original_control": 128838483383328,
+    "trigger_control": 128838483383328,
+    "pending_frame": 128838502904704,
+    "retained_frame": 128838502898464,
+    "raw_response": 128838503986288,
+    "trigger_raw_response": 128838503986288,
+    "original_completion": 128838465948064,
+    "original_observation": 128838465056944
+  },
+  "scope_refusal": {
+    "type": "NativeContentPolicyDenied",
+    "args": [
+      "controlled_native_payload_denied"
+    ],
+    "no_new_shared_operation": true,
+    "native_denied": true
+  },
+  "terminal_refusal": {
+    "error_type": "NativeContentPolicyDenied",
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "error_id": 128838464148176,
+    "closed": true,
+    "sends": 1,
+    "compression_sends": 1,
+    "seconds": 16.093963241990423
+  },
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_sockets_closed": true,
+    "b_sockets_closed": true,
+    "a_errors": [],
+    "b_errors": [],
+    "cleanup_errors": [],
+    "seconds": 16.10934111100505
+  },
+  "raw_records_private": true,
+  "XML_JSONL_correspondence": true,
+  "property_records": 41,
+  "phase_rows": 9,
+  "quiet_suffixes": [
+    {
+      "receiver": "a_final",
+      "seconds": 0.5107300739909988,
+      "suffix_connections": 0,
+      "mark_rows": 2,
+      "mark_active": 0
+    },
+    {
+      "receiver": "b_final",
+      "seconds": 0.5107751929899678,
+      "suffix_connections": 0,
+      "mark_rows": 2,
+      "mark_active": 0
+    }
+  ]
+}
