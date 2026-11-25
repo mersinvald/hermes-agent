@@ -1,0 +1,8 @@
+{
+  "baseline": "New files have no prior prose baseline.",
+  "source_lint": "test_native_loopback_retained_compression_output_record_expiry.py words=  49 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n",
+  "final": "README.md                        words= 194 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_output_record_expiry.py words=  49 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n",
+  "technical_precision": "The test result and Task process outcome remain separate.",
+  "initial_final": "README.md                        words= 196 total=  1 per100w=  0.51 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_output_record_expiry.py words=  49 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n",
+  "correction": "Changed passive outcome wording in README. No executable edit."
+}

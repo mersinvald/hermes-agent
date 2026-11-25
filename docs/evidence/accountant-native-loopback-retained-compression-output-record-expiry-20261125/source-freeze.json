@@ -1,0 +1,128 @@
+{
+  "at": 1795592257.5448751,
+  "commit": "eeee25d04c1236b4f35377a7acf001cf7156b98b",
+  "tree": "e3b3c3807786e129ab5d296d95f41084a67f183b",
+  "source_sha256": "e00f8abc50059886b522b8ab554fea10d1bebdd235fece658aed2bb08a86c52a",
+  "definitions": {
+    "_PhaseReceipts": {
+      "sha256": "b5298cde06ce87e78d1a9360a0e1867123732cf3f539a7c383b22fda6d816b2d",
+      "first": 38,
+      "last": 51
+    },
+    "phase_receipts": {
+      "sha256": "b3faeb5c71c002f6c65e85fb6e57af5de38236bfdc4cae5a38df5f3e2635a215",
+      "first": 55,
+      "last": 62
+    },
+    "record": {
+      "sha256": "3a6d5b0a139c436b117209fcbd08f1d091d9d44881769efc08e55c2931bc2fd2",
+      "first": 76,
+      "last": 79
+    },
+    "typed_wire": {
+      "sha256": "22512764af32cb2397e4d61940407edaa46a89879efa15afcc4685d03215c06b",
+      "first": 82,
+      "last": 99
+    },
+    "row_facts": {
+      "sha256": "19af71223d5bedec62d258a08e97e467d6904dd12ef007078eaa5600dcc3651c",
+      "first": 112,
+      "last": 114
+    },
+    "returned_output_facts": {
+      "sha256": "5fe6893a2c39aab93610f44430e1bb860ecb055daa1501f38d3230060fb47940",
+      "first": 117,
+      "last": 138
+    },
+    "expire_before_output_record": {
+      "sha256": "faafd6d4750a74cd682fb4d16858418b9dcbf41a9c802fe59718a453e03a87ec",
+      "first": 141,
+      "last": 394
+    },
+    "test_output_record_expiry_gate_waits_for_final_content_return": {
+      "sha256": "d5106e3484a2f3dbf8d2502a786b295143a2b89645af1fda222edb4dc80e0726",
+      "first": 397,
+      "last": 600
+    },
+    "test_genuine_compression_expiry_before_output_record_replacement": {
+      "sha256": "a28d9af1d6e3bacbf8b3d01c176c3519dc28c2652fa2e9a023bec545b4138144",
+      "first": 603,
+      "last": 1020
+    }
+  },
+  "cheap": {
+    "kind": "cheap-02",
+    "start": 1795592154.8187368,
+    "source_sha256": "e00f8abc50059886b522b8ab554fea10d1bebdd235fece658aed2bb08a86c52a",
+    "command": [
+      "bash",
+      "scripts/run_tests.sh",
+      "tests/agent/test_native_loopback_retained_compression_output_record_expiry.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "40",
+      "--maxfail=1",
+      "-k",
+      "test_output_record_expiry_gate_waits_for_final_content_return",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.83-task_9ef9c6661c65/cheap-02.xml",
+      "--tb=long",
+      "-q"
+    ],
+    "task_remaining": 1167.3025901317596,
+    "verification_remaining": 927.3025901317596,
+    "returncode": 0,
+    "end": 1795592157.44043,
+    "duration": 2.6216931343078613
+  },
+  "catalog": {
+    "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "scope": "original Task cheap-01",
+    "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68"
+  },
+  "environment_before": [
+    {
+      "bytes": 197,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "bytes": 40548,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "bytes": 160,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "bytes": 756,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "bytes": 87,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "pytest_core_before": [
+    {
+      "bytes": 80947,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/config/__init__.py",
+      "sha256": "98b05c2c37d09e1d5c05975efc2d9af98d4aff6ea47de410a8e93956420873c1"
+    },
+    {
+      "bytes": 20346,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/runner.py",
+      "sha256": "c8d7fd553c0516f7884502ee0e7954eb5a5b1542f21fcb5c4357500ed2fe1570"
+    }
+  ],
+  "normal_hooks": true,
+  "executable_edits_after_genuine": 0
+}

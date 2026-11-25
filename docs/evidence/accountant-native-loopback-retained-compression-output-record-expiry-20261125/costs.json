@@ -1,0 +1,183 @@
+{
+  "qualification": [
+    50,
+    25,
+    7241
+  ],
+  "native": [
+    21,
+    2,
+    38403
+  ],
+  "five_payloads": [
+    {
+      "bytes": 125,
+      "sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088
+      ]
+    },
+    {
+      "bytes": 131,
+      "sha256": "c172e9b1fc18dc651f48fbb0f93ddc709420fb8cde2c612ed040484859ca5613",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312
+      ]
+    },
+    {
+      "bytes": 729,
+      "sha256": "2667ab614a99ae05b4128b73c37765293ae4bf7696f1505c3269d2e7d4e4d64b",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312,
+        137616429784704
+      ]
+    },
+    {
+      "bytes": 4883,
+      "sha256": "48a25a6d3625ef6082ebcce4c4e3ed33106e04536d41c7d3c208cb8bb51fab69",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312,
+        137616429784704,
+        137616429787648
+      ]
+    },
+    {
+      "bytes": 2436,
+      "sha256": "9ac95c6f91bafabe06d8229978a872c600b7974181ca9b6dc5171a09e6ddc757",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312,
+        137616429784704,
+        137616429787648,
+        137616429783840
+      ]
+    }
+  ],
+  "expression": "30099 + sum(actual five payload lengths)",
+  "graph_audits": [
+    {
+      "property": "qualification_complete",
+      "rows": 50,
+      "bytes": 7241,
+      "sha256": "ff032572e612483f254c1a52db6831ea02ed033f1466835e8802b17d1bb12ca9"
+    },
+    {
+      "property": "main_released",
+      "rows": 6,
+      "bytes": 2463,
+      "sha256": "66e7013f0ae1a3944989f349902176a731bb793b519f4fd79157e0b52b3c7c9c"
+    },
+    {
+      "property": "trigger",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    },
+    {
+      "property": "compression_partial",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    },
+    {
+      "property": "verified",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    },
+    {
+      "property": "qualification_retained_final",
+      "rows": 50,
+      "bytes": 7241,
+      "sha256": "ff032572e612483f254c1a52db6831ea02ed033f1466835e8802b17d1bb12ca9"
+    },
+    {
+      "property": "native_retained_final",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    }
+  ],
+  "main_usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "compression_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "compression_authority": "No consumer acceptance or cost authority.",
+  "estimated_cost_usd": null,
+  "cost_status": "unknown",
+  "ledger": {
+    "root_epoch": 1795591882.121327,
+    "conservative_preparation_seconds": 60,
+    "hard_task_seconds": 1500,
+    "hard_verification_seconds": 1200,
+    "verification_origin": 1795591882.121327,
+    "snapshot": 1795592407.4549043,
+    "task_seconds": 585.3335773944855,
+    "verification_seconds": 525.3335773944855,
+    "unknown_intervals_charged": true,
+    "launch": {
+      "kind": "genuine",
+      "start": 1795592257.5821624,
+      "source_sha256": "e00f8abc50059886b522b8ab554fea10d1bebdd235fece658aed2bb08a86c52a",
+      "command": [
+        "bash",
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_output_record_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "145",
+        "--maxfail=1",
+        "-k",
+        "test_output_record_expiry_gate_waits_for_final_content_return or test_genuine_compression_expiry_before_output_record_replacement",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.83-task_9ef9c6661c65/genuine.xml",
+        "--tb=long",
+        "-q"
+      ],
+      "task_remaining": 1064.5391645431519,
+      "verification_remaining": 824.5391645431519,
+      "returncode": 0,
+      "end": 1795592285.6584795,
+      "duration": 28.076317071914673
+    },
+    "final_checks_publication_reserve": 240,
+    "reporting_reserve": 120,
+    "command_seconds": {
+      "cheap-01": 11.592137575149536,
+      "cheap-02": 2.6216931343078613,
+      "genuine": 28.076317071914673
+    },
+    "cheap_cumulative_seconds": 14.213830709457397
+  },
+  "bounds": {
+    "cheap_outer": 45,
+    "cheap_file": 40,
+    "cheap_cumulative": 90,
+    "genuine_outer": 150,
+    "genuine_file": 145,
+    "receiver": 140
+  }
+}

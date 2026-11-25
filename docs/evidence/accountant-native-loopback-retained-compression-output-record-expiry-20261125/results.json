@@ -1,0 +1,401 @@
+{
+  "task_outcome": "FAILED",
+  "runtime_selection": "PASS",
+  "failure": {
+    "at": 1795592293.6632645,
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.83-task_9ef9c6661c65/definitions.json",
+    "observed_mode": "0o664",
+    "corrected_mode": "0o600",
+    "parent_mode": "0o700",
+    "creation_compliance": false,
+    "claim": "The descriptor was created as0664 inside0700, then corrected to0600. No from-creation compliance claim."
+  },
+  "trigger": {
+    "before": 10,
+    "after": 100,
+    "frame_id": 137616419118176,
+    "record_id": 137616380454976,
+    "completion_frame_id": 137616420621760,
+    "completion_code_id": 105411997925072,
+    "returned_stage_ids": [
+      137616429789312,
+      137616429784704,
+      137616429787648,
+      137616429783840
+    ],
+    "final_content_id": 137616429788448,
+    "output_handle_ids": [
+      137616429789312,
+      137616429784704,
+      137616429787648,
+      137616429783840,
+      137616429788448
+    ],
+    "prepared_tuple_id": 137616398324864,
+    "prepared_stage_ids": [
+      137616398187088,
+      137616378935792,
+      105412020801376,
+      105412012702880
+    ],
+    "prepared_output_id": 137616426041216,
+    "prepared_summary_id": 105412012510736,
+    "prefix_handle_id": 137616429789312,
+    "prefix_payload_id": 137616398187088,
+    "prefix_sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32",
+    "prefix_parents": [
+      137616426060672,
+      137616429791680,
+      137616429793088
+    ],
+    "pre_handles": [
+      137616398195904,
+      137616398196352,
+      137616398195808,
+      137616398197248,
+      137616398197312,
+      137616398195936,
+      137616426060672,
+      137616429791712,
+      137616429789824,
+      137616429789376,
+      137616429791744,
+      137616429786592,
+      137616429791008,
+      137616429791808,
+      137616429791680,
+      137616429793088
+    ],
+    "route_rows_id": 137616398353792,
+    "shared_route_id": 137616398569024,
+    "shared_destination_id": 137616398664704,
+    "operator_route_id": 137616399362848,
+    "operator_route": {
+      "route_ref": "compression_compression",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "compression_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_5",
+        "endpoint_ref": "synthetic_loopback_c",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_loopback_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    "shared_route": {
+      "route_ref": "compression_compression",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "compression_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_5",
+        "endpoint_ref": "synthetic_loopback_c",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_loopback_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    "response_id": 137616420750976,
+    "raw_id": 137616420451792,
+    "request_content_id": 137616429791680,
+    "result_content_id": 137616429793088,
+    "charges": [
+      21,
+      2,
+      38403
+    ],
+    "output_fields_empty": true,
+    "private_prepared_output_exists": true,
+    "shared_healthy_idle": true,
+    "spent": true
+  },
+  "five_payloads": [
+    {
+      "bytes": 125,
+      "sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088
+      ]
+    },
+    {
+      "bytes": 131,
+      "sha256": "c172e9b1fc18dc651f48fbb0f93ddc709420fb8cde2c612ed040484859ca5613",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312
+      ]
+    },
+    {
+      "bytes": 729,
+      "sha256": "2667ab614a99ae05b4128b73c37765293ae4bf7696f1505c3269d2e7d4e4d64b",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312,
+        137616429784704
+      ]
+    },
+    {
+      "bytes": 4883,
+      "sha256": "48a25a6d3625ef6082ebcce4c4e3ed33106e04536d41c7d3c208cb8bb51fab69",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312,
+        137616429784704,
+        137616429787648
+      ]
+    },
+    {
+      "bytes": 2436,
+      "sha256": "9ac95c6f91bafabe06d8229978a872c600b7974181ca9b6dc5171a09e6ddc757",
+      "parents": [
+        137616426060672,
+        137616429791680,
+        137616429793088,
+        137616429789312,
+        137616429784704,
+        137616429787648,
+        137616429783840
+      ]
+    }
+  ],
+  "exception": {
+    "type": "NativeContentPolicyDenied",
+    "identity": 137616380694816,
+    "args": [
+      "controlled_native_payload_invalid"
+    ],
+    "cause": null,
+    "context": null,
+    "suppressed": false,
+    "locations": [
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/tests/agent/test_native_loopback_retained_compression_output_record_expiry.py",
+        "function": "test_genuine_compression_expiry_before_output_record_replacement",
+        "line": 700
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/tests/agent/test_native_controlled_conversation.py",
+        "function": "summarize",
+        "line": 1831
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/context_compressor.py",
+        "function": "_generate_summary",
+        "line": 5351
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+        "function": "complete_auxiliary",
+        "line": 3046
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+        "function": "_interrupt_turn",
+        "line": 1932
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1838
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+        "function": "_compression_snapshot",
+        "line": 3140
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+        "function": "_require",
+        "line": 814
+      }
+    ],
+    "traceback_id": 137616420961600,
+    "completion_frame_id": 137616420621760,
+    "prefix_handle_id": 137616429789312,
+    "returned_stage_ids": [
+      137616429789312,
+      137616429784704,
+      137616429787648,
+      137616429783840
+    ],
+    "final_content_id": 137616429788448,
+    "final_payload_id": 105412012466512,
+    "predicate": "now < route.expires_at",
+    "line": 3140
+  },
+  "caught_native_exception": {
+    "primary_id": 137616380694816,
+    "exceptions": [
+      {
+        "type": "NativeContentPolicyDenied",
+        "identity": 137616380694816,
+        "args": [
+          "controlled_native_payload_invalid"
+        ],
+        "args_truncated": false,
+        "locations": [
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/tests/agent/test_native_loopback_retained_compression_output_record_expiry.py",
+            "function": "test_genuine_compression_expiry_before_output_record_replacement",
+            "line": 700
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/tests/agent/test_native_controlled_conversation.py",
+            "function": "summarize",
+            "line": 1831
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/context_compressor.py",
+            "function": "_generate_summary",
+            "line": 5351
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+            "function": "complete_auxiliary",
+            "line": 3046
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+            "function": "_interrupt_turn",
+            "line": 1932
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+            "function": "_checkpoint",
+            "line": 3333
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+            "function": "_snapshot",
+            "line": 1838
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+            "function": "_compression_snapshot",
+            "line": 3140
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.83/agent/native_main_payload.py",
+            "function": "_require",
+            "line": 814
+          }
+        ],
+        "traceback_truncated": false,
+        "suppressed": false,
+        "cause_id": null,
+        "context_id": null
+      }
+    ],
+    "associations_truncated": false
+  },
+  "partial_record_output_stages": [],
+  "partial_record_output": null,
+  "summary": null,
+  "prepared_output_exists": true,
+  "record_limit": "All five returned handles exist in the graph and original frame. The original partial record omits them.",
+  "shared": "healthy idle without failures",
+  "native": "invalid denied idle",
+  "owner_main_agent_preserved": true,
+  "scope_refusal": {
+    "error_id": 137616380695968,
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "original_id": 137616380694816,
+    "distinct": true,
+    "shared_busy": false,
+    "shared_poisoned": false,
+    "native_busy": false,
+    "native_invalid": true,
+    "context_denied": true
+  },
+  "terminal_refusal": {
+    "error_type": "NativeContentPolicyDenied",
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "error_id": 137616380696256,
+    "closed": true,
+    "sends": 1,
+    "compression_sends": 1,
+    "seconds": 25.609794254996814
+  },
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_sockets_closed": true,
+    "b_sockets_closed": true,
+    "a_errors": [],
+    "b_errors": [],
+    "cleanup_errors": [],
+    "seconds": 25.628357908019098
+  },
+  "graph_audits": [
+    {
+      "property": "qualification_complete",
+      "rows": 50,
+      "bytes": 7241,
+      "sha256": "ff032572e612483f254c1a52db6831ea02ed033f1466835e8802b17d1bb12ca9"
+    },
+    {
+      "property": "main_released",
+      "rows": 6,
+      "bytes": 2463,
+      "sha256": "66e7013f0ae1a3944989f349902176a731bb793b519f4fd79157e0b52b3c7c9c"
+    },
+    {
+      "property": "trigger",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    },
+    {
+      "property": "compression_partial",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    },
+    {
+      "property": "verified",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    },
+    {
+      "property": "qualification_retained_final",
+      "rows": 50,
+      "bytes": 7241,
+      "sha256": "ff032572e612483f254c1a52db6831ea02ed033f1466835e8802b17d1bb12ca9"
+    },
+    {
+      "property": "native_retained_final",
+      "rows": 21,
+      "bytes": 38403,
+      "sha256": "5c81ec4c60fbf6c163a287454f6662657edad0d14b56a2111ecadf8d8b52c788"
+    }
+  ]
+}
