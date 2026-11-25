@@ -1,0 +1,258 @@
+{
+  "new_cases": [
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_inert_selected_compression_expiry_catalog",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_inert_selected_compression_expiry_catalog",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_expiry",
+        "name": "test_inert_selected_compression_expiry_catalog",
+        "file": "tests/agent/test_native_loopback_retained_compression_expiry.py",
+        "line": "173",
+        "time": "0.033"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_inert_selected_compression_expiry_catalog",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.031091437995200977,
+          "recorded_at": 1795572448.368277
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_inert_selected_compression_expiry_catalog",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015391019987873733,
+          "recorded_at": 1795572448.3742762
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_inert_selected_compression_expiry_catalog",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0003800289996434003,
+          "recorded_at": 1795572448.3811576
+        }
+      ]
+    },
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_selected_expiry_trigger_waits_for_complete_raw_response",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_selected_expiry_trigger_waits_for_complete_raw_response",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_expiry",
+        "name": "test_selected_expiry_trigger_waits_for_complete_raw_response",
+        "file": "tests/agent/test_native_loopback_retained_compression_expiry.py",
+        "line": "205",
+        "time": "0.070"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_selected_expiry_trigger_waits_for_complete_raw_response",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.015398646995890886,
+          "recorded_at": 1795572448.40052
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_selected_expiry_trigger_waits_for_complete_raw_response",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.053750365012092516,
+          "recorded_at": 1795572448.457727
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_selected_expiry_trigger_waits_for_complete_raw_response",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0004967820132151246,
+          "recorded_at": 1795572448.4611607
+        }
+      ]
+    }
+  ],
+  "cheap_command": {
+    "command": [
+      "scripts/run_tests.sh",
+      "tests/agent/test_native_loopback_retained_compression_expiry.py",
+      "-k",
+      "test_inert_selected_compression_expiry_catalog or test_selected_expiry_trigger_waits_for_complete_raw_response",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "25",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01.xml"
+    ],
+    "start_epoch": 1795572438.0420604,
+    "before": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+        "bytes": 197,
+        "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+        "bytes": 40548,
+        "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+        "bytes": 160,
+        "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+        "bytes": 756,
+        "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+        "bytes": 87,
+        "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/config/__init__.py",
+        "bytes": 80947,
+        "sha256": "98b05c2c37d09e1d5c05975efc2d9af98d4aff6ea47de410a8e93956420873c1"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/runner.py",
+        "bytes": 20346,
+        "sha256": "c8d7fd553c0516f7884502ee0e7954eb5a5b1542f21fcb5c4357500ed2fe1570"
+      }
+    ],
+    "end_epoch": 1795572448.7805233,
+    "returncode": 0,
+    "timeout": false,
+    "after": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+        "bytes": 197,
+        "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+        "bytes": 40548,
+        "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+        "bytes": 160,
+        "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+        "bytes": 756,
+        "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+        "bytes": 87,
+        "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/config/__init__.py",
+        "bytes": 80947,
+        "sha256": "98b05c2c37d09e1d5c05975efc2d9af98d4aff6ea47de410a8e93956420873c1"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/runner.py",
+        "bytes": 20346,
+        "sha256": "c8d7fd553c0516f7884502ee0e7954eb5a5b1542f21fcb5c4357500ed2fe1570"
+      }
+    ],
+    "command_seconds": 10.738462924957275,
+    "task_conservative_seconds": 312.4225232601166,
+    "verification_seconds": 252.42252326011658,
+    "source_sha256": "49abdf9b4038a7e8473c5cd96cd9bded227eac12fba38ef79716ae776ddd2665"
+  },
+  "unchanged_final_bodies": {
+    "_PhaseReceipts": "b0ec46d9e7ec638e14f1976ce1ba81e11ed95ccacc15549645d79a8a3832a303",
+    "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+    "configure_expiry_world": "e7a7f9f6a98372212a25efcd54676f72ebf16c17cb573560c16d676d45c5da49",
+    "expire_selected_after_raw": "83052a84ccffb820133b03c3607506ec08101ca30c1d1cf15fc19d62fcf4d5d6",
+    "qualify_expiry_world": "48cc8ef028f68cc6c53cac38d71b06083bc4ee2438da6baee7c9009b971a91ca",
+    "test_inert_selected_compression_expiry_catalog": "cd40e65661e54ca47981b5abdf524d09de5c65f010d44c2ce1cef45725b7e201",
+    "test_selected_expiry_trigger_waits_for_complete_raw_response": "80d6a10f0de25ab72c81c186a3d12f31273d1d1793b23f7d497a24c542e5e913"
+  },
+  "cheap_cumulative_command_seconds": 10.738462924957275,
+  "cap_seconds": 60,
+  "inert_scope": "Catalog composition and trigger gate only. No native refusal or production clock authority.",
+  "accepted_positive71_reuse": {
+    "handoff_sha256": "40370dcbe07576c9ef759dcb5139b331cd054542cafa6337b33d734795539fdd",
+    "scopes": [
+      {
+        "command_scope": "cheap-01",
+        "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_inert_retained_compression_http_plan",
+        "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_inert_retained_compression_http_plan",
+        "actual_xml_attributes": {
+          "classname": "tests.agent.test_native_loopback_retained_compression",
+          "name": "test_inert_retained_compression_http_plan",
+          "file": "tests/agent/test_native_loopback_retained_compression.py",
+          "line": "138",
+          "time": "0.039"
+        },
+        "outcome": "passed",
+        "setup_seconds": 0.035644162009702995,
+        "call_seconds": 0.0024845440057106316,
+        "teardown_seconds": 0.0005025999853387475
+      },
+      {
+        "command_scope": "cheap-01",
+        "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+        "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+        "actual_xml_attributes": {
+          "classname": "tests.agent.test_native_loopback_retained_compression",
+          "name": "test_retained_compression_http_response_recipe",
+          "file": "tests/agent/test_native_loopback_retained_compression.py",
+          "line": "190",
+          "time": "0.017"
+        },
+        "outcome": "failed",
+        "setup_seconds": 0.015719063027063385,
+        "call_seconds": 0.0006550549878738821,
+        "teardown_seconds": 0.00047365299542434514
+      },
+      {
+        "command_scope": "cheap-02",
+        "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+        "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+        "actual_xml_attributes": {
+          "classname": "tests.agent.test_native_loopback_retained_compression",
+          "name": "test_retained_compression_http_response_recipe",
+          "file": "tests/agent/test_native_loopback_retained_compression.py",
+          "line": "190",
+          "time": "0.034"
+        },
+        "outcome": "passed",
+        "setup_seconds": 0.031782773992745206,
+        "call_seconds": 0.0016195149801205844,
+        "teardown_seconds": 0.000347460008924827
+      },
+      {
+        "command_scope": "genuine",
+        "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_genuine_retained_compression_http",
+        "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_genuine_retained_compression_http",
+        "actual_xml_attributes": {
+          "classname": "tests.agent.test_native_loopback_retained_compression",
+          "name": "test_genuine_retained_compression_http",
+          "file": "tests/agent/test_native_loopback_retained_compression.py",
+          "line": "214",
+          "time": "19.670"
+        },
+        "outcome": "passed",
+        "setup_seconds": 0.03712365200044587,
+        "call_seconds": 19.632626977021573,
+        "teardown_seconds": 0.0005455820064526051
+      }
+    ],
+    "initial_failure": "Native model response decoder rejects finish_reason length before extraction. Corrected only the affected recipe.",
+    "source_sha256": "9c4e4889745842ffb5d69656b6e699537105168fb42f2f0e6589afa8899e792d",
+    "rerun": false
+  }
+}

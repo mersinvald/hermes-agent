@@ -1,0 +1,125 @@
+{
+  "scope": "Bounded test-only current0.4 native catalog expiry refusal",
+  "first_predicate": {
+    "file": "agent/native_main_payload.py",
+    "function": "_compression_snapshot",
+    "line": 3140,
+    "predicate": "now < route.expires_at"
+  },
+  "chain": [
+    {
+      "type": "NativeContentPolicyDenied",
+      "args": [
+        "controlled_native_payload_denied"
+      ],
+      "identity": 139151923038816,
+      "context_id": 139151923013632,
+      "cause": null,
+      "suppressed": true
+    },
+    {
+      "type": "PolicyError",
+      "args": [
+        "post_send_rejected"
+      ],
+      "identity": 139151923013632,
+      "context_id": 139151923013344,
+      "cause": null,
+      "suppressed": true
+    },
+    {
+      "type": "PolicyError",
+      "args": [
+        "callback_failed"
+      ],
+      "identity": 139151923013344,
+      "context_id": 139151923038672,
+      "cause": null,
+      "suppressed": true
+    },
+    {
+      "type": "NativeContentPolicyDenied",
+      "args": [
+        "controlled_native_payload_invalid"
+      ],
+      "identity": 139151923038672,
+      "context_id": null,
+      "cause": null,
+      "suppressed": false
+    }
+  ],
+  "traceback_locations": [
+    {
+      "file": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "function": "_call",
+      "line": 452
+    },
+    {
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+      "function": "send",
+      "line": 1250
+    },
+    {
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+      "function": "_checkpoint",
+      "line": 3333
+    },
+    {
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+      "function": "_snapshot",
+      "line": 1838
+    },
+    {
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+      "function": "_compression_snapshot",
+      "line": 3140
+    },
+    {
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+      "function": "_require",
+      "line": 814
+    }
+  ],
+  "shared_selected_grant_executed": false,
+  "transition": {
+    "before": 10,
+    "after": 100,
+    "count": 1,
+    "authority": "Original synthetic fixture clock"
+  },
+  "qualifications": {
+    "routes": 25,
+    "contents": 50,
+    "envelopes": 25,
+    "http_sends": 2,
+    "in_process_sends": 23,
+    "reused_port_sends": 2
+  },
+  "partial": {
+    "contents": 15,
+    "envelopes": 2,
+    "input_stages": 7,
+    "raw_body_bytes": 312,
+    "shared_compression_result": null,
+    "native_response": null,
+    "output_stages": 0,
+    "output_contents": 0,
+    "output_handle": null,
+    "summary": null,
+    "runtime_poisoned": true,
+    "context_denied": true
+  },
+  "unchanged_limits": {
+    "slots": 128,
+    "retained_bytes": 8388608,
+    "content_bytes": 1048576,
+    "parents": 32,
+    "lineage_hops": 128,
+    "auxiliary_bytes": 262144,
+    "response_bytes": 65536,
+    "messages": 32,
+    "message_bytes": 16384,
+    "stage_count": 7
+  },
+  "unsupported_gates": "Full P10/P06/private/provider/egress/durable/thread/source/financial/production/manifest/index/deployment/activation remain open."
+}

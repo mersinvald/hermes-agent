@@ -1,0 +1,2583 @@
+{
+  "status": "PASSED",
+  "genuine_cases": [
+    {
+      "scope": "genuine",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_expiry",
+        "name": "test_genuine_selected_compression_expiry_after_http",
+        "file": "tests/agent/test_native_loopback_retained_compression_expiry.py",
+        "line": "240",
+        "time": "17.005"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.040639974002260715,
+          "recorded_at": 1795572531.8888013
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 16.96344615900307,
+          "recorded_at": 1795572548.8577006
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.000631295028142631,
+          "recorded_at": 1795572548.8653061
+        }
+      ]
+    }
+  ],
+  "genuine_executions": 1,
+  "genuine_retries": 0,
+  "phases": [
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.040639974002260715,
+      "recorded_at": 1795572531.8888013
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 16.96344615900307,
+      "recorded_at": 1795572548.8577006
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_expiry.py::test_genuine_selected_compression_expiry_after_http",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 0.000631295028142631,
+      "recorded_at": 1795572548.8653061
+    }
+  ],
+  "exception": {
+    "chain": [
+      {
+        "type": "NativeContentPolicyDenied",
+        "args": [
+          "controlled_native_payload_denied"
+        ],
+        "identity": 139151923038816,
+        "context_id": 139151923013632,
+        "cause": null,
+        "suppressed": true
+      },
+      {
+        "type": "PolicyError",
+        "args": [
+          "post_send_rejected"
+        ],
+        "identity": 139151923013632,
+        "context_id": 139151923013344,
+        "cause": null,
+        "suppressed": true
+      },
+      {
+        "type": "PolicyError",
+        "args": [
+          "callback_failed"
+        ],
+        "identity": 139151923013344,
+        "context_id": 139151923038672,
+        "cause": null,
+        "suppressed": true
+      },
+      {
+        "type": "NativeContentPolicyDenied",
+        "args": [
+          "controlled_native_payload_invalid"
+        ],
+        "identity": 139151923038672,
+        "context_id": null,
+        "cause": null,
+        "suppressed": false
+      }
+    ],
+    "locations": [
+      {
+        "file": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+        "function": "_call",
+        "line": 452
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+        "function": "send",
+        "line": 1250
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1838
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+        "function": "_compression_snapshot",
+        "line": 3140
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.73/agent/native_main_payload.py",
+        "function": "_require",
+        "line": 814
+      }
+    ],
+    "predicate": "now < route.expires_at",
+    "line": 3140,
+    "shared_selected_grant_executed": false
+  },
+  "partial": {
+    "charges": [
+      15,
+      2,
+      29787
+    ],
+    "graph": [
+      {
+        "index": 0,
+        "bytes": 315,
+        "sha256": "bb6f4316ec20ca7a2e1eb1f6dc124618b040184ab885d6e74ea86fc5ceeb5459",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "bytes": 594,
+        "sha256": "94d253df16c115e255ed98d472518062f236f42f30c15c65e5a2b31df22eeb82",
+        "parents": [
+          0,
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "bytes": 149,
+        "sha256": "c02136bb098209769033a76fc4aa575937341e701a2abcc5a276d6e54ae3c752",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 3,
+        "bytes": 355,
+        "sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 4,
+        "bytes": 270,
+        "sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+        "parents": [
+          3
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 5,
+        "bytes": 780,
+        "sha256": "e1981e7d467f6ee69a3a04f51349e898349389b9f1b42c8a247068f47a5ea518",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 6,
+        "bytes": 107,
+        "sha256": "cba3b010b62f2963c11d99f0737e72f0791989d2eb5ab4db0b8161ce4386ea73",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 7,
+        "bytes": 661,
+        "sha256": "adf22d29e30f45d04364ed9eb7ecbfda2a747b27d66c7d1803aae960e3afe5ca",
+        "parents": [
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 8,
+        "bytes": 93,
+        "sha256": "804c17b49bbf248c90e72a5598fbf624280eec5adc16bf79a41aab26bd4fd279",
+        "parents": [
+          6,
+          7
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 9,
+        "bytes": 109,
+        "sha256": "2aa7bc882026f313d006cc2d4d8b90b64c4a29c831a3b50701f6911c86bd0a95",
+        "parents": [
+          6,
+          7,
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 10,
+        "bytes": 171,
+        "sha256": "756bb73054e3ac8c04cd3ef866d2fe2b0c7f09188bd31b1251d8dd4d744b2723",
+        "parents": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 11,
+        "bytes": 119,
+        "sha256": "57d37aa6876466081e1573ed2d1740b321d77c98d766f9053941ade649ea4b64",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 12,
+        "bytes": 6295,
+        "sha256": "408ded8427d9726de7817c0dbffceadbbd8d884ae5cf8200a82ddbeedc0973e2",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 13,
+        "bytes": 13105,
+        "sha256": "b7d6d34e1a332acd38caaac5bf3f63dc11ad2d938575efada401a5361779e7b2",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 14,
+        "bytes": 6664,
+        "sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      }
+    ],
+    "response": {
+      "bytes": 312,
+      "sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c"
+    },
+    "input_stages": [
+      {
+        "bytes": 661,
+        "sha256": "adf22d29e30f45d04364ed9eb7ecbfda2a747b27d66c7d1803aae960e3afe5ca"
+      },
+      {
+        "bytes": 93,
+        "sha256": "804c17b49bbf248c90e72a5598fbf624280eec5adc16bf79a41aab26bd4fd279"
+      },
+      {
+        "bytes": 109,
+        "sha256": "2aa7bc882026f313d006cc2d4d8b90b64c4a29c831a3b50701f6911c86bd0a95"
+      },
+      {
+        "bytes": 171,
+        "sha256": "756bb73054e3ac8c04cd3ef866d2fe2b0c7f09188bd31b1251d8dd4d744b2723"
+      },
+      {
+        "bytes": 119,
+        "sha256": "57d37aa6876466081e1573ed2d1740b321d77c98d766f9053941ade649ea4b64"
+      },
+      {
+        "bytes": 6295,
+        "sha256": "408ded8427d9726de7817c0dbffceadbbd8d884ae5cf8200a82ddbeedc0973e2"
+      },
+      {
+        "bytes": 13105,
+        "sha256": "b7d6d34e1a332acd38caaac5bf3f63dc11ad2d938575efada401a5361779e7b2"
+      }
+    ],
+    "envelope": {
+      "source": {
+        "owner_ref": "owner",
+        "execution_ref": "execution",
+        "lineage_ref": "lineage",
+        "consumer_ref": "document_specialist",
+        "auth_epoch": 7,
+        "policy_revision": 9,
+        "selection_id": "compression_selection",
+        "selection_version": 6,
+        "profiles": [
+          "restricted_documents"
+        ]
+      },
+      "profiles": [
+        "restricted_documents"
+      ],
+      "recipient_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "compression_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_5",
+        "endpoint_ref": "synthetic_loopback_c",
+        "revision": 1
+      },
+      "payload": {
+        "bytes": 6664,
+        "sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7"
+      }
+    },
+    "summary": null
+  },
+  "qualification": {
+    "charges": [
+      50,
+      25,
+      7241
+    ],
+    "graph": [
+      {
+        "index": 0,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "bytes": 17,
+        "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "parents": [
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 3,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          2
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 4,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 5,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 6,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 7,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 8,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 9,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "memory"
+      },
+      {
+        "index": 10,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 11,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 12,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 13,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "a2a"
+      },
+      {
+        "index": 14,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 15,
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          14
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 16,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 17,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          16
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 18,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 19,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          18
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 20,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 21,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          20
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 22,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 23,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          22
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 24,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 25,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          24
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "memory"
+      },
+      {
+        "index": 26,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 27,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          26
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 28,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 29,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          28
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "a2a"
+      },
+      {
+        "index": 30,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 31,
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          30
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 32,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 33,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          32
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 34,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 35,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          34
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 36,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 37,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          36
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 38,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 39,
+        "bytes": 17,
+        "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "parents": [
+          38
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 40,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 41,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          40
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "memory"
+      },
+      {
+        "index": 42,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 43,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          42
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 44,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 45,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          44
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "a2a"
+      },
+      {
+        "index": 46,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 47,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          46
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 48,
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 49,
+        "bytes": 310,
+        "sha256": "29976ab8d9b83a4e6231162ee1ad8d0f5cd54f72904e966f99ffc2c902f0490a",
+        "parents": [
+          48
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      }
+    ]
+  },
+  "main": {
+    "charges": [
+      6,
+      1,
+      2463
+    ],
+    "graph": [
+      {
+        "index": 0,
+        "bytes": 315,
+        "sha256": "bb6f4316ec20ca7a2e1eb1f6dc124618b040184ab885d6e74ea86fc5ceeb5459",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "bytes": 594,
+        "sha256": "94d253df16c115e255ed98d472518062f236f42f30c15c65e5a2b31df22eeb82",
+        "parents": [
+          0,
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "bytes": 149,
+        "sha256": "c02136bb098209769033a76fc4aa575937341e701a2abcc5a276d6e54ae3c752",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 3,
+        "bytes": 355,
+        "sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 4,
+        "bytes": 270,
+        "sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+        "parents": [
+          3
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 5,
+        "bytes": 780,
+        "sha256": "e1981e7d467f6ee69a3a04f51349e898349389b9f1b42c8a247068f47a5ea518",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      }
+    ],
+    "response": {
+      "bytes": 270,
+      "sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236"
+    }
+  },
+  "final": {
+    "charges": [
+      15,
+      2,
+      29787
+    ],
+    "graph": [
+      {
+        "index": 0,
+        "bytes": 315,
+        "sha256": "bb6f4316ec20ca7a2e1eb1f6dc124618b040184ab885d6e74ea86fc5ceeb5459",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "bytes": 594,
+        "sha256": "94d253df16c115e255ed98d472518062f236f42f30c15c65e5a2b31df22eeb82",
+        "parents": [
+          0,
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "bytes": 149,
+        "sha256": "c02136bb098209769033a76fc4aa575937341e701a2abcc5a276d6e54ae3c752",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 3,
+        "bytes": 355,
+        "sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 4,
+        "bytes": 270,
+        "sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+        "parents": [
+          3
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 5,
+        "bytes": 780,
+        "sha256": "e1981e7d467f6ee69a3a04f51349e898349389b9f1b42c8a247068f47a5ea518",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 6,
+        "bytes": 107,
+        "sha256": "cba3b010b62f2963c11d99f0737e72f0791989d2eb5ab4db0b8161ce4386ea73",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 7,
+        "bytes": 661,
+        "sha256": "adf22d29e30f45d04364ed9eb7ecbfda2a747b27d66c7d1803aae960e3afe5ca",
+        "parents": [
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 8,
+        "bytes": 93,
+        "sha256": "804c17b49bbf248c90e72a5598fbf624280eec5adc16bf79a41aab26bd4fd279",
+        "parents": [
+          6,
+          7
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 9,
+        "bytes": 109,
+        "sha256": "2aa7bc882026f313d006cc2d4d8b90b64c4a29c831a3b50701f6911c86bd0a95",
+        "parents": [
+          6,
+          7,
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 10,
+        "bytes": 171,
+        "sha256": "756bb73054e3ac8c04cd3ef866d2fe2b0c7f09188bd31b1251d8dd4d744b2723",
+        "parents": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 11,
+        "bytes": 119,
+        "sha256": "57d37aa6876466081e1573ed2d1740b321d77c98d766f9053941ade649ea4b64",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 12,
+        "bytes": 6295,
+        "sha256": "408ded8427d9726de7817c0dbffceadbbd8d884ae5cf8200a82ddbeedc0973e2",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 13,
+        "bytes": 13105,
+        "sha256": "b7d6d34e1a332acd38caaac5bf3f63dc11ad2d938575efada401a5361779e7b2",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 14,
+        "bytes": 6664,
+        "sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "compression_selection",
+          6,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      }
+    ],
+    "hops": [
+      2
+    ]
+  },
+  "wire": {
+    "a": {
+      "connections": [
+        {
+          "index": 0,
+          "request_bytes": 201,
+          "header_bytes": 179,
+          "header_sha256": "c809d9b8abd4dac56f1a95d17085edf16c21a46a0fe1dd3b7ab5b6003a7ba7d2",
+          "body_bytes": 22,
+          "body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+          "response_bytes": 75,
+          "response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+          "response_body_bytes": 17,
+          "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+          "response_header_bytes": 58,
+          "content_length": 17,
+          "response_accepted": 75,
+          "complete": true,
+          "settled": true,
+          "original_envelope_and_output_identity": true
+        },
+        {
+          "index": 1,
+          "request_bytes": 535,
+          "header_bytes": 180,
+          "header_sha256": "d5dd932ea086ee36f62712268ff7c260571a2c9cd9a61c8d685b5f44e027618c",
+          "body_bytes": 355,
+          "body_sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+          "response_bytes": 329,
+          "response_sha256": "164cfcecc87b356dbfde0e213205de8008b816335ccd78c357c4c08054289aee",
+          "response_body_bytes": 270,
+          "response_body_sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+          "response_header_bytes": 59,
+          "content_length": 270,
+          "response_accepted": 329,
+          "complete": true,
+          "settled": true,
+          "original_envelope_and_output_identity": true
+        }
+      ],
+      "mark": {
+        "row_count": 2,
+        "active_count": 0
+      },
+      "quiet_suffix_connections": 0,
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "errors": [],
+      "observation_scope": "Accepted connections only. No packet or kernel absence claim."
+    },
+    "b": {
+      "connections": [
+        {
+          "index": 0,
+          "request_bytes": 201,
+          "header_bytes": 179,
+          "header_sha256": "5d512a1509909e573900cfecc6f6690505c849730f0bae6e9a8d9d0e3b04dd66",
+          "body_bytes": 22,
+          "body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+          "response_bytes": 75,
+          "response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+          "response_body_bytes": 17,
+          "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+          "response_header_bytes": 58,
+          "content_length": 17,
+          "response_accepted": 75,
+          "complete": true,
+          "settled": true,
+          "original_envelope_and_output_identity": true
+        },
+        {
+          "index": 1,
+          "request_bytes": 6845,
+          "header_bytes": 181,
+          "header_sha256": "502a306a704acf64851fc51286d65d7da60af1d255ae1af71a69f331da7ebc68",
+          "body_bytes": 6664,
+          "body_sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+          "response_bytes": 371,
+          "response_sha256": "46e358ff21189937e25c870d09083f09aa690dc2e5b3f61cba0f57934b1feb92",
+          "response_body_bytes": 312,
+          "response_body_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+          "response_header_bytes": 59,
+          "content_length": 312,
+          "response_accepted": 371,
+          "complete": true,
+          "settled": true,
+          "original_envelope_and_output_identity": true
+        }
+      ],
+      "mark": {
+        "row_count": 2,
+        "active_count": 0
+      },
+      "quiet_suffix_connections": 0,
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "errors": [],
+      "observation_scope": "Accepted connections only. No packet or kernel absence claim."
+    }
+  },
+  "terminal_refusal": {
+    "error_type": "NativeContentPolicyDenied",
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "error_id": 139151923039392,
+    "closed": true,
+    "sends": 1,
+    "compression_sends": 1,
+    "seconds": 16.939368368010037
+  },
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_sockets_closed": true,
+    "b_sockets_closed": true,
+    "a_errors": [],
+    "b_errors": [],
+    "cleanup_errors": [],
+    "seconds": 16.95975065001403
+  },
+  "invariant_assertions": {
+    "main_result_messages_rows_prefix_preserved": true,
+    "agent_attributes_preserved": true,
+    "compressor_state_preserved": true,
+    "previous_summary": null,
+    "compression_count": 0,
+    "parents_order_aliases_preserved": true,
+    "restrictions_preserved": true,
+    "no_title_fallback_local_sdk_relay_provider": true,
+    "history_adoption": false,
+    "durable_transfer": false,
+    "financial_write": false
+  }
+}

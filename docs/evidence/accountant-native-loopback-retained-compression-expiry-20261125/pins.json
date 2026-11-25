@@ -1,0 +1,752 @@
+{
+  "input_manifest": {
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.73.input-receipts.json",
+    "bytes": 20953,
+    "sha256": "c5ef5e40caa0724dece58ad6c3d876dd706493e874a391e5954e3721ff0ea51f",
+    "mode": "0o600"
+  },
+  "accepted_inputs": {
+    "PWA": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+    "native": "2c862e009962e9b36c04053702d449e48da1c8e9",
+    "tracked": [
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/v1-implementation-plan.md",
+        "mode": "100644",
+        "blob": "e27e37ee340509aefb0fd84bbc789a3ed90142cf",
+        "bytes": 33712,
+        "sha256": "dd1312f3aee814ab9a9219b9cf767ca2b6d9f44c89f579ef720361c88c56e1d0"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/README.md",
+        "mode": "100644",
+        "blob": "6175dc998d6cf727584bc4b39c491f536ca67113",
+        "bytes": 2236,
+        "sha256": "9c5b7b452e7f753ddb05f625130eb7c9eb492d814cf0439d0d461b0eb4e820b8"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/accountant-contract-architecture.md",
+        "mode": "100644",
+        "blob": "54cae013a2594abcedad23a86f0957e384c877d7",
+        "bytes": 497331,
+        "sha256": "c8f095db4d3e0b4741cdf44fbbd79afae0c7c5aea2f81b04b3e1d7cba4560cb5"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/accountant-implementation-plan.md",
+        "mode": "100644",
+        "blob": "f3474f20c48ca62ed6d7681395b4d3062fda0748",
+        "bytes": 304683,
+        "sha256": "f0c55b3abffceea858c397fcd393b7814da7ebef42ab4cae6e3f126c5d162d2d"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/README.md",
+        "mode": "100644",
+        "blob": "c984e8f4c1a653b7ac4620ba2085a3d88ade1ef3",
+        "bytes": 4456,
+        "sha256": "aec84f53588fe2325e8fc8b63d31fc7fa51ea73502a29e042393f758f66441f7"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/source-map.md",
+        "mode": "100644",
+        "blob": "20ba3f1c10f96e1f77962e9b10d2b944c0766475",
+        "bytes": 9793,
+        "sha256": "b46c5e6a0d4ae9e13e751608c5ba381cf03c0d0ffd8597f356fd675aab7a7e46"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/next-component-design.md",
+        "mode": "100644",
+        "blob": "ab97c672c545794c2da03a811a3cb040263ab8dc",
+        "bytes": 12933,
+        "sha256": "9c3e8497919a2360d7c7111a5e6633b15a09d7ac2f02d9dc84c3719d82617122"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/source-pins.json",
+        "mode": "100644",
+        "blob": "2f9cb6075e122b01133fc789fb37357785e79122",
+        "bytes": 58684,
+        "sha256": "054f860a4db0ad59069df7490f58db2169b6f0ee9b2bec5cc6be3a98489c4426"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/verification.json",
+        "mode": "100644",
+        "blob": "f27416968b17d8370796e8616adaa31c784a29c8",
+        "bytes": 18895,
+        "sha256": "9470c04c34a151a6ff26c563b3d13aea05390188b5dfabd8185612d91058d8b3"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/writing-check.json",
+        "mode": "100644",
+        "blob": "05fa2c7d6a7e79cb62333bd504182831339da774",
+        "bytes": 7975,
+        "sha256": "51eb2b6dec68f6ed4085b75ba0b1da8f3eec88813df55a9842c44dfbd88d5146"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-title-contracts-20261125/SHA256SUMS",
+        "mode": "100644",
+        "blob": "3914c232eeea7d0ca674c705106729f505b9edf1",
+        "bytes": 499,
+        "sha256": "55629f8fa2942b8195d9c8f01f463bfd52922c1a9dc1f031a3826713ee1b1ce3"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "tests/agent/test_native_loopback_retained_compression.py",
+        "mode": "100644",
+        "blob": "b0b5f671439fa6d7d7c59491d9b83845e951824c",
+        "bytes": 36108,
+        "sha256": "9c4e4889745842ffb5d69656b6e699537105168fb42f2f0e6589afa8899e792d"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "agent/native_main_payload.py",
+        "mode": "100644",
+        "blob": "397e44876d39fe347f9d2c1ca5817b9e9acf9cde",
+        "bytes": 643457,
+        "sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "agent/context_compressor.py",
+        "mode": "100644",
+        "blob": "520ff99b0f345508b19e3c10e0ad989a1f8194f2",
+        "bytes": 444388,
+        "sha256": "b11cf2c73279654c12c9506ac83d3fb63cf5255184eac237ffaf8bdfbfe3b968"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "agent/auxiliary_client.py",
+        "mode": "100644",
+        "blob": "2928149003d067281ff864afe8a1f06b28f572e9",
+        "bytes": 510443,
+        "sha256": "df48bcbd50b39b51b1d5f3eb82531d54803f7220d7483f49121db0e28ef9e952"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "agent/conversation_compression.py",
+        "mode": "100644",
+        "blob": "da644a4f56b82dfb5347d706038dc0fe6a5795e2",
+        "bytes": 278399,
+        "sha256": "fbbc0c6f606897d42c496f53b76c5cec5925d0f274c1c538ddf099b1abeaf86b"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "agent/transports/owned_loopback_http.py",
+        "mode": "100644",
+        "blob": "cc1137f51030a43ea2d513fe18e64010679b8f77",
+        "bytes": 15921,
+        "sha256": "05ec8c7eede3dc872914ff2a3b011b91d5fa63960be2b7a4fadf76d5dc7e218f"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "tests/agent/test_native_controlled_conversation.py",
+        "mode": "100644",
+        "blob": "686aeb4f234d9522ab096e12b870fa4798ff1c6a",
+        "bytes": 128596,
+        "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "tests/agent/owned_loopback_receiver.py",
+        "mode": "100644",
+        "blob": "b3f575c9f680b7d7c0c0a23c2696885856903680",
+        "bytes": 23175,
+        "sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "tests/agent/test_native_loopback_fallback_denial.py",
+        "mode": "100644",
+        "blob": "b47fb8ed893d6c1eb1a206b064146e57b5e6d0a9",
+        "bytes": 29178,
+        "sha256": "02f943767adf01eda785da8e2a8eddf72405fb6e8e89e32132214f728e5ab8a1"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "tests/agent/test_native_loopback_fallback_success.py",
+        "mode": "100644",
+        "blob": "aa91a7e2fc35dd908af1ce37e28fcf3eac5aa2f1",
+        "bytes": 25269,
+        "sha256": "fd03d032aaa884f8d4cdc12b93e681bde35da05e3ae13566e1be06b33016e9c9"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/README.md",
+        "mode": "100644",
+        "blob": "e532975d0b2e8b2b6fd219f66b043661f5395810",
+        "bytes": 3216,
+        "sha256": "4dec4faf9d54306c7818f799921a2586df2fea5f9a9aa94d6646a3205117a1a2"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/pins.json",
+        "mode": "100644",
+        "blob": "b8ccbcf3fa3ea78972069092d92debc5cfda51b5",
+        "bytes": 32861,
+        "sha256": "43a11247c7d7dfca93be58632dba4bb31c5cb7cdcf83ba5afbf6991a25dddb7a"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/contracts.json",
+        "mode": "100644",
+        "blob": "c9648d6d7ce51df717b96a2c7147a95355258495",
+        "bytes": 2113,
+        "sha256": "6f9f1d8e267856515a5e1d59126290ea647971ea3c9fba68b8482b50922a68af"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/operator-table.json",
+        "mode": "100644",
+        "blob": "637aa07eb72e5ecb9379b0c94b512a1e927b5930",
+        "bytes": 16732,
+        "sha256": "7fd9720c73ae6a764abb09464bda44324508cfee8f2fc2e1a6346f3f87417e86"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/source-freeze.json",
+        "mode": "100644",
+        "blob": "30f3f4c37d7c1d0c52bf01f1b7af89cba211c89b",
+        "bytes": 492,
+        "sha256": "e1651f74671d8654ed6f3650750126dbb58d116499fcd89470bca3b1690de462"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/controls.json",
+        "mode": "100644",
+        "blob": "4392414b0b5ce0300652b8e6c9b2e8f036f8ffbe",
+        "bytes": 5190,
+        "sha256": "b3e1879affb8f14c58943005f5fd3f0a55f065c3ecea0bcbfbc064559053970d"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/results.json",
+        "mode": "100644",
+        "blob": "2963d63aba8bdf29b4c169978a11e8c291c8ae7f",
+        "bytes": 425431,
+        "sha256": "61bd4972d55251ed0b41c7b8e7931a3967234443048ea7fb26835f4d66989831"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/costs.json",
+        "mode": "100644",
+        "blob": "caff5e7e490601f159c9777471d489f34ff3cd16",
+        "bytes": 7378,
+        "sha256": "7dc964c3e0bd41cd0de015d1bf2533c05c820f043d705c8472c5bb2b9f4fd7e3"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/preservation.json",
+        "mode": "100644",
+        "blob": "05b70c2d9d9df6ea993966a64737c91b59840fb5",
+        "bytes": 16963,
+        "sha256": "9d2c070ff648c7fadc71e8e16666f53361c344d829ffe04e3a706b809c234b26"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/checks.json",
+        "mode": "100644",
+        "blob": "646dbf337f858044a7de51265798a0efd4b36576",
+        "bytes": 2137,
+        "sha256": "eb1f9f3569d5f5fc862ac29a02b2a20b227c683c2d1ad3bdd60ba7fba87e4042"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/writing-check.json",
+        "mode": "100644",
+        "blob": "84ec2581793b3074b852a580f7b326c965f930c9",
+        "bytes": 3310,
+        "sha256": "019e42a9009b87f1355328e1616b79a07c594da47da318315b0ca4a3d1c8b726"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "docs/evidence/accountant-native-loopback-retained-compression-20261125/SHA256SUMS",
+        "mode": "100644",
+        "blob": "cb025891c90cd50cd69e5fc70f4f0a73791a1301",
+        "bytes": 887,
+        "sha256": "35b4ed160c17bc4f1ea1135f7c87d0e13c03f5277435ce31297433e3c2281f93"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "tests/agent/test_native_main_payload.py",
+        "mode": "100644",
+        "blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb",
+        "bytes": 66496,
+        "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+      },
+      {
+        "repo": "native",
+        "ref": "2c862e009962e9b36c04053702d449e48da1c8e9",
+        "path": "agent/content_policy.py",
+        "mode": "100644",
+        "blob": "161c7cbbb6222e4f3a59376c3344b946f2c70c2a",
+        "bytes": 11094,
+        "sha256": "8db1a9898a2e21407edf87bfe227e65091428daf8e671313f7069faf5f560836"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/README.md",
+        "bytes": 5566,
+        "sha256": "82311987a1ca3fabbadfd20f4d7a6024e44a643707052d505fbd07685ed35a8f",
+        "mode": "100644",
+        "blob": "781d30b297c262383b8012dd27a46f7c78a8a087"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/source-map.md",
+        "bytes": 12529,
+        "sha256": "df83fc0f3f605db94d1aeae9c95864ea09147eee8beeb9fc334a574c33a1d81c",
+        "mode": "100644",
+        "blob": "cbc48938f3e1218bff25e433a30294856d6fd8ea"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/next-component-design.md",
+        "bytes": 12561,
+        "sha256": "bee5255228ed0e62077e225d0d98bb447c1427efe40571f0420fd4ebdb805498",
+        "mode": "100644",
+        "blob": "f46a5264b42315aed3be370f426807ad70a8bb9e"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/source-pins.json",
+        "bytes": 34308,
+        "sha256": "d3c374c4029a96fe2347bd75b7cac8ec32f201239b58ee248a991c69500d6ad0",
+        "mode": "100644",
+        "blob": "3a89f982153b2df17a7b7b07a4e89fd9471a3551"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/verification.json",
+        "bytes": 9897,
+        "sha256": "ced75a3029a08ff26fe5b1b880c7a77f57f307f84978da2485b5aa95aa29edd6",
+        "mode": "100644",
+        "blob": "3d3832cb1403b0ae30976e2f772f7c0eba8f7981"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/writing-check.json",
+        "bytes": 8671,
+        "sha256": "f8961d65611225b6c83f56e22c664294a01354a29953f26a497d20e6d46c98de",
+        "mode": "100644",
+        "blob": "042f58b69df2228af9d9e89011ad5298b4403ec0"
+      },
+      {
+        "repo": "PWA",
+        "ref": "4a8eafce238a976980f34f4347d8d73506fad5a9",
+        "path": "docs/mesh/evidence/accountant-native-retained-compression-http-contracts-20261125/SHA256SUMS",
+        "bytes": 499,
+        "sha256": "18e54fb0c6d6935bbb78bba4dd10eeb505c0fbce49172e7a62e28896876ac7a7",
+        "mode": "100644",
+        "blob": "5ed864065334f0544c5aa8468df64ff7f19122ad"
+      }
+    ],
+    "protected": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.72-task_fb1c6e796d8e/handoff.json",
+        "bytes": 15420,
+        "sha256": "23ffe593fbdd759a67f3e30a9776da2bc6d12c52b894e96841a2dec87117c60e"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.72.root-exception-correction.json",
+        "bytes": 2593,
+        "sha256": "a8057b8f441dfe8da5b5771ab4650a41462937c9690e9d28224fe66e7efc6f55"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.72.root-static-review.json",
+        "bytes": 1975,
+        "sha256": "a2ed50ec81840a174af34a765d736c3a33e43228b3a92983b948f18158883f0a"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.72.root-final-review.json",
+        "bytes": 1339,
+        "sha256": "3b704e3e23cc76ab716c1defb9235820cc3b438260d774d0d1612eb450f6b6ad"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.72.root-publication.json",
+        "bytes": 929,
+        "sha256": "c80adc9f62404a4b21baec713709fa523e76404c65d9c0821c281296288e2b21"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/handoff.json",
+        "bytes": 1164125,
+        "sha256": "40370dcbe07576c9ef759dcb5139b331cd054542cafa6337b33d734795539fdd"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.71.root-functional-review.json",
+        "bytes": 4484,
+        "sha256": "b346fec1b348e18327ed9846385d00b331d5bde628ad4f36c07e4b0dd20b6def"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.71.root-publication.json",
+        "bytes": 942,
+        "sha256": "124176d0b8abf0b99cd98e2770ba9be6ec9c0dbf142b064e37e82f8e7e24748b"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.71.phase-selector-decision.md",
+        "bytes": 1240,
+        "sha256": "7d9ebc3591095649adc44dfde220e0291f27efccda3d29901121fa6081ab2f46"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.72.frozen-spec.md",
+        "bytes": 9703,
+        "sha256": "8dd2584739cc70e2b2b6fb7fff864fcd76f061ac1cf43dc5141e18072a19ff58"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.71.input-receipts.json",
+        "bytes": 15218,
+        "sha256": "300a1a7091849a0a51f114dd5fd1241724c368d480a0f4a084d9981a901d285c"
+      }
+    ],
+    "environment": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+        "bytes": 197,
+        "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+        "bytes": 40548,
+        "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+        "bytes": 160,
+        "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+        "bytes": 756,
+        "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+        "bytes": 87,
+        "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+      }
+    ],
+    "pytest_phase_core": [
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/config/__init__.py",
+        "bytes": 80947,
+        "sha256": "98b05c2c37d09e1d5c05975efc2d9af98d4aff6ea47de410a8e93956420873c1"
+      },
+      {
+        "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/runner.py",
+        "bytes": 20346,
+        "sha256": "c8d7fd553c0516f7884502ee0e7954eb5a5b1542f21fcb5c4357500ed2fe1570"
+      }
+    ],
+    "wheel": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+      "bytes": 9020,
+      "sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b"
+    },
+    "selected_proposal_sha256": "bee5255228ed0e62077e225d0d98bb447c1427efe40571f0420fd4ebdb805498",
+    "API_pins": {
+      "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+      "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+      "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+      "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+    }
+  },
+  "verified_tracked_objects": 42,
+  "verified_protected_files": 19,
+  "source": {
+    "path": "tests/agent/test_native_loopback_retained_compression_expiry.py",
+    "bytes": 39230,
+    "sha256": "d0a1e3c00fead9d2e2194b64b147222969f6a83a7ffa63d6e37807b5556044c8",
+    "mode": "0o600"
+  },
+  "private_directory": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c",
+  "private_receipts": {
+    "cheap-01.phases.jsonl": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01.phases.jsonl",
+      "bytes": 1443,
+      "sha256": "63a2820d855e24e2d7b4f45ace1a892867fb2ae204193f43633eb4f6cb6460c3",
+      "mode": "0o600"
+    },
+    "ruff-final.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/ruff-final.command.json",
+      "bytes": 4256,
+      "sha256": "9f985395513d5c30bdaa85b128e810fc39c43ad913e2e4e3c6fe478506d0960c",
+      "mode": "0o600"
+    },
+    "genuine.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/genuine.stdout",
+      "bytes": 1039,
+      "sha256": "bf12a310b2148758ff629822304d7d3bf9c80c11e7a8db08acdd7c6033e1abcc",
+      "mode": "0o600"
+    },
+    "ruff-final.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/ruff-final.stdout",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "mode": "0o600"
+    },
+    "clock.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/clock.json",
+      "bytes": 136,
+      "sha256": "4f30a3211d6f8aa8c5095b88232e5a52b22693d2b8c5aaeea566bcb2b1533163",
+      "mode": "0o600"
+    },
+    "run_command.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/run_command.py",
+      "bytes": 2485,
+      "sha256": "d3a6f9bb595b077bfe5f66eb32de663ba2ab2c2d4c13208982cd93610734baf2",
+      "mode": "0o600"
+    },
+    "genuine.phases.jsonl": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/genuine.phases.jsonl",
+      "bytes": 713,
+      "sha256": "393dba864ce4d12fa6d07834e5ae0e52b894caaf87c14684831c3267097026ed",
+      "mode": "0o600"
+    },
+    "initial.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/initial.json",
+      "bytes": 5014,
+      "sha256": "270bbe4bb13079a2fc1d3cde031c5f098c0bd90a9817e37338ab4735a1fa9f85",
+      "mode": "0o600"
+    },
+    "ruff.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/ruff.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    "cheap-01.xml": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01.xml",
+      "bytes": 733,
+      "sha256": "813d8b3fe02a0788118ecc7969c6eeb0374beffdd2dd73e1c2b121860422f5ee",
+      "mode": "0o600"
+    },
+    "ruff-final.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/ruff-final.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    "source-freeze-commit.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-freeze-commit.stdout",
+      "bytes": 222,
+      "sha256": "62285be1944da8848bc009816e974c36bdc5319e38c255c4aad224ee4d1f977a",
+      "mode": "0o600"
+    },
+    "source-freeze.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-freeze.json",
+      "bytes": 272,
+      "sha256": "b9632c00dee59988e6590365940af4b590819c2221e8dda96de9c8aef449552b",
+      "mode": "0o600"
+    },
+    "cheap-01.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01.stdout",
+      "bytes": 1030,
+      "sha256": "45d2a25891a8e7507e3d1427a4e1e05557dccebd11c97b6306d75fa0692661bc",
+      "mode": "0o600"
+    },
+    "genuine.receipts.jsonl": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/genuine.receipts.jsonl",
+      "bytes": 542861,
+      "sha256": "65284af30a45d08bbfe5425544cc709f885b5a256c77eaf64cd402f48c567f5c",
+      "mode": "0o600"
+    },
+    "cheap-verified.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-verified.json",
+      "bytes": 2094,
+      "sha256": "9a75dc6f517d718bde8f0489c09d004237334209a111c04a8c33acb6ef86d5f8",
+      "mode": "0o600"
+    },
+    "source-freeze-commit.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-freeze-commit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    "source-commit.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-commit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    "genuine.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/genuine.stderr",
+      "bytes": 256,
+      "sha256": "1451ed131913e6f3bc355037ce92cedb022ebf1093f4958090d79e360d4f6b18",
+      "mode": "0o600"
+    },
+    "beads-issue.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/beads-issue.json",
+      "bytes": 124652,
+      "sha256": "8f200c89d7acaa050ba90b92389475fab33ae50cdfb74b8e06c025d20a0701c2",
+      "mode": "0o600"
+    },
+    "source-ste.txt": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-ste.txt",
+      "bytes": 120,
+      "sha256": "50048910d3f45dbda8c4eb35c543a157c26aa9e53875c7fa5f52b5c82bc87d83",
+      "mode": "0o600"
+    },
+    "source-freeze-commit.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-freeze-commit.command.json",
+      "bytes": 4169,
+      "sha256": "6bf1ba41ace5a11ac59eda2a7ffe00e9fd394714553b034c25c8efd45a26c588",
+      "mode": "0o600"
+    },
+    "source-commit.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-commit.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    "ruff.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/ruff.command.json",
+      "bytes": 4257,
+      "sha256": "0e7b962c904ad9102477648bbba75c7290204d773e204c8f77713e8e7e84db26",
+      "mode": "0o600"
+    },
+    "ruff.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/ruff.stdout",
+      "bytes": 3482,
+      "sha256": "06271e979fe7b61edfdb48313f43eaa2cad56e9277f5ef4119c0dc6387659b0c",
+      "mode": "0o600"
+    },
+    "source-commit.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/source-commit.command.json",
+      "bytes": 4153,
+      "sha256": "721468b478937b6fc49ac76cab4c46184765d8055f1e2ba612349f2febc22ffd",
+      "mode": "0o600"
+    },
+    "beads-prime.txt": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/beads-prime.txt",
+      "bytes": 127420,
+      "sha256": "e7e3a7445cfc3d3188d1a55d6c736b09f0ff9f7f7e8e7701ace091c671b90fb8",
+      "mode": "0o600"
+    },
+    "cheap-01.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01.command.json",
+      "bytes": 4538,
+      "sha256": "9205050205673cfd0b1daefc9b47e8ec151a30573b9a11708c6698e14134d4f9",
+      "mode": "0o600"
+    },
+    "genuine.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/genuine.command.json",
+      "bytes": 4578,
+      "sha256": "9571dbfbe02c1785cd6b06f6175e80a561a18cbeb07c88780053c9d3dd6a360c",
+      "mode": "0o600"
+    },
+    "build_source.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/build_source.py",
+      "bytes": 18244,
+      "sha256": "c529c16d48857d78c31c5917a21bcda3953f20e767e0095e1d9833381ba5cca6",
+      "mode": "0o600"
+    },
+    "genuine.xml": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/genuine.xml",
+      "bytes": 627903,
+      "sha256": "1b51fd42bc19f6928667dc4a779f279d1468528ca3d524c578fdc87429f86d75",
+      "mode": "0o600"
+    },
+    "cheap-01-source.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01-source.py",
+      "bytes": 37878,
+      "sha256": "49abdf9b4038a7e8473c5cd96cd9bded227eac12fba38ef79716ae776ddd2665",
+      "mode": "0o600"
+    },
+    "cheap-01.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/cheap-01.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    "tracked-verified.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/tracked-verified.json",
+      "bytes": 14632,
+      "sha256": "2d90b8a5c988a8fe171b70ac3cf49250c90d21ca8d80f2a8f023ebfad9f2e5fe",
+      "mode": "0o600"
+    },
+    "static.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/static.json",
+      "bytes": 2299,
+      "sha256": "4f1387fb0532f663df7035b9f1809446534f50b3acb8101d380a3ddd1b8385e3",
+      "mode": "0o600"
+    },
+    "final-static.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/final-static.command.json",
+      "bytes": 4210,
+      "sha256": "d1fa880cb9fcc7c1ea56d514a781d305d1033c9eab1144023e58e028345ab4e5",
+      "mode": "0o600"
+    },
+    "final_static.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/final_static.py",
+      "bytes": 3551,
+      "sha256": "b6f296e228793b56422d7af73fd773e84dab35a04a073108abd40cded5bb63a9",
+      "mode": "0o600"
+    },
+    "pr-body.md": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/pr-body.md",
+      "bytes": 962,
+      "sha256": "8bbc3b3b2b017e1d18b4abd295f3feabe24da2f8fd64e384ff3bfb7c7a4b5756",
+      "mode": "0o600"
+    },
+    "static-first-failure.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/static-first-failure.json",
+      "bytes": 712,
+      "sha256": "8986a53208b8c33dfb44658e9ed25386234d8bef23a68a803c5bc545c565440a",
+      "mode": "0o600"
+    }
+  },
+  "API_evidence_reused": {
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+    "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+  },
+  "installed_API_resource_import_evidence": "Reused accepted installed evidence. No installation or smoke repeated."
+}
