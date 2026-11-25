@@ -1,0 +1,21 @@
+{
+  "commit": "fccddbc337d6fc7c8f477f2401110887ce99f1a0",
+  "tree": "b038bb4d74345d2d4647b241f2fdfda73c2252c5",
+  "sha256": "d0a1e3c00fead9d2e2194b64b147222969f6a83a7ffa63d6e37807b5556044c8",
+  "bytes": 39230,
+  "frozen_epoch": 1795572529.7088068,
+  "normal_hooks": true,
+  "test_path": "tests/agent/test_native_loopback_retained_compression_expiry.py",
+  "cheap_body_sha256": {
+    "_PhaseReceipts": "b0ec46d9e7ec638e14f1976ce1ba81e11ed95ccacc15549645d79a8a3832a303",
+    "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+    "configure_expiry_world": "e7a7f9f6a98372212a25efcd54676f72ebf16c17cb573560c16d676d45c5da49",
+    "expire_selected_after_raw": "83052a84ccffb820133b03c3607506ec08101ca30c1d1cf15fc19d62fcf4d5d6",
+    "qualify_expiry_world": "48cc8ef028f68cc6c53cac38d71b06083bc4ee2438da6baee7c9009b971a91ca",
+    "test_inert_selected_compression_expiry_catalog": "cd40e65661e54ca47981b5abdf524d09de5c65f010d44c2ce1cef45725b7e201",
+    "test_selected_expiry_trigger_waits_for_complete_raw_response": "80d6a10f0de25ab72c81c186a3d12f31273d1d1793b23f7d497a24c542e5e913"
+  },
+  "executable_unchanged_after_genuine": true,
+  "final_source_sha256": "d0a1e3c00fead9d2e2194b64b147222969f6a83a7ffa63d6e37807b5556044c8",
+  "genuine_started_epoch": 1795572529.756977
+}
