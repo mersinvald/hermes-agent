@@ -1,0 +1,65 @@
+{
+  "status": "FROZEN BEFORE GENUINE",
+  "proposal": "7168632393dc06a45dfed3a1ff408f91f85a3fd7313a40d962857d9043a4aab7",
+  "source_allowlist": [
+    "tests/agent/test_native_loopback_retained_title.py"
+  ],
+  "base_paths": 12222,
+  "holders": [
+    [
+      "selection",
+      3
+    ],
+    [
+      "title_selection",
+      5
+    ]
+  ],
+  "producers": [
+    [
+      "invented_producer",
+      4
+    ],
+    [
+      "title_producer",
+      2
+    ]
+  ],
+  "logical_clock": 10,
+  "route_expiry": 100,
+  "qualification": {
+    "total": 16,
+    "http": 2,
+    "in_process": 14,
+    "runtime": "separate"
+  },
+  "history": {
+    "main": 1,
+    "title_sends": 1,
+    "fallback": 0,
+    "user": "Invented folder request.",
+    "main_reply": "Keep the blue folder.",
+    "title": "Blue folder retention"
+  },
+  "input_stages": 7,
+  "output_stages": 4,
+  "ancestry": "Exact ordered original content identities and request capabilities.",
+  "limits": {
+    "combined_slots": 128,
+    "payload_bytes": 1048576,
+    "retained_bytes": 8388608,
+    "hops": 128,
+    "parents": 32,
+    "native_request_bytes": 262144,
+    "native_response_bytes": 65536,
+    "auxiliary_records": 8
+  },
+  "lifecycle": {
+    "receiver_responses_each": 2,
+    "lifetime_seconds": 590,
+    "quiet_drain_minimum_seconds": 0.5,
+    "close_calls": 2,
+    "terminal_refusal": true
+  },
+  "stop": "Any genuine failure stops functional work. No correction or retry follows."
+}

@@ -1,0 +1,36 @@
+{
+  "status": "FROZEN BEFORE GENUINE",
+  "rows": [
+    {
+      "holder": "selection",
+      "version": 3,
+      "route": "route_main",
+      "path": "main",
+      "endpoint": "synthetic_loopback_p",
+      "http_path": "/owned-accountant-proof/v1/p",
+      "model": "invented_model_0"
+    },
+    {
+      "holder": "title_selection",
+      "version": 5,
+      "route": "title_title",
+      "path": "title",
+      "task": "title_generation",
+      "endpoint": "synthetic_loopback_c",
+      "http_path": "/owned-accountant-proof/v1/c",
+      "model": "invented_model_5"
+    }
+  ],
+  "provider": "synthetic_native",
+  "revision": 1,
+  "profiles": [
+    "restricted_documents"
+  ],
+  "routes": 16,
+  "unchanged_in_process_ports": 14,
+  "authority": "Original request, holder, producer, selection, and native auxiliary binding. Endpoint labels grant no authority.",
+  "aliases": [
+    "title_ports[title] is ports[title_capability_title]"
+  ],
+  "socket_facts": "Private receipts only."
+}

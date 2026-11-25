@@ -1,0 +1,193 @@
+{
+  "status": "INCOMPLETE / DO NOT MERGE",
+  "task_outcome": "FAILED",
+  "genuine_cases": 1,
+  "retries": 0,
+  "failure": {
+    "file": "tests/agent/test_native_loopback_retained_title.py",
+    "line": 316,
+    "type": "AssertionError",
+    "actual_retained_contents": 21,
+    "asserted_retained_contents": 22,
+    "statement": "The retained-content count formula asserted 22. The actual runtime retained 21 contents.",
+    "code_correction": false,
+    "functional_rerun": false
+  },
+  "completed_checks": {
+    "qualification": {
+      "total": 16,
+      "http": 2,
+      "in_process": 14,
+      "charges": [
+        32,
+        16,
+        4271
+      ]
+    },
+    "main": {
+      "final_response": "Keep the blue folder.",
+      "charges": [
+        6,
+        1,
+        2484
+      ],
+      "usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 2,
+        "total_tokens": 5,
+        "estimated_cost_usd": null,
+        "cost_status": "unknown"
+      },
+      "original_completion_identity": true,
+      "conversation_exit": true
+    },
+    "title": {
+      "returned": "Blue folder retention",
+      "output": {
+        "title": "Blue folder retention"
+      },
+      "charges": [
+        21,
+        2,
+        6975
+      ],
+      "original_source_identity": true,
+      "ordered_input_stages": 7,
+      "ordered_output_stages": 4,
+      "parser_and_release": "Original checks completed before failure.",
+      "usage": {
+        "completion_tokens": 2,
+        "prompt_tokens": 3,
+        "total_tokens": 5
+      }
+    }
+  },
+  "later_checks": {
+    "receiver_mark": "UNKNOWN: not reached",
+    "wire_response_assertions": "UNKNOWN: not reached",
+    "final_validate_scope": "UNKNOWN: not reached",
+    "close_twice": "UNKNOWN: not reached",
+    "terminal_refusal": "UNKNOWN: not reached"
+  },
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_errors": [],
+    "b_errors": [],
+    "seconds": 12.05839731299784
+  },
+  "receivers": {
+    "a": {
+      "connections": 2,
+      "errors": [],
+      "mark": null,
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "quiet_drain_seconds": 0.5106459780072328,
+      "connections_summary": [
+        {
+          "order": 0,
+          "request_body_bytes": 22,
+          "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+          "response_header_bytes": 58,
+          "response_body_bytes": 17,
+          "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+          "response_bytes": 75,
+          "response_written_bytes": 75,
+          "complete": true,
+          "settled": true,
+          "status": "response_sent",
+          "failure": null
+        },
+        {
+          "order": 1,
+          "request_body_bytes": 358,
+          "request_body_sha256": "334baf3606629e7c045764c050e523429e1d55c15bdc61da35cbe733d2176b09",
+          "response_header_bytes": 59,
+          "response_body_bytes": 269,
+          "response_body_sha256": "b65c7652bc8b9593f60b1a3fc8c58361925184d0ee617d1381c9b2e0a1dfa7b0",
+          "response_bytes": 328,
+          "response_written_bytes": 328,
+          "complete": true,
+          "settled": true,
+          "status": "response_sent",
+          "failure": null
+        }
+      ]
+    },
+    "b": {
+      "connections": 2,
+      "errors": [],
+      "mark": null,
+      "thread_stopped": true,
+      "listener_closed": true,
+      "sockets_closed": true,
+      "quiet_drain_seconds": 0.5107615199813154,
+      "connections_summary": [
+        {
+          "order": 0,
+          "request_body_bytes": 22,
+          "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+          "response_header_bytes": 58,
+          "response_body_bytes": 17,
+          "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+          "response_bytes": 75,
+          "response_written_bytes": 75,
+          "complete": true,
+          "settled": true,
+          "status": "response_sent",
+          "failure": null
+        },
+        {
+          "order": 1,
+          "request_body_bytes": 1923,
+          "request_body_sha256": "2c0486956b862fe14966c37f3a727202317252ba26c1de90ce1ea1c0c2174a0f",
+          "response_header_bytes": 59,
+          "response_body_bytes": 291,
+          "response_body_sha256": "930fc47cf2de10678e6306404128bd9e22ebfb65777a7bda957289f3ff0ee6c5",
+          "response_bytes": 350,
+          "response_written_bytes": 350,
+          "complete": true,
+          "settled": true,
+          "status": "response_sent",
+          "failure": null
+        }
+      ]
+    }
+  },
+  "graphs": {
+    "qualification": {
+      "charges": [
+        32,
+        16,
+        4271
+      ],
+      "hops": [
+        16
+      ],
+      "rows": 32,
+      "actual_payload_sum": 4271,
+      "combined_slots": 48,
+      "retained_rows": "Every actual row remains in the private process receipts."
+    },
+    "native": {
+      "charges": [
+        21,
+        2,
+        6975
+      ],
+      "hops": [
+        2
+      ],
+      "rows": 21,
+      "actual_payload_sum": 6975,
+      "combined_slots": 23,
+      "retained_rows": "Every actual row remains in the private process receipts."
+    }
+  },
+  "source_freeze": "7709bf86151d99df224d543cd25056ff3322a3d6",
+  "limits": "Invented responses provide no real-provider, model-quality, or financial qualification."
+}
