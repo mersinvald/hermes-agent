@@ -245,14 +245,15 @@
     "task_cap": 1500,
     "reported_epoch": 1795572690.002986,
     "verification_elapsed_seconds": 493.64498591423035,
-    "task_conservative_elapsed_seconds": 553.6449859142303,
+    "task_conservative_elapsed_seconds": 567.6553409099579,
     "verification_remaining_seconds": 706.3550140857697,
-    "task_remaining_seconds": 946.3550140857697,
-    "genuine_launch_task_remaining_seconds": 1106.6010229587555,
+    "task_remaining_seconds": 932.3446590900421,
+    "genuine_launch_task_remaining_seconds": 1092.590667963028,
     "genuine_launch_verification_remaining_seconds": 866.6010229587555,
     "launch_floor_seconds": 600,
     "final_reserve_seconds": 240,
-    "reporting_reserve_seconds": 120
+    "reporting_reserve_seconds": 120,
+    "root_launch_epoch": 1795572182.347645
   },
   "caps": {
     "genuine_outer": 150,
@@ -260,5 +261,41 @@
     "receiver": 140,
     "cheap_command": 60
   },
-  "distinction": "Command durations exclude reasoning and tool gaps. All-wall ledgers include them."
+  "distinction": "Command durations exclude reasoning and tool gaps. All-wall ledgers include them.",
+  "root_clock_origin_correction": {
+    "root_launch_epoch": 1795572182.347645,
+    "first_workspace_check_epoch": 1795572196.358,
+    "omitted_root_to_workspace_seconds": 14.010354995727539,
+    "root_launch_receipt": {
+      "name": "hpwa-p10.73.launch.json",
+      "bytes": 491,
+      "sha256": "3d595f1a4c8c080c7a2e190c32475c53222c3854e86d3f661886831a63a77bd6"
+    },
+    "original_worker_snapshot": {
+      "first_workspace_check_epoch": 1795572196.358,
+      "task_conservative_preparation_seconds": 60,
+      "verification_cap": 1200,
+      "task_cap": 1500,
+      "reported_epoch": 1795572690.002986,
+      "verification_elapsed_seconds": 493.64498591423035,
+      "task_conservative_elapsed_seconds": 553.6449859142303,
+      "verification_remaining_seconds": 706.3550140857697,
+      "task_remaining_seconds": 946.3550140857697,
+      "genuine_launch_task_remaining_seconds": 1106.6010229587555,
+      "genuine_launch_verification_remaining_seconds": 866.6010229587555,
+      "launch_floor_seconds": 600,
+      "final_reserve_seconds": 240,
+      "reporting_reserve_seconds": 120
+    },
+    "original_worker_handoff_sha256": "15c6d8e3aa9346598c38cf34daa90765343e23b5bbe595e91fe9720c5a38cf45",
+    "corrected_Task_through_cost_snapshot_seconds": 567.6553409099579,
+    "corrected_Task_through_handoff_seconds": 802.5983991622925,
+    "corrected_Task_remaining_at_handoff_seconds": 697.4016008377075,
+    "corrected_Task_remaining_at_genuine_launch_seconds": 1092.590667963028,
+    "verification_origin_and_elapsed": "UNCHANGED",
+    "functional_and_test_bytes": "UNCHANGED",
+    "raw_receipts_and_worker_outcome": "UNCHANGED",
+    "per_command_clock_basis": "Original per-command task_conservative_seconds retain the first-workspace basis. Add the omitted interval for the Root Task basis.",
+    "no_functional_reexecution": true
+  }
 }

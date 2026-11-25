@@ -801,5 +801,14 @@
         "mode": "prose-v1"
       }
     }
+  },
+  "root_clock_origin_correction": {
+    "source": "costs.json#root_clock_origin_correction",
+    "omitted_seconds": 14.010354995727539,
+    "corrected_Task_through_handoff_seconds": 802.5983991622925,
+    "corrected_genuine_Task_launch_remaining_seconds": 1092.590667963028,
+    "Task_cap_pass": true,
+    "both_launch_floors_pass": true,
+    "source_test_graphs_raw_receipts_unchanged": true
   }
 }
