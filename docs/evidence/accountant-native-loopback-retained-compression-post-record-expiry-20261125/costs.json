@@ -1,0 +1,89 @@
+{
+  "bounds": {
+    "cheap_file": 40,
+    "cheap_outer": 45,
+    "genuine_file": 145,
+    "genuine_outer": 150,
+    "receiver": 140
+  },
+  "command_seconds": {
+    "cheap_allowance": 90,
+    "cheap_cumulative": 16.627060890197754,
+    "genuine_case_call": 32.765897926001344,
+    "genuine_two_ID_group": 35.049023389816284
+  },
+  "compression_typed_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "consumer_or_cost_authority": false,
+  "cost_status": "unknown",
+  "estimated_cost_usd": null,
+  "historical_Task84": {
+    "budget_extension": false,
+    "full_reserve_projection": 1514.6788387298584,
+    "later_serialization_delivery": "UNKNOWN",
+    "observed_final_charge": 1394.6788387298584,
+    "outcome": "SUCCEEDED documentation only"
+  },
+  "ledger": {
+    "charged_task_seconds": 693.549797296524,
+    "charged_verification_seconds": 633.549797296524,
+    "commands_separate": true,
+    "final_checks_publication_reserve": 240,
+    "full_reserve_final_compliance_claim": false,
+    "hard_task_seconds": 1500,
+    "hard_verification_seconds": 1200,
+    "launch_floor_each": 600,
+    "launch_task_remaining": 997.5873656272888,
+    "launch_verification_remaining": 757.5873656272888,
+    "preparation_seconds": 60,
+    "reporting_reserve": 120,
+    "root_epoch": 1795595765.1174986,
+    "snapshot": 1795596398.667296,
+    "unknown_intervals_charged": true,
+    "verification_boundary": "Conservative Root epoch"
+  },
+  "main_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "native": {
+    "base_bytes": 30099,
+    "base_contents": 16,
+    "basis": "Actual complete new-run rows and bytes, independently observed and hashed. Historical values match only after this run verifies correspondence.",
+    "contents": 21,
+    "envelopes": 2,
+    "output_bytes": 8304,
+    "output_payloads": [
+      {
+        "length": 125,
+        "sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32"
+      },
+      {
+        "length": 131,
+        "sha256": "c172e9b1fc18dc651f48fbb0f93ddc709420fb8cde2c612ed040484859ca5613"
+      },
+      {
+        "length": 729,
+        "sha256": "2667ab614a99ae05b4128b73c37765293ae4bf7696f1505c3269d2e7d4e4d64b"
+      },
+      {
+        "length": 4883,
+        "sha256": "48a25a6d3625ef6082ebcce4c4e3ed33106e04536d41c7d3c208cb8bb51fab69"
+      },
+      {
+        "length": 2436,
+        "sha256": "9ac95c6f91bafabe06d8229978a872c600b7974181ca9b6dc5171a09e6ddc757"
+      }
+    ],
+    "retained_bytes": 38403
+  },
+  "qualification": [
+    50,
+    25,
+    7241
+  ]
+}

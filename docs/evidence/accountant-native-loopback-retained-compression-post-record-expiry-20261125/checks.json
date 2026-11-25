@@ -1,0 +1,295 @@
+{
+  "earlier_feedback": [
+    {
+      "command": {
+        "command": [
+          "scripts/run_tests.sh",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "40",
+          "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py",
+          "-k",
+          "test_post_record_expiry_gate_waits_for_accepted_record",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.85-task_258e786ac390-3d1qehj_/cheap-01.xml"
+        ],
+        "duration": 11.587232112884521,
+        "end": 1795596029.0988295,
+        "file_bound": 40,
+        "outer_bound": 45,
+        "returncode": 0,
+        "root_epoch": 1795595765.1174986,
+        "scope": "cheap-01",
+        "selection": "test_post_record_expiry_gate_waits_for_accepted_record",
+        "source_sha256": "f95dc9a40ffbb15c137c88e7226a2ffc05aa4a60f240d33b67b9fe89dfab6b69",
+        "start": 1795596017.5115976,
+        "task_at_start": 312.3940989971161,
+        "verification_at_start": 252.3940989971161
+      },
+      "phases": [
+        {
+          "duration": 0.03424730899860151,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596028.7682164,
+          "when": "setup"
+        },
+        {
+          "duration": 0.0003410539939068258,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596028.7776647,
+          "when": "call"
+        },
+        {
+          "duration": 0.0004888979892712086,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596028.785328,
+          "when": "teardown"
+        }
+      ]
+    },
+    {
+      "command": {
+        "command": [
+          "scripts/run_tests.sh",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "40",
+          "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py",
+          "-k",
+          "test_post_record_expiry_gate_waits_for_accepted_record",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.85-task_258e786ac390-3d1qehj_/cheap-02.xml"
+        ],
+        "duration": 2.569774866104126,
+        "end": 1795596103.9775317,
+        "file_bound": 40,
+        "outer_bound": 45,
+        "returncode": 0,
+        "root_epoch": 1795595765.1174986,
+        "scope": "cheap-02",
+        "selection": "test_post_record_expiry_gate_waits_for_accepted_record",
+        "source_sha256": "40b1bdf1d2e0f680bf442af8f52a84ef911b16057b05b47bc95b5db2edd47caf",
+        "start": 1795596101.407757,
+        "task_at_start": 396.2902584075928,
+        "verification_at_start": 336.2902584075928
+      },
+      "phases": [
+        {
+          "duration": 0.035078393993899226,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596103.642813,
+          "when": "setup"
+        },
+        {
+          "duration": 0.0006701340025756508,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596103.6594663,
+          "when": "call"
+        },
+        {
+          "duration": 0.0004368279769551009,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596103.665833,
+          "when": "teardown"
+        }
+      ]
+    },
+    {
+      "command": {
+        "command": [
+          "scripts/run_tests.sh",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "40",
+          "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py",
+          "-k",
+          "test_post_record_expiry_gate_waits_for_accepted_record",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.85-task_258e786ac390-3d1qehj_/cheap-03.xml"
+        ],
+        "duration": 2.4700539112091064,
+        "end": 1795596172.8330379,
+        "file_bound": 40,
+        "outer_bound": 45,
+        "returncode": 0,
+        "root_epoch": 1795595765.1174986,
+        "scope": "cheap-03",
+        "selection": "test_post_record_expiry_gate_waits_for_accepted_record",
+        "source_sha256": "ee9c2c987e166941e7b18d4c8110e2f0c8f1f55fe4f1dd230a8184dbf90b37e6",
+        "start": 1795596170.362984,
+        "task_at_start": 465.24548530578613,
+        "verification_at_start": 405.24548530578613
+      },
+      "phases": [
+        {
+          "duration": 0.033903689007274806,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596172.5117116,
+          "when": "setup"
+        },
+        {
+          "duration": 0.00427887900150381,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596172.5317197,
+          "when": "call"
+        },
+        {
+          "duration": 0.00039180199382826686,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+          "outcome": "passed",
+          "recorded_at": 1795596172.5388317,
+          "when": "teardown"
+        }
+      ]
+    }
+  ],
+  "feedback": [
+    {
+      "fact": "A no-match rg under set -e stopped the read batch before source output. Source was then read with explicit commands.",
+      "scope": "input-read"
+    },
+    {
+      "fact": "An incorrect command-list index raised FileNotFoundError before launch. The helper index was corrected. No functional test ran in that attempt.",
+      "scope": "private-command-helper"
+    },
+    {
+      "fact": "Three cheap commands passed. Final executable additions received fresh cheap feedback before the normal-hook freeze. No fixture correction occurred.",
+      "scope": "cheap-feedback"
+    },
+    {
+      "at": 1795596490.2989404,
+      "correction": "Require no unstaged tracked diff and exactly the authorized committed test against base. No executable edit or functional run.",
+      "error": "Expected no base diff, but the authorized new test is already committed.",
+      "scope": "static preservation checker"
+    }
+  ],
+  "final_phases": [
+    {
+      "duration": 0.03607871299027465,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+      "outcome": "passed",
+      "recorded_at": 1795596209.396366,
+      "when": "setup"
+    },
+    {
+      "duration": 0.0069554120127577335,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+      "outcome": "passed",
+      "recorded_at": 1795596209.4076154,
+      "when": "call"
+    },
+    {
+      "duration": 0.00047920900397002697,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_post_record_expiry_gate_waits_for_accepted_record",
+      "outcome": "passed",
+      "recorded_at": 1795596209.4147866,
+      "when": "teardown"
+    },
+    {
+      "duration": 0.023957208992214873,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_genuine_compression_expiry_after_output_record_acceptance",
+      "outcome": "passed",
+      "recorded_at": 1795596209.4435205,
+      "when": "setup"
+    },
+    {
+      "duration": 32.765897926001344,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_genuine_compression_expiry_after_output_record_acceptance",
+      "outcome": "passed",
+      "recorded_at": 1795596242.2128134,
+      "when": "call"
+    },
+    {
+      "duration": 0.0005319910123944283,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_genuine_compression_expiry_after_output_record_acceptance",
+      "outcome": "passed",
+      "recorded_at": 1795596242.2158139,
+      "when": "teardown"
+    }
+  ],
+  "functional_runs_after_genuine": 0,
+  "genuine_case_phases": [
+    {
+      "duration": 0.023957208992214873,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_genuine_compression_expiry_after_output_record_acceptance",
+      "outcome": "passed",
+      "recorded_at": 1795596209.4435205,
+      "when": "setup"
+    },
+    {
+      "duration": 32.765897926001344,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_genuine_compression_expiry_after_output_record_acceptance",
+      "outcome": "passed",
+      "recorded_at": 1795596242.2128134,
+      "when": "call"
+    },
+    {
+      "duration": 0.0005319910123944283,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py::test_genuine_compression_expiry_after_output_record_acceptance",
+      "outcome": "passed",
+      "recorded_at": 1795596242.2158139,
+      "when": "teardown"
+    }
+  ],
+  "group_command": {
+    "command": [
+      "scripts/run_tests.sh",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "145",
+      "tests/agent/test_native_loopback_retained_compression_post_record_expiry.py",
+      "-k",
+      "test_post_record_expiry_gate_waits_for_accepted_record or test_genuine_compression_expiry_after_output_record_acceptance",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.85-task_258e786ac390-3d1qehj_/genuine-group.xml"
+    ],
+    "duration": 35.049023389816284,
+    "end": 1795596242.5791562,
+    "file_bound": 145,
+    "outer_bound": 150,
+    "returncode": 0,
+    "root_epoch": 1795595765.1174986,
+    "scope": "genuine-group",
+    "selection": "test_post_record_expiry_gate_waits_for_accepted_record or test_genuine_compression_expiry_after_output_record_acceptance",
+    "source_sha256": "ee9c2c987e166941e7b18d4c8110e2f0c8f1f55fe4f1dd230a8184dbf90b37e6",
+    "start": 1795596207.530133,
+    "task_at_start": 502.4126343727112,
+    "verification_at_start": 442.4126343727112
+  },
+  "historical_runs": 0,
+  "installed_suite_runs": 0,
+  "phase_channel": "XML sibling .phases.jsonl; explicit HERMES_NATIVE_PHASE_RECEIPTS takes priority when present; no junit_suite_name selector",
+  "raw_history_reaudits": 0,
+  "selection": [
+    "test_post_record_expiry_gate_waits_for_accepted_record",
+    "test_genuine_compression_expiry_after_output_record_acceptance"
+  ]
+}

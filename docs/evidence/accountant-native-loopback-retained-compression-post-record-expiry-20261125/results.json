@@ -1,0 +1,220 @@
+{
+  "cleanup": {
+    "a_closed": true,
+    "a_errors": [],
+    "a_sockets_closed": true,
+    "a_stopped": true,
+    "b_closed": true,
+    "b_errors": [],
+    "b_sockets_closed": true,
+    "b_stopped": true,
+    "cleanup_errors": [],
+    "seconds": 32.76285226197797
+  },
+  "exception": {
+    "cause": null,
+    "completion_frame_same": true,
+    "context": null,
+    "identity": 140546598353888,
+    "shared_wrapper": false,
+    "suppressed": false,
+    "traceback": [
+      {
+        "function": "test_genuine_compression_expiry_after_output_record_acceptance",
+        "line": 703,
+        "source": "test_native_loopback_retained_compression_post_record_expiry.py"
+      },
+      {
+        "function": "summarize",
+        "line": 1831,
+        "source": "test_native_controlled_conversation.py"
+      },
+      {
+        "function": "_generate_summary",
+        "line": 5351,
+        "source": "context_compressor.py"
+      },
+      {
+        "function": "complete_auxiliary",
+        "line": 3049,
+        "source": "native_main_payload.py"
+      },
+      {
+        "function": "_interrupt_turn",
+        "line": 1932,
+        "source": "native_main_payload.py"
+      },
+      {
+        "function": "_checkpoint",
+        "line": 3333,
+        "source": "native_main_payload.py"
+      },
+      {
+        "function": "_snapshot",
+        "line": 1838,
+        "source": "native_main_payload.py"
+      },
+      {
+        "function": "_compression_snapshot",
+        "line": 3140,
+        "source": "native_main_payload.py"
+      },
+      {
+        "function": "_require",
+        "line": 814,
+        "source": "native_main_payload.py"
+      }
+    ],
+    "traceback_complete": true,
+    "type": "NativeContentPolicyDenied"
+  },
+  "full_gates": "OPEN: P10/P06/private/provider/egress/durable/thread/source/financial/production/manifest/index/deployment/activation",
+  "later_unproved_assertions": [],
+  "lifecycle": {
+    "double_close": true,
+    "scope_refusal": {
+      "context_denied": true,
+      "distinct": true,
+      "error_id": 140546597273808,
+      "native_busy": false,
+      "native_invalid": true,
+      "original_id": 140546598353888,
+      "reason": [
+        "controlled_native_payload_denied"
+      ],
+      "shared_busy": false,
+      "shared_poisoned": false
+    },
+    "terminal_refusal": {
+      "closed": true,
+      "compression_sends": 1,
+      "error_id": 140546598354752,
+      "error_type": "NativeContentPolicyDenied",
+      "reason": [
+        "controlled_native_payload_denied"
+      ],
+      "seconds": 32.74208850998548,
+      "sends": 1
+    }
+  },
+  "outcome": "PASS bounded selected two-ID group",
+  "owner": {
+    "agent_facts_preserved": true,
+    "compression_count": 0,
+    "full_dictionary_unchanged": true,
+    "main_result_messages_prefix_preserved": true,
+    "output_returned": false,
+    "previous_summary": null,
+    "summary_returned": false
+  },
+  "retention": {
+    "accepted_anchors_preserved": true,
+    "accepted_record_preserved": true,
+    "all_five_handles_preserved": true,
+    "completed_record_accepted_once": true,
+    "graph_bytes_preserved": true,
+    "local_partial_distinct": true,
+    "original_body_clear_unreached": true,
+    "output_erasure": false,
+    "pending_cleared_by_invalidation": true,
+    "pre_output_rows_preserved": 16,
+    "rollback": false,
+    "uncharging": false,
+    "updated_frame_preserved": true
+  },
+  "sends": {
+    "SDK": 0,
+    "compression": 1,
+    "extra_requests": 0,
+    "fallback": 0,
+    "main": 1
+  },
+  "state": {
+    "native_denied": true,
+    "native_idle": true,
+    "native_invalid": true,
+    "shared_failures": 0,
+    "shared_healthy": true,
+    "shared_idle": true
+  },
+  "trigger": {
+    "accepted_anchors_id": 140546616515248,
+    "accepted_completed_output_fields": true,
+    "accepted_count": 1,
+    "accepted_record_id": 140546598294336,
+    "after": 100,
+    "before": 10,
+    "charges": [
+      21,
+      2,
+      38403
+    ],
+    "checkpoint": 3049,
+    "completion_code_id": 109179206640448,
+    "completion_frame_id": 140546638421184,
+    "final_content_id": 140546647719104,
+    "frame_id": 140546618020608,
+    "local_partial_output_fields_empty": true,
+    "operator_route_id": 140546618068656,
+    "output_handle_ids": [
+      140546647478016,
+      140546647481440,
+      140546647716736,
+      140546647714720,
+      140546647719104
+    ],
+    "pre_handles": [
+      140546618006880,
+      140546618007744,
+      140546618006528,
+      140546618007584,
+      140546618007872,
+      140546618007392,
+      140546641906752,
+      140546647713920,
+      140546647714688,
+      140546647715520,
+      140546647717344,
+      140546647711968,
+      140546641906368,
+      140546647719776,
+      140546647715072,
+      140546647714656
+    ],
+    "prefix_handle_id": 140546647478016,
+    "prefix_parents": [
+      140546641906752,
+      140546647715072,
+      140546647714656
+    ],
+    "prefix_payload_id": 140546618020752,
+    "prefix_sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32",
+    "prepared_output_id": 140546637464704,
+    "prepared_stage_ids": [
+      140546618020752,
+      140546599241312,
+      109179229496048,
+      109179216780672
+    ],
+    "prepared_summary_id": 109179216651056,
+    "prepared_tuple_id": 140546617350528,
+    "private_prepared_output_exists": true,
+    "raw_id": 140546638346032,
+    "record_id": 140546598295104,
+    "request_content_id": 140546647715072,
+    "response_id": 140546670299392,
+    "result_content_id": 140546647714656,
+    "returned_stage_ids": [
+      140546647478016,
+      140546647481440,
+      140546647716736,
+      140546647714720
+    ],
+    "route_rows_id": 140546618153664,
+    "shared_destination_id": 140546598249520,
+    "shared_healthy_idle": true,
+    "shared_route_id": 140546617179520,
+    "spent": true,
+    "updated_frame_id": 140546597233152
+  }
+}

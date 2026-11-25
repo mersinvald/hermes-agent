@@ -1,0 +1,32 @@
+{
+  "APIs": {
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+    "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+  },
+  "acceptance_proof": "FrameType/code/f_back/locals and exact original field/nested anchors, not IDs alone.",
+  "callback_scope": "Original port methods and admission/selection/result callbacks retain current identities.",
+  "clock_transition": [
+    10,
+    100
+  ],
+  "expiry": 3140,
+  "hook_limits": "Test-local assertions and serialization inspect existing objects. No derives, transforms, decoders, policy callbacks, frame replacements, tracing, profiling, or other-thread inspection occur in the hook.",
+  "local_partial_frame_record": "Original actual completion FrameType retains original partial objects.",
+  "local_results": "Existing separate local-result registry remains empty. CompressionFrame has no local_result field.",
+  "method_scope": "All original dispatch, completion, decode, transformation, derive, snapshot, retention, acceptance, and invalidation methods retain their identities.",
+  "original_checkpoint": 3049,
+  "payload_contract": "Each final-row payload is local payload. Each final-row handle is local content. Parent tuple containers need no identity.",
+  "pre_record_checkpoint": 3046,
+  "record_replacement": [
+    3047,
+    3048
+  ],
+  "response_contract": "message.tool_calls remains None. Canonical wire projection omits this non-wire field.",
+  "unreached_original_body": [
+    3050,
+    3051
+  ],
+  "updated_pending_frame_record": "Original retention methods produce a distinct updated frame and accept its completed invocation exactly once."
+}

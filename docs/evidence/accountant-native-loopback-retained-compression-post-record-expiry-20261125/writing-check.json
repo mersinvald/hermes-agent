@@ -1,0 +1,79 @@
+{
+  "baseline": "New files have no existing prose baseline.",
+  "feedback": [
+    {
+      "fact": "A no-match rg under set -e stopped the read batch before source output. Source was then read with explicit commands.",
+      "scope": "input-read"
+    },
+    {
+      "fact": "An incorrect command-list index raised FileNotFoundError before launch. The helper index was corrected. No functional test ran in that attempt.",
+      "scope": "private-command-helper"
+    },
+    {
+      "fact": "Three cheap commands passed. Final executable additions received fresh cheap feedback before the normal-hook freeze. No fixture correction occurred.",
+      "scope": "cheap-feedback"
+    },
+    {
+      "fact": "Initial README had two paragraphs with seven sentences. Two paragraph breaks removed both findings. Executable source did not change.",
+      "scope": "STE"
+    },
+    {
+      "fact": "Initial README had two paragraphs with seven sentences. Two paragraph breaks removed both findings. Executable source did not change.",
+      "scope": "STE"
+    }
+  ],
+  "final_report": {
+    "Python": {
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 10,
+      "mode": "python-prose-v1",
+      "sample_banned": [],
+      "sample_marketing": [],
+      "sentences": 6,
+      "total": 0,
+      "total_per100w": 0.0,
+      "violations": {
+        "banned_word": 0,
+        "contraction": 0,
+        "ing_main_verb": 0,
+        "long_paragraph(>6s)": 0,
+        "long_sentence(>20w)": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "nominalization": 0,
+        "passive_voice": 0,
+        "phrasal_verb": 0,
+        "semicolon": 0
+      },
+      "words": 41
+    },
+    "README": {
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 17,
+      "mode": "prose-v1",
+      "sample_banned": [],
+      "sample_marketing": [],
+      "sentences": 43,
+      "total": 0,
+      "total_per100w": 0.0,
+      "violations": {
+        "banned_word": 0,
+        "contraction": 0,
+        "ing_main_verb": 0,
+        "long_paragraph(>6s)": 0,
+        "long_sentence(>20w)": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "nominalization": 0,
+        "passive_voice": 0,
+        "phrasal_verb": 0,
+        "semicolon": 0
+      },
+      "words": 428
+    }
+  },
+  "mechanical_linter_limit": "This check does not certify ASD-STE100 compliance. Structured identifiers, source hashes, commands and receipt data retain exact technical values.",
+  "mode": "STE-flavored general prose; Python comments/docstrings only",
+  "source_final": "test_native_loopback_retained_compression_post_record_expiry.py words=  41 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n",
+  "source_initial": "test_native_loopback_retained_compression_post_record_expiry.py words=  34 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n"
+}
