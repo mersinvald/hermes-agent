@@ -1,6 +1,6 @@
 # Native output-record expiry evidence
 
-The two selected tests passed on the frozen source. The Task outcome is FAILED because one private descriptor violated its creation-mode requirement.
+The two selected tests passed on the frozen source. The Task FAILED because one private descriptor violated its creation-mode requirement.
 
 The original frame retained four returned stage handles and the final returned output handle. Native expiry occurred at checkpoint 3046 through predicate 3140. The original partial record omitted all five handles. No completed output record or summary returned.
 
