@@ -1,0 +1,60 @@
+{
+  "base_paths": 12328,
+  "old_blobs_modes_exact": true,
+  "changed_old_paths": [],
+  "runtime_dependencies_fixtures_runner_callbacks_APIs_bounds": "UNCHANGED",
+  "environment_after": [
+    {
+      "bytes": 197,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "bytes": 40548,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "bytes": 160,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "bytes": 756,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "bytes": 87,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "pytest_core_after": [
+    {
+      "bytes": 80947,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/config/__init__.py",
+      "sha256": "98b05c2c37d09e1d5c05975efc2d9af98d4aff6ea47de410a8e93956420873c1"
+    },
+    {
+      "bytes": 20346,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/runner.py",
+      "sha256": "c8d7fd553c0516f7884502ee0e7954eb5a5b1542f21fcb5c4357500ed2fe1570"
+    }
+  ],
+  "protected_receipts": 31,
+  "earlier_outcomes": "UNCHANGED",
+  "private_creation_compliance": false,
+  "mode_violation": {
+    "at": 1795592293.6632645,
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.83-task_9ef9c6661c65/definitions.json",
+    "observed_mode": "0o664",
+    "corrected_mode": "0o600",
+    "parent_mode": "0o700",
+    "creation_compliance": false,
+    "claim": "The descriptor was created as0664 inside0700, then corrected to0600. No from-creation compliance claim."
+  },
+  "source_edits_after_genuine": 0,
+  "functional_reruns_after_genuine": 0,
+  "Root81_raw_audits": "REUSED without repeat"
+}

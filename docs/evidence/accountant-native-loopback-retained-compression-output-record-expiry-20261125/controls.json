@@ -1,0 +1,34 @@
+{
+  "cheap_gate": "test_output_record_expiry_gate_waits_for_final_content_return",
+  "genuine": "test_genuine_compression_expiry_before_output_record_replacement",
+  "catalog": {
+    "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "scope": "original Task cheap-01",
+    "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68"
+  },
+  "catalog_run_again": false,
+  "model_scope": "Projected dictionary facts have no original frame, dispatch, derive, graph, or storage authority.",
+  "feedback": [
+    {
+      "scope": "cheap-01",
+      "error": "AttributeError: _CompressionFrame has no local_result field",
+      "correction": "Removed impossible field lookup. Existing _aux_local_results empty registry and no completed record checks remain.",
+      "changed_definitions": [
+        "expire_before_output_record"
+      ],
+      "other_definitions_unchanged": true
+    },
+    {
+      "scope": "static-freeze",
+      "error": "StopIteration from catalog lookup in expiry file",
+      "correction": "Located unchanged catalog in decode-expiry source. No executable change."
+    },
+    {
+      "scope": "static-freeze",
+      "error": "Catalog hash included trailing newline",
+      "correction": "Used original AST source-segment scope. No executable change."
+    }
+  ],
+  "source_correction_count": 1,
+  "method_replacement_in_genuine": false
+}
