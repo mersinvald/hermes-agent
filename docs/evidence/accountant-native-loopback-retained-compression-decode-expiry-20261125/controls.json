@@ -1,0 +1,28 @@
+{
+  "all_top_level_AST_nodes_except_genuine_match_successful_cheap_source": true,
+  "command_seconds": 10.78524398803711,
+  "dependencies": {
+    "environment": "Original warm environment",
+    "hook": "de456e8c0d9f3d20ab757014ff49ea8424fc6ffe335c5bf6a9286cd0a435aaca",
+    "original_helpers": "Frozen native base bytes",
+    "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c"
+  },
+  "failed_cheap_feedback": [],
+  "fresh_whole_file_aggregate": false,
+  "known_gap": "The inert issued.route used the operator input object. Genuine shared dispatch uses reconstructed route objects.",
+  "outcome": "TWO_CHEAP_PASSES_ONLY",
+  "scope": {
+    "at": 1795583313.8296602,
+    "matched_definitions": {
+      "_PhaseReceipts": "a2e2c70c7d389d9865a3290e4fd5932e0719ef31e14c1dd06b0c6c867e4b2950",
+      "expire_after_native_decode": "de456e8c0d9f3d20ab757014ff49ea8424fc6ffe335c5bf6a9286cd0a435aaca",
+      "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+      "test_inert_post_decode_compression_expiry_catalog": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+      "test_post_decode_expiry_gate_waits_for_original_typed_response": "c80e5d785bb2b83917219109d2fcb35b3960f264ee138b1920fa5a6d362210a3",
+      "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c"
+    },
+    "no_fresh_aggregate_claim": true,
+    "successful_scope": "cheap-01"
+  },
+  "stand_in_limit": "No route, dispatch, decode or storage authority"
+}

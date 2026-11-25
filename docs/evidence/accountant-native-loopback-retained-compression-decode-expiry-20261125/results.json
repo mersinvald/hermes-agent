@@ -1,0 +1,149 @@
+{
+  "actual_partial_graphs": {
+    "main_released": [
+      6,
+      1,
+      2463
+    ],
+    "native_retained_final": [
+      16,
+      2,
+      30099
+    ],
+    "qualification_complete": [
+      50,
+      25,
+      7241
+    ],
+    "qualification_retained_final": [
+      50,
+      25,
+      7241
+    ]
+  },
+  "cleanup": {
+    "a_closed": true,
+    "a_errors": [],
+    "a_sockets_closed": true,
+    "a_stopped": true,
+    "b_closed": true,
+    "b_errors": [],
+    "b_sockets_closed": true,
+    "b_stopped": true,
+    "cleanup_errors": [],
+    "seconds": 17.62791855901014
+  },
+  "later_assertions": {
+    "all seven retained stage associations": "UNKNOWN",
+    "clock transition": "UNKNOWN",
+    "double agent close": "UNKNOWN",
+    "immediate trigger graph and typed object references": "UNKNOWN",
+    "original denial reason and traceback": "UNKNOWN",
+    "original pure response-byte validator": "UNKNOWN",
+    "post-denial native/shared flags": "UNKNOWN",
+    "retained typed partial record": "UNKNOWN",
+    "row2 active0 quiet marks": "UNKNOWN",
+    "scope refusal": "UNKNOWN",
+    "terminal refusal": "UNKNOWN",
+    "unchanged compressor and agent facts after denial": "UNKNOWN",
+    "zero fallback and ordinary SDK calls after denial": "UNKNOWN"
+  },
+  "limits": [
+    "Full P10 and P06 remain open",
+    "Private and real provider qualification remain open",
+    "External egress, durable state, cross-thread and source gates remain open",
+    "Financial, production, manifest, index, deployment and activation gates remain open"
+  ],
+  "main_release": true,
+  "original_exception": "UNKNOWN",
+  "outcome": "FAILED",
+  "recorded_properties": 38,
+  "summary_release": false,
+  "test_failure": {
+    "executable_edits_after_launch": false,
+    "functional_commands_after_failure": 0,
+    "invalid_authored_assumption": {
+      "effect": "The hook cannot pass this identity check with the genuine shared runtime",
+      "scope": "Source-backed diagnosis. No repeated functional execution.",
+      "shared_constructor": "ContentPolicyRuntime.__init__ reconstructs RouteBinding into _route_rows",
+      "shared_consumer": "ContentPolicyRuntime.dispatch selects _route_rows at line 696",
+      "shared_lines": [
+        383,
+        386
+      ],
+      "test": "issued.route is original operator route",
+      "test_line": 184
+    },
+    "later_assertions": "UNKNOWN",
+    "native_denial_caught": true,
+    "original_inner_exception_not_recorded": true,
+    "runtime_prerequisite": "None established. A separately selected test correction is required.",
+    "status": "FAILED",
+    "test_failure": "KeyError receipt at new test line 498",
+    "trigger_receipt_absent": true
+  },
+  "trigger": "UNKNOWN",
+  "typed_partial_record": "UNKNOWN",
+  "wire": {
+    "packet_or_kernel_absence_claim": false,
+    "partial_static_audit": [
+      {
+        "complete": true,
+        "fully_accepted": true,
+        "http_response_bytes": 75,
+        "http_response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+        "index": 0,
+        "receiver": "a",
+        "request_body_bytes": 22,
+        "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "response_body_bytes": 17,
+        "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "settled": true,
+        "source": "Static audit of partial receipts after failed test"
+      },
+      {
+        "complete": true,
+        "fully_accepted": true,
+        "http_response_bytes": 329,
+        "http_response_sha256": "164cfcecc87b356dbfde0e213205de8008b816335ccd78c357c4c08054289aee",
+        "index": 1,
+        "receiver": "a",
+        "request_body_bytes": 355,
+        "request_body_sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+        "response_body_bytes": 270,
+        "response_body_sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+        "settled": true,
+        "source": "Static audit of partial receipts after failed test"
+      },
+      {
+        "complete": true,
+        "fully_accepted": true,
+        "http_response_bytes": 75,
+        "http_response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+        "index": 0,
+        "receiver": "b",
+        "request_body_bytes": 22,
+        "request_body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "response_body_bytes": 17,
+        "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "settled": true,
+        "source": "Static audit of partial receipts after failed test"
+      },
+      {
+        "complete": true,
+        "fully_accepted": true,
+        "http_response_bytes": 371,
+        "http_response_sha256": "46e358ff21189937e25c870d09083f09aa690dc2e5b3f61cba0f57934b1feb92",
+        "index": 1,
+        "receiver": "b",
+        "request_body_bytes": 6664,
+        "request_body_sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+        "response_body_bytes": 312,
+        "response_body_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+        "settled": true,
+        "source": "Static audit of partial receipts after failed test"
+      }
+    ],
+    "required_final_mark": "UNKNOWN"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "actual_graphs": {
+    "main_released": {
+      "charges": [
+        6,
+        1,
+        2463
+      ],
+      "contents": 6,
+      "retained_bytes": 2463
+    },
+    "native_retained_final": {
+      "charges": [
+        16,
+        2,
+        30099
+      ],
+      "contents": 16,
+      "retained_bytes": 30099
+    },
+    "qualification_complete": {
+      "charges": [
+        50,
+        25,
+        7241
+      ],
+      "contents": 50,
+      "retained_bytes": 7241
+    },
+    "qualification_retained_final": {
+      "charges": [
+        50,
+        25,
+        7241
+      ],
+      "contents": 50,
+      "retained_bytes": 7241
+    }
+  },
+  "cheap_actual_seconds": 10.78524398803711,
+  "cheap_allowance_seconds": 90,
+  "commands": [
+    {
+      "end": 1795583264.6747715,
+      "exit_code": 0,
+      "requested_ids": [
+        "test_inert_post_decode_compression_expiry_catalog",
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "seconds": 10.78524398803711,
+      "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68",
+      "start": 1795583253.8895276
+    },
+    {
+      "end": 1795583345.2781682,
+      "exit_code": 1,
+      "requested_ids": [
+        "test_genuine_compression_expiry_after_native_decode"
+      ],
+      "seconds": 20.259469270706177,
+      "source_sha256": "1a5aadb5484be9039ab4ef4aa734fa608c713e7de05fd2400d86276fca9b2976",
+      "start": 1795583325.018699
+    }
+  ],
+  "compression_consumer_acceptance": "UNKNOWN",
+  "compression_cost": "UNKNOWN",
+  "genuine_actual_seconds": 20.259469270706177,
+  "graph_audit": {
+    "bytes": 65388,
+    "mode": "0o600",
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_0d698309e01e/partial-graph-audit.json",
+    "sha256": "7184e1dcc4d95cc1134d2926c84547a207c49ed7883d6bdfab6cbe6350044843"
+  },
+  "ledgers": {
+    "conservative_origin": 1795583008.4282868,
+    "conservative_preparation_seconds": 60,
+    "final_reserve": 240,
+    "first_recorded_workspace_boundary": 1795583031.752939,
+    "launch_task_remaining": 1123.4095878601074,
+    "launch_verification_remaining": 883.4095878601074,
+    "reporting_reserve": 120,
+    "root_epoch": 1795583008.4282868,
+    "snapshot_at": 1795583515.3711407,
+    "task_cap": 1500,
+    "task_charged_seconds": 566.9428539276123,
+    "unrecorded_interval_charged": true,
+    "verification_charged_seconds": 506.9428539276123,
+    "verification_publication_cap": 1200
+  },
+  "main_usage": {
+    "completion_tokens": 2,
+    "cost_status": "unknown",
+    "estimated_cost_usd": null,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "outcome": "PARTIAL_ONLY",
+  "raw_compression_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "typed_conversion_additional_shared_handles": "UNKNOWN"
+}
