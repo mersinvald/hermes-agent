@@ -340,5 +340,18 @@
         "mode": "prose-v1"
       }
     }
-  }
+  },
+  "actual_selected_nodeids": [
+    "tests/agent/test_native_loopback_retained_title.py::test_genuine_retained_title_http"
+  ],
+  "final_manifest_paths": [
+    "README.md",
+    "SHA256SUMS",
+    "checks.json",
+    "pins.json",
+    "results.json",
+    "source-boundary.patch",
+    "wire.json"
+  ],
+  "private_handoff_boundary": "The execution handoff has an immutable hash here. The final handoff separately binds the final publication head and tree."
 }
