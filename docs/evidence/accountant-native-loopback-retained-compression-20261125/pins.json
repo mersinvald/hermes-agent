@@ -654,6 +654,51 @@
       "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/final-static.json",
       "bytes": 596,
       "sha256": "f220821a98ea6022853b46aa329938694b54c2f73a52b32c596c90c89a692adf"
+    },
+    "create-pr.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/create-pr.command.json",
+      "bytes": 4332,
+      "sha256": "9dbd50bcceb3789c6de622f0b42417fe2210e9cd05a8d6dbb062cdd778528d41"
+    },
+    "create-pr.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/create-pr.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "create-pr.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/create-pr.stdout",
+      "bytes": 51,
+      "sha256": "1be9b789f02ebf1399985170b45a74fdcadc05eeda2cef00daf90ea93d5b06af"
+    },
+    "evidence-commit.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/evidence-commit.command.json",
+      "bytes": 4061,
+      "sha256": "0da2fb8cdbe9f52e8ab4ff3d6db6847e67fd7df607b4e1ee54cf105d86c0a6ba"
+    },
+    "evidence-commit.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/evidence-commit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence-commit.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/evidence-commit.stdout",
+      "bytes": 1387,
+      "sha256": "47dec6dd49d4af04fc27d59844ad6432f2d0465e82fa04240b1f72a932bfa0cf"
+    },
+    "push-initial.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/push-initial.command.json",
+      "bytes": 4084,
+      "sha256": "e3601601c415d23a7c6dd48661663695c1d7a7284fd87c3ef68ad73ff08eee37"
+    },
+    "push-initial.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/push-initial.stderr",
+      "bytes": 300,
+      "sha256": "69cba2d6010379f96c010fedce9b9ca9c7dc744d4c4cd3f5f4d2e7f11c7c2a93"
+    },
+    "push-initial.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/push-initial.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   }
 }

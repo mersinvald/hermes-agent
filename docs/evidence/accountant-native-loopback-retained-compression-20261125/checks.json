@@ -1,5 +1,5 @@
 {
-  "status": "FUNCTIONAL PASS / PUBLICATION PENDING",
+  "status": "PASSED / DRAFT PR RETAINED",
   "functional": {
     "genuine": "PASSED",
     "cheap_distinct": 2,
@@ -27,8 +27,16 @@
     "this_task": "task_7d0ab24ed295: FAILED because phase timings are missing"
   },
   "CI_success_claim": false,
-  "configured_checks": "Not queried yet",
-  "publication": "Pending draft native PR against mkl",
+  "configured_checks": "Final exact-head check and status receipts remain private. No CI success claim.",
+  "publication": {
+    "url": "https://github.com/mersinvald/hermes-agent/pull/36",
+    "base": "mkl",
+    "head": "mersinvald/hpwa-p10.71",
+    "draft": true,
+    "initial_published_head": "19982af20553b4e9b71795a371f980ae7fb86596",
+    "initial_published_tree": "a1af9777c35f5463139a44b90f6190929036f4ed",
+    "final_pins": "Private handoff.json binds the final remote head and tree after publication."
+  },
   "failed_static_scopes": [
     {
       "scope": "Initial README prose",
