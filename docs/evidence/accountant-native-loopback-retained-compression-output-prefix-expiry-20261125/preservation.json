@@ -1,0 +1,26 @@
+{
+  "old_git_blobs_modes": 12315,
+  "all_exact": true,
+  "accepted_79_test_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172",
+  "original_source_tests_fixtures_callbacks_runner_APIs_bounds": "UNCHANGED",
+  "runtime_edits": 0,
+  "unrelated_private_artifacts_evidence_outcomes_locks": "Preserved. Lock contents were not read.",
+  "protected_receipt_hashes": 12,
+  "tracked_pins_reused": 47,
+  "original_79": {
+    "outcome": "FAILED",
+    "original_denial_details": "UNKNOWN"
+  },
+  "corrective_79": {
+    "outcome": "SUCCEEDED"
+  },
+  "historical_raw_audits_repeated": false,
+  "old_Root78_mode": {
+    "original": "0664",
+    "corrected_by_Root": "0600",
+    "parent": "0700",
+    "bytes_unchanged": true,
+    "claim_of_0600_from_creation": false
+  },
+  "source_unchanged_after_genuine_launch": true
+}

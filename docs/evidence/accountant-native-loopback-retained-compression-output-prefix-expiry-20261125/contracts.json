@@ -1,0 +1,297 @@
+{
+  "original_methods": [
+    "_dispatch_retained_operation",
+    "dispatch_auxiliary",
+    "complete_auxiliary",
+    "_compression_output_stages",
+    "_compression_response_transform",
+    "_interrupt_turn",
+    "_checkpoint",
+    "_snapshot",
+    "_compression_snapshot",
+    "_invalidate",
+    "_generate_summary"
+  ],
+  "APIs": {
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+    "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+  },
+  "source_pins": [
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 651,
+      "last": 681,
+      "bytes": 827,
+      "sha256": "844ceaa81df0dc9636865b4c3d5188fdac9dbe209774cbe0dfaa3effdc349e03"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 770,
+      "last": 786,
+      "bytes": 552,
+      "sha256": "b7bd20d7f045b7004892f986e0488e17f691358f118d7c6ab2fa5ffe8726b6bd"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 905,
+      "last": 907,
+      "bytes": 160,
+      "sha256": "f6fdec7aae29e117d101b341539011015944859efd2fb00d7b256a1cdbe76a0e"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 1675,
+      "last": 1698,
+      "bytes": 1148,
+      "sha256": "4c24df8f66a40d1c75516220093391dbe8a3f2e99ffb9bce8008072cf9342871"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 1785,
+      "last": 1795,
+      "bytes": 479,
+      "sha256": "6e7fc6f4eb263b3eda585c35d8c8546c06182710a6df6f30a77efc30151a1bb8"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 1835,
+      "last": 1838,
+      "bytes": 186,
+      "sha256": "62c45e6a1dfd6262d0f6a48116e08bc5f51074c716647f58951c40783d8bc976"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 1930,
+      "last": 1937,
+      "bytes": 367,
+      "sha256": "bee93dc0d00686d196a02df29316f311ebaa7c1bcbaab8aaf7b2c13fe078f637"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 1939,
+      "last": 1981,
+      "bytes": 1898,
+      "sha256": "877b13b36899f447aa6307004995fccb9a2680129c5dff3a98a2ebdf9b1c4ad9"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 2668,
+      "last": 2724,
+      "bytes": 3985,
+      "sha256": "034955ba27e0583dd48171b0310005d7a550e8528bcf202e7ca0302f11b9d877"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 2737,
+      "last": 2757,
+      "bytes": 1011,
+      "sha256": "6245496de69bcb12474751f37cd1872192f56569bf31ff356e928830df2c86c9"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 2942,
+      "last": 2965,
+      "bytes": 1428,
+      "sha256": "1c862e2d00b792d8716074fa6915429d8ae8c42e992f3bbae40d0c7f8d398894"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 2967,
+      "last": 3010,
+      "bytes": 3121,
+      "sha256": "14891d6d276a97400794c4f8817024b43a6ecbe74b8de3916631e1bd41f51c31"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3011,
+      "last": 3034,
+      "bytes": 1397,
+      "sha256": "9c5115a3b8c582fc95c66bfc0ac40a7934d82a27e996aeb9ecc7358db15efff6"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3035,
+      "last": 3040,
+      "bytes": 308,
+      "sha256": "390bce8acd3a39bac03206439b705fdae355c4473b57a37f4e57504dc1e83b54"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3041,
+      "last": 3052,
+      "bytes": 642,
+      "sha256": "b6a3ae687e51d0fcefbf60e707693760ffc590df5bd558ec0ad14c9e958af327"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3117,
+      "last": 3152,
+      "bytes": 1824,
+      "sha256": "be2e9579c2bd6abd884284f3aca15ccedee3514fe51a6f095f666114bdff2842"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3297,
+      "last": 3313,
+      "bytes": 1081,
+      "sha256": "d31621d0f7f5def8a5ddd08357d5925596896c937337cefb2ac4fb0540385aba"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3310,
+      "last": 3311,
+      "bytes": 217,
+      "sha256": "1d9271e1eea223adb9c5f2f7b256331a2b3f62123214536ee992243aa6713314"
+    },
+    {
+      "source": "native:agent/native_main_payload.py",
+      "first": 3315,
+      "last": 3324,
+      "bytes": 574,
+      "sha256": "967f9f2bab19c016c764995f5c75e69f90784176ae81e991983e3c426cb1958d"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 4816,
+      "last": 4840,
+      "bytes": 1079,
+      "sha256": "744a4e45943d5fbbf50df745b617b1d63edaf8170b80e436360b741678d54052"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 5250,
+      "last": 5302,
+      "bytes": 3169,
+      "sha256": "0a4355289e7f3c11d729b806de99402d4eaba2f9a9d99d7a0bd30fbb78aec9de"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 5304,
+      "last": 5315,
+      "bytes": 907,
+      "sha256": "43f5c9a0c5717c5cf15e24320ddc726c05632139a0ebf40b10b5c3b116c1b0a3"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 5340,
+      "last": 5354,
+      "bytes": 953,
+      "sha256": "d249c0da98f6cd4c33663080f4c4f69afab09579a52314aa89632eaf78d7047f"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 5465,
+      "last": 5475,
+      "bytes": 619,
+      "sha256": "fde554e010b1e3f6f9d73d7e1098fea46f6ca07f6e5c264c4ecf30de75c95e6e"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 5720,
+      "last": 5723,
+      "bytes": 256,
+      "sha256": "5ea76bddf7811eacfc07130ba3784e302e7b3f6123848f079c02b116c490769d"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 5843,
+      "last": 5870,
+      "bytes": 1395,
+      "sha256": "4292e85decf8e072d3f0baca853123b62e452a9c67914eaf2637e1b213e21431"
+    },
+    {
+      "source": "native:agent/context_compressor.py",
+      "first": 6024,
+      "last": 6050,
+      "bytes": 1178,
+      "sha256": "9f72e20b9849e42814376edd366f992d321f3efe00760500fb2121d6d76ad583"
+    },
+    {
+      "source": "native:agent/auxiliary_client.py",
+      "first": 3470,
+      "last": 3479,
+      "bytes": 486,
+      "sha256": "99e30b045b195f8d0902820a9d4006239e01b93a9c6deac6e677d7cf15420875"
+    },
+    {
+      "source": "native:agent/auxiliary_client.py",
+      "first": 9791,
+      "last": 9796,
+      "bytes": 302,
+      "sha256": "af0efdf7864f16552bf0da67dc6f9de2fdcdbcdbebe6d6bda50c4ac92b340e0d"
+    },
+    {
+      "source": "shared:hermes_content_policy/__init__.py",
+      "first": 383,
+      "last": 386,
+      "bytes": 180,
+      "sha256": "0e7f11240d241449ec135d4ddd22928cc5d53dcec517b5f130afd8d49312e5ae"
+    },
+    {
+      "source": "shared:hermes_content_policy/__init__.py",
+      "first": 433,
+      "last": 448,
+      "bytes": 505,
+      "sha256": "8e712dd374ce6418fcb57d85fdcf1c5b663091774b883fa11eb768f086cdadbf"
+    },
+    {
+      "source": "shared:hermes_content_policy/__init__.py",
+      "first": 561,
+      "last": 570,
+      "bytes": 441,
+      "sha256": "e45992fede29ed496c6a0a4b4e324727fb705247f1623da87f6a3cf94c886ef1"
+    },
+    {
+      "source": "shared:hermes_content_policy/__init__.py",
+      "first": 584,
+      "last": 606,
+      "bytes": 1002,
+      "sha256": "ab5472eb2ceae061fe3911aa445dd5d869d3c13e978634d6ffadca47dd0a1249"
+    },
+    {
+      "source": "shared:hermes_content_policy/__init__.py",
+      "first": 688,
+      "last": 705,
+      "bytes": 918,
+      "sha256": "a614d7faf1d312bb06e6c7d63bbd24db501ecde702e1a4e1e5654e9946309e6c"
+    },
+    {
+      "source": "native:tests/agent/test_native_loopback_retained_compression.py",
+      "first": 33,
+      "last": 35,
+      "bytes": 143,
+      "sha256": "b04e93abcd661daadbb4fb6652d028f8147f23df2797f78f81f5bdb0ebad681c"
+    },
+    {
+      "source": "native:tests/agent/test_native_loopback_retained_compression.py",
+      "first": 133,
+      "last": 137,
+      "bytes": 180,
+      "sha256": "b882c300cce3ac2f096952227c90e1a879a8cca4f764e794c6c7bba8ebbcedf6"
+    },
+    {
+      "source": "native:tests/agent/test_native_main_payload.py",
+      "first": 36,
+      "last": 47,
+      "bytes": 540,
+      "sha256": "86c488c5b4e23619e8f5f8c6b9cda512e3c55ec84ee8db159ab0c10b154ed846"
+    }
+  ],
+  "hook": "One test-local admission hook. Original current, clock, callbacks, engine, APIs, and method objects remain exact.",
+  "association": "Original completion, source frame/invocation, preparation, sealed request, partial record, typed response, shared result, envelope, seven input stages, and sixteen pre-output handles.",
+  "output_prefix": "Actual first payload identity and bytes, original handle, binding, restricted profiles, compression path, and ordered bridge/request/result parents.",
+  "transport_pending": "Original dispatch clears operation and transport pending slots before this seam.",
+  "record_limit": "Original complete_auxiliary has no finally that stores derived prefix handles. Original record output fields remain empty.",
+  "private_prepared_output": "Original tuple, dictionary, four stages, and summary exist before derive and retain identities after refusal.",
+  "frame_proof": "Original complete_auxiliary traceback frame retains one derived handle and the second stage awaiting its checkpoint.",
+  "expiry": {
+    "line": 3140,
+    "checkpoint": 3037,
+    "selected": 100,
+    "alternate": 200
+  },
+  "native": "Invalid denied idle.",
+  "shared": "Healthy idle without failures."
+}

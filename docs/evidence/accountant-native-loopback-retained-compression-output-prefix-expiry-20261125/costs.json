@@ -1,0 +1,120 @@
+{
+  "qualification": [
+    50,
+    25,
+    7241
+  ],
+  "native": [
+    17,
+    2,
+    30224
+  ],
+  "graph_byte_audits": [
+    {
+      "property": "qualification_complete",
+      "rows": 50,
+      "bytes": 7241,
+      "complete": true
+    },
+    {
+      "property": "main_released",
+      "rows": 6,
+      "bytes": 2463,
+      "complete": true
+    },
+    {
+      "property": "trigger",
+      "rows": 17,
+      "bytes": 30224,
+      "complete": true
+    },
+    {
+      "property": "compression_partial",
+      "rows": 17,
+      "bytes": 30224,
+      "complete": true
+    },
+    {
+      "property": "verified",
+      "rows": 17,
+      "bytes": 30224,
+      "complete": true
+    },
+    {
+      "property": "qualification_retained_final",
+      "rows": 50,
+      "bytes": 7241,
+      "complete": true
+    },
+    {
+      "property": "native_retained_final",
+      "rows": 17,
+      "bytes": 30224,
+      "complete": true
+    }
+  ],
+  "first_stage": {
+    "bytes": 125,
+    "sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32",
+    "parents": [
+      6,
+      14,
+      15
+    ]
+  },
+  "main_usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "raw_compression_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "raw_compression_authority": "No consumer acceptance or cost authority.",
+  "limits": {
+    "contents_envelopes_failures": 128,
+    "parent_count": 32,
+    "lineage_hops": 128,
+    "retained_bytes": 8388608,
+    "payload_bytes": 1048576,
+    "source_stage_request_bytes": 262144,
+    "response_bytes": 65536
+  },
+  "measured_command_seconds": {
+    "cheap-01": 11.537972211837769,
+    "cheap-02": 2.419010877609253,
+    "genuine": 24.520325183868408
+  },
+  "cheap_cumulative_seconds": 13.956983089447021,
+  "command_caps": {
+    "cheap_cumulative": 90,
+    "cheap_outer": 45,
+    "cheap_file": 40,
+    "genuine_outer": 150,
+    "genuine_file": 145,
+    "genuine_receiver": 140
+  },
+  "ledgers": {
+    "root_epoch": 1795588205.1582677,
+    "conservative_preparation_seconds": 60,
+    "task_cap": 1500,
+    "verification_origin": 1795588205.1582677,
+    "verification_cap": 1200,
+    "unknown_intervals_charged": true,
+    "launch": {
+      "at": 1795588695.3684168,
+      "task_remaining": 949.7898509502411,
+      "verification_remaining": 709.7898509502411,
+      "source_sha256": "cc4fa3811533967bf914d36af49c3bd3c86bc8f97fc72b98525438bf10b8a26a"
+    },
+    "launch_floor_each": 600,
+    "final_checks_publication_reserve": 240,
+    "reporting_reserve": 120,
+    "snapshot_at": 1795588882.6692703,
+    "task_charged_seconds": 737.5110025405884,
+    "verification_charged_seconds": 677.5110025405884,
+    "all_wall": "Includes reading, reasoning, tool gaps, hooks, publication, and reporting. Final publication snapshot is private."
+  }
+}

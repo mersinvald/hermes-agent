@@ -1,0 +1,19 @@
+{
+  "new_gate": "test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+  "sole_genuine": "test_genuine_compression_expiry_after_first_output_prefix",
+  "catalog": {
+    "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "scope": "original Task cheap-01",
+    "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68"
+  },
+  "catalog_fresh_execution": false,
+  "rejection_groups": [
+    "Absent or incomplete associations.",
+    "Foreign equal route/destination copies, map substitution, route replacement, and changed complete facts.",
+    "Prepared stages without registered prefix, missing pre-output handles, zero prefixes, and two prefixes.",
+    "Wrong payload identity/bytes, parents, binding, profiles, path, raw response, typed model, or result identity.",
+    "Changed prepared tuple/frame/record/stage order, callbacks, method, clocks, shared health, native validity, or alternate expiry."
+  ],
+  "inert_fixture_authority": "No genuine dispatch, derivation, graph, or storage authority.",
+  "feedback_scope": "Task-owned hook and gate fixtures only. Final genuine definition and all inherited sources stay exact."
+}
