@@ -1,0 +1,22 @@
+{
+  "time": 1795579136.2403338,
+  "source_sha256": "cff3f7f31d23e0c29d263a3c5a0c11a101b368bc65de67173225e1c2877e6c89",
+  "bodies": {
+    "_PhaseReceipts": "f54a4e5168f1893315b8210b3ca517fe6f1f629dde1a8a99e376bd5141d34a2c",
+    "phase_receipts": "46e2a6277ef344e29bf146c9d54a83b033358ff1ba9c146245c8bde0002194ac",
+    "expire_after_registered_result": "f492d7fd87201a6c653fd89aa90012bfb7042bb0f822ec2115dcbbea144d2d55",
+    "test_inert_post_result_compression_expiry_catalog": "38d0d3ef0c8fd3ca82b4766a90ae6b767decb6b3fbff72a918fa64851d32d89e",
+    "test_post_result_expiry_gate_waits_for_registered_response": "7880383daf89214f98f602f1306a751f7fa5fa4004d274b2e9442fc1280f44e1",
+    "test_genuine_compression_expiry_after_shared_result": "1494a8d5c892c12993e05bca0c9717d2cd2a37bea77326bb992a8875cdea3e8c"
+  },
+  "root_clarification": "msg_7c1491ddc346",
+  "successful_catalog": "cheap-01",
+  "successful_gate": "cheap-02",
+  "failed_feedback": "cheap-01 gate",
+  "genuine_record_correction": "shared_selected_grant_executed=True follows original shared return; no genuine assertion changed",
+  "commit": "ae6cae19f0734f2f31a917700a130e2131f6411a",
+  "tree": "ed2e59afbf2dc08fb0d571604d8bf68ab676bc57",
+  "normal_hooks": true,
+  "committed_at": 1795579148.2465487,
+  "original_paths_preserved": 12281
+}

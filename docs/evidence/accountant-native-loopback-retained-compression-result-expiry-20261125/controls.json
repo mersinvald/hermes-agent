@@ -1,0 +1,117 @@
+{
+  "successful_scopes": [
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.03429030400002375,
+          "recorded_at": 1795579017.2592745
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0016132010205183178,
+          "recorded_at": 1795579017.2668347
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00042122797458432615,
+          "recorded_at": 1795579017.2729719
+        }
+      ],
+      "body_sha256": "38d0d3ef0c8fd3ca82b4766a90ae6b767decb6b3fbff72a918fa64851d32d89e"
+    },
+    {
+      "scope": "cheap-02",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.036403345002327114,
+          "recorded_at": 1795579103.1608105
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0029927930154372007,
+          "recorded_at": 1795579103.1787045
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00036005498259328306,
+          "recorded_at": 1795579103.1846144
+        }
+      ],
+      "body_sha256": "7880383daf89214f98f602f1306a751f7fa5fa4004d274b2e9442fc1280f44e1"
+    }
+  ],
+  "failed_feedback": [
+    {
+      "scope": "cheap-01",
+      "source_sha256": "3d3f8bc27dda7486e559f907210ccdc4f16df5b90220421c9a992b162d04bc94",
+      "bodies": {
+        "_PhaseReceipts": "f54a4e5168f1893315b8210b3ca517fe6f1f629dde1a8a99e376bd5141d34a2c",
+        "phase_receipts": "46e2a6277ef344e29bf146c9d54a83b033358ff1ba9c146245c8bde0002194ac",
+        "expire_after_registered_result": "f492d7fd87201a6c653fd89aa90012bfb7042bb0f822ec2115dcbbea144d2d55",
+        "test_inert_post_result_compression_expiry_catalog": "38d0d3ef0c8fd3ca82b4766a90ae6b767decb6b3fbff72a918fa64851d32d89e",
+        "test_post_result_expiry_gate_waits_for_registered_response": "e0d44db651e3e1a3d5e8383194a3c2e3559828da33d539bccea422d92651870f",
+        "test_genuine_compression_expiry_after_shared_result": "b44729b1a26a6ee8709ce1317fd758930b2842591dcb2eb71f792f024bde6b08"
+      },
+      "exit": 1,
+      "requested": [
+        "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+        "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response"
+      ],
+      "actual": [
+        "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+        "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response"
+      ],
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0161613579839468,
+          "recorded_at": 1795579017.2917597
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "call",
+          "outcome": "failed",
+          "duration": 0.003148807998513803,
+          "recorded_at": 1795579017.4093747
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0006459160067606717,
+          "recorded_at": 1795579017.4136434
+        }
+      ],
+      "effect": "Catalog passed; gate failed after validating its inert registered row, before any clock change",
+      "reason": "Inert runtime lacks _envelopes read by unchanged charges helper"
+    }
+  ],
+  "root_clarification": "msg_7c1491ddc346",
+  "correction": "_envelopes={} in the inert stand-in only",
+  "successful_body_correspondence": true,
+  "whole_file_pass_claim": false,
+  "cheap_command_seconds": 15.27035403251648,
+  "limit": 90,
+  "stand_ins_establish_authority": false
+}

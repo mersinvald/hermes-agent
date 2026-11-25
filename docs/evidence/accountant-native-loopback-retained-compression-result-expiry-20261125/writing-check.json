@@ -1,0 +1,12 @@
+{
+  "status": "PASSED",
+  "baseline": "New prose only; no previous prose baseline",
+  "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+  "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+  "output": "README.md                        words= 278 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_result_expiry.py words=   8 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 126 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+  "structured_JSON": "Technical values and identifiers preserved; descriptive strings reviewed for short active sentences",
+  "certification": false,
+  "earlier_output": "README.md                        words= 278 total=  1 per100w=  0.36 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_result_expiry.py words=   8 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 126 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+  "correction": "Split one seven-sentence paragraph; source bytes unchanged",
+  "help_failure": "Linter treats --help as a filename; no artifact changed"
+}

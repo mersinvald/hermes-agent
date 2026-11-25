@@ -1,0 +1,474 @@
+{
+  "status": "PASSED",
+  "genuine_histories": 1,
+  "source_sha256": "cff3f7f31d23e0c29d263a3c5a0c11a101b368bc65de67173225e1c2877e6c89",
+  "exception": {
+    "chain": [
+      {
+        "type": "NativeContentPolicyDenied",
+        "args": [
+          "controlled_native_payload_invalid"
+        ],
+        "identity": 128139788611168,
+        "context_id": null,
+        "cause": null,
+        "suppressed": false
+      }
+    ],
+    "locations": [
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/tests/agent/test_native_loopback_retained_compression_result_expiry.py",
+        "function": "test_genuine_compression_expiry_after_shared_result",
+        "line": 386
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/tests/agent/test_native_controlled_conversation.py",
+        "function": "summarize",
+        "line": 1831
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/context_compressor.py",
+        "function": "_generate_summary",
+        "line": 5349
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/auxiliary_client.py",
+        "function": "wrapped",
+        "line": 3478
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/auxiliary_client.py",
+        "function": "call_llm",
+        "line": 9794
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "_try_controlled_auxiliary_call",
+        "line": 3897
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "dispatch_auxiliary",
+        "line": 2995
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "_dispatch_retained_operation",
+        "line": 2957
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1838
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "_compression_snapshot",
+        "line": 3140
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.77/agent/native_main_payload.py",
+        "function": "_require",
+        "line": 814
+      }
+    ],
+    "predicate": "now < route.expires_at",
+    "line": 3140,
+    "shared_selected_grant_executed": true
+  },
+  "gate": {
+    "before": 10,
+    "after": 100,
+    "charges": [
+      16,
+      2,
+      30099
+    ],
+    "operation_id": 128139827234288,
+    "frame_id": 128139827037824,
+    "envelope_id": 128139790316576,
+    "output_id": 128139828049008,
+    "result_id": 128139836685344,
+    "row_id": 128139857072096,
+    "parent_ids": [
+      128139837373504
+    ],
+    "observation_id": 128139789802592,
+    "request_id": 128139789722880,
+    "preparation_id": 128139789695296,
+    "sealed_id": 128139837374016,
+    "completion_id": 128139788316736,
+    "clock_id": 128139807817248,
+    "current_function_id": 128139810196672,
+    "hook_id": 128139807813408,
+    "selected": {
+      "route_ref": "compression_compression",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "compression_transport_compression",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_model_5",
+        "endpoint_ref": "synthetic_loopback_c",
+        "revision": 1
+      },
+      "expires_at": 100,
+      "qualification_ref": "synthetic_loopback_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    "alternate": {
+      "route_ref": "compression_compression_live_alternate",
+      "selection_id": "compression_selection",
+      "selection_version": 6,
+      "consumer_ref": "document_specialist",
+      "path": "compression",
+      "destination": {
+        "transport_ref": "compression_transport_main",
+        "provider_ref": "synthetic_native",
+        "model_ref": "invented_compression_model",
+        "endpoint_ref": "invented_endpoint",
+        "revision": 1
+      },
+      "expires_at": 200,
+      "qualification_ref": "synthetic_loopback_compression",
+      "qualification_scope": "synthetic_only"
+    },
+    "shared_busy": false,
+    "shared_poisoned": false,
+    "shared_failures": 0,
+    "native_response": null,
+    "native_busy": true,
+    "native_invalid": false,
+    "spent": true
+  },
+  "partial": {
+    "charges": [
+      16,
+      2,
+      30099
+    ],
+    "source_completion_id": 128139788316736,
+    "frame_id": 128139789559232,
+    "record_id": 128139807563584,
+    "response_id": 128139828049008,
+    "raw_result_id": 128139836685344,
+    "response_bytes": 312,
+    "response_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+    "native_response": null,
+    "output_stages": [],
+    "summary": null,
+    "row_retained": true,
+    "original_frame_replaced": true,
+    "ordered_parents_checked": true,
+    "source_request_preparation_associations_checked": true
+  },
+  "retained_payload_metadata": [
+    {
+      "index": 0,
+      "bytes": 315,
+      "sha256": "bb6f4316ec20ca7a2e1eb1f6dc124618b040184ab885d6e74ea86fc5ceeb5459",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": null
+    },
+    {
+      "index": 1,
+      "bytes": 594,
+      "sha256": "94d253df16c115e255ed98d472518062f236f42f30c15c65e5a2b31df22eeb82",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 2,
+      "bytes": 149,
+      "sha256": "c02136bb098209769033a76fc4aa575937341e701a2abcc5a276d6e54ae3c752",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 3,
+      "bytes": 355,
+      "sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 4,
+      "bytes": 270,
+      "sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 5,
+      "bytes": 780,
+      "sha256": "e1981e7d467f6ee69a3a04f51349e898349389b9f1b42c8a247068f47a5ea518",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "main"
+    },
+    {
+      "index": 6,
+      "bytes": 107,
+      "sha256": "cba3b010b62f2963c11d99f0737e72f0791989d2eb5ab4db0b8161ce4386ea73",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 7,
+      "bytes": 661,
+      "sha256": "adf22d29e30f45d04364ed9eb7ecbfda2a747b27d66c7d1803aae960e3afe5ca",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 8,
+      "bytes": 93,
+      "sha256": "804c17b49bbf248c90e72a5598fbf624280eec5adc16bf79a41aab26bd4fd279",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 9,
+      "bytes": 109,
+      "sha256": "2aa7bc882026f313d006cc2d4d8b90b64c4a29c831a3b50701f6911c86bd0a95",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 10,
+      "bytes": 171,
+      "sha256": "756bb73054e3ac8c04cd3ef866d2fe2b0c7f09188bd31b1251d8dd4d744b2723",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 11,
+      "bytes": 119,
+      "sha256": "57d37aa6876466081e1573ed2d1740b321d77c98d766f9053941ade649ea4b64",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 12,
+      "bytes": 6295,
+      "sha256": "408ded8427d9726de7817c0dbffceadbbd8d884ae5cf8200a82ddbeedc0973e2",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 13,
+      "bytes": 13105,
+      "sha256": "b7d6d34e1a332acd38caaac5bf3f63dc11ad2d938575efada401a5361779e7b2",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 14,
+      "bytes": 6664,
+      "sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    },
+    {
+      "index": 15,
+      "bytes": 312,
+      "sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+      "profiles": [
+        "restricted_documents"
+      ],
+      "path": "compression"
+    }
+  ],
+  "scope_refusal": {
+    "error_id": 128139788611744,
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "original_id": 128139788611168,
+    "distinct": true,
+    "shared_busy": false,
+    "shared_poisoned": false,
+    "native_busy": false,
+    "native_invalid": true,
+    "context_denied": true
+  },
+  "terminal_refusal": {
+    "error_type": "NativeContentPolicyDenied",
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "error_id": 128139788612032,
+    "closed": true,
+    "sends": 1,
+    "compression_sends": 1,
+    "seconds": 17.267618281010073
+  },
+  "main": {
+    "final_response": "The blue folder stays.",
+    "completed": true,
+    "failed": false,
+    "interrupted": false,
+    "usage": {
+      "prompt_tokens": 3,
+      "completion_tokens": 2,
+      "total_tokens": 5
+    },
+    "agent_attributes_preserved": true,
+    "messages_and_result_preserved": true,
+    "cached_prompt_preserved": true
+  },
+  "compression": {
+    "summary": null,
+    "previous_summary": null,
+    "compression_count": 0,
+    "usage_accepted": false,
+    "raw_usage_only": {
+      "completion_tokens": 2,
+      "prompt_tokens": 3,
+      "total_tokens": 5
+    },
+    "local_results": [],
+    "output": null
+  },
+  "wire_pairs": [
+    {
+      "receiver": "a",
+      "role": "qualification",
+      "request_bytes": 22,
+      "request_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "response_body_bytes": 17,
+      "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "http_response_bytes": 75,
+      "http_response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+      "response_accepted": 75,
+      "header_already_terminated": true,
+      "raw_equals_original_header_plus_body": true,
+      "content_length_exact": true,
+      "forwarding_bytes_equal": true,
+      "complete": true,
+      "settled": true,
+      "addresses_checked_separately": true
+    },
+    {
+      "receiver": "a",
+      "role": "main",
+      "request_bytes": 355,
+      "request_sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+      "response_body_bytes": 270,
+      "response_body_sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+      "http_response_bytes": 329,
+      "http_response_sha256": "164cfcecc87b356dbfde0e213205de8008b816335ccd78c357c4c08054289aee",
+      "response_accepted": 329,
+      "header_already_terminated": true,
+      "raw_equals_original_header_plus_body": true,
+      "content_length_exact": true,
+      "forwarding_bytes_equal": true,
+      "complete": true,
+      "settled": true,
+      "addresses_checked_separately": true
+    },
+    {
+      "receiver": "b",
+      "role": "qualification",
+      "request_bytes": 22,
+      "request_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "response_body_bytes": 17,
+      "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "http_response_bytes": 75,
+      "http_response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+      "response_accepted": 75,
+      "header_already_terminated": true,
+      "raw_equals_original_header_plus_body": true,
+      "content_length_exact": true,
+      "forwarding_bytes_equal": true,
+      "complete": true,
+      "settled": true,
+      "addresses_checked_separately": true
+    },
+    {
+      "receiver": "b",
+      "role": "compression",
+      "request_bytes": 6664,
+      "request_sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+      "response_body_bytes": 312,
+      "response_body_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+      "http_response_bytes": 371,
+      "http_response_sha256": "46e358ff21189937e25c870d09083f09aa690dc2e5b3f61cba0f57934b1feb92",
+      "response_accepted": 371,
+      "header_already_terminated": true,
+      "raw_equals_original_header_plus_body": true,
+      "content_length_exact": true,
+      "forwarding_bytes_equal": true,
+      "complete": true,
+      "settled": true,
+      "addresses_checked_separately": true
+    }
+  ],
+  "quiet_windows": [
+    {
+      "receiver": "a",
+      "mark_rows": 2,
+      "mark_active": 0,
+      "quiet_seconds": 0.5619055069983006,
+      "empty_suffix": true,
+      "polls": 281
+    },
+    {
+      "receiver": "b",
+      "mark_rows": 2,
+      "mark_active": 0,
+      "quiet_seconds": 1.073765473003732,
+      "empty_suffix": true,
+      "polls": 291
+    }
+  ],
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_sockets_closed": true,
+    "b_sockets_closed": true,
+    "a_errors": [],
+    "b_errors": [],
+    "cleanup_errors": [],
+    "seconds": 17.283364934992278
+  },
+  "raw_graphs": "Private receipt file only"
+}

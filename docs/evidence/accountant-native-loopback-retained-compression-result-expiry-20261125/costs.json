@@ -1,0 +1,90 @@
+{
+  "qualification": {
+    "actual": [
+      50,
+      25,
+      7241
+    ],
+    "sum_of_all_actual_payload_lengths": 7241,
+    "planning": [
+      50,
+      25,
+      7241
+    ]
+  },
+  "native": {
+    "actual": [
+      16,
+      2,
+      30099
+    ],
+    "sum_of_all_actual_payload_lengths": 30099,
+    "main_bytes": 2463,
+    "bridge_and_input_and_request_bytes": 27324,
+    "shared_response_bytes": 312,
+    "planning": [
+      16,
+      2,
+      30099
+    ],
+    "earlier_partial_scopes_supply_response_authority": false
+  },
+  "main_usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "compression_usage_accepted": false,
+  "estimated_cost_usd": null,
+  "cost_status": "unknown",
+  "ledger": {
+    "root_launch_epoch": 1795578753.1523533,
+    "first_workspace_boundary": 1795578767.0,
+    "first_boundary_precision": "Conservative lower second from first recorded UTC command; subsecond unknown",
+    "private_creation": 1795578828.4621196,
+    "umask": "077",
+    "directory_mode": "0o700",
+    "files_mode": "0600 from creation",
+    "commands": [
+      {
+        "scope": "cheap-01",
+        "start": 1795579004.8265853,
+        "end": 1795579017.8268223,
+        "seconds": 13.000236988067627,
+        "exit": 1
+      },
+      {
+        "scope": "cheap-02",
+        "start": 1795579101.2807498,
+        "end": 1795579103.5508668,
+        "seconds": 2.2701170444488525,
+        "exit": 0
+      },
+      {
+        "scope": "genuine",
+        "start": 1795579148.2922955,
+        "end": 1795579167.8434222,
+        "seconds": 19.551126718521118,
+        "exit": 0
+      }
+    ],
+    "launch_floor": {
+      "time": 1795579148.2922955,
+      "task_remaining": 1044.8600578308105,
+      "verification_remaining": 818.7077045440674
+    }
+  },
+  "all_wall_boundary": {
+    "recorded_at": 1795579277.8621879,
+    "task_seconds_including_preparation": 584.7098345756531,
+    "verification_seconds": 510.86218786239624,
+    "Task_cap": 1500,
+    "verification_cap": 1200,
+    "preparation_seconds": 60,
+    "final_reserve": 240,
+    "reporting_reserve": 120,
+    "quiet_reasoning_and_tool_gaps_included": true,
+    "publication_and_reporting": "Later private handoff boundaries remain separate"
+  },
+  "command_seconds": 34.8214807510376
+}
