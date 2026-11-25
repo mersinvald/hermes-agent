@@ -1,0 +1,138 @@
+{
+  "status": "PASSED",
+  "successful_cases": [
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.03429030400002375,
+          "recorded_at": 1795579017.2592745
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0016132010205183178,
+          "recorded_at": 1795579017.2668347
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_inert_post_result_compression_expiry_catalog",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00042122797458432615,
+          "recorded_at": 1795579017.2729719
+        }
+      ],
+      "body_sha256": "38d0d3ef0c8fd3ca82b4766a90ae6b767decb6b3fbff72a918fa64851d32d89e"
+    },
+    {
+      "scope": "cheap-02",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.036403345002327114,
+          "recorded_at": 1795579103.1608105
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0029927930154372007,
+          "recorded_at": 1795579103.1787045
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_post_result_expiry_gate_waits_for_registered_response",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00036005498259328306,
+          "recorded_at": 1795579103.1846144
+        }
+      ],
+      "body_sha256": "7880383daf89214f98f602f1306a751f7fa5fa4004d274b2e9442fc1280f44e1"
+    },
+    {
+      "scope": "genuine",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_genuine_compression_expiry_after_shared_result",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_genuine_compression_expiry_after_shared_result",
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_genuine_compression_expiry_after_shared_result",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.041093612991971895,
+          "recorded_at": 1795579150.235738
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_genuine_compression_expiry_after_shared_result",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 17.286860366992187,
+          "recorded_at": 1795579167.5269544
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_result_expiry.py::test_genuine_compression_expiry_after_shared_result",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0004917430051136762,
+          "recorded_at": 1795579167.534187
+        }
+      ],
+      "body_sha256": "1494a8d5c892c12993e05bca0c9717d2cd2a37bea77326bb992a8875cdea3e8c"
+    }
+  ],
+  "all_nine_successful_phase_rows": true,
+  "failed_feedback_retained": true,
+  "runner": "Original scripts/run_tests.sh",
+  "one_worker": true,
+  "retries": 0,
+  "maxfail": 1,
+  "junit_family": "xunit1",
+  "fresh_XML": true,
+  "XML_sibling_phase_channel": true,
+  "optional_phase_environment_priority": true,
+  "no_selector_assertions_still_run": true,
+  "command_bounds": {
+    "cheap_outer": 45,
+    "cheap_file": 40,
+    "genuine_outer": 150,
+    "genuine_file": 145,
+    "receiver": 140
+  },
+  "source_frozen_before_genuine": true,
+  "no_executable_edit_after_launch": true,
+  "ruff": {
+    "selection": "F,E9",
+    "final": "PASSED",
+    "earlier_failure": "F401 unused ContentPolicyRuntime import removed before cheap-01"
+  },
+  "whitespace": "PASSED",
+  "reused_installed_evidence": true,
+  "smoke_repeated": false,
+  "broad_suite_run": false,
+  "CI_claim": false,
+  "discovery_feedback": [
+    {
+      "command": "bd readonly sandbox at noncanonical worktree database",
+      "effect": "Failed to open missing embedded database; a private gate lock was created there",
+      "resolved": "Canonical PWA readonly sandbox issue read passed"
+    },
+    {
+      "command": "orca repo list --json",
+      "effect": "Discovery returned unsanitized remote metadata in tool output",
+      "retained_in_Git": false,
+      "credential_or_git_configuration_files_read": false,
+      "remote_configuration_command_run": false
+    }
+  ],
+  "publication": "Draft PR only; later private publication receipt",
+  "writing_feedback": "One paragraph violation corrected; --help command failed without mutation"
+}

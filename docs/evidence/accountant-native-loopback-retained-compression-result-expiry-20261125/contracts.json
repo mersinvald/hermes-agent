@@ -1,0 +1,52 @@
+{
+  "status": "PASSED",
+  "composition": "Unchanged expiry73 configure_expiry_world and qualify_expiry_world with original compression_reply_bytes and main/compression/receiver helpers",
+  "route_count": 25,
+  "synthetic_time": {
+    "initial": 10,
+    "selected_expiry": 100,
+    "other_expiries": 200,
+    "changes": 1
+  },
+  "gate": {
+    "preinstalled": true,
+    "original_methods_preserved": true,
+    "requires_actual_shared_handle": true,
+    "registered_row_payload_identity": true,
+    "sole_original_request_parent": true,
+    "binding_profiles_path_checked": true,
+    "second_successful_forwarding_identity": true,
+    "shared_idle_healthy": true,
+    "native_decode_absent": true,
+    "one_shot": true,
+    "returns_normally": true,
+    "operation_calls_from_hook": false
+  },
+  "exception": {
+    "reason": "controlled_native_payload_invalid",
+    "line": 3140,
+    "original_object": true,
+    "cause": null,
+    "context": null,
+    "suppressed": false,
+    "shared_wrapper": false
+  },
+  "scope_and_terminal_refusals": "Separate original errors with separate identities",
+  "scope": "Selected owned synthetic HTTP history only",
+  "open_gates": [
+    "P10",
+    "P06",
+    "private",
+    "provider",
+    "external_egress",
+    "durable",
+    "thread",
+    "source",
+    "financial",
+    "production",
+    "manifest",
+    "index",
+    "deployment",
+    "activation"
+  ]
+}
