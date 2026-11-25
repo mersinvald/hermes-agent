@@ -1,0 +1,112 @@
+{
+  "status": "PASSED",
+  "results": {
+    "tests/agent/test_native_loopback_retained_compression.py": {
+      "sha256": "9c4e4889745842ffb5d69656b6e699537105168fb42f2f0e6589afa8899e792d",
+      "result": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      }
+    },
+    "docs/evidence/accountant-native-loopback-retained-compression-20261125/README.md": {
+      "sha256": "4dec4faf9d54306c7818f799921a2586df2fea5f9a9aa94d6646a3205117a1a2",
+      "result": {
+        "words": 443,
+        "sentences": 45,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 15,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    },
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/pr-body.md": {
+      "sha256": "b47c03318285a0f5b64e643a9a9f2d75b01cd1f4f3f341b2d6ce6657cfb33543",
+      "result": {
+        "words": 129,
+        "sentences": 12,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 16,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    }
+  },
+  "initial_README_findings": {
+    "words": 443,
+    "sentences": 45,
+    "violations": {
+      "long_sentence(>20w)": 0,
+      "semicolon": 0,
+      "contraction": 0,
+      "passive_voice": 0,
+      "ing_main_verb": 0,
+      "nominalization": 0,
+      "phrasal_verb": 0,
+      "banned_word": 0,
+      "marketing_adjective": 0,
+      "modal_hedge": 0,
+      "long_paragraph(>6s)": 2
+    },
+    "total": 2,
+    "total_per100w": 0.45,
+    "em_dash(slop-marker)": 0,
+    "longest_sentence_words": 15,
+    "sample_marketing": [],
+    "sample_banned": [],
+    "mode": "prose-v1"
+  },
+  "correction": "Split two long paragraphs. No executable bytes changed.",
+  "limit": "Mechanical prose check only. Required identifiers and invented payloads retain exact bytes."
+}

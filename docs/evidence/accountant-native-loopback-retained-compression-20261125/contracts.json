@@ -1,0 +1,93 @@
+{
+  "proposal_sha256": "9c3e8497919a2360d7c7111a5e6633b15a09d7ac2f02d9dc84c3719d82617122",
+  "source_allowlist": [
+    "tests/agent/test_native_loopback_retained_compression.py"
+  ],
+  "base_paths": 12242,
+  "authorities": [
+    {
+      "selection": "selection",
+      "version": 3,
+      "producer": "invented_producer",
+      "revision": 4
+    },
+    {
+      "selection": "title_selection",
+      "version": 5,
+      "producer": "title_producer",
+      "revision": 2
+    },
+    {
+      "selection": "compression_selection",
+      "version": 6,
+      "producer": "compression_producer",
+      "revision": 3
+    }
+  ],
+  "logical_clock": 10,
+  "expiry": 100,
+  "qualification_scope": "synthetic_only",
+  "profiles": [
+    "restricted_documents"
+  ],
+  "path": "compression",
+  "task": "compression",
+  "route": "compression_compression",
+  "qualification": {
+    "routes": 24,
+    "http": 2,
+    "in_process": 22,
+    "contents": 48,
+    "separate_runtime": true
+  },
+  "source_identity": "Original successful main completion, result, messages list and every row.",
+  "limits": {
+    "combined_slots": 128,
+    "retained_bytes": 8388608,
+    "payload_bytes": 1048576,
+    "hops": 128,
+    "parents": 32,
+    "native_source_stage_request_output_bytes": 262144,
+    "response_bytes": 65536,
+    "request_messages": 32,
+    "message_utf8_bytes": 16384,
+    "auxiliary_inputs": 8,
+    "stages": 8
+  },
+  "lifecycle": {
+    "receiver_responses_each": 2,
+    "observation_seconds": 590,
+    "quiet_drain_minimum_seconds": 0.5,
+    "agent_close_calls": 2,
+    "terminal_refusal": true
+  },
+  "excluded": [
+    "history adoption",
+    "history replacement",
+    "rolling state",
+    "fallback",
+    "threads",
+    "persistence",
+    "micro-summary",
+    "prune",
+    "defrag",
+    "session mutation",
+    "unowned summary"
+  ],
+  "open_gates": [
+    "full P10",
+    "full P06",
+    "private data",
+    "real provider",
+    "external egress",
+    "durable transfer",
+    "threads",
+    "source completeness",
+    "financial writes",
+    "production",
+    "manifests",
+    "index",
+    "deployment",
+    "activation"
+  ]
+}

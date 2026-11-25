@@ -1,0 +1,195 @@
+{
+  "case_timings": [
+    {
+      "command_scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_inert_retained_compression_http_plan",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_inert_retained_compression_http_plan",
+      "actual_xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression",
+        "name": "test_inert_retained_compression_http_plan",
+        "file": "tests/agent/test_native_loopback_retained_compression.py",
+        "line": "138",
+        "time": "0.039"
+      },
+      "outcome": "passed",
+      "setup_seconds": 0.035644162009702995,
+      "call_seconds": 0.0024845440057106316,
+      "teardown_seconds": 0.0005025999853387475
+    },
+    {
+      "command_scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+      "actual_xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression",
+        "name": "test_retained_compression_http_response_recipe",
+        "file": "tests/agent/test_native_loopback_retained_compression.py",
+        "line": "190",
+        "time": "0.017"
+      },
+      "outcome": "failed",
+      "setup_seconds": 0.015719063027063385,
+      "call_seconds": 0.0006550549878738821,
+      "teardown_seconds": 0.00047365299542434514
+    },
+    {
+      "command_scope": "cheap-02",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+      "actual_xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression",
+        "name": "test_retained_compression_http_response_recipe",
+        "file": "tests/agent/test_native_loopback_retained_compression.py",
+        "line": "190",
+        "time": "0.034"
+      },
+      "outcome": "passed",
+      "setup_seconds": 0.031782773992745206,
+      "call_seconds": 0.0016195149801205844,
+      "teardown_seconds": 0.000347460008924827
+    },
+    {
+      "command_scope": "genuine",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_genuine_retained_compression_http",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_genuine_retained_compression_http",
+      "actual_xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression",
+        "name": "test_genuine_retained_compression_http",
+        "file": "tests/agent/test_native_loopback_retained_compression.py",
+        "line": "214",
+        "time": "19.670"
+      },
+      "outcome": "passed",
+      "setup_seconds": 0.03712365200044587,
+      "call_seconds": 19.632626977021573,
+      "teardown_seconds": 0.0005455820064526051
+    }
+  ],
+  "commands": {
+    "cheap-01": {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression.py",
+        "-k",
+        "test_inert_retained_compression_http_plan or test_retained_compression_http_response_recipe",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "60",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/cheap-01.xml"
+      ],
+      "start_epoch": 1795568744.6468613,
+      "end_epoch": 1795568756.4352653,
+      "returncode": 1,
+      "timeout": false,
+      "command_seconds": 11.788403987884521,
+      "task_conservative_seconds": 515.1247227191925,
+      "verification_seconds": 395.1247227191925
+    },
+    "cheap-02": {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression.py",
+        "-k",
+        "test_retained_compression_http_response_recipe",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "60",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/cheap-02.xml"
+      ],
+      "start_epoch": 1795568780.2029674,
+      "end_epoch": 1795568782.4715762,
+      "returncode": 0,
+      "timeout": false,
+      "command_seconds": 2.268608808517456,
+      "task_conservative_seconds": 541.1610336303711,
+      "verification_seconds": 421.1610336303711
+    },
+    "genuine": {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression.py",
+        "-k",
+        "test_genuine_retained_compression_http",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "595",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/genuine.xml",
+        "--durations=0",
+        "--durations-min=0"
+      ],
+      "start_epoch": 1795568830.9285283,
+      "end_epoch": 1795568852.7878036,
+      "returncode": 0,
+      "timeout": false,
+      "command_seconds": 21.859275341033936,
+      "task_conservative_seconds": 611.4772610664368,
+      "verification_seconds": 491.47726106643677
+    }
+  },
+  "main_usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "compression_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "aggregate_usage": {
+    "prompt_tokens": 6,
+    "completion_tokens": 4,
+    "total_tokens": 10
+  },
+  "accounting": {
+    "main_estimated_cost_usd": null,
+    "main_cost_status": "unknown",
+    "compression_estimated_cost_usd": null,
+    "compression_cost_status": "unknown",
+    "aggregate_estimated_cost_usd": null,
+    "aggregate_cost_status": "unknown",
+    "currency_charge_claim": false
+  },
+  "budgets": {
+    "launch": {
+      "root_launch_epoch": 1795568301.3105426,
+      "preparation_conservative_seconds": 60,
+      "all_wall_cap_seconds": 2400,
+      "verification_publication_cap_seconds": 1500,
+      "both_genuine_launch_floor_seconds": 900,
+      "genuine_outer_seconds": 600,
+      "file_timeout_seconds": 595,
+      "receiver_lifetime_seconds": 590,
+      "final_reserve_seconds": 120,
+      "spec_sha256": "720fbec49466f2120db80ee589b670e3746deca80f8c3c70c092a174c151ad22",
+      "input_sha256": "300a1a7091849a0a51f114dd5fd1241724c368d480a0f4a084d9981a901d285c"
+    },
+    "verification_start_epoch": 1795568361.3105426,
+    "verification_start_basis": "Conservative first workspace check boundary, Root epoch plus 60 seconds",
+    "genuine_launch_task_remaining_seconds": 1810.3820142745972,
+    "genuine_launch_verification_remaining_seconds": 1030.3820142745972,
+    "root_allwall_rule": "Conservative elapsed adds 60 seconds to elapsed since Root launch.",
+    "floor_seconds": 900,
+    "report_reserve_seconds": 120
+  },
+  "historical_title_separate_phase_times": "UNKNOWN. Current phase reports do not backfill earlier Tasks.",
+  "speed_improvement_claim": false
+}

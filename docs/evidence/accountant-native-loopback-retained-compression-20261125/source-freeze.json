@@ -1,0 +1,10 @@
+{
+  "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.71/tests/agent/test_native_loopback_retained_compression.py",
+  "sha256": "9c4e4889745842ffb5d69656b6e699537105168fb42f2f0e6589afa8899e792d",
+  "bytes": 36108,
+  "commit": "db5bf4b3065cfcfc8c71c95f2d73c70773a1372b",
+  "tree": "b341c1d90239ca602ab72fedef1c66413fd35c7b",
+  "frozen_at": 1795568830.8970275,
+  "normal_hooks": true,
+  "cheap_receipt_sha256": "b3fde093a1ee663930a32789301d96fb74eae009f71afe669b2e88173f72ac4e"
+}
