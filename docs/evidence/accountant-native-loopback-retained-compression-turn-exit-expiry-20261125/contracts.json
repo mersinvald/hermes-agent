@@ -1,0 +1,306 @@
+{
+  "acceptance_scope": "One original completed acceptance precedes body clear. No re-acceptance, rollback, uncharge, or erasure claim.",
+  "accepted_anchors_id": 137698896033296,
+  "accepted_completed_record_id": 137698855679040,
+  "accepted_count": 1,
+  "actual_current_thread_FrameType_and_code_verified": true,
+  "actual_stack": [
+    {
+      "code_id": 107392335737968,
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+      "frame_id": 137698894740864,
+      "function": "_turn_operation",
+      "line": 1958
+    },
+    {
+      "code_id": 107392329287120,
+      "file": "/home/mersinvald/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py",
+      "frame_id": 137698894728096,
+      "function": "__exit__",
+      "line": 144
+    },
+    {
+      "code_id": 107392335841312,
+      "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+      "frame_id": 137698895941440,
+      "function": "complete_auxiliary",
+      "line": 3014
+    }
+  ],
+  "body_clear_effect_observed_before_transition": true,
+  "body_clear_not_invalidation_cleanup": true,
+  "boundary": "Original post-yield _turn_operation1958 after body clear3050 and before complete_auxiliary return.",
+  "completed_output_enumerator_invoked_for_proof": false,
+  "completion_cleanup_line_observed": 3014,
+  "direct_adjacency_required": false,
+  "final_content_id": 137698932899776,
+  "hook_scope": "Existing facts and test-local serialization. No application constructors, callbacks, transforms, derives, decodes, tracing, frame replacement, or getter patch in the hook.",
+  "invalidation_cleanup_line": 1694,
+  "invalidation_pending_None_skips_lines": [
+    1692,
+    1693
+  ],
+  "local_partial_frame_id": 137698894716160,
+  "local_partial_record_id": 137698855677504,
+  "ordering": [
+    {
+      "accepted": 0,
+      "checkpoint": 3046,
+      "now": 10,
+      "pending_cleared": false
+    },
+    {
+      "accepted": 1,
+      "checkpoint": 3049,
+      "now": 10,
+      "pending_cleared": false
+    },
+    {
+      "accepted": 1,
+      "body_clear_source_line": 3050,
+      "checkpoint": 1958,
+      "completion_cleanup_line": 3014,
+      "now": 10,
+      "pending_cleared": true
+    }
+  ],
+  "original_self_agent_and_completion_locals_verified": [
+    "self",
+    "request",
+    "response",
+    "frame",
+    "record",
+    "binding",
+    "path",
+    "task",
+    "stages",
+    "output",
+    "contents",
+    "stage",
+    "payload",
+    "parents",
+    "content"
+  ],
+  "output_handles": [
+    137698905177056,
+    137698904478496,
+    137698904478432,
+    137698904476160,
+    137698932899776
+  ],
+  "output_payloads": [
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 16,
+      "length": 125,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 17,
+      "length": 131,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "c172e9b1fc18dc651f48fbb0f93ddc709420fb8cde2c612ed040484859ca5613"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 18,
+      "length": 729,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16,
+        17
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056,
+        137698904478496
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "2667ab614a99ae05b4128b73c37765293ae4bf7696f1505c3269d2e7d4e4d64b"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 19,
+      "length": 4883,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056,
+        137698904478496,
+        137698904478432
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "48a25a6d3625ef6082ebcce4c4e3ed33106e04536d41c7d3c208cb8bb51fab69"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 20,
+      "length": 2436,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056,
+        137698904478496,
+        137698904478432,
+        137698904476160
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "9ac95c6f91bafabe06d8229978a872c600b7974181ca9b6dc5171a09e6ddc757"
+    }
+  ],
+  "pins": {
+    "completion_code_id": 107392335841312,
+    "completion_frame_id": 137698895941440,
+    "completion_id": 137698921077536,
+    "generator_code_id": 107392335737968,
+    "generator_frame_id": 137698894740864,
+    "generator_id": 137698921037664,
+    "wrapper_code_id": 137698942688304,
+    "wrapper_id": 137698921070656
+  },
+  "pre_output_bytes": 30099,
+  "pre_output_rows": 16,
+  "pre_output_rows_and_nested_identities_unchanged": true,
+  "prepared_output_id": 137698874131008,
+  "prepared_stages": [
+    137698875391184,
+    137698854681424,
+    107392350346832,
+    107392350400992
+  ],
+  "retained_updated_frame_id": 137698854739520,
+  "returned_stage_ids": [
+    137698905177056,
+    137698904478496,
+    137698904478432,
+    137698904476160
+  ],
+  "spent_before_clock_change": true
+}

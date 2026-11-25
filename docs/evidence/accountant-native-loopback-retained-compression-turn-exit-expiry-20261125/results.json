@@ -1,0 +1,671 @@
+{
+  "CI_success_claim": false,
+  "SDK_calls": 0,
+  "accepted_count": 1,
+  "accepted_output_present": true,
+  "accepted_record_id": 137698855679040,
+  "actual_HTTP_pairs": [
+    {
+      "accepted_peer": [
+        "127.0.0.1",
+        37500
+      ],
+      "body_bytes": 22,
+      "body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "bound": [
+        "127.0.0.1",
+        53091
+      ],
+      "client_reported_peer": {
+        "bytes_hex": "3132372e302e302e313a3533303931"
+      },
+      "content_length": 22,
+      "envelope_body_equal": true,
+      "header_bytes": 179,
+      "header_sha256": "22591e658d2d2d68ef2d100cdef1c8e1d9d9d0285ded17ea216187c1bead31b1",
+      "host": {
+        "bytes_hex": "3132372e302e302e313a3533303931"
+      },
+      "local": [
+        "127.0.0.1",
+        53091
+      ],
+      "observation_response_body_equal": true,
+      "order": 0,
+      "path": {
+        "bytes_hex": "2f6f776e65642d6163636f756e74616e742d70726f6f662f76312f70"
+      },
+      "receiver": "a",
+      "request_bytes": 201,
+      "request_sha256": "547b4993baf270fac630bc046c80981356fb86124fb3a99a7668aef9a47587e8",
+      "response_accepted": 75,
+      "response_body_bytes": 17,
+      "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "response_bytes": 75,
+      "response_content_length": 17,
+      "response_header_sha256": "79f3de628cff798b12e9c2e35fabfea52b8a9b91a31bf2434be7a35bfd96682f",
+      "response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+      "role": "qualification",
+      "selected_peer": [
+        "127.0.0.1",
+        53091
+      ]
+    },
+    {
+      "accepted_peer": [
+        "127.0.0.1",
+        57036
+      ],
+      "body_bytes": 355,
+      "body_sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+      "bound": [
+        "127.0.0.1",
+        53091
+      ],
+      "client_reported_peer": {
+        "bytes_hex": "3132372e302e302e313a3533303931"
+      },
+      "content_length": 355,
+      "envelope_body_equal": true,
+      "header_bytes": 180,
+      "header_sha256": "1b4c1cc9ffeec2d76f766de0af1edc2e8daf551abb7499cf95d8916952eee8ea",
+      "host": {
+        "bytes_hex": "3132372e302e302e313a3533303931"
+      },
+      "local": [
+        "127.0.0.1",
+        53091
+      ],
+      "observation_response_body_equal": true,
+      "order": 1,
+      "path": {
+        "bytes_hex": "2f6f776e65642d6163636f756e74616e742d70726f6f662f76312f70"
+      },
+      "receiver": "a",
+      "request_bytes": 535,
+      "request_sha256": "8576a227be0f6f178725f216c788239394953e6889d5cbb59f50413f62b22fa6",
+      "response_accepted": 329,
+      "response_body_bytes": 270,
+      "response_body_sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+      "response_bytes": 329,
+      "response_content_length": 270,
+      "response_header_sha256": "79fec954ba73722e82ae130faa528999833da8540bf3225c695f61ebf1ed3363",
+      "response_sha256": "164cfcecc87b356dbfde0e213205de8008b816335ccd78c357c4c08054289aee",
+      "role": "main",
+      "selected_peer": [
+        "127.0.0.1",
+        53091
+      ]
+    },
+    {
+      "accepted_peer": [
+        "127.0.0.1",
+        52060
+      ],
+      "body_bytes": 22,
+      "body_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+      "bound": [
+        "127.0.0.1",
+        45301
+      ],
+      "client_reported_peer": {
+        "bytes_hex": "3132372e302e302e313a3435333031"
+      },
+      "content_length": 22,
+      "envelope_body_equal": true,
+      "header_bytes": 179,
+      "header_sha256": "0dabd34a61411c748640e619a0748e543ae71970d876e658208d9f3802f82e9a",
+      "host": {
+        "bytes_hex": "3132372e302e302e313a3435333031"
+      },
+      "local": [
+        "127.0.0.1",
+        45301
+      ],
+      "observation_response_body_equal": true,
+      "order": 0,
+      "path": {
+        "bytes_hex": "2f6f776e65642d6163636f756e74616e742d70726f6f662f76312f63"
+      },
+      "receiver": "b",
+      "request_bytes": 201,
+      "request_sha256": "d5550e94261e30672b69ac9843d18950e04280210684728b47daf59663f4f5a8",
+      "response_accepted": 75,
+      "response_body_bytes": 17,
+      "response_body_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+      "response_bytes": 75,
+      "response_content_length": 17,
+      "response_header_sha256": "79f3de628cff798b12e9c2e35fabfea52b8a9b91a31bf2434be7a35bfd96682f",
+      "response_sha256": "58b8b880c3608285d145dbd5185f164ba941c576beb3dfebbd00cee0cce786bd",
+      "role": "qualification",
+      "selected_peer": [
+        "127.0.0.1",
+        45301
+      ]
+    },
+    {
+      "accepted_peer": [
+        "127.0.0.1",
+        57950
+      ],
+      "body_bytes": 6664,
+      "body_sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+      "bound": [
+        "127.0.0.1",
+        45301
+      ],
+      "client_reported_peer": {
+        "bytes_hex": "3132372e302e302e313a3435333031"
+      },
+      "content_length": 6664,
+      "envelope_body_equal": true,
+      "header_bytes": 181,
+      "header_sha256": "2e1d91a889785bccde58fda753c4034c9abfdb23dafe593ceb17f71744d665e2",
+      "host": {
+        "bytes_hex": "3132372e302e302e313a3435333031"
+      },
+      "local": [
+        "127.0.0.1",
+        45301
+      ],
+      "observation_response_body_equal": true,
+      "order": 1,
+      "path": {
+        "bytes_hex": "2f6f776e65642d6163636f756e74616e742d70726f6f662f76312f63"
+      },
+      "receiver": "b",
+      "request_bytes": 6845,
+      "request_sha256": "d5c0dd724dcff308952627852d0d26603a6fa11eef963847f00e3a009fedfd2b",
+      "response_accepted": 371,
+      "response_body_bytes": 312,
+      "response_body_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+      "response_bytes": 371,
+      "response_content_length": 312,
+      "response_header_sha256": "62b6fc673e32b700dc4d7f46abfaa29b84637d671fd7be7ad368a8e8661a787e",
+      "response_sha256": "46e358ff21189937e25c870d09083f09aa690dc2e5b3f61cba0f57934b1feb92",
+      "role": "compression",
+      "selected_peer": [
+        "127.0.0.1",
+        45301
+      ]
+    }
+  ],
+  "application_summary_return": null,
+  "cleanup": {
+    "a_closed": true,
+    "a_errors": [],
+    "a_sockets_closed": true,
+    "a_stopped": true,
+    "b_closed": true,
+    "b_errors": [],
+    "b_sockets_closed": true,
+    "b_stopped": true,
+    "cleanup_errors": [],
+    "seconds": 32.292845690011745
+  },
+  "complete_exception_association": {
+    "associations_truncated": false,
+    "exceptions": [
+      {
+        "args": [
+          "controlled_native_payload_invalid"
+        ],
+        "args_truncated": false,
+        "cause_id": null,
+        "context_id": null,
+        "identity": 137698856301856,
+        "locations": [
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py",
+            "function": "test_genuine_compression_expiry_at_original_turn_exit",
+            "line": 794
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/tests/agent/test_native_controlled_conversation.py",
+            "function": "summarize",
+            "line": 1831
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/context_compressor.py",
+            "function": "_generate_summary",
+            "line": 5351
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "complete_auxiliary",
+            "line": 3014
+          },
+          {
+            "file": "/home/mersinvald/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py",
+            "function": "__exit__",
+            "line": 144
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "_turn_operation",
+            "line": 1958
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "_interrupt_turn",
+            "line": 1932
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "_checkpoint",
+            "line": 3333
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "_snapshot",
+            "line": 1838
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "_compression_snapshot",
+            "line": 3140
+          },
+          {
+            "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+            "function": "_require",
+            "line": 814
+          }
+        ],
+        "suppressed": false,
+        "traceback_truncated": false,
+        "type": "NativeContentPolicyDenied"
+      }
+    ],
+    "primary_id": 137698856301856
+  },
+  "compression_count": 0,
+  "double_close": true,
+  "extra_requests": 0,
+  "fallback_sends": 0,
+  "five_output_handles": [
+    137698905177056,
+    137698904478496,
+    137698904478432,
+    137698904476160,
+    137698932899776
+  ],
+  "full_gates": "OPEN",
+  "native": {
+    "busy": false,
+    "denied": true,
+    "invalid": true,
+    "pending": null,
+    "pending_record_acceptance_skipped": true
+  },
+  "one_compression_send": true,
+  "one_main_send": true,
+  "original_exception": {
+    "args": [
+      "controlled_native_payload_invalid"
+    ],
+    "cause": null,
+    "completion_frame_id": 137698895941440,
+    "context": null,
+    "final_content_id": 137698932899776,
+    "final_payload_id": 107392350592416,
+    "generator_code_id": 107392335737968,
+    "generator_frame_id": 137698894740864,
+    "identity": 137698856301856,
+    "line": 3140,
+    "locations": [
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py",
+        "function": "test_genuine_compression_expiry_at_original_turn_exit",
+        "line": 794
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/tests/agent/test_native_controlled_conversation.py",
+        "function": "summarize",
+        "line": 1831
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/context_compressor.py",
+        "function": "_generate_summary",
+        "line": 5351
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "complete_auxiliary",
+        "line": 3014
+      },
+      {
+        "file": "/home/mersinvald/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/contextlib.py",
+        "function": "__exit__",
+        "line": 144
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "_turn_operation",
+        "line": 1958
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "_interrupt_turn",
+        "line": 1932
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1838
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "_compression_snapshot",
+        "line": 3140
+      },
+      {
+        "file": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.87/agent/native_main_payload.py",
+        "function": "_require",
+        "line": 814
+      }
+    ],
+    "predicate": "now < route.expires_at",
+    "prefix_handle_id": 137698905177056,
+    "returned_stage_ids": [
+      137698905177056,
+      137698904478496,
+      137698904478432,
+      137698904476160
+    ],
+    "suppressed": false,
+    "traceback_id": 137698896327168,
+    "type": "NativeContentPolicyDenied"
+  },
+  "outcome": "PASS bounded original turn-exit expiry test",
+  "output": null,
+  "output_null_scope": "Absent application return, not absent accepted invocation output.",
+  "output_payloads": [
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 16,
+      "length": 125,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "6723f2258b6c86fe504e1faa94fddbe52cd715428a58d6dd4827e5eab20b8d32"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 17,
+      "length": 131,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "c172e9b1fc18dc651f48fbb0f93ddc709420fb8cde2c612ed040484859ca5613"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 18,
+      "length": 729,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16,
+        17
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056,
+        137698904478496
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "2667ab614a99ae05b4128b73c37765293ae4bf7696f1505c3269d2e7d4e4d64b"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 19,
+      "length": 4883,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056,
+        137698904478496,
+        137698904478432
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "48a25a6d3625ef6082ebcce4c4e3ed33106e04536d41c7d3c208cb8bb51fab69"
+    },
+    {
+      "binding": [
+        "owner",
+        "execution",
+        "lineage",
+        "document_specialist",
+        7,
+        9,
+        "compression_selection",
+        6,
+        [
+          "restricted_documents"
+        ]
+      ],
+      "graph_index": 20,
+      "length": 2436,
+      "ordered_graph_parents": [
+        6,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "parents": [
+        137698899931808,
+        137698905177504,
+        137698905174400,
+        137698905177056,
+        137698904478496,
+        137698904478432,
+        137698904476160
+      ],
+      "path": "compression",
+      "payload_identity_verified_in_test": true,
+      "profiles": [
+        "restricted_documents"
+      ],
+      "sha256": "9ac95c6f91bafabe06d8229978a872c600b7974181ca9b6dc5171a09e6ddc757"
+    }
+  ],
+  "owner_dictionary_preserved_by_value_and_identity": true,
+  "owner_summary_publication": false,
+  "previous_summary": null,
+  "receiver_windows": [
+    {
+      "bound": [
+        "127.0.0.1",
+        53091
+      ],
+      "cutoff_at": 200821.033611909,
+      "deadline_at": 200929.335518695,
+      "drain_at": 200821.033610336,
+      "errors": [],
+      "finish_requested_at": 200820.522690556,
+      "finished_at": 200821.033839967,
+      "listener_closed": true,
+      "listener_id": 137698875208416,
+      "mark": {
+        "active_count": 0,
+        "bound": [
+          "127.0.0.1",
+          53091
+        ],
+        "listener_id": 137698875208416,
+        "polls": 515,
+        "row_count": 2,
+        "started_at": 200820.471517912
+      },
+      "polls": 527,
+      "quiet_seconds": 0.5620939969958272,
+      "ready_at": 200789.385619493,
+      "sockets_closed": true,
+      "suffix_rows": 0,
+      "thread_stopped": true
+    },
+    {
+      "bound": [
+        "127.0.0.1",
+        45301
+      ],
+      "cutoff_at": 200821.580589247,
+      "deadline_at": 200929.385965044,
+      "drain_at": 200821.580589137,
+      "errors": [],
+      "finish_requested_at": 200821.069589632,
+      "finished_at": 200821.580792185,
+      "listener_closed": true,
+      "listener_id": 137698875207456,
+      "mark": {
+        "active_count": 0,
+        "bound": [
+          "127.0.0.1",
+          45301
+        ],
+        "listener_id": 137698875207456,
+        "polls": 514,
+        "row_count": 2,
+        "started_at": 200820.506320703
+      },
+      "polls": 536,
+      "quiet_seconds": 1.074268544005463,
+      "ready_at": 200789.436034792,
+      "sockets_closed": true,
+      "suffix_rows": 0,
+      "thread_stopped": true
+    }
+  ],
+  "scope_refusal": {
+    "context_denied": true,
+    "distinct": true,
+    "error_id": 137698856303296,
+    "native_busy": false,
+    "native_invalid": true,
+    "original_id": 137698856301856,
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "shared_busy": false,
+    "shared_poisoned": false
+  },
+  "shared": {
+    "busy": false,
+    "failures": 0,
+    "poisoned": false
+  },
+  "terminal_refusal": {
+    "closed": true,
+    "compression_sends": 1,
+    "error_id": 137698856303008,
+    "error_type": "NativeContentPolicyDenied",
+    "reason": [
+      "controlled_native_payload_denied"
+    ],
+    "seconds": 32.27669163100654,
+    "sends": 1
+  },
+  "updated_retained_frame_id": 137698854739520
+}

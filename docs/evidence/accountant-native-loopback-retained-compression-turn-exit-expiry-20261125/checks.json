@@ -1,0 +1,205 @@
+{
+  "cheap_command_budget": 90,
+  "cheap_corrections": 1,
+  "cheap_cumulative_command_seconds": 13.756354331970215,
+  "earlier_cheap_receipts": [
+    {
+      "command": {
+        "command": [
+          "scripts/run_tests.sh",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "40",
+          "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py",
+          "-k",
+          "test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.87-task_23ec3fbea667-ewv_t4ym/cheap01.xml"
+        ],
+        "duration": 11.28761076927185,
+        "end": 1795599662.25307,
+        "file_bound": 40,
+        "outer_bound": 45,
+        "returncode": 0,
+        "source_sha256": "4ae10fd5fe48c46e314e99c255e6c345850cd7d4cdf473cd2d6e9c9691628ecc",
+        "start": 1795599650.9654593
+      },
+      "phases": [
+        {
+          "duration": 0.03106122900499031,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "outcome": "passed",
+          "recorded_at": 1795599661.908878,
+          "when": "setup"
+        },
+        {
+          "duration": 0.001359346992103383,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "outcome": "passed",
+          "recorded_at": 1795599661.9166512,
+          "when": "call"
+        },
+        {
+          "duration": 0.0003525960200931877,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "outcome": "passed",
+          "recorded_at": 1795599661.923669,
+          "when": "teardown"
+        }
+      ],
+      "source_matches_final": false
+    },
+    {
+      "command": {
+        "command": [
+          "scripts/run_tests.sh",
+          "-j",
+          "1",
+          "--file-retries",
+          "0",
+          "--file-timeout",
+          "40",
+          "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py",
+          "-k",
+          "test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "--maxfail=1",
+          "-o",
+          "junit_family=xunit1",
+          "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.87-task_23ec3fbea667-ewv_t4ym/cheap02.xml"
+        ],
+        "duration": 2.4687435626983643,
+        "end": 1795599728.3704789,
+        "file_bound": 40,
+        "outer_bound": 45,
+        "returncode": 0,
+        "source_sha256": "5207226a878b46e8e1fe8e783907fbb8f63f881938913b7cab5712bfeefefc62",
+        "start": 1795599725.9017353
+      },
+      "phases": [
+        {
+          "duration": 0.03312097099842504,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "outcome": "passed",
+          "recorded_at": 1795599728.0318615,
+          "when": "setup"
+        },
+        {
+          "duration": 0.0019455699948593974,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "outcome": "passed",
+          "recorded_at": 1795599728.039031,
+          "when": "call"
+        },
+        {
+          "duration": 0.0003472660027910024,
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+          "outcome": "passed",
+          "recorded_at": 1795599728.0463834,
+          "when": "teardown"
+        }
+      ],
+      "source_matches_final": true
+    }
+  ],
+  "expected_final_rows": 6,
+  "final_genuine_phase_seconds": {
+    "call": 32.29650140798185,
+    "setup": 0.021759072988061234,
+    "teardown": 0.0005549239867832512
+  },
+  "final_group": {
+    "command": [
+      "scripts/run_tests.sh",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "145",
+      "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py",
+      "-k",
+      "test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames or test_genuine_compression_expiry_at_original_turn_exit",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.87-task_23ec3fbea667-ewv_t4ym/genuine-group.xml"
+    ],
+    "duration": 34.68634510040283,
+    "end": 1795599836.1077437,
+    "file_bound": 145,
+    "final_reserve": 240,
+    "outer_bound": 150,
+    "phase_channel": "XML sibling .phases.jsonl; explicit environment variable has priority in fixture; runner does not forward it",
+    "receiver_bound": 140,
+    "reporting_reserve": 120,
+    "returncode": 0,
+    "root_epoch": 1795599426.2995515,
+    "selection": "test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames or test_genuine_compression_expiry_at_original_turn_exit",
+    "source_sha256": "5207226a878b46e8e1fe8e783907fbb8f63f881938913b7cab5712bfeefefc62",
+    "start": 1795599801.4213986,
+    "task_at_start": 435.12184715270996,
+    "task_remaining_at_start": 1064.87815284729,
+    "verification_at_start": 375.12184715270996,
+    "verification_remaining_at_start": 824.87815284729
+  },
+  "fresh_final_phases": [
+    {
+      "duration": 0.03132874000584707,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+      "outcome": "passed",
+      "recorded_at": 1795599803.3020678,
+      "when": "setup"
+    },
+    {
+      "duration": 0.0020533880160655826,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+      "outcome": "passed",
+      "recorded_at": 1795599803.3164573,
+      "when": "call"
+    },
+    {
+      "duration": 0.0003477349819149822,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames",
+      "outcome": "passed",
+      "recorded_at": 1795599803.322313,
+      "when": "teardown"
+    },
+    {
+      "duration": 0.021759072988061234,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_genuine_compression_expiry_at_original_turn_exit",
+      "outcome": "passed",
+      "recorded_at": 1795599803.3467262,
+      "when": "setup"
+    },
+    {
+      "duration": 32.29650140798185,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_genuine_compression_expiry_at_original_turn_exit",
+      "outcome": "passed",
+      "recorded_at": 1795599835.646499,
+      "when": "call"
+    },
+    {
+      "duration": 0.0005549239867832512,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py::test_genuine_compression_expiry_at_original_turn_exit",
+      "outcome": "passed",
+      "recorded_at": 1795599835.6508846,
+      "when": "teardown"
+    }
+  ],
+  "functional_reruns": 0,
+  "group_timing_scope": "The two-ID command interval includes runner setup and cheap phases. It is separate from genuine phases.",
+  "hidden_skips": 0,
+  "post_launch_executable_edits": 0,
+  "raw_phases_sha256": "6ca07a4b4ec3e760576ac7a87edf374ef7681426946783d93b259c476973c06a",
+  "raw_xml_sha256": "c665f2ea110159f4fc2e6305d4bd144aa60aa87e931394370ce4d36d8f4952a0",
+  "selected_file": "tests/agent/test_native_loopback_retained_compression_turn_exit_expiry.py",
+  "selection": "test_turn_exit_expiry_gate_waits_for_cleared_pending_and_original_frames or test_genuine_compression_expiry_at_original_turn_exit",
+  "static_input_verifier_initial_failure": "KeyError: pwa. The corrected mapping passed all122tracked and65protected checks.",
+  "unexpected_selection": false,
+  "xml_testcases": 2
+}
