@@ -1,0 +1,74 @@
+{
+  "Task83": {
+    "mode_exception": "Historical only. It does not apply to this Task.",
+    "outcome": "FAILED"
+  },
+  "Task84": {
+    "at": 1795595371.574337,
+    "correction": "Distinguish observed all-wall charge from full remaining-reserve projection. Preserve both, unknown subsequent interval, original Task outcome and every artifact. No runtime or source change.",
+    "earlier_handoff_projection": 1474.835872412,
+    "failure": "Initial Root assertion after_report_with_full_reporting_reserve<=1500 failed.",
+    "full_reserve_projection": 1514.6788387298584,
+    "observed_charge": 1394.6788387298584
+  },
+  "Task85": {
+    "outcome": "SUCCEEDED scoped tests and evidence",
+    "output_null": "Absent application return. Accepted invocation output remains present.",
+    "unknown_later_intervals": "Unchanged. No final full-reserve claim."
+  },
+  "all_old_blobs_modes_exact": true,
+  "base": "a096850441930280fc0d5f8742c5414cd7f131a3",
+  "base_tree": "8a024abf592761010b7b3b63565592f077acdb83",
+  "before_after_pins_match": true,
+  "catalog_assignment_bytes_unchanged": true,
+  "credential_incident": "Preserved in exact historical source and receipts. No credential read occurred.",
+  "environment_files": 5,
+  "old_paths": 12354,
+  "operator_projection_bytes_unchanged": true,
+  "original_callable_identity_assertions": [
+    "_turn_operation wrapper and __wrapped__ generator",
+    "complete_auxiliary",
+    "dispatch_auxiliary",
+    "_dispatch_retained_operation",
+    "_compression_output_stages",
+    "_compression_response_transform",
+    "_interrupt_turn",
+    "_checkpoint",
+    "_snapshot",
+    "_compression_snapshot",
+    "_invalidate",
+    "_derive_auxiliary_output",
+    "_retain_aux_frame",
+    "_retain_aux_record",
+    "_accept_aux_record",
+    "_derive",
+    "_checked_aux_frame",
+    "_completed_auxiliary_outputs",
+    "_response",
+    "_decode_compression_response",
+    "_compression_response_bytes",
+    "ContextCompressor._generate_summary"
+  ],
+  "private_current_modes": {
+    "directory": "0700",
+    "files": "0600",
+    "historical_exception_applied": false
+  },
+  "pytest_core_files": 2,
+  "retained_facts": [
+    "partial local frame and record",
+    "updated retained frame and completed record",
+    "record and frame anchors",
+    "unmodified dataclass fields and nested identities",
+    "all16pre-output rows",
+    "prepared output and stages",
+    "four stage handles and final handle",
+    "source response/request and typed nested objects",
+    "ordered parents, binding, profiles, path",
+    "owner dictionary and prior summary/count",
+    "main result/messages/prefix/agent",
+    "shared route copies, clocks, ports, callbacks, authority objects"
+  ],
+  "runtime_definitions_APIs_dependencies_runner_fixtures_prior_evidence": "Unchanged byte for byte.",
+  "runtime_locks": "No lock content read or lock mutation."
+}

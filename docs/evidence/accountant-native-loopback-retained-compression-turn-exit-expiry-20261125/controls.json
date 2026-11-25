@@ -1,0 +1,55 @@
+{
+  "Root_ownership": [
+    "acceptance",
+    "merge",
+    "Beads writes",
+    "closure",
+    "reconciliation"
+  ],
+  "all_full_gates": "OPEN",
+  "cheap_gate": "Inert projected facts. No listeners, route qualification, operator_projection execution, or genuine flow.",
+  "cheap_rejections": [
+    "partial associations",
+    "missing facts",
+    "wrapper code as generator code",
+    "uncleared pending",
+    "missing accepted anchors and handles",
+    "wrong stack, self, agent, or checkpoint order",
+    "replay",
+    "incorrect catalog"
+  ],
+  "earlier_static_feedback": "Initial verifier KeyError pwa retained in input-verification.json. Corrected verifier passed.",
+  "full_gate_names": "P10/P06/private/provider/egress/durable/thread/source/financial/production/manifest/index/deployment/activation",
+  "genuine_frame_authority": "Actual current-thread FrameType, original generator and completion code, original locals, stack, retained records and actual registered rows.",
+  "launch_bounds": {
+    "file": 145,
+    "outer": 150,
+    "receiver": 140,
+    "retries": 0,
+    "workers": 1
+  },
+  "no_executable_edit_after_genuine_launch": true,
+  "no_functional_rerun": true,
+  "no_install_build_cache_copy_PYTHONPATH_SDK_model_profiler_historical_or_installed_suite": true,
+  "no_source_seam_added": true,
+  "one_cheap_predicate_correction": true,
+  "projected_facts_grant_frame_or_graph_authority": false,
+  "publication": "Normal hooks and nonforce push to one retained draft native PR against mkl. No merge or branch deletion.",
+  "runner_compileall": "Original runner behavior. No separate build or cache-copy command ran.",
+  "stop_conditions": [
+    "missing original seam",
+    "failure",
+    "timeout",
+    "missing phase",
+    "bad selection",
+    "cleanup failure"
+  ],
+  "stop_conditions_encountered": [],
+  "unknowns": [
+    "packet and kernel absence",
+    "deployed egress",
+    "production and financial qualification",
+    "later all-wall intervals after recorded boundary",
+    "CI success"
+  ]
+}

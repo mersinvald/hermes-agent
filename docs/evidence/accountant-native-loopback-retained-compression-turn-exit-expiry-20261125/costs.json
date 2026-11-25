@@ -1,0 +1,116 @@
+{
+  "actual_graph_rows": 190,
+  "actual_graphs": [
+    {
+      "bytes": 7241,
+      "property": "qualification_complete",
+      "rows": 50
+    },
+    {
+      "bytes": 2463,
+      "property": "main_released",
+      "rows": 6
+    },
+    {
+      "bytes": 38403,
+      "property": "trigger",
+      "rows": 21
+    },
+    {
+      "bytes": 38403,
+      "property": "compression_accepted",
+      "rows": 21
+    },
+    {
+      "bytes": 38403,
+      "property": "verified",
+      "rows": 21
+    },
+    {
+      "bytes": 7241,
+      "property": "qualification_retained_final",
+      "rows": 50
+    },
+    {
+      "bytes": 38403,
+      "property": "native_retained_final",
+      "rows": 21
+    }
+  ],
+  "boundary_ledger": {
+    "boundary_at": 1795600010.7580373,
+    "conservative_preparation_seconds": 60,
+    "final_checks_publication_reserve": 240,
+    "final_full_reserve_compliance_claim": false,
+    "reasoning_gaps_hooks_reads_checks_publication": "Charged by all-wall elapsed time. Command durations remain separate.",
+    "reporting_reserve": 120,
+    "root_epoch": 1795599426.2995515,
+    "subsequent_intervals": "UNKNOWN after this boundary, including later publication and reporting.",
+    "task_all_wall_charge": 644.4584858417511,
+    "task_remaining": 855.5415141582489,
+    "verification_all_wall_charge": 584.4584858417511,
+    "verification_origin": 1795599426.2995515,
+    "verification_origin_reason": "Conservative Root epoch. No later origin substitutes for it.",
+    "verification_remaining": 615.5415141582489
+  },
+  "compression_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "cost_status": "unknown",
+  "estimated_cost_usd": null,
+  "genuine_command_seconds": 34.68634510040283,
+  "genuine_launch_ledgers": {
+    "final_reserve": 240,
+    "reporting_reserve": 120,
+    "root_epoch": 1795599426.2995515,
+    "task_at_start": 435.12184715270996,
+    "task_remaining_at_start": 1064.87815284729,
+    "verification_at_start": 375.12184715270996,
+    "verification_remaining_at_start": 824.87815284729
+  },
+  "genuine_phases": {
+    "call": 32.29650140798185,
+    "setup": 0.021759072988061234,
+    "teardown": 0.0005549239867832512
+  },
+  "historical_Task84": {
+    "at": 1795595371.574337,
+    "correction": "Distinguish observed all-wall charge from full remaining-reserve projection. Preserve both, unknown subsequent interval, original Task outcome and every artifact. No runtime or source change.",
+    "earlier_handoff_projection": 1474.835872412,
+    "failure": "Initial Root assertion after_report_with_full_reporting_reserve<=1500 failed.",
+    "full_reserve_projection": 1514.6788387298584,
+    "observed_charge": 1394.6788387298584
+  },
+  "main_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "native_charges": [
+    21,
+    2,
+    38403
+  ],
+  "native_expression": {
+    "actual_output_lengths": [
+      125,
+      131,
+      729,
+      4883,
+      2436
+    ],
+    "actual_sum": 38403,
+    "envelopes": 2,
+    "output_contents": 5,
+    "pre_contents": 16,
+    "pre_output_bytes": 30099
+  },
+  "prior_values_grant_authority": false,
+  "qualification": [
+    50,
+    25,
+    7241
+  ]
+}
