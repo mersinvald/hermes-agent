@@ -110,6 +110,7 @@ def expire_after_native_decode(world):
         world.binding, world.title_binding, world.compression_binding,
         world.policy, world.title_policy, world.compression_policy)
     clock = []
+    captured_routes = []
     callables = tuple((owner, name, getattr(owner, name)) for owner, names in (
         (native, ("_response", "_decode_compression_response", "_compression_response_bytes")),
         (native.NativeMainPayloadAdapter, ("_dispatch_retained_operation", "dispatch_auxiliary",
@@ -118,6 +119,24 @@ def expire_after_native_decode(world):
     ) for name in names)
 
     def trigger():
+        adapter = world.adapter
+        if adapter is None:
+            return
+        if not clock:
+            clock.append(adapter._clock)
+            operator_route = next(route for route in world.routes if route.route_ref == "compression_compression")
+            route_rows = adapter._runtime._route_rows
+            shared_route = route_rows[operator_route.route_ref]
+            captured_routes.append((adapter._runtime, route_rows, shared_route, shared_route.destination, operator_route))
+        assert adapter._clock is clock[0]
+        captured_runtime, route_rows, shared_route, shared_destination, operator_route = captured_routes[0]
+        assert adapter._runtime is captured_runtime and captured_runtime._route_rows is route_rows
+        assert type(route_rows) is dict and route_rows[operator_route.route_ref] is shared_route
+        assert shared_route.destination is shared_destination
+        assert type(shared_route) is sys.modules["hermes_content_policy"].RouteBinding
+        assert type(shared_destination) is sys.modules["hermes_content_policy"].Destination
+        assert shared_route is not operator_route and shared_destination is not operator_route.destination
+        assert shared_route == operator_route and asdict(shared_route) == asdict(operator_route)
         if retained:
             assert retained["spent"] and world.now == 100
             response = retained["native_response"]
@@ -127,12 +146,6 @@ def expire_after_native_decode(world):
             assert response.choices[0].message is retained["message"]
             assert response.usage is retained["usage"]
             return
-        adapter = world.adapter
-        if adapter is None:
-            return
-        if not clock:
-            clock.append(adapter._clock)
-        assert adapter._clock is clock[0]
         if adapter._pending is None:
             return
         operation = adapter._operation
@@ -181,7 +194,10 @@ def expire_after_native_decode(world):
         issued = runtime._envelopes[id(envelope)]
         assert issued.envelope is envelope and issued.content is request_row
         assert issued.sender_handle is world.compression_request
-        assert issued.route is next(route for route in world.routes if route.route_ref == operation.route_ref)
+        assert issued.route is route_rows[operation.route_ref] is shared_route
+        assert issued.route.destination is shared_destination
+        assert type(envelope.destination) is sys.modules["hermes_content_policy"].Destination
+        assert envelope.destination == shared_destination == operator_route.destination
         assert envelope.profiles == row.profiles
         port = world.compression_ports["compression"]
         assert len(port.observations) == 2
@@ -209,11 +225,17 @@ def expire_after_native_decode(world):
         before_graph = graph(runtime)
         retained.update(spent=True, native_response=response, choices=response.choices,
             choice=response.choices[0], message=response.choices[0].message, usage=response.usage,
-            issued=issued, callables=callables, operation=operation, frame=frame, envelope=envelope, output=output,
+            issued=issued, route_rows=route_rows, shared_route=shared_route,
+            shared_destination=shared_destination, operator_route=operator_route,
+            callables=callables, operation=operation, frame=frame, envelope=envelope, output=output,
             result=result, row=row, request_row=request_row, observation=observation, actual=actual,
             clock=adapter._clock, current=world.admission.current, hook=trigger,
             selected=selected, alternate=alternate, graph=before_graph, originals=originals, authorities=authorities)
         retained["receipt"] = dict(before=10, after=100, graph=before_graph, charges=charges(runtime),
+            route_rows_id=id(route_rows), shared_route_id=id(shared_route),
+            shared_destination_id=id(shared_destination), operator_route_id=id(operator_route),
+            operator_destination_id=id(operator_route.destination), shared_route=asdict(shared_route),
+            operator_route=asdict(operator_route), original_shared_route_copy=True,
             operation_id=id(operation), frame_id=id(frame), envelope_id=id(envelope), output_id=id(output),
             result_id=id(result), row_id=id(row), parent_ids=[id(parent) for parent in row.parents],
             observation_id=id(observation), request_id=id(frame.request), preparation_id=id(frame.preparation),
@@ -284,7 +306,12 @@ def test_post_decode_expiry_gate_waits_for_original_typed_response():
     inert()
     original_current = world.admission.current
     clock = lambda: world.now
-    runtime = SimpleNamespace(_contents={}, _envelopes={}, _busy=False, _poisoned=False, _failures={}, _retained_bytes=0)
+    operator_route = next(route for route in world.routes if route.route_ref == "compression_compression")
+    route_rows = {route.route_ref: replace(route, destination=replace(route.destination)) for route in world.routes}
+    shared_route = route_rows[operator_route.route_ref]
+    assert shared_route is not operator_route and shared_route.destination is not operator_route.destination
+    assert shared_route == operator_route and asdict(shared_route) == asdict(operator_route)
+    runtime = SimpleNamespace(_route_rows=route_rows, _contents={}, _envelopes={}, _busy=False, _poisoned=False, _failures={}, _retained_bytes=0)
     adapter = world.adapter = SimpleNamespace(_pending=None, _operation=None, _clock=clock, _runtime=runtime,
         _dispatch_result=None, _dispatch_response=None, _busy=True, _invalid=False)
     inert()
@@ -333,7 +360,9 @@ def test_post_decode_expiry_gate_waits_for_original_typed_response():
     port = world.compression_ports["compression"]
     object.__setattr__(port, "observations", (SimpleNamespace(), observation))
     selected = next(route for route in world.routes if route.route_ref == operation.route_ref)
-    issued = SimpleNamespace(envelope=envelope, content=request_row, sender_handle=world.compression_request, route=selected)
+    assert selected is operator_route
+    assert shared_route is not selected
+    issued = SimpleNamespace(envelope=envelope, content=request_row, sender_handle=world.compression_request, route=shared_route)
     runtime._envelopes[id(envelope)] = issued
     runtime._retained_bytes = len(payload) + len(output)
     inert()
@@ -368,6 +397,26 @@ def test_post_decode_expiry_gate_waits_for_original_typed_response():
     ):
         for field, wrong in cases:
             reject(owner, field, wrong)
+    reject(issued, "route", replace(shared_route, destination=replace(shared_route.destination)))
+    reject(runtime, "_route_rows", dict(route_rows))
+    for wrong in (replace(shared_route), replace(shared_route, expires_at=101),
+                  replace(shared_route, destination=replace(shared_route.destination, revision=2))):
+        route_rows[operator_route.route_ref] = wrong
+        with pytest.raises(AssertionError):
+            hook()
+        assert world.now == 10 and not retained and not records
+        route_rows[operator_route.route_ref] = shared_route
+    for owner, field, wrong in ((shared_route, "expires_at", 101),
+            (shared_route.destination, "revision", 2),
+            (shared_route, "destination", replace(shared_route.destination))):
+        original = getattr(owner, field)
+        try:
+            object.__setattr__(owner, field, wrong)
+            with pytest.raises(AssertionError):
+                hook()
+            assert world.now == 10 and not retained and not records
+        finally:
+            object.__setattr__(owner, field, original)
     for wrong in (SimpleNamespace(**asdict(response)), replace(response, model="unrelated"),
         replace(response, choices=list(response.choices)), replace(response, choices=()),
         replace(response, choices=(SimpleNamespace(),)), replace(response, usage=SimpleNamespace()),
@@ -390,11 +439,46 @@ def test_post_decode_expiry_gate_waits_for_original_typed_response():
     assert world.now == 100 and not records and retained["result"] is result
     assert retained["row"] is row and retained["operation"] is operation and retained["spent"]
     assert retained["native_response"] is response and retained["message"] is response.choices[0].message
+    assert retained["route_rows"] is route_rows and retained["shared_route"] is shared_route
+    assert retained["shared_destination"] is shared_route.destination
+    assert retained["operator_route"] is operator_route
     before = dict(retained)
     hook()
     assert world.now == 100 and retained == before and not records
     assert adapter._clock is clock and world.admission.current == original_current
 
+
+
+def caught_exception_receipt(error):
+    rows, pending, seen = [], [error], set()
+    while pending and len(rows) < 4:
+        current = pending.pop(0)
+        if id(current) in seen:
+            continue
+        seen.add(id(current))
+        args = []
+        for value in current.args[:8]:
+            if type(value) is str:
+                args.append(value[:256])
+            elif type(value) in (bool, type(None)):
+                args.append(value)
+            elif type(value) is int and -(2 ** 63) <= value < 2 ** 63:
+                args.append(value)
+            else:
+                args.append(dict(type=type(value).__name__[:128], omitted=True))
+        locations, traceback = [], current.__traceback__
+        while traceback is not None and len(locations) < 64:
+            locations.append(dict(file=traceback.tb_frame.f_code.co_filename[:512],
+                function=traceback.tb_frame.f_code.co_name[:128], line=traceback.tb_lineno))
+            traceback = traceback.tb_next
+        cause, context = current.__cause__, current.__context__
+        rows.append(dict(type=type(current).__name__[:128], identity=id(current), args=args,
+            args_truncated=len(current.args) > 8, locations=locations,
+            traceback_truncated=traceback is not None, suppressed=current.__suppress_context__,
+            cause_id=None if cause is None else id(cause),
+            context_id=None if context is None else id(context)))
+        pending.extend(value for value in (cause, context) if value is not None and id(value) not in seen)
+    return dict(primary_id=id(error), exceptions=rows, associations_truncated=bool(pending))
 
 def test_genuine_compression_expiry_after_native_decode(ordinary_effects, caller_boundary, record):
     started = time.monotonic()
@@ -495,6 +579,7 @@ def test_genuine_compression_expiry_after_native_decode(ordinary_effects, caller
                 compressor_state = dict(vars(compressor))
                 summary = summarize(world, compressor, result)
         error = refusal.value
+        record("caught_native_exception", caught_exception_receipt(error))
         record("trigger", trigger["receipt"])
         chain = [error]
         assert type(error) is NativeContentPolicyDenied and error.args == ("controlled_native_payload_invalid",)
