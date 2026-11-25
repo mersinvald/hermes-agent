@@ -97,6 +97,10 @@
     {
       "scope": "intermediate evidence commit",
       "failure": "A dependent shell batch continued after prose assertions and committed six evidence paths before checksum creation. A later owned static commit completes the seven-path manifest."
+    },
+    {
+      "scope": "pin label",
+      "failure": "The first correction pins file labeled the original input-manifest digest as original_spec. The final metadata separates the unchanged manifest and spec digests."
     }
   ],
   "ruff": {

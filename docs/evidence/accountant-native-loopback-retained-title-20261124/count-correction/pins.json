@@ -17,7 +17,6 @@
     "sha256": "ecc04ea432dd0c6d3128ee26753cdc4acd70576936bb29c37a5375853bcfc9f4"
   },
   "original_test_sha256": "7a560448755b1172a4d20c40191063b852d802731a60e12ba0e268787fe574da",
-  "original_spec": "73dea0c81b473499bd248965c9266716891ed01f3312d868e2ed877f75156f90",
   "protected_inputs": [
     {
       "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-audit-task_09893c967dc7/audit.md",
@@ -520,5 +519,7 @@
       "bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
-  }
+  },
+  "original_input_manifest_sha256": "73dea0c81b473499bd248965c9266716891ed01f3312d868e2ed877f75156f90",
+  "original_spec_sha256": "1c75060461a061633742bfac64f31504338d2e01e1337287fafddf7c9aa32de5"
 }
