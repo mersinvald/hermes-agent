@@ -1,0 +1,32 @@
+{
+  "base_commit": "71b7e89055520693f97e5d68fd6b45e0c40e69b0",
+  "base_tree": "4641da4253eb0db965064ac69a64195cafa8c72f",
+  "base_paths_blobs_modes_exact": 12268,
+  "production_shared_apis_helpers_fixtures_guards_bounds_runner_conftest_pytest_exact": true,
+  "tracked_input_pins": 53,
+  "protected_input_receipts": 16,
+  "environment_files_exact": 5,
+  "pytest_files_exact": 2,
+  "wheel_exact": true,
+  "source_freeze_exact": true,
+  "executable_edits_after_genuine": 0,
+  "private_creation_modes_exact": true,
+  "historical_Task_failures_unchanged": true,
+  "installed_evidence_reused": true,
+  "external_actions": {
+    "provider_calls": 0,
+    "bot_calls": 0,
+    "private_content": 0,
+    "financial_writes": 0,
+    "deployments": 0,
+    "activations": 0
+  },
+  "Root_owns": [
+    "review",
+    "acceptance",
+    "merge",
+    "Beads closure",
+    "reconciliation"
+  ],
+  "full_gates": "OPEN"
+}

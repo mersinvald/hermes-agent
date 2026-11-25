@@ -1,0 +1,81 @@
+{
+  "cases": [
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_control",
+        "name": "test_inert_retained_compression_control_plan",
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "line": "125",
+        "time": "0.033"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.031317565008066595,
+          "recorded_at": 1795576086.8901987
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014915599895175546,
+          "recorded_at": 1795576086.9017465
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00036025099689140916,
+          "recorded_at": 1795576086.9093578
+        }
+      ]
+    },
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_control",
+        "name": "test_bare_control_trigger_waits_for_complete_raw_response",
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "line": "162",
+        "time": "0.018"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.015622046979842708,
+          "recorded_at": 1795576086.928556
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00165499301510863,
+          "recorded_at": 1795576086.9350133
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00028926398954354227,
+          "recorded_at": 1795576086.938865
+        }
+      ]
+    }
+  ],
+  "command_seconds": 10.695613145828247,
+  "cheap_limit_seconds": 60,
+  "attempts": 1,
+  "failures": [],
+  "source_body_correspondence": true,
+  "unit_stand_ins_establish_dispatch_authority": false,
+  "historical_failures_preserved": true
+}

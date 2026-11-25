@@ -1,0 +1,20 @@
+{
+  "commit": "34a7b62218e099a96a86619066e2613497682a5b",
+  "tree": "cd6dd37ca0b870a6a26f557e3ce858767b09a2c5",
+  "sha256": "bdadee8bafd6b0c472fd6c4193235fdc3f00009f2040608e5d9a088189ddce1f",
+  "bytes": 41763,
+  "test_path": "tests/agent/test_native_loopback_retained_compression_control.py",
+  "frozen_epoch": 1795576141.2825856,
+  "normal_hooks": true,
+  "base_blobs_modes_preserved": 12268,
+  "cheap_body_sha256": {
+    "_PhaseReceipts": "0741c6daf632c75a281ed7733a44ad32edecc47e2e1e483b6301088dd55662e8",
+    "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+    "control_after_raw": "3d150d38a9e6849590790fa58ed0f196151c5302e513c4df40251d0ee9ea1007",
+    "test_inert_retained_compression_control_plan": "48c2ebfc88f781f0dfadaf2a155c9e66fd0f522db676a7028b630329716508cf",
+    "test_bare_control_trigger_waits_for_complete_raw_response": "27c2c4476adda2521ead8e858f1365959d79bc92262748c31f384ad7229d0c39"
+  },
+  "executable_unchanged_after_genuine": true,
+  "final_source_sha256": "bdadee8bafd6b0c472fd6c4193235fdc3f00009f2040608e5d9a088189ddce1f",
+  "genuine_started_epoch": 1795576141.3274252
+}

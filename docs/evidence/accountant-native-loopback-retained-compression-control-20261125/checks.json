@@ -1,0 +1,141 @@
+{
+  "status": "PASSED",
+  "cases": [
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_control",
+        "name": "test_inert_retained_compression_control_plan",
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "line": "125",
+        "time": "0.033"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.031317565008066595,
+          "recorded_at": 1795576086.8901987
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014915599895175546,
+          "recorded_at": 1795576086.9017465
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_inert_retained_compression_control_plan",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00036025099689140916,
+          "recorded_at": 1795576086.9093578
+        }
+      ]
+    },
+    {
+      "scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_control",
+        "name": "test_bare_control_trigger_waits_for_complete_raw_response",
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "line": "162",
+        "time": "0.018"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.015622046979842708,
+          "recorded_at": 1795576086.928556
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00165499301510863,
+          "recorded_at": 1795576086.9350133
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_bare_control_trigger_waits_for_complete_raw_response",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00028926398954354227,
+          "recorded_at": 1795576086.938865
+        }
+      ]
+    },
+    {
+      "scope": "genuine",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+      "xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression_control",
+        "name": "test_genuine_bare_control_after_compression_http",
+        "file": "tests/agent/test_native_loopback_retained_compression_control.py",
+        "line": "208",
+        "time": "16.150"
+      },
+      "phases": [
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.03736909801955335,
+          "recorded_at": 1795576143.3020642
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 16.111926668992965,
+          "recorded_at": 1795576159.418806
+        },
+        {
+          "nodeid": "tests/agent/test_native_loopback_retained_compression_control.py::test_genuine_bare_control_after_compression_http",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0005933780048508197,
+          "recorded_at": 1795576159.4258265
+        }
+      ]
+    }
+  ],
+  "phase_rows": 9,
+  "XML_JSONL_correspondence": true,
+  "static": {
+    "manifest": true,
+    "source_map_sha256": "73c28c5390b929a994f36076a125d76f53d7a820c60d506efed12128083a48f7",
+    "proposal_sha256": "ca2940d524c6b6613b9820b48ff06703476ceffd7d13267f8733baeab43acfed",
+    "tracked_objects": 53,
+    "protected_receipts": 16,
+    "base_blobs_modes": 12268,
+    "source_freeze": true,
+    "cheap_executed_bodies": true,
+    "private_artifacts": 22
+  },
+  "failures": [],
+  "broader_execution": false,
+  "full_gates": "OPEN",
+  "static_feedback": [
+    {
+      "command": "ste-lint.py --help",
+      "status": "FAILED exploratory interface query",
+      "reason": "The linter treats positional arguments as file paths",
+      "recovery": "Read original linter source and use its existing stdin interface",
+      "functional_execution": false
+    },
+    {
+      "check": "Initial README prose lint",
+      "findings": 4,
+      "source_findings": 0,
+      "status": "Corrected in evidence prose only"
+    }
+  ]
+}
