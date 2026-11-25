@@ -1,0 +1,27 @@
+{
+  "genuine_authentication": "Independent actual FrameType/code/locals, records, nested anchors, graph, authorities, callbacks and runtime-copy checks precede the clock transition.",
+  "historical_feedback_preserved": true,
+  "new_cheap_id": "test_post_record_expiry_gate_waits_for_accepted_record",
+  "pure_projection": "Opaque projected references check original/partial/updated/accepted identities, ordered handles and parents, output payload and prepared associations. Boolean facts cannot grant FrameType or graph authority.",
+  "rejections": [
+    "front guard",
+    "missing/foreign frame or locals",
+    "partial/unaccepted/mismatched completed record",
+    "duplicate acceptance or wrong anchors",
+    "missing/duplicate/reordered/foreign handles",
+    "payload/content/parent/binding/profile/path mismatch",
+    "authority/callback/method/clock/runtime-copy/map changes",
+    "busy or poisoned shared state",
+    "invalid native state",
+    "expired alternate",
+    "replay"
+  ],
+  "reused_catalog": {
+    "definition": "test_inert_post_decode_compression_expiry_catalog",
+    "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "fresh_execution": false,
+    "hash_convention": "AST source segment without the final newline",
+    "original_passing_source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68",
+    "path": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py"
+  }
+}

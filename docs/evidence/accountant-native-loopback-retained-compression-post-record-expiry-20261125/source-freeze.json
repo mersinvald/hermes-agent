@@ -1,0 +1,149 @@
+{
+  "at": 1795596207.4995294,
+  "commit": "a2b625b25f3d1c17ddf58ddbd50b40c407c112dc",
+  "definitions": {
+    "_PhaseReceipts": {
+      "bytes": 668,
+      "end": 51,
+      "final_newline": true,
+      "sha256": "31fd77492247ebdbc16d9fc0ed47688bf0f1746d73655a6fb412dc6b74ebdb6e",
+      "start": 38
+    },
+    "accepted_record_facts": {
+      "bytes": 3191,
+      "end": 267,
+      "final_newline": true,
+      "sha256": "c6fd73814634b55309a6c7336e02ff3544aa8a6a48aeb23c5883a3e207081d2e",
+      "start": 225
+    },
+    "association_ready": {
+      "bytes": 1236,
+      "end": 185,
+      "final_newline": true,
+      "sha256": "bb313851110af5f6fd8f5ae32a986fba5513f3b59ebd2e359beb3dec8e637425",
+      "start": 167
+    },
+    "expire_after_output_record": {
+      "bytes": 20675,
+      "end": 543,
+      "final_newline": true,
+      "sha256": "2115cf7788f1b487420a64545be634da864875b941ad3b3ab1d77a679a60d0f9",
+      "start": 270
+    },
+    "nested_facts": {
+      "bytes": 1432,
+      "end": 222,
+      "final_newline": true,
+      "sha256": "0b55fd1ffa8a85605e7b5e5ac5e00804c61a087f038f046122e60ec709c10225",
+      "start": 197
+    },
+    "operator_projection": {
+      "bytes": 716,
+      "end": 153,
+      "final_newline": true,
+      "sha256": "d32b49483cc71ddf734b965460fc2493fffbcfda82986809663ca8cf23ee4343",
+      "start": 144
+    },
+    "phase_receipts": {
+      "bytes": 457,
+      "end": 62,
+      "final_newline": true,
+      "sha256": "b3faeb5c71c002f6c65e85fb6e57af5de38236bfdc4cae5a38df5f3e2635a215",
+      "start": 54
+    },
+    "post_record_ready": {
+      "bytes": 456,
+      "end": 194,
+      "final_newline": true,
+      "sha256": "6ab84da3484473eb84565e9b3d16b3fa6803641cc1a98e3dbaad64694005117d",
+      "start": 188
+    },
+    "record": {
+      "bytes": 211,
+      "end": 79,
+      "final_newline": true,
+      "sha256": "3a6d5b0a139c436b117209fcbd08f1d091d9d44881769efc08e55c2931bc2fd2",
+      "start": 75
+    },
+    "returned_output_facts": {
+      "bytes": 1515,
+      "end": 138,
+      "final_newline": true,
+      "sha256": "5fe6893a2c39aab93610f44430e1bb860ecb055daa1501f38d3230060fb47940",
+      "start": 117
+    },
+    "row_facts": {
+      "bytes": 174,
+      "end": 114,
+      "final_newline": true,
+      "sha256": "19af71223d5bedec62d258a08e97e467d6904dd12ef007078eaa5600dcc3651c",
+      "start": 112
+    },
+    "test_genuine_compression_expiry_after_output_record_acceptance": {
+      "bytes": 34590,
+      "end": 1038,
+      "final_newline": true,
+      "sha256": "5db7d32fc6e03cac2cc0a3067431ad6cbeaa30aabdda6047d7b75891c3edbed5",
+      "start": 597
+    },
+    "test_post_record_expiry_gate_waits_for_accepted_record": {
+      "bytes": 2929,
+      "end": 594,
+      "final_newline": true,
+      "sha256": "300cf2f1538e7a3665713f7c77e557f2f4dbf9eaddfda086de1e323ede68dd8e",
+      "start": 546
+    },
+    "typed_wire": {
+      "bytes": 937,
+      "end": 99,
+      "final_newline": true,
+      "sha256": "22512764af32cb2397e4d61940407edaa46a89879efa15afcc4685d03215c06b",
+      "start": 82
+    }
+  },
+  "environment": [
+    {
+      "bytes": 197,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/pyvenv.cfg",
+      "sha256": "a1177ed53f0734d16d9567c7f54c64b749543a92302a9bf3b91a8c161dcd616e"
+    },
+    {
+      "bytes": 40548,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy/__init__.py",
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    },
+    {
+      "bytes": 160,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/METADATA",
+      "sha256": "7264ce4ea6707ebf2ed17602ee03780ca8020337974fae3e718e8e08f2c09582"
+    },
+    {
+      "bytes": 756,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/RECORD",
+      "sha256": "83817413932c57a97b546e29f9d1bd403757dfb1e1c9c788b85d0a713fa56eee"
+    },
+    {
+      "bytes": 87,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/hermes_content_policy-0.4.0.dist-info/WHEEL",
+      "sha256": "ccec20e2307acd7da453dd7437e70c6b08e2bc3ead3bc3445af135da37b56d59"
+    }
+  ],
+  "executable_edits_after_launch": 0,
+  "hash_convention": "Inclusive definition lines, decorators and final newline included",
+  "normal_hooks": true,
+  "pytest_core": [
+    {
+      "bytes": 80947,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/config/__init__.py",
+      "sha256": "98b05c2c37d09e1d5c05975efc2d9af98d4aff6ea47de410a8e93956420873c1"
+    },
+    {
+      "bytes": 20346,
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.47/venv/lib/python3.11/site-packages/_pytest/runner.py",
+      "sha256": "c8d7fd553c0516f7884502ee0e7954eb5a5b1542f21fcb5c4357500ed2fe1570"
+    }
+  ],
+  "source_sha256": "ee9c2c987e166941e7b18d4c8110e2f0c8f1f55fe4f1dd230a8184dbf90b37e6",
+  "successful_cheap": "cheap-03",
+  "tree": "35c9595057416300a17c11430751994b1b7b6e58"
+}

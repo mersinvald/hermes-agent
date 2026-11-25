@@ -1,0 +1,22 @@
+{
+  "API_changes": 0,
+  "Root_owns": "Review, acceptance, merge, Beads writes, closure and canonical reconciliation.",
+  "Task83": "FAILED permanently. Bounded source acceptance has an explicit historical creation-mode exception.",
+  "Task84": "SUCCEEDED documentation only. Original observed1394.6788387298584 and reserve1514.6788387298584 remain distinct.",
+  "all_old_blobs_modes_exact": true,
+  "at": 1795596254.3347461,
+  "base": "f70586c624bbc96c10bcb66f38518458874e1f33",
+  "base_tree": "b5fd252961fb9ecca7d1501bcc67fb7b55910eec",
+  "bound_changes": 0,
+  "dependency_changes": 0,
+  "environment": 5,
+  "fixture_changes": 0,
+  "old_paths": 12341,
+  "old_test_changes": 0,
+  "original_callables": "Actual test-local captures verify original class functions, port methods, callbacks, clock, authorities and runtime copies.",
+  "private_historical_outcomes_preserved": true,
+  "protected_receipts": 46,
+  "pytest_core": 2,
+  "runner_changes": 0,
+  "runtime_changes": 0
+}
