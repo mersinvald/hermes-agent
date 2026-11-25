@@ -1,0 +1,90 @@
+{
+  "at": 1795588953.1805484,
+  "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+  "baseline": "New prose only. Existing prose unchanged.",
+  "initial_output": "README.md                        words= 464 total=  6 per100w=  1.29 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_output_prefix_expiry.py words=  34 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n",
+  "initial_findings": 6,
+  "intermediate": {
+    "findings": 1,
+    "per100w": 0.21,
+    "reason": "One remaining long paragraph."
+  },
+  "corrections": "Five paragraph breaks and two active-voice changes.",
+  "final_output": "README.md                        words= 466 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_output_prefix_expiry.py words=  34 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 149 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+  "final": {
+    "docs/evidence/accountant-native-loopback-retained-compression-output-prefix-expiry-20261125/README.md": {
+      "words": 466,
+      "sentences": 47,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 17,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    },
+    "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py": {
+      "words": 34,
+      "sentences": 3,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 12,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "python-prose-v1"
+    },
+    "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.81-task_28cf748872be/pr-body.md": {
+      "words": 149,
+      "sentences": 16,
+      "violations": {
+        "long_sentence(>20w)": 0,
+        "semicolon": 0,
+        "contraction": 0,
+        "passive_voice": 0,
+        "ing_main_verb": 0,
+        "nominalization": 0,
+        "phrasal_verb": 0,
+        "banned_word": 0,
+        "marketing_adjective": 0,
+        "modal_hedge": 0,
+        "long_paragraph(>6s)": 0
+      },
+      "total": 0,
+      "total_per100w": 0.0,
+      "em_dash(slop-marker)": 0,
+      "longest_sentence_words": 16,
+      "sample_marketing": [],
+      "sample_banned": [],
+      "mode": "prose-v1"
+    }
+  },
+  "JSON_scope": "Structured evidence is data.",
+  "certification": false
+}

@@ -1,0 +1,81 @@
+{
+  "at": 1795588695.3063827,
+  "commit": "64397d33c6506dca9e1e66ee74fd5124d48d4cd9",
+  "tree": "b8b06fa6c80de763ebcc32052c492b6733e1ba4e",
+  "source_sha256": "cc4fa3811533967bf914d36af49c3bd3c86bc8f97fc72b98525438bf10b8a26a",
+  "normal_hooks": true,
+  "gate_command": {
+    "command": [
+      "bash",
+      "scripts/run_tests.sh",
+      "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py",
+      "-j",
+      "1",
+      "--file-retries",
+      "0",
+      "--file-timeout",
+      "40",
+      "--",
+      "-k",
+      "test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "--maxfail=1",
+      "-o",
+      "junit_family=xunit1",
+      "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.81-task_28cf748872be/cheap-02.xml",
+      "-q",
+      "--tb=long"
+    ],
+    "started": 1795588618.9377708,
+    "finished": 1795588621.3567815,
+    "seconds": 2.419010877609253,
+    "exit": 0,
+    "source_sha256": "cc4fa3811533967bf914d36af49c3bd3c86bc8f97fc72b98525438bf10b8a26a"
+  },
+  "gate_phases": [
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.034247046016389504,
+      "recorded_at": 1795588620.9217541
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.05125129397492856,
+      "recorded_at": 1795588620.9789877
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 0.0004543550021480769,
+      "recorded_at": 1795588620.9863355
+    }
+  ],
+  "catalog_reused": {
+    "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "scope": "original Task cheap-01",
+    "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68"
+  },
+  "bodies": {
+    "_PhaseReceipts": "eb52a571e483d3823ee91a390aef3be0c27c199e31f264a8b0cdb42a52f3f548",
+    "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+    "record": "ff623dd74ca3a40c99535278bd9d52016a0a31faa5662269f3f153afa9788bf5",
+    "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c",
+    "expire_after_first_output_prefix": "d4a65f0976a483687bf8c329bcddd42426b9c21d7c47f5556be3c1d5bbccb08b",
+    "test_output_prefix_expiry_gate_waits_for_registered_first_stage": "e431f7472e006e32ec6cef285fbf6d5d5e4d373b093638feee0d3ed0ae1b195a",
+    "test_genuine_compression_expiry_after_first_output_prefix": "b7a26c64f47049de8c9528f10e568a7524c20b4948cca94f7c2185a868bd27b2"
+  },
+  "launch": {
+    "at": 1795588695.3684168,
+    "task_remaining": 949.7898509502411,
+    "verification_remaining": 709.7898509502411,
+    "source_sha256": "cc4fa3811533967bf914d36af49c3bd3c86bc8f97fc72b98525438bf10b8a26a"
+  },
+  "executable_edit_after_launch": false,
+  "functional_rerun_after_launch": false,
+  "feedback_source_sha256": "7b5115576d8477689d4e07197809dda8cd0d72fcab2a5741d90d03c70e5fa843",
+  "earlier_failed_cheap_bodies": "Only disclosed task-owned fixture corrections. Exact earlier source and phases retained privately."
+}

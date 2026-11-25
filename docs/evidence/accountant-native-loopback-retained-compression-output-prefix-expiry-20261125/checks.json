@@ -1,0 +1,180 @@
+{
+  "outcome": "SUCCEEDED",
+  "scope": "Exactly one new gate and one genuine case.",
+  "commands": [
+    {
+      "command": [
+        "bash",
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "40",
+        "--",
+        "-k",
+        "test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.81-task_28cf748872be/cheap-01.xml",
+        "-q",
+        "--tb=long"
+      ],
+      "started": 1795588565.7482178,
+      "finished": 1795588577.2861896,
+      "seconds": 11.537972211837769,
+      "exit": 1,
+      "source_sha256": "7b5115576d8477689d4e07197809dda8cd0d72fcab2a5741d90d03c70e5fa843"
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "40",
+        "--",
+        "-k",
+        "test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.81-task_28cf748872be/cheap-02.xml",
+        "-q",
+        "--tb=long"
+      ],
+      "started": 1795588618.9377708,
+      "finished": 1795588621.3567815,
+      "seconds": 2.419010877609253,
+      "exit": 0,
+      "source_sha256": "cc4fa3811533967bf914d36af49c3bd3c86bc8f97fc72b98525438bf10b8a26a"
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "145",
+        "--",
+        "-k",
+        "test_genuine_compression_expiry_after_first_output_prefix",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.81-task_28cf748872be/genuine.xml",
+        "-q",
+        "--tb=long"
+      ],
+      "started": 1795588695.368861,
+      "finished": 1795588719.889186,
+      "seconds": 24.520325183868408,
+      "exit": 0,
+      "source_sha256": "cc4fa3811533967bf914d36af49c3bd3c86bc8f97fc72b98525438bf10b8a26a"
+    }
+  ],
+  "final_fresh_phases": [
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.034247046016389504,
+      "recorded_at": 1795588620.9217541
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 0.05125129397492856,
+      "recorded_at": 1795588620.9789877
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_output_prefix_expiry_gate_waits_for_registered_first_stage",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 0.0004543550021480769,
+      "recorded_at": 1795588620.9863355
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_genuine_compression_expiry_after_first_output_prefix",
+      "when": "setup",
+      "outcome": "passed",
+      "duration": 0.0396385710046161,
+      "recorded_at": 1795588697.2949214
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_genuine_compression_expiry_after_first_output_prefix",
+      "when": "call",
+      "outcome": "passed",
+      "duration": 22.251181385014206,
+      "recorded_at": 1795588719.5535235
+    },
+    {
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_output_prefix_expiry.py::test_genuine_compression_expiry_after_first_output_prefix",
+      "when": "teardown",
+      "outcome": "passed",
+      "duration": 0.0006098249868955463,
+      "recorded_at": 1795588719.5606065
+    }
+  ],
+  "final_fresh_phase_count": 6,
+  "feedback_phase_file": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.81-task_28cf748872be/cheap-01.phases.jsonl",
+  "fresh_whole_file_aggregate": false,
+  "source_unchanged_after_launch": true,
+  "static": {
+    "properties": 45,
+    "graphs": 7,
+    "graph_rows": 174,
+    "wire_pairs": 4,
+    "old_blobs_modes": 12315,
+    "environment_and_pytest_core": "PASS before and after"
+  },
+  "hook": {
+    "count": 1,
+    "installed_before_qualification_and_binding": true,
+    "clock_transition": [
+      10,
+      100
+    ],
+    "condition": "Complete first actual registered output-stage association.",
+    "shared_active_operation": "Inert until the original derive returns.",
+    "operations": "Observation and test-local byte serialization only.",
+    "runtime_route_copies": "Captured before pending work and checked against independent complete operator facts.",
+    "prepared_output_without_registered_prefix": "Inert"
+  },
+  "feedback": {
+    "failed_cheap": "cheap-01",
+    "failed_cheap_source": "7b5115576d8477689d4e07197809dda8cd0d72fcab2a5741d90d03c70e5fa843",
+    "changed_test_owned_fixtures": [
+      "expire_after_first_output_prefix",
+      "test_output_prefix_expiry_gate_waits_for_registered_first_stage"
+    ],
+    "corrections": [
+      "Catch strict-zip ValueError in negative fixture.",
+      "Restore a class attribute with setattr.",
+      "Keep admission fixture inert while shared runtime is busy.",
+      "Check complete retained route-map cardinality."
+    ],
+    "initial_static_catalog_pin": "Extra trailing newline failed exact definition hash. Source-segment hash matched without executable edits."
+  },
+  "selector": {
+    "priority": [
+      "HERMES_NATIVE_PHASE_RECEIPTS",
+      "XML sibling .phases.jsonl"
+    ],
+    "used": "XML sibling .phases.jsonl",
+    "filter": "Only the new test file.",
+    "without_selector": "All assertions execute."
+  }
+}
