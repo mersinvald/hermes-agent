@@ -1,0 +1,173 @@
+{
+  "actual_lengths_hashes_profiles_parent_order": {
+    "bytes": 93331,
+    "mode": "0o600",
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_798374b88cd3/graph-audit.json",
+    "sha256": "90db3d6dd46aea4d76413d087ee8f6ba91972d9679cdfa20ae2821f3e6a2dbe7"
+  },
+  "actual_payload_charges": {
+    "compression_partial": [
+      16,
+      2,
+      30099
+    ],
+    "main_released": [
+      6,
+      1,
+      2463
+    ],
+    "native_retained_final": [
+      16,
+      2,
+      30099
+    ],
+    "qualification_complete": [
+      50,
+      25,
+      7241
+    ],
+    "qualification_retained_final": [
+      50,
+      25,
+      7241
+    ],
+    "trigger": [
+      16,
+      2,
+      30099
+    ],
+    "verified": [
+      16,
+      2,
+      30099
+    ]
+  },
+  "cheap_allowance": 90,
+  "cheap_cumulative_seconds": 7.595639944076538,
+  "commands": [
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_decode_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "40",
+        "--",
+        "-k",
+        "test_post_decode_expiry_gate_waits_for_original_typed_response",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_798374b88cd3/cheap-01.xml",
+        "-vv",
+        "--tb=long"
+      ],
+      "end": 1795584362.9126732,
+      "exit_code": 0,
+      "requested_ids": [
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "seconds": 5.125171184539795,
+      "source_sha256": "0c79fc96d4c9c310085b6e86b7e80081887dcc5f077c1cd65ca47c4fec5b537f",
+      "start": 1795584357.787502
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_decode_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "40",
+        "--",
+        "-k",
+        "test_post_decode_expiry_gate_waits_for_original_typed_response",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_798374b88cd3/cheap-02.xml",
+        "-vv",
+        "--tb=long"
+      ],
+      "end": 1795584395.4429634,
+      "exit_code": 0,
+      "requested_ids": [
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "seconds": 2.470468759536743,
+      "source_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172",
+      "start": 1795584392.9724946
+    },
+    {
+      "command": [
+        "scripts/run_tests.sh",
+        "tests/agent/test_native_loopback_retained_compression_decode_expiry.py",
+        "-j",
+        "1",
+        "--file-retries",
+        "0",
+        "--file-timeout",
+        "145",
+        "--",
+        "-k",
+        "test_genuine_compression_expiry_after_native_decode",
+        "--maxfail=1",
+        "-o",
+        "junit_family=xunit1",
+        "--junitxml=/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_798374b88cd3/genuine-01.xml",
+        "-vv",
+        "--tb=long"
+      ],
+      "end": 1795584458.491752,
+      "exit_code": 0,
+      "requested_ids": [
+        "test_genuine_compression_expiry_after_native_decode"
+      ],
+      "seconds": 19.90810537338257,
+      "source_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172",
+      "start": 1795584438.5836465
+    }
+  ],
+  "conservative_verification_origin": 1795584241.515356,
+  "consumer_acceptance_from_typed_usage": false,
+  "cost_authority_from_typed_usage": false,
+  "cost_status": "unknown",
+  "estimated_cost_usd": null,
+  "final_reserve": 240,
+  "first_recorded_workspace_boundary": 1795584251.3007488,
+  "hard_task_seconds": 1200,
+  "hard_verification_publication_seconds": 900,
+  "launch_floor_each": 600,
+  "launch_remaining": {
+    "task": 942.9317095279694,
+    "verification": 702.9317095279694
+  },
+  "main_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "no_authority_transferred_from_old_history": true,
+  "original_ledgers_unchanged": [
+    809.1371998786926,
+    749.1371998786926
+  ],
+  "preparation_seconds": 60,
+  "reporting_reserve": 120,
+  "root_epoch": 1795584241.515356,
+  "snapshot_at": 1795584586.4630907,
+  "task_charged_snapshot_seconds": 404.9477345943451,
+  "typed_compression_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "typed_conversion_new_shared_handle_or_envelope": false,
+  "unknown_earlier_interval_charged": true,
+  "verification_charged_snapshot_seconds": 344.9477345943451
+}

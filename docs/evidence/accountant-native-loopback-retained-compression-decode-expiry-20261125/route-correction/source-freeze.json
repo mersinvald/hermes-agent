@@ -1,0 +1,75 @@
+{
+  "at": 1795584438.5301876,
+  "bodies": {
+    "_PhaseReceipts": "a2e2c70c7d389d9865a3290e4fd5932e0719ef31e14c1dd06b0c6c867e4b2950",
+    "caught_exception_receipt": "f502b8e47a7d942fb4bd03df459e0f061964c2fafbadc0fc4f3e8746b0447021",
+    "expire_after_native_decode": "6ace21e293f14e345fde79d28f5755e09c18d2b659a4c03884cd920044e89164",
+    "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+    "record": "ff623dd74ca3a40c99535278bd9d52016a0a31faa5662269f3f153afa9788bf5",
+    "test_genuine_compression_expiry_after_native_decode": "abbe494ad655d9b393b05c5ef967eda08343c4c9bf5c1d7c07379c84d9b32259",
+    "test_inert_post_decode_compression_expiry_catalog": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "test_post_decode_expiry_gate_waits_for_original_typed_response": "6acb6cb6e81b7b9310e2a2298fec6cfb4897ffb64b243cbb091064b93191fb06",
+    "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c"
+  },
+  "commit": "bfb7acc2e2806dbb99162f12da2e593d4814db59",
+  "correspondence": {
+    "all_other_top_level_nodes_exact": true,
+    "at": 1795584438.389556,
+    "bodies": {
+      "_PhaseReceipts": "a2e2c70c7d389d9865a3290e4fd5932e0719ef31e14c1dd06b0c6c867e4b2950",
+      "caught_exception_receipt": "f502b8e47a7d942fb4bd03df459e0f061964c2fafbadc0fc4f3e8746b0447021",
+      "expire_after_native_decode": "6ace21e293f14e345fde79d28f5755e09c18d2b659a4c03884cd920044e89164",
+      "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+      "record": "ff623dd74ca3a40c99535278bd9d52016a0a31faa5662269f3f153afa9788bf5",
+      "test_genuine_compression_expiry_after_native_decode": "abbe494ad655d9b393b05c5ef967eda08343c4c9bf5c1d7c07379c84d9b32259",
+      "test_inert_post_decode_compression_expiry_catalog": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+      "test_post_decode_expiry_gate_waits_for_original_typed_response": "6acb6cb6e81b7b9310e2a2298fec6cfb4897ffb64b243cbb091064b93191fb06",
+      "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c"
+    },
+    "current_cheap": "cheap-02",
+    "current_cheap_source_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172",
+    "earlier_corrected_gate_feedback": "cheap-01",
+    "fresh_whole_file_aggregate": false,
+    "reused_catalog": {
+      "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+      "scope": "original Task cheap-01",
+      "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68"
+    }
+  },
+  "executable_edit_after_launch": false,
+  "final_source_scope": {
+    "all_other_top_level_AST_nodes_exact": true,
+    "modified_definitions": [
+      "expire_after_native_decode",
+      "test_genuine_compression_expiry_after_native_decode",
+      "test_post_decode_expiry_gate_waits_for_original_typed_response"
+    ],
+    "one_new_pure_helper": "caught_exception_receipt",
+    "sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172"
+  },
+  "initial_source_scope": {
+    "all_other_AST_nodes_exact": true,
+    "allowed_modified_definitions": [
+      "expire_after_native_decode",
+      "test_genuine_compression_expiry_after_native_decode",
+      "test_post_decode_expiry_gate_waits_for_original_typed_response"
+    ],
+    "at": 1795584345.1975472,
+    "candidate_sha256": "0c79fc96d4c9c310085b6e86b7e80081887dcc5f077c1cd65ca47c4fec5b537f",
+    "one_new_helper": "caught_exception_receipt",
+    "original_source_sha256": "1a5aadb5484be9039ab4ef4aa734fa608c713e7de05fd2400d86276fca9b2976"
+  },
+  "latest_scope": "Only authorized definitions plus caught_exception_receipt changed",
+  "launch": {
+    "commit": "bfb7acc2e2806dbb99162f12da2e593d4814db59",
+    "source_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172",
+    "start": 1795584438.5836465,
+    "task_remaining": 942.9317095279694,
+    "verification_remaining": 702.9317095279694
+  },
+  "normal_hooks": true,
+  "original_source_preserved_in_Git": true,
+  "sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172",
+  "source_path": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py",
+  "tree": "c278bc9d560e0128eefdda5603a09de17da10a50"
+}

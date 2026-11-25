@@ -1,0 +1,305 @@
+{
+  "actual_graphs": {
+    "compression_partial": {
+      "charges": [
+        16,
+        2,
+        30099
+      ],
+      "payload_sum": 30099,
+      "rows": 16
+    },
+    "main_released": {
+      "charges": [
+        6,
+        1,
+        2463
+      ],
+      "payload_sum": 2463,
+      "rows": 6
+    },
+    "native_retained_final": {
+      "charges": [
+        16,
+        2,
+        30099
+      ],
+      "payload_sum": 30099,
+      "rows": 16
+    },
+    "qualification_complete": {
+      "charges": [
+        50,
+        25,
+        7241
+      ],
+      "payload_sum": 7241,
+      "rows": 50
+    },
+    "qualification_retained_final": {
+      "charges": [
+        50,
+        25,
+        7241
+      ],
+      "payload_sum": 7241,
+      "rows": 50
+    },
+    "trigger": {
+      "charges": [
+        16,
+        2,
+        30099
+      ],
+      "payload_sum": 30099,
+      "rows": 16
+    },
+    "verified": {
+      "charges": [
+        16,
+        2,
+        30099
+      ],
+      "payload_sum": 30099,
+      "rows": 16
+    }
+  },
+  "cleanup": {
+    "a_closed": true,
+    "a_errors": [],
+    "a_sockets_closed": true,
+    "a_stopped": true,
+    "b_closed": true,
+    "b_errors": [],
+    "b_sockets_closed": true,
+    "b_stopped": true,
+    "cleanup_errors": [],
+    "seconds": 17.742072093009483
+  },
+  "exception": {
+    "args": [
+      "controlled_native_payload_invalid"
+    ],
+    "associations_truncated": false,
+    "caught_receipt_precedes_trigger_read": true,
+    "cause": null,
+    "context": null,
+    "locations": [
+      {
+        "file": "agent/test_native_loopback_retained_compression_decode_expiry.py",
+        "function": "test_genuine_compression_expiry_after_native_decode",
+        "line": 580
+      },
+      {
+        "file": "agent/test_native_controlled_conversation.py",
+        "function": "summarize",
+        "line": 1831
+      },
+      {
+        "file": "agent/context_compressor.py",
+        "function": "_generate_summary",
+        "line": 5349
+      },
+      {
+        "file": "agent/auxiliary_client.py",
+        "function": "wrapped",
+        "line": 3478
+      },
+      {
+        "file": "agent/auxiliary_client.py",
+        "function": "call_llm",
+        "line": 9794
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_try_controlled_auxiliary_call",
+        "line": 3897
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "dispatch_auxiliary",
+        "line": 2995
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_dispatch_retained_operation",
+        "line": 2964
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_checkpoint",
+        "line": 3333
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_snapshot",
+        "line": 1838
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_compression_snapshot",
+        "line": 3140
+      },
+      {
+        "file": "agent/native_main_payload.py",
+        "function": "_require",
+        "line": 814
+      }
+    ],
+    "one_original_object": true,
+    "shared_wrapper": false,
+    "suppressed": false,
+    "traceback_truncated": false,
+    "type": "NativeContentPolicyDenied"
+  },
+  "graph_audit": {
+    "bytes": 93331,
+    "mode": "0o600",
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_798374b88cd3/graph-audit.json",
+    "sha256": "90db3d6dd46aea4d76413d087ee8f6ba91972d9679cdfa20ae2821f3e6a2dbe7"
+  },
+  "lifecycle": {
+    "compression_sends": 1,
+    "double_close": true,
+    "fallback_sends": 0,
+    "main_sends": 1,
+    "native_invalid_denied_idle": true,
+    "ordinary_SDK_calls": 0,
+    "pending_clear": true,
+    "scope_refusal_distinct": true,
+    "shared_healthy_idle": true,
+    "terminal_refusal_distinct": true
+  },
+  "limits": [
+    "Full P10/P06 remain open",
+    "All private/provider/egress/durable/thread/source/financial/production/manifest/index/deployment/activation gates remain open",
+    "No merge, tracker write, closure or canonical reconciliation"
+  ],
+  "original_native_denial_details": "UNKNOWN",
+  "original_task_outcome": "failed",
+  "outcome": "PASS_CORRECTIVE_TASK_ONLY",
+  "properties": 45,
+  "trigger": {
+    "actual_typed_response": true,
+    "after": 100,
+    "before": 10,
+    "canonical_raw_correspondence": true,
+    "changes": 1,
+    "complete_route_facts_equal": true,
+    "context_denied": false,
+    "exact_nested_types": true,
+    "native_busy": true,
+    "native_invalid": false,
+    "original_destination_identity": true,
+    "original_issued_route_identity": true,
+    "original_route_map_captured": true,
+    "shared_busy": false,
+    "shared_destination_is_operator_destination": false,
+    "shared_failures": 0,
+    "shared_poisoned": false,
+    "shared_route_is_operator_route": false,
+    "tool_calls": null
+  },
+  "typed_partial": {
+    "exact_nested_references_retained": true,
+    "input_stages": 7,
+    "local_result": null,
+    "original_finally_before_invalidation": true,
+    "original_pure_validator_passed": true,
+    "output": null,
+    "output_bytes": null,
+    "output_content": null,
+    "output_contents": [],
+    "output_stages": [],
+    "summary": null,
+    "trigger_native_response_identity_retained": true,
+    "trigger_result_identity_retained": true
+  },
+  "usage": {
+    "compression_consumer_acceptance": false,
+    "compression_cost_authority": false,
+    "main": {
+      "completion_tokens": 2,
+      "prompt_tokens": 3,
+      "total_tokens": 5
+    },
+    "typed_compression": {
+      "completion_tokens": 2,
+      "prompt_tokens": 3,
+      "total_tokens": 5
+    }
+  },
+  "wire": {
+    "bound_local_peer_Host_and_client_reported_peer_separate": true,
+    "header_contains_final_separator": true,
+    "independent_addresses": true,
+    "packet_or_kernel_absence_claim": false,
+    "pairs": [
+      {
+        "HTTP_response_bytes": 75,
+        "complete": true,
+        "fully_accepted": true,
+        "pair": 0,
+        "receiver": "a",
+        "request_bytes": 22,
+        "request_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "response_body_bytes": 17,
+        "response_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "settled": true
+      },
+      {
+        "HTTP_response_bytes": 329,
+        "complete": true,
+        "fully_accepted": true,
+        "pair": 1,
+        "receiver": "a",
+        "request_bytes": 355,
+        "request_sha256": "64c3afe377afc348a533625a2b28d19bfba2a2ce3ca6358a1b8b93545010d0f1",
+        "response_body_bytes": 270,
+        "response_sha256": "c816c755be6ef008c53e1bbf1832c5938dd0ebbd903ba0b63190dd154490e236",
+        "settled": true
+      },
+      {
+        "HTTP_response_bytes": 75,
+        "complete": true,
+        "fully_accepted": true,
+        "pair": 0,
+        "receiver": "b",
+        "request_bytes": 22,
+        "request_sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "response_body_bytes": 17,
+        "response_sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "settled": true
+      },
+      {
+        "HTTP_response_bytes": 371,
+        "complete": true,
+        "fully_accepted": true,
+        "pair": 1,
+        "receiver": "b",
+        "request_bytes": 6664,
+        "request_sha256": "bfb3b28463eb3939dcc3c630eb7f359249f846c9250595d27d59a1a9d9198eb7",
+        "response_body_bytes": 312,
+        "response_sha256": "bb7ad7bfa137d9e3179f698ec579e7c18b4f5fb1728896e2c81c1042a3eeb59c",
+        "settled": true
+      }
+    ],
+    "quiet": [
+      {
+        "active_count": 0,
+        "receiver": "a",
+        "row_count": 2,
+        "seconds": 0.5616076579899527,
+        "suffix_connections": 0
+      },
+      {
+        "active_count": 0,
+        "receiver": "b",
+        "row_count": 2,
+        "seconds": 1.0737223500036635,
+        "suffix_connections": 0
+      }
+    ],
+    "raw_is_original_header_plus_body": true
+  }
+}
