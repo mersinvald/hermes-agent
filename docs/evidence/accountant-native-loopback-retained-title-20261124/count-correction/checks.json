@@ -7,6 +7,96 @@
       "status": "MISSING",
       "reason": "The runner prints a summary for successful files and discards their pytest duration output. XML records the combined case duration only.",
       "functional_work_after_gap": 0
+    },
+    {
+      "scope": "initial correction evidence prose",
+      "result": {
+        "words": 284,
+        "sentences": 32,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 1,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 1
+        },
+        "total": 2,
+        "total_per100w": 0.7,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    },
+    {
+      "scope": "intermediate README and PR prose",
+      "results": {
+        "docs/evidence/accountant-native-loopback-retained-title-20261124/count-correction/README.md": {
+          "sha256": "63b5faa7db1ca87704c8f3a5389635fb8faee38f3b2ab679f83fe031f1c26430",
+          "result": {
+            "words": 282,
+            "sentences": 32,
+            "violations": {
+              "long_sentence(>20w)": 0,
+              "semicolon": 0,
+              "contraction": 0,
+              "passive_voice": 0,
+              "ing_main_verb": 0,
+              "nominalization": 0,
+              "phrasal_verb": 0,
+              "banned_word": 0,
+              "marketing_adjective": 0,
+              "modal_hedge": 0,
+              "long_paragraph(>6s)": 1
+            },
+            "total": 1,
+            "total_per100w": 0.35,
+            "em_dash(slop-marker)": 0,
+            "longest_sentence_words": 18,
+            "sample_marketing": [],
+            "sample_banned": [],
+            "mode": "prose-v1"
+          }
+        },
+        "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/pr-body.md": {
+          "sha256": "318980d6abe11886f4c0ab92106015939b0e48d0aeb3494cb52047b70a477530",
+          "result": {
+            "words": 295,
+            "sentences": 32,
+            "violations": {
+              "long_sentence(>20w)": 0,
+              "semicolon": 0,
+              "contraction": 0,
+              "passive_voice": 0,
+              "ing_main_verb": 0,
+              "nominalization": 0,
+              "phrasal_verb": 0,
+              "banned_word": 0,
+              "marketing_adjective": 0,
+              "modal_hedge": 0,
+              "long_paragraph(>6s)": 1
+            },
+            "total": 1,
+            "total_per100w": 0.34,
+            "em_dash(slop-marker)": 0,
+            "longest_sentence_words": 16,
+            "sample_marketing": [],
+            "sample_banned": [],
+            "mode": "prose-v1"
+          }
+        }
+      }
+    },
+    {
+      "scope": "intermediate evidence commit",
+      "failure": "A dependent shell batch continued after prose assertions and committed six evidence paths before checksum creation. A later owned static commit completes the seven-path manifest."
     }
   ],
   "ruff": {
@@ -197,5 +287,58 @@
     "reporting_publication_reserve_seconds": 120
   },
   "original_evidence_files": "All twelve original evidence files remain exact. A final Git tree comparison records all unchanged paths.",
-  "publication": "Exact remote head, full tree, checks, and statuses will be in the private publication receipt and handoff. No CI success claim follows."
+  "publication": "Exact remote head, full tree, checks, and statuses will be in the private publication receipt and handoff. No CI success claim follows.",
+  "writing": {
+    "linter_sha256": "df0287cee3a891aa22d6c9ecaaec528bb5654574bdc0ceb49359dcf230d08f53",
+    "candidate": {
+      "docs/evidence/accountant-native-loopback-retained-title-20261124/count-correction/README.md": {
+        "words": 282,
+        "sentences": 32,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      },
+      "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/pr-body.md": {
+        "words": 295,
+        "sentences": 32,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 16,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    }
+  }
 }

@@ -1,6 +1,7 @@
 # Retained-title count correction
 
 Task outcome: FAILED. Status: INCOMPLETE / DO NOT MERGE.
+
 The corrected genuine case passed. Its receipts lack separate setup and call durations.
 The runner discarded the successful pytest duration output. XML contains only the combined case duration.
 
@@ -18,6 +19,7 @@ Separate setup, call, and teardown durations remain UNKNOWN.
 
 The original Task remains FAILED. The read-only audit remains SUCCEEDED.
 The twelve original evidence files remain exact. The earlier cheap controls retain their original source hash and result.
+
 No cheap control reran. The genuine correction used its own source freeze and fresh receipts.
 
 [Results](results.json) contain complete invented graphs, stages, parents, and charges.
