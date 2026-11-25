@@ -26,3 +26,5 @@ The first `pwd` and search preceded the launch receipt read. The exact initial t
 Both ledgers charge that interval from the supplied Root epoch. The Task ledger also charges 60 preparation seconds.
 
 Root owns acceptance, merge, tracker writes, and closure. Full P10, P06, and every preserved external qualification gate remain open.
+
+[Draft PR 40](https://github.com/mersinvald/hermes-agent/pull/40) retains this failed attempt against `mkl`. It is not ready for acceptance.

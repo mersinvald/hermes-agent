@@ -2,7 +2,7 @@
   "baseline": "New files have no old prose baseline",
   "corrected_candidate_feedback": "README 1 long paragraph, 0.32 violations per 100 words. Split the paragraph.",
   "em_dashes": 0,
-  "final_output": "README.md                        words= 308 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_decode_expiry.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 116 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+  "final_output": "README.md                        words= 325 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_decode_expiry.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 116 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
   "final_violations": 0,
   "helper_flag_failure": {
     "bytes": 326,

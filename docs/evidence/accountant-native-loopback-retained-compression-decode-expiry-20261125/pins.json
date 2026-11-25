@@ -293,6 +293,11 @@
       "sha256": "2c0733224ff4a9206c35ac03e6e4982095c1c614ae1adf992009e4d496ea7b0e"
     }
   ],
+  "publication_receipt": {
+    "bytes": 1722,
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_0d698309e01e/publication-commands.json",
+    "sha256": "d616f2d0b2c762e6829d5e1cf2690906226227531c8c3ce58524fb5718642d03"
+  },
   "pytest_phase_core": [
     {
       "bytes": 80947,

@@ -78,12 +78,15 @@
     "first_recorded_workspace_boundary": 1795583031.752939,
     "launch_task_remaining": 1123.4095878601074,
     "launch_verification_remaining": 883.4095878601074,
+    "publication_snapshot_at": 1795583662.6488903,
     "reporting_reserve": 120,
     "root_epoch": 1795583008.4282868,
     "snapshot_at": 1795583515.3711407,
     "task_cap": 1500,
+    "task_charged_at_publication": 714.2206034660339,
     "task_charged_seconds": 566.9428539276123,
     "unrecorded_interval_charged": true,
+    "verification_charged_at_publication": 654.2206034660339,
     "verification_charged_seconds": 506.9428539276123,
     "verification_publication_cap": 1200
   },
@@ -95,6 +98,7 @@
     "total_tokens": 5
   },
   "outcome": "PARTIAL_ONLY",
+  "publication_command_seconds_so_far": 6.658957481384277,
   "raw_compression_usage": {
     "completion_tokens": 2,
     "prompt_tokens": 3,

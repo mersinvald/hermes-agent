@@ -95,6 +95,40 @@
       "when": "teardown"
     }
   ],
+  "publication": {
+    "CI_success_claim": false,
+    "base": "mkl",
+    "command_intervals": [
+      {
+        "end": 1795583606.4175315,
+        "exit_code": 128,
+        "seconds": 0.279224157333374,
+        "start": 1795583606.1383073
+      },
+      {
+        "end": 1795583624.7372336,
+        "exit_code": 0,
+        "seconds": 3.8578131198883057,
+        "start": 1795583620.8794205
+      },
+      {
+        "end": 1795583627.2595112,
+        "exit_code": 0,
+        "seconds": 2.5219202041625977,
+        "start": 1795583624.737591
+      }
+    ],
+    "draft_pr": "https://github.com/mersinvald/hermes-agent/pull/40",
+    "first_push": {
+      "effect_boundary": "No remote ref write. Authentication failed before push.",
+      "error": "fatal: could not read Username for 'https://github.com': terminal prompts disabled",
+      "exit_code": 128
+    },
+    "nonforce": true,
+    "normal_hooks": true,
+    "recovery": "Process-scoped credential.helper uses gh auth git-credential after the concrete lookup failure",
+    "retained_branch": "mersinvald/hpwa-p10.79"
+  },
   "selections": [
     {
       "actual": [
