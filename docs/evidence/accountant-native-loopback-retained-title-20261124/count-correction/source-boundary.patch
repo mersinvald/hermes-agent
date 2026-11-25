@@ -1,0 +1,23 @@
+--- a/tests/agent/test_native_loopback_retained_title.py
++++ b/tests/agent/test_native_loopback_retained_title.py
+@@ -229,6 +229,11 @@
+         assert frame.arguments[0] is USER_TEXT and frame.arguments[2] is None
+         main_parents = (frame.admitted, frame.input_content, frame.output_content, *frame.request_contents,
+             invocation.request_content, invocation.result_content)
++        assert frame.input_content is frame.admitted
++        main_contents = (frame.admitted, frame.output_content, *frame.request_contents,
++            invocation.request_content, invocation.result_content, completion.content)
++        assert len({id(handle) for handle in main_contents}) == len(main_contents)
++        assert {id(row.handle) for row in runtime._contents.values()} == {id(handle) for handle in main_contents}
+         assert all(x is y for x, y in zip(runtime._contents[id(completion.content)].parents, main_parents, strict=True))
+         assert adapter._turn_pending is adapter._operation is None and not world.context._denied
+         record("main_released", dict(result=result, graph=graph(runtime), charges=charges(runtime),
+@@ -313,7 +318,7 @@
+             assert all(row.profiles == ("restricted_documents",) for row in rows)
+             assert all(lineage.hops <= 128 for lineage in current._lineages.values())
+         assert len(runtime._envelopes) == 2
+-        assert len(runtime._contents) == len(main_parents) + 1 + 1 + len(auxiliary.stage_contents) + 2 + len(auxiliary.output_contents) + 1
++        assert len(runtime._contents) == len(main_contents) + 1 + len(auxiliary.stage_contents) + 2 + len(auxiliary.output_contents) + 1
+         assert all(len(payload) <= 262144 for payload in (*auxiliary.input_stages, *auxiliary.output_stages, auxiliary.request_bytes, invocation.request_bytes))
+         assert len(auxiliary.response_bytes) <= 65536 and len(invocation.response_bytes) <= 65536
+         a.wait(2)

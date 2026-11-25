@@ -1,0 +1,232 @@
+{
+  "starting_head": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+  "corrected_source_freeze": {
+    "head": "429338c0e260fe7d6735d9111a9fd1c4ec522fdb",
+    "tree": "4f7b699d773c946d0575600e2fddffe05c2fb5ac",
+    "changed_paths": [
+      "tests/agent/test_native_loopback_retained_title.py"
+    ],
+    "all_other_tracked_executables_exact": true,
+    "epoch": 1795565232.8952336
+  },
+  "corrected_test": {
+    "path": "tests/agent/test_native_loopback_retained_title.py",
+    "mode": "100644",
+    "blob": "171ca8e349e63f200a548c908904bb54a44260fd",
+    "bytes": 27936,
+    "sha256": "ecc04ea432dd0c6d3128ee26753cdc4acd70576936bb29c37a5375853bcfc9f4"
+  },
+  "original_test_sha256": "7a560448755b1172a4d20c40191063b852d802731a60e12ba0e268787fe574da",
+  "original_spec": "73dea0c81b473499bd248965c9266716891ed01f3312d868e2ed877f75156f90",
+  "protected_inputs": [
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-audit-task_09893c967dc7/audit.md",
+      "bytes": 7988,
+      "sha256": "7bbd70a8f060d67d6c2145a986523c1e6cd31853a1c53ceaa234fbb3207f759b"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-audit-task_09893c967dc7/handoff.json",
+      "bytes": 92186,
+      "sha256": "2c2ee29aefe8e6294209f6668f65c870b4c3ed1734a3fa4ceb3791307ba8ae4d"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-audit-task_09893c967dc7/proposed-minimal.patch",
+      "bytes": 1936,
+      "sha256": "278790758a6a2a89783dbdcdc5101d35ef62c72e2ba07f66c12e6ca73bb83b2f"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.69.root-count-audit-review.json",
+      "bytes": 1159,
+      "sha256": "877547b85ee735dc0215930f83e68fec15b7728f95e7ad64374904e9029818bc"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.69.spec.md",
+      "bytes": 21368,
+      "sha256": "1c75060461a061633742bfac64f31504338d2e01e1337287fafddf7c9aa32de5"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.69.input-receipts.json",
+      "bytes": 32636,
+      "sha256": "73dea0c81b473499bd248965c9266716891ed01f3312d868e2ed877f75156f90"
+    },
+    {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/orchestration-recovery-20261121/hpwa-p10.69.count-correction-frozen-spec.md",
+      "bytes": 8015,
+      "sha256": "d30f6ffef80d39eef1b90a0cf330e1b6ef6a71a7eab7b19ff7f0df58f40aea77"
+    }
+  ],
+  "source_boundary": {
+    "original_sha256": "7a560448755b1172a4d20c40191063b852d802731a60e12ba0e268787fe574da",
+    "corrected_sha256": "ecc04ea432dd0c6d3128ee26753cdc4acd70576936bb29c37a5375853bcfc9f4",
+    "cheap_bodies": [
+      {
+        "name": "test_inert_retained_title_http_plan",
+        "bytes": 3334,
+        "sha256": "39ef7de102b674bceac40603cead9916c2af8b8d610052278bbd12ddf25fe9ea"
+      },
+      {
+        "name": "test_retained_title_http_response_recipe",
+        "bytes": 1049,
+        "sha256": "b12b79fcc75ec2c58c99962b4f1255b92181be39b8c8da8aebc8eb0c079c994c"
+      }
+    ],
+    "inverse_check": true,
+    "only_existing_path_changed": "tests/agent/test_native_loopback_retained_title.py",
+    "original_mode": "100644",
+    "current_mode": "0o600"
+  },
+  "source_and_dependency_pins": {
+    "tests/agent/test_native_loopback_retained_title.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "tests/agent/test_native_loopback_retained_title.py",
+      "mode": "100644",
+      "blob": "1561325e7497aab1bfb7e7b5c52bf961c1897fa1",
+      "bytes": 27514,
+      "sha256": "7a560448755b1172a4d20c40191063b852d802731a60e12ba0e268787fe574da"
+    },
+    "agent/native_main_payload.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "agent/native_main_payload.py",
+      "mode": "100644",
+      "blob": "397e44876d39fe347f9d2c1ca5817b9e9acf9cde",
+      "bytes": 643457,
+      "sha256": "4305a1edb5227bb66acdf66e716a53aebb10b2e8b9f93d3512323083f5e586fe"
+    },
+    "agent/title_generator.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "agent/title_generator.py",
+      "mode": "100644",
+      "blob": "f99f973dbc14fc01ef8a852e3e9e66c461f17808",
+      "bytes": 39784,
+      "sha256": "27ee62f4b21ecfa696bfb613690e80021b54af8a7af3db90675b99d88c6fab60"
+    },
+    "agent/conversation_loop.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "agent/conversation_loop.py",
+      "mode": "100644",
+      "blob": "426935624a5da3e149bd9d5eaff0ef9b48c5e2a5",
+      "bytes": 502389,
+      "sha256": "23368aa5e400638af3dc57037ba10f501fd4f338deb98c3f7d625f80fe4fec61"
+    },
+    "agent/turn_context.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "agent/turn_context.py",
+      "mode": "100644",
+      "blob": "8737d1726f08d3206ed87031ffff6c2b19f212b3",
+      "bytes": 78569,
+      "sha256": "463426b6e3fcf7d183513d54bb1f989743a49f32df26362744bd99f9ba19a3a5"
+    },
+    "tests/agent/test_native_controlled_conversation.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "tests/agent/test_native_controlled_conversation.py",
+      "mode": "100644",
+      "blob": "686aeb4f234d9522ab096e12b870fa4798ff1c6a",
+      "bytes": 128596,
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+    },
+    "tests/agent/test_native_main_payload.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "tests/agent/test_native_main_payload.py",
+      "mode": "100644",
+      "blob": "2a79a49b3d1d0ca99350f9c5ea293a90215ddecb",
+      "bytes": 66496,
+      "sha256": "b2a1b2d86ad9be791da5621ffd0842a6dc725ec7b00896d669633e36555476e5"
+    },
+    "tests/agent/test_native_loopback_fallback_denial.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "tests/agent/test_native_loopback_fallback_denial.py",
+      "mode": "100644",
+      "blob": "b47fb8ed893d6c1eb1a206b064146e57b5e6d0a9",
+      "bytes": 29178,
+      "sha256": "02f943767adf01eda785da8e2a8eddf72405fb6e8e89e32132214f728e5ab8a1"
+    },
+    "tests/agent/owned_loopback_receiver.py": {
+      "repo": "native",
+      "ref": "a4cba1d1cf39d081474095c943c6e41eb9cde7b6",
+      "path": "tests/agent/owned_loopback_receiver.py",
+      "mode": "100644",
+      "blob": "b3f575c9f680b7d7c0c0a23c2696885856903680",
+      "bytes": 23175,
+      "sha256": "ccc33c07764571d3723e8bcca8b879e9c2dc6bc17c7bb77aae95fa12521ca63d"
+    },
+    "packages/content-policy/src/hermes_content_policy/__init__.py": {
+      "repo": "PWA",
+      "ref": "dbcec8071cff9c92c0791b04479746e90375f9a2",
+      "path": "packages/content-policy/src/hermes_content_policy/__init__.py",
+      "mode": "100644",
+      "blob": "7d7046d85cccfea171c758b95fc3ec76c606c35e",
+      "bytes": 40548,
+      "sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865"
+    }
+  },
+  "API_pins": {
+    "shared_wheel": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/content-policy-artifacts/hpwa-p10.23/hermes_content_policy-0.4.0-py3-none-any.whl",
+      "sha256": "a5952995b1090097d620660608811f90bf83433693624de60accc521a6a7453b"
+    },
+    "shared_engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+    "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+  },
+  "reused_original_indexing": "7168632393dc06a45dfed3a1ff408f91f85a3fd7313a40d962857d9043a4aab7",
+  "native_base": {
+    "commit": "a72219ed3ea41f8eb09f464d72a4ccbeddee91cd",
+    "parent": "11c1456b3874fa62798573bf6622bb33510bfe98",
+    "tree": "5d26eea9b33a3a738f148f85af8bea1d1b5e6e61",
+    "paths": 12222,
+    "PR": "https://github.com/mersinvald/hermes-agent/pull/34"
+  },
+  "accepted_PWA": {
+    "commit": "a8484b0d4bd0d2d1cd630ed80ba77f2b3648d6aa",
+    "parent": "41f70cfef9247fde8bc24d1acd9b85a8b612300e",
+    "tree": "07b1d48eb0e534db11c6a8aa5df25fa85cc92cce",
+    "paths": 3287,
+    "PR": "https://github.com/mersinvald/hermes-agent-pwa/pull/63"
+  },
+  "raw_receipts": {
+    "genuine.xml": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/genuine.xml",
+      "bytes": 275399,
+      "sha256": "497a6a17d2a2109e44fd60785908dd6fd42c7e85ace57603cb3c898e7716e8e6"
+    },
+    "genuine.receipts.jsonl": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/genuine.receipts.jsonl",
+      "bytes": 218878,
+      "sha256": "25f52a93085237016a436f8d36687fe228e6dc9350e3ad560a1c914ee84af095"
+    },
+    "genuine.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/genuine.command.json",
+      "bytes": 3436,
+      "sha256": "150d9a3bd6616401f762ff3042758ebbbd7a3a8549889244a2bebe00eeaec0a0"
+    },
+    "genuine.stdout": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/genuine.stdout",
+      "bytes": 1000,
+      "sha256": "2e47458ebad6d92611fd77f6f1d96988719764522b8fb60b493a8fa8786acd94"
+    },
+    "genuine.stderr": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/genuine.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "genuine-launch.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/genuine-launch.json",
+      "bytes": 340,
+      "sha256": "a685fab04b6b0b9ec096b60216da825ddd10569e29fc0297847b536150c1f291"
+    },
+    "timing-gap.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.69-count-correction-task_7d0ab24ed295/timing-gap.json",
+      "bytes": 568,
+      "sha256": "ce0086f4670041f43ae5d03bd379c070bd11429640fd37742f71f08d9a326c8d"
+    }
+  }
+}

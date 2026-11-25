@@ -1,0 +1,2266 @@
+{
+  "task_outcome": "FAILED",
+  "status": "INCOMPLETE / DO NOT MERGE: required phase timing receipt is missing",
+  "genuine_test_outcome": "PASSED",
+  "separate_outcomes": {
+    "original_task": "task_4076560aede4: FAILED",
+    "count_audit": "task_09893c967dc7: SUCCEEDED",
+    "this_task": "task_7d0ab24ed295: FAILED because phase timings are missing"
+  },
+  "requested_id": "tests/agent/test_native_loopback_retained_title.py::test_genuine_retained_title_http",
+  "actual_id": "tests.agent.test_native_loopback_retained_title.test_genuine_retained_title_http",
+  "requested_actual_case_match": true,
+  "actual_case_attributes": {
+    "classname": "tests.agent.test_native_loopback_retained_title",
+    "name": "test_genuine_retained_title_http",
+    "file": "tests/agent/test_native_loopback_retained_title.py",
+    "line": "177",
+    "time": "11.953"
+  },
+  "selected_cases": 1,
+  "reruns": 0,
+  "timings": {
+    "command_seconds": 17.85714941797778,
+    "case_total_reported_seconds": 11.953,
+    "case_total_precision_seconds": 0.001,
+    "suite_reported_seconds": 14.13,
+    "setup_seconds": null,
+    "call_seconds": null,
+    "teardown_seconds": null,
+    "original_test_call_clock_lower_bound_seconds": 11.898246644996107,
+    "case_phase_upper_bound_from_rounded_total_seconds": 11.9535,
+    "status": "MISSING REQUIRED PHASE RECEIPT",
+    "reason": "The runner prints a summary for successful files and discards their pytest duration output. XML records the combined case duration only."
+  },
+  "counts": {
+    "qualification_sends": 16,
+    "qualification_HTTP_sends": 2,
+    "qualification_in_process_sends": 14,
+    "main_data_sends": 1,
+    "title_data_sends": 1,
+    "fallback_sends": 0
+  },
+  "original_main_result": {
+    "final_response": "Keep the blue folder.",
+    "last_reasoning": null,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Invented folder request."
+      },
+      {
+        "role": "assistant",
+        "content": "Keep the blue folder."
+      }
+    ],
+    "api_calls": 1,
+    "completed": true,
+    "turn_exit_reason": "text_response(finish_reason=stop)",
+    "failed": false,
+    "partial": false,
+    "interrupted": false,
+    "response_transformed": false,
+    "pre_transform_response": null,
+    "response_previewed": false,
+    "model": "invented_model_0",
+    "provider": "synthetic_native",
+    "base_url": "",
+    "input_tokens": 3,
+    "output_tokens": 2,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "reasoning_tokens": 0,
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5,
+    "last_prompt_tokens": 3,
+    "estimated_cost_usd": null,
+    "cost_status": "unknown",
+    "cost_source": null,
+    "service_tier": null,
+    "session_id": "invented_session"
+  },
+  "title": "Blue folder retention",
+  "output": {
+    "title": "Blue folder retention"
+  },
+  "main_usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 2,
+    "total_tokens": 5
+  },
+  "title_usage": {
+    "completion_tokens": 2,
+    "prompt_tokens": 3,
+    "total_tokens": 5
+  },
+  "accounting": {
+    "estimated_cost_usd": null,
+    "cost_status": "unknown",
+    "real_provider_usage": false
+  },
+  "native": {
+    "charges": [
+      21,
+      2,
+      6975
+    ],
+    "hops": [
+      2
+    ],
+    "graph": [
+      {
+        "index": 0,
+        "raw": {
+          "bytes_hex": "7b22636f6e766572736174696f6e5f686973746f7279223a6e756c6c2c226f7074696f6e73223a7b226d61785f746f6b656e73223a7b2270726573656e74223a747275652c2276616c7565223a6e756c6c7d2c226d6f64656c223a7b2270726573656e74223a747275652c2276616c7565223a22696e76656e7465645f6d6f64656c5f30227d2c2273747265616d223a7b2270726573656e74223a66616c73652c2276616c7565223a66616c73657d2c2274656d7065726174757265223a7b2270726573656e74223a66616c73652c2276616c7565223a6e756c6c7d7d2c2273797374656d5f6d657373616765223a2246697865642073797374656d222c227461736b5f6964223a22657865637574696f6e222c22757365725f6d657373616765223a22496e76656e74656420666f6c64657220726571756573742e227d"
+        },
+        "bytes": 318,
+        "sha256": "73b64000dd0aa4acf316360113858f4f49a73bad3083c2efc712b30a30098851",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "raw": {
+          "bytes_hex": "7b2272657175657374223a7b226d65737361676573223a5b7b22636f6e74656e74223a2246697865642073797374656d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a22496e76656e74656420666f6c64657220726571756573742e222c22726f6c65223a2275736572227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f30222c2273747265616d223a66616c73657d2c227475726e5f636f6e74657874223a7b226163746976655f73797374656d5f70726f6d7074223a2246697865642073797374656d222c22636f6e766572736174696f6e5f686973746f7279223a6e756c6c2c2263757272656e745f7475726e5f757365725f696478223a302c226566666563746976655f7461736b5f6964223a22657865637574696f6e222c226578745f70726566657463685f6361636865223a22222c226d65737361676573223a5b7b22636f6e74656e74223a22496e76656e74656420666f6c64657220726571756573742e222c22726f6c65223a2275736572227d5d2c226f726967696e616c5f757365725f6d657373616765223a22496e76656e74656420666f6c64657220726571756573742e222c22706c7567696e5f757365725f636f6e74657874223a22222c22707265666c696768745f636f6d7072657373696f6e5f626c6f636b6564223a66616c73652c2273686f756c645f7265766965775f6d656d6f7279223a66616c73652c227475726e5f6964223a226e61746976652d7475726e2d31222c22757365725f6d657373616765223a22496e76656e74656420666f6c64657220726571756573742e227d7d"
+        },
+        "bytes": 606,
+        "sha256": "0236382cc136b3675274b1060d48d1d13d7a3fdc2cfe907fa690c85fbd1e5462",
+        "parents": [
+          0,
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "raw": {
+          "bytes_hex": "7b226d65737361676573223a5b7b22636f6e74656e74223a2246697865642073797374656d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a22496e76656e74656420666f6c64657220726571756573742e222c22726f6c65223a2275736572227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f30222c2273747265616d223a66616c73657d"
+        },
+        "bytes": 152,
+        "sha256": "a3f8cbb412b642ff7e208f0e5b387709abc9a02d2bc15c4b4fc4e27db4261ae7",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 3,
+        "raw": {
+          "bytes_hex": "7b226170695f6d6f6465223a22636861745f636f6d706c6574696f6e73222c2264657374696e6174696f6e223a7b22656e64706f696e745f726566223a2273796e7468657469635f6c6f6f706261636b5f70222c226d6f64656c5f726566223a22696e76656e7465645f6d6f64656c5f30222c2270726f76696465725f726566223a2273796e7468657469635f6e6174697665222c227265766973696f6e223a312c227472616e73706f72745f726566223a22696e76656e7465645f6d61696e227d2c2272657175657374223a7b226d65737361676573223a5b7b22636f6e74656e74223a2246697865642073797374656d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a22496e76656e74656420666f6c64657220726571756573742e222c22726f6c65223a2275736572227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f30222c2273747265616d223a66616c73657d7d"
+        },
+        "bytes": 358,
+        "sha256": "334baf3606629e7c045764c050e523429e1d55c15bdc61da35cbe733d2176b09",
+        "parents": [
+          0,
+          0,
+          1
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 4,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a224b6565702074686520626c756520666f6c6465722e222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c5f30222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 269,
+        "sha256": "b65c7652bc8b9593f60b1a3fc8c58361925184d0ee617d1381c9b2e0a1dfa7b0",
+        "parents": [
+          3
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 5,
+        "raw": {
+          "bytes_hex": "7b226170695f63616c6c73223a312c22626173655f75726c223a22222c2263616368655f726561645f746f6b656e73223a302c2263616368655f77726974655f746f6b656e73223a302c22636f6d706c65746564223a747275652c22636f6d706c6574696f6e5f746f6b656e73223a322c22636f73745f736f75726365223a6e756c6c2c22636f73745f737461747573223a22756e6b6e6f776e222c22657374696d617465645f636f73745f757364223a6e756c6c2c226661696c6564223a66616c73652c2266696e616c5f726573706f6e7365223a224b6565702074686520626c756520666f6c6465722e222c22696e7075745f746f6b656e73223a332c22696e746572727570746564223a66616c73652c226c6173745f70726f6d70745f746f6b656e73223a332c226c6173745f726561736f6e696e67223a6e756c6c2c226d65737361676573223a5b7b22636f6e74656e74223a22496e76656e74656420666f6c64657220726571756573742e222c22726f6c65223a2275736572227d2c7b22636f6e74656e74223a224b6565702074686520626c756520666f6c6465722e222c22726f6c65223a22617373697374616e74227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f30222c226f75747075745f746f6b656e73223a322c227061727469616c223a66616c73652c227072655f7472616e73666f726d5f726573706f6e7365223a6e756c6c2c2270726f6d70745f746f6b656e73223a332c2270726f7669646572223a2273796e7468657469635f6e6174697665222c22726561736f6e696e675f746f6b656e73223a302c22726573706f6e73655f707265766965776564223a66616c73652c22726573706f6e73655f7472616e73666f726d6564223a66616c73652c22736572766963655f74696572223a6e756c6c2c2273657373696f6e5f6964223a22696e76656e7465645f73657373696f6e222c22746f74616c5f746f6b656e73223a352c227475726e5f657869745f726561736f6e223a22746578745f726573706f6e73652866696e6973685f726561736f6e3d73746f7029227d"
+        },
+        "bytes": 781,
+        "sha256": "a7918f359d4e3c0dd69e02329419b6866957e4a1160107066a81e08f1aacb157",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 6,
+        "raw": {
+          "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+        },
+        "bytes": 23,
+        "sha256": "f267e52e3f26de8f4efc9d231658aea6910190e9589d318952b27fa82caae54e",
+        "parents": [
+          0,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 7,
+        "raw": {
+          "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+        },
+        "bytes": 23,
+        "sha256": "f267e52e3f26de8f4efc9d231658aea6910190e9589d318952b27fa82caae54e",
+        "parents": [
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 8,
+        "raw": {
+          "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+        },
+        "bytes": 23,
+        "sha256": "f267e52e3f26de8f4efc9d231658aea6910190e9589d318952b27fa82caae54e",
+        "parents": [
+          6,
+          7
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 9,
+        "raw": {
+          "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+        },
+        "bytes": 23,
+        "sha256": "f267e52e3f26de8f4efc9d231658aea6910190e9589d318952b27fa82caae54e",
+        "parents": [
+          6,
+          7,
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 10,
+        "raw": {
+          "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+        },
+        "bytes": 23,
+        "sha256": "f267e52e3f26de8f4efc9d231658aea6910190e9589d318952b27fa82caae54e",
+        "parents": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 11,
+        "raw": {
+          "bytes_hex": "222d20577269746520746865207469746c6520696e20456e676c6973682e22"
+        },
+        "bytes": 31,
+        "sha256": "f2086120e738882d4f5dfb722473cc1d39a8670312258431d0173176e7e0fdd7",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 12,
+        "raw": {
+          "bytes_hex": "22596f75206e616d6520636861742073657373696f6e732e20476976656e2074686520757365722773206f70656e696e67206d6573736167652c2077726974652061207469746c652074686174206c657473207468656d2066696e64207468697320636f6e766572736174696f6e20616761696e20696e2061206c6973742e5c6e5c6e52756c65733a5c6e2d203320746f203720776f7264732c2073656e74656e6365206361736520286361706974616c697a65206f6e6c792074686520666972737420776f726420616e642070726f706572206e6f756e73292e5c6e2d204e616d6520776861742074686520757365722077616e747320444f4e452c206e6f74207468617420746865792061736b65642061207175657374696f6e2e5c6e2d204b65657020746563686e6963616c207465726d732c2066696c656e616d65732c206e756d626572732c20616e64206572726f7220636f6465732065786163742e5c6e2d2044726f702066696c6c657220776f7264733a207468652c20746869732c206d792c20612c20616e2e5c6e2d204e6f20747261696c696e672070756e6374756174696f6e2c206e6f2071756f7465732c206e6f20746f6f6c206e616d65732c206e6f20275469746c653a27207072656669782e5c6e2d204e6576657220616e7377657220746865206d6573736167652e204e616d652069742e5c6e2d20416c776179732070726f6475636520736f6d657468696e672c206576656e20666f7220612062617265206772656574696e672e5c6e2d20577269746520746865207469746c6520696e20456e676c6973682e5c6e476f6f643a207b5c227469746c655c223a205c22466978206c6f67696e20627574746f6e206f6e206d6f62696c655c227d5c6e476f6f643a207b5c227469746c655c223a205c22506f73746772657320636f6e6e656374696f6e20706f6f6c2065786861757374696f6e5c227d5c6e476f6f643a207b5c227469746c655c223a205c22467269656e646c79206772656574696e675c227d5c6e546f6f2076616775653a207b5c227469746c655c223a205c22436f6465206368616e6765735c227d5c6e546f6f206c6f6e673a207b5c227469746c655c223a205c22496e76657374696761746520616e64206669782074686520697373756520776865726520746865206c6f67696e20627574746f6e20646f6573206e6f7420726573706f6e64206f6e206d6f62696c6520646576696365735c227d5c6e5c6e5265706c792077697468204a534f4e206f6e6c793a207b5c227469746c655c223a205c222e2e2e5c227d22"
+        },
+        "bytes": 953,
+        "sha256": "47a5cb971e4feb4c194fe90f7c7b9d7ae97ed127906c9d36ea29fe6555f21f91",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 13,
+        "raw": {
+          "bytes_hex": "5b7b22636f6e74656e74223a22596f75206e616d6520636861742073657373696f6e732e20476976656e2074686520757365722773206f70656e696e67206d6573736167652c2077726974652061207469746c652074686174206c657473207468656d2066696e64207468697320636f6e766572736174696f6e20616761696e20696e2061206c6973742e5c6e5c6e52756c65733a5c6e2d203320746f203720776f7264732c2073656e74656e6365206361736520286361706974616c697a65206f6e6c792074686520666972737420776f726420616e642070726f706572206e6f756e73292e5c6e2d204e616d6520776861742074686520757365722077616e747320444f4e452c206e6f74207468617420746865792061736b65642061207175657374696f6e2e5c6e2d204b65657020746563686e6963616c207465726d732c2066696c656e616d65732c206e756d626572732c20616e64206572726f7220636f6465732065786163742e5c6e2d2044726f702066696c6c657220776f7264733a207468652c20746869732c206d792c20612c20616e2e5c6e2d204e6f20747261696c696e672070756e6374756174696f6e2c206e6f2071756f7465732c206e6f20746f6f6c206e616d65732c206e6f20275469746c653a27207072656669782e5c6e2d204e6576657220616e7377657220746865206d6573736167652e204e616d652069742e5c6e2d20416c776179732070726f6475636520736f6d657468696e672c206576656e20666f7220612062617265206772656574696e672e5c6e2d20577269746520746865207469746c6520696e20456e676c6973682e5c6e476f6f643a207b5c227469746c655c223a205c22466978206c6f67696e20627574746f6e206f6e206d6f62696c655c227d5c6e476f6f643a207b5c227469746c655c223a205c22506f73746772657320636f6e6e656374696f6e20706f6f6c2065786861757374696f6e5c227d5c6e476f6f643a207b5c227469746c655c223a205c22467269656e646c79206772656574696e675c227d5c6e546f6f2076616775653a207b5c227469746c655c223a205c22436f6465206368616e6765735c227d5c6e546f6f206c6f6e673a207b5c227469746c655c223a205c22496e76657374696761746520616e64206669782074686520697373756520776865726520746865206c6f67696e20627574746f6e20646f6573206e6f7420726573706f6e64206f6e206d6f62696c6520646576696365735c227d5c6e5c6e5265706c792077697468204a534f4e206f6e6c793a207b5c227469746c655c223a205c222e2e2e5c227d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a224b6565702074686520626c756520666f6c6465722e222c22726f6c65223a2275736572227d5d"
+        },
+        "bytes": 1033,
+        "sha256": "980262efd448f8afa6e48a1ee15b19cc7188a074eaa396ec7568c5e77018218b",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 14,
+        "raw": {
+          "bytes_hex": "7b2264657374696e6174696f6e223a7b22656e64706f696e745f726566223a2273796e7468657469635f6c6f6f706261636b5f63222c226d6f64656c5f726566223a22696e76656e7465645f6d6f64656c5f35222c2270726f76696465725f726566223a2273796e7468657469635f6e6174697665222c227265766973696f6e223a312c227472616e73706f72745f726566223a227469746c655f7472616e73706f72745f7469746c65227d2c2270617468223a227469746c65222c2272657175657374223a7b226170695f6b6579223a6e756c6c2c226170695f6d6f6465223a22636861745f636f6d706c6574696f6e73222c22626173655f75726c223a6e756c6c2c2265787472615f626f6479223a7b22726573706f6e73655f666f726d6174223a7b226a736f6e5f736368656d61223a7b226e616d65223a2273657373696f6e5f7469746c65222c22736368656d61223a7b226164646974696f6e616c50726f70657274696573223a66616c73652c2270726f70657274696573223a7b227469746c65223a7b2274797065223a22737472696e67227d7d2c227265717569726564223a5b227469746c65225d2c2274797065223a226f626a656374227d2c22737472696374223a747275657d2c2274797065223a226a736f6e5f736368656d61227d7d2c2265787472615f68656164657273223a6e756c6c2c226c6174656e63795f696e666f223a6e756c6c2c226d61696e5f72756e74696d65223a6e756c6c2c226d61785f746f6b656e73223a36342c226d65737361676573223a5b7b22636f6e74656e74223a22596f75206e616d6520636861742073657373696f6e732e20476976656e2074686520757365722773206f70656e696e67206d6573736167652c2077726974652061207469746c652074686174206c657473207468656d2066696e64207468697320636f6e766572736174696f6e20616761696e20696e2061206c6973742e5c6e5c6e52756c65733a5c6e2d203320746f203720776f7264732c2073656e74656e6365206361736520286361706974616c697a65206f6e6c792074686520666972737420776f726420616e642070726f706572206e6f756e73292e5c6e2d204e616d6520776861742074686520757365722077616e747320444f4e452c206e6f74207468617420746865792061736b65642061207175657374696f6e2e5c6e2d204b65657020746563686e6963616c207465726d732c2066696c656e616d65732c206e756d626572732c20616e64206572726f7220636f6465732065786163742e5c6e2d2044726f702066696c6c657220776f7264733a207468652c20746869732c206d792c20612c20616e2e5c6e2d204e6f20747261696c696e672070756e6374756174696f6e2c206e6f2071756f7465732c206e6f20746f6f6c206e616d65732c206e6f20275469746c653a27207072656669782e5c6e2d204e6576657220616e7377657220746865206d6573736167652e204e616d652069742e5c6e2d20416c776179732070726f6475636520736f6d657468696e672c206576656e20666f7220612062617265206772656574696e672e5c6e2d20577269746520746865207469746c6520696e20456e676c6973682e5c6e476f6f643a207b5c227469746c655c223a205c22466978206c6f67696e20627574746f6e206f6e206d6f62696c655c227d5c6e476f6f643a207b5c227469746c655c223a205c22506f73746772657320636f6e6e656374696f6e20706f6f6c2065786861757374696f6e5c227d5c6e476f6f643a207b5c227469746c655c223a205c22467269656e646c79206772656574696e675c227d5c6e546f6f2076616775653a207b5c227469746c655c223a205c22436f6465206368616e6765735c227d5c6e546f6f206c6f6e673a207b5c227469746c655c223a205c22496e76657374696761746520616e64206669782074686520697373756520776865726520746865206c6f67696e20627574746f6e20646f6573206e6f7420726573706f6e64206f6e206d6f62696c6520646576696365735c227d5c6e5c6e5265706c792077697468204a534f4e206f6e6c793a207b5c227469746c655c223a205c222e2e2e5c227d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a224b6565702074686520626c756520666f6c6465722e222c22726f6c65223a2275736572227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f35222c2270726f7669646572223a2273796e7468657469635f6e6174697665222c22726561736f6e696e675f636f6e666967223a6e756c6c2c22726f7574655f696e666f223a6e756c6c2c2273747265616d223a66616c73652c2273747265616d5f6f7074696f6e73223a6e756c6c2c227374726963745f64657374696e6174696f6e223a747275652c227461736b223a227469746c655f67656e65726174696f6e222c2274656d7065726174757265223a302e332c2274696d656f7574223a6e756c6c2c22746f6f6c73223a6e756c6c7d2c2273656c656374696f6e223a5b227469746c655f73656c656374696f6e222c352c22636861745f636f6d706c6574696f6e73225d2c227461736b223a227469746c655f67656e65726174696f6e227d"
+        },
+        "bytes": 1923,
+        "sha256": "2c0486956b862fe14966c37f3a727202317252ba26c1de90ce1ea1c0c2174a0f",
+        "parents": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 15,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22426c756520666f6c64657220726574656e74696f6e5c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7469746c655f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c5f35222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 291,
+        "sha256": "930fc47cf2de10678e6306404128bd9e22ebfb65777a7bda957289f3ff0ee6c5",
+        "parents": [
+          14
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 16,
+        "raw": {
+          "bytes_hex": "227b5c227469746c655c223a5c22426c756520666f6c64657220726574656e74696f6e5c227d22"
+        },
+        "bytes": 39,
+        "sha256": "f12539e2d5da69201286ea1d7816802bf2a09f90bbc381930bc38b4505b2eb08",
+        "parents": [
+          6,
+          14,
+          15
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 17,
+        "raw": {
+          "bytes_hex": "22426c756520666f6c64657220726574656e74696f6e22"
+        },
+        "bytes": 23,
+        "sha256": "89609e2082dd707199d1158e4eca0b9499765c8f8fa669ec51f585cefb142e8a",
+        "parents": [
+          6,
+          14,
+          15,
+          16
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 18,
+        "raw": {
+          "bytes_hex": "22426c756520666f6c64657220726574656e74696f6e22"
+        },
+        "bytes": 23,
+        "sha256": "89609e2082dd707199d1158e4eca0b9499765c8f8fa669ec51f585cefb142e8a",
+        "parents": [
+          6,
+          14,
+          15,
+          16,
+          17
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 19,
+        "raw": {
+          "bytes_hex": "7b226163636570746564223a747275652c22776f726473223a337d"
+        },
+        "bytes": 27,
+        "sha256": "4032521ca8cddea9285741c54a87e8efcf33662c88bf224bd70600550c05bbc2",
+        "parents": [
+          6,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 20,
+        "raw": {
+          "bytes_hex": "7b227469746c65223a22426c756520666f6c64657220726574656e74696f6e227d"
+        },
+        "bytes": 33,
+        "sha256": "76e14aaf89ecdff6c7a836cd29315788ed6959109727099785a672f5266a9814",
+        "parents": [
+          6,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      }
+    ],
+    "envelopes": [
+      {
+        "payload": {
+          "bytes_hex": "7b226170695f6d6f6465223a22636861745f636f6d706c6574696f6e73222c2264657374696e6174696f6e223a7b22656e64706f696e745f726566223a2273796e7468657469635f6c6f6f706261636b5f70222c226d6f64656c5f726566223a22696e76656e7465645f6d6f64656c5f30222c2270726f76696465725f726566223a2273796e7468657469635f6e6174697665222c227265766973696f6e223a312c227472616e73706f72745f726566223a22696e76656e7465645f6d61696e227d2c2272657175657374223a7b226d65737361676573223a5b7b22636f6e74656e74223a2246697865642073797374656d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a22496e76656e74656420666f6c64657220726571756573742e222c22726f6c65223a2275736572227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f30222c2273747265616d223a66616c73657d7d"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "main",
+        "destination": {
+          "transport_ref": "invented_main",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model_0",
+          "endpoint_ref": "synthetic_loopback_p",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "7b2264657374696e6174696f6e223a7b22656e64706f696e745f726566223a2273796e7468657469635f6c6f6f706261636b5f63222c226d6f64656c5f726566223a22696e76656e7465645f6d6f64656c5f35222c2270726f76696465725f726566223a2273796e7468657469635f6e6174697665222c227265766973696f6e223a312c227472616e73706f72745f726566223a227469746c655f7472616e73706f72745f7469746c65227d2c2270617468223a227469746c65222c2272657175657374223a7b226170695f6b6579223a6e756c6c2c226170695f6d6f6465223a22636861745f636f6d706c6574696f6e73222c22626173655f75726c223a6e756c6c2c2265787472615f626f6479223a7b22726573706f6e73655f666f726d6174223a7b226a736f6e5f736368656d61223a7b226e616d65223a2273657373696f6e5f7469746c65222c22736368656d61223a7b226164646974696f6e616c50726f70657274696573223a66616c73652c2270726f70657274696573223a7b227469746c65223a7b2274797065223a22737472696e67227d7d2c227265717569726564223a5b227469746c65225d2c2274797065223a226f626a656374227d2c22737472696374223a747275657d2c2274797065223a226a736f6e5f736368656d61227d7d2c2265787472615f68656164657273223a6e756c6c2c226c6174656e63795f696e666f223a6e756c6c2c226d61696e5f72756e74696d65223a6e756c6c2c226d61785f746f6b656e73223a36342c226d65737361676573223a5b7b22636f6e74656e74223a22596f75206e616d6520636861742073657373696f6e732e20476976656e2074686520757365722773206f70656e696e67206d6573736167652c2077726974652061207469746c652074686174206c657473207468656d2066696e64207468697320636f6e766572736174696f6e20616761696e20696e2061206c6973742e5c6e5c6e52756c65733a5c6e2d203320746f203720776f7264732c2073656e74656e6365206361736520286361706974616c697a65206f6e6c792074686520666972737420776f726420616e642070726f706572206e6f756e73292e5c6e2d204e616d6520776861742074686520757365722077616e747320444f4e452c206e6f74207468617420746865792061736b65642061207175657374696f6e2e5c6e2d204b65657020746563686e6963616c207465726d732c2066696c656e616d65732c206e756d626572732c20616e64206572726f7220636f6465732065786163742e5c6e2d2044726f702066696c6c657220776f7264733a207468652c20746869732c206d792c20612c20616e2e5c6e2d204e6f20747261696c696e672070756e6374756174696f6e2c206e6f2071756f7465732c206e6f20746f6f6c206e616d65732c206e6f20275469746c653a27207072656669782e5c6e2d204e6576657220616e7377657220746865206d6573736167652e204e616d652069742e5c6e2d20416c776179732070726f6475636520736f6d657468696e672c206576656e20666f7220612062617265206772656574696e672e5c6e2d20577269746520746865207469746c6520696e20456e676c6973682e5c6e476f6f643a207b5c227469746c655c223a205c22466978206c6f67696e20627574746f6e206f6e206d6f62696c655c227d5c6e476f6f643a207b5c227469746c655c223a205c22506f73746772657320636f6e6e656374696f6e20706f6f6c2065786861757374696f6e5c227d5c6e476f6f643a207b5c227469746c655c223a205c22467269656e646c79206772656574696e675c227d5c6e546f6f2076616775653a207b5c227469746c655c223a205c22436f6465206368616e6765735c227d5c6e546f6f206c6f6e673a207b5c227469746c655c223a205c22496e76657374696761746520616e64206669782074686520697373756520776865726520746865206c6f67696e20627574746f6e20646f6573206e6f7420726573706f6e64206f6e206d6f62696c6520646576696365735c227d5c6e5c6e5265706c792077697468204a534f4e206f6e6c793a207b5c227469746c655c223a205c222e2e2e5c227d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a224b6565702074686520626c756520666f6c6465722e222c22726f6c65223a2275736572227d5d2c226d6f64656c223a22696e76656e7465645f6d6f64656c5f35222c2270726f7669646572223a2273796e7468657469635f6e6174697665222c22726561736f6e696e675f636f6e666967223a6e756c6c2c22726f7574655f696e666f223a6e756c6c2c2273747265616d223a66616c73652c2273747265616d5f6f7074696f6e73223a6e756c6c2c227374726963745f64657374696e6174696f6e223a747275652c227461736b223a227469746c655f67656e65726174696f6e222c2274656d7065726174757265223a302e332c2274696d656f7574223a6e756c6c2c22746f6f6c73223a6e756c6c7d2c2273656c656374696f6e223a5b227469746c655f73656c656374696f6e222c352c22636861745f636f6d706c6574696f6e73225d2c227461736b223a227469746c655f67656e65726174696f6e227d"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "title",
+        "destination": {
+          "transport_ref": "title_transport_title",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model_5",
+          "endpoint_ref": "synthetic_loopback_c",
+          "revision": 1
+        }
+      }
+    ]
+  },
+  "qualification": {
+    "charges": [
+      32,
+      16,
+      4271
+    ],
+    "hops": [
+      16
+    ],
+    "graph": [
+      {
+        "index": 0,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 1,
+        "raw": {
+          "bytes_hex": "7b226163636570746564223a747275657d"
+        },
+        "bytes": 17,
+        "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "parents": [
+          0
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 2,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 3,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          2
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 4,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 5,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          4
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 6,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 7,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          6
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 8,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 9,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          8
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "memory"
+      },
+      {
+        "index": 10,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 11,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          10
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 12,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 13,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          12
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "a2a"
+      },
+      {
+        "index": 14,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 15,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a22496e76656e74656420616e737765722041222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 263,
+        "sha256": "6556c2aa2537e45af3556b20dc3c04c27e486761feb8bc2b233f63a3c3408d3b",
+        "parents": [
+          14
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "selection",
+          3,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      },
+      {
+        "index": 16,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 17,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          16
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "main"
+      },
+      {
+        "index": 18,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 19,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          18
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "fallback"
+      },
+      {
+        "index": 20,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 21,
+        "raw": {
+          "bytes_hex": "7b226163636570746564223a747275657d"
+        },
+        "bytes": 17,
+        "sha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878",
+        "parents": [
+          20
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "title"
+      },
+      {
+        "index": 22,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 23,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          22
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "compression"
+      },
+      {
+        "index": 24,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 25,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          24
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "memory"
+      },
+      {
+        "index": 26,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 27,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          26
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "delegate"
+      },
+      {
+        "index": 28,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 29,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          28
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "a2a"
+      },
+      {
+        "index": 30,
+        "raw": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "bytes": 22,
+        "sha256": "7ee3ae9b19c452124e49eb6281578cf49b730bbb36a91965f44a9317fbe48888",
+        "parents": [],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": null
+      },
+      {
+        "index": 31,
+        "raw": {
+          "bytes_hex": "7b2263686f69636573223a5b7b2266696e6973685f726561736f6e223a2273746f70222c22696e646578223a302c226d657373616765223a7b22636f6e74656e74223a227b5c227469746c655c223a5c22496e76656e74656420646f63756d656e74207265766965775c227d222c22726f6c65223a22617373697374616e74227d7d5d2c2263726561746564223a31322c226964223a22696e76656e7465645f7265706c79222c226d6f64656c223a22696e76656e7465645f7469746c655f6d6f64656c222c226f626a656374223a22636861742e636f6d706c6574696f6e222c227573616765223a7b22636f6d706c6574696f6e5f746f6b656e73223a322c2270726f6d70745f746f6b656e73223a332c22746f74616c5f746f6b656e73223a357d7d"
+        },
+        "bytes": 292,
+        "sha256": "1c66a15bf6aa0bef214c4beab21e762da3e87a4164348b4cb01d150a58400ce0",
+        "parents": [
+          30
+        ],
+        "binding": [
+          "owner",
+          "execution",
+          "lineage",
+          "document_specialist",
+          7,
+          9,
+          "title_selection",
+          5,
+          [
+            "restricted_documents"
+          ]
+        ],
+        "profiles": [
+          "restricted_documents"
+        ],
+        "path": "tool_result"
+      }
+    ],
+    "envelopes": [
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "main",
+        "destination": {
+          "transport_ref": "invented_main",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model_0",
+          "endpoint_ref": "synthetic_loopback_p",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "fallback",
+        "destination": {
+          "transport_ref": "invented_fallback",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "title",
+        "destination": {
+          "transport_ref": "invented_title",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "compression",
+        "destination": {
+          "transport_ref": "invented_compression",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "memory",
+        "destination": {
+          "transport_ref": "invented_memory",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "delegate",
+        "destination": {
+          "transport_ref": "invented_delegate",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "a2a",
+        "destination": {
+          "transport_ref": "invented_a2a",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "selection",
+          "selection_version": 3,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "tool_result",
+        "destination": {
+          "transport_ref": "invented_tool_result",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "main",
+        "destination": {
+          "transport_ref": "title_transport_main",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "fallback",
+        "destination": {
+          "transport_ref": "title_transport_fallback",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "title",
+        "destination": {
+          "transport_ref": "title_transport_title",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_model_5",
+          "endpoint_ref": "synthetic_loopback_c",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "compression",
+        "destination": {
+          "transport_ref": "title_transport_compression",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "memory",
+        "destination": {
+          "transport_ref": "title_transport_memory",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "delegate",
+        "destination": {
+          "transport_ref": "title_transport_delegate",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "a2a",
+        "destination": {
+          "transport_ref": "title_transport_a2a",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      },
+      {
+        "payload": {
+          "bytes_hex": "496e76656e746564207175616c696669636174696f6e"
+        },
+        "source": {
+          "owner_ref": "owner",
+          "execution_ref": "execution",
+          "lineage_ref": "lineage",
+          "consumer_ref": "document_specialist",
+          "auth_epoch": 7,
+          "policy_revision": 9,
+          "selection_id": "title_selection",
+          "selection_version": 5,
+          "profiles": [
+            "restricted_documents"
+          ]
+        },
+        "profiles": [
+          "restricted_documents"
+        ],
+        "recipient_ref": "document_specialist",
+        "path": "tool_result",
+        "destination": {
+          "transport_ref": "title_transport_tool_result",
+          "provider_ref": "synthetic_native",
+          "model_ref": "invented_title_model",
+          "endpoint_ref": "invented_endpoint",
+          "revision": 1
+        }
+      }
+    ]
+  },
+  "retained_transforms": {
+    "input_stages": [
+      {
+        "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+      },
+      {
+        "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+      },
+      {
+        "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+      },
+      {
+        "bytes_hex": "224b6565702074686520626c756520666f6c6465722e22"
+      },
+      {
+        "bytes_hex": "222d20577269746520746865207469746c6520696e20456e676c6973682e22"
+      },
+      {
+        "bytes_hex": "22596f75206e616d6520636861742073657373696f6e732e20476976656e2074686520757365722773206f70656e696e67206d6573736167652c2077726974652061207469746c652074686174206c657473207468656d2066696e64207468697320636f6e766572736174696f6e20616761696e20696e2061206c6973742e5c6e5c6e52756c65733a5c6e2d203320746f203720776f7264732c2073656e74656e6365206361736520286361706974616c697a65206f6e6c792074686520666972737420776f726420616e642070726f706572206e6f756e73292e5c6e2d204e616d6520776861742074686520757365722077616e747320444f4e452c206e6f74207468617420746865792061736b65642061207175657374696f6e2e5c6e2d204b65657020746563686e6963616c207465726d732c2066696c656e616d65732c206e756d626572732c20616e64206572726f7220636f6465732065786163742e5c6e2d2044726f702066696c6c657220776f7264733a207468652c20746869732c206d792c20612c20616e2e5c6e2d204e6f20747261696c696e672070756e6374756174696f6e2c206e6f2071756f7465732c206e6f20746f6f6c206e616d65732c206e6f20275469746c653a27207072656669782e5c6e2d204e6576657220616e7377657220746865206d6573736167652e204e616d652069742e5c6e2d20416c776179732070726f6475636520736f6d657468696e672c206576656e20666f7220612062617265206772656574696e672e5c6e2d20577269746520746865207469746c6520696e20456e676c6973682e5c6e476f6f643a207b5c227469746c655c223a205c22466978206c6f67696e20627574746f6e206f6e206d6f62696c655c227d5c6e476f6f643a207b5c227469746c655c223a205c22506f73746772657320636f6e6e656374696f6e20706f6f6c2065786861757374696f6e5c227d5c6e476f6f643a207b5c227469746c655c223a205c22467269656e646c79206772656574696e675c227d5c6e546f6f2076616775653a207b5c227469746c655c223a205c22436f6465206368616e6765735c227d5c6e546f6f206c6f6e673a207b5c227469746c655c223a205c22496e76657374696761746520616e64206669782074686520697373756520776865726520746865206c6f67696e20627574746f6e20646f6573206e6f7420726573706f6e64206f6e206d6f62696c6520646576696365735c227d5c6e5c6e5265706c792077697468204a534f4e206f6e6c793a207b5c227469746c655c223a205c222e2e2e5c227d22"
+      },
+      {
+        "bytes_hex": "5b7b22636f6e74656e74223a22596f75206e616d6520636861742073657373696f6e732e20476976656e2074686520757365722773206f70656e696e67206d6573736167652c2077726974652061207469746c652074686174206c657473207468656d2066696e64207468697320636f6e766572736174696f6e20616761696e20696e2061206c6973742e5c6e5c6e52756c65733a5c6e2d203320746f203720776f7264732c2073656e74656e6365206361736520286361706974616c697a65206f6e6c792074686520666972737420776f726420616e642070726f706572206e6f756e73292e5c6e2d204e616d6520776861742074686520757365722077616e747320444f4e452c206e6f74207468617420746865792061736b65642061207175657374696f6e2e5c6e2d204b65657020746563686e6963616c207465726d732c2066696c656e616d65732c206e756d626572732c20616e64206572726f7220636f6465732065786163742e5c6e2d2044726f702066696c6c657220776f7264733a207468652c20746869732c206d792c20612c20616e2e5c6e2d204e6f20747261696c696e672070756e6374756174696f6e2c206e6f2071756f7465732c206e6f20746f6f6c206e616d65732c206e6f20275469746c653a27207072656669782e5c6e2d204e6576657220616e7377657220746865206d6573736167652e204e616d652069742e5c6e2d20416c776179732070726f6475636520736f6d657468696e672c206576656e20666f7220612062617265206772656574696e672e5c6e2d20577269746520746865207469746c6520696e20456e676c6973682e5c6e476f6f643a207b5c227469746c655c223a205c22466978206c6f67696e20627574746f6e206f6e206d6f62696c655c227d5c6e476f6f643a207b5c227469746c655c223a205c22506f73746772657320636f6e6e656374696f6e20706f6f6c2065786861757374696f6e5c227d5c6e476f6f643a207b5c227469746c655c223a205c22467269656e646c79206772656574696e675c227d5c6e546f6f2076616775653a207b5c227469746c655c223a205c22436f6465206368616e6765735c227d5c6e546f6f206c6f6e673a207b5c227469746c655c223a205c22496e76657374696761746520616e64206669782074686520697373756520776865726520746865206c6f67696e20627574746f6e20646f6573206e6f7420726573706f6e64206f6e206d6f62696c6520646576696365735c227d5c6e5c6e5265706c792077697468204a534f4e206f6e6c793a207b5c227469746c655c223a205c222e2e2e5c227d222c22726f6c65223a2273797374656d227d2c7b22636f6e74656e74223a224b6565702074686520626c756520666f6c6465722e222c22726f6c65223a2275736572227d5d"
+      }
+    ],
+    "output_stages": [
+      {
+        "bytes_hex": "227b5c227469746c655c223a5c22426c756520666f6c64657220726574656e74696f6e5c227d22"
+      },
+      {
+        "bytes_hex": "22426c756520666f6c64657220726574656e74696f6e22"
+      },
+      {
+        "bytes_hex": "22426c756520666f6c64657220726574656e74696f6e22"
+      },
+      {
+        "bytes_hex": "7b226163636570746564223a747275652c22776f726473223a337d"
+      }
+    ]
+  },
+  "lifecycle": {
+    "conversation_exit": true,
+    "auxiliary_scope_exit": true,
+    "validate_scope": true,
+    "agent_attributes_preserved": true,
+    "close_calls": 2,
+    "closed": true,
+    "terminal_refusal_type": "NativeContentPolicyDenied",
+    "terminal_refusal_reason": [
+      "controlled_native_payload_denied"
+    ],
+    "main_sends_after_refusal": 1,
+    "title_sends_after_refusal": 1,
+    "new_request_after_refusal": false
+  },
+  "cleanup": {
+    "a_closed": true,
+    "b_closed": true,
+    "a_stopped": true,
+    "b_stopped": true,
+    "a_errors": [],
+    "b_errors": [],
+    "seconds": 11.898246644996107
+  },
+  "old_unknown_assertions": "Remain UNKNOWN for the original failed history. The corrected history executed them and passed.",
+  "full_gate_limits": [
+    "P10",
+    "P06",
+    "fallback",
+    "private",
+    "real",
+    "external deployed egress",
+    "TLS",
+    "durable",
+    "cross-thread",
+    "source",
+    "financial",
+    "production",
+    "manifests",
+    "index",
+    "deployment",
+    "activation"
+  ]
+}
