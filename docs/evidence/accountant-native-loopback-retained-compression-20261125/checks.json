@@ -1,0 +1,51 @@
+{
+  "status": "FUNCTIONAL PASS / PUBLICATION PENDING",
+  "functional": {
+    "genuine": "PASSED",
+    "cheap_distinct": 2,
+    "initial_cheap_failed": 1,
+    "initial_cheap_passed": 1,
+    "affected_recipe_rerun_passed": 1,
+    "phase_reports_verified": true
+  },
+  "static": {
+    "ruff": "PASSED",
+    "new_source_STE": "PASSED zero findings",
+    "base_blobs_modes": "12242 preserved",
+    "stage_graph_bytes_hashes_parents": "PASSED",
+    "response_body_framing": "PASSED",
+    "JSON_checksums_links": "PASSED",
+    "new_evidence_STE": "PASSED zero findings",
+    "task_whitespace": "PASSED",
+    "AST_allowlist": "PASSED",
+    "protected_receipts_environment_and_pytest": "PASSED",
+    "frozen_executable_after_genuine": "PASSED"
+  },
+  "original_tasks": {
+    "original_task": "task_4076560aede4: FAILED",
+    "count_audit": "task_09893c967dc7: SUCCEEDED",
+    "this_task": "task_7d0ab24ed295: FAILED because phase timings are missing"
+  },
+  "CI_success_claim": false,
+  "configured_checks": "Not queried yet",
+  "publication": "Pending draft native PR against mkl",
+  "failed_static_scopes": [
+    {
+      "scope": "Initial README prose",
+      "findings": 2,
+      "type": "long_paragraph",
+      "corrected": true
+    }
+  ],
+  "setup_observations": [
+    {
+      "scope": "Optional phase selector",
+      "observation": "Original runner drops the task environment selector. Root authorized the existing XML sibling channel."
+    },
+    {
+      "scope": "Private file modes",
+      "observation": "Initial command driver lacked an explicit umask. All files were normalized to 0600 before freeze. Later commands set umask 077.",
+      "creation_mode_receipt": "Not captured for the initial command artifacts."
+    }
+  ]
+}

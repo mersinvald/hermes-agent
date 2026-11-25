@@ -1,0 +1,137 @@
+{
+  "initial_failed_control": {
+    "scope": "cheap-01 response recipe",
+    "outcome": "FAILED",
+    "reason": "Native decoding requires finish_reason stop and rejects length before extraction.",
+    "correction": "The recipe checks original native refusal and calls original raw-dictionary length classification separately.",
+    "source": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.71-task_02f54f7fb38e/cheap-01-source.py",
+      "bytes": 36025,
+      "sha256": "5f7b7bf054a1d00bf3449d0390b1a2b5b8624ae6d60da10796b70bc77c45cc76"
+    },
+    "functional_history": false
+  },
+  "successful_controls": [
+    {
+      "command_scope": "cheap-01",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_inert_retained_compression_http_plan",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_inert_retained_compression_http_plan",
+      "actual_xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression",
+        "name": "test_inert_retained_compression_http_plan",
+        "file": "tests/agent/test_native_loopback_retained_compression.py",
+        "line": "138",
+        "time": "0.039"
+      },
+      "outcome": "passed",
+      "setup_seconds": 0.035644162009702995,
+      "call_seconds": 0.0024845440057106316,
+      "teardown_seconds": 0.0005025999853387475
+    },
+    {
+      "command_scope": "cheap-02",
+      "requested_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+      "actual_id": "tests/agent/test_native_loopback_retained_compression.py::test_retained_compression_http_response_recipe",
+      "actual_xml_attributes": {
+        "classname": "tests.agent.test_native_loopback_retained_compression",
+        "name": "test_retained_compression_http_response_recipe",
+        "file": "tests/agent/test_native_loopback_retained_compression.py",
+        "line": "190",
+        "time": "0.034"
+      },
+      "outcome": "passed",
+      "setup_seconds": 0.031782773992745206,
+      "call_seconds": 0.0016195149801205844,
+      "teardown_seconds": 0.000347460008924827
+    }
+  ],
+  "cheap_feedback_command_seconds": 14.057012796401978,
+  "cheap_feedback_cap_seconds": 90,
+  "observer_setup_observation": {
+    "runner_drops_new_env": true,
+    "root_amendment_message": "msg_2b17c9284bb2",
+    "selection": "Optional HERMES_NATIVE_PHASE_RECEIPTS, then original XML sibling .phases.jsonl, then disabled observer.",
+    "six_successful_phase_records_verified_before_freeze": 1795568813.6030788,
+    "report_fields": [
+      "nodeid",
+      "when",
+      "outcome",
+      "duration",
+      "recorded_at"
+    ],
+    "core_mutations": false
+  },
+  "historical_reuse": {
+    "rerun": false,
+    "engine_scope": "Historical retained-compression scopes used old 0.2, not current 0.4 HTTP.",
+    "source_commit": "9234aced8395379fa60aefe07cd5d0eb723b906d",
+    "earlier_final_scope": {
+      "passed": 98,
+      "failed": 2,
+      "runner_seconds": 663.4
+    },
+    "earlier_capacity_refusal_scope": {
+      "passed": 26,
+      "failed": 0,
+      "runner_seconds": 330.1
+    },
+    "current_runtime_correction_passes": 4,
+    "current_fixture_passes": 1,
+    "boundary_source": {
+      "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.71/tests/agent/test_native_controlled_conversation.py",
+      "bytes": 128596,
+      "sha256": "4fcd0fc70fe87d23c116794aa17589970ee46a0039baa0ec881ad1a3e7e06fad"
+    },
+    "evidence": {
+      "path": "/home/mersinvald/orca/workspaces/hermes-agent/hpwa-p10.71/docs/evidence/accountant-native-retained-compression-20261123/verification.json",
+      "bytes": 1950,
+      "sha256": "9ef2d318e4514ca9c4a51f31cead76479a891cc7d96dcf5fa55572a020e147e9"
+    },
+    "preserved_restrictions": [
+      "host compress and compress_context",
+      "micro-summary",
+      "prune",
+      "defrag",
+      "session",
+      "unowned source",
+      "after-profile-removal siblings",
+      "pending operations",
+      "capacity",
+      "terminal and wrong-thread refusals"
+    ]
+  },
+  "old_title_tasks": {
+    "original_task": "task_4076560aede4: FAILED",
+    "count_audit": "task_09893c967dc7: SUCCEEDED",
+    "this_task": "task_7d0ab24ed295: FAILED because phase timings are missing"
+  },
+  "old_title_phase_gap": {
+    "original_task": {
+      "id": "task_4076560aede4",
+      "outcome": "FAILED",
+      "genuine": "expected22 versus actual21 after release",
+      "later_assertions": "UNKNOWN",
+      "cheap_passed": 2,
+      "cheap_command_seconds": 12.003568
+    },
+    "audit": {
+      "id": "task_09893c967dc7",
+      "outcome": "SUCCEEDED",
+      "functional_execution": false
+    },
+    "correction": {
+      "id": "task_7d0ab24ed295",
+      "outcome": "FAILED",
+      "genuine_assertions": "PASSED",
+      "command_seconds": 17.85714941797778,
+      "combined_XML_case_seconds": 11.953,
+      "separate_phase_times": {
+        "setup": "UNKNOWN",
+        "call": "UNKNOWN",
+        "teardown": "UNKNOWN"
+      },
+      "root_waiver": "Merge prerequisite only. No repeat or speed claim."
+    }
+  },
+  "no_new_current_historical_boundary_claim": true
+}
