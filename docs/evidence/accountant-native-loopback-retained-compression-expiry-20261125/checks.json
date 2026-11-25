@@ -133,6 +133,14 @@
         "sha256": "0e7b962c904ad9102477648bbba75c7290204d773e204c8f77713e8e7e84db26",
         "mode": "0o600"
       }
+    },
+    {
+      "scope": "Initial inline static verifier",
+      "reason": "Private PR body had one long paragraph.",
+      "corrected": true,
+      "executable_unchanged": true,
+      "command_duration": "UNKNOWN",
+      "shell_continued_to_evidence_commit": true
     }
   ],
   "commands": {
@@ -707,5 +715,91 @@
   ],
   "CI_success_claim": false,
   "functional_expansion": false,
-  "source_reading_exception": "The explicit Task requires source pins and the retained inner traceback location. No active-frame instrumentation ran."
+  "source_reading_exception": "The explicit Task requires source pins and the retained inner traceback location. No active-frame instrumentation ran.",
+  "final_static": {
+    "epoch": 1795572770.9805207,
+    "source_frozen": true,
+    "files": 12,
+    "checksums": 11,
+    "JSON": 10,
+    "links": true,
+    "base_paths": 12255,
+    "protected_pins": true,
+    "private_modes": true,
+    "AST_allowlist": true,
+    "writing": {
+      "tests/agent/test_native_loopback_retained_compression_expiry.py": {
+        "words": 10,
+        "sentences": 1,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 10,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "python-prose-v1"
+      },
+      "docs/evidence/accountant-native-loopback-retained-compression-expiry-20261125/README.md": {
+        "words": 412,
+        "sentences": 44,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      },
+      "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/pr-body.md": {
+        "words": 141,
+        "sentences": 16,
+        "violations": {
+          "long_sentence(>20w)": 0,
+          "semicolon": 0,
+          "contraction": 0,
+          "passive_voice": 0,
+          "ing_main_verb": 0,
+          "nominalization": 0,
+          "phrasal_verb": 0,
+          "banned_word": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "long_paragraph(>6s)": 0
+        },
+        "total": 0,
+        "total_per100w": 0.0,
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 13,
+        "sample_marketing": [],
+        "sample_banned": [],
+        "mode": "prose-v1"
+      }
+    }
+  }
 }

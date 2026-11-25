@@ -710,6 +710,36 @@
       "bytes": 14632,
       "sha256": "2d90b8a5c988a8fe171b70ac3cf49250c90d21ca8d80f2a8f023ebfad9f2e5fe",
       "mode": "0o600"
+    },
+    "static.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/static.json",
+      "bytes": 2299,
+      "sha256": "4f1387fb0532f663df7035b9f1809446534f50b3acb8101d380a3ddd1b8385e3",
+      "mode": "0o600"
+    },
+    "final-static.command.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/final-static.command.json",
+      "bytes": 4210,
+      "sha256": "d1fa880cb9fcc7c1ea56d514a781d305d1033c9eab1144023e58e028345ab4e5",
+      "mode": "0o600"
+    },
+    "final_static.py": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/final_static.py",
+      "bytes": 3551,
+      "sha256": "b6f296e228793b56422d7af73fd773e84dab35a04a073108abd40cded5bb63a9",
+      "mode": "0o600"
+    },
+    "pr-body.md": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/pr-body.md",
+      "bytes": 962,
+      "sha256": "8bbc3b3b2b017e1d18b4abd295f3feabe24da2f8fd64e384ff3bfb7c7a4b5756",
+      "mode": "0o600"
+    },
+    "static-first-failure.json": {
+      "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.73-task_e7bff1a8547c/static-first-failure.json",
+      "bytes": 712,
+      "sha256": "8986a53208b8c33dfb44658e9ed25386234d8bef23a68a803c5bc545c565440a",
+      "mode": "0o600"
     }
   },
   "API_evidence_reused": {
