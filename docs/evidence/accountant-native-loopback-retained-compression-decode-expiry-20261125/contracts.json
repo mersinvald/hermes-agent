@@ -1,0 +1,46 @@
+{
+  "API_pins": {
+    "engine_sha256": "a39f10d0b93e1eb77d36170367cd5880bfedee57497b6eda562fd5582fcc7865",
+    "native_public_API_sha256": "308d01ecdb0d9a28667d85fb6834461840198083146ec5cb9dbb94b73a7aa598",
+    "shared_API_sha256": "4e7940a81a815f2092572aff25c608adf46a5de6bed7f432ff3098096160955d",
+    "transport_API_sha256": "aab3e63b2920cbbde435de84ab5931863cb042394c8ede64f48ff13af752010a"
+  },
+  "PWA_base": "6042b48fe63088451adb743b89f69b399f65969f",
+  "PWA_tree": "daaa2a554c85a1912275a4946d7eada76fddd2ec",
+  "composition": [
+    "unchanged expiry73 configure_expiry_world",
+    "unchanged qualify_expiry_world",
+    "unchanged compression_reply_bytes",
+    "original main, compression and receiver helpers"
+  ],
+  "contract_failure": {
+    "effect": "The hook cannot pass this identity check with the genuine shared runtime",
+    "scope": "Source-backed diagnosis. No repeated functional execution.",
+    "shared_constructor": "ContentPolicyRuntime.__init__ reconstructs RouteBinding into _route_rows",
+    "shared_consumer": "ContentPolicyRuntime.dispatch selects _route_rows at line 696",
+    "shared_lines": [
+      383,
+      386
+    ],
+    "test": "issued.route is original operator route",
+    "test_line": 184
+  },
+  "native_base": "105558a1bbb7a9342a44941af4f3d3db04ac7da5",
+  "native_tree": "576c15f15e37baf47abfe93f209691e583f50a63",
+  "outcome": "NOT_QUALIFIED",
+  "runtime_prerequisite": "None established",
+  "source_order": {
+    "decode": 2961,
+    "finally_retention": [
+      2996,
+      3007
+    ],
+    "first_checkpoint": 2957,
+    "second_checkpoint": 2964,
+    "selected_expiry_guard": 3140,
+    "shared_return": 2953,
+    "typed_assignment": 2963,
+    "typed_conversion": 2962
+  },
+  "typed_response_authority": "UNKNOWN"
+}

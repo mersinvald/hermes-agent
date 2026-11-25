@@ -1,0 +1,176 @@
+{
+  "functional_work_stopped": true,
+  "genuine_failure": {
+    "executable_edits_after_launch": false,
+    "functional_commands_after_failure": 0,
+    "invalid_authored_assumption": {
+      "effect": "The hook cannot pass this identity check with the genuine shared runtime",
+      "scope": "Source-backed diagnosis. No repeated functional execution.",
+      "shared_constructor": "ContentPolicyRuntime.__init__ reconstructs RouteBinding into _route_rows",
+      "shared_consumer": "ContentPolicyRuntime.dispatch selects _route_rows at line 696",
+      "shared_lines": [
+        383,
+        386
+      ],
+      "test": "issued.route is original operator route",
+      "test_line": 184
+    },
+    "later_assertions": "UNKNOWN",
+    "native_denial_caught": true,
+    "original_inner_exception_not_recorded": true,
+    "runtime_prerequisite": "None established. A separately selected test correction is required.",
+    "status": "FAILED",
+    "test_failure": "KeyError receipt at new test line 498",
+    "trigger_receipt_absent": true
+  },
+  "outcome": "FAILED",
+  "phase_requirement": {
+    "actual_successful": 8,
+    "expected_successful": 9,
+    "failed": 1,
+    "status": "FAILED"
+  },
+  "phase_rows": [
+    {
+      "duration": 0.0324677329917904,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_inert_post_decode_compression_expiry_catalog",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3084621,
+      "when": "setup"
+    },
+    {
+      "duration": 0.0015287729911506176,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_inert_post_decode_compression_expiry_catalog",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3142092,
+      "when": "call"
+    },
+    {
+      "duration": 0.00040217398782260716,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_inert_post_decode_compression_expiry_catalog",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3201923,
+      "when": "teardown"
+    },
+    {
+      "duration": 0.015545000991551206,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3384042,
+      "when": "setup"
+    },
+    {
+      "duration": 0.012221924989717081,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3535862,
+      "when": "call"
+    },
+    {
+      "duration": 0.00039265400846488774,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3566992,
+      "when": "teardown"
+    },
+    {
+      "duration": 0.037460242019733414,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_genuine_compression_expiry_after_native_decode",
+      "outcome": "passed",
+      "recorded_at": 1795583327.0451343,
+      "when": "setup"
+    },
+    {
+      "duration": 17.632040449010674,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_genuine_compression_expiry_after_native_decode",
+      "outcome": "failed",
+      "recorded_at": 1795583344.7944036,
+      "when": "call"
+    },
+    {
+      "duration": 0.0005906939913984388,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_genuine_compression_expiry_after_native_decode",
+      "outcome": "passed",
+      "recorded_at": 1795583344.8033328,
+      "when": "teardown"
+    }
+  ],
+  "publication": {
+    "CI_success_claim": false,
+    "base": "mkl",
+    "command_intervals": [
+      {
+        "end": 1795583606.4175315,
+        "exit_code": 128,
+        "seconds": 0.279224157333374,
+        "start": 1795583606.1383073
+      },
+      {
+        "end": 1795583624.7372336,
+        "exit_code": 0,
+        "seconds": 3.8578131198883057,
+        "start": 1795583620.8794205
+      },
+      {
+        "end": 1795583627.2595112,
+        "exit_code": 0,
+        "seconds": 2.5219202041625977,
+        "start": 1795583624.737591
+      }
+    ],
+    "draft_pr": "https://github.com/mersinvald/hermes-agent/pull/40",
+    "first_push": {
+      "effect_boundary": "No remote ref write. Authentication failed before push.",
+      "error": "fatal: could not read Username for 'https://github.com': terminal prompts disabled",
+      "exit_code": 128
+    },
+    "nonforce": true,
+    "normal_hooks": true,
+    "recovery": "Process-scoped credential.helper uses gh auth git-credential after the concrete lookup failure",
+    "retained_branch": "mersinvald/hpwa-p10.79"
+  },
+  "selections": [
+    {
+      "actual": [
+        "test_inert_post_decode_compression_expiry_catalog",
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "requested": [
+        "test_inert_post_decode_compression_expiry_catalog",
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "scope": "cheap-01"
+    },
+    {
+      "actual": [
+        "test_genuine_compression_expiry_after_native_decode"
+      ],
+      "requested": [
+        "test_genuine_compression_expiry_after_native_decode"
+      ],
+      "scope": "genuine-01"
+    }
+  ],
+  "static_checks": {
+    "environment_pins": true,
+    "exact_selection": true,
+    "original_blobs_modes": true,
+    "source_ast": true,
+    "wheel_pin": true
+  },
+  "unknown": [
+    "clock transition",
+    "immediate trigger graph and typed object references",
+    "original denial reason and traceback",
+    "retained typed partial record",
+    "original pure response-byte validator",
+    "post-denial native/shared flags",
+    "all seven retained stage associations",
+    "unchanged compressor and agent facts after denial",
+    "zero fallback and ordinary SDK calls after denial",
+    "row2 active0 quiet marks",
+    "scope refusal",
+    "double agent close",
+    "terminal refusal"
+  ]
+}

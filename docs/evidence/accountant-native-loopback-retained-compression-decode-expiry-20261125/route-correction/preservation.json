@@ -1,0 +1,31 @@
+{
+  "all_original_private_files_byte_exact": true,
+  "allowed_modified_path": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py",
+  "base_paths": 12307,
+  "environment_files_exact": 5,
+  "executable_edits_after_launch": 0,
+  "functional_commands_after_genuine": 0,
+  "new_correction_files": 8,
+  "old_source_blob": "8e33c7dc87582a14e5156047950bdc8348991fdb",
+  "old_source_commit": "8e5f85c78413094e49dbd27afb5d382e7e01a0d2",
+  "old_twelve_evidence_files_byte_exact": true,
+  "only_authorized_top_level_definition_changes": true,
+  "original_callable_implementations_unchanged": true,
+  "original_failure_cause_and_traceback": "UNKNOWN",
+  "original_ledgers_unchanged": [
+    809.1371998786926,
+    749.1371998786926
+  ],
+  "original_native_12294_blobs_modes_exact": true,
+  "original_outcome": "failed",
+  "original_task": "task_0d698309e01e",
+  "postfunctional": {
+    "bytes": 19553,
+    "mode": "0o600",
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_798374b88cd3/postfunctional-preservation.json",
+    "sha256": "8b99efb144a7b55114e9cd1f9c53b70f6f1a0f7a9f8c437bdef4b3c390d26797"
+  },
+  "pytest_files_exact": 2,
+  "unchanged_base_paths": 12306,
+  "wheel_exact": true
+}

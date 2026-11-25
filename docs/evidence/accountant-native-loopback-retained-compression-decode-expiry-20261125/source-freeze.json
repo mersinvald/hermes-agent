@@ -1,0 +1,40 @@
+{
+  "at": 1795583324.9347372,
+  "bodies": {
+    "_PhaseReceipts": "a2e2c70c7d389d9865a3290e4fd5932e0719ef31e14c1dd06b0c6c867e4b2950",
+    "expire_after_native_decode": "de456e8c0d9f3d20ab757014ff49ea8424fc6ffe335c5bf6a9286cd0a435aaca",
+    "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+    "record": "ff623dd74ca3a40c99535278bd9d52016a0a31faa5662269f3f153afa9788bf5",
+    "test_genuine_compression_expiry_after_native_decode": "5d0f1552c3b3156b73544f66fb94d41e4f57739f8934373a91083d00548fe8dd",
+    "test_inert_post_decode_compression_expiry_catalog": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "test_post_decode_expiry_gate_waits_for_original_typed_response": "c80e5d785bb2b83917219109d2fcb35b3960f264ee138b1920fa5a6d362210a3",
+    "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c"
+  },
+  "cheap_correspondence": {
+    "at": 1795583313.8296602,
+    "matched_definitions": {
+      "_PhaseReceipts": "a2e2c70c7d389d9865a3290e4fd5932e0719ef31e14c1dd06b0c6c867e4b2950",
+      "expire_after_native_decode": "de456e8c0d9f3d20ab757014ff49ea8424fc6ffe335c5bf6a9286cd0a435aaca",
+      "phase_receipts": "9e143bd321519a3568aa8e3434331fae3a5a8e0ef9c04d2d1be114202ed1cd67",
+      "test_inert_post_decode_compression_expiry_catalog": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+      "test_post_decode_expiry_gate_waits_for_original_typed_response": "c80e5d785bb2b83917219109d2fcb35b3960f264ee138b1920fa5a6d362210a3",
+      "typed_wire": "41bec372448dcd73c3171433a842a49d3ad3b74bb1fd5bf6e10f0c987340691c"
+    },
+    "no_fresh_aggregate_claim": true,
+    "successful_scope": "cheap-01"
+  },
+  "commit": "8e5f85c78413094e49dbd27afb5d382e7e01a0d2",
+  "genuine_launch": {
+    "commit": "8e5f85c78413094e49dbd27afb5d382e7e01a0d2",
+    "source_sha256": "1a5aadb5484be9039ab4ef4aa734fa608c713e7de05fd2400d86276fca9b2976",
+    "start": 1795583325.018699,
+    "task_remaining": 1123.4095878601074,
+    "verification_remaining": 883.4095878601074
+  },
+  "no_executable_edit_after_launch": true,
+  "normal_hook_commit": true,
+  "normal_hooks": true,
+  "sha256": "1a5aadb5484be9039ab4ef4aa734fa608c713e7de05fd2400d86276fca9b2976",
+  "source_path": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py",
+  "tree": "6646df4a6a93e484989afbc1b6916dd3d0ebd887"
+}

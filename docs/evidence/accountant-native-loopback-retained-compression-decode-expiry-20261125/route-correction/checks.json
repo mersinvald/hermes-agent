@@ -1,0 +1,212 @@
+{
+  "CI_success_claim": false,
+  "bounded_exception_capture": {
+    "arbitrary_dependency_descriptors": false,
+    "frame_locals_dumped": false,
+    "max_args": 8,
+    "max_exceptions": 4,
+    "max_string_arg_characters": 256,
+    "max_traceback_locations": 64,
+    "object_reprs": false
+  },
+  "cheap_regressions": [
+    "Distinct equal-valued shared route and destination",
+    "Original false operator identity demonstrably false",
+    "Foreign equal copy refused",
+    "Substituted map refused",
+    "Replaced captured route refused",
+    "Changed route fact refused",
+    "Changed destination fact refused",
+    "Equal replacement destination object refused",
+    "All existing negative controls preserved",
+    "One valid transition and later inert behavior"
+  ],
+  "earlier_corrected_gate_feedback": {
+    "phase_rows": [
+      {
+        "duration": 0.03940140799386427,
+        "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+        "outcome": "passed",
+        "recorded_at": 1795584362.5400422,
+        "when": "setup"
+      },
+      {
+        "duration": 0.017312783020315692,
+        "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+        "outcome": "passed",
+        "recorded_at": 1795584362.561947,
+        "when": "call"
+      },
+      {
+        "duration": 0.0004939589998684824,
+        "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+        "outcome": "passed",
+        "recorded_at": 1795584362.5682712,
+        "when": "teardown"
+      }
+    ],
+    "reason_for_repeat": "Added three direct captured-object and destination negative controls before freeze",
+    "scope": "cheap-01",
+    "source_sha256": "0c79fc96d4c9c310085b6e86b7e80081887dcc5f077c1cd65ca47c4fec5b537f"
+  },
+  "failed_feedback": [],
+  "final_selected_phase_rows": [
+    {
+      "duration": 0.0370367220020853,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "outcome": "passed",
+      "recorded_at": 1795584395.0667956,
+      "when": "setup"
+    },
+    {
+      "duration": 0.02162650800892152,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "outcome": "passed",
+      "recorded_at": 1795584395.0935526,
+      "when": "call"
+    },
+    {
+      "duration": 0.00048512298963032663,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "outcome": "passed",
+      "recorded_at": 1795584395.1005535,
+      "when": "teardown"
+    },
+    {
+      "duration": 0.03988429898163304,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_genuine_compression_expiry_after_native_decode",
+      "outcome": "passed",
+      "recorded_at": 1795584440.3514805,
+      "when": "setup"
+    },
+    {
+      "duration": 17.745757425989723,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_genuine_compression_expiry_after_native_decode",
+      "outcome": "passed",
+      "recorded_at": 1795584458.1013951,
+      "when": "call"
+    },
+    {
+      "duration": 0.0006067199865356088,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_genuine_compression_expiry_after_native_decode",
+      "outcome": "passed",
+      "recorded_at": 1795584458.110778,
+      "when": "teardown"
+    }
+  ],
+  "final_selected_successful_rows": 6,
+  "fresh_whole_file_aggregate": false,
+  "outcome": "PASS_SCOPED_UNION",
+  "reused_catalog": {
+    "definition_sha256": "08a31bb68bf8a85afa1d29ce64cfccb8174a9958d32c064aaff37684380912e5",
+    "scope": "original Task cheap-01",
+    "source_sha256": "dda719ddbb412a054ec2f4b5bb460bfc45e70ce999d92ce7efd17e8eff125d68"
+  },
+  "reused_catalog_phase_rows": [
+    {
+      "duration": 0.0324677329917904,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_inert_post_decode_compression_expiry_catalog",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3084621,
+      "when": "setup"
+    },
+    {
+      "duration": 0.0015287729911506176,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_inert_post_decode_compression_expiry_catalog",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3142092,
+      "when": "call"
+    },
+    {
+      "duration": 0.00040217398782260716,
+      "nodeid": "tests/agent/test_native_loopback_retained_compression_decode_expiry.py::test_inert_post_decode_compression_expiry_catalog",
+      "outcome": "passed",
+      "recorded_at": 1795583264.3201923,
+      "when": "teardown"
+    }
+  ],
+  "selections": [
+    {
+      "actual": [
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "requested": [
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "scope": "cheap-01",
+      "source_sha256": "0c79fc96d4c9c310085b6e86b7e80081887dcc5f077c1cd65ca47c4fec5b537f"
+    },
+    {
+      "actual": [
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "requested": [
+        "test_post_decode_expiry_gate_waits_for_original_typed_response"
+      ],
+      "scope": "cheap-02",
+      "source_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172"
+    },
+    {
+      "actual": [
+        "test_genuine_compression_expiry_after_native_decode"
+      ],
+      "requested": [
+        "test_genuine_compression_expiry_after_native_decode"
+      ],
+      "scope": "genuine-01",
+      "source_sha256": "bfad5818d03f10adb36f6aaf67dc803c6b00fcac26c40db5a1d736fa6c7b9172"
+    }
+  ],
+  "source_scope": {
+    "imports_unchanged": true,
+    "modified_definitions": [
+      "expire_after_native_decode",
+      "test_post_decode_expiry_gate_waits_for_original_typed_response",
+      "test_genuine_compression_expiry_after_native_decode"
+    ],
+    "new_pure_helper": "caught_exception_receipt",
+    "original_assertions_preserved_except_selected_false_identity": true,
+    "other_top_level_nodes_unchanged": true
+  },
+  "static_checks": {
+    "all_original_native_paths_exact": true,
+    "environment_and_pytest_exact": true,
+    "manifest": "Seven targets verified before commit",
+    "old_source_Git_object_exact": true,
+    "original_evidence_and_private_files_exact": true,
+    "wheel_exact": true,
+    "writing": {
+      "em_dashes": 0,
+      "final": "README.md                        words= 393 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_decode_expiry.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 154 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+      "final_violations": 0,
+      "initial_new_prose": {
+        "em_dash(slop-marker)": 0,
+        "longest_sentence_words": 18,
+        "sample_banned": [],
+        "sample_marketing": [],
+        "sentences": 40,
+        "total": 2,
+        "total_per100w": 0.51,
+        "violations": {
+          "banned_word": 0,
+          "contraction": 0,
+          "ing_main_verb": 0,
+          "long_paragraph(>6s)": 2,
+          "long_sentence(>20w)": 0,
+          "marketing_adjective": 0,
+          "modal_hedge": 0,
+          "nominalization": 0,
+          "passive_voice": 0,
+          "phrasal_verb": 0,
+          "semicolon": 0
+        },
+        "words": 393
+      },
+      "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+      "mode": "STE-flavored",
+      "old_source_baseline": "test_native_loopback_retained_compression_decode_expiry.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n",
+      "structured_JSON": "Data fields excluded from prose score"
+    }
+  },
+  "successful_scoped_union_rows": 9
+}

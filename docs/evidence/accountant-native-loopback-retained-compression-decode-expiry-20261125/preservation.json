@@ -1,0 +1,24 @@
+{
+  "base_tree_sha256": "7204f4fd2c5eb34e96bf7520ffc047657b9d61f30d2bad01bf261217821d523a",
+  "five_environment_files_exact": true,
+  "new_paths": 13,
+  "no_executable_edit_after_genuine_launch": true,
+  "old_blobs_and_modes_preserved": true,
+  "old_histories_modified": false,
+  "old_paths": 12294,
+  "original_callable_checks": {
+    "cheap": "Passed unchanged new hook checks",
+    "genuine": "UNKNOWN beyond failed call",
+    "runtime_and_helpers": "All original file blobs unchanged"
+  },
+  "outcome": "PASSED_STATIC",
+  "postfunctional": {
+    "bytes": 5707,
+    "mode": "0o600",
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_0d698309e01e/postfunctional-preservation.json",
+    "sha256": "64ee8bd62cd5c98141b795b6f75a3ccded90c72ef03bbbd4632cfaa675632e56"
+  },
+  "protected_receipts_exact": true,
+  "shared_wheel_exact": true,
+  "two_pytest_files_exact": true
+}

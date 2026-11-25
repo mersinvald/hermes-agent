@@ -1,0 +1,18 @@
+{
+  "baseline": "New files have no old prose baseline",
+  "corrected_candidate_feedback": "README 1 long paragraph, 0.32 violations per 100 words. Split the paragraph.",
+  "em_dashes": 0,
+  "final_output": "README.md                        words= 325 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\ntest_native_loopback_retained_compression_decode_expiry.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\npr-body.md                       words= 116 total=  0 per100w=  0.00 em_dash= 0 mode=prose-v1\n",
+  "final_violations": 0,
+  "helper_flag_failure": {
+    "bytes": 326,
+    "mode": "0o600",
+    "path": "/home/mersinvald/.local/share/orca/runtime/accountant/hpwa-p10.79-task_0d698309e01e/writing-help-failure.json",
+    "sha256": "54c593a416fbc8db27bbb8f5f9c6a6126ac0799af2c9d1fdac2e718d32e62aee"
+  },
+  "initial_candidate_feedback": "README.md words=307 total=3 per100w=0.98 em_dash=0 mode=prose-v1\nsource Python prose words=9 total=0 per100w=0.00 em_dash=0 mode=python-prose-v1\n",
+  "linter": "/home/mersinvald/.agents/skills/ste-writing/ste-lint.py",
+  "mode": "STE-flavored",
+  "scope": "README, Python comments and docstrings, and draft PR prose. Structured JSON evidence is data.",
+  "source_baseline": "test_native_loopback_retained_compression_decode_expiry.py words=   9 total=  0 per100w=  0.00 em_dash= 0 mode=python-prose-v1\n"
+}
